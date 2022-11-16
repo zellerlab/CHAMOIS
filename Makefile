@@ -49,3 +49,8 @@ $(BUILD)/mibig-classified.json: $(BUILD)/mibig-mapped.json $(DATA)/NPAtlas_downl
 $(BUILD)/compositions/Pfam$(PFAM_VERSION)/counts.npz $(BUILD)/compositions/Pfam$(PFAM_VERSION)/compositions.npz $(BUILD)/compositions/Pfam$(PFAM_VERSION)/domains.tsv $(BUILD)/compositions/Pfam$(PFAM_VERSION)/labels.tsv: $(MIBIG)/mibig_gbk_$(MIBIG_VERSION).tar.gz $(MIBIG)/mibig_json_$(MIBIG_VERSION).tar.gz $(PFAM_HMM)
 	python src/make_compositions.py -o $(BUILD)/compositions/Pfam$(PFAM_VERSION)/ --gbk $(MIBIG)/mibig_gbk_$(MIBIG_VERSION).tar.gz --json $(MIBIG)/mibig_json_$(MIBIG_VERSION).tar.gz --hmm $(PFAM_HMM)
 
+
+# --- Compute ANI between clusters -------------------------------------------
+
+$(BUILD)/mibig-identity.coo.npz: $(MIBIG)/mibig_gbk_$(MIBIG_VERSION).tar.gz
+	python src/compute_ani_matrix.py --gbk $< -o $@
