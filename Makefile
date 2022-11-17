@@ -45,7 +45,7 @@ $(BUILD)/compositions/Pfam$(PFAM_VERSION)/counts.npz $(BUILD)/compositions/Pfam$
 
 # --- Compute ANI between clusters -------------------------------------------
 
-$(BUILD)/mibig-identity.coo.npz: $(MIBIG)/mibig_gbk_$(MIBIG_VERSION).tar.gz
+$(MIBIG)/ani_$(MIBIG_VERSION).coo.npz: $(MIBIG)/mibig_gbk_$(MIBIG_VERSION).tar.gz
 	python src/compute_ani_matrix.py --gbk $< -o $@
 
 

@@ -77,7 +77,7 @@ with open("build/mibig-classified.json", "rb") as src:
 
 # --- Load ANI matrix and build groups based on ANI --------------------------
 
-with open("build/mibig-identity.coo.npz", "rb") as src:
+with open("data/mibig/ani_3.1.coo.npz", "rb") as src:
     animatrix = scipy.sparse.load_npz(src).todok()
     group_set = disjoint_set.DisjointSet({ i:i for i in range(len(mibig)) })
     indices = itertools.combinations(range(len(mibig)), 2)
