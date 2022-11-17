@@ -18,13 +18,6 @@ $(MIBIG)/mibig_json_$(MIBIG_VERSION).tar.gz:
 	mkdir -p $(MIBIG)
 	wget https://dl.secondarymetabolites.org/mibig/mibig_json_$(MIBIG_VERSION).tar.gz -O $@
 
-$(DATA)/chemont/ChemOnt_2_1.obo.zip:
-	mkdir -p $(DATA)/chemont
-	wget http://classyfire.wishartlab.com/system/downloads/1_0/chemont/ChemOnt_2_1.obo.zip -O $@
-
-$(DATA)/chemont/ChemOnt_2_1.obo: $(DATA)/chemont/ChemOnt_2_1.obo.zip
-	python -m zipfile -e $< $(DATA)/chemont/
-
 $(PFAM_HMM):
 	wget http://ftp.ebi.ac.uk/pub/databases/Pfam/releases/Pfam$(PFAM_VERSION)/Pfam-A.hmm.gz -O $@
 
@@ -54,3 +47,10 @@ $(BUILD)/compositions/Pfam$(PFAM_VERSION)/counts.npz $(BUILD)/compositions/Pfam$
 
 $(BUILD)/mibig-identity.coo.npz: $(MIBIG)/mibig_gbk_$(MIBIG_VERSION).tar.gz
 	python src/compute_ani_matrix.py --gbk $< -o $@
+
+
+# --- Evaluate predictors ----------------------------------------------------
+
+$(BUILD)/classifier-stats.tsv $(BUILD)/classifier-curves.json: $(DATA)/Pfam$(PFAM_VERSION).txt $(BUILD)/compositions/Pfam$(PFAM_VERSION)/counts.npz $(BUILD)/compositions/Pfam$(PFAM_VERSION)/compositions.npz $(BUILD)/compositions/Pfam$(PFAM_VERSION)/domains.tsv $(BUILD)/compositions/Pfam$(PFAM_VERSION)/labels.tsv $(DATA)/chemont/ChemOnt_2_1.obo $(BUILD)/mibig-classified.json
+	# FIXME: remove hardcoded paths
+	python src/build_predictors.py 

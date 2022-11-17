@@ -2,24 +2,66 @@ import itertools
 import json
 import gzip
 import csv
+import pickle
+import os
 
 import fisher
 import numpy
 import pronto
 import scipy.sparse
 import rich.progress
+import sklearn.tree
 import sklearn.ensemble
+import sklearn.feature_selection
 import sklearn.model_selection
-import pyhmmer
+import sklearn.naive_bayes
+import sklearn.pipeline
+import sklearn.linear_model
+import sklearn.neighbors
+import matplotlib.pyplot as plt
+
+
+# --- sklearn Feature Selection implementation -------------------------------
+
+class SelectPValueUnderThreshold(sklearn.base.TransformerMixin):
+    """Select features with Fisher p-value under a certain threshold.
+    """
+
+    def __init__(self, threshold=1.0):
+        self.threshold = threshold
+        self.features_ = None
+        self.pvalues_ = None
+
+    def fit(self, X, y):
+        self.pvalues_ = numpy.zeros(X.shape[1], dtype=numpy.float32)
+        for feature in range(X.shape[1]):
+            x = X[:,feature]       
+            result = fisher.pvalue(
+                ((x > 0) & (y == 1)).sum(),
+                ((x == 0) & (y == 1)).sum(),
+                ((x > 0) & (y == 0)).sum(),
+                ((x == 0) & (y == 0)).sum(),
+            )
+            self.pvalues_[feature] = result.two_tail
+        self.indices_ = numpy.where(self.pvalues_ < self.threshold)[0]
+        return self
+
+    def transform(self, X):
+        if self.indices_ is None:
+            raise sklearn.exceptions.NotFittedError("model was not fitted")
+        if X.shape[1] != self.pvalues_.shape[0]:
+            raise ValueError(f"X has {X.shape[1]} features, but SelectPValueUnderThreshold is expecting {self.pvalues_.shape[0]} features as input.")
+        return X[:, self.indices_]
+
+
+# --- Constants --------------------------------------------------------------
+
+CV_FOLDS = 5
 
 # --- Load Pfam domain names -------------------------------------------------
 
-with rich.progress.open("data/Pfam35.0.hmm.gz", "rb") as src:
-    with pyhmmer.plan7.HMMFile(gzip.open(src)) as hmm_file:
-        pfam_names = {
-            hmm.accession.decode(): hmm.name.decode()
-            for hmm in hmm_file
-        }
+with open("data/Pfam35.0.txt") as src:
+    pfam_names = dict(line.strip().split("\t", 1) for line in src)
 
 # --- Load MIBiG -------------------------------------------------------------
 
@@ -58,7 +100,7 @@ class_index = {
 
 
 mask = numpy.zeros(len(names), dtype=numpy.bool_)
-labels = numpy.zeros((len(names), len(class_index)), dtype=numpy.bool_)
+labels = numpy.zeros((len(names), len(class_index)+1), dtype=numpy.bool_)
 
 for bgc_id, bgc in rich.progress.track(mibig.items(), description="Preparing labels..."):
     # skip and ignore BGCs without any classyfire annotation
@@ -113,24 +155,20 @@ def compute_pvalues(X, y, kind="two_tail"):
 curves = []
 rows = []
 
-
 try:
     # only use BGCs with known compound structure and class assignment
     names_masked = names[~mask]
     labels_masked = labels[~mask, :]
     features_masked = features[~mask, :]
+    rich.print(f"Using {features_masked.shape[0]} BGCs with compound classification")
 
-    # TODO: better stratification to get rid of possible duplicate BGCs
+    # TODO: better stratification to get rid of possible duplicate BGCs, use ANI matrix
     for class_name in rich.progress.track(class_index, description="Training..."):
-
-        # use a random forest classifier
-        rf = sklearn.ensemble.RandomForestClassifier()
+        # use labels for current class
         y_true = labels_masked[:, class_index[class_name]]
 
         # skip classes with no negative or no positives
-        if y_true.sum() <= 1 or y_true.sum() >= len(y_true) - 1:
-            rich.print(f"Skipping [bold blue]{class_name}[/] ({chemont[class_name].name!r}) without class members")
-            rich.print()
+        if y_true.sum() < CV_FOLDS or y_true.sum() >= len(y_true) - CV_FOLDS:
             continue
         else:
             rich.print(f"Training [bold blue]{class_name}[/] ({chemont[class_name].name!r}) classifier with {y_true.sum()} positive and {(~y_true).sum()} negatives")
@@ -138,99 +176,163 @@ try:
         # show example BGCs belonging to positive or negative
         neg = next(mibig[names_masked[i]] for i in range(y_true.shape[0]) if not y_true[i])
         pos = next(mibig[names_masked[i]] for i in range(y_true.shape[0]) if y_true[i])
-        rich.print(f"Example positive: {pos['mibig_accession']} ({pos['compounds'][0]['compound']!r})")
-        rich.print(f"Example negative: {neg['mibig_accession']} ({neg['compounds'][0]['compound']!r})")
+        rich.print(f"Examples: positive {pos['mibig_accession']} ({pos['compounds'][0]['compound']!r}) / negative {neg['mibig_accession']} ({neg['compounds'][0]['compound']!r})")
 
-        # cross-validate predictor in cross-validation and compute stats
-        y_pred = sklearn.model_selection.cross_val_predict(rf, features_masked, y_true, method="predict_proba", cv=min(5, y_true.sum()), n_jobs=-1)[:, 1]
-        fp, tp, _ = sklearn.metrics.roc_curve(y_true, y_pred)
-        auroc_all = sklearn.metrics.roc_auc_score(y_true, y_pred)
-        precision, recall, _ = sklearn.metrics.precision_recall_curve(y_true, y_pred)
-        aupr_all = sklearn.metrics.auc(recall, precision)
-        loss_all = sklearn.metrics.log_loss(y_true, y_pred)
-        rich.print(f"Results for [bold blue]{class_name}[/] ({chemont[class_name].name!r}) with whole Pfam: AUROC={auroc_all:.3f} AUPR={aupr_all:.3f} loss={loss_all:.3f}")
-        curves.append({"class": class_name, "features": "full", "kind": "precision-recall", "x": list(recall), "y": list(precision)})
-        curves.append({"class": class_name, "features": "full", "kind": "roc", "x": list(fp), "y": list(tp)})
+        CLASSIFIERS = {
+            # a simple Lasso to see the individual weights
+            "Lasso()": sklearn.linear_model.Lasso(),
+            # random forest, either 1, 10 or 100 trees
+            "DecisionTreeClassifier()": sklearn.tree.DecisionTreeClassifier(),
+            "RandomForest(10)": sklearn.ensemble.RandomForestClassifier(10),
+            "RandomForest(100)": sklearn.ensemble.RandomForestClassifier(100),
+            "RandomForest(max_depth=6)": sklearn.ensemble.RandomForestClassifier(max_depth=6),
+            # multinomialNB
+            "MultinomialNB()": sklearn.naive_bayes.MultinomialNB(),
+            # KNN with cityblock metric (addding/substracting domains)
+            "KNeighbours(metric='cityblock')": sklearn.neighbors.KNeighborsClassifier(metric="cityblock"),
+            # variants with feature selection
+            "DecisionTreeClassifier()+Selection": sklearn.pipeline.Pipeline([
+                ("feature_selection", SelectPValueUnderThreshold(0.1)),
+                ("classifier", sklearn.tree.DecisionTreeClassifier()),
+            ]),
+            "RandomForest(10)+Selection": sklearn.pipeline.Pipeline([
+                ("feature_selection", SelectPValueUnderThreshold(0.1)),
+                ("classifier", sklearn.ensemble.RandomForestClassifier(10))
+            ]),
+            "RandomForest(100)+Selection": sklearn.pipeline.Pipeline([
+                ("feature_selection", SelectPValueUnderThreshold(0.1)),
+                ("classifier", sklearn.ensemble.RandomForestClassifier(100))
+            ]),
+            "RandomForest(max_depth=6)+Selection": sklearn.pipeline.Pipeline([
+                ("feature_selection", SelectPValueUnderThreshold(0.1)),
+                ("classifier", sklearn.ensemble.RandomForestClassifier(max_depth=6),)
+            ]),
+            "MultinomialNB()+Selection": sklearn.pipeline.Pipeline([
+                ("feature_selection", SelectPValueUnderThreshold(0.1)),
+                ("classifier", sklearn.naive_bayes.MultinomialNB())
+            ]),
+            "KNeighbours(metric='cityblock')+Selection": sklearn.pipeline.Pipeline([
+                ("feature_selection", SelectPValueUnderThreshold(0.1)),
+                ("classifier", sklearn.neighbors.KNeighborsClassifier(metric="cityblock"))
+            ])
+        }
 
-        # cross-validate predictor with selected features
-        pvalues = compute_pvalues(features_masked, y_true)
-        domains_selected = domains[pvalues < 0.1]
-        features_selected = features_masked[:, pvalues < 0.1]
-        y_pred = sklearn.model_selection.cross_val_predict(rf, features_selected, y_true, method="predict_proba", cv=min(5, y_true.sum()), n_jobs=-1)[:, 1]
-        fp, tp, _ = sklearn.metrics.roc_curve(y_true, y_pred)
-        auroc_selected = sklearn.metrics.roc_auc_score( y_true, y_pred )
-        precision, recall, _ = sklearn.metrics.precision_recall_curve(y_true, y_pred)
-        aupr_selected = sklearn.metrics.auc(recall, precision)
-        loss_selected = sklearn.metrics.log_loss(y_true, y_pred)
-        rich.print(f"Results for [bold blue]{class_name}[/] ({chemont[class_name].name!r}) with {features_selected.shape[1]} Pfam domains: AUROC={auroc_selected:.3f} AUPR={aupr_selected:.3f} loss={loss_selected:.3f}")
-        curves.append({"class": class_name, "features": "selected", "kind": "precision-recall", "x": list(recall), "y": list(precision)})
-        curves.append({"class": class_name, "features": "selected", "kind": "roc", "x": list(fp), "y": list(tp)})
+        auprs = {}
+        aurocs = {}
+        losses = {}
+        curve_index = len(curves)
 
-        # get most contributing domains with Gini index and p-values
-        rf.fit(features_masked, y_true)
-        highest_contributors = domains[ numpy.argsort(rf.feature_importances_)[-5:] ]
-        rich.print(f"Highest contributors:")
-        for accession in highest_contributors:
-            domain_index = numpy.where(domains == accession)[0][0]
-            rich.print(f"- {accession} ({pfam_names[accession]!r}) p={pvalues[domain_index]} Gini={rf.feature_importances_[domain_index]}")
+        for classifier_name, classifier in CLASSIFIERS.items():
 
-        # save statistics
+            # cross-validate predictor in cross-validation and compute stats
+            try:
+                y_pred = sklearn.model_selection.cross_val_predict(classifier, features_masked, y_true, method="predict_proba", cv=CV_FOLDS, n_jobs=-1)[:, 1]
+            except AttributeError:
+                y_pred = sklearn.model_selection.cross_val_predict(classifier, features_masked, y_true, method="predict", cv=CV_FOLDS, n_jobs=-1)
+
+            fp, tp, _ = sklearn.metrics.roc_curve(y_true, y_pred)
+            aurocs[classifier_name] = sklearn.metrics.roc_auc_score(y_true, y_pred)
+            precision, recall, _ = sklearn.metrics.precision_recall_curve(y_true, y_pred)
+            auprs[classifier_name] = sklearn.metrics.auc(recall, precision)
+            losses[classifier_name] = sklearn.metrics.log_loss(y_true, y_pred)
+            rich.print(f"Results for [bold blue]{class_name}[/] ({chemont[class_name].name!r}) with {classifier_name}: AUROC={aurocs[classifier_name]:.3f} AUPR={auprs[classifier_name]:.3f} loss={losses[classifier_name]:.3f}")
+            curves.append({"class": class_name, "kind": "precision-recall", "x": list(recall), "y": list(precision), "classifier": classifier_name})
+            curves.append({"class": class_name, "kind": "roc", "x": list(fp), "y": list(tp), "classifier": classifier_name})
+
+            # save statistics
+            rows.append([
+                class_name,
+                chemont[class_name].name,
+                y_true.sum(),
+                (~y_true).sum(),
+                classifier_name,
+                aurocs[classifier_name],
+                auprs[classifier_name],
+                losses[classifier_name],
+            ])
+
         rich.print()
-        rows.append([
-            class_name,
-            chemont[class_name].name,
-            y_true.sum(),
-            (~y_true).sum(),
-            features_selected.shape[1],
-            auroc_all,
-            aupr_all,
-            auroc_selected,
-            aupr_selected,
-            ";".join(highest_contributors)
-        ])
+
+        # # get most contributing domains with Gini index and p-values
+        # rf = sklearn.ensemble.RandomForestClassifier().fit(features_masked, y_true)
+        # highest_contributors = domains[ numpy.argsort(rf.feature_importances_)[-5:] ]
+        # rich.print(f"Highest contributors:")
+        # for accession in highest_contributors:
+        #     domain_index = numpy.where(domains == accession)[0][0]
+        #     rich.print(f"- {accession} ({pfam_names[accession]!r}) p={pvalues[domain_index]} Gini={rf.feature_importances_[domain_index]}")
+        # save model
+        # with open(os.path.join("build", "classifier", f"{class_name}.pkl"), "wb") as dst:
+        #     pickle.dump(rf, dst)
+
+        # plot precision/recall and ROC curves
+        from palettable.cartocolors.qualitative import Bold_9
+        palette = {
+            "Lasso()": Bold_9.hex_colors[0],
+            "DecisionTreeClassifier()": Bold_9.hex_colors[2],
+            "DecisionTreeClassifier()+Selection": Bold_9.hex_colors[2],
+            "RandomForest(10)": Bold_9.hex_colors[1],
+            "RandomForest(10)+Selection": Bold_9.hex_colors[1],
+            "RandomForest(100)": Bold_9.hex_colors[5],
+            "RandomForest(100)+Selection": Bold_9.hex_colors[5],
+            "MultinomialNB()": Bold_9.hex_colors[4],
+            "MultinomialNB()+Selection": Bold_9.hex_colors[4],
+            "KNeighbours(metric='cityblock')": Bold_9.hex_colors[6],
+            "KNeighbours(metric='cityblock')+Selection": Bold_9.hex_colors[6],
+            "RandomForest(max_depth=6)": Bold_9.hex_colors[7],
+            "RandomForest(max_depth=6)+Selection": Bold_9.hex_colors[7],
+        }
+        styles = {
+            "Lasso()": "-",
+            "DecisionTreeClassifier()": "-",
+            "DecisionTreeClassifier()+Selection": "--",
+            "RandomForest(10)": "-",
+            "RandomForest(10)+Selection": "--",
+            "RandomForest(100)": "-",
+            "RandomForest(100)+Selection": "--",
+            "MultinomialNB()": "-",
+            "MultinomialNB()+Selection": "--",
+            "KNeighbours(metric='cityblock')": "-",
+            "KNeighbours(metric='cityblock')+Selection": "--",
+            "RandomForest(max_depth=6)": "-",
+            "RandomForest(max_depth=6)+Selection": "--",
+        }
+
+        plt.figure(1, figsize=(8, 8))
+        plt.clf()
+        for curve in curves[curve_index+1::2]:
+            auc = sklearn.metrics.auc(curve["x"], curve["y"])
+            plt.plot(curve["x"], curve["y"], label=f"{curve['classifier']} ({auc:.3})", color=palette[curve['classifier']], linestyle=styles[curve['classifier']])
+        plt.legend()
+        plt.xlim(0, 1)
+        plt.ylim(0, 1)
+        plt.xlabel("FPR")
+        plt.ylabel("TPR")
+        plt.plot([0, 1], [0, 1], linestyle="--", color="grey")
+        plt.title(f"{class_name} ({chemont[class_name].name}): {y_true.sum()} members ")
+        plt.savefig(f"build/classifier/{class_name}.roc.png")
+
+        plt.figure(2, figsize=(8, 8))
+        plt.clf()
+        for curve in curves[curve_index::2]:
+            auc = sklearn.metrics.auc(curve["x"], curve["y"])
+            plt.plot(curve["x"], curve["y"], label=f"{curve['classifier']} ({auc:.3})", color=palette[curve['classifier']], linestyle=styles[curve['classifier']])
+        plt.legend()
+        plt.xlim(0, 1)
+        plt.ylim(0, 1)
+        plt.xlabel("Recall")
+        plt.ylabel("Precision")
+        plt.axhline(y_true.sum() / y_true.shape[0], linestyle="--", color="grey")
+        plt.title(f"{class_name} ({chemont[class_name].name}): {y_true.sum()} members")
+        plt.savefig(f"build/classifier/{class_name}.pr.png")
 
 finally:
     # save stats
     with open("build/classifier-stats.tsv", "w") as dst:
         writer = csv.writer(dst, dialect="excel-tab")
-        writer.writerow(["class", "name", "positives", "negatives", "selected_features", "auroc_all", "aupr_all", "auroc_selected", "aupr_selected", "highest_contributors"])
+        writer.writerow(["class", "name", "positives", "negatives", "classifier", "auroc", "aupr", "loss"])
         writer.writerows(rows)
     # save curves
     with open("build/classifier-curves.json", "w") as dst:
         json.dump(curves, dst)
 
 
-
-
-
-# # --- Assign ChemOnt annotations to MIBiG clusters ---------------------------
-
-# mibig_superclass = {
-#     mibig_id: compound['superclass']['chemont_id']
-#     for mibig_id, compounds in mibig_classyfire.items()
-#     for compound in compounds
-#     if compound['superclass'] is not None and compound['superclass']['chemont_id'] is not None
-# }
-
-# mibig_class = {
-#     mibig_id: compound['class']['chemont_id']
-#     for mibig_id, compounds in mibig_classyfire.items()
-#     for compound in compounds
-#     if compound['class'] is not None and compound['class']['chemont_id'] is not None
-# }
-    
-# mibig_parent = {
-#     mibig_id: compound['direct_parent']['chemont_id']
-#     for mibig_id, compounds in mibig_classyfire.items()
-#     for compound in compounds
-#     if compound['direct_parent'] is not None and compound['direct_parent']['chemont_id'] is not None
-# }
-
-# for mibig_id, compounds in mibig_classyfire.items():
-#     for compound in compounds:
-#         if compound is not None and "superclass" not in compound:
-#             print(compound.keys())
-#             break
-
-# counts = collections.Counter([ mibig_superclass[bgc] for bgc in bgcs if bgc in mibig_superclass ])
-# counts.most_common()        
