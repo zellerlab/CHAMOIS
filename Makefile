@@ -2,6 +2,8 @@ SRC=src
 DATA=data
 BUILD=build
 
+ABC=$(DATA)/testset/abc
+
 MIBIG=$(DATA)/mibig
 MIBIG_VERSION=3.1
 
@@ -54,3 +56,14 @@ $(MIBIG)/ani_$(MIBIG_VERSION).coo.npz: $(MIBIG)/mibig_gbk_$(MIBIG_VERSION).tar.g
 $(BUILD)/classifier-stats.tsv $(BUILD)/classifier-curves.json: $(DATA)/Pfam$(PFAM_VERSION).txt $(BUILD)/compositions/Pfam$(PFAM_VERSION)/counts.npz $(BUILD)/compositions/Pfam$(PFAM_VERSION)/compositions.npz $(BUILD)/compositions/Pfam$(PFAM_VERSION)/domains.tsv $(BUILD)/compositions/Pfam$(PFAM_VERSION)/labels.tsv $(DATA)/chemont/ChemOnt_2_1.obo $(BUILD)/mibig-classified.json
 	# FIXME: remove hardcoded paths
 	python src/build_predictors.py 
+
+
+# === TESTSET: JGI ABC =======================================================
+
+# --- Download metadata ------------------------------------------------------
+
+$(ABC)/genomes.json:
+	python $(ABC)/download_genomes.py -o $@
+
+$(ABC)/clusters.json: $(ABC)/genomes.json
+	python $(ABC)/download_clusters.py -i $< -o $@
