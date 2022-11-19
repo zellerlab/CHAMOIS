@@ -11,7 +11,7 @@ import pyfastani
 import rich.progress
 import scipy.sparse
 import pandas
-import gb_io
+import Bio.SeqIO
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-q", "--query", required=True)
@@ -22,28 +22,28 @@ args = parser.parse_args()
 with rich.progress.Progress() as progress:
 
     # load query records
-    with progress.open(args.query, "rb") as src:
+    with progress.open(args.query, "r") as src:
         query_records = {
-            record.name:record
-            for record in gb_io.iter(src)
+            record.id:record
+            for record in Bio.SeqIO.parse(src, "genbank")
         }
         query_ids = sorted(query_records)
         query_indices = { name:i for i, name in enumerate(query_ids) }
 
     # load target records
-    with progress.open(args.target, "rb") as src:
+    with progress.open(args.target, "r") as src:
         target_records = {
-            record.name:record
-            for record in gb_io.iter(src)
+            record.id:record
+            for record in Bio.SeqIO.parse(src, "genbank")
         }
         target_ids = sorted(target_records)
         target_indices = { name:i for i, name in enumerate(target_ids) }
 
     # sketch sequences
-    average_size = statistics.mean(len(record.sequence) for record in target_records.values())
+    average_size = statistics.mean(len(record.seq) for record in target_records.values())
     sketch = pyfastani.Sketch(fragment_length=400, percentage_identity=50.0, reference_size=int(average_size))
     for target_id, target_record in progress.track(target_records.items(), description="Sketching..."):
-        sketch.add_genome(target_id, target_record.sequence)
+        sketch.add_genome(target_id, str(target_record.seq))
     
     progress.console.print("Indexing...")
     mapper = sketch.index()
@@ -53,7 +53,7 @@ with rich.progress.Progress() as progress:
 
     # compute ANI
     for query_id, query_record in progress.track(query_records.items(), description="Mapping..."):
-        for hit in mapper.query_genome(query_record.sequence):
+        for hit in mapper.query_genome(str(query_record.seq)):
             i = query_indices[query_id]
             j = target_indices[hit.name]
             identity[i, j] = hit.identity / 100.0
