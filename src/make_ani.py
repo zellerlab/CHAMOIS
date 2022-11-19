@@ -53,7 +53,7 @@ with rich.progress.Progress() as progress:
     # generate annotated data
     data = anndata.AnnData(
         dtype=numpy.float,
-        X=counts.tocsr(),
+        X=identity.tocsr(),
         obs=pandas.DataFrame(index=query_ids),
         var=pandas.DataFrame(index=target_ids),
     )
