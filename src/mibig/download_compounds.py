@@ -326,8 +326,10 @@ for bgc_id, bgc in mibig.items():
                     rich.print(f"[bold red]{'Failed':>12}[/] to map {compound['compound']!r} product of [purple]{bgc_id}[/] to NPAtlas")
 
 # --- Try to map unannotated compounds to PubChem ----------------------------
-for entry in rich.progress.track(mibig.values()):
+for entry in rich.progress.track(mibig.values(), description=f"[bold blue]{'Mapping':>12}[/]"):
     for compound in entry["compounds"]:
+        if "chem_struct" in compound:
+            continue
         if not any(xref.startswith("pubchem") for xref in compound.get("database_id", ())):
             name = compound["compound"]
             cids = pubchempy.get_cids(name)
@@ -341,7 +343,7 @@ for entry in rich.progress.track(mibig.values()):
                 rich.print(f"[bold red]{'Failed':>12}[/] to map {compound['compound']!r} product of [purple]{entry['mibig_accession']}[/] to PubChem")
 
 # --- Retrieve SMILES for compound with a cross-reference --------------------
-for entry in rich.progress.track(mibig.values()):
+for entry in rich.progress.track(mibig.values(), description=f"[bold blue]{'Downloading':>12}[/]"):
     for compound in entry["compounds"]:
         # use built-in structure if any
         if "chem_struct" in compound:
@@ -368,7 +370,7 @@ compounds = {}
 
 for bgc_id, bgc in mibig.items():
     compounds[bgc_id] = []
-    for bgc_compound in cluster["compounds"]:
+    for bgc_compound in bgc["compounds"]:
         compound = { "compound": bgc_compound["compound"] }
         for key in ("chem_struct", "database_id", "mol_mass", "molecular_formula"):
             if key in bgc_compound:
