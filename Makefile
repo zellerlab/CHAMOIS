@@ -2,13 +2,17 @@ SRC=src
 DATA=data
 BUILD=build
 
-ABC=$(DATA)/testset/abc
-
 MIBIG=$(DATA)/mibig
 MIBIG_VERSION=3.1
 
 PFAM_VERSION=35.0
-PFAM_HMM=$(DATA)/Pfam$(PFAM_VERSION).hmm.gz
+PFAM_HMM=$(DATA)/Pfam$(PFAM_VERSION).hmm
+
+DATASET_NAMES=abc
+DATASET_TABLES=features classes mibig_ani
+
+.PHONY: datasets
+datasets: $(foreach dataset,$(DATASET_NAMES),$(foreach table,$(DATASET_TABLES),$(DATA)/datasets/$(dataset)/$(table).hdf5))
 
 # --- Download or prepare data -----------------------------------------------
 
@@ -21,7 +25,7 @@ $(MIBIG)/mibig_json_$(MIBIG_VERSION).tar.gz:
 	wget https://dl.secondarymetabolites.org/mibig/mibig_json_$(MIBIG_VERSION).tar.gz -O $@
 
 $(PFAM_HMM):
-	wget http://ftp.ebi.ac.uk/pub/databases/Pfam/releases/Pfam$(PFAM_VERSION)/Pfam-A.hmm.gz -O $@
+	wget http://ftp.ebi.ac.uk/pub/databases/Pfam/releases/Pfam$(PFAM_VERSION)/Pfam-A.hmm.gz -O- | gunzip > $@
 
 $(DATA)/NPAtlas_download.json.gz:
 	wget https://www.npatlas.org/static/downloads/NPAtlas_download.json -O- | gzip -c > $@
@@ -58,12 +62,43 @@ $(BUILD)/classifier-stats.tsv $(BUILD)/classifier-curves.json: $(DATA)/Pfam$(PFA
 	python src/build_predictors.py 
 
 
-# === TESTSET: JGI ABC =======================================================
+
+# --- Generic Rules ----------------------------------------------------------
+
+$(DATA)/datasets/%/mibig_ani.hdf5: $(BUILD)/%/clusters.gbk $(BUILD)/mibig/clusters.gbk
+	python src/make_ani.py --query $< --target $(BUILD)/mibig/clusters.gbk -o $@
+
+
+
+
+# === MIBIG ==================================================================
+
+# --- Download data ----------------------------------------------------------
+
+$(BUILD)/mibig/clusters.gbk:
+	mkdir -p $(BUILD)/mibig
+	wget "https://dl.secondarymetabolites.org/mibig/mibig_gbk_3.1.tar.gz" -O- | tar xzO > $@
+
+
+# === JGI ABC ================================================================
 
 # --- Download metadata ------------------------------------------------------
 
-$(ABC)/genomes.json:
-	python $(ABC)/download_genomes.py -o $@
+$(BUILD)/abc/genomes.json:
+	mkdir -p $(BUILD)/abc
+	python src/abc/download_genomes.py -o $@
 
-$(ABC)/clusters.json: $(ABC)/genomes.json
-	python $(ABC)/download_clusters.py -i $< -o $@
+$(BUILD)/abc/clusters.json: $(BUILD)/abc/genomes.json
+	mkdir -p $(BUILD)/abc
+	python src/abc/download_clusters.py -i $< -o $@
+
+$(BUILD)/abc/clusters.gbk: $(BUILD)/abc/clusters.json
+	mkdir -p $(BUILD)/abc
+	python src/abc/download_records.py -i $< -o $@
+
+$(DATA)/datasets/abc/features.hdf5: $(BUILD)/abc/clusters.gbk $(PFAM_HMM)
+	mkdir -p $(DATA)/datasets/abc
+	python src/make_features.py --gbk $< --hmm $(PFAM_HMM) -o $@
+
+
+
