@@ -123,6 +123,7 @@ with rich.progress.Progress(
     )
 
     # save annotated data
+    os.makedirs(os.path.dirname(args.output), exist_ok=True)
     data.write(args.output)
 
  
