@@ -69,7 +69,7 @@ def get_classyfire(inchikey):
         npaid = inchikey_index[inchikey]["npaid"]
         compound.setdefault("database_id", []).append(f"npatlas:{npaid}")
         if np_atlas[npaid]["classyfire"] is not None:
-            rich.print(f"[bold green]{'Using':>12}[/] NPAtlas classification ({npaid}) for compound {compound['compound']!r} of {bgc_id}")
+            rich.print(f"[bold blue]{'Using':>12}[/] NPAtlas classification ({npaid}) for compound {compound['compound']!r} of {bgc_id}")
             return np_atlas[npaid]["classyfire"]
     elif inchikey in cache:
         rich.print(f"[bold blue]{'Using':>12}[/] cached annotations for compound {compound['compound']!r} of {bgc_id}")
@@ -147,8 +147,17 @@ for bgc_id in rich.progress.track(annotations, description=f"[bold blue]{'Binari
 data = anndata.AnnData(
     dtype=numpy.bool_,
     X=scipy.sparse.csr_matrix(classes),
-    obs=pandas.DataFrame(index=bgc_ids),
-    var=pandas.DataFrame(index=list(chemont_indices)),
+    obs=pandas.DataFrame(
+        index=bgc_ids,
+        data=dict(
+            unknown_structure=unknown_structure,
+            compound=["" if len(compounds[bgc_id]) == 0 else compounds[bgc_id][0]["compound"] for bgc_id in bgc_ids],
+        ),
+    ),
+    var=pandas.DataFrame(
+        index=list(chemont_indices),
+        data=dict(n_positives=classes.sum(axis=0))
+    ),
 )
 
 # save annotated data
