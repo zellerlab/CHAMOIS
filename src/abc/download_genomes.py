@@ -1,6 +1,7 @@
 import argparse
 import datetime
 import json
+import os
 import re
 import urllib.parse
 from pprint import pprint
@@ -8,7 +9,6 @@ from pprint import pprint
 import requests
 import rich.console
 import rich.progress
-from bs4 import BeautifulSoup
 
 CONSOLE = console = rich.console.Console()
 CGI_URL = "https://img.jgi.doe.gov/cgi-bin"
@@ -75,5 +75,6 @@ with rich.progress.Progress(
 
     # Save genome results
     console.print(f"[bold green]{'Saving':>12}[/] ABC genomes to 'img_abc.json'")
+    os.makedirs(os.path.dirname(args.output), exist_ok=True)
     with open(args.output, "w") as f:
         json.dump(records, f, indent=4, sort_keys=True)

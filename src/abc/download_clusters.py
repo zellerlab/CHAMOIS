@@ -1,6 +1,7 @@
 import argparse
 import datetime
 import json
+import os
 import re
 import urllib.parse
 from pprint import pprint
@@ -103,5 +104,6 @@ with rich.progress.Progress(
 
 # Save genome results
 console.print(f"[bold green]{'Saving':>12}[/] ABC clusters to {args.output!r}")
+os.makedirs(os.path.dirname(args.output), exist_ok=True)
 with open(args.output, "w") as f:
     json.dump(experimental_clusters, f, indent=4, sort_keys=True)

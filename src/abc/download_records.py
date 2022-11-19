@@ -12,7 +12,6 @@ import Bio.SeqIO
 import requests
 import rich.console
 import rich.progress
-from bs4 import BeautifulSoup
 
 # parse command line arguments
 parser = argparse.ArgumentParser()
@@ -46,6 +45,7 @@ with rich.progress.Progress(
      transient=True,
 ) as progress:
 
+    os.makedirs(os.path.dirname(args.output), exist_ok=True)
     with open(args.output, "w") as dst:
 
         for img_bgc in progress.track(imgabc, total=len(imgabc), description="Downloading..."):       
