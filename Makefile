@@ -64,3 +64,6 @@ $(BUILD)/abc/clusters.json: $(BUILD)/abc/genomes.json
 $(DATA)/datasets/abc/clusters.gbk: $(BUILD)/abc/clusters.json
 	mkdir -p $(BUILD)/abc
 	python src/abc/download_records.py -i $< -o $@
+
+$(DATA)/datasets/abc/compounds.json: $(BUILD)/abc/clusters.json
+	python src/abc/download_compounds.py --input $< --output $@
