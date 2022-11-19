@@ -28,6 +28,7 @@ with rich.progress.Progress() as progress:
             for record in gb_io.iter(src)
         }
         query_ids = sorted(query_records)
+        query_indices = { name:i for i, name in enumerate(query_ids) }
 
     # load target records
     with progress.open(args.target, "rb") as src:
@@ -36,23 +37,30 @@ with rich.progress.Progress() as progress:
             for record in gb_io.iter(src)
         }
         target_ids = sorted(target_records)
+        target_indices = { name:i for i, name in enumerate(target_ids) }
+
+    # sketch sequences
+    average_size = statistics.mean(len(record.sequence) for record in target_records.values())
+    sketch = pyfastani.Sketch(fragment_length=400, percentage_identity=50.0, reference_size=int(average_size))
+    for target_id, target_record in progress.track(target_records.items(), description="Sketching..."):
+        sketch.add_genome(target_id, target_record.sequence)
+    
+    progress.console.print("Indexing...")
+    mapper = sketch.index()
 
     # create matrix identity
-    identity = scipy.sparse.dok_matrix((len(query_records), len(target_records)), dtype=numpy.float)
+    identity = scipy.sparse.dok_matrix((len(query_records), len(target_records)), dtype=numpy.float_)
 
     # compute ANI
-    for j, target_id in enumerate(progress.track(target_ids, description="Computing ANI...")):
-        sketch = pyfastani.Sketch(fragment_length=500, reference_size=100000, percentage_identity=50.0)
-        sketch.add_genome( target_id, target_records[target_id].sequence )
-        mapper = sketch.index()
-        for i, query_id in enumerate(progress.track(query_ids, description="Mapping...")):
-            hit = next(iter(mapper.query_genome(query_records[query_id].sequence)), None)
-            if hit is not None:
-                identity[i, j] = hit.identity / 100
+    for query_id, query_record in progress.track(query_records.items(), description="Mapping..."):
+        for hit in mapper.query_genome(query_record.sequence):
+            i = query_indices[query_id]
+            j = target_indices[hit.name]
+            identity[i, j] = hit.identity / 100.0
 
     # generate annotated data
     data = anndata.AnnData(
-        dtype=numpy.float,
+        dtype=numpy.float_,
         X=identity.tocsr(),
         obs=pandas.DataFrame(index=query_ids),
         var=pandas.DataFrame(index=target_ids),
