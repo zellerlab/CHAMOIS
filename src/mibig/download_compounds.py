@@ -9,6 +9,7 @@ import os
 
 import rich.progress
 import pubchempy
+import pandas
 from openbabel import pybel
 
 # Disable warnings from OpenBabel
@@ -39,7 +40,7 @@ with rich.progress.Progress() as progress:
     mibig = {}
     with urllib.request.urlopen(url) as response:
         total = int(response.headers["Content-Length"])
-        with progress.wrap_file(response, total=total, description="Downloading...") as f:
+        with progress.wrap_file(response, total=total, description=f"[bold blue]{'Downloading':>12}[/] MIBiG") as f:
             with tarfile.open(fileobj=f, mode="r|gz") as tar:
                 for entry in iter(tar.next, None):
                     if entry.name.endswith(".json"):
@@ -48,11 +49,11 @@ with rich.progress.Progress() as progress:
                             if record["mibig_accession"] not in blocklist:
                                 mibig[record["mibig_accession"]] = record
 
-print("Downloaded {} BGCs".format(len(mibig)))
+rich.print(f"[bold green]{'Downloaded':>12}[/] {len(mibig)} BGCs")
 
 # --- Manual mapping of some compounds ---------------------------------------
 for bgc_id, entry in mibig.items():
-    
+
     if bgc_id in ("BGC0000243", "BGC0000244"):
         entry["compounds"] = [
             {"compound": name}
@@ -65,14 +66,14 @@ for bgc_id, entry in mibig.items():
                 "database_id": [f"pubchem:30891"],
             },
             {
-                "compound": "bistribromopyrrole", 
+                "compound": "bistribromopyrrole",
                 "database_id": [f"pubchem:23426790"],
             },
             {
                 "compound": "pentabromopseudilin",
                 "database_id": [f"pubchem:324093"],
             }
-            
+
         ]
         continue
     elif bgc_id == "BGC0000248":
@@ -167,6 +168,10 @@ for bgc_id, entry in mibig.items():
             {"compound": f"tanshinone {x}"}
             for x in ("I", "IIA")
         ]
+    elif bgc_id == "BGC0000972":
+        entry["compounds"] = [
+            {"compound": "colibactin", "database_id": ["pubchem:138805674"]}
+        ]
 
     for compound in entry["compounds"]:
         # β-D-galactosylvalidoxylamine-A is actually validamycin
@@ -206,7 +211,7 @@ for bgc_id, entry in mibig.items():
         elif compound["compound"] == "hassallidin C":
             entry["compounds"] = [{"compound": f"hassallidin {x}"} for x in "ABCD"]
             break
-        # 
+        #
         elif compound["compound"] == "odilorhabdins":
             entry["compounds"] = [{"compound": f"odilorhabdin NOSO-95{x}"} for x in "ABC"]
             break
@@ -241,12 +246,12 @@ for bgc_id, entry in mibig.items():
             compound["compound"] = "fortimicin A"
 
 # --- Load NPAtlas -----------------------------------------------------------
-with rich.progress.open(args.atlas, "rb", description="Loading NPAtlas...") as handle:
+with rich.progress.open(args.atlas, "rb", description=f"[bold blue]{'Loading':>12}[/] NPAtlas") as handle:
     data = json.load(gzip.open(handle))
 
 np_atlas = {
     entry["npaid"]: entry
-    for entry in rich.progress.track(data, description="Indexing NPAtlas...")    
+    for entry in rich.progress.track(data, description="Indexing NPAtlas...")
 }
 del data
 
@@ -261,18 +266,17 @@ for bgc_id, bgc in mibig.items():
     if bgc_id in mibig_entries and len(bgc["compounds"]) == 1 and "chem_struct" not in bgc["compounds"][0]:
         names = ", ".join(repr(compound["compound"]) for compound in bgc['compounds'])
         npnames = ", ".join(repr(entry['original_name']) for entry in mibig_entries[bgc_id])
-        rich.print(f"Replacing compounds of {bgc_id} ({names} with {npnames})")
+        rich.print(f"[bold blue]{'Replacing':>12}[/] compounds of [purple]{bgc_id}[/] ({names} with {npnames})")
         bgc['compounds'] = [
             {
-                "compound": entry["original_name"], 
-                "chem_struct": entry["smiles"], 
+                "compound": entry["original_name"],
+                "chem_struct": entry["smiles"],
                 "database_id": [f"npatlas:{entry['npaid']}"],
             }
             for entry in mibig_entries[bgc_id]
         ]
 
 # --- Fix broken NPAtlas cross-references ------------------------------------
-
 for bgc_id, bgc in mibig.items():
     for compound in bgc["compounds"]:
         npatlas_xref = next(
@@ -284,11 +288,11 @@ for bgc_id, bgc in mibig.items():
             if npaid not in np_atlas:
                 npaid_fixed = "NPA{:06}".format(int(npaid[3:]))
                 if npaid_fixed in np_atlas:
-                    rich.print(f"Replacing broken NPAtlas cross-reference ({npaid!r}) with correct one ({npaid_fixed!r})")
+                    rich.print(f"[bold blue]{'Replacing':>12}[/] broken NPAtlas cross-reference ({npaid!r}) with correct one ({npaid_fixed!r})")
                     xref_index = compound["database_id"].index(npatlas_xref)
                     compound["database_id"][xref_index] = f"npatlas:{npaid_fixed}"
                 else:
-                    rich.print(f"Removing broken NPAtlas cross-reference ({npaid!r}) compound {compound['compound']} of {bgc_id}")
+                    rich.print(f"[bold blue]{'Removing':>12}[/] broken NPAtlas cross-reference ({npaid!r}) compound {compound['compound']} of [purple]{bgc_id}[/]")
                     compound["database_id"].remove(npatlas_xref)
 
 
@@ -308,8 +312,8 @@ for bgc_id, bgc in mibig.items():
                 inchikey = pybel.readstring("smi", compound['chem_struct'].strip()).write("inchikey").strip()
                 if inchikey in np_atlas_inchikeys:
                     npaid = np_atlas_inchikeys[inchikey]["npaid"]
-                    compound.setdefault("database_id", []).append(f"{npaid}")
-                    rich.print(f"Added cross-reference to NPAtlas compound {npaid} to {compound['compound']!r} product of {bgc_id}")
+                    compound.setdefault("database_id", []).append(f"npatlas:{npaid}")
+                    rich.print(f"[bold green]{'Added':>12}[/] cross-reference to NPAtlas compound {npaid} to {compound['compound']!r} product of [purple]{bgc_id}[/]")
                     continue
             else:
                 compound_name = compound["compound"].casefold()
@@ -317,33 +321,59 @@ for bgc_id, bgc in mibig.items():
                     entry = np_atlas_names[compound_name]
                     compound.setdefault("database_id", []).append(f"npatlas:{entry['npaid']}")
                     compound["chem_struct"] = entry["smiles"]
-                    rich.print(f"Mapped {compound['compound']!r} product of {bgc_id} to NPAtlas compound {entry['npaid']}")
+                    rich.print(f"[bold green]{'Mapped':>12}[/] {compound['compound']!r} product of [purple]{bgc_id}[/] to NPAtlas compound {entry['npaid']}")
                 else:
-                    rich.print(f"Failed to map {compound['compound']!r} product of {bgc_id}") 
+                    rich.print(f"[bold red]{'Failed':>12}[/] to map {compound['compound']!r} product of [purple]{bgc_id}[/] to NPAtlas")
 
-
-# --- Extract remaining missing structures from PubChem ----------------------
+# --- Try to map unannotated compounds to PubChem ----------------------------
 for entry in rich.progress.track(mibig.values()):
     for compound in entry["compounds"]:
-        if "chem_struct" not in compound:   
+        if not any(xref.startswith("pubchem") for xref in compound.get("database_id", ())):
             name = compound["compound"]
             cids = pubchempy.get_cids(name)
             if cids:
                 c = pubchempy.get_compounds(cids[:1])[0]
                 compound["database_id"] = [f"pubchem:{c}"]
                 compound["chem_struct"] = c.isomeric_smiles
-                rich.print(f"Mapped {compound['compound']!r} of {entry['mibig_accession']} to PubChem compound {c.cid}")
+                rich.print(f"[bold green]{'Mapped':>12}[/] {compound['compound']!r} product of [purple]{entry['mibig_accession']}[/] to PubChem compound {c.cid}")
                 time.sleep(1)
             else:
-                rich.print(f"Failed to map {compound['compound']!r} product of {entry['mibig_accession']}") 
+                rich.print(f"[bold red]{'Failed':>12}[/] to map {compound['compound']!r} product of [purple]{entry['mibig_accession']}[/] to PubChem")
+
+# --- Retrieve SMILES for compound with a cross-reference --------------------
+for entry in rich.progress.track(mibig.values()):
+    for compound in entry["compounds"]:
+        # use built-in structure if any
+        if "chem_struct" in compound:
+            continue
+        # use NPAtlas structure if available
+        npatlas_xref = next((xref.split(":")[1] for xref in compound.get("database_id", ()) if xref.startswith("npatlas")), None)
+        if npatlas_xref is not None:
+            np_atlas_entry = np_atlas[npatlas_xref]
+            compound["chem_struct"] = np_atlas_entry["smiles"]
+            continue
+        # use PubChem structure if available
+        pubchem_xref = next((int(xref.split(":")[1]) for xref in compound.get("database_id", ()) if xref.startswith("pubchem")), None)
+        if pubchem_xref is not None:
+            pubchem_entry = pubchempy.get_compounds([pubchem_xref])[0]
+            compound["chem_struct"] = pubchem_entry.isomeric_smiles
+            continue
+        # failed to get the structure...
+        rich.print(f"[bold red]{'Failed':>12}[/] to get structure of {compound['compound']!r} product of [purple]{bgc_id}[/]")
 
 # --- Save compounds ---------------------------------------------------------
 
 os.makedirs(os.path.dirname(args.output), exist_ok=True)
-compounds = {
-    cluster["mibig_accession"]: cluster["compounds"]
-    for cluster in mibig.values()
-}
+compounds = {}
+
+for bgc_id, bgc in mibig.items():
+    compounds[bgc_id] = []
+    for bgc_compound in cluster["compounds"]:
+        compound = { "compound": bgc_compound["compound"] }
+        for key in ("chem_struct", "database_id", "mol_mass", "molecular_formula"):
+            if key in bgc_compound:
+                compound[key] = bgc_compound[key]
+        compounds[bgc_id].append(compound)
 
 with open(args.output, "w") as dst:
-    json.dump(compounds, dst, sort_keys=True, indent=4)      
+    json.dump(compounds, dst, sort_keys=True, indent=4)

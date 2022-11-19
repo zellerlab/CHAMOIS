@@ -102,6 +102,6 @@ with rich.progress.Progress(
 
 
 # Save genome results
-console.print(f"[bold green]{'Saving':>12}[/] ABC clusters to 'img_abc_clusters.json'")
+console.print(f"[bold green]{'Saving':>12}[/] ABC clusters to {args.output!r}")
 with open(args.output, "w") as f:
     json.dump(experimental_clusters, f, indent=4, sort_keys=True)
