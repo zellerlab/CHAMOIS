@@ -42,6 +42,6 @@ with rich.progress.Progress() as progress:
     records.sort(key=lambda record: record.name)
 
     # save records
-    os.makedirs(os.path.dirname(args.output))
+    os.makedirs(os.path.dirname(args.output), exist_ok=True)
     with open(args.output, "wb") as dst:
         gb_io.dump(records, dst)

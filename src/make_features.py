@@ -90,7 +90,6 @@ with rich.progress.Progress(
                     sequence_id = hit.name.decode()
                     bgc_id = sequence_id.split("_", 1)[0]
                     domain_counts[bgc_id][hmm_accession] += 1
-            break
             
     # record all HMMs from the file
     all_possible = sorted(hmm_names)
