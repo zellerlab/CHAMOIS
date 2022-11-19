@@ -1,0 +1,67 @@
+bgc_id	reason	reference
+BGC0001916	exact duplicate of BGC0001649	https://github.com/mibig-secmet/mibig-json/issues/002
+BGC0001804	exact duplicate of BGC0001378	https://github.com/mibig-secmet/mibig-json/issues/009
+BGC0000386	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/030
+BGC0001662	duplicate of BGC0001932 with extra genes	https://github.com/mibig-secmet/mibig-json/issues/033
+BGC0001891	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/037
+BGC0001362	exact duplicate of BGC0000932	https://github.com/mibig-secmet/mibig-json/issues/039
+BGC0001982	exact duplicate of BGC0001881	https://github.com/mibig-secmet/mibig-json/issues/053
+BGC0001555	locus contains several unrelated clusters	https://github.com/mibig-secmet/mibig-json/issues/056
+BGC0001803	exact duplicate of BGC0000625	https://github.com/mibig-secmet/mibig-json/issues/058
+BGC0000696	duplicate of BGC0001603 with extra flanking regions	https://github.com/mibig-secmet/mibig-json/issues/060
+BGC0001784	duplicate of BGC0001939 with extra flanking regions	https://github.com/mibig-secmet/mibig-json/issues/062
+BGC0001992	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/065
+BGC0000928	exact duplicate of BGC0000188 with missing annotations	https://github.com/mibig-secmet/mibig-json/issues/071
+BGC0001442	exact duplicate of BGC0001497 with wrong type	https://github.com/mibig-secmet/mibig-json/issues/073
+BGC0001958	exact duplicate of BGC0001957	https://github.com/mibig-secmet/mibig-json/issues/075
+BGC0001920	duplicate of BGC0001921	https://github.com/mibig-secmet/mibig-json/issues/077
+BGC0000655	exact duplicate of BGC0000611	https://github.com/mibig-secmet/mibig-json/issues/078
+BGC0001444	exact duplicate of BGC0001538	https://github.com/mibig-secmet/mibig-json/issues/081
+BGC0002003	exact duplicate of BGC0001608	https://github.com/mibig-secmet/mibig-json/issues/084
+BGC0001908	exact duplicate of BGC0001770	https://github.com/mibig-secmet/mibig-json/issues/085
+BGC0001815	exact duplicate of BGC0001377	https://github.com/mibig-secmet/mibig-json/issues/086
+BGC0001557	exact duplicate of BGC0001436	https://github.com/mibig-secmet/mibig-json/issues/087
+BGC0001241	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/088
+BGC0001805	exact duplicate of BGC0000446	https://github.com/mibig-secmet/mibig-json/issues/089
+BGC0001915	exact duplicate of BGC0001528	https://github.com/mibig-secmet/mibig-json/issues/091
+BGC0000805	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/092
+BGC0001228	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/093
+BGC0000467	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/094
+BGC0000025	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/097
+BGC0001124	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/108
+BGC0000016	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/115
+BGC0000979	duplicate of a subsequence of BGC0000981	https://github.com/mibig-secmet/mibig-json/issues/118
+BGC0000980	duplicate of a subsequence of BGC0000981	https://github.com/mibig-secmet/mibig-json/issues/118
+BGC0000228	duplicate of a subsequence of BGC0000227	https://github.com/mibig-secmet/mibig-json/issues/119
+BGC0000835	duplicate of a subsequence of BGC0000270	https://github.com/mibig-secmet/mibig-json/issues/120
+BGC0000246	duplicate of a subsequence of BGC0000247	https://github.com/mibig-secmet/mibig-json/issues/121
+BGC0000214	duplicate of a subsequence of BGC0001074	https://github.com/mibig-secmet/mibig-json/issues/122
+BGC0000849	duplicate of a subsequence of BGC0000038	https://github.com/mibig-secmet/mibig-json/issues/123
+BGC0001857	exact duplicate of BGC00001978 with wrong type	https://github.com/mibig-secmet/mibig-json/issues/128
+BGC0001976	exact duplicate of BGC0001977 with missing annotations	https://github.com/mibig-secmet/mibig-json/issues/129
+BGC0001220	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/143
+BGC0001485	exact duplicate of BGC0001546	https://github.com/mibig-secmet/mibig-json/issues/154
+BGC0001471	duplicate of a subsequence of BGC0002023	https://github.com/mibig-secmet/mibig-json/issues/155
+BGC0001104	duplicate of a subsequence of BGC0001025	https://github.com/mibig-secmet/mibig-json/issues/156
+BGC0001530	exact duplicate of BGC0001468	https://github.com/mibig-secmet/mibig-json/issues/157
+BGC0001280	exact duplicate of BGC0001264	https://github.com/mibig-secmet/mibig-json/issues/159
+BGC0001900	duplicate of a subsequence of BGC001599	https://github.com/mibig-secmet/mibig-json/issues/160
+BGC0001817	not a gene cluster	https://github.com/mibig-secmet/mibig-json/issues/161
+BGC0001619	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/161
+BGC0001943	exact duplicate of BGC0001822	https://github.com/mibig-secmet/mibig-json/issues/162
+BGC0001854	duplicate of a subsequence of BGC0001901	https://github.com/mibig-secmet/mibig-json/issues/163
+BGC0002030	duplicate of BGC0001866 with extra flanking regions	https://github.com/mibig-secmet/mibig-json/issues/164
+BGC0001096	duplicate of BGC0000995 with extra flanking regions	https://github.com/mibig-secmet/mibig-json/issues/165
+BGC0000965	duplicate of BGC0001397 with extra flanking regions	https://github.com/mibig-secmet/mibig-json/issues/166
+BGC0001559	duplicate of BGC0000974 with wrong type	https://github.com/mibig-secmet/mibig-json/issues/170
+BGC0001133	invalid flanking genes	https://github.com/mibig-secmet/mibig-json/issues/176
+BGC0001862	duplicate of BGC0001930 with extra flanking genes	https://github.com/mibig-secmet/mibig-json/issues/178
+BGC0001281	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/182
+BGC0001317	not a gene cluster (plant)	https://mibig.secondarymetabolites.org/repository/BGC0001317/#r1c1
+BGC0000671	not a gene cluster (plant)	https://mibig.secondarymetabolites.org/repository/BGC0000671/#r1c1
+BGC0000672	not a gene cluster (plant)	https://mibig.secondarymetabolites.org/repository/BGC0000672/#r1c1
+BGC0000810	not a gene cluster (plant)	https://mibig.secondarymetabolites.org/repository/BGC0000810/#r1c1
+BGC0001316	not a gene cluster (plant)	https://mibig.secondarymetabolites.org/repository/BGC0001316/#r1c1
+BGC0001325	not a gene cluster (plant)	https://mibig.secondarymetabolites.org/repository/BGC0001325/#r1c1
+BGC0001799	not a gene cluster (plant)	https://mibig.secondarymetabolites.org/repository/BGC0001799/#r1c1
+

@@ -42,9 +42,9 @@ $(DATA)/datasets/%/features.hdf5: $(DATA)/datasets/%/clusters.gbk $(PFAM_HMM)
 
 # --- Download MIBiG data ----------------------------------------------------
 
-$(DATA)/datasets/mibig/clusters.gbk:
-	mkdir -p $(BUILD)/mibig
-	wget "https://dl.secondarymetabolites.org/mibig/mibig_gbk_3.1.tar.gz" -O- | tar xzO > $@
+$(DATA)/datasets/mibig/clusters.gbk: $(DATA)/mibig/blocklist.tsv
+	python src/mibig/download_records.py --blocklist $< --mibig-version $(MIBIG_VERSION) -o $@
+	
 
 # --- Download JGI data ------------------------------------------------------
 
