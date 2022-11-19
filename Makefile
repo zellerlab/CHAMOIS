@@ -8,6 +8,8 @@ MIBIG_VERSION=3.1
 PFAM_VERSION=35.0
 PFAM_HMM=$(DATA)/Pfam$(PFAM_VERSION).hmm
 
+ATLAS=$(DATA)/NPAtlas_download.json.gz
+
 DATASET_NAMES=abc mibig
 DATASET_TABLES=features mibig_ani
 
@@ -19,18 +21,18 @@ datasets: $(foreach dataset,$(DATASET_NAMES),$(foreach table,$(DATASET_TABLES),$
 $(PFAM_HMM):
 	wget http://ftp.ebi.ac.uk/pub/databases/Pfam/releases/Pfam$(PFAM_VERSION)/Pfam-A.hmm.gz -O- | gunzip > $@
 
-$(DATA)/NPAtlas_download.json.gz:
+$(ATLAS):
 	wget https://www.npatlas.org/static/downloads/NPAtlas_download.json -O- | gzip -c > $@
 
 # --- Patch / map MIBiG compounds to PubChem or NPAtlas ----------------------
 
-$(BUILD)/mibig-mapped.json: $(MIBIG)/mibig_json_$(MIBIG_VERSION).tar.gz $(DATA)/NPAtlas_download.json.gz
-	python $(SRC)/map_compounds.py --json $< -o $@ --atlas $(DATA)/NPAtlas_download.json.gz
+$(BUILD)/mibig-mapped.json: $(MIBIG)/mibig_json_$(MIBIG_VERSION).tar.gz $(ATLAS)
+	python $(SRC)/map_compounds.py --json $< -o $@ --atlas $(ATLAS)
 
 # --- Get ClassyFire classes for every compound ------------------------------
 
-$(BUILD)/mibig-classified.json: $(BUILD)/mibig-mapped.json $(DATA)/NPAtlas_download.json.gz
-	python $(SRC)/classify_compounds.py -i $< --atlas $(DATA)/NPAtlas_download.json.gz -o $@
+$(BUILD)/mibig-classified.json: $(BUILD)/mibig-mapped.json $(ATLAS)
+	python $(SRC)/classify_compounds.py -i $< --atlas $(ATLAS) -o $@
 
 # --- Generic Rules ----------------------------------------------------------
 
@@ -44,7 +46,10 @@ $(DATA)/datasets/%/features.hdf5: $(DATA)/datasets/%/clusters.gbk $(PFAM_HMM)
 
 $(DATA)/datasets/mibig/clusters.gbk: $(DATA)/mibig/blocklist.tsv
 	python src/mibig/download_records.py --blocklist $< --mibig-version $(MIBIG_VERSION) -o $@
-	
+
+$(DATA)/datasets/mibig/compounds.json: $(DATA)/mibig/blocklist.tsv $(ATLAS)
+	python src/mibig/download_compounds.py --blocklist $< --mibig-version $(MIBIG_VERSION) -o $@ --atlas $(ATLAS)
+
 
 # --- Download JGI data ------------------------------------------------------
 
