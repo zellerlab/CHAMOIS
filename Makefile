@@ -9,6 +9,7 @@ PFAM_VERSION=35.0
 PFAM_HMM=$(DATA)/Pfam$(PFAM_VERSION).hmm
 
 ATLAS=$(DATA)/NPAtlas_download.json.gz
+CHEMONT=$(DATA)/chemont/ChemOnt_2_1.obo
 
 DATASET_NAMES=abc mibig
 DATASET_TABLES=features mibig_ani
@@ -42,6 +43,9 @@ $(DATA)/datasets/%/mibig_ani.hdf5: $(DATA)/datasets/%/clusters.gbk $(DATA)/datas
 $(DATA)/datasets/%/features.hdf5: $(DATA)/datasets/%/clusters.gbk $(PFAM_HMM)
 	python src/make_features.py --gbk $< --hmm $(PFAM_HMM) -o $@
 
+$(DATA)/datasets/%/classes.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(CHEMONT)
+	python src/make_classes.py -i $< -o $@ --atlas $(ATLAS) --chemont $(CHEMONT)
+
 # --- Download MIBiG data ----------------------------------------------------
 
 $(DATA)/datasets/mibig/clusters.gbk: $(DATA)/mibig/blocklist.tsv
@@ -49,7 +53,6 @@ $(DATA)/datasets/mibig/clusters.gbk: $(DATA)/mibig/blocklist.tsv
 
 $(DATA)/datasets/mibig/compounds.json: $(DATA)/mibig/blocklist.tsv $(ATLAS)
 	python src/mibig/download_compounds.py --blocklist $< --mibig-version $(MIBIG_VERSION) -o $@ --atlas $(ATLAS)
-
 
 # --- Download JGI data ------------------------------------------------------
 
