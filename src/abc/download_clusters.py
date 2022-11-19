@@ -19,7 +19,6 @@ parser.add_argument("-i", "--input", required=True)
 parser.add_argument("-o", "--output", required=True)
 args = parser.parse_args()
 
-
 # Create a session and spoof the user agent so that JGI lets us use programmatic access
 session = requests.Session()
 session.headers["User-Agent"] = "Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0"
