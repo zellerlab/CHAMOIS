@@ -285,7 +285,7 @@ for bgc_id, bgc in mibig.items():
         )
         if npatlas_xref is not None:
             npaid = npatlas_xref.split(":")[1]
-            if npaid not in np_atlas:
+            if len(npaid) > 3 and npaid not in np_atlas:
                 npaid_fixed = "NPA{:06}".format(int(npaid[3:]))
                 if npaid_fixed in np_atlas:
                     rich.print(f"[bold blue]{'Replacing':>12}[/] broken NPAtlas cross-reference ({npaid!r}) with correct one ({npaid_fixed!r})")
