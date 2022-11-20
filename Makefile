@@ -11,8 +11,8 @@ PFAM_HMM=$(DATA)/Pfam$(PFAM_VERSION).hmm
 ATLAS=$(DATA)/NPAtlas_download.json.gz
 CHEMONT=$(DATA)/chemont/ChemOnt_2_1.obo
 
-DATASET_NAMES=abc mibig
-DATASET_TABLES=features classes mibig_ani
+DATASET_NAMES=abc mibig3.1 mibig2.0
+DATASET_TABLES=features classes mibig3.1_ani
 
 PYTHON=python -Wignore
 
@@ -27,20 +27,10 @@ $(PFAM_HMM):
 $(ATLAS):
 	wget https://www.npatlas.org/static/downloads/NPAtlas_download.json -O- | gzip -c > $@
 
-# --- Patch / map MIBiG compounds to PubChem or NPAtlas ----------------------
-
-$(BUILD)/mibig-mapped.json: $(MIBIG)/mibig_json_$(MIBIG_VERSION).tar.gz $(ATLAS)
-	$(PYTHON) $(SRC)/map_compounds.py --json $< -o $@ --atlas $(ATLAS)
-
-# --- Get ClassyFire classes for every compound ------------------------------
-
-$(BUILD)/mibig-classified.json: $(BUILD)/mibig-mapped.json $(ATLAS)
-	$(PYTHON) $(SRC)/classify_compounds.py -i $< --atlas $(ATLAS) -o $@
-
 # --- Generic Rules ----------------------------------------------------------
 
-$(DATA)/datasets/%/mibig_ani.hdf5: $(DATA)/datasets/%/clusters.gbk $(DATA)/datasets/mibig/clusters.gbk
-	$(PYTHON) src/make_ani.py --query $< --target $(DATA)/datasets/mibig/clusters.gbk -o $@
+$(DATA)/datasets/%/mibig3.1_ani.hdf5: $(DATA)/datasets/%/clusters.gbk $(DATA)/datasets/mibig3.1/clusters.gbk
+	$(PYTHON) src/make_ani.py --query $< --target $(DATA)/datasets/mibig3.1/clusters.gbk -o $@
 
 $(DATA)/datasets/%/features.hdf5: $(DATA)/datasets/%/clusters.gbk $(PFAM_HMM)
 	$(PYTHON) src/make_features.py --gbk $< --hmm $(PFAM_HMM) -o $@
@@ -48,13 +38,21 @@ $(DATA)/datasets/%/features.hdf5: $(DATA)/datasets/%/clusters.gbk $(PFAM_HMM)
 $(DATA)/datasets/%/classes.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(CHEMONT)
 	$(PYTHON) src/make_classes.py -i $< -o $@ --atlas $(ATLAS) --chemont $(CHEMONT)
 
-# --- Download MIBiG data ----------------------------------------------------
+# --- Download MIBiG 2.0 data ------------------------------------------------
 
-$(DATA)/datasets/mibig/clusters.gbk: $(DATA)/mibig/blocklist.tsv
-	$(PYTHON) src/mibig/download_records.py --blocklist $< --mibig-version $(MIBIG_VERSION) -o $@
+$(DATA)/datasets/mibig2.0/clusters.gbk: $(DATA)/mibig/blocklist.tsv
+	$(PYTHON) src/mibig/download_records.py --blocklist $< --mibig-version 2.0 -o $@
 
-$(DATA)/datasets/mibig/compounds.json: $(DATA)/mibig/blocklist.tsv $(ATLAS)
-	$(PYTHON) src/mibig/download_compounds.py --blocklist $< --mibig-version $(MIBIG_VERSION) -o $@ --atlas $(ATLAS)
+$(DATA)/datasets/mibig2.0/compounds.json: $(DATA)/mibig/blocklist.tsv $(ATLAS)
+	$(PYTHON) src/mibig/download_compounds.py --blocklist $< --mibig-version 2.0 -o $@ --atlas $(ATLAS)
+
+# --- Download MIBiG 3.1 data ------------------------------------------------
+
+$(DATA)/datasets/mibig3.1/clusters.gbk: $(DATA)/mibig/blocklist.tsv
+	$(PYTHON) src/mibig/download_records.py --blocklist $< --mibig-version 3.1 -o $@
+
+$(DATA)/datasets/mibig3.1/compounds.json: $(DATA)/mibig/blocklist.tsv $(ATLAS)
+	$(PYTHON) src/mibig/download_compounds.py --blocklist $< --mibig-version 3.1 -o $@ --atlas $(ATLAS)
 
 # --- Download JGI data ------------------------------------------------------
 
