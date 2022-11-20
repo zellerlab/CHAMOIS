@@ -5,6 +5,7 @@ import csv
 import pickle
 import os
 
+import anndata
 import disjoint_set
 import fisher
 import numpy
@@ -18,11 +19,12 @@ import sklearn.ensemble
 import sklearn.feature_selection
 import sklearn.model_selection
 import sklearn.naive_bayes
+import sklearn.neural_network
 import sklearn.pipeline
 import sklearn.linear_model
 import sklearn.neighbors
 import matplotlib.pyplot as plt
-from palettable.cartocolors.qualitative import Bold_9
+from palettable.cartocolors.qualitative import Bold_10
 
 
 # --- sklearn Feature Selection implementation -------------------------------
@@ -57,99 +59,29 @@ class SelectPValueUnderThreshold(sklearn.base.TransformerMixin):
             raise ValueError(f"X has {X.shape[1]} features, but SelectPValueUnderThreshold is expecting {self.pvalues_.shape[0]} features as input.")
         return X[:, self.indices_]
 
+# --- Load features and classes ----------------------------------------------
 
-# --- Constants --------------------------------------------------------------
-
-CV_FOLDS = 5
-
-
-# --- Load Pfam domain names -------------------------------------------------
-
-with open("data/Pfam35.0.txt") as src:
-    pfam_names = dict(line.strip().split("\t", 1) for line in src)
-
-
-# --- Load MIBiG -------------------------------------------------------------
-
-with open("build/mibig-classified.json", "rb") as src:
-    mibig = json.load(src)
-
+features = anndata.read("data/datasets/mibig/features.hdf5")
+classes = anndata.read("data/datasets/mibig/classes.hdf5")
+assert (features.obs.index == classes.obs.index).all()
 
 # --- Load ANI matrix and build groups based on ANI --------------------------
 
-with open("data/mibig/ani_3.1.coo.npz", "rb") as src:
-    animatrix = scipy.sparse.load_npz(src).todok()
-    group_set = disjoint_set.DisjointSet({ i:i for i in range(len(mibig)) })
-    indices = itertools.combinations(range(len(mibig)), 2)
-    total = len(mibig) * (len(mibig) - 1) / 2
-    for (i, j) in rich.progress.track(indices, total=total, description="Grouping..."):
-        if animatrix[i, j] >= 0.8:
-            group_set.union(i, j)
-    groups = numpy.array([group_set[i] for i in range(len(mibig))])
+animatrix = anndata.read("data/datasets/mibig/mibig_ani.hdf5")
+animatrix.X = animatrix.X.todok()
+assert (animatrix.obs.index == classes.obs.index).all()
 
-
-# --- Load MIBiG compositions ------------------------------------------------
-
-with open("build/compositions/Pfam35.0/counts.npz", "rb") as comp_src:
-    counts = scipy.sparse.load_npz(comp_src).toarray()
-with open("build/compositions/Pfam35.0/domains.tsv") as domains_src:
-    domains = numpy.array([ line.split("\t")[0].strip() for line in domains_src ])
-with open("build/compositions/Pfam35.0/labels.tsv") as typs_src:
-    names = numpy.array([ line.split("\t")[0].strip() for line in typs_src ])
-
-# remove empty features
-domains = domains[counts.sum(axis=0) > 0]
-features = counts[:,counts.sum(axis=0) > 0]
-rich.print(f"Using {features.shape[1]} non-null features")
-
+group_set = disjoint_set.DisjointSet({ i:i for i in range(animatrix.n_obs) })
+indices = itertools.combinations(range(animatrix.n_obs), 2)
+total = animatrix.n_obs * (animatrix.n_obs - 1) / 2
+for (i, j) in rich.progress.track(indices, total=total, description="Grouping..."):
+    if animatrix.X[i, j] >= 0.8:
+        group_set.union(i, j)
+features.obs["groups"] = numpy.array([group_set[i] for i in range(animatrix.n_obs)])
 
 # --- Load ChemOnt -----------------------------------------------------------
 
 chemont = pronto.Ontology("data/chemont/ChemOnt_2_1.obo")
-rich.print(f"Loaded {len(chemont)} terms from ChemOnt ontology")
-
-class_index = { 
-    term.id: i
-    for i, term in enumerate(chemont.terms())
-    if term.id != "CHEMONTID:9999999"
-}
-
-
-# --- Get classes ------------------------------------------------------------
-
-mask = numpy.zeros(len(names), dtype=numpy.bool_)
-labels = numpy.zeros((len(names), len(class_index)+1), dtype=numpy.bool_)
-
-for bgc_id, bgc in rich.progress.track(mibig.items(), description="Preparing labels..."):
-    # skip and ignore BGCs without any classyfire annotation
-    if not any("classyfire" in compound for compound in bgc["compounds"]):
-        mask[ numpy.where(names == bgc_id) ] = True
-        continue
-    # go through all BGC compounds
-    for compound in bgc["compounds"]:
-        # skip compounds without classifyre annotations
-        if compound.get("classyfire") is None:
-            continue
-        # get all parents by traversing the ontology transitively
-        direct_parents = pronto.TermSet({
-            chemont[direct_parent["chemont_id"]] # type: ignore
-            for direct_parent in itertools.chain(
-                [compound["classyfire"]["kingdom"]],  
-                [compound["classyfire"]["superclass"]],  
-                [compound["classyfire"]["class"]],  
-                [compound["classyfire"]["subclass"]],  
-                [compound["classyfire"]["direct_parent"]],  
-                compound["classyfire"]["intermediate_nodes"],
-                compound["classyfire"]["alternative_parents"],
-            )
-            if direct_parent is not None
-        })
-        all_parents = direct_parents.superclasses().to_set()
-        # set label flag is compound belong to a class
-        bgc_index = numpy.where(names == bgc_id)
-        for parent in all_parents:
-            if parent.id != "CHEMONTID:9999999":
-                labels[bgc_index, class_index[parent.id]] = True
 
 # --- Use Fisher's exact test to select features -----------------------------
 
@@ -169,43 +101,10 @@ def compute_pvalues(X, y, kind="two_tail"):
 
 # --- Build one classifier per class -----------------------------------------
 
+CV_FOLDS = 5
 CLASSIFIERS = {
-    # a simple Lasso to see the individual weights
-    "Lasso()": sklearn.linear_model.Lasso(),
-    # random forest, either 1, 10 or 100 trees
-    "DecisionTreeClassifier()": sklearn.tree.DecisionTreeClassifier(),
-    "RandomForest(10)": sklearn.ensemble.RandomForestClassifier(10),
-    "RandomForest(100)": sklearn.ensemble.RandomForestClassifier(100),
-    "RandomForest(max_depth=6)": sklearn.ensemble.RandomForestClassifier(max_depth=6),
-    # multinomialNB
-    "MultinomialNB()": sklearn.naive_bayes.MultinomialNB(),
-    # KNN with cityblock metric (addding/substracting domains)
-    "KNeighbours(metric='cityblock')": sklearn.neighbors.KNeighborsClassifier(metric="cityblock"),
-    # variants with feature selection
-    "DecisionTreeClassifier()+Selection": sklearn.pipeline.Pipeline([
-        ("feature_selection", SelectPValueUnderThreshold(0.1)),
-        ("classifier", sklearn.tree.DecisionTreeClassifier()),
-    ]),
-    "RandomForest(10)+Selection": sklearn.pipeline.Pipeline([
-        ("feature_selection", SelectPValueUnderThreshold(0.1)),
-        ("classifier", sklearn.ensemble.RandomForestClassifier(10))
-    ]),
-    "RandomForest(100)+Selection": sklearn.pipeline.Pipeline([
-        ("feature_selection", SelectPValueUnderThreshold(0.1)),
-        ("classifier", sklearn.ensemble.RandomForestClassifier(100))
-    ]),
-    "RandomForest(max_depth=6)+Selection": sklearn.pipeline.Pipeline([
-        ("feature_selection", SelectPValueUnderThreshold(0.1)),
-        ("classifier", sklearn.ensemble.RandomForestClassifier(max_depth=6),)
-    ]),
-    "MultinomialNB()+Selection": sklearn.pipeline.Pipeline([
-        ("feature_selection", SelectPValueUnderThreshold(0.1)),
-        ("classifier", sklearn.naive_bayes.MultinomialNB())
-    ]),
-    "KNeighbours(metric='cityblock')+Selection": sklearn.pipeline.Pipeline([
-        ("feature_selection", SelectPValueUnderThreshold(0.1)),
-        ("classifier", sklearn.neighbors.KNeighborsClassifier(metric="cityblock"))
-    ])
+    "LogisticRegression(penalty='l1')": sklearn.linear_model.LogisticRegression(penalty="l1", solver="liblinear"),
+    "RandomForest()": sklearn.ensemble.RandomForestClassifier(),
 }
 
 with rich.progress.Progress() as progress:
@@ -213,31 +112,31 @@ with rich.progress.Progress() as progress:
     # record curves and stats even for partially interrupted training
     curves = []
     rows = []
-    ginis = numpy.zeros((len(class_index), features.shape[1]))
+    ginis = numpy.zeros((classes.shape[1], features.shape[1]))
 
     try:
         # only use BGCs with known compound structure and class assignment
-        names_masked = names[~mask]
-        labels_masked = labels[~mask, :]
-        groups_masked = groups[~mask]
-        features_masked = features[~mask, :]
-        rich.print(f"Using {features_masked.shape[0]} BGCs with compound classification")
+        features = features[~classes.obs.unknown_structure]
+        classes = classes[~classes.obs.unknown_structure]
+        rich.print(f"Using {features.n_vars} BGCs with compound classification")
 
         # TODO: better stratification to get rid of possible duplicate BGCs, use ANI matrix
-        for class_name in progress.track(class_index, description="Processing..."):
+        for class_idx, class_name in enumerate(progress.track(classes.var_names, description=f"[bold blue]{'Processing':>12}[/]")):
             # use labels for current class
-            y_true = labels_masked[:, class_index[class_name]]
+            y_true = classes.X.toarray()[:, class_idx]
 
             # skip classes with no negative or no positives
             if y_true.sum() < CV_FOLDS or y_true.sum() >= len(y_true) - CV_FOLDS:
+                continue
+            elif numpy.unique(features.obs.groups[y_true]).shape[0] < CV_FOLDS:
                 continue
             else:
                 rich.print(f"Training [bold blue]{class_name}[/] ({chemont[class_name].name!r}) classifier with {y_true.sum()} positive and {(~y_true).sum()} negatives")
 
             # show example BGCs belonging to positive or negative
-            neg = next(mibig[names_masked[i]] for i in range(y_true.shape[0]) if not y_true[i])
-            pos = next(mibig[names_masked[i]] for i in range(y_true.shape[0]) if y_true[i])
-            rich.print(f"Examples: positive {pos['mibig_accession']} ({pos['compounds'][0]['compound']!r}) / negative {neg['mibig_accession']} ({neg['compounds'][0]['compound']!r})")
+            #neg = next(mibig[names_masked[i]] for i in range(y_true.shape[0]) if not y_true[i])
+            #pos = next(mibig[names_masked[i]] for i in range(y_true.shape[0]) if y_true[i])
+            #rich.print(f"Examples: positive {pos['mibig_accession']} ({pos['compounds'][0]['compound']!r}) / negative {neg['mibig_accession']} ({neg['compounds'][0]['compound']!r})")
 
             auprs = {}
             aurocs = {}
@@ -251,22 +150,22 @@ with rich.progress.Progress() as progress:
                 try:
                     y_pred = sklearn.model_selection.cross_val_predict(
                         classifier, 
-                        features_masked, 
+                        features.X, 
                         y_true, 
                         method="predict_proba", 
                         cv=sklearn.model_selection.GroupKFold(CV_FOLDS), 
                         n_jobs=-1,
-                        groups=groups_masked,
+                        groups=features.obs.groups,
                     )[:, 1]
                 except AttributeError:
                     y_pred = sklearn.model_selection.cross_val_predict(
                         classifier, 
-                        features_masked, 
+                        features.X, 
                         y_true, 
                         method="predict", 
                         cv=sklearn.model_selection.GroupKFold(CV_FOLDS), 
                         n_jobs=-1,
-                        groups=groups_masked,
+                        groups=features.obs.groups,
                     )
 
                 # compute evaluation statistics
@@ -305,39 +204,45 @@ with rich.progress.Progress() as progress:
             rich.print(table)
 
             # get most contributing domains with Gini index and p-values
-            rf = sklearn.ensemble.RandomForestClassifier().fit(features_masked, y_true)
-            ginis[class_index[class_name], :] = rf.feature_importances_
+            rf = sklearn.ensemble.RandomForestClassifier().fit(features.X, y_true)
+            ginis[class_idx, :] = rf.feature_importances_
 
             # plot precision/recall and ROC curves
             palette = {
-                "Lasso()": Bold_9.hex_colors[0],
-                "DecisionTreeClassifier()": Bold_9.hex_colors[2],
-                "DecisionTreeClassifier()+Selection": Bold_9.hex_colors[2],
-                "RandomForest(10)": Bold_9.hex_colors[1],
-                "RandomForest(10)+Selection": Bold_9.hex_colors[1],
-                "RandomForest(100)": Bold_9.hex_colors[5],
-                "RandomForest(100)+Selection": Bold_9.hex_colors[5],
-                "MultinomialNB()": Bold_9.hex_colors[4],
-                "MultinomialNB()+Selection": Bold_9.hex_colors[4],
-                "KNeighbours(metric='cityblock')": Bold_9.hex_colors[6],
-                "KNeighbours(metric='cityblock')+Selection": Bold_9.hex_colors[6],
-                "RandomForest(max_depth=6)": Bold_9.hex_colors[7],
-                "RandomForest(max_depth=6)+Selection": Bold_9.hex_colors[7],
+                "LogisticRegression(penalty='l1')": Bold_10.hex_colors[0],
+                "LogisticRegression(penalty='l1')+Selection": Bold_10.hex_colors[0],
+                "DecisionTreeClassifier()": Bold_10.hex_colors[2],
+                "DecisionTreeClassifier()+Selection": Bold_10.hex_colors[2],
+                "RandomForest(10)": Bold_10.hex_colors[1],
+                "RandomForest(10)+Selection": Bold_10.hex_colors[1],
+                "RandomForest()": Bold_10.hex_colors[5],
+                "RandomForest()+Selection": Bold_10.hex_colors[5],
+                "MultinomialNB()": Bold_10.hex_colors[4],
+                "MultinomialNB()+Selection": Bold_10.hex_colors[4],
+                "KNeighbours(metric='cityblock')": Bold_10.hex_colors[6],
+                "KNeighbours(metric='cityblock')+Selection": Bold_10.hex_colors[6],
+                "RandomForest(max_depth=10)": Bold_10.hex_colors[7],
+                "RandomForest(max_depth=10)+Selection": Bold_10.hex_colors[7],
+                "AdaBoostClassifier()": Bold_10.hex_colors[8],
+                "AdaBoostClassifier()+Selection": Bold_10.hex_colors[8],
             }
             styles = {
-                "Lasso()": "-",
+                "LogisticRegression(penalty='l1')": "-",
+                "LogisticRegression(penalty='l1')+Selection": "--",
                 "DecisionTreeClassifier()": "-",
                 "DecisionTreeClassifier()+Selection": "--",
                 "RandomForest(10)": "-",
                 "RandomForest(10)+Selection": "--",
-                "RandomForest(100)": "-",
-                "RandomForest(100)+Selection": "--",
+                "RandomForest()": "-",
+                "RandomForest()+Selection": "--",
                 "MultinomialNB()": "-",
                 "MultinomialNB()+Selection": "--",
                 "KNeighbours(metric='cityblock')": "-",
                 "KNeighbours(metric='cityblock')+Selection": "--",
-                "RandomForest(max_depth=6)": "-",
-                "RandomForest(max_depth=6)+Selection": "--",
+                "RandomForest(max_depth=10)": "-",
+                "RandomForest(max_depth=10)+Selection": "--",
+                "AdaBoostClassifier()": "-",
+                "AdaBoostClassifier()+Selection": "--",
             }
 
             plt.figure(1, figsize=(8, 8))
@@ -378,6 +283,6 @@ with rich.progress.Progress() as progress:
         with open("build/classifier-curves.json", "w") as dst:
             json.dump(curves, dst)
         # save GINI indices
-        with open("build/classifier-gini.npz", "wb") as dst:
-            numpy.savez_compressed(dst, domains=domains, classes=numpy.array(list(class_index)), gini=ginis)
+        # with open("build/classifier-gini.npz", "wb") as dst:
+        #     numpy.savez_compressed(dst, domains=domains, classes=numpy.array(list(class_index)), gini=ginis)
 
