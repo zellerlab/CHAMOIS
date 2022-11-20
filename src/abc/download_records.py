@@ -78,9 +78,9 @@ with rich.progress.Progress(
             start = int(img_bgc["StartCoord"])
             end = int(img_bgc["EndCoord"])
             bgc_record = record[start:end]
+            # copy annotations, since Biopython doesn't do it by default
+            bgc_record.annotations = record.annotations.copy()
 
-        # copy annotations, since Biopython doesn't do it by default
-        bgc_record.annotations = record.annotations.copy()
         # set the accession and identifier of the BGC
         bgc_record.id = bgc_record.name = img_bgc['ClusterID']
         # advance progress bar once finished
