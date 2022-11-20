@@ -1,67 +1,266 @@
 bgc_id	reason	reference
-BGC0001916	exact duplicate of BGC0001649	https://github.com/mibig-secmet/mibig-json/issues/002
-BGC0001804	exact duplicate of BGC0001378	https://github.com/mibig-secmet/mibig-json/issues/009
-BGC0000386	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/030
-BGC0001662	duplicate of BGC0001932 with extra genes	https://github.com/mibig-secmet/mibig-json/issues/033
-BGC0001891	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/037
-BGC0001362	exact duplicate of BGC0000932	https://github.com/mibig-secmet/mibig-json/issues/039
-BGC0001982	exact duplicate of BGC0001881	https://github.com/mibig-secmet/mibig-json/issues/053
-BGC0001555	locus contains several unrelated clusters	https://github.com/mibig-secmet/mibig-json/issues/056
-BGC0001803	exact duplicate of BGC0000625	https://github.com/mibig-secmet/mibig-json/issues/058
-BGC0000696	duplicate of BGC0001603 with extra flanking regions	https://github.com/mibig-secmet/mibig-json/issues/060
-BGC0001784	duplicate of BGC0001939 with extra flanking regions	https://github.com/mibig-secmet/mibig-json/issues/062
-BGC0001992	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/065
-BGC0000928	exact duplicate of BGC0000188 with missing annotations	https://github.com/mibig-secmet/mibig-json/issues/071
-BGC0001442	exact duplicate of BGC0001497 with wrong type	https://github.com/mibig-secmet/mibig-json/issues/073
-BGC0001958	exact duplicate of BGC0001957	https://github.com/mibig-secmet/mibig-json/issues/075
-BGC0001920	duplicate of BGC0001921	https://github.com/mibig-secmet/mibig-json/issues/077
-BGC0000655	exact duplicate of BGC0000611	https://github.com/mibig-secmet/mibig-json/issues/078
-BGC0001444	exact duplicate of BGC0001538	https://github.com/mibig-secmet/mibig-json/issues/081
-BGC0002003	exact duplicate of BGC0001608	https://github.com/mibig-secmet/mibig-json/issues/084
-BGC0001908	exact duplicate of BGC0001770	https://github.com/mibig-secmet/mibig-json/issues/085
-BGC0001815	exact duplicate of BGC0001377	https://github.com/mibig-secmet/mibig-json/issues/086
-BGC0001557	exact duplicate of BGC0001436	https://github.com/mibig-secmet/mibig-json/issues/087
-BGC0001241	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/088
-BGC0001805	exact duplicate of BGC0000446	https://github.com/mibig-secmet/mibig-json/issues/089
-BGC0001915	exact duplicate of BGC0001528	https://github.com/mibig-secmet/mibig-json/issues/091
-BGC0000805	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/092
-BGC0001228	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/093
-BGC0000467	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/094
-BGC0000025	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/097
-BGC0001124	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/108
+BGC0000005	retired in MIBiG 3.1	
+BGC0000015	retired in MIBiG 3.1	
 BGC0000016	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/115
-BGC0000979	duplicate of a subsequence of BGC0000981	https://github.com/mibig-secmet/mibig-json/issues/118
-BGC0000980	duplicate of a subsequence of BGC0000981	https://github.com/mibig-secmet/mibig-json/issues/118
-BGC0000228	duplicate of a subsequence of BGC0000227	https://github.com/mibig-secmet/mibig-json/issues/119
-BGC0000835	duplicate of a subsequence of BGC0000270	https://github.com/mibig-secmet/mibig-json/issues/120
-BGC0000246	duplicate of a subsequence of BGC0000247	https://github.com/mibig-secmet/mibig-json/issues/121
+BGC0000025	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/097
+BGC0000049	retired in MIBiG 3.1	
+BGC0000061	retired in MIBiG 3.1	
+BGC0000089	retired in MIBiG 3.1	
+BGC0000095	retired in MIBiG 3.1	
+BGC0000101	retired in MIBiG 3.1	
+BGC0000155	retired in MIBiG 3.1	
+BGC0000183	retired in MIBiG 3.1	
+BGC0000206	retired in MIBiG 3.1	
 BGC0000214	duplicate of a subsequence of BGC0001074	https://github.com/mibig-secmet/mibig-json/issues/122
-BGC0000849	duplicate of a subsequence of BGC0000038	https://github.com/mibig-secmet/mibig-json/issues/123
-BGC0001857	exact duplicate of BGC00001978 with wrong type	https://github.com/mibig-secmet/mibig-json/issues/128
-BGC0001976	exact duplicate of BGC0001977 with missing annotations	https://github.com/mibig-secmet/mibig-json/issues/129
-BGC0001220	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/143
-BGC0001485	exact duplicate of BGC0001546	https://github.com/mibig-secmet/mibig-json/issues/154
-BGC0001471	duplicate of a subsequence of BGC0002023	https://github.com/mibig-secmet/mibig-json/issues/155
-BGC0001104	duplicate of a subsequence of BGC0001025	https://github.com/mibig-secmet/mibig-json/issues/156
-BGC0001530	exact duplicate of BGC0001468	https://github.com/mibig-secmet/mibig-json/issues/157
-BGC0001280	exact duplicate of BGC0001264	https://github.com/mibig-secmet/mibig-json/issues/159
-BGC0001900	duplicate of a subsequence of BGC001599	https://github.com/mibig-secmet/mibig-json/issues/160
-BGC0001817	not a gene cluster	https://github.com/mibig-secmet/mibig-json/issues/161
-BGC0001619	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/161
-BGC0001943	exact duplicate of BGC0001822	https://github.com/mibig-secmet/mibig-json/issues/162
-BGC0001854	duplicate of a subsequence of BGC0001901	https://github.com/mibig-secmet/mibig-json/issues/163
-BGC0002030	duplicate of BGC0001866 with extra flanking regions	https://github.com/mibig-secmet/mibig-json/issues/164
-BGC0001096	duplicate of BGC0000995 with extra flanking regions	https://github.com/mibig-secmet/mibig-json/issues/165
-BGC0000965	duplicate of BGC0001397 with extra flanking regions	https://github.com/mibig-secmet/mibig-json/issues/166
-BGC0001559	duplicate of BGC0000974 with wrong type	https://github.com/mibig-secmet/mibig-json/issues/170
-BGC0001133	invalid flanking genes	https://github.com/mibig-secmet/mibig-json/issues/176
-BGC0001862	duplicate of BGC0001930 with extra flanking genes	https://github.com/mibig-secmet/mibig-json/issues/178
-BGC0001281	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/182
-BGC0001317	not a gene cluster (plant)	https://mibig.secondarymetabolites.org/repository/BGC0001317/#r1c1
+BGC0000228	retired in MIBiG 3.1	
+BGC0000246	retired in MIBiG 3.1	
+BGC0000250	retired in MIBiG 3.1	
+BGC0000251	retired in MIBiG 3.1	
+BGC0000276	retired in MIBiG 3.1	
+BGC0000299	retired in MIBiG 3.1	
+BGC0000317	retired in MIBiG 3.1	
+BGC0000318	retired in MIBiG 3.1	
+BGC0000338	retired in MIBiG 3.1	
+BGC0000358	retired in MIBiG 3.1	
+BGC0000361	retired in MIBiG 3.1	
+BGC0000370	retired in MIBiG 3.1	
+BGC0000386	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/030
+BGC0000389	retired in MIBiG 3.1	
+BGC0000456	retired in MIBiG 3.1	
+BGC0000462	retired in MIBiG 3.1	
+BGC0000463	retired in MIBiG 3.1	
+BGC0000467	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/094
+BGC0000629	retired in MIBiG 3.1	
+BGC0000655	exact duplicate of BGC0000611	https://github.com/mibig-secmet/mibig-json/issues/078
 BGC0000671	not a gene cluster (plant)	https://mibig.secondarymetabolites.org/repository/BGC0000671/#r1c1
 BGC0000672	not a gene cluster (plant)	https://mibig.secondarymetabolites.org/repository/BGC0000672/#r1c1
+BGC0000680	retired in MIBiG 3.1	
+BGC0000696	duplicate of BGC0001603 with extra flanking regions	https://github.com/mibig-secmet/mibig-json/issues/060
+BGC0000697	retired in MIBiG 3.1	
+BGC0000710	retired in MIBiG 3.1	
+BGC0000717	retired in MIBiG 3.1	
+BGC0000718	retired in MIBiG 3.1	
+BGC0000726	retired in MIBiG 3.1	
+BGC0000750	retired in MIBiG 3.1	
+BGC0000771	retired in MIBiG 3.1	
+BGC0000805	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/092
+BGC0000808	retired in MIBiG 3.1	
 BGC0000810	not a gene cluster (plant)	https://mibig.secondarymetabolites.org/repository/BGC0000810/#r1c1
+BGC0000822	retired in MIBiG 3.1	
+BGC0000823	retired in MIBiG 3.1	
+BGC0000824	retired in MIBiG 3.1	
+BGC0000828	retired in MIBiG 3.1	
+BGC0000835	duplicate of a subsequence of BGC0000270	https://github.com/mibig-secmet/mibig-json/issues/120
+BGC0000849	duplicate of a subsequence of BGC0000038	https://github.com/mibig-secmet/mibig-json/issues/123
+BGC0000928	exact duplicate of BGC0000188 with missing annotations	https://github.com/mibig-secmet/mibig-json/issues/071
+BGC0000931	retired in MIBiG 3.1	
+BGC0000952	retired in MIBiG 3.1	
+BGC0000965	duplicate of BGC0001397 with extra flanking regions	https://github.com/mibig-secmet/mibig-json/issues/166
+BGC0000979	duplicate of a subsequence of BGC0000981	https://github.com/mibig-secmet/mibig-json/issues/118
+BGC0000980	duplicate of a subsequence of BGC0000981	https://github.com/mibig-secmet/mibig-json/issues/118
+BGC0001009	retired in MIBiG 3.1	
+BGC0001081	retired in MIBiG 3.1	
+BGC0001086	retired in MIBiG 3.1	
+BGC0001087	retired in MIBiG 3.1	
+BGC0001092	retired in MIBiG 3.1	
+BGC0001096	duplicate of BGC0000995 with extra flanking regions	https://github.com/mibig-secmet/mibig-json/issues/165
+BGC0001104	retired in MIBiG 3.1	
+BGC0001107	retired in MIBiG 3.1	
+BGC0001120	retired in MIBiG 3.1	
+BGC0001121	retired in MIBiG 3.1	
+BGC0001124	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/108
+BGC0001129	retired in MIBiG 3.1	
+BGC0001133	invalid flanking genes	https://github.com/mibig-secmet/mibig-json/issues/176
+BGC0001158	retired in MIBiG 3.1	
+BGC0001180	retired in MIBiG 3.1	
+BGC0001208	retired in MIBiG 3.1	
+BGC0001220	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/143
+BGC0001228	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/093
+BGC0001232	retired in MIBiG 3.1	
+BGC0001234	retired in MIBiG 3.1	
+BGC0001241	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/088
+BGC0001243	retired in MIBiG 3.1	
+BGC0001247	retired in MIBiG 3.1	
+BGC0001253	retired in MIBiG 3.1	
+BGC0001256	retired in MIBiG 3.1	
+BGC0001259	retired in MIBiG 3.1	
+BGC0001263	retired in MIBiG 3.1	
+BGC0001265	retired in MIBiG 3.1	
+BGC0001269	retired in MIBiG 3.1	
+BGC0001270	retired in MIBiG 3.1	
+BGC0001271	retired in MIBiG 3.1	
+BGC0001272	retired in MIBiG 3.1	
+BGC0001274	retired in MIBiG 3.1	
+BGC0001279	retired in MIBiG 3.1	
+BGC0001280	retired in MIBiG 3.1	
+BGC0001281	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/182
+BGC0001282	retired in MIBiG 3.1	
+BGC0001308	retired in MIBiG 3.1	
+BGC0001309	retired in MIBiG 3.1	
 BGC0001316	not a gene cluster (plant)	https://mibig.secondarymetabolites.org/repository/BGC0001316/#r1c1
+BGC0001317	not a gene cluster (plant)	https://mibig.secondarymetabolites.org/repository/BGC0001317/#r1c1
+BGC0001319	retired in MIBiG 3.1	
+BGC0001320	retired in MIBiG 3.1	
+BGC0001321	not a gene cluster (plant)  	
+BGC0001322	not a gene cluster (plant)  	
+BGC0001323	not a gene cluster (plant)  	
+BGC0001324	not a gene cluster (plant)  	
 BGC0001325	not a gene cluster (plant)	https://mibig.secondarymetabolites.org/repository/BGC0001325/#r1c1
+BGC0001347	retired in MIBiG 3.1	
+BGC0001352	retired in MIBiG 3.1	
+BGC0001353	retired in MIBiG 3.1	
+BGC0001354	retired in MIBiG 3.1	
+BGC0001355	retired in MIBiG 3.1	
+BGC0001359	retired in MIBiG 3.1	
+BGC0001362	retired in MIBiG 3.1	
+BGC0001382	retired in MIBiG 3.1	
+BGC0001385	retired in MIBiG 3.1	
+BGC0001401	retired in MIBiG 3.1	
+BGC0001442	exact duplicate of BGC0001497 with wrong type	https://github.com/mibig-secmet/mibig-json/issues/073
+BGC0001444	exact duplicate of BGC0001538	https://github.com/mibig-secmet/mibig-json/issues/081
+BGC0001450	retired in MIBiG 3.1	
+BGC0001466	retired in MIBiG 3.1	
+BGC0001471	duplicate of a subsequence of BGC0002023	https://github.com/mibig-secmet/mibig-json/issues/155
+BGC0001485	exact duplicate of BGC0001546	https://github.com/mibig-secmet/mibig-json/issues/154
+BGC0001497	retired in MIBiG 3.1	
+BGC0001530	retired in MIBiG 3.1	
+BGC0001535  not a gene cluster (two clusters)   		
+BGC0001536  not a gene cluster (two clusters)   		
+BGC0001538	retired in MIBiG 3.1	
+BGC0001546	retired in MIBiG 3.1	
+BGC0001555	locus contains several unrelated clusters	https://github.com/mibig-secmet/mibig-json/issues/056
+BGC0001557	retired in MIBiG 3.1	
+BGC0001559	duplicate of BGC0000974 with wrong type	https://github.com/mibig-secmet/mibig-json/issues/170
+BGC0001581	retired in MIBiG 3.1	
+BGC0001613	retired in MIBiG 3.1	
+BGC0001619	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/161
+BGC0001643	retired in MIBiG 3.1	
+BGC0001662	duplicate of BGC0001932 with extra genes	https://github.com/mibig-secmet/mibig-json/issues/033
+BGC0001673	retired in MIBiG 3.1	
+BGC0001676	retired in MIBiG 3.1	
+BGC0001688	retired in MIBiG 3.1	
+BGC0001689	retired in MIBiG 3.1	
+BGC0001691	retired in MIBiG 3.1	
+BGC0001697	retired in MIBiG 3.1	
+BGC0001698	retired in MIBiG 3.1	
+BGC0001710	retired in MIBiG 3.1	
+BGC0001714	retired in MIBiG 3.1	
+BGC0001734	retired in MIBiG 3.1	
+BGC0001754	retired in MIBiG 3.1	
+BGC0001766	retired in MIBiG 3.1	
+BGC0001784	duplicate of BGC0001939 with extra flanking regions	https://github.com/mibig-secmet/mibig-json/issues/062
+BGC0001798	retired in MIBiG 3.1	
 BGC0001799	not a gene cluster (plant)	https://mibig.secondarymetabolites.org/repository/BGC0001799/#r1c1
-
+BGC0001803	exact duplicate of BGC0000625	https://github.com/mibig-secmet/mibig-json/issues/058
+BGC0001804	retired in MIBiG 3.1	
+BGC0001805	exact duplicate of BGC0000446	https://github.com/mibig-secmet/mibig-json/issues/089
+BGC0001815	retired in MIBiG 3.1	
+BGC0001817	not a gene cluster	https://github.com/mibig-secmet/mibig-json/issues/161
+BGC0001821	retired in MIBiG 3.1	
+BGC0001832	retired in MIBiG 3.1	
+BGC0001854	duplicate of a subsequence of BGC0001901	https://github.com/mibig-secmet/mibig-json/issues/163
+BGC0001855	retired in MIBiG 3.1	
+BGC0001857	exact duplicate of BGC00001978 with wrong type	https://github.com/mibig-secmet/mibig-json/issues/128
+BGC0001862	duplicate of BGC0001930 with extra flanking genes	https://github.com/mibig-secmet/mibig-json/issues/178
+BGC0001871	retired in MIBiG 3.1	
+BGC0001883	retired in MIBiG 3.1	
+BGC0001891	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/037
+BGC0001898	retired in MIBiG 3.1	
+BGC0001900	retired in MIBiG 3.1	
+BGC0001901	retired in MIBiG 3.1	
+BGC0001908	retired in MIBiG 3.1	
+BGC0001912	retired in MIBiG 3.1	
+BGC0001914	retired in MIBiG 3.1	
+BGC0001915	retired in MIBiG 3.1	
+BGC0001916	exact duplicate of BGC0001649	https://github.com/mibig-secmet/mibig-json/issues/002
+BGC0001920	duplicate of BGC0001921	https://github.com/mibig-secmet/mibig-json/issues/077
+BGC0001921	retired in MIBiG 3.1	
+BGC0001930	retired in MIBiG 3.1	
+BGC0001932	retired in MIBiG 3.1	
+BGC0001933	retired in MIBiG 3.1	
+BGC0001935	retired in MIBiG 3.1	
+BGC0001936	retired in MIBiG 3.1	
+BGC0001939	retired in MIBiG 3.1	
+BGC0001943	retired in MIBiG 3.1	
+BGC0001946	retired in MIBiG 3.1	
+BGC0001958	exact duplicate of BGC0001957	https://github.com/mibig-secmet/mibig-json/issues/075
+BGC0001961	retired in MIBiG 3.1	
+BGC0001973	retired in MIBiG 3.1	
+BGC0001976	exact duplicate of BGC0001977 with missing annotations	https://github.com/mibig-secmet/mibig-json/issues/129
+BGC0001977	retired in MIBiG 3.1	
+BGC0001978	retired in MIBiG 3.1	
+BGC0001982	exact duplicate of BGC0001881	https://github.com/mibig-secmet/mibig-json/issues/053
+BGC0001992	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/065
+BGC0001993	retired in MIBiG 3.1	
+BGC0002003	exact duplicate of BGC0001608	https://github.com/mibig-secmet/mibig-json/issues/084
+BGC0002023	retired in MIBiG 3.1	
+BGC0002027	retired in MIBiG 3.1	
+BGC0002027  duplicate of BGC0001486 		
+BGC0002029	retired in MIBiG 3.1	
+BGC0002030	duplicate of BGC0001866 with extra flanking regions	https://github.com/mibig-secmet/mibig-json/issues/164
+BGC0002041	retired in MIBiG 3.1	
+BGC0002057	retired in MIBiG 3.1	
+BGC0002065	retired in MIBiG 3.1	
+BGC0002094	retired in MIBiG 3.1	
+BGC0002113	retired in MIBiG 3.1	
+BGC0002156	retired in MIBiG 3.1	
+BGC0002159	retired in MIBiG 3.1	
+BGC0002179	retired in MIBiG 3.1	
+BGC0002182	retired in MIBiG 3.1	
+BGC0002183	retired in MIBiG 3.1	
+BGC0002184	retired in MIBiG 3.1	
+BGC0002189	retired in MIBiG 3.1	
+BGC0002200	retired in MIBiG 3.1	
+BGC0002201	retired in MIBiG 3.1	
+BGC0002202	retired in MIBiG 3.1	
+BGC0002231	retired in MIBiG 3.1	
+BGC0002241	retired in MIBiG 3.1	
+BGC0002243	retired in MIBiG 3.1	
+BGC0002247	retired in MIBiG 3.1	
+BGC0002251	retired in MIBiG 3.1	
+BGC0002252	retired in MIBiG 3.1	
+BGC0002263	retired in MIBiG 3.1	
+BGC0002265	retired in MIBiG 3.1	
+BGC0002269	retired in MIBiG 3.1	
+BGC0002279	retired in MIBiG 3.1	
+BGC0002280	retired in MIBiG 3.1	
+BGC0002281	retired in MIBiG 3.1	
+BGC0002292	retired in MIBiG 3.1	
+BGC0002299	retired in MIBiG 3.1	
+BGC0002310	retired in MIBiG 3.1	
+BGC0002335	retired in MIBiG 3.1	
+BGC0002368	retired in MIBiG 3.1	
+BGC0002371	retired in MIBiG 3.1	
+BGC0002375	retired in MIBiG 3.1	
+BGC0002388	retired in MIBiG 3.1	
+BGC0002459	retired in MIBiG 3.1	
+BGC0002463	retired in MIBiG 3.1	
+BGC0002481	retired in MIBiG 3.1	
+BGC0002511	retired in MIBiG 3.1	
+BGC0002513	retired in MIBiG 3.1	
+BGC0002516	retired in MIBiG 3.1	
+BGC0002519	retired in MIBiG 3.1	
+BGC0002534	retired in MIBiG 3.1	
+BGC0002549	retired in MIBiG 3.1	
+BGC0002562	retired in MIBiG 3.1	
+BGC0002574	retired in MIBiG 3.1	
+BGC0002589	retired in MIBiG 3.1	
+BGC0002590	retired in MIBiG 3.1	
+BGC0002593	retired in MIBiG 3.1	
+BGC0002595	retired in MIBiG 3.1	
+BGC0002599	retired in MIBiG 3.1	
+BGC0002600	retired in MIBiG 3.1	
+BGC0002601	retired in MIBiG 3.1	
+BGC0002628	retired in MIBiG 3.1	
+BGC0002650	retired in MIBiG 3.1	
+BGC0002655	retired in MIBiG 3.1	
+BGC0002658	retired in MIBiG 3.1	
+BGC0002664	retired in MIBiG 3.1	
+BGC0002684	retired in MIBiG 3.1	
+BGC0002705	retired in MIBiG 3.1	
+BGC0002714	retired in MIBiG 3.1	
+BGC0002717	retired in MIBiG 3.1	
+BGC0002720	retired in MIBiG 3.1	
+BGC0002727	retired in MIBiG 3.1	
+BGC0002728	retired in MIBiG 3.1	
+BGC0002730	retired in MIBiG 3.1	

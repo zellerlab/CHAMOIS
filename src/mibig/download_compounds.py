@@ -172,6 +172,42 @@ for bgc_id, entry in mibig.items():
         entry["compounds"] = [
             {"compound": "colibactin", "database_id": ["pubchem:138805674"]}
         ]
+    elif bgc_id == "BGC0001598":
+        entry["compounds"] = [
+            {"compound": f"foxicin {x}"}
+            for x in "ABCD"
+        ]
+    elif bgc_id == "BGC0001934":
+        entry["compounds"] = [
+            {"compound": f"armeniaspirol {x}"}
+            for x in "ABC"
+        ]
+    elif bgc_id == "BGC0001961" or bgc_id == "BGC0002288":
+        entry["compounds"] = [
+            {"compound": f"ashimide {x}"}
+            for x in "AB"
+        ]
+    elif bgc_id == "BGC0001963":
+        entry["compounds"] = [
+            {"compound": f"catenulisporolide {x}"}
+            for x in "ABCD"
+        ]
+    elif bgc_id == "BGC0001365":
+        entry["compounds"] = [
+            {"compound": "dithioclapurine"},
+            {"compound": "trithioclapurine"},
+            {"compound": "tetrathioclapurine"},
+        ]
+    elif bgc_id == "BGC0002008":
+        entry["compounds"] = [
+            {
+                "compound": "arylpolyene 1", 
+                "chem_struct": "C1(C=C(C)C(O)C(C)C=1)/C=C/C=C/C=C/C=C/C=C/C=C/C(OC)=O",
+            },
+            { "compound": "arylpolyene 2" },
+            { "compound": "arylpolyene 3" },
+            { "compound": "arylpolyene 4" },
+        ]
 
     for compound in entry["compounds"]:
         # β-D-galactosylvalidoxylamine-A is actually validamycin
