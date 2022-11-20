@@ -12,7 +12,7 @@ ATLAS=$(DATA)/NPAtlas_download.json.gz
 CHEMONT=$(DATA)/chemont/ChemOnt_2_1.obo
 
 DATASET_NAMES=abc mibig
-DATASET_TABLES=features mibig_ani
+DATASET_TABLES=features classes mibig_ani
 
 PYTHON=python -Wignore
 
