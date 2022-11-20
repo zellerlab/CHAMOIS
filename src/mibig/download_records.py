@@ -1,11 +1,12 @@
 import argparse
 import urllib.request
 import os
+import io
 import tarfile
 
 import rich.progress
 import pandas
-import gb_io
+import Bio.SeqIO
 
 
 parser = argparse.ArgumentParser()
@@ -34,14 +35,25 @@ with rich.progress.Progress() as progress:
                 for entry in iter(tar.next, None):
                     if entry.name.endswith(".gbk"):
                         with tar.extractfile(entry) as f:
-                            record = next(gb_io.iter(f))
-                            if record.name not in blocklist:
-                                records.append(record)
+                            data = io.StringIO(f.read().decode())
+                            record = Bio.SeqIO.read(data, "genbank")
+                            # ignore BGCs in blocklist
+                            if record.id in blocklist:
+                                continue
+                            # clamp the BGC boundaries to the left- and rightmost genes
+                            start = min( f.location.start for f in record.features if f.type == "CDS" )
+                            end = max( f.location.end for f in record.features if f.type == "CDS" )
+                            bgc_record = record[start:end]
+                            bgc_record.annotations = record.annotations.copy()
+                            bgc_record.id = record.id 
+                            bgc_record.name = record.name
+                            bgc_record.description = record.description
+                            records.append(bgc_record)
 
-    # sort records by name
-    records.sort(key=lambda record: record.name)
+    # sort records by MIBiG accession
+    records.sort(key=lambda record: record.id)
 
     # save records
     os.makedirs(os.path.dirname(args.output), exist_ok=True)
-    with open(args.output, "wb") as dst:
-        gb_io.dump(records, dst)
+    with open(args.output, "w") as dst:
+        Bio.SeqIO.write(records, dst, "genbank")
