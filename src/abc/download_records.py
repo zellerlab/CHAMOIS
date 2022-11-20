@@ -92,20 +92,16 @@ with rich.progress.Progress(
 
         # copy annotations, since Biopython doesn't do it by default
         bgc_record.annotations = record.annotations.copy()
-
         # set the accession and identifier of the BGC
-        record.id = img_bgc['ClusterID']
-        if img_bgc["GenbankID"]:
-            record.accession = img_bgc["GenbankID"]
-
+        bgc_record.id = bgc_record.name = img_bgc['ClusterID']
         # advance progress bar once finished
-        bgc_records.append(record)
+        bgc_records.append(bgc_record)
         
 
     # save it to output file
-    console.print(f"[bold green]{'Saving':>12}[/] GenBank records to {args.output!r}")
+    console.print(f"[bold blue]{'Saving':>12}[/] GenBank records to {args.output!r}")
     os.makedirs(os.path.dirname(args.output), exist_ok=True)
     with open(args.output, "w") as dst:
-        Bio.SeqIO.write(bgc_records, dst, "genbank")
-        
+        n = Bio.SeqIO.write(bgc_records, dst, "genbank")
+    console.print(f"[bold green]{'Saved':>12}[/] {n} GenBank records")
 
