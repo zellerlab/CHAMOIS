@@ -59,34 +59,39 @@ with rich.progress.Progress(
         for record in reader:
             accession, version = record.id.rsplit(".", 1)
             records[accession] = record
-    console.print(f"[bold green]{'Downloaded':>12}[/] {len(records)} GenBank records (expected {len(accessions)})")
+    progress.console.print(f"[bold green]{'Downloaded':>12}[/] {len(records)} GenBank records (expected {len(accessions)})")
 
-    # 
+    # collect records
     bgc_records = []
-    for img_bgc in imgabc:
+    for img_bgc in progress.track(imgabc, description=f"[bold blue]{'Extracting':>12}[/]"):
         # get record 
         record = records.get(img_bgc["GenbankID"], None)
-        if record is None:
+        start = int(img_bgc["StartCoord"])
+        end = int(img_bgc["EndCoord"])
+        if record is None or not record[start:end].seq:
             # try to download the record from the ABC page if downloading it from GenBank failed
             params = dict(section="BiosyntheticDetail", page="geneExport", taxon_oid=img_bgc['GenomeID'], cluster_id=img_bgc['ClusterID'], fasta="genbank")
             with session.get("https://img.jgi.doe.gov/cgi-bin/abc-public/main.cgi", params=params) as res:
-                soup = BeautifulSoup(res.text, "html.parser")           
-                bgc_record = Bio.SeqIO.read(io.StringIO(soup.find("pre").text), "genbank")
+                soup = BeautifulSoup(res.text, "html.parser")
+                content = soup.find("pre").text
+                bgc_record = Bio.SeqIO.read(io.StringIO(content), "genbank")
+                assert len(bgc_record.seq) > 0
             progress.console.print(f"[bold green]{'Recovered':>12}[/] GenBank record of [purple]{img_bgc['ClusterID']}[/] from IMG-ABC")
         else:
             # extract region of interest from the GenBank record
-            start = int(img_bgc["StartCoord"])
-            end = int(img_bgc["EndCoord"])
             bgc_record = record[start:end]
+            progress.console.print(f"[bold blue]{'Extracting':>12}[/] BGC at coordinates {start} to {end}")
             # copy annotations, since Biopython doesn't do it by default
             bgc_record.annotations = record.annotations.copy()
-
+        # check the record is not empty
+        if not bgc_record.seq:
+            progress.console.print(f"[bold red]{'Failed':>12}[/] getting record sequence for {img_bgc['ClusterID']}")
+            exit(1)
         # set the accession and identifier of the BGC
         bgc_record.id = bgc_record.name = img_bgc['ClusterID']
         # advance progress bar once finished
         bgc_records.append(bgc_record)
         
-
     # save it to output file
     console.print(f"[bold blue]{'Saving':>12}[/] GenBank records to {args.output!r}")
     os.makedirs(os.path.dirname(args.output), exist_ok=True)

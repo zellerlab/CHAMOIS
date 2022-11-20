@@ -11,6 +11,7 @@ import multiprocessing.pool
 import anndata
 import numpy
 import pyfastani
+import rich.panel
 import rich.progress
 import scipy.sparse
 import pandas
@@ -53,52 +54,55 @@ with rich.progress.Progress() as progress:
         # make blastd
         proc = subprocess.run(["makeblastdb", "-in", db_filename, "-dbtype", "nucl"], capture_output=True)
         proc.check_returncode()
-       
+
         # load query records
         with multiprocessing.pool.ThreadPool(args.jobs) as pool:
             def process(query_record):
+                assert query_record.seq
                 # write query sequences to FASTA
-                with tempfile.NamedTemporaryFile(suffix=".fna") as dst:
-                    Bio.SeqIO.write(query_record, dst.name, "fasta")
-                    # run BLASTn
-                    proc = subprocess.run([
-                        "blastn",
-                        "-task",
-                        "megablast",
-                        "-query",
-                        dst.name,
-                        "-db",
-                        db_filename,
-                        "-perc_identity",
-                        "50",
-                        "-subject_besthit",
-                        "-qcov_hsp_perc",
-                        "50",
-                        "-outfmt",
-                        "7"
-                    ], capture_output=True)        
-                    proc.check_returncode()
-                    # read results
-                    return pandas.read_table(
-                        io.BytesIO(proc.stdout), 
-                        comment="#", 
-                        header=None,
-                        index_col=None,
-                        names=[
-                            "query", 
-                            "subject",
-                            "identity",
-                            "alilen", 
-                            "mismatches", 
-                            "gapopens", 
-                            "qstart", 
-                            "qend", 
-                            "sstart",
-                            "send", 
-                            "evalue", 
-                            "bitscore"
-                        ]
-                    )
+                buffer = io.StringIO()
+                Bio.SeqIO.write(query_record, buffer, "fasta")
+                # run BLASTn
+                proc = subprocess.run([
+                    "blastn",
+                    "-task",
+                    "megablast",
+                    "-query",
+                    "-",
+                    "-db",
+                    db_filename,
+                    "-perc_identity",
+                    "50",
+                    "-subject_besthit",
+                    "-qcov_hsp_perc",
+                    "50",
+                    "-outfmt",
+                    "7"
+                ], input=buffer.getvalue().encode(), capture_output=True)
+                if proc.returncode != 0:
+                    rich.print(rich.panel.Panel(proc.stderr.decode()))
+                proc.check_returncode()
+                # read results
+                return pandas.read_table(
+                    io.BytesIO(proc.stdout),
+                    comment="#",
+                    header=None,
+                    index_col=None,
+                    names=[
+                        "query",
+                        "subject",
+                        "identity",
+                        "alilen",
+                        "mismatches",
+                        "gapopens",
+                        "qstart",
+                        "qend",
+                        "sstart",
+                        "send",
+                        "evalue",
+                        "bitscore"
+                    ]
+                )
             hits = pandas.concat(progress.track(pool.imap(process, query_records.values()), total=len(query_records), description=f"[bold blue]{'Matching':>12}[/]"))
 
     # patch query and subject accessions
