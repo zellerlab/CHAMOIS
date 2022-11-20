@@ -71,21 +71,10 @@ with rich.progress.Progress(
             params = dict(section="BiosyntheticDetail", page="geneExport", taxon_oid=img_bgc['GenomeID'], cluster_id=img_bgc['ClusterID'], fasta="genbank")
             with session.get("https://img.jgi.doe.gov/cgi-bin/abc-public/main.cgi", params=params) as res:
                 soup = BeautifulSoup(res.text, "html.parser")           
-                record = Bio.SeqIO.read(io.StringIO(soup.find("pre").text), "genbank")
+                bgc_record = Bio.SeqIO.read(io.StringIO(soup.find("pre").text), "genbank")
             progress.console.print(f"[bold green]{'Recovered':>12}[/] GenBank record of [purple]{img_bgc['ClusterID']}[/] from IMG-ABC")
-
-        # Extract only the BGC from the record, as sometimes the record contains 
-        # unrelated flanking genes. Note that to do so we use the internal 
-        # BGC annotations inside the GenBank record if there are any instead of 
-        # the IMG-ABC annotations, because the latter are less trustworthy by
-        # experience.
-        for feature in record.features:
-            if feature.type != "misc_feature":
-                continue
-            if feature.qualifiers.get("note", [""])[0].endswith("gene cluster"):
-                bgc_record = feature.location.extract(record)
-                break
         else:
+            # extract region of interest from the GenBank record
             start = int(img_bgc["StartCoord"])
             end = int(img_bgc["EndCoord"])
             bgc_record = record[start:end]

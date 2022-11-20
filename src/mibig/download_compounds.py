@@ -291,6 +291,7 @@ for bgc_id, bgc in mibig.items():
                     rich.print(f"[bold blue]{'Replacing':>12}[/] broken NPAtlas cross-reference ({npaid!r}) with correct one ({npaid_fixed!r})")
                     xref_index = compound["database_id"].index(npatlas_xref)
                     compound["database_id"][xref_index] = f"npatlas:{npaid_fixed}"
+                    compound["chem_struct"] = np_atlas[npaid_fixed]["smiles"]
                 else:
                     rich.print(f"[bold blue]{'Removing':>12}[/] broken NPAtlas cross-reference ({npaid!r}) compound {compound['compound']} of [purple]{bgc_id}[/]")
                     compound["database_id"].remove(npatlas_xref)
