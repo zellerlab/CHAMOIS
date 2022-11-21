@@ -202,11 +202,16 @@ for bgc_id, entry in mibig.items():
         entry["compounds"] = [
             {
                 "compound": "arylpolyene 1", 
-                "chem_struct": "C1(C=C(C)C(O)C(C)C=1)/C=C/C=C/C=C/C=C/C=C/C=C/C(OC)=O",
+                "chem_struct": "C1(C=C(C)C(O)C(C)C=1)/C=C/C=C/C=C/C=C/C=C/C=C/C(OC)=O",  # drawn manually from the paper structure
             },
             { "compound": "arylpolyene 2" },
             { "compound": "arylpolyene 3" },
             { "compound": "arylpolyene 4" },
+        ]
+    elif bgc_id == "BGC0000380":
+        entry["compounds"] = [
+            {"compound": f"leupyrrin {x}"}
+            for x in ("A1", "A2", "B1", "B2", "C", "D")
         ]
 
     for compound in entry["compounds"]:

@@ -37,7 +37,6 @@ with open(args.input) as f:
 
 console.print(f"[bold green]{'Downloading':>12}[/] IMG/ABC compounds")
 with rich.progress.Progress(
-     rich.progress.SpinnerColumn(finished_text="[green]:heavy_check_mark:[/]"),
      "[progress.description]{task.description}",
      rich.progress.BarColumn(bar_width=60),
      "[progress.completed]{task.completed}/{task.total}",
@@ -49,7 +48,7 @@ with rich.progress.Progress(
 ) as progress:
 
     oids = {}
-    for img_bgc in progress.track(imgabc, total=len(imgabc), description=f"{'Loading':>12}"):
+    for img_bgc in progress.track(imgabc, total=len(imgabc), description=f"[bold blue]{'Loading':>12}[/]"):
         # find compound OIDs in BGC
         compound_section = BeautifulSoup(img_bgc["SecondaryMetaboliteDisp"], "html.parser")
         oids[img_bgc['ClusterID']] = [
@@ -59,7 +58,7 @@ with rich.progress.Progress(
 
     unique_oids = set(itertools.chain.from_iterable(oids.values()))
     with multiprocessing.pool.ThreadPool() as pool:
-        task = progress.add_task(total=len(unique_oids), description=f"{'Downloading':>12}")
+        task = progress.add_task(total=len(unique_oids), description=f"[bold blue]{'Downloading':>12}[/]")
 
         def download_compound(oid: str):
             # load compound metadata from the JGI website
@@ -84,7 +83,7 @@ with rich.progress.Progress(
             if compound_data.get("ChEBI"):
                 compound.setdefault("database_id", []).append(f"chebi:{compound_data['ChEBI']}")
             # update progress bar
-            progress.console.print(f"{'Downloaded':>12} metadata for IMG compound {oid} ({compound['compound']})")
+            progress.console.print(f"[bold green]{'Downloaded':>12}[/] metadata for IMG compound {oid} ({compound['compound']})")
             progress.update(task_id=task, advance=1)
             return oid, compound
 
