@@ -10,13 +10,11 @@ import multiprocessing.pool
 
 import anndata
 import numpy
-import pyfastani
 import rich.panel
 import rich.progress
 import scipy.sparse
 import pandas
 import Bio.SeqIO
-import orthoani
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-q", "--query", required=True)
@@ -102,12 +100,11 @@ with rich.progress.Progress() as progress:
                         "evalue",
                         "bitscore"
                     ]
-                )
+                ).assign(query=query_record.id)
             hits = pandas.concat(progress.track(pool.imap(process, query_records.values()), total=len(query_records), description=f"[bold blue]{'Matching':>12}[/]"))
 
     # patch query and subject accessions
-    hits["query"] = hits["query"].str.rsplit(".", 1).str[0]
-    hits["subject"] = hits["subject"].str.rsplit(".", 1).str[0]
+    # hits["subject"] = hits["subject"].str.rsplit(".", 1).str[0]
 
     # create matrix identity
     identity = scipy.sparse.dok_matrix((len(query_records), len(target_records)), dtype=numpy.float_)
