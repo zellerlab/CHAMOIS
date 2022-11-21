@@ -7,6 +7,7 @@ import urllib.request
 import time
 import os
 
+import joblib
 import rich.progress
 import pubchempy
 import pandas
@@ -20,9 +21,15 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--mibig-version", default="3.1")
 parser.add_argument("--atlas", required=True)
 parser.add_argument("--blocklist")
+parser.add_argument("--cache")
 parser.add_argument("-o", "--output", required=True)
 args = parser.parse_args()
 
+# create persistent cache
+if args.cache:
+    rich.print(f"[bold green]{'Using':>12}[/] joblib cache folder {args.cache!r}")
+    os.makedirs(args.cache, exist_ok=True)
+memory = joblib.Memory(location=args.cache, verbose=False)
 
 # --- Download MIBiG metadata ------------------------------------------------
 
@@ -368,15 +375,25 @@ for bgc_id, bgc in mibig.items():
                     rich.print(f"[bold red]{'Failed':>12}[/] to map {compound['compound']!r} product of [purple]{bgc_id}[/] to NPAtlas")
 
 # --- Try to map unannotated compounds to PubChem ----------------------------
+
+# cache PubChem queries
+@memory.cache
+def get_cids(name):
+    return pubchempy.get_cids(name)
+
+@memory.cache
+def get_compounds(cids):
+    return pubchempy.get_compounds(cids)
+
 for entry in rich.progress.track(mibig.values(), description=f"[bold blue]{'Mapping':>12}[/]"):
     for compound in entry["compounds"]:
         if "chem_struct" in compound:
             continue
         if not any(xref.startswith("pubchem") for xref in compound.get("database_id", ())):
             name = compound["compound"]
-            cids = pubchempy.get_cids(name)
+            cids = get_cids(name)
             if cids:
-                c = pubchempy.get_compounds(cids[:1])[0]
+                c = get_compounds(cids[:1])[0]
                 compound["database_id"] = [f"pubchem:{c}"]
                 compound["chem_struct"] = c.isomeric_smiles
                 rich.print(f"[bold green]{'Mapped':>12}[/] {compound['compound']!r} product of [purple]{entry['mibig_accession']}[/] to PubChem compound {c.cid}")
@@ -399,7 +416,7 @@ for entry in rich.progress.track(mibig.values(), description=f"[bold blue]{'Down
         # use PubChem structure if available
         pubchem_xref = next((int(xref.split(":")[1]) for xref in compound.get("database_id", ()) if xref.startswith("pubchem")), None)
         if pubchem_xref is not None:
-            pubchem_entry = pubchempy.get_compounds([pubchem_xref])[0]
+            pubchem_entry = get_compounds([pubchem_xref])[0]
             compound["chem_struct"] = pubchem_entry.isomeric_smiles
             continue
         # failed to get the structure...
