@@ -10,6 +10,7 @@ from urllib.error import HTTPError
 from typing import Dict, List
 
 import anndata
+import joblib
 import pandas
 import pronto
 import numpy
@@ -26,8 +27,14 @@ parser.add_argument("-i", "--input", required=True)
 parser.add_argument("--atlas", required=True)
 parser.add_argument("--chemont", required=True)
 parser.add_argument("-o", "--output", required=True)
+parser.add_argument("--cache")
 args = parser.parse_args()
 
+# create persistent cache
+if args.cache:
+    rich.print(f"[bold green]{'Using':>12}[/] joblib cache folder {args.cache!r}")
+    os.makedirs(args.cache, exist_ok=True)
+memory = joblib.Memory(location=args.cache, verbose=False)
 
 # --- Load MIBiG -------------------------------------------------------------
 
@@ -64,32 +71,15 @@ chemont_indices = {
 
 cache = {}
 
-def get_classyfire(inchikey):
-    if inchikey in inchikey_index:
-        npaid = inchikey_index[inchikey]["npaid"]
-        compound.setdefault("database_id", []).append(f"npatlas:{npaid}")
-        if np_atlas[npaid]["classyfire"] is not None:
-            rich.print(f"[bold blue]{'Using':>12}[/] NPAtlas classification ({npaid}) for compound {compound['compound']!r} of {bgc_id}")
-            return np_atlas[npaid]["classyfire"]
-    elif inchikey in cache:
-        rich.print(f"[bold blue]{'Using':>12}[/] cached annotations for compound {compound['compound']!r} of {bgc_id}")
-        return cache[inchikey]
-    else:
-        # otherwise use the ClassyFire website API
-        try:
-            rich.print(f"[bold blue]{'Querying':>12}[/] ClassyFire for compound {compound['compound']!r} of {bgc_id}")
-            with urllib.request.urlopen(f"http://classyfire.wishartlab.com/entities/{inchikey}.json") as res:
-                if res.code == 200:
-                    data = json.load(res)
-                    if "class" in data:
-                        cache[inchikey] = data
-                        return data
-                    else:
-                        return None
-        except HTTPError:
-            return None
-        finally:
-            time.sleep(0.1)
+@memory.cache
+def get_classyfire_inchikey(inchikey):
+    # otherwise use the ClassyFire website API
+    with urllib.request.urlopen(f"http://classyfire.wishartlab.com/entities/{inchikey}.json") as res:
+        data = json.load(res)
+        time.sleep(0.1)
+        if "class" not in data:
+            raise RuntimeError("classification not found")
+        return data if "class" in data else None       
 
 annotations = {}
 for bgc_id, bgc_compounds in rich.progress.track(compounds.items(), description=f"[bold blue]{'Classifying':>12}[/]"):
@@ -98,16 +88,27 @@ for bgc_id, bgc_compounds in rich.progress.track(compounds.items(), description=
     for compound in bgc_compounds:
         # ignore compounds without structure (should have gotten one already)
         if "chem_struct" not in compound:
-            rich.print(f"[bold red]{'Skipping':>12}[/] {compound['compound']!r} compound of {bgc_id} with no structure")
+            rich.print(f"[bold yellow]{'Skipping':>12}[/] {compound['compound']!r} compound of {bgc_id} with no structure")
             continue
-        # try to use classyfire by inchi
+        # use InChi key to find annotation in NPAtlas
         inchikey = pybel.readstring("smi", compound['chem_struct'].strip()).write("inchikey").strip()
-        classyfire = get_classyfire(inchikey)
-        if classyfire is None:
+        if inchikey in inchikey_index:
+            npaid = inchikey_index[inchikey]["npaid"]
+            compound.setdefault("database_id", []).append(f"npatlas:{npaid}")
+            if np_atlas[npaid]["classyfire"] is not None:
+                rich.print(f"[bold green]{'Found':>12}[/] NPAtlas classification ({npaid}) for compound {compound['compound']!r} of {bgc_id}")
+                annotations[bgc_id].append(np_atlas[npaid]["classyfire"])
+                continue
+        # try to use classyfire by InChi key othewrise
+        rich.print(f"[bold blue]{'Querying':>12}[/] ClassyFire for compound {compound['compound']!r} of {bgc_id}")
+        try:
+            classyfire = get_classyfire_inchikey(inchikey)
+        except (RuntimeError, HTTPError):
             rich.print(f"[bold red]{'Failed':>12}[/] to get ClassyFire annotations for {compound['compound']!r} compound of {bgc_id}")
+        else:
+            rich.print(f"[bold green]{'Downloaded':>12}[/] ClassyFire annotations for {compound['compound']!r} compound of {bgc_id}")
+            annotations[bgc_id].append(classyfire)
             continue
-        # record annotations
-        annotations[bgc_id].append(classyfire)
 
 
 # --- Binarize classes -------------------------------------------------------
@@ -141,6 +142,23 @@ for bgc_id in rich.progress.track(annotations, description=f"[bold blue]{'Binari
                 classes[bgc_index, chemont_indices[parent.id]] = True
 
 
+# --- Make adjacency matrix for the class graph ------------------------------
+
+superclasses = scipy.sparse.dok_matrix((len(chemont_indices), len(chemont_indices)), dtype=numpy.bool_)
+for term_id, i in chemont_indices.items():
+    for superclass in chemont[term_id].superclasses():
+        if superclass.id != "CHEMONTID:9999999":
+            j = chemont_indices[superclass.id]
+            superclasses[i, j] = True
+
+subclasses = scipy.sparse.dok_matrix((len(chemont_indices), len(chemont_indices)), dtype=numpy.bool_)
+for term_id, i in chemont_indices.items():
+    for subclass in chemont[term_id].subclasses():
+        if superclass.id != "CHEMONTID:9999999":
+            j = chemont_indices[subclass.id]
+            subclasses[i, j] = True
+
+
 # --- Create annotated data --------------------------------------------------
 
 # generate annotated data
@@ -158,6 +176,10 @@ data = anndata.AnnData(
         index=list(chemont_indices),
         data=dict(n_positives=classes.sum(axis=0))
     ),
+    varp=dict(
+        subclasses=subclasses.tocsr(),
+        superclasses=superclasses.tocsr(),
+    )
 )
 
 # save annotated data
