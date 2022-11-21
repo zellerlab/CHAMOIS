@@ -66,5 +66,6 @@ $(BUILD)/abc/clusters.json: $(BUILD)/abc/genomes.json
 $(DATA)/datasets/abc/clusters.gbk: $(BUILD)/abc/clusters.json
 	$(PYTHON) src/abc/download_records.py -i $< -o $@
 
-$(DATA)/datasets/abc/compounds.json: $(BUILD)/abc/clusters.json
-	$(PYTHON) src/abc/download_compounds.py --input $< --output $@
+$(DATA)/datasets/abc/compounds.json: $(BUILD)/abc/clusters.json $(ATLAS)
+	mkdir -p build/cache/abc_compounds
+	$(PYTHON) src/abc/download_compounds.py --input $< --output $@ --atlas $(ATLAS) --cache $(BUILD)
