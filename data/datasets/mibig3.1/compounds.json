@@ -1,7 +1,7 @@
 {
     "BGC0000001": [
         {
-            "chem_struct": "CC1C[C@]23OC(=O)C4=C2OC1C(O)C3\\C=C/C(=O)[C@@H](C)C[C@@H](C)C4=O",
+            "chem_struct": "C[C@H]1C[C@H](C(=O)C2=C3[C@]4(CC(C(O3)C(C4/C=C\\C1=O)O)C)OC2=O)C",
             "compound": "abyssomicin C",
             "database_id": [
                 "npatlas:NPA001961",
@@ -24,7 +24,7 @@
     ],
     "BGC0000002": [
         {
-            "chem_struct": "CCCC(O[C@H]1C[C@](C)(N)[C@H](O)[C@H](C)O1)C(C)C(O)C(CC)\\C=C\\C(O)C(C)C1C\\C=C(C)\\C(O)C(C)C(CC(O)C(C)C(O)CC2CC(O)C(O)C(O)(CC(O[C@@H]3O[C@H](C)[C@@H](O)[C@H](O[C@H]4C[C@@H](N)[C@H](O)[C@@H](C)O4)[C@H]3O[C@@H]3O[C@H](C)[C@@H](O)[C@H](O)[C@H]3O)C(C)CCC(O)CC(O)C\\C=C(CC)\\C(=O)O1)O2)O[C@@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@@H]1O",
+            "chem_struct": "CCCC(C(C)C(C(CC)/C=C/C(C(C)C1C/C=C(/C(C(C(CC(C(C(CC2CC(C(C(O2)(CC(C(CCC(CC(C/C=C(/C(=O)O1)\\CC)O)O)C)O[C@H]3[C@@H]([C@H]([C@@H]([C@H](O3)C)O)O[C@H]4C[C@H]([C@@H]([C@H](O4)C)O)N)O[C@H]5[C@@H]([C@H]([C@@H]([C@H](O5)C)O)O)O)O)O)O)O)C)O)O[C@H]6[C@H]([C@H]([C@@H]([C@H](O6)CO)O)O)O)C)O)\\C)O)O)O[C@H]7C[C@]([C@@H]([C@@H](O7)C)O)(C)N",
             "compound": "aculeximycin",
             "database_id": [
                 "npatlas:NPA009222",
@@ -113,7 +113,7 @@
     ],
     "BGC0000011": [
         {
-            "chem_struct": "[H][C@]12OC=C[C@@]1([H])C1=C(O2)C=C(OC)C2=C1OC1=C(C(O)=CC=C1)C2=O",
+            "chem_struct": "COC1=C2C(=C3[C@@H]4C=CO[C@@H]4OC3=C1)OC5=C(C2=O)C(=CC=C5)O",
             "compound": "sterigmatocystin",
             "database_id": [
                 "npatlas:NPA005925",
@@ -247,7 +247,7 @@
     ],
     "BGC0000023": [
         {
-            "chem_struct": "CC(C)C\\C=C(/C)[C@H](O)[C@H](C)\\C=C\\C=C/[C@@H](O)CC1=C(C)C(=O)C(C)(O)O1",
+            "chem_struct": "CC1=C(OC(C1=O)(C)O)C[C@@H](/C=C\\C=C\\[C@@H](C)[C@H](/C(=C/CC(C)C)/C)O)O",
             "compound": "aurafuron A",
             "database_id": [
                 "npatlas:NPA001119"
@@ -293,7 +293,7 @@
     ],
     "BGC0000027": [
         {
-            "chem_struct": "CCCCCCCC(=O)C1C2CC3=C(COC(\\C=C\\C)=C3)C(=O)C2(C)OC1=O",
+            "chem_struct": "CCCCCCCC(=O)C1C2CC3=C(COC(=C3)/C=C/C)C(=O)C2(OC1=O)C",
             "compound": "ankaflavin",
             "database_id": [
                 "npatlas:NPA005638",
@@ -303,7 +303,7 @@
             "molecular_formula": "C23H30O5"
         },
         {
-            "chem_struct": "[H]\\C(C)=C(\\[H])C1=CC2=C(CO1)C(=O)[C@]1(C)OC(=O)[C@H](C(=O)CCCCC)[C@@]1([H])C2",
+            "chem_struct": "CCCCCC(=O)[C@@H]1[C@H]2CC3=C(COC(=C3)/C=C/C)C(=O)[C@@]2(OC1=O)C",
             "compound": "monascin",
             "database_id": [
                 "npatlas:NPA009686",
@@ -322,7 +322,7 @@
             "molecular_formula": "C21H22O5"
         },
         {
-            "chem_struct": "CCCCCCCC(=O)C1=C2C=C3C=C(OC=C3C(=O)[C@]2(C)OC1=O)\\C=C\\C",
+            "chem_struct": "CCCCCCCC(=O)C1=C2C=C3C=C(OC=C3C(=O)[C@@]2(OC1=O)C)/C=C/C",
             "compound": "monascorubrin",
             "database_id": [
                 "npatlas:NPA002306",
@@ -334,7 +334,7 @@
     ],
     "BGC0000028": [
         {
-            "chem_struct": "COC1\\C=C\\C=C(C)\\CC(C)C(O)C(C)\\C=C(/C)\\C=C(OC)\\C(=O)OC1C(C)C(O)C(C)C1(O)CC(OC(=O)\\C=C\\C(=O)NC2=C(O)CCC2=O)C(C)C(O1)C(C)C",
+            "chem_struct": "CC1C/C(=C/C=C/C(C(OC(=O)/C(=C/C(=C/C(C1O)C)/C)/OC)C(C)C(C(C)C2(CC(C(C(O2)C(C)C)C)OC(=O)/C=C/C(=O)NC3=C(CCC3=O)O)O)O)OC)/C",
             "compound": "bafilomycin B1",
             "database_id": [
                 "npatlas:NPA002171"
@@ -379,7 +379,7 @@
     ],
     "BGC0000032": [
         {
-            "chem_struct": "[H][C@@](C)(C(=O)C1=CC=CN1)[C@@]1([H])O[C@@]2(CC[C@@H](C)[C@@]([H])(CC3=NC4=C(O3)C=CC(NC)=C4C(O)=O)O2)[C@H](C)C[C@H]1C",
+            "chem_struct": "C[C@@H]1CC[C@]2([C@@H](C[C@H]([C@H](O2)[C@H](C)C(=O)C3=CC=CN3)C)C)O[C@@H]1CC4=NC5=C(O4)C=CC(=C5C(=O)O)NC",
             "compound": "A23187",
             "database_id": [
                 "npatlas:NPA003386"
@@ -412,7 +412,7 @@
     ],
     "BGC0000035": [
         {
-            "chem_struct": "CO[C@@H]1C[C@H](C)O[C@H](OC2C(C)CC(C)(O)C(=O)\\C=C\\C3OC3C(CO[C@@H]3O[C@H](C)[C@@H](O)[C@@H](OC)[C@H]3OC)C(C)OC(=O)\\C=C\\C2C)[C@H]1O",
+            "chem_struct": "C[C@H]1C[C@H]([C@@H]([C@H](O1)OC2C(CC(C(=O)/C=C/C3C(O3)C(C(OC(=O)/C=C/C2C)C)CO[C@H]4[C@@H]([C@@H]([C@@H]([C@H](O4)C)O)OC)OC)(C)O)C)O)OC",
             "compound": "chalcomycin A",
             "database_id": [
                 "npatlas:NPA004454"
@@ -506,7 +506,7 @@
     ],
     "BGC0000043": [
         {
-            "chem_struct": "CO[C@H](CC\\C(C)=C\\C=C\\CC\\C=C/[C@H]1CSC(=N1)[C@@H]1C[C@@H]1C)CC=C",
+            "chem_struct": "C[C@H]1C[C@H]1C2=N[C@H](CS2)/C=C\\CC/C=C/C=C(\\C)/CC[C@H](CC=C)OC",
             "compound": "curacin A",
             "database_id": [
                 "npatlas:NPA003438",
@@ -529,7 +529,7 @@
     ],
     "BGC0000045": [
         {
-            "chem_struct": "CC1CCC\\C=C\\C(=O)C2=C(O)C=C(O)C=C2CC(=O)O1",
+            "chem_struct": "CC1CCC/C=C/C(=O)C2=C(C=C(C=C2CC(=O)O1)O)O",
             "compound": "dehydrocurvularin",
             "database_id": [
                 "npatlas:NPA004907",
@@ -541,7 +541,7 @@
     ],
     "BGC0000046": [
         {
-            "chem_struct": "C[C@@H](O)[C@@H]1O[C@H]1\\C=C\\[C@@H]1O[C@H]1[C@H](O)C=C",
+            "chem_struct": "C[C@H]([C@H]1[C@@H](O1)/C=C/[C@H]2[C@@H](O2)[C@@H](C=C)O)O",
             "compound": "depudecin",
             "database_id": [
                 "npatlas:NPA001465",
@@ -577,7 +577,7 @@
     ],
     "BGC0000050": [
         {
-            "chem_struct": "C\\C=C(/C)C(O)C(C)\\C=C\\C=C(/C)CCC(O)CC1=C(C)C(=O)C(C)(O)O1",
+            "chem_struct": "C/C=C(\\C)/C(C(C)/C=C/C=C(\\C)/CCC(CC1=C(C(=O)C(O1)(C)O)C)O)O",
             "compound": "E-837",
             "database_id": [
                 "npatlas:NPA006280",
@@ -611,7 +611,7 @@
     ],
     "BGC0000052": [
         {
-            "chem_struct": "C[C@H](\\C=C\\CC\\C=C\\C=C\\C=C\\C=C\\C(=O)NC1=C(O)CCC1=O)C(O)[C@@H](C)C(O)\\C=C\\C=C\\C=C\\C=C\\C=C\\CC(OC1OC(C)C(O)C(O)C1O)C(C)C(=O)CC(O)CC(O)CC(O)\\C=C\\CC(O)CC(O)CC(O)CC(O)\\C=C\\CC(O)CC(O)CCCN",
+            "chem_struct": "CC1C(C(C(C(O1)OC(C/C=C/C=C/C=C/C=C/C=C/C([C@H](C)C([C@H](C)/C=C/CC/C=C/C=C/C=C/C=C/C(=O)NC2=C(CCC2=O)O)O)O)C(C)C(=O)CC(CC(CC(/C=C/CC(CC(CC(CC(/C=C/CC(CC(CCCN)O)O)O)O)O)O)O)O)O)O)O)O",
             "compound": "ECO-02301",
             "database_id": [
                 "npatlas:NPA003626",
@@ -670,7 +670,7 @@
             "molecular_formula": "C37H67NO12"
         },
         {
-            "chem_struct": "CC[C@H]1OC(=O)[C@H](C)[C@@H](O[C@H]2C[C@@](C)(O)[C@@H](O)[C@H](C)O2)[C@H](C)[C@@H](O[C@@H]2O[C@H](C)C[C@@H]([C@H]2O)N(C)C)[C@](C)(O)C[C@@H](C)C(=O)[C@H](C)[C@@H](O)[C@]1(C)O",
+            "chem_struct": "CC[C@@H]1[C@@]([C@@H]([C@H](C(=O)[C@@H](C[C@@]([C@@H]([C@H]([C@@H]([C@H](C(=O)O1)C)O[C@H]2C[C@@]([C@H]([C@@H](O2)C)O)(C)O)C)O[C@H]3[C@@H]([C@H](C[C@H](O3)C)N(C)C)O)(C)O)C)C)O)(C)O",
             "compound": "erythromycin C",
             "database_id": [
                 "npatlas:NPA009987",
@@ -736,7 +736,7 @@
     ],
     "BGC0000058": [
         {
-            "chem_struct": "[H][C@]12O[C@@H]1[C@H](O)[C@H](C)\\C=C(/C)\\C=C(C)\\C(=O)O[C@@]([H])(C\\C=C\\C=C\\C[C@H]2O)[C@@H](C)CCC(O)C(C)C(O)C(C)C(C)OC",
+            "chem_struct": "C[C@@H]1/C=C(/C=C(/C(=O)O[C@@H](C/C=C/C=C/C[C@H]([C@@H]2[C@@H]([C@@H]1O)O2)O)[C@@H](C)CCC(C(C)C(C(C)C(C)OC)O)O)\\C)\\C",
             "compound": "FD-891",
             "database_id": [
                 "npatlas:NPA007258",
@@ -849,7 +849,7 @@
     ],
     "BGC0000069": [
         {
-            "chem_struct": "CO[C@@H]([C@H](C)[C@@H](O)CC(O)=O)C(C)(C)C(=O)[C@@H](C)C[C@H](C)[C@H](O)[C@@]1(C)O[C@@H]1[C@@H](C)C=C(C)C",
+            "chem_struct": "C[C@@H](C[C@H](C)C(=O)C(C)(C)[C@H]([C@H](C)[C@H](CC(=O)O)O)OC)[C@@H]([C@@]1([C@H](O1)[C@@H](C)C=C(C)C)C)O",
             "compound": "gephyronic acid",
             "database_id": [
                 "npatlas:NPA001724"
@@ -860,7 +860,7 @@
     ],
     "BGC0000070": [
         {
-            "chem_struct": "COC1=CC(OC)=C(Cl)C2=C1C(=O)C1(O2)[C@H](C)CC(=O)C=C1OC",
+            "chem_struct": "C[C@@H]1CC(=O)C=C(C12C(=O)C3=C(O2)C(=C(C=C3OC)OC)Cl)OC",
             "compound": "griseofulvin",
             "database_id": [
                 "npatlas:NPA002483",
@@ -917,7 +917,7 @@
     ],
     "BGC0000072": [
         {
-            "chem_struct": "CC=C(C)C1CC=C(C)C(OC2OC(CO)C(O)C2O)C(OC(=O)CC(C)C)C(=O)CC(O)C(C)C(=O)O1",
+            "chem_struct": "CC=C(C)C1CC=C(C(C(C(=O)CC(C(C(=O)O1)C)O)OC(=O)CC(C)C)OC2C(C(C(O2)CO)O)O)C",
             "compound": "gulmirecin A",
             "database_id": [
                 "npatlas:NPA000955"
@@ -939,7 +939,7 @@
     ],
     "BGC0000074": [
         {
-            "chem_struct": "CO[C@H]1C[C@H](C)[C@@H](OC)C2=CC(=O)C=C(NC(=O)\\C(C)=C\\C=C/[C@H](OC)[C@@H](OC(N)=O)\\C(C)=C\\[C@H](C)[C@H]1OC)C2=O",
+            "chem_struct": "C[C@H]1C[C@@H]([C@@H]([C@H](/C=C(/[C@@H]([C@H](/C=C\\C=C(\\C(=O)NC2=CC(=O)C=C([C@@H]1OC)C2=O)/C)OC)OC(=O)N)\\C)C)OC)OC",
             "compound": "herbimycin A",
             "database_id": [
                 "npatlas:NPA003301"
@@ -950,7 +950,7 @@
     ],
     "BGC0000075": [
         {
-            "chem_struct": "CCC1CCC(=O)C2=C(O)C(C)=CC3=C2C(=O)C=C(NC(=O)C\\C=C(C)\\C(=O)O[C@@H](C)[C@@H](O)\\C=C\\1)C3=O",
+            "chem_struct": "CCC1CCC(=O)C2=C3C(=CC(=C2O)C)C(=O)C(=CC3=O)NC(=O)C/C=C(/C(=O)O[C@H]([C@H](C=C1)O)C)\\C",
             "compound": "hygrocin A",
             "database_id": [
                 "npatlas:NPA004945",
@@ -1017,7 +1017,7 @@
     ],
     "BGC0000080": [
         {
-            "chem_struct": "CC[C@H]1O[C@H](CC=C1C)C(\\C)=C\\[C@H](C)\\C=C\\[C@H]1CC(OC)=C(CO)C(=O)O1",
+            "chem_struct": "CC[C@@H]1C(=CC[C@@H](O1)/C(=C/[C@H](C)/C=C/[C@H]2CC(=C(C(=O)O2)CO)OC)/C)C",
             "compound": "jerangolid A",
             "database_id": [
                 "npatlas:NPA002932",
@@ -1072,7 +1072,7 @@
             "molecular_formula": "C26H35NO6"
         },
         {
-            "chem_struct": "C[C@@H](\\C=C(/C)[C@@H]1OC(=O)\\C=C\\CC\\C=C\\CC[C@@H]1C)C(=O)C[C@H](O)CC1CC(=O)NC(=O)C1",
+            "chem_struct": "C[C@H]1CC/C=C/CC/C=C/C(=O)O[C@H]1/C(=C/[C@H](C)C(=O)C[C@@H](CC2CC(=O)NC(=O)C2)O)/C",
             "compound": "8,9-dihydrolactimidomycin",
             "database_id": [
                 "npatlas:NPA008448"
@@ -1081,7 +1081,7 @@
             "molecular_formula": "C26H37NO6"
         },
         {
-            "chem_struct": "C[C@@H](\\C=C(/C)[C@@H]1OC(=O)\\C=C\\CC\\C=C\\[C@@H](O)C[C@@H]1C)C(=O)C[C@H](O)CC1CC(=O)NC(=O)C1",
+            "chem_struct": "C[C@H]1C[C@@H](/C=C/CC/C=C/C(=O)O[C@H]1/C(=C/[C@H](C)C(=O)C[C@@H](CC2CC(=O)NC(=O)C2)O)/C)O",
             "compound": "8-hydroxy-8,9-dihydrolactidomycin",
             "database_id": [
                 "npatlas:NPA007411"
@@ -1113,7 +1113,7 @@
     ],
     "BGC0000085": [
         {
-            "chem_struct": "[H][C@@]1(OC(=O)[C@H](C)[C@@H](O[C@H]2C[C@@](C)(OC)[C@H](OC(C)=O)[C@H](C)O2)[C@H](C)[C@@H](O[C@@H]2O[C@H](C)C[C@H](OC)[C@H]2O)[C@@H](C)C[C@](C)(O)C(=O)[C@H](C)[C@@H](OC(C)=O)[C@H]1C)[C@@H](C)[C@H](C)O",
+            "chem_struct": "C[C@@H]1C[C@@H]([C@H]([C@@H](O1)O[C@H]2[C@H](C[C@](C(=O)[C@@H]([C@H]([C@H]([C@H](OC(=O)[C@@H]([C@H]([C@@H]2C)O[C@H]3C[C@@]([C@@H]([C@@H](O3)C)OC(=O)C)(C)OC)C)[C@@H](C)[C@H](C)O)C)OC(=O)C)C)(C)O)C)O)OC",
             "compound": "lankamycin",
             "database_id": [
                 "npatlas:NPA008120",
@@ -1147,7 +1147,7 @@
     ],
     "BGC0000088": [
         {
-            "chem_struct": "[H][C@]12[C@H](C[C@@H](C)C=C1C=C[C@H](C)[C@@H]2CC[C@@H]1C[C@@H](O)CC(=O)O1)OC(=O)[C@H](C)CC",
+            "chem_struct": "CC[C@@H](C)C(=O)O[C@H]1C[C@H](C=C2[C@H]1[C@H]([C@H](C=C2)C)CC[C@@H]3C[C@H](CC(=O)O3)O)C",
             "compound": "monacolin K",
             "database_id": [
                 "npatlas:NPA009354"
@@ -1167,7 +1167,7 @@
             "molecular_formula": "C30H42N2O8"
         },
         {
-            "chem_struct": "COC1CC(C)C(OC)C2=C(O)C(NC(=O)\\C(C)=C/C=C\\C(C)C(OC(N)=O)\\C(C)=C/C(C)C1OC)=CC(O)=C2",
+            "chem_struct": "CC1CC(C(C(/C=C(\\C(C(/C=C\\C=C(/C(=O)NC2=C(C(=CC(=C2)O)C1OC)O)\\C)C)OC(=O)N)/C)C)OC)OC",
             "compound": "macbecin II",
             "database_id": [
                 "npatlas:NPA007469",
@@ -1252,7 +1252,7 @@
     ],
     "BGC0000094": [
         {
-            "chem_struct": "CC[C@H]1OC(=O)[C@H](C)[C@@H](O[C@@H]2O[C@H](C)C[C@@H]([C@H]2O)N(C)C)[C@@H](C)C[C@@H](C)C(=O)\\C=C\\[C@]1(C)O",
+            "chem_struct": "CC[C@@H]1[C@@](/C=C/C(=O)[C@@H](C[C@@H]([C@@H]([C@H](C(=O)O1)C)O[C@H]2[C@@H]([C@H](C[C@H](O2)C)N(C)C)O)C)C)(C)O",
             "compound": "methymycin",
             "database_id": [
                 "npatlas:NPA001238"
@@ -1286,7 +1286,7 @@
     ],
     "BGC0000098": [
         {
-            "chem_struct": "[H][C@]12[C@H](C[C@@H](C)C=C1C=C[C@H](C)[C@@H]2CC[C@@H]1C[C@@H](O)CC(=O)O1)OC(=O)[C@H](C)CC",
+            "chem_struct": "CC[C@@H](C)C(=O)O[C@H]1C[C@H](C=C2[C@H]1[C@H]([C@H](C=C2)C)CC[C@@H]3C[C@H](CC(=O)O3)O)C",
             "compound": "monacolin K",
             "database_id": [
                 "npatlas:NPA009354",
@@ -1371,7 +1371,7 @@
     ],
     "BGC0000106": [
         {
-            "chem_struct": "C[C@H]1\\C=C\\C=C/C=C(C)\\C(=O)NC2=C(Cl)C(=O)C3=C(C=C(C)C(O)=C3C(=O)\\C(C)=C\\[C@H](C)[C@@H](O)[C@@H](C)\\C=C\\[C@@H](O)C\\C=C(C)\\C(=O)C[C@@H]1O)C2=O",
+            "chem_struct": "C[C@H]1/C=C/C=C\\C=C(/C(=O)NC2=C(C(=O)C3=C(C(=C(C=C3C2=O)C)O)C(=O)/C(=C/[C@@H]([C@H]([C@H](/C=C/[C@H](C/C=C(/C(=O)C[C@@H]1O)\\C)O)C)O)C)/C)Cl)\\C",
             "compound": "naphthomycin A",
             "database_id": [
                 "npatlas:NPA000326"
@@ -1402,7 +1402,7 @@
     ],
     "BGC0000109": [
         {
-            "chem_struct": "[H][C@@]12OC\\C3=C/C=C/[C@H](C)C\\C(C)=C\\C[C@@H]4C[C@@H](C[C@]5(C[C@H](O)[C@H](C)[C@H](O5)C(\\C)=C\\C(C)C)O4)OC(=O)[C@H](C=C(C)[C@H]1O)[C@@]23O",
+            "chem_struct": "C[C@@H]\\1C/C(=C/C[C@@H]2C[C@@H](C[C@@]3(O2)C[C@@H]([C@@H]([C@H](O3)/C(=C/C(C)C)/C)C)O)OC(=O)[C@@H]4C=C([C@H]([C@@H]5[C@]4(/C(=C/C=C1)/CO5)O)O)C)/C",
             "compound": "LL-F28249\u03b1",
             "database_id": [
                 "npatlas:NPA002610"
@@ -1413,7 +1413,7 @@
     ],
     "BGC0000110": [
         {
-            "chem_struct": "COC1=C(C)C(=O)C(C)=C(O1)C1C\\C(CO1)=C\\C(\\C)=C\\C(\\C)=C\\C(\\C)=C\\C1=CC=C(C=C1)N(=O)=O",
+            "chem_struct": "CC1=C(OC(=C(C1=O)C)OC)C2C/C(=C/C(=C/C(=C/C(=C/C3=CC=C(C=C3)[N+](=O)[O-])/C)/C)/C)/CO2",
             "compound": "spectinabilin",
             "database_id": [
                 "npatlas:NPA001602"
@@ -1441,7 +1441,7 @@
             "molecular_formula": "C28H31NO6"
         },
         {
-            "chem_struct": "[H][C@]12C(C)=CC(C)=C[C@@]1(C)[C@@H](C1=CC=C(C=C1)N(=O)=O)[C@@]21CO[C@@H](C1)C1=C(C)C(=O)C(C)=C(OC)O1",
+            "chem_struct": "CC1=CC(=C[C@@]2([C@H]1[C@]3([C@@H]2C4=CC=C(C=C4)[N+](=O)[O-])C[C@H](OC3)C5=C(C(=O)C(=C(O5)OC)C)C)C)C",
             "compound": "SNF4435D",
             "database_id": [
                 "npatlas:NPA001579",
@@ -1453,7 +1453,7 @@
     ],
     "BGC0000111": [
         {
-            "chem_struct": "CCC(C)\\C=C\\C=C\\C=C\\C(\\O)=C\\C(=O)C(Cl)(Cl)Cl",
+            "chem_struct": "CCC(C)/C=C/C=C/C=C/C(=C/C(=O)C(Cl)(Cl)Cl)/O",
             "compound": "neocarzilin A",
             "database_id": [
                 "npatlas:NPA002988"
@@ -1497,7 +1497,7 @@
     ],
     "BGC0000114": [
         {
-            "chem_struct": "[H][C@](C)(C(O)=O)[C@]1([H])O[C@@H](C[C@@H]2C[C@@H](OC)[C@@H](C)[C@@]3(O[C@@](C)(C[C@H]3C)[C@@]3([H])CC[C@](C)(O3)[C@]3([H])O[C@]([H])(C[C@@H]3C)[C@@]3([H])O[C@@](O)(CO)[C@H](C)C[C@@H]3C)O2)CC[C@@H]1C",
+            "chem_struct": "C[C@H]1CC[C@@H](O[C@H]1[C@@H](C)C(=O)O)C[C@@H]2C[C@H]([C@H]([C@@]3(O2)[C@@H](C[C@@](O3)(C)[C@H]4CC[C@@](O4)(C)[C@H]5[C@H](C[C@@H](O5)[C@@H]6[C@H](C[C@H]([C@@](O6)(CO)O)C)C)C)C)C)OC",
             "compound": "nigericin",
             "database_id": [
                 "npatlas:NPA001792",
@@ -1550,7 +1550,7 @@
     ],
     "BGC0000119": [
         {
-            "chem_struct": "CC[C@]1(NC(=O)N(C)C)[C@@H](N)[C@H](NC2=CC(=CC=C2)C(C)=O)[C@](O)(COC(=O)C2=C(O)C=CC=C2C)[C@]1(C)O",
+            "chem_struct": "CC[C@@]1([C@H]([C@@H]([C@@]([C@]1(C)O)(COC(=O)C2=C(C=CC=C2O)C)O)NC3=CC=CC(=C3)C(=O)C)N)NC(=O)N(C)C",
             "compound": "7-deoxypactamycin",
             "database_id": [
                 "npatlas:NPA001550",
@@ -1584,7 +1584,7 @@
     ],
     "BGC0000122": [
         {
-            "chem_struct": "CC\\C(\\C=C\\C1=CC=CC(=O)O1)=C/C=C/C1=CC=CC=C1",
+            "chem_struct": "CC/C(=C\\C=C\\C1=CC=CC=C1)/C=C/C2=CC=CC(=O)O2",
             "compound": "phenylnannolone A",
             "database_id": [
                 "npatlas:NPA009546",
@@ -1594,7 +1594,7 @@
             "molecular_formula": "C19H18O2"
         },
         {
-            "chem_struct": "C\\C(\\C=C\\C1=CC=CC(=O)O1)=C/C=C/C1=CC=CC=C1",
+            "chem_struct": "C/C(=C\\C=C\\C1=CC=CC=C1)/C=C/C2=CC=CC(=O)O2",
             "compound": "phenylnannolone B",
             "database_id": [
                 "npatlas:NPA007826",
@@ -1604,7 +1604,7 @@
             "molecular_formula": "C18H16O2"
         },
         {
-            "chem_struct": "CC\\C(\\C=C\\C1=CC=CC(=O)O1)=C/C=C/C1=CC=C(O)C=C1",
+            "chem_struct": "CC/C(=C\\C=C\\C1=CC=C(C=C1)O)/C=C/C2=CC=CC(=O)O2",
             "compound": "phenylnannolone C",
             "database_id": [
                 "npatlas:NPA002006",
@@ -1628,7 +1628,7 @@
     ],
     "BGC0000124": [
         {
-            "chem_struct": "COC1=C(OC)C(O)=C(C)C(C\\C=C(/C)C\\C=C\\C(\\C)=C\\[C@@H](C)[C@@H](O)C(\\C)=C\\C)=N1",
+            "chem_struct": "C/C=C(\\C)/[C@@H]([C@H](C)/C=C(\\C)/C=C/C/C(=C/CC1=C(C(=O)C(=C(N1)OC)OC)C)/C)O",
             "compound": "piericidin A1",
             "database_id": [
                 "npatlas:NPA005338",
@@ -1652,7 +1652,7 @@
     ],
     "BGC0000126": [
         {
-            "chem_struct": "CCC(O)C(C)C1OC1CC(C)\\C=C\\C=C(/C)C1OC(=O)CC(O)CCC(C)(O)C(OC(C)=O)\\C=C\\C1C",
+            "chem_struct": "CCC(C(C)C1C(O1)CC(C)/C=C/C=C(\\C)/C2C(/C=C/C(C(CCC(CC(=O)O2)O)(C)O)OC(=O)C)C)O",
             "compound": "pladienolide B",
             "database_id": [
                 "npatlas:NPA008881"
@@ -1663,7 +1663,7 @@
     ],
     "BGC0000127": [
         {
-            "chem_struct": "OC1=CC=CC(O)=C1C(=O)C1=CC(Cl)=C(Cl)N1",
+            "chem_struct": "C1=CC(=C(C(=C1)O)C(=O)C2=CC(=C(N2)Cl)Cl)O",
             "compound": "pyoluteorin",
             "database_id": [
                 "npatlas:NPA002175",
@@ -1687,7 +1687,7 @@
     ],
     "BGC0000129": [
         {
-            "chem_struct": "[H][C@@]12C[C@H](OC(C)=O)[C@@]3(C)OC4=C([C@H](O)[C@]3([H])[C@@]1(C)CC[C@H](OC(C)=O)[C@@]2(C)COC(C)=O)C(=O)OC(=C4)C1=CN=CC=C1",
+            "chem_struct": "CC(=O)OC[C@@]1([C@H](CC[C@]2([C@H]1C[C@@H]([C@@]3([C@@H]2[C@H](C4=C(O3)C=C(OC4=O)C5=CN=CC=C5)O)C)OC(=O)C)C)OC(=O)C)C",
             "compound": "pyripyropene A",
             "database_id": [
                 "npatlas:NPA007480"
@@ -1717,7 +1717,7 @@
             "molecular_formula": "C11H6Cl4N2O3"
         },
         {
-            "chem_struct": "OC1=C(C=C(Cl)C=C1Cl)C(=O)C1=CC(Cl)=C(Cl)N1",
+            "chem_struct": "C1=C(C=C(C(=C1Cl)O)C(=O)C2=CC(=C(N2)Cl)Cl)Cl",
             "compound": "pyrrolomycin C",
             "database_id": [
                 "npatlas:NPA009712"
@@ -1773,7 +1773,7 @@
     ],
     "BGC0000134": [
         {
-            "chem_struct": "CC1CC2OC2C=CC=CC(=O)CC2=C(C(O)=CC(O)=C2Cl)C(=O)O1",
+            "chem_struct": "CC1CC2C(O2)C=CC=CC(=O)CC3=C(C(=CC(=C3Cl)O)O)C(=O)O1",
             "compound": "radicicol",
             "database_id": [
                 "npatlas:NPA003487",
@@ -1830,7 +1830,7 @@
     ],
     "BGC0000140": [
         {
-            "chem_struct": "CCCCCCCCCCCCCCCC(=O)C1=C(O)C(CO)OC1=O",
+            "chem_struct": "CCCCCCCCCCCCCCCC(=O)C1=C(C(OC1=O)CO)O",
             "compound": "4-hexadecanoyl-3-hydroxy-2-(hydroxymethyl)-2H-furan-5-one",
             "database_id": [
                 "npatlas:NPA006483"
@@ -1863,7 +1863,7 @@
     ],
     "BGC0000143": [
         {
-            "chem_struct": "CCC(C1CCC(C)C(O1)C(C)C(O)C(C)C(=O)C(CC)C1OC2(OC3(CCC(C)(O3)C3CCC(O)(CC)C(C)O3)C(O)C=C2)C(C)CC1C)C(O)=O",
+            "chem_struct": "CC[C@H](C(=O)O)[C@H]1CC[C@H](C)[C@H]([C@@H](C)[C@H](O)[C@H](C)C(=O)[C@H](CC)C2OC3(C=C[C@@H](O)[C@]4(CC[C@@](C)([C@H]5CC[C@](O)(CC)[C@H](C)O5)O4)O3)[C@H](C)C[C@@H]2C)O1",
             "compound": "salinomycin",
             "database_id": [
                 "npatlas:NPA008306",
@@ -1948,7 +1948,7 @@
             "molecular_formula": "C24H23ClO12"
         },
         {
-            "chem_struct": "[H][C@@]12O[C@@]11[C@@H](OC)C(=O)OC[C@H](O)C3=CC(Cl)=C4[C@@H](O)[C@]56OC(=C(C)C1=O)[C@@]2(O)O[C@]5([C@H](O)C[C@H]6O)C4=C3",
+            "chem_struct": "CC1=C2[C@@]3([C@H]4[C@@](C1=O)(O4)[C@H](C(=O)OC[C@@H](C5=CC6=C([C@H]([C@@]7([C@@]6(O3)[C@@H](C[C@H]7O)O)O2)O)C(=C5)Cl)O)OC)O",
             "compound": "sporolide B",
             "database_id": [
                 "npatlas:NPA007130"
@@ -1997,7 +1997,7 @@
     ],
     "BGC0000153": [
         {
-            "chem_struct": "COC(\\C=C\\C=C\\C(\\C)=C\\C)C(C)C(OC)C(C)CCC1=C(C)C(=O)C2=C(OC)C=C(OC)C(O)=C2O1",
+            "chem_struct": "C/C=C(\\C)/C=C/C=C/C(C(C)C(C(C)CCC1=C(C(=O)C2=C(O1)C(=C(C=C2OC)OC)O)C)OC)OC",
             "compound": "stigmatellin",
             "database_id": [
                 "npatlas:NPA002028"
@@ -2046,7 +2046,7 @@
     ],
     "BGC0000157": [
         {
-            "chem_struct": "CC\\C(C=C)=C/C(=O)CC(C)CC(C)CCC(O)C(C)C(=O)CC(O)C(C)C(C)OC(=O)C[C@@H](O)C1=C(C)C(=O)OC1=O",
+            "chem_struct": "CC/C(=C\\C(=O)CC(C)CC(C)CCC(C(C)C(=O)CC(C(C)C(C)OC(=O)C[C@H](C1=C(C(=O)OC1=O)C)O)O)O)/C=C",
             "compound": "tautomycetin",
             "database_id": [
                 "npatlas:NPA002249",
@@ -2080,7 +2080,7 @@
     ],
     "BGC0000160": [
         {
-            "chem_struct": "[H][C@]12O[C@@]1([H])C(=O)C(O)=C(C)C2=O",
+            "chem_struct": "CC1=C(C(=O)[C@H]2[C@@H](C1=O)O2)O",
             "compound": "terreic acid",
             "database_id": [
                 "npatlas:NPA000714",
@@ -2137,7 +2137,7 @@
     ],
     "BGC0000165": [
         {
-            "chem_struct": "[H][C@]1(C\\C=C(/C)\\C=C(C)\\[C@]([H])(O[C@@H]2OC(C)(C)[C@@H](OC(=O)C(C)C)[C@H](O)[C@@H]2O)[C@@H](CC)\\C=C(C)\\[C@@H](O)C\\C=C\\C=C(CO[C@@H]2O[C@H](C)[C@@H](OC(=O)C3=C(O)C(Cl)=C(O)C(Cl)=C3CC)[C@H](O)[C@@H]2OC)\\C(=O)O1)[C@@H](C)O",
+            "chem_struct": "CC[C@H]1/C=C(/[C@H](C/C=C/C=C(/C(=O)O[C@@H](C/C=C(/C=C(/[C@@H]1O[C@H]2[C@H]([C@H]([C@@H](C(O2)(C)C)OC(=O)C(C)C)O)O)\\C)\\C)[C@@H](C)O)\\CO[C@H]3[C@H]([C@H]([C@@H]([C@H](O3)C)OC(=O)C4=C(C(=C(C(=C4O)Cl)O)Cl)CC)O)OC)O)\\C",
             "compound": "tiacumicin B",
             "database_id": [
                 "npatlas:NPA003282",
@@ -2172,7 +2172,7 @@
     ],
     "BGC0000168": [
         {
-            "chem_struct": "COC1=C2C3=C(C(O)=C1)C(O)=C1C(=O)[C@]4(O)C(=O)C(C(N)=O)=C(O)C[C@]4(O)[C@@H](O)C1=C3C[C@]21C(C)=CCCC1(C)C",
+            "chem_struct": "CC1=CCCC([C@@]12CC3=C4[C@@H]([C@]5(CC(=O)C(=C([C@]5(C(=O)C4=C(C6=C3C2=C(C=C6O)OC)O)O)O)C(=O)N)O)O)(C)C",
             "compound": "viridicatumtoxin",
             "database_id": [
                 "npatlas:NPA003651",
@@ -2225,7 +2225,7 @@
     ],
     "BGC0000172": [
         {
-            "chem_struct": "CC[C@@H](C)[C@H](OC(=O)\\C=C\\C1=CC=CC=C1)[C@H](C)[C@H](O)C\\C=C\\C=C/C(N)=O",
+            "chem_struct": "CC[C@@H](C)[C@@H]([C@H](C)[C@@H](C/C=C/C=C\\C(=O)N)O)OC(=O)/C=C/C1=CC=CC=C1",
             "compound": "basiliskamide A",
             "database_id": [
                 "npatlas:NPA007306"
@@ -2308,7 +2308,7 @@
             "molecular_formula": "C27H39NO7"
         },
         {
-            "chem_struct": "COC1\\C=C\\CC\\C=C\\C(=O)OC(C(C)C(=O)CCCC2CC(=O)NC(=O)C2)\\C(C)=C/C(C)C1O",
+            "chem_struct": "CC1/C=C(\\C(OC(=O)/C=C/CC/C=C/C(C1O)OC)C(C)C(=O)CCCC2CC(=O)NC(=O)C2)/C",
             "compound": "migrastatin",
             "database_id": [
                 "npatlas:NPA006168",
@@ -2318,7 +2318,7 @@
             "molecular_formula": "C27H39NO7"
         },
         {
-            "chem_struct": "COC(\\C=C\\CC\\C=C\\C(O)=O)C(O)C(C)\\C=C(/C)C(O)C(C)C(=O)CCCC1CC(=O)NC(=O)C1",
+            "chem_struct": "CC(/C=C(\\C)/C(C(C)C(=O)CCCC1CC(=O)NC(=O)C1)O)C(C(/C=C/CC/C=C/C(=O)O)OC)O",
             "compound": "dorrigocin A",
             "database_id": [
                 "npatlas:NPA001445",
@@ -2328,7 +2328,7 @@
             "molecular_formula": "C27H41NO8"
         },
         {
-            "chem_struct": "COC(\\C=C\\CC\\C=C\\C(O)=O)C(O)C(C)C(O)C(\\C)=C\\C(C)C(=O)CCCC1CC(=O)NC(=O)C1",
+            "chem_struct": "CC(/C=C(\\C)/C(C(C)C(C(/C=C/CC/C=C/C(=O)O)OC)O)O)C(=O)CCCC1CC(=O)NC(=O)C1",
             "compound": "dorrigocin B",
             "database_id": [
                 "npatlas:NPA008223",
@@ -2358,7 +2358,7 @@
     ],
     "BGC0000179": [
         {
-            "chem_struct": "COC1CCCC(O)CC(OC(=O)CC(O)C(C)C(O)C(C)C(O)C(C)C\\C=C\\C=C/C1)C(C)C(O)\\C=C(/C)\\C=C\\C=C\\C=C\\C=C\\C=C\\CC(O)\\C=C(/C)CCC(O)=O",
+            "chem_struct": "CC1C/C=C/C=C\\CC(CCCC(CC(OC(=O)CC(C(C(C(C1O)C)O)C)O)C(C)C(/C=C(\\C)/C=C/C=C/C=C/C=C/C=C/CC(/C=C(\\C)/CCC(=O)O)O)O)O)OC",
             "compound": "etnangien",
             "database_id": [
                 "npatlas:NPA008563"
@@ -2369,7 +2369,7 @@
     ],
     "BGC0000180": [
         {
-            "chem_struct": "OC1=C2C(=O)OC(\\C=C\\C=C\\C3=CC=CC=C3)=CC2=CC=C1",
+            "chem_struct": "C1=CC=C(C=C1)/C=C/C=C/C2=CC3=C(C(=CC=C3)O)C(=O)O2",
             "compound": "legioliulin",
             "database_id": [
                 "npatlas:NPA000480"
@@ -2391,7 +2391,7 @@
     ],
     "BGC0000182": [
         {
-            "chem_struct": "C[C@H](O)[C@H](C)[C@@H]1O[C@H]1C[C@H]1CO[C@@H](C\\C(C)=C\\C(=O)OCCCCCCCCC(O)=O)[C@H](O)[C@@H]1O",
+            "chem_struct": "C[C@H]([C@H]1[C@@H](O1)C[C@H]2CO[C@H]([C@@H]([C@@H]2O)O)C/C(=C/C(=O)OCCCCCCCCC(=O)O)/C)[C@H](C)O",
             "compound": "pseudomonic acid A",
             "database_id": [
                 "npatlas:NPA006173",
@@ -2403,7 +2403,7 @@
     ],
     "BGC0000184": [
         {
-            "chem_struct": "CC(CCCCC(O)=O)\\C=C(/C)C1OC2C\\C=C\\CC\\C=C\\C(O)C(O)[C@H]3C[C@H](O)C(C)C(C\\C=C\\[C@@H]4O[C@@H]5C[C@@H](O[C@@H]5\\C=C\\C=C/C=C\\C(=O)OC1C=C2)[C@H]4C)O3",
+            "chem_struct": "C[C@@H]1[C@H]2C[C@@H]3[C@H](O2)/C=C/C=C\\C=C/C(=O)OC4C=CC(C/C=C/CC/C=C/C(C([C@H]5C[C@@H](C(C(O5)C/C=C/[C@@H]1O3)C)O)O)O)OC4/C(=C/C(C)CCCCC(=O)O)/C",
             "compound": "sorangicin A",
             "database_id": [
                 "npatlas:NPA000537"
@@ -2425,7 +2425,7 @@
     ],
     "BGC0000186": [
         {
-            "chem_struct": "COC(C(C)C(O)=O)C(\\C)=C\\C=C\\C=C(/C)\\C=C\\CC(O)CC(=O)\\C=C\\C=C(/C)\\C=C\\C(C)NC(=O)C(C)C\\C=C\\CC(O)CC1=CC=C(O)C=C1",
+            "chem_struct": "CC(C/C=C/CC(CC1=CC=C(C=C1)O)O)C(=O)NC(C)/C=C/C(=C/C=C/C(=O)CC(C/C=C/C(=C/C=C/C=C(\\C)/C(C(C)C(=O)O)OC)/C)O)/C",
             "compound": "thailandamide",
             "database_id": [
                 "npatlas:NPA008975"
@@ -2434,7 +2434,7 @@
             "molecular_formula": "C43H59NO8"
         },
         {
-            "chem_struct": "CO[C@H]1[C@@H](C)C(=O)O[C@@]1(C)\\C=C\\C=C\\C(\\C)=C\\C=C\\C(\\O)=C\\C(=O)\\C=C\\C=C(/C)\\C=C\\C(C)NC(=O)C(C)C\\C=C\\CC(O)CC1=CC=C(O)C=C1",
+            "chem_struct": "C[C@@H]1[C@@H]([C@](OC1=O)(C)/C=C/C=C/C(=C/C=C/C(=C/C(=O)/C=C/C=C(\\C)/C=C/C(C)NC(=O)C(C)C/C=C/CC(CC2=CC=C(C=C2)O)O)/O)/C)OC",
             "compound": "thailandamide lactone",
             "database_id": [
                 "npatlas:NPA000586"
@@ -2526,7 +2526,7 @@
             "molecular_formula": "C15H19NO2"
         },
         {
-            "chem_struct": "CC(C)C(=O)C(CC1=CNC2=C1C=CC=C2)OC(C)=O",
+            "chem_struct": "CC(C)C(=O)C(CC1=CNC2=CC=CC=C21)OC(=O)C",
             "compound": "3-(2'-acetoxy-3'-oxo-4'-methylpentyl)-indole",
             "database_id": [
                 "npatlas:NPA003248"
@@ -2782,7 +2782,7 @@
     ],
     "BGC0000202": [
         {
-            "chem_struct": "COC1=C(O)C2=C(C=C1O)C(OC)=C1C(C(=O)CC3CC(O)(CC(=O)C13O)C1CN1)=C2O",
+            "chem_struct": "COC1=C2C(=C(C3=C(C(=C(C=C31)O)OC)O)O)C(=O)CC4C2(C(=O)CC(C4)(C5CN5)O)O",
             "compound": "azicemicin B",
             "database_id": [
                 "npatlas:NPA004525"
@@ -2815,7 +2815,7 @@
             "molecular_formula": "C30H28O7"
         },
         {
-            "chem_struct": "CCCCCC1=C(C(O)=O)C(O)=C2C(CCC3=C(O)C4=C(C=C23)C(C)(C)C2=CC(O)=CC(O)=C2C4=O)=C1",
+            "chem_struct": "CCCCCC1=C(C(=C2C(=C1)CCC3=C(C4=C(C=C32)C(C5=CC(=CC(=C5C4=O)O)O)(C)C)O)O)C(=O)O",
             "compound": "benastatin B",
             "database_id": [
                 "npatlas:NPA003217",
@@ -2986,7 +2986,7 @@
     ],
     "BGC0000220": [
         {
-            "chem_struct": "[H][C@]12C[C@@]3(O)[C@@H](C4=CC(OC)=CC(=O)O4)[C@](O)([C@H](C(=O)C4=CC=CC=C4)[C@@]3(O)C(=O)O1)[C@@H]2O",
+            "chem_struct": "COC1=CC(=O)OC(=C1)[C@@H]2[C@@]3(C[C@@H]4[C@H]([C@]2([C@@H]([C@]3(C(=O)O4)O)C(=O)C5=CC=CC=C5)O)O)O",
             "compound": "enterocin",
             "database_id": [
                 "npatlas:NPA009644"
@@ -3008,7 +3008,7 @@
     ],
     "BGC0000222": [
         {
-            "chem_struct": "CCCC1CC2=CC3=C(C(O)=C2C(=O)O1)C1=C(O)C2=C(OC4=C(C(O)=C(O[C@H]5C[C@@H](O)[C@H](O[C@H]6C[C@@H](O)[C@H](O[C@H]7C[C@@H](OC)[C@H](O)[C@@H](C)O7)[C@@H](C)O6)[C@@H](C)O5)C=C4)C2=O)C(OC)=C1C(O)C3O",
+            "chem_struct": "CCCC1CC2=C(C(=C3C(=C2)C(C(C4=C(C5=C(C(=C43)O)C(=O)C6=C(O5)C=CC(=C6O)O[C@H]7C[C@H]([C@@H]([C@H](O7)C)O[C@H]8C[C@H]([C@@H]([C@H](O8)C)O[C@H]9C[C@H]([C@@H]([C@H](O9)C)O)OC)O)O)OC)O)O)O)C(=O)O1",
             "compound": "FD-594",
             "database_id": [
                 "npatlas:NPA001710"
@@ -3039,7 +3039,7 @@
             "molecular_formula": "C19H12O5"
         },
         {
-            "chem_struct": "[H][C@@]12O[C@]1(C)C(=O)C1=CC(O)=C3C4=C(C=CC=C4O)C(=O)C3=C1[C@H]2OC",
+            "chem_struct": "C[C@]12[C@H](O1)[C@H](C3=C4C(=C(C=C3C2=O)O)C5=C(C4=O)C=CC=C5O)OC",
             "compound": "fluostatin F",
             "database_id": [
                 "npatlas:NPA005841",
@@ -3086,7 +3086,7 @@
     ],
     "BGC0000226": [
         {
-            "chem_struct": "[H][C@]1(O[C@@H]([C@H](O)[C@H]1O)C1=CC=C(O)C2=C1C1=C(C=C2OC)C2=C(OC)C=C(C=C)C=C2C(=O)O1)[C@@H](C)O",
+            "chem_struct": "C[C@H]([C@H]1[C@@H]([C@H]([C@H](O1)C2=C3C(=C(C=C2)O)C(=CC4=C3OC(=O)C5=CC(=CC(=C54)OC)C=C)OC)O)O)O",
             "compound": "gilvocarcin V",
             "database_id": [
                 "npatlas:NPA009430"
@@ -3105,7 +3105,7 @@
     ],
     "BGC0000229": [
         {
-            "chem_struct": "C[C@@H]1O[C@H](CC[C@@H]1O[C@H]1CCC(=O)[C@H](C)O1)O[C@@H]1[C@@H](C)O[C@H](C[C@H]1O)C1=CC=C2C(=O)C3=C(C=C[C@]4(O)C[C@](C)(CC(=O)[C@]34O)O[C@H]3CC[C@H](O[C@H]4CCC(=O)[C@H](C)O4)[C@H](C)O3)C(=O)C2=C1O",
+            "chem_struct": "C[C@H]1[C@H](CC[C@@H](O1)O[C@@H]2[C@H](O[C@H](C[C@H]2O)C3=C(C4=C(C=C3)C(=O)C5=C(C4=O)C=C[C@]6([C@@]5(C(=O)C[C@](C6)(C)O[C@H]7CC[C@@H]([C@@H](O7)C)O[C@H]8CCC(=O)[C@@H](O8)C)O)O)O)C)O[C@H]9CCC(=O)[C@@H](O9)C",
             "compound": "grincamycin",
             "database_id": [
                 "npatlas:NPA001972"
@@ -3213,7 +3213,7 @@
     ],
     "BGC0000235": [
         {
-            "chem_struct": "COC1=CC=CC2=C1[C@H](O)[C@]1(O)C=CC3=C4[C@@H]1[C@@H]2OC4=CC(C)=C3",
+            "chem_struct": "CC1=CC2=C3[C@@H]4[C@H](O2)C5=C([C@@H]([C@@]4(C=CC3=C1)O)O)C(=CC=C5)OC",
             "compound": "kiamycin",
             "database_id": [
                 "npatlas:NPA002858"
@@ -3235,7 +3235,7 @@
     ],
     "BGC0000237": [
         {
-            "chem_struct": "COC12CC(=O)OC11C(=O)C3=C(O)C4=C5CN(C)C(=O)C5=C(O)C=C4C=C3C(=O)C1(CO2)OC1CC(O)C(O)C(C)O1",
+            "chem_struct": "CC1C(C(CC(O1)OC23COC4(C2(C(=O)C5=C(C3=O)C=C6C=C(C7=C(C6=C5O)CN(C7=O)C)O)OC(=O)C4)OC)O)O",
             "compound": "lactonamycin Z",
             "database_id": [
                 "npatlas:NPA008323"
@@ -3258,7 +3258,7 @@
     ],
     "BGC0000239": [
         {
-            "chem_struct": "C[C@@H]1O[C@H](CC[C@@H]1O)O[C@@H]1C[C@H](O[C@@H]2[C@@H](C)O[C@H](C[C@H]2O)O[C@H]2CC[C@H](O[C@@H]3C[C@H](O[C@@H]4[C@@H](C)O[C@H](C[C@H]4O)OC4=CC=C(O)C5=C4C(=O)C4=C(C5=O)C5=C(O)C=C(C)C=C5C[C@H]4O)O[C@H](C)[C@H]3O)O[C@H]2C)O[C@H](C)[C@H]1O",
+            "chem_struct": "C[C@H]1[C@H](CC[C@@H](O1)O[C@@H]2C[C@@H](O[C@@H]([C@H]2O)C)O[C@@H]3[C@H](O[C@H](C[C@H]3O)O[C@H]4CC[C@@H](O[C@H]4C)O[C@@H]5C[C@@H](O[C@@H]([C@H]5O)C)O[C@@H]6[C@H](O[C@H](C[C@H]6O)OC7=C8C(=C(C=C7)O)C(=O)C9=C(C8=O)[C@@H](CC1=CC(=CC(=C19)O)C)O)C)C)O",
             "compound": "landomycin A",
             "database_id": [
                 "npatlas:NPA004350",
@@ -3272,7 +3272,7 @@
     ],
     "BGC0000240": [
         {
-            "chem_struct": "CC[C@@]1(OC2CC(OC)C(O)C(C)O2)[C@H](OC2CC(O)C(C(C)O2)N(C)C)C2=C(C3=C(C2=[N+]=[N-])C(=O)C2=C(O)C=CC(O)=C2C3=O)C(=O)[C@@H]1[C@H]1C(=O)C2=C([C@@H](O[C@H]3CC(O)[C@@H](C(C)O3)N(C)C)[C@@]1(CC)OC1CC(OC)C(O)C(C)O1)C(=[N+]=[N-])C1=C2C(=O)C2=C(O)C=CC(O)=C2C1=O",
+            "chem_struct": "CC[C@@]1([C@H](C(=O)C2=C([C@H]1O[C@H]3CC([C@@H](C(O3)C)N(C)C)O)C(=[N+]=[N-])C4=C2C(=C5C(=O)C=CC(=O)C5=C4O)O)[C@H]6C(=O)C7=C([C@H]([C@@]6(CC)OC8CC(C(C(O8)C)O)OC)OC9CC(C(C(O9)C)N(C)C)O)C(=[N+]=[N-])C1=C7C(=C2C(=O)C=CC(=O)C2=C1O)O)OC1CC(C(C(O1)C)O)OC",
             "compound": "lomaiviticin A",
             "database_id": [
                 "npatlas:NPA006818",
@@ -3305,7 +3305,7 @@
     ],
     "BGC0000241": [
         {
-            "chem_struct": "CC[C@@]1(OC2CC(OC)C(O)C(C)O2)[C@H](OC2CC(O)C(C(C)O2)N(C)C)C2=C(C3=C(C2=[N+]=[N-])C(=O)C2=C(O)C=CC(O)=C2C3=O)C(=O)[C@@H]1[C@H]1C(=O)C2=C([C@@H](O[C@H]3CC(O)[C@@H](C(C)O3)N(C)C)[C@@]1(CC)OC1CC(OC)C(O)C(C)O1)C(=[N+]=[N-])C1=C2C(=O)C2=C(O)C=CC(O)=C2C1=O",
+            "chem_struct": "CC[C@@]1([C@H](C(=O)C2=C([C@H]1O[C@H]3CC([C@@H](C(O3)C)N(C)C)O)C(=[N+]=[N-])C4=C2C(=C5C(=O)C=CC(=O)C5=C4O)O)[C@H]6C(=O)C7=C([C@H]([C@@]6(CC)OC8CC(C(C(O8)C)O)OC)OC9CC(C(C(O9)C)N(C)C)O)C(=[N+]=[N-])C1=C7C(=C2C(=O)C=CC(=O)C2=C1O)O)OC1CC(C(C(O1)C)O)OC",
             "compound": "lomaiviticin A",
             "database_id": [
                 "npatlas:NPA006818",
@@ -3339,7 +3339,7 @@
     ],
     "BGC0000242": [
         {
-            "chem_struct": "[H][C@]12OCOC3=C1C(=C(O)C1=C3OC3=C(OC)C(Cl)=CC=C3C1=O)C1=C(O)C3=C(C=C1[C@H]2OC)[C@H](O)[C@H](OC)N(C)C3=O",
+            "chem_struct": "CN1[C@H]([C@H](C2=C(C1=O)C(=C3C(=C2)[C@H]([C@@H]4C5=C(C6=C(C(=C53)O)C(=O)C7=C(O6)C(=C(C=C7)Cl)OC)OCO4)OC)O)O)OC",
             "compound": "lysolipin I",
             "database_id": [
                 "npatlas:NPA004366"
@@ -3455,7 +3455,7 @@
     ],
     "BGC0000249": [
         {
-            "chem_struct": "CO[C@H]1C[C@](C)(O)[C@H](C(=O)OC)C2=C1C(O)=C1C(=O)C3=C(O)C=C4C(O[C@@H]5O[C@@]4(C)[C@H](O)[C@H]([C@@H]5O)N(C)C)=C3C(=O)C1=C2",
+            "chem_struct": "C[C@@]1(C[C@@H](C2=C([C@H]1C(=O)OC)C=C3C(=C2O)C(=O)C4=C(C=C5C(=C4C3=O)O[C@H]6[C@H]([C@@H]([C@H]([C@@]5(O6)C)O)N(C)C)O)O)OC)O",
             "compound": "nogalamycin",
             "database_id": [
                 "npatlas:NPA007304",
@@ -3513,7 +3513,7 @@
     ],
     "BGC0000256": [
         {
-            "chem_struct": "[H][C@](C)(NC(=O)C1=C(O)C2=C(C=C1C)[C@H](O[C@@H]1O[C@H](C)[C@H](NC)[C@H](O[C@@H]3OC[C@@H](O)[C@H](O)[C@H]3O)[C@H]1O)[C@@H](O)C1=CC3=C(C(O)=C21)C(=O)C1=C(C(O)=CC(OC)=C1)C3=O)C(O)=O",
+            "chem_struct": "C[C@@H]1[C@@H]([C@@H]([C@H]([C@@H](O1)O[C@@H]2[C@H](C3=C(C4=C(C(=C(C=C24)C)C(=O)N[C@H](C)C(=O)O)O)C(=C5C(=C3)C(=O)C6=C(C=C(C=C6C5=O)OC)O)O)O)O)O[C@H]7[C@@H]([C@H]([C@@H](CO7)O)O)O)NC",
             "compound": "pradimicin-A",
             "database_id": [
                 "npatlas:NPA008193"
@@ -3680,7 +3680,7 @@
     ],
     "BGC0000267": [
         {
-            "chem_struct": "C[C@@H]1O[C@H](CC[C@@H]1O)O[C@@H]1C[C@H](O[C@H]2CC[C@H](O[C@@H]3C[C@H](O[C@H]4CC[C@H](O[C@@]5(C)CC(=O)[C@]6(O)C7=C(OC8=C(C=CC([C@H]9C[C@@H](O)[C@H](O[C@H]%10C[C@H](O)C(O[C@H]%11CC[C@H](O[C@@H]%12O[C@@H](C)C(=O)C=C%12)[C@H](C)O%11)[C@H](C)O%10)[C@@H](C)O9)=C8O)C7=O)C=C[C@]6(O)C5)O[C@H]4C)O[C@H](C)[C@H]3O)O[C@H]2C)O[C@H](C)[C@H]1O",
+            "chem_struct": "C[C@H]1[C@H](CC[C@@H](O1)O[C@@H]2C[C@@H](O[C@@H]([C@H]2O)C)O[C@H]3CC[C@@H](O[C@H]3C)O[C@@H]4C[C@@H](O[C@@H]([C@H]4O)C)O[C@H]5CC[C@@H](O[C@H]5C)O[C@]6(CC(=O)[C@@]7(C8=C(C=C[C@@]7(C6)O)OC9=C(C8=O)C=CC(=C9O)[C@H]1C[C@H]([C@@H]([C@H](O1)C)O[C@H]1C[C@@H](C([C@@H](O1)C)O[C@H]1CC[C@@H]([C@@H](O1)C)O[C@H]1C=CC(=O)[C@@H](O1)C)O)O)O)C)O",
             "compound": "saquayamycin Z",
             "database_id": [
                 "npatlas:NPA002196"
@@ -3724,7 +3724,7 @@
     ],
     "BGC0000270": [
         {
-            "chem_struct": "C[C@H]1O[C@H](C[C@@H](OC(=O)\\C=C\\C=C\\C=C\\C=C\\C(=O)NC2=C(O)C3=C(OC2=O)C(Cl)=C(O)C=C3)[C@@H]1OC(C)=O)C1=CC=C2C(=O)C34OC3(C(O)CC3(O)CC(C)=CC(=O)C43O)C(O)C2=C1O",
+            "chem_struct": "C[C@@H]1[C@H]([C@@H](C[C@@H](O1)C2=C(C3=C(C=C2)C(=O)C45C(C3O)(O4)C(CC6(C5(C(=O)C=C(C6)C)O)O)O)O)OC(=O)/C=C/C=C/C=C/C=C/C(=O)NC7=C(C8=C(C(=C(C=C8)O)Cl)OC7=O)O)OC(=O)C",
             "compound": "simocyclinone D8",
             "database_id": [
                 "npatlas:NPA008898"
@@ -3756,7 +3756,7 @@
     ],
     "BGC0000274": [
         {
-            "chem_struct": "CC1=CC(O)=CC2=C1C(=O)C1=C(C2=O)C(C)(C)C2=CC(O)=CC(O)=C2C1=O",
+            "chem_struct": "CC1=C2C(=CC(=C1)O)C(=O)C3=C(C2=O)C(=O)C4=C(C=C(C=C4C3(C)C)O)O",
             "compound": "tetarimycin A",
             "database_id": [
                 "npatlas:NPA007518"
@@ -3765,7 +3765,7 @@
             "molecular_formula": "C21H16O6"
         },
         {
-            "chem_struct": "CC1(O)CC(O)CC2=CC3=C(C(O)=C12)C(=O)C1=C(O)C=C(O)C=C1C3(C)C",
+            "chem_struct": "CC1(C2=CC3=C(C(=C2C(=O)C4=C(C=C(C=C41)O)O)O)C(CC(C3)O)(C)O)C",
             "compound": "tetarimycin B",
             "database_id": [
                 "npatlas:NPA006659"
@@ -3808,7 +3808,7 @@
     ],
     "BGC0000279": [
         {
-            "chem_struct": "[H][C@]12C[C@]3([H])C(=O)C4=C(C(=O)NC(C)=C4)C(=O)[C@]3(O)C3=C(O)C4=C(OC5=C(C=CC(Cl)=C5OC)C4=O)C(OCO1)=C23",
+            "chem_struct": "CC1=CC2=C(C(=O)[C@]3([C@@H](C2=O)C[C@@H]4C5=C(C6=C(C(=C53)O)C(=O)C7=C(O6)C(=C(C=C7)Cl)OC)OCO4)O)C(=O)N1",
             "compound": "xantholipin",
             "database_id": [
                 "npatlas:NPA003057"
@@ -3910,7 +3910,7 @@
     ],
     "BGC0000288": [
         {
-            "chem_struct": "COC1C(OC(N)=O)C(OC1C(OC1OC(=CC(O)C1O)C(=O)NC1CCCC(C)NC1=O)C(N)=O)N1C=CC(=O)NC1=O",
+            "chem_struct": "CC1CCCC(C(=O)N1)NC(=O)C2=CC(C(C(O2)OC(C3C(C(C(O3)N4C=CC(=O)NC4=O)OC(=O)N)OC)C(=O)N)O)O",
             "compound": "A-503083 A",
             "database_id": [
                 "npatlas:NPA005142"
@@ -3919,7 +3919,7 @@
             "molecular_formula": "C25H34N6O13"
         },
         {
-            "chem_struct": "COC1C(OC(N)=O)C(OC1C(OC1OC(=CC(O)C1O)C(=O)NC1CCCCNC1=O)C(N)=O)N1C=CC(=O)NC1=O",
+            "chem_struct": "COC1C(C(OC1C(C(=O)N)OC2C(C(C=C(O2)C(=O)NC3CCCCNC3=O)O)O)N4C=CC(=O)NC4=O)OC(=O)N",
             "compound": "A-503083 B",
             "database_id": [
                 "npatlas:NPA002482"
@@ -3928,7 +3928,7 @@
             "molecular_formula": "C24H32N6O13"
         },
         {
-            "chem_struct": "COC1C(OC(N)=O)C(OC1C(OC1OC(=CC(O)C1O)C(=O)OC)C(N)=O)N1C=CC(=O)NC1=O",
+            "chem_struct": "COC1C(C(OC1C(C(=O)N)OC2C(C(C=C(O2)C(=O)OC)O)O)N3C=CC(=O)NC3=O)OC(=O)N",
             "compound": "A-503083 E",
             "database_id": [
                 "npatlas:NPA006239"
@@ -3937,7 +3937,7 @@
             "molecular_formula": "C19H24N4O13"
         },
         {
-            "chem_struct": "COC1C(OC(N)=O)C(OC1C(OC1OC(=CC(O)C1O)C(O)=O)C(N)=O)N1C=CC(=O)NC1=O",
+            "chem_struct": "COC1C(C(OC1C(C(=O)N)OC2C(C(C=C(O2)C(=O)O)O)O)N3C=CC(=O)NC3=O)OC(=O)N",
             "compound": "A-503083 F",
             "database_id": [
                 "npatlas:NPA000003"
@@ -4093,7 +4093,7 @@
     ],
     "BGC0000296": [
         {
-            "chem_struct": "[H][C@@]12CCCN1C(=O)[C@]([H])(NC(=O)[C@@]([H])(NC(=O)C1=CC=C(C)C3=C1N=C1C(O3)=C(C)C(=O)C(N)=C1C(=O)N[C@]1([H])C(=O)N[C@]([H])(C(C)C)C(=O)N3CCC[C@@]3([H])C(=O)N(C)CC(=O)N(C)[C@@]([H])(C(C)C)C(=O)O[C@]1([H])C)[C@@]([H])(C)OC(=O)[C@]([H])(C(C)C)N(C)C(=O)CN(C)C2=O)C(C)C",
+            "chem_struct": "C[C@@H]1[C@@H](C(=O)N[C@@H](C(=O)N2CCC[C@H]2C(=O)N(CC(=O)N([C@H](C(=O)O1)C(C)C)C)C)C(C)C)NC(=O)C3=C4C(=C(C=C3)C)OC5=C(C(=O)C(=C(C5=N4)C(=O)N[C@H]6[C@H](OC(=O)[C@@H](N(C(=O)CN(C(=O)[C@@H]7CCCN7C(=O)[C@H](NC6=O)C(C)C)C)C)C(C)C)C)N)C",
             "compound": "actinomycin D",
             "database_id": [
                 "npatlas:NPA007563"
@@ -4104,7 +4104,7 @@
     ],
     "BGC0000297": [
         {
-            "chem_struct": "CC(C)C[C@@H](NC(=O)[C@H](O)CC1=CC=CC=C1)C(=O)N1[C@H]2C[C@@H](CC[C@H]2C[C@H]1C(=O)NCCCCNC(N)=N)O[C@H]1OC[C@@H](O)[C@H](O)[C@H]1O",
+            "chem_struct": "CC(C)C[C@H](C(=O)N1[C@H]2C[C@@H](CC[C@H]2C[C@H]1C(=O)NCCCCN=C(N)N)O[C@@H]3[C@@H]([C@H]([C@@H](CO3)O)O)O)NC(=O)[C@@H](CC4=CC=CC=C4)O",
             "compound": "aeruginoside 126B",
             "database_id": [
                 "npatlas:NPA008514"
@@ -4113,7 +4113,7 @@
             "molecular_formula": "C34H54N6O9"
         },
         {
-            "chem_struct": "CC(C)C[C@@H](NC(=O)[C@H](O)CC1=CC=CC=C1)C(=O)N1[C@H]2C[C@@H](CC[C@H]2C[C@H]1C(=O)NCCC1=CCN(C1)C(N)=N)O[C@H]1OC[C@@H](O)[C@H](O)[C@H]1O",
+            "chem_struct": "CC(C)C[C@H](C(=O)N1[C@H]2C[C@@H](CC[C@H]2C[C@H]1C(=O)NCCC3=CCN(C3)C(=N)N)O[C@@H]4[C@@H]([C@H]([C@@H](CO4)O)O)O)NC(=O)[C@@H](CC5=CC=CC=C5)O",
             "compound": "aeruginoside 126A",
             "database_id": [
                 "npatlas:NPA006922"
@@ -4134,7 +4134,7 @@
             "molecular_formula": "C29H45ClN6O9S"
         },
         {
-            "chem_struct": "[H]C12CC(N(C(=O)[C@H](NC(=O)C(O)CC3=CC=C(O)C=C3)[C@H](C)CC)C1([H])CC(CC2)OS(O)(=O)=O)C(=O)NCCCCNC(N)=N",
+            "chem_struct": "CC[C@@H](C)[C@H](C(=O)N1C2CC(CCC2CC1C(=O)NCCCCN=C(N)N)OS(=O)(=O)O)NC(=O)C(CC3=CC=C(C=C3)O)O",
             "compound": "aeruginosin 98-B",
             "database_id": [
                 "npatlas:NPA009195",
@@ -4145,7 +4145,7 @@
             "molecular_formula": "C29H46N6O9S"
         },
         {
-            "chem_struct": "CC[C@@H](C)[C@@H](NC(=O)[C@H](O)CC1=CC=C(O)C(Br)=C1)C(=O)N1[C@H]2C[C@@H](CC[C@H]2C[C@H]1C(=O)NCCCCNC(N)=N)OS(O)(=O)=O",
+            "chem_struct": "CC[C@@H](C)[C@H](C(=O)N1[C@H]2C[C@@H](CC[C@H]2C[C@H]1C(=O)NCCCCN=C(N)N)OS(=O)(=O)O)NC(=O)[C@@H](CC3=CC(=C(C=C3)O)Br)O",
             "compound": "aeruginosin 98-C",
             "database_id": [
                 "npatlas:NPA001072",
@@ -4197,7 +4197,7 @@
     ],
     "BGC0000303": [
         {
-            "chem_struct": "CC1=C(O)C2=C(C=C1)C(=O)N1C=C(CC1C(O)N2)\\C=C\\C(N)=O",
+            "chem_struct": "CC1=C(C2=C(C=C1)C(=O)N3C=C(CC3C(N2)O)/C=C/C(=O)N)O",
             "compound": "anthramycin",
             "database_id": [
                 "npatlas:NPA008987",
@@ -4328,7 +4328,7 @@
     ],
     "BGC0000313": [
         {
-            "chem_struct": "CC(C)C1OC(=O)C(CC2=CC=CC=C2)N(C)C(=O)C(OC(=O)C(CC2=CC=CC=C2)N(C)C(=O)C(OC(=O)C(CC2=CC=CC=C2)N(C)C1=O)C(C)C)C(C)C",
+            "chem_struct": "CC(C)C1C(=O)N(C(C(=O)OC(C(=O)N(C(C(=O)OC(C(=O)N(C(C(=O)O1)CC2=CC=CC=C2)C)C(C)C)CC3=CC=CC=C3)C)C(C)C)CC4=CC=CC=C4)C",
             "compound": "beauvericin",
             "database_id": [
                 "npatlas:NPA001888",
@@ -4399,7 +4399,7 @@
             "molecular_formula": "C67H78N14O26"
         },
         {
-            "chem_struct": "[H][C@]1(NC(=O)[C@]([H])(NC(=O)CNC(=O)[C@H](CC(O)=O)NC(=O)[C@H](NC(=O)[C@H](CC(O)=O)NC(=O)[C@H](CC(O)=O)NC(=O)[C@@H](CC2=CNC3=C2C=CC=C3)NC(=O)[C@@H](NC(=O)[C@H](CO)NC(=O)C2OC2CCC)[C@@H](C)OC(=O)\\C(NC1=O)=C\\C1=CNC2=C1C=CC=C2)C1=CC=C(O)C=C1)[C@H](O)C(N)=O)[C@H](C)CC(O)=O",
+            "chem_struct": "CCCC1C(O1)C(=O)N[C@@H](CO)C(=O)N[C@H]2[C@H](OC(=O)[C@@H](NC(=O)[C@@H](NC(=O)[C@H](NC(=O)CNC(=O)[C@@H](NC(=O)[C@H](NC(=O)[C@@H](NC(=O)[C@@H](NC(=O)[C@H](NC2=O)CC3=CNC4=CC=CC=C43)CC(=O)O)CC(=O)O)C5=CC=C(C=C5)O)CC(=O)O)[C@@H](C(=O)N)O)[C@H](C)CC(=O)O)CC6=CNC7=CC=CC=C76)C",
             "compound": "CDA4b",
             "database_id": [
                 "npatlas:NPA003812"
@@ -4449,7 +4449,7 @@
     ],
     "BGC0000319": [
         {
-            "chem_struct": "CO[C@]1(NC(=O)CCCC(N)C(O)=O)C2SCC(COC(N)=O)=C(N2C1=O)C(O)=O",
+            "chem_struct": "CO[C@@]1(C2N(C1=O)C(=C(CS2)COC(=O)N)C(=O)O)NC(=O)CCCC(C(=O)O)N",
             "compound": "cephamycin C",
             "database_id": [
                 "npatlas:NPA008205"
@@ -4460,7 +4460,7 @@
     ],
     "BGC0000320": [
         {
-            "chem_struct": "CC(C)C[C@H]1OC(=O)[C@@H](NC(=O)[C@@H](OC(=O)[C@@H](C)NC(=O)[C@@H](CC(C)C)OC(=O)[C@@H](NC(=O)[C@@H](OC(=O)[C@@H](C)NC(=O)[C@@H](CC(C)C)OC(=O)[C@@H](NC(=O)[C@@H](OC(=O)[C@@H](C)NC1=O)C(C)C)C(C)C)C(C)C)C(C)C)C(C)C)C(C)C",
+            "chem_struct": "C[C@@H]1C(=O)O[C@H](C(=O)N[C@H](C(=O)O[C@@H](C(=O)N[C@@H](C(=O)O[C@H](C(=O)N[C@H](C(=O)O[C@@H](C(=O)N[C@@H](C(=O)O[C@H](C(=O)N[C@H](C(=O)O[C@@H](C(=O)N1)CC(C)C)C(C)C)C(C)C)C)CC(C)C)C(C)C)C(C)C)C)CC(C)C)C(C)C)C(C)C",
             "compound": "cereulide",
             "database_id": [
                 "npatlas:NPA001776"
@@ -4512,7 +4512,7 @@
     ],
     "BGC0000325": [
         {
-            "chem_struct": "C[C@@H](O)[C@@H](NC(=O)[C@H](N)CCCN(O)C=O)C(=O)N(O)CCC[C@H](NC(=O)[C@H](N)CCCN(O)C=O)C(O)=O",
+            "chem_struct": "C[C@H]([C@H](C(=O)N(CCC[C@@H](C(=O)O)NC(=O)[C@@H](CCCN(C=O)O)N)O)NC(=O)[C@@H](CCCN(C=O)O)N)O",
             "compound": "coelichelin",
             "database_id": [
                 "npatlas:NPA009051",
@@ -4524,7 +4524,7 @@
     ],
     "BGC0000326": [
         {
-            "chem_struct": "CN1[C@@H](CC2=CC=C(OC3=CC4=CC(=C3O)C3=CC5=C(C=C3)C(C[C@@H](NC(=O)C(=O)C3=CC(Cl)=C(O)C(Cl)=C3)C(=O)N[C@H](C3=CC(Cl)=C(O)C(Cl)=C3)C(=O)N[C@H]4C(=O)N[C@H](C3=CC(Cl)=C(O)C(Cl)=C3)C1=O)=CN5)C=C2)C(=O)N[C@@H](C(O)=O)C1=CC=C(O)C=C1",
+            "chem_struct": "CN1[C@@H](CC2=CC=C(C=C2)OC3=C(C4=CC(=C3)[C@H](C(=O)N[C@@H](C1=O)C5=CC(=C(C(=C5)Cl)O)Cl)NC(=O)[C@H](NC(=O)[C@@H](CC6=CNC7=C6C=CC4=C7)NC(=O)C(=O)C8=CC(=C(C(=C8)Cl)O)Cl)C9=CC(=C(C(=C9)Cl)O)Cl)O)C(=O)N[C@H](C1=CC=C(C=C1)O)C(=O)O",
             "compound": "isocomplestatin",
             "database_id": [
                 "npatlas:NPA000750"
@@ -4546,7 +4546,7 @@
     ],
     "BGC0000328": [
         {
-            "chem_struct": "CCC1CC1(NC(=O)C1=CC(CC)CC2C1CCC2=O)C(O)=O",
+            "chem_struct": "CCC1CC2C(CCC2=O)C(=C1)C(=O)NC3(CC3CC)C(=O)O",
             "compound": "coronatine",
             "database_id": [
                 "npatlas:NPA007302",
@@ -4632,7 +4632,7 @@
     ],
     "BGC0000335": [
         {
-            "chem_struct": "CC(C)CCCCC[C@@H](N)CC(=O)N[C@H](CC(N)=O)C(=O)N[C@@H]([C@@H](O)C(N)=O)C(=O)N[C@H]([C@@H](O)C1=CC=CC=C1)C(O)=O",
+            "chem_struct": "CC(C)CCCCC[C@H](CC(=O)N[C@H](CC(=O)N)C(=O)N[C@@H]([C@H](C(=O)N)O)C(=O)N[C@H]([C@H](C1=CC=CC=C1)O)C(=O)O)N",
             "compound": "cystomanamide A",
             "database_id": [
                 "npatlas:NPA007209"
@@ -4641,7 +4641,7 @@
             "molecular_formula": "C28H44N6O9"
         },
         {
-            "chem_struct": "CC(C)CCCCC[C@@H](N)CC(=O)N[C@H](CC(N)=O)C(=O)N[C@@H]([C@@H](O)C(N)=O)C(=O)N[C@H]([C@@H](O)C1=CC=CC=C1)C(=O)OC[C@@H](O)C(=O)N[C@H](CC1=CC=C(O)C=C1)C(O)=O",
+            "chem_struct": "CC(C)CCCCC[C@H](CC(=O)N[C@H](CC(=O)N)C(=O)N[C@@H]([C@H](C(=O)N)O)C(=O)N[C@H]([C@H](C1=CC=CC=C1)O)C(=O)OC[C@H](C(=O)N[C@H](CC2=CC=C(C=C2)O)C(=O)O)O)N",
             "compound": "cystomanamide B",
             "database_id": [
                 "npatlas:NPA009617"
@@ -4650,7 +4650,7 @@
             "molecular_formula": "C40H57N7O14"
         },
         {
-            "chem_struct": "CC(C)CCCCC[C@H](CC(=O)N[C@H](CC(N)=O)C(=O)N[C@@H]([C@@H](O)C(N)=O)C(=O)N[C@H]([C@@H](O)C1=CC=CC=C1)C(O)=O)NC[C@@]1(O)OC[C@@H](O)[C@@H](O)[C@@H]1O",
+            "chem_struct": "CC(C)CCCCC[C@H](CC(=O)N[C@H](CC(=O)N)C(=O)N[C@@H]([C@H](C(=O)N)O)C(=O)N[C@H]([C@H](C1=CC=CC=C1)O)C(=O)O)NC[C@@]2([C@H]([C@@H]([C@@H](CO2)O)O)O)O",
             "compound": "cystomanamide C",
             "database_id": [
                 "npatlas:NPA005786"
@@ -4659,7 +4659,7 @@
             "molecular_formula": "C34H54N6O14"
         },
         {
-            "chem_struct": "CC(C)CCCCC[C@H](CC(=O)N[C@H](CC(N)=O)C(=O)N[C@@H]([C@@H](O)C(N)=O)C(=O)N[C@H](CC1=CC=CC=C1)C(O)=O)NC[C@@]1(O)OC[C@@H](O)[C@@H](O)[C@@H]1O",
+            "chem_struct": "CC(C)CCCCC[C@H](CC(=O)N[C@H](CC(=O)N)C(=O)N[C@@H]([C@H](C(=O)N)O)C(=O)N[C@H](CC1=CC=CC=C1)C(=O)O)NC[C@@]2([C@H]([C@@H]([C@@H](CO2)O)O)O)O",
             "compound": "cystomanamide D",
             "database_id": [
                 "npatlas:NPA006150"
@@ -4681,7 +4681,7 @@
     ],
     "BGC0000337": [
         {
-            "chem_struct": "[H][C@@]12CCCN1C(=O)[C@@H](CC=C)OC(=O)CCNC(=O)[C@H](C)N(C)C(=O)[C@H](C(C)C)N(C)C(=O)[C@@H](NC2=O)[C@@H](C)CC",
+            "chem_struct": "CC[C@H](C)[C@H]1C(=O)N([C@H](C(=O)N([C@H](C(=O)NCCC(=O)O[C@@H](C(=O)N2CCC[C@H]2C(=O)N1)CC=C)C)C)C(C)C)C",
             "compound": "destruxin A",
             "database_id": [
                 "npatlas:NPA009673"
@@ -4837,7 +4837,7 @@
     ],
     "BGC0000349": [
         {
-            "chem_struct": "CC(=O)N[C@H](CCCN(O)C(C)=O)C(=O)N[C@H](CO)C(=O)N(O)CCC[C@@H]1NC(=O)[C@H](CCCN(O)C(C)=O)NC1=O",
+            "chem_struct": "CC(=O)N[C@H](CCCN(C(=O)C)O)C(=O)N[C@H](CO)C(=O)N(CCC[C@H]1C(=O)N[C@H](C(=O)N1)CCCN(C(=O)C)O)O",
             "compound": "erythrochelin",
             "database_id": [
                 "npatlas:NPA009462"
@@ -4865,7 +4865,7 @@
     ],
     "BGC0000352": [
         {
-            "chem_struct": "CC(=O)N(O)CCCCNC(=O)[C@H](COC(=O)C1=C(O)C(O)=CC=C1)NC(=O)[C@@H]1COC(=N1)C1=C(O)C(O)=CC=C1",
+            "chem_struct": "CC(=O)N(CCCCNC(=O)[C@H](COC(=O)C1=C(C(=CC=C1)O)O)NC(=O)[C@@H]2COC(=N2)C3=C(C(=CC=C3)O)O)O",
             "compound": "fimsbactin A",
             "database_id": [
                 "npatlas:NPA007176"
@@ -4927,7 +4927,7 @@
     ],
     "BGC0000355": [
         {
-            "chem_struct": "[H][C@]12N[C@@H](C)C(=O)N1C1=CC=CC=C1[C@@]2(O)C[C@@]1([H])N2C(=O)C3=C(C=CC=C3)N=C2[C@H](C)NC1=O",
+            "chem_struct": "C[C@H]1C2=NC3=CC=CC=C3C(=O)N2[C@@H](C(=O)N1)C[C@]4([C@H]5N[C@H](C(=O)N5C6=CC=CC=C64)C)O",
             "compound": "fumiquinazoline A",
             "database_id": [
                 "npatlas:NPA005162",
@@ -4937,7 +4937,7 @@
             "molecular_formula": "C24H23N5O4"
         },
         {
-            "chem_struct": "[H][C@]12N[C@@H](C)C(=O)N1C1=CC=CC=C1[C@@]21C[C@@]2([H])N3C(=O)C4=C(C=CC=C4)N=C3[C@](C)(NC2=O)O1",
+            "chem_struct": "C[C@H]1C(=O)N2[C@H](N1)[C@]3(C[C@@H]4C(=O)N[C@](O3)(C5=NC6=CC=CC=C6C(=O)N45)C)C7=CC=CC=C72",
             "compound": "fumiquinazoline C",
             "database_id": [
                 "npatlas:NPA006491",
@@ -4988,7 +4988,7 @@
             "molecular_formula": "C22H25N3O3"
         },
         {
-            "chem_struct": "[H][C@@]12CCCN1C(=O)[C@]([H])(CC1=C(CC=C(C)C)NC3=C1C=CC(OC)=C3)NC2=O",
+            "chem_struct": "CC(=CCC1=C(C2=C(N1)C=C(C=C2)OC)C[C@H]3C(=O)N4CCC[C@H]4C(=O)N3)C",
             "compound": "tryprostatin A",
             "database_id": [
                 "npatlas:NPA006056"
@@ -5113,7 +5113,7 @@
     ],
     "BGC0000360": [
         {
-            "chem_struct": "NC(=O)OCC(O)CC(NC(=O)C1NCCCC1O)C(=O)NC(CC1=CN=C(N)N1)C(=O)NC(C(O)C1=NC=C(Cl)N1)C(O)=O",
+            "chem_struct": "C1CC(C(NC1)C(=O)NC(CC(COC(=O)N)O)C(=O)NC(CC2=CN=C(N2)N)C(=O)NC(C(C3=NC=C(N3)Cl)O)C(=O)O)O",
             "compound": "GE81112",
             "database_id": [
                 "npatlas:NPA003664"
@@ -5216,7 +5216,7 @@
     ],
     "BGC0000371": [
         {
-            "chem_struct": "NC(NCCC[C@@H](NC(=O)C1=C(O)C(O)=CC=C1)C(=O)NCC(=O)N[C@H]1CCCN(O)C1=O)=NC(=O)C1=CC=CC(O)=C1O",
+            "chem_struct": "C1C[C@@H](C(=O)N(C1)O)NC(=O)CNC(=O)[C@@H](CCCN=C(N)NC(=O)C2=C(C(=CC=C2)O)O)NC(=O)C3=C(C(=CC=C3)O)O",
             "compound": "heterobactin A",
             "database_id": [
                 "npatlas:NPA003464",
@@ -5243,7 +5243,7 @@
             "molecular_formula": "C60H60FeN9O9"
         },
         {
-            "chem_struct": "C[C@@H]1NC(=O)C(CC2=CNC3=C2C=CC=C3CC=C(C)C)NC1=O",
+            "chem_struct": "C[C@H]1C(=O)NC(C(=O)N1)CC2=CNC3=C2C=CC=C3CC=C(C)C",
             "compound": "terezine-D",
             "database_id": [
                 "npatlas:NPA005625"
@@ -5329,7 +5329,7 @@
     ],
     "BGC0000376": [
         {
-            "chem_struct": "C[C@@H](NC(=O)[C@@]1(C)COC(=N1)C1=CN(C)C2=CC(Cl)=C(C)C(O)=C12)C(=O)N[C@@H](CO)C(O)=O",
+            "chem_struct": "CC1=C(C=C2C(=C1O)C(=CN2C)C3=N[C@@](CO3)(C)C(=O)N[C@H](C)C(=O)N[C@@H](CO)C(=O)O)Cl",
             "compound": "JBIR-34",
             "database_id": [
                 "npatlas:NPA001973"
@@ -5349,7 +5349,7 @@
     ],
     "BGC0000377": [
         {
-            "chem_struct": "[H][C@]1(N=C[C@@H](NC(=O)[C@@H](CC2=CC=CC=C2)NC(=O)[C@@H](NC(=O)[C@@H](CC2=CC=CC=C2)NC(=O)[C@@H](CC(C)C)NC(=O)[C@@H](CC(C)C)NC1=O)C(C)C)C(C)C)[C@@H](C)O",
+            "chem_struct": "C[C@H]([C@H]1C(=O)N[C@@H](C(=O)N[C@@H](C(=O)N[C@@H](C(=O)N[C@H](C(=O)N[C@@H](C(=O)N[C@H](C=N1)C(C)C)CC2=CC=CC=C2)C(C)C)CC3=CC=CC=C3)CC(C)C)CC(C)C)O",
             "compound": "koranimine",
             "database_id": [
                 "npatlas:NPA000689"
@@ -5371,7 +5371,7 @@
     ],
     "BGC0000379": [
         {
-            "chem_struct": "CCC(C)[C@@H]1NC(=O)[C@H](NC(=O)CNC(=O)[C@H](CC(O)=O)NC(=O)CNC(=O)[C@H](CC(O)=O)NC(=O)CNC(=O)C2CCCCN2C(=O)[C@H](CNC(=O)[C@@H]2CCCN2C1=O)NC(=O)[C@H](CC(O)=O)NC(=O)\\C=C\\CCCCCCCCCC(C)C)C(C)O",
+            "chem_struct": "CCC(C)[C@H]1C(=O)N2CCC[C@H]2C(=O)NC[C@@H](C(=O)N3CCCCC3C(=O)NCC(=O)N[C@H](C(=O)NCC(=O)N[C@H](C(=O)NCC(=O)N[C@@H](C(=O)N1)C(C)O)CC(=O)O)CC(=O)O)NC(=O)[C@H](CC(=O)O)NC(=O)/C=C/CCCCCCCCCC(C)C",
             "compound": "glycinocin A",
             "database_id": [
                 "npatlas:NPA001403"
@@ -5407,7 +5407,7 @@
     ],
     "BGC0000383": [
         {
-            "chem_struct": "CCCCCCC\\C=C\\C=C\\C(=O)N[C@@H]([C@@H](C)O)C(=O)N[C@H]1CCCCNC(=O)\\C=C\\[C@H](C)NC1=O",
+            "chem_struct": "CCCCCCC/C=C/C=C/C(=O)N[C@@H]([C@@H](C)O)C(=O)N[C@H]1CCCCNC(=O)/C=C/[C@@H](NC1=O)C",
             "compound": "luminmycin A",
             "database_id": [
                 "npatlas:NPA001451"
@@ -5510,7 +5510,7 @@
     ],
     "BGC0000394": [
         {
-            "chem_struct": "COC1=C(C)C(=O)C2=C(C(CO)N3C(O)C4CC5C6OCCN6C2C3C5N4C)C1=O",
+            "chem_struct": "COC1=C(C)C(=O)C2=C(C1=O)[C@@H](CO)N1C3C4C(CC([C@H]1O)N4C)C1OCCN1C23",
             "compound": "naphthyridinomycin",
             "database_id": [
                 "npatlas:NPA005217",
@@ -5522,7 +5522,7 @@
     ],
     "BGC0000395": [
         {
-            "chem_struct": "NC(CCOC1=CC=C(C=C1)C(=NO)C(=O)NC1CN(C(C(O)=O)C2=CC=C(O)C=C2)C1=O)C(O)=O",
+            "chem_struct": "NC(CCOC1=CC=C(C(=NO)C(=O)N[C@H]2CN(C(C(=O)O)C3=CC=C(O)C=C3)C2=O)C=C1)C(=O)O",
             "compound": "nocardicin A",
             "database_id": [
                 "npatlas:NPA007538",
@@ -5534,7 +5534,7 @@
     ],
     "BGC0000396": [
         {
-            "chem_struct": "CO[C@@H](CC1=CC=CC=C1)[C@@H](C)\\C=C(/C)\\C=C\\[C@@H]1NC(=O)[C@H](CCCNC(N)=N)NC(=O)[C@@H](C)[C@@H](NC(=O)\\C(=C\\C)N(C)C(=O)CC[C@@H](NC(=O)[C@H]1C)C(O)=O)C(O)=O",
+            "chem_struct": "C/C=C\\1/C(=O)N[C@H]([C@@H](C(=O)N[C@H](C(=O)N[C@H]([C@@H](C(=O)N[C@H](CCC(=O)N1C)C(=O)O)C)/C=C/C(=C/[C@H](C)[C@H](CC2=CC=CC=C2)OC)/C)CCCN=C(N)N)C)C(=O)O",
             "compound": "nodularin",
             "database_id": [
                 "npatlas:NPA005387",
@@ -5546,7 +5546,7 @@
     ],
     "BGC0000397": [
         {
-            "chem_struct": "CC[C@H](C)[C@@H]1NC(=O)[C@@H](CCC(N)=O)NC(=O)CNC(=O)[C@H](CC2=CC=C(O)C=C2)\\N=C\\[C@H](CC2=CC=CC=C2)NC(=O)[C@@H]2C[C@H](C)CN2C(=O)[C@H](CO)NC1=O",
+            "chem_struct": "CC[C@H](C)[C@H]1C(=O)N[C@H](C(=O)N2C[C@H](C[C@H]2C(=O)N[C@H](C=N[C@H](C(=O)NCC(=O)N[C@@H](C(=O)N1)CCC(=O)N)CC3=CC=C(C=C3)O)CC4=CC=CC=C4)C)CO",
             "compound": "nostocyclopeptide A2",
             "database_id": [
                 "npatlas:NPA004801"
@@ -5557,7 +5557,7 @@
     ],
     "BGC0000398": [
         {
-            "chem_struct": "CCCCCCCCCCCC(O)CC(=O)NC(CC(C)C)C(=O)NC(CCC(O)=O)C(=O)NC1C(C)OC(=O)C(NC(=O)C(CO)NC(=O)C(CC(C)C)NC(=O)C(CC(C)C)NC(=O)C(CO)NC(=O)C(CC(C)C)NC(=O)C(NC1=O)C(C)C)C(C)C",
+            "chem_struct": "CCCCCCCCCCCC(CC(=O)NC(CC(C)C)C(=O)NC(CCC(=O)O)C(=O)NC1C(OC(=O)C(NC(=O)C(NC(=O)C(NC(=O)C(NC(=O)C(NC(=O)C(NC(=O)C(NC1=O)C(C)C)CC(C)C)CO)CC(C)C)CC(C)C)CO)C(C)C)C)O",
             "compound": "orfamide B",
             "database_id": [
                 "npatlas:NPA002140"
@@ -5568,7 +5568,7 @@
     ],
     "BGC0000399": [
         {
-            "chem_struct": "CCCCCCCCCCCC(O)CC(=O)N[C@@H](CC(C)C)C(=O)N[C@H](CCC(O)=O)C(=O)N[C@@H]1[C@@H](C)OC(=O)[C@@H](NC(=O)[C@@H](CO)NC(=O)[C@H](CC(C)C)NC(=O)[C@H](CC(C)C)NC(=O)[C@@H](CO)NC(=O)[C@H](CC(C)C)NC(=O)[C@H](NC1=O)C(C)CC)C(C)C",
+            "chem_struct": "CCCCCCCCCCCC(CC(=O)N[C@@H](CC(C)C)C(=O)N[C@H](CCC(=O)O)C(=O)N[C@@H]1[C@H](OC(=O)[C@@H](NC(=O)[C@H](NC(=O)[C@@H](NC(=O)[C@@H](NC(=O)[C@H](NC(=O)[C@@H](NC(=O)[C@H](NC1=O)C(C)CC)CC(C)C)CO)CC(C)C)CC(C)C)CO)C(C)C)C)O",
             "compound": "orfamide A",
             "database_id": [
                 "npatlas:NPA001606"
@@ -5577,7 +5577,7 @@
             "molecular_formula": "C64H114N10O17"
         },
         {
-            "chem_struct": "CCCCCCCCCC(O)CC(=O)NC(CC(C)C)C(=O)NC(CCC(O)=O)C(=O)NC1C(C)OC(=O)C(NC(=O)C(CO)NC(=O)C(CC(C)C)NC(=O)C(CC(C)C)NC(=O)C(CO)NC(=O)C(CC(C)C)NC(=O)C(NC1=O)C(C)CC)C(C)C",
+            "chem_struct": "CCCCCCCCCC(CC(=O)NC(CC(C)C)C(=O)NC(CCC(=O)O)C(=O)NC1C(OC(=O)C(NC(=O)C(NC(=O)C(NC(=O)C(NC(=O)C(NC(=O)C(NC(=O)C(NC1=O)C(C)CC)CC(C)C)CO)CC(C)C)CC(C)C)CO)C(C)C)C)O",
             "compound": "orfamide C",
             "database_id": [
                 "npatlas:NPA005175"
@@ -5740,7 +5740,7 @@
     ],
     "BGC0000409": [
         {
-            "chem_struct": "COC1=CC=CC2=C1NC(O)C1CC(C=CC(=O)N(C)C)=CN1C2=O",
+            "chem_struct": "COC1=CC=CC2=C1N[C@H](O)[C@@H]1CC(/C=C/C(=O)N(C)C)=CN1C2=O",
             "compound": "porothramycin A",
             "database_id": [
                 "npatlas:NPA007051"
@@ -5847,7 +5847,7 @@
     ],
     "BGC0000417": [
         {
-            "chem_struct": "CC(OC(=O)[C@@H](N)CCCN(O)C=O)[C@H](NC(=O)C1=C(O)C(O)=CC=C1)C(=O)N[C@@H](CCCN(O)C=O)C(O)=O",
+            "chem_struct": "CC([C@@H](C(=O)N[C@@H](CCCN(C=O)O)C(=O)O)NC(=O)C1=C(C(=CC=C1)O)O)OC(=O)[C@H](CCCN(C=O)O)N",
             "compound": "rhodochelin",
             "database_id": [
                 "npatlas:NPA008134"
@@ -5982,7 +5982,7 @@
     ],
     "BGC0000423": [
         {
-            "chem_struct": "CN[C@@H](CCCN(O)C=O)C(=O)N[C@@H](CO)C(=O)N(O)CCC[C@H](NC)C(=O)N[C@@H](CCCN)C(=O)N[C@@H]1CCCN(O)C1=O",
+            "chem_struct": "CN[C@@H](CCCN(C=O)O)C(=O)N[C@@H](CO)C(=O)N(CCC[C@@H](C(=O)N[C@@H](CCCN)C(=O)N[C@@H]1CCCN(C1=O)O)NC)O",
             "compound": "scabichelin",
             "database_id": [
                 "npatlas:NPA008731"
@@ -6049,7 +6049,7 @@
     ],
     "BGC0000428": [
         {
-            "chem_struct": "CN[C@H]1[C@H](C)O[C@@H](OC2=CC3=C(N[C@H](O)[C@@H]4CC(\\C=C\\C)=CN4C3=O)C(O)=C2C)[C@H](O)[C@]1(C)O",
+            "chem_struct": "C/C=C/C1=CN2[C@@H](C1)[C@H](NC3=C(C(=C(C=C3C2=O)O[C@H]4[C@@H]([C@]([C@H]([C@@H](O4)C)NC)(C)O)O)C)O)O",
             "compound": "sibiromycin",
             "database_id": [
                 "npatlas:NPA001741",
@@ -6243,7 +6243,7 @@
     ],
     "BGC0000442": [
         {
-            "chem_struct": "CC(C)=CCC1=C(C2=CNC3=C2C=CC=C3)C(=O)C(O)=C(C2=C(NC3=C2C=CC=C3)C(C)(C)C=C)C1=O",
+            "chem_struct": "CC(=CCC1=C(C(=O)C(=O)C(=C1O)C2=C(NC3=CC=CC=C32)C(C)(C)C=C)C4=CNC5=CC=CC=C54)C",
             "compound": "terrequinone A",
             "database_id": [
                 "npatlas:NPA005272"
@@ -6265,7 +6265,7 @@
     ],
     "BGC0000444": [
         {
-            "chem_struct": "[H][C@@]1(CC2=CNC3=CC=CC(=C23)N(=O)=O)N(C)C(=O)[C@](O)(CC2=CC=CC(O)=C2)N(C)C1=O",
+            "chem_struct": "CN1[C@H](C(=O)N([C@](C1=O)(CC2=CC(=CC=C2)O)O)C)CC3=CNC4=C3C(=CC=C4)[N+](=O)[O-]",
             "compound": "thaxtomin A",
             "database_id": [
                 "npatlas:NPA009094"
@@ -6356,7 +6356,7 @@
     ],
     "BGC0000448": [
         {
-            "chem_struct": "COC1NC2=C(C=C(OC)C(O)=C2)C(=O)N2CC(CC12)=CC",
+            "chem_struct": "CC=C1C[C@H]2C(OC)NC3=C(C=C(OC)C(O)=C3)C(=O)N2C1",
             "compound": "tomaymycin",
             "database_id": [
                 "npatlas:NPA005351",
@@ -6410,7 +6410,7 @@
     ],
     "BGC0000453": [
         {
-            "chem_struct": "CC(C)[C@@H]1NC(=O)C(C)OC(=O)[C@H](NC(=O)[C@H](OC(=O)[C@@H](NC(=O)[C@H](C)OC(=O)[C@H](NC(=O)[C@H](OC(=O)[C@@H](NC(=O)[C@H](C)OC(=O)[C@H](NC(=O)[C@H](OC1=O)C(C)C)C(C)C)C(C)C)C(C)C)C(C)C)C(C)C)C(C)C)C(C)C",
+            "chem_struct": "C[C@H]1C(=O)N[C@H](C(=O)O[C@@H](C(=O)N[C@@H](C(=O)OC(C(=O)N[C@H](C(=O)O[C@@H](C(=O)N[C@@H](C(=O)O[C@H](C(=O)N[C@H](C(=O)O[C@@H](C(=O)N[C@@H](C(=O)O1)C(C)C)C(C)C)C(C)C)C)C(C)C)C(C)C)C(C)C)C)C(C)C)C(C)C)C(C)C",
             "compound": "valinomycin",
             "database_id": [
                 "npatlas:NPA006953"
@@ -6444,7 +6444,7 @@
     ],
     "BGC0000457": [
         {
-            "chem_struct": "C[C@@H]1CC(=O)N(O)CCC[C@@H](NC(C)=O)C(=O)O[C@H](C)CC(=O)N(O)CCC[C@@H](NC(C)=O)C(=O)O[C@H](C)CC(=O)N(O)CCC[C@@H](NC(C)=O)C(=O)O1",
+            "chem_struct": "C[C@@H]1CC(=O)N(CCC[C@H](C(=O)O[C@@H](CC(=O)N(CCC[C@H](C(=O)O[C@@H](CC(=O)N(CCC[C@H](C(=O)O1)NC(=O)C)O)C)NC(=O)C)O)C)NC(=O)C)O",
             "compound": "vicibactin",
             "database_id": [
                 "npatlas:NPA000788"
@@ -6466,7 +6466,7 @@
     ],
     "BGC0000459": [
         {
-            "chem_struct": "[H][C@@]12CS\\C(=C/C[C@@H](C)OC1=O)C(=O)NC\\C=C\\C=C\\[C@@H](O)C[C@H](O)CC1=NC(=CO1)C(=O)N2",
+            "chem_struct": "C[C@@H]1C/C=C\\2/C(=O)NC/C=C/C=C/[C@H](C[C@@H](CC3=NC(=CO3)C(=O)N[C@H](CS2)C(=O)O1)O)O",
             "compound": "griseoviridin",
             "database_id": [
                 "npatlas:NPA002368"
@@ -6486,7 +6486,7 @@
     ],
     "BGC0000460": [
         {
-            "chem_struct": "CC1OC(=NC1C(=O)NCCCN(CCCNC(=O)C1=CC=CC(O)=C1O)C(=O)C1N=C(OC1C)C1=CC=CC=C1O)C1=CC=CC=C1O",
+            "chem_struct": "CC1C(N=C(O1)C2=CC=CC=C2O)C(=O)NCCCN(CCCNC(=O)C3=C(C(=CC=C3)O)O)C(=O)C4C(OC(=N4)C5=CC=CC=C5O)C",
             "compound": "vulnibactin",
             "database_id": [
                 "npatlas:NPA006880",
@@ -6569,7 +6569,7 @@
     ],
     "BGC0000466": [
         {
-            "chem_struct": "COC1=CC2=C(NC(=C2)C(=O)N2CC3CC33C4=C(NC(=C4)C(=O)N4CCC5=C6C=C(NC6=C(OC)C(O)=C45)SC(C)=O)C(=O)C=C23)C=C1O",
+            "chem_struct": "CC(=O)SC1=CC2=C3CCN(C3=C(C(=C2N1)OC)O)C(=O)C4=CC5=C(N4)C(=O)C=C6C57CC7CN6C(=O)C8=CC9=CC(=C(C=C9N8)O)OC",
             "compound": "yatakemycin",
             "database_id": [
                 "npatlas:NPA001250",
@@ -6581,7 +6581,7 @@
     ],
     "BGC0000468": [
         {
-            "chem_struct": "[H][C@@]12[C@H](C)CCN1C(=O)CN\\C(=N/[C@H](C(=O)N[C@@H]([C@@H](C)C1=CC=CC=C1)C(=O)N[C@H](CC(=O)OC)C1=NC=CS1)C(C)(C)C)[C@@H](NC(=O)[C@@H](NC2=O)C(C)C)C(C)(C)C",
+            "chem_struct": "C[C@@H]1CCN2[C@@H]1C(=O)N[C@H](C(=O)N[C@H](C(=NCC2=O)N[C@H](C(=O)N[C@@H]([C@@H](C)C3=CC=CC=C3)C(=O)N[C@H](CC(=O)OC)C4=NC=CS4)C(C)(C)C)C(C)(C)C)C(C)C",
             "compound": "bottromycin A2",
             "database_id": [
                 "npatlas:NPA004746",
@@ -6593,7 +6593,7 @@
     ],
     "BGC0000469": [
         {
-            "chem_struct": "[H][C@@]12[C@H](C)CCN1C(=O)CN\\C(=N/[C@H](C(=O)N[C@@H]([C@@H](C)C1=CC=CC=C1)C(=O)N[C@H](CC(=O)OC)C1=NC=CS1)C(C)(C)C)[C@@H](NC(=O)[C@@H](NC2=O)C(C)C)C(C)(C)C",
+            "chem_struct": "C[C@@H]1CCN2[C@@H]1C(=O)N[C@H](C(=O)N[C@H](C(=NCC2=O)N[C@H](C(=O)N[C@@H]([C@@H](C)C3=CC=CC=C3)C(=O)N[C@H](CC(=O)OC)C4=NC=CS4)C(C)(C)C)C(C)(C)C)C(C)C",
             "compound": "bottromycin A2",
             "database_id": [
                 "npatlas:NPA004746",
@@ -6918,7 +6918,7 @@
     ],
     "BGC0000501": [
         {
-            "chem_struct": "CC[C@H](C)[C@@H]1NC(=O)CNC(=O)[C@H](C[C@@]2(CSC[C@H](NC(=O)[C@H](CC(C)C)NC(=O)[C@H](CC(C)C)NC2=O)C(=O)N[C@@H](CC(O)=O)C(=O)N[C@@H](CC(C)C)C(O)=O)NC1=O)NC(=O)[C@H](CC1=CN=CN1)NC(=O)CNC(=O)[C@H](CC(N)=O)NC(=O)[C@@H]1CSC[C@@]2(C[C@H](NC(=O)[C@H](CC(O)=O)NC(=O)CNC(=O)CNC(=O)CNC(=O)CNC(=O)[C@H](CC3=CN=CN3)NC(=O)CN)C(=O)NCC(=O)N[C@@H](CC(C)C)C(=O)N2)C(=O)N[C@@H](C(C)C)C(=O)N[C@@H]([C@@H](C)O)C(=O)NCC(=O)N1",
+            "chem_struct": "CC[C@H](C)[C@H]1C(=O)N[C@@]2(C[C@@H](C(=O)NCC(=O)N1)NC(=O)[C@H](CC3=CN=CN3)NC(=O)CNC(=O)[C@H](CC(=O)N)NC(=O)[C@@H]4CSC[C@@]5(C[C@@H](C(=O)NCC(=O)N[C@H](C(=O)N5)CC(C)C)NC(=O)[C@H](CC(=O)O)NC(=O)CNC(=O)CNC(=O)CNC(=O)CNC(=O)[C@H](CC6=CN=CN6)NC(=O)CN)C(=O)N[C@H](C(=O)N[C@H](C(=O)NCC(=O)N4)[C@@H](C)O)C(C)C)CSC[C@H](NC(=O)[C@@H](NC(=O)[C@@H](NC2=O)CC(C)C)CC(C)C)C(=O)N[C@@H](CC(=O)O)C(=O)N[C@@H](CC(C)C)C(=O)O",
             "compound": "catenulipeptin",
             "database_id": [
                 "npatlas:NPA007476"
@@ -7196,7 +7196,7 @@
     ],
     "BGC0000528": [
         {
-            "chem_struct": "CC[C@H](C)[C@@H]1NC(=O)[C@H](CCSC[C@@H]2NC(=O)[C@@H](NC(=O)[C@@H](NC(=O)[C@H](CCSC[C@H](NC(=O)[C@H](C)NC2=O)C(=O)N[C@@H](CCCNC(N)=N)C(O)=O)NC(=O)CNC(=O)[C@H](CS)NC(=O)[C@H](CCC(O)=O)NC1=O)[C@@H](C)CC)[C@@H](C)CC)NC(=O)[C@H](CC(C)C)NC(=O)C(\\NC(=O)[C@@H]1CSC[C@H](NC(=O)[C@@H](N)CO)C(=O)N[C@@H](CO)C(=O)NCC(=O)N[C@@H](CC2=CNC3=C2C=CC=C3)C(=O)N[C@@H](CC(C)C)C(=O)N1)=C\\C",
+            "chem_struct": "CC[C@H](C)[C@H]1C(=O)N[C@H](C(=O)N[C@H]2CSCC[C@@H](C(=O)N[C@H](C(=O)N[C@H](C(=O)N[C@H](C(=O)NCC(=O)N[C@@H](CCSC[C@H](NC(=O)[C@@H](NC2=O)C)C(=O)N[C@@H](CCCNC(=N)N)C(=O)O)C(=O)N1)CS)CCC(=O)O)[C@@H](C)CC)NC(=O)[C@H](CC(C)C)NC(=O)/C(=C/C)/NC(=O)[C@@H]3CSC[C@@H](C(=O)N[C@H](C(=O)NCC(=O)N[C@H](C(=O)N[C@H](C(=O)N3)CC(C)C)CC4=CNC5=CC=CC=C54)CO)NC(=O)[C@H](CO)N)[C@@H](C)CC",
             "compound": "michiganin A",
             "database_id": [
                 "npatlas:NPA003313"
@@ -7266,7 +7266,7 @@
     ],
     "BGC0000539": [
         {
-            "chem_struct": "CCC(C)C(NC(=O)C(CC(O)=O)NC(=O)C(CCCCN)NC(=O)C(CCSC)NC(=O)C(NC(=O)C(CCCCN)NC(=O)C(CO)NC(=O)C(CC(N)=O)NC(=O)C(CCC(O)=O)NC(=O)C(N)CCSC)C(C)C)C=O",
+            "chem_struct": "CCC(C)C(C=O)NC(=O)C(CC(=O)O)NC(=O)C(CCCCN)NC(=O)C(CCSC)NC(=O)C(C(C)C)NC(=O)C(CCCCN)NC(=O)C(CO)NC(=O)C(CC(=O)N)NC(=O)C(CCC(=O)O)NC(=O)C(CCSC)N",
             "compound": "nukacin ISK-1",
             "database_id": [
                 "npatlas:NPA007347"
@@ -7556,7 +7556,7 @@
     ],
     "BGC0000581": [
         {
-            "chem_struct": "CCC(C)C1NC(=O)CNC(=O)C(NC(=O)C(CC2=CC=CC=C2)NC(=O)C(CC2=CC=C(O)C=C2)NC(=O)C(CCC(O)=O)NC(=O)C2CCCN2C(=O)C(NC(=O)C(CC2=CN=CN2)NC(=O)CNC(=O)C(C)NC(=O)CNC(=O)CNC(=O)CNC(=O)C(CC2=CC=C(O)C=C2)NC(=O)C(CC2=CC=CC=C2)NC(=O)C(CO)NC(=O)C(NC(=O)C2CCCN2C(=O)C(NC(=O)CNC1=O)C(C)O)C(C)CC)C(C)C)C(C)C",
+            "chem_struct": "CCC(C)C1C(=O)NCC(=O)NC(C(=O)N2CCCC2C(=O)NC(C(=O)NC(C(=O)NC(C(=O)NC(C(=O)NCC(=O)NCC(=O)NCC(=O)NC(C(=O)NCC(=O)NC(C(=O)NC(C(=O)N3CCCC3C(=O)NC(C(=O)NC(C(=O)NC(C(=O)NC(C(=O)NCC(=O)N1)C(C)C)CC4=CC=CC=C4)CC5=CC=C(C=C5)O)CCC(=O)O)C(C)C)CC6=CN=CN6)C)CC7=CC=C(C=C7)O)CC8=CC=CC=C8)CO)C(C)CC)C(C)O",
             "compound": "microcin J25",
             "database_id": [
                 "npatlas:NPA005946",
@@ -7748,7 +7748,7 @@
     ],
     "BGC0000603": [
         {
-            "chem_struct": "[H][C@](C)(O)[C@]1([H])NC(=O)[C@@]2(C)NC(=O)\\C(NC(=O)[C@]3([H])CSC(=N3)[C@]([H])(CC(N)=O)NC(=O)C3=CC=C(N=C3[C@@]([H])(C)NC(=O)[C@]3([H])CCCN3C(=O)\\C(NC(=O)CNC1=O)=C\\C)C1=NC(=CS1)C1=N[C@@]([H])(CS1)C(=O)NC(=C)C1=NC(=CS1)C1=NC(=CS1)C1=N[C@@]([H])(CS1)C(=O)N[C@@]([H])(CS2)C(O)=O)=C\\C",
+            "chem_struct": "C/C=C\\1/C(=O)N[C@@]2(C(=O)N[C@H](C(=O)NCC(=O)N/C(=C\\C)/C(=O)N3CCC[C@H]3C(=O)N[C@@H](C4=C(C=CC(=N4)C5=NC(=CS5)C6=N[C@@H](CS6)C(=O)NC(=C)C7=NC(=CS7)C8=NC(=CS8)C9=N[C@@H](CS9)C(=O)N[C@@H](CS2)C(=O)O)C(=O)N[C@H](C2=N[C@@H](CS2)C(=O)N1)CC(=O)N)C)[C@@H](C)O)C",
             "compound": "cyclothiazomycin",
             "database_id": [
                 "npatlas:NPA002427"
@@ -7767,7 +7767,7 @@
     ],
     "BGC0000605": [
         {
-            "chem_struct": "CC1CC(O)N2C1C1=NC(=CS1)C1=NC(=CS1)C1=NC(=CC=C1C1=NC(=C(C)O1)C(=O)NC(CC(N)=O)C1=NC(=CS1)C(=O)NC(CC1=CC=CC=C1)C1=NC(CS1)C(=O)NC(CC1=CC=C(O)C=C1)C2=O)C1=NC(=CS1)C(=O)NC(=C)C(=O)NC(=C)C(O)=O",
+            "chem_struct": "CC1CC(N2C1C3=NC(=CS3)C4=NC(=CS4)C5=C(C=CC(=N5)C6=NC(=CS6)C(=O)NC(=C)C(=O)NC(=C)C(=O)O)C7=NC(=C(O7)C)C(=O)NC(C8=NC(=CS8)C(=O)NC(C9=NC(CS9)C(=O)NC(C2=O)CC1=CC=C(C=C1)O)CC1=CC=CC=C1)CC(=O)N)O",
             "compound": "GE37468",
             "database_id": [
                 "npatlas:NPA001856"
@@ -7850,7 +7850,7 @@
     ],
     "BGC0000613": [
         {
-            "chem_struct": "C[C@@H](C1CO1)[C@@H]1NC(=O)[C@H](CC2=CC=C(O)C=C2)NC(=O)C2=CSC(=N2)[C@@H](NC(=O)C2=C(C)SC(=N2)[C@H](CC(N)=O)NC(=O)C2=CSC(=N2)C2=C(N=C(C=C2)C2=NC(=CS2)C(=O)NC(=C)C(=O)NC(=C)C(O)=O)C2=CSC(=N2)C2=CSC1=N2)[C@H](O)C1=CC=CC=C1",
+            "chem_struct": "CC1=C2C(=O)N[C@H](C3=NC(=CS3)C(=O)N[C@H](C(=O)N[C@H](C4=NC(=CS4)C5=NC(=CS5)C6=C(C=CC(=N6)C7=NC(=CS7)C(=O)NC(=C)C(=O)NC(=C)C(=O)O)C8=NC(=CS8)C(=O)N[C@H](C(=N2)S1)CC(=O)N)[C@@H](C)C9CO9)CC1=CC=C(C=C1)O)[C@@H](C1=CC=CC=C1)O",
             "compound": "thiomuracin A",
             "database_id": [
                 "npatlas:NPA000468"
@@ -8343,7 +8343,7 @@
     ],
     "BGC0000661": [
         {
-            "chem_struct": "C[C@@H]1CCC[C@]2(C)CCCC[C@@]12O",
+            "chem_struct": "C[C@@H]1CCC[C@]2([C@]1(CCCC2)O)C",
             "compound": "geosmin",
             "database_id": [
                 "npatlas:NPA009715",
@@ -8367,7 +8367,7 @@
     ],
     "BGC0000663": [
         {
-            "chem_struct": "CC(CCCO)[C@H]1CC[C@@]2(C)[C@H]1CC[C@]1(C)[C@@H]2CC[C@@H]2[C@@]3(C)CCCC(C)(C)[C@@H]3C=C[C@@]12C",
+            "chem_struct": "CC(CCCO)[C@H]1CC[C@]2([C@H]1CC[C@@]3([C@@H]2CC[C@H]4[C@]3(C=C[C@@H]5[C@@]4(CCCC5(C)C)C)C)C)C",
             "compound": "hopene",
             "database_id": [
                 "npatlas:NPA000919",
@@ -8413,7 +8413,7 @@
     ],
     "BGC0000667": [
         {
-            "chem_struct": "CC1C(OC(C)=O)C2OC2C2=CC(=O)C3(CC12C)OC3(C)C=O",
+            "chem_struct": "CC1C(C2C(O2)C3=CC(=O)C4(CC13C)C(O4)(C)C=O)OC(=O)C",
             "compound": "PR-toxin",
             "database_id": [
                 "npatlas:NPA009783"
@@ -8442,7 +8442,7 @@
             "molecular_formula": "C21H23ClN2"
         },
         {
-            "chem_struct": "CC1(C)[C@H]2CC[C@@](C)(C=C)[C@H]([N+]#[C-])[C@@H]2C2=C1NC1=CC=CC=C21",
+            "chem_struct": "C[C@]1(CC[C@H]2[C@H]([C@H]1[N+]#[C-])C3=C(C2(C)C)NC4=CC=CC=C43)C=C",
             "compound": "12-epi-fischerindole U isonitrile",
             "database_id": [
                 "npatlas:NPA008787"
@@ -8460,7 +8460,7 @@
             "molecular_formula": "C21H23ClN2"
         },
         {
-            "chem_struct": "CC1(C)[C@H]2C[C@@H](Cl)[C@@](C)(C=C)C([N+]#[C-])=C2C2=C1NC1=CC=CC=C21",
+            "chem_struct": "C[C@]1([C@@H](C[C@H]2C(=C1[N+]#[C-])C3=C(C2(C)C)NC4=CC=CC=C43)Cl)C=C",
             "compound": "12-epi-fischerindole I isonitrile",
             "database_id": [
                 "npatlas:NPA004901"
@@ -8563,7 +8563,7 @@
     ],
     "BGC0000673": [
         {
-            "chem_struct": "CC1(C)CCC[C@]2(C)C3CC[C@@](C)(C=C)C=C3CC[C@@H]12",
+            "chem_struct": "C[C@]1(CCC2C(=C1)CC[C@@H]3[C@@]2(CCCC3(C)C)C)C=C",
             "compound": "pimara-8(14),15-diene",
             "database_id": [
                 "npatlas:NPA002689"
@@ -8620,7 +8620,7 @@
             "molecular_formula": "C20H34O"
         },
         {
-            "chem_struct": "[H][C@]12C[C@]3([H])C[C@]1(CC[C@]3(O)CO)[C@@]1(C)CCC[C@@](C)(CO)[C@]1([H])CC2",
+            "chem_struct": "C[C@]1(CCC[C@]2([C@H]1CC[C@@H]3[C@@]24CC[C@@]([C@H](C3)C4)(CO)O)C)CO",
             "compound": "3-deoxyaphidicolin",
             "database_id": [
                 "npatlas:NPA001381",
@@ -8663,7 +8663,7 @@
     ],
     "BGC0000679": [
         {
-            "chem_struct": "CC(C)=CCC\\C(C)=C\\CC\\C(C)=C\\CN1C2=C(NC3=C(C=CC=C3O)C1=O)C(O)=CC(O)=C2",
+            "chem_struct": "CC(=CCC/C(=C/CC/C(=C/CN1C2=CC(=CC(=C2NC3=C(C1=O)C=CC=C3O)O)O)/C)/C)C",
             "compound": "diazepinomicin",
             "database_id": [
                 "npatlas:NPA001837",
@@ -8698,7 +8698,7 @@
     ],
     "BGC0000684": [
         {
-            "chem_struct": "OCC1=CC2=C(C(O)=C1O)C(=O)C1=C(C(O)=C(O)C=C1O)C2=O",
+            "chem_struct": "C1=C2C(=C(C(=C1CO)O)O)C(=O)C3=C(C2=O)C(=C(C=C3O)O)O",
             "compound": "asperthecin",
             "database_id": [
                 "npatlas:NPA005176"
@@ -8721,7 +8721,7 @@
     ],
     "BGC0000686": [
         {
-            "chem_struct": "[H][C@@]12CC[C@@]3(C)\\C([C@H](C[C@]3(C)[C@@]1(C)[C@H](OC(C)=O)C(=O)[C@@]1([H])[C@H](C)C(=O)C=C[C@]21C)OC(C)=O)=C(/CC=C(C)C)C(O)=O",
+            "chem_struct": "C[C@H]1[C@@H]2C(=O)[C@H]([C@]3([C@H]([C@]2(C=CC1=O)C)CC[C@@]\\4([C@@]3(C[C@@H](/C4=C(/CC=C(C)C)\\C(=O)O)OC(=O)C)C)C)C)OC(=O)C",
             "compound": "helvolic acid",
             "database_id": [
                 "npatlas:NPA007805",
@@ -8766,7 +8766,7 @@
     ],
     "BGC0000690": [
         {
-            "chem_struct": "CN[C@H]1[C@H](O)[C@@H](O)[C@H](CO)O[C@H]1O[C@H]1[C@H](O[C@H]2[C@H](O)[C@@H](O)[C@H](NC(N)=N)[C@@H](O)[C@@H]2NC(N)=N)O[C@@H](CO)[C@]1(O)C=O",
+            "chem_struct": "CN[C@H]1[C@@H]([C@H]([C@@H](O[C@H]1O[C@H]2[C@@H](O[C@H]([C@@]2(C=O)O)CO)O[C@@H]3[C@H]([C@@H]([C@H]([C@@H]([C@H]3O)O)N=C(N)N)O)N=C(N)N)CO)O)O",
             "compound": "hydroxystreptomycin",
             "database_id": [
                 "npatlas:NPA000933"
@@ -8969,7 +8969,7 @@
     ],
     "BGC0000709": [
         {
-            "chem_struct": "NC[C@H]1O[C@H](O[C@@H]2[C@@H](CO)O[C@@H](O[C@@H]3[C@@H](O)[C@H](N)C[C@H](N)[C@H]3O[C@H]3O[C@H](CN)[C@@H](O)[C@H](O)[C@H]3N)[C@@H]2O)[C@H](N)[C@@H](O)[C@@H]1O",
+            "chem_struct": "C1[C@H]([C@@H]([C@H]([C@@H]([C@H]1N)O[C@@H]2[C@@H]([C@H]([C@@H]([C@H](O2)CN)O)O)N)O[C@H]3[C@@H]([C@@H]([C@H](O3)CO)O[C@@H]4[C@@H]([C@H]([C@@H]([C@H](O4)CN)O)O)N)O)O)N",
             "compound": "neomycin",
             "database_id": [
                 "npatlas:NPA009494",
@@ -8992,7 +8992,7 @@
     ],
     "BGC0000712": [
         {
-            "chem_struct": "NC[C@H]1O[C@H](O[C@@H]2[C@@H](CO)O[C@@H](O[C@@H]3[C@@H](O)[C@H](N)C[C@H](N)[C@H]3O[C@H]3O[C@H](CO)[C@@H](O)[C@H](O)[C@H]3N)[C@@H]2O)[C@H](N)[C@@H](O)[C@@H]1O",
+            "chem_struct": "C1[C@H]([C@@H]([C@H]([C@@H]([C@H]1N)O[C@@H]2[C@@H]([C@H]([C@@H]([C@H](O2)CO)O)O)N)O[C@H]3[C@@H]([C@@H]([C@H](O3)CO)O[C@@H]4[C@@H]([C@H]([C@@H]([C@H](O4)CN)O)O)N)O)O)N",
             "compound": "paromomycin",
             "database_id": [
                 "npatlas:NPA000635",
@@ -9016,7 +9016,7 @@
     ],
     "BGC0000714": [
         {
-            "chem_struct": "CN[C@@H]1[C@@H](O)[C@@H](O[C@H]2[C@H](N)C[C@H](N)[C@@H](O[C@H]3OC(CN)=CC[C@H]3N)[C@@H]2O)OC[C@]1(C)O",
+            "chem_struct": "C[C@@]1(CO[C@@H]([C@@H]([C@H]1NC)O)O[C@H]2[C@@H](C[C@@H]([C@H]([C@@H]2O)O[C@@H]3[C@@H](CC=C(O3)CN)N)N)N)O",
             "compound": "sisomicin",
             "database_id": [
                 "npatlas:NPA009502",
@@ -9745,7 +9745,7 @@
     ],
     "BGC0000812": [
         {
-            "chem_struct": "CC=C1C2CC3=C(C=CC(O)=N3)C1(N)CC(C)=C2",
+            "chem_struct": "CC=C1C2C=C(C)C[C@]1(N)C1=C(C2)NC(=O)C=C1",
             "compound": "huperzine A",
             "database_id": [
                 "npatlas:NPA000438",
@@ -9757,7 +9757,7 @@
     ],
     "BGC0000813": [
         {
-            "chem_struct": "[H][C@]12C[C@@](O)(C(=O)OC)[C@](C)(O1)N1C3=C(C=CC=C3)C3=C1C1=C(C4=C(C=CC=C4)N21)C1=C3CNC1=O",
+            "chem_struct": "C[C@@]12[C@@](C[C@@H](O1)N3C4=CC=CC=C4C5=C6C(=C7C8=CC=CC=C8N2C7=C53)CNC6=O)(C(=O)OC)O",
             "compound": "K-252a",
             "database_id": [
                 "npatlas:NPA002183",
@@ -9811,7 +9811,7 @@
     ],
     "BGC0000816": [
         {
-            "chem_struct": "CC1(C)[C@@H]2C[C@]34CCCN3C[C@@]2(CC2=C1NC1=CC(Cl)=CC=C21)NC4=O",
+            "chem_struct": "CC1([C@@H]2C[C@]34CCCN3C[C@@]2(CC5=C1NC6=C5C=CC(=C6)Cl)NC4=O)C",
             "compound": "malbrancheamide A",
             "database_id": [
                 "npatlas:NPA004108"
@@ -9833,7 +9833,7 @@
     ],
     "BGC0000818": [
         {
-            "chem_struct": "CC1(C)[C@@H]2C[C@]34CCCN3C(=O)[C@@]2(C[C@@]11C(=O)N(O)C2=C1C=CC1=C2C=CC(C)(C)O1)NC4=O",
+            "chem_struct": "CC1(C=CC2=C(O1)C=CC3=C2N(C(=O)[C@@]34C[C@]56[C@H](C4(C)C)C[C@@]7(CCCN7C5=O)C(=O)N6)O)C",
             "compound": "notoamide A",
             "database_id": [
                 "npatlas:NPA004681"
@@ -9844,7 +9844,7 @@
     ],
     "BGC0000819": [
         {
-            "chem_struct": "CN1C(=O)[C@]23C[C@H]4C(C)(C)[C@@]5(C[C@]14CN2CC[C@@]3(C)O)C(=O)NC1=C2OC=CC(C)(C)OC2=CC=C51",
+            "chem_struct": "C[C@]1(CCN2[C@]13C[C@@H]4[C@](C2)(C[C@@]5(C4(C)C)C6=C(C7=C(C=C6)OC(C=CO7)(C)C)NC5=O)N(C3=O)C)O",
             "compound": "paraherquamide",
             "database_id": [
                 "npatlas:NPA003590"
@@ -9855,7 +9855,7 @@
     ],
     "BGC0000820": [
         {
-            "chem_struct": "[H][C@]12N(C)CC[C@@]1(C)C1=C(C=CC(OC(=O)NC)=C1)N2C",
+            "chem_struct": "C[C@@]12CCN([C@@H]1N(C3=C2C=C(C=C3)OC(=O)NC)C)C",
             "compound": "physostigmine",
             "database_id": [
                 "npatlas:NPA006965",
@@ -10171,7 +10171,7 @@
     ],
     "BGC0000847": [
         {
-            "chem_struct": "C[C@@H](O)C1[C@H]2CC(SCCN)=C(N2C1=O)C(O)=O",
+            "chem_struct": "C[C@H](C1[C@H]2CC(=C(N2C1=O)C(=O)O)SCCN)O",
             "compound": "thienamycin",
             "database_id": [
                 "npatlas:NPA008843"
@@ -10419,7 +10419,7 @@
     ],
     "BGC0000872": [
         {
-            "chem_struct": "CCCCCCCCCCCCCC(CC(=O)OC1CN(C)C(C(OC2OC(CN)C(O)C2O)C2OC(C(OS(O)(=O)=O)C2O)N2C=CC(=O)NC2=O)C(=O)N(C)C1C(O)=O)OC(=O)CC(C)CC(=O)OC1OC(C)C(OC)C(OC)C1OC",
+            "chem_struct": "CCCCCCCCCCCCCC(CC(=O)OC1CN(C(C(=O)N(C1C(=O)O)C)C(C2C(C(C(O2)N3C=CC(=O)NC3=O)OS(=O)(=O)O)O)OC4C(C(C(O4)CN)O)O)C)OC(=O)CC(C)CC(=O)OC5C(C(C(C(O5)C)OC)OC)OC",
             "compound": "A-90289 A",
             "database_id": [
                 "npatlas:NPA002100"
@@ -10522,7 +10522,7 @@
     ],
     "BGC0000879": [
         {
-            "chem_struct": "NC1=NC=NC2=C1C(=CN2[C@@H]1O[C@H](CO)[C@@H](O)[C@H]1O)C#N",
+            "chem_struct": "C1=C(C2=C(N1[C@H]3[C@@H]([C@@H]([C@H](O3)CO)O)O)N=CN=C2N)C#N",
             "compound": "toyocamycin",
             "database_id": [
                 "npatlas:NPA006347",
@@ -10532,7 +10532,7 @@
             "molecular_formula": "C12H13N5O4"
         },
         {
-            "chem_struct": "NC(=O)C1=CN([C@@H]2O[C@H](CO)[C@@H](O)[C@H]2O)C2=C1C(N)=NC=N2",
+            "chem_struct": "C1=C(C2=C(N1[C@H]3[C@@H]([C@@H]([C@H](O3)CO)O)O)N=CN=C2N)C(=O)N",
             "compound": "sangivamycin",
             "database_id": [
                 "npatlas:NPA005297",
@@ -10568,7 +10568,7 @@
     ],
     "BGC0000882": [
         {
-            "chem_struct": "NC(CO)C(=O)N[C@H]1C=C[C@@H](O[C@@H]1C(O)(CC(O)CNC(N)=N)C(O)=O)N1C=C(CO)C(N)=NC1=O",
+            "chem_struct": "C1=C[C@@H](O[C@@H]([C@H]1NC(=O)C(CO)N)C(CC(CN=C(N)N)O)(C(=O)O)O)N2C=C(C(=NC2=O)N)CO",
             "compound": "mildiomycin",
             "database_id": [
                 "npatlas:NPA004676",
@@ -10808,7 +10808,7 @@
     ],
     "BGC0000896": [
         {
-            "chem_struct": "N[C@@H]1CONC1=O",
+            "chem_struct": "C1[C@H](C(=O)NO1)N",
             "compound": "cycloserine",
             "database_id": [
                 "npatlas:NPA001237"
@@ -10915,7 +10915,7 @@
     ],
     "BGC0000904": [
         {
-            "chem_struct": "CC(=O)N(O)CCCP(O)(O)=O",
+            "chem_struct": "CC(=O)N(CCCP(=O)(O)O)O",
             "compound": "FR-900098",
             "database_id": [
                 "npatlas:NPA007537"
@@ -11017,7 +11017,7 @@
     ],
     "BGC0000913": [
         {
-            "chem_struct": "CC(C)=CCCC(C)=CCCC(C)=CCCC(C)=CCCC(C)=CCCC(C)=CCCC(C)=CCCC(C)=CCC1=C(C)C(=O)C2=C(C=CC=C2)C1=O",
+            "chem_struct": "CC1=C(C(=O)C2=CC=CC=C2C1=O)CC=C(C)CCC=C(C)CCC=C(C)CCC=C(C)CCC=C(C)CCC=C(C)CCC=C(C)CCC=C(C)C",
             "compound": "MK-8",
             "database_id": [
                 "npatlas:NPA008437"
@@ -11162,7 +11162,7 @@
     ],
     "BGC0000929": [
         {
-            "chem_struct": "CN1N=CN=C2C(=O)N(C)C(=O)N=C12",
+            "chem_struct": "CN1C2=NC(=O)N(C(=O)C2=NC=N1)C",
             "compound": "xanthothricin",
             "database_id": [
                 "npatlas:NPA004485"
@@ -11272,7 +11272,7 @@
     ],
     "BGC0000936": [
         {
-            "chem_struct": "CN1C2=CC=CC=C2N=C2C(=O)C=CC=C12",
+            "chem_struct": "CN1C2=CC=CC=C2N=C3C1=CC=CC3=O",
             "compound": "pyocyanine",
             "database_id": [
                 "npatlas:NPA000489",
@@ -11328,7 +11328,7 @@
     ],
     "BGC0000940": [
         {
-            "chem_struct": "CC(=O)N(O)CCCCCNC(=O)CCC(=O)N(O)CCCCCNC(=O)CCC(=O)N(O)CCCCCN",
+            "chem_struct": "CC(=O)N(CCCCCNC(=O)CCC(=O)N(CCCCCNC(=O)CCC(=O)N(CCCCCN)O)O)O",
             "compound": "desferrioxamin B",
             "database_id": [
                 "npatlas:NPA009012"
@@ -11349,7 +11349,7 @@
     ],
     "BGC0000941": [
         {
-            "chem_struct": "CC(=O)N(O)CCCCCNC(=O)CCC(=O)N(O)CCCCCNC(=O)CCC(=O)N(O)CCCCCN",
+            "chem_struct": "CC(=O)N(CCCCCNC(=O)CCC(=O)N(CCCCCNC(=O)CCC(=O)N(CCCCCN)O)O)O",
             "compound": "desferrioxamin B",
             "database_id": [
                 "npatlas:NPA009012"
@@ -11475,7 +11475,7 @@
             "molecular_formula": "C40H50N8O12S"
         },
         {
-            "chem_struct": "CSCCC(NC(=O)NC(CC1=CC=CC(O)=C1)C(O)=O)C(=O)NC(C(C)N(C)C(=O)C1CC2=CC(O)=CC=C2CN1)C(=O)N\\C=C1\\CC(O)C(O1)N1CCC(=O)NC1=O",
+            "chem_struct": "CC(C(C(=O)N/C=C\\1/CC(C(O1)N2CCC(=O)NC2=O)O)NC(=O)C(CCSC)NC(=O)NC(CC3=CC(=CC=C3)O)C(=O)O)N(C)C(=O)C4CC5=C(CN4)C=CC(=C5)O",
             "compound": "napsamycin C",
             "database_id": [
                 "npatlas:NPA001280"
@@ -11592,7 +11592,7 @@
     ],
     "BGC0000953": [
         {
-            "chem_struct": "C[C@H]1O[C@H](CC[C@@H]1O[C@H]1O[C@H](C)[C@H]([C@H](O)[C@H]1O)N(C)C)N1C=CC(NC(=O)C2=CC=C(NC(=O)[C@@](C)(N)CO)C=C2)=NC1=O",
+            "chem_struct": "C[C@@H]1[C@H](CC[C@@H](O1)N2C=CC(=NC2=O)NC(=O)C3=CC=C(C=C3)NC(=O)[C@](C)(CO)N)O[C@@H]4[C@@H]([C@H]([C@@H]([C@H](O4)C)N(C)C)O)O",
             "compound": "amicetin",
             "database_id": [
                 "npatlas:NPA002444",
@@ -11604,7 +11604,7 @@
     ],
     "BGC0000954": [
         {
-            "chem_struct": "CO\\C(C)=C\\C(=O)N(C)C\\C=C\\CC\\C=C/C=C\\CC(=C)C1=NC(C[C@H](C)[C@@H]2OC(=O)C3=C(O)C(C)=CC=C3[C@H]2O)=CO1",
+            "chem_struct": "CC1=C(C2=C(C=C1)[C@H]([C@@H](OC2=O)[C@@H](C)CC3=COC(=N3)C(=C)C/C=C\\C=C/CC/C=C/CN(C)C(=O)/C=C(\\C)/OC)O)O",
             "compound": "ajudazol A",
             "database_id": [
                 "npatlas:NPA008161"
@@ -11639,7 +11639,7 @@
     ],
     "BGC0000957": [
         {
-            "chem_struct": "COC1CC(=O)NC2=CC(=O)C=C(CC\\C=C(C)/C(O)C(C)C(C\\C=C\\C=C\\C=C\\1)OC(=O)C(C)NC(=O)C1CCCCC1)C2=O",
+            "chem_struct": "CC1C(C/C=C/C=C/C=CC(CC(=O)NC2=CC(=O)C=C(C2=O)CC/C=C(\\C1O)/C)OC)OC(=O)C(C)NC(=O)C3CCCCC3",
             "compound": "mycotrienin I",
             "database_id": [
                 "npatlas:NPA008547"
@@ -11694,7 +11694,7 @@
     ],
     "BGC0000961": [
         {
-            "chem_struct": "[H][C@@](C)(N)C(=O)N[C@@H]1[C@]2([H])[C@@H](O)[C@H](O)CC(O)=C2C(=O)O[C@]1(C)C(Cl)Cl",
+            "chem_struct": "C[C@@H](C(=O)N[C@@H]1[C@@H]2[C@H]([C@@H](CC(=C2C(=O)O[C@]1(C)C(Cl)Cl)O)O)O)N",
             "compound": "bactobolin",
             "database_id": [
                 "npatlas:NPA005764",
@@ -11819,7 +11819,7 @@
     ],
     "BGC0000969": [
         {
-            "chem_struct": "CO[C@H]1C(NC(=O)[C@@H](CC2=CNC3=CC=CC=C23)N(C)C(=O)[C@H](C)NC(=O)[C@@H](C)CC(C)=C[C@H](C)[C@@H](C)OC1=O)C1=CC=C(O)C=C1",
+            "chem_struct": "C[C@H]1CC(=C[C@@H]([C@H](OC(=O)[C@H](C(NC(=O)[C@H](N(C(=O)[C@@H](NC1=O)C)C)CC2=CNC3=CC=CC=C32)C4=CC=C(C=C4)O)OC)C)C)C",
             "compound": "chondramide A",
             "database_id": [
                 "npatlas:NPA007953"
@@ -11830,7 +11830,7 @@
     ],
     "BGC0000970": [
         {
-            "chem_struct": "CCCC[C@@H](C)[C@H](O)[C@H](C)C(=O)C(\\C)=C\\[C@@H](OC)[C@@H](O)[C@@H](OC)C(=O)N\\C=C/C1=CC=C(O)C(Cl)=C1",
+            "chem_struct": "CCCC[C@@H](C)[C@@H]([C@H](C)C(=O)/C(=C/[C@H]([C@H]([C@H](C(=O)N/C=C\\C1=CC(=C(C=C1)O)Cl)OC)O)OC)/C)O",
             "compound": "chondrochloren A",
             "database_id": [
                 "npatlas:NPA000508"
@@ -11902,7 +11902,7 @@
     ],
     "BGC0000976": [
         {
-            "chem_struct": "CO[C@H](CC\\C(C)=C\\C=C\\CC\\C=C/[C@H]1CSC(=N1)[C@@H]1C[C@@H]1C)CC=C",
+            "chem_struct": "C[C@H]1C[C@H]1C2=N[C@H](CS2)/C=C\\CC/C=C/C=C(\\C)/CC[C@H](CC=C)OC",
             "compound": "curacin A",
             "database_id": [
                 "npatlas:NPA003438",
@@ -11952,7 +11952,7 @@
     ],
     "BGC0000982": [
         {
-            "chem_struct": "CO[C@@H](\\C=C\\C1=CSC(=N1)C1=CSC(=N1)C(C)C)[C@@H](C)C(\\OC)=C/C(=O)OC",
+            "chem_struct": "C[C@H]([C@H](/C=C/C1=CSC(=N1)C2=CSC(=N2)C(C)C)OC)/C(=C\\C(=O)OC)/OC",
             "compound": "cystothiazole A",
             "database_id": [
                 "npatlas:NPA007000",
@@ -12093,7 +12093,7 @@
     ],
     "BGC0000988": [
         {
-            "chem_struct": "C[C@H]1CCC[C@@]2(C)O[C@H]2C[C@H](OC(=O)C[C@H](O)C(C)(C)C(=O)[C@H](C)[C@H]1O)C(\\C)=C\\C1=CSC(C)=N1",
+            "chem_struct": "C[C@H]1CCC[C@@]2([C@@H](O2)C[C@H](OC(=O)C[C@@H](C(C(=O)[C@@H]([C@H]1O)C)(C)C)O)/C(=C/C3=CSC(=N3)C)/C)C",
             "compound": "epothilone B",
             "database_id": [
                 "npatlas:NPA006085"
@@ -12173,7 +12173,7 @@
     ],
     "BGC0000994": [
         {
-            "chem_struct": "[H][C@]12O[C@](O)([C@H](C)C[C@@H]1OC)C(=O)C(=O)N1CCCC[C@@]1([H])C(=O)O[C@@H]([C@H](C)[C@@H](O)CC(=O)[C@H](CC)\\C=C(C)/C[C@H](C)C[C@@H]2OC)C(\\C)=C\\[C@@H]1CC[C@@H](O)C(C1)OC",
+            "chem_struct": "CC[C@@H]1/C=C(\\C[C@@H](C[C@@H]([C@@H]2[C@H](C[C@H]([C@@](O2)(C(=O)C(=O)N3CCCC[C@H]3C(=O)O[C@@H]([C@@H]([C@H](CC1=O)O)C)/C(=C/[C@@H]4CC[C@H](C(C4)OC)O)/C)O)C)OC)OC)C)/C",
             "compound": "FR-900520",
             "database_id": [
                 "npatlas:NPA003615"
@@ -12303,7 +12303,7 @@
             "molecular_formula": "C27H36BrClN2O4"
         },
         {
-            "chem_struct": "CO\\C(CCNC(=O)CC\\C=C\\C(C)CC\\C(CCCC#C)=C\\Cl)=C\\C(=O)N1C(C)C=CC1=O",
+            "chem_struct": "CC1C=CC(=O)N1C(=O)/C=C(\\CCNC(=O)CC/C=C/C(C)CC/C(=C/Cl)/CCCC#C)/OC",
             "compound": "jamaicamide B",
             "database_id": [
                 "npatlas:NPA000374",
@@ -12313,7 +12313,7 @@
             "molecular_formula": "C27H37ClN2O4"
         },
         {
-            "chem_struct": "CO\\C(CCNC(=O)CC\\C=C\\C(C)CC\\C(CCCC=C)=C\\Cl)=C\\C(=O)N1C(C)C=CC1=O",
+            "chem_struct": "CC1C=CC(=O)N1C(=O)/C=C(\\CCNC(=O)CC/C=C/C(C)CC/C(=C/Cl)/CCCC=C)/OC",
             "compound": "jamaicamide C",
             "database_id": [
                 "npatlas:NPA001111",
@@ -12391,7 +12391,7 @@
     ],
     "BGC0001006": [
         {
-            "chem_struct": "CO\\C=C\\C(=O)C1=NC2=C3C(C=NC3=C(N)C=C2NC(C)=O)=C1",
+            "chem_struct": "CC(=O)NC1=CC(=N)C2=NC=C3C2=C1NC(=C3)C(=O)/C=C/OC",
             "compound": "lymphostin",
             "database_id": [
                 "npatlas:NPA009688"
@@ -12409,7 +12409,7 @@
             "molecular_formula": "C16H16N4O3"
         },
         {
-            "chem_struct": "CC(=O)NC1=CC(N)=C2N=CC3=C2C1=NC(=C3)C(=O)CCO",
+            "chem_struct": "CC(=O)NC1=CC(=N)C2=NC=C3C2=C1NC(=C3)C(=O)CCO",
             "compound": "lymphostinol",
             "database_id": [
                 "npatlas:NPA000884"
@@ -12467,7 +12467,7 @@
     ],
     "BGC0001010": [
         {
-            "chem_struct": "COC(\\C=C\\C1=CSC(=N1)C1CSC(=N1)C(C)=C)C(C)C(\\OC)=C/C(=O)OC",
+            "chem_struct": "CC(C(/C=C/C1=CSC(=N1)C2CSC(=N2)C(=C)C)OC)/C(=C\\C(=O)OC)/OC",
             "compound": "melithiazol A",
             "database_id": [
                 "npatlas:NPA008025"
@@ -12505,7 +12505,7 @@
     ],
     "BGC0001014": [
         {
-            "chem_struct": "OC1=C(C2=N[C@]([C@@]3([H])SC[C@]([C@@H](O)C(C)(C)C4=N[C@](C(O)=O)(C)CS4)([H])N3C)([H])CS2)C(CCCCC)=CC=C1",
+            "chem_struct": "CCCCCC1=C(C2=N[C@@H]([C@H]3SC[C@@H]([C@@H](O)C(C)(C)C4=N[C@@](C)(C(=O)O)CS4)N3C)CS2)C(O)=CC=C1",
             "compound": "micacocidin",
             "database_id": [
                 "npatlas:NPA001634"
@@ -12516,7 +12516,7 @@
     ],
     "BGC0001015": [
         {
-            "chem_struct": "C[C@H]1[C@@H](NC(=O)[C@@H](NC(=O)[C@H]([C@@H](NC(=O)[C@H](NC(=O)[C@H](NC(=O)C(=C)N(C(=O)CC[C@@H](NC1=O)C(=O)O)C)C)CC(C)C)C(=O)O)C)CCCN=C(N)N)/C=C/C(=C/[C@H](C)[C@H](CC2=CC=CC=C2)OC)/C",
+            "chem_struct": "C[C@@H](/C=C(\\C)/C=C/[C@@H]([C@H](C)C(=O)N[C@H](CCC(=O)NC)C(=O)O)NC(=O)[C@H](CCCN=C(N)N)NC(=O)C[C@H](C(=O)O)NC(=O)[C@H](CCCN=C(N)N)NC(=O)[C@@H](C)NC(=O)C(=O)C)[C@H](CC1=CC=CC=C1)OC",
             "compound": "microcystin",
             "database_id": [
                 "pubchem:6437057",
@@ -12539,7 +12539,7 @@
     ],
     "BGC0001017": [
         {
-            "chem_struct": "C[C@H]1[C@@H](NC(=O)[C@@H](NC(=O)[C@H]([C@@H](NC(=O)[C@@H](NC(=O)[C@H](NC(=O)C(=C)N(C(=O)CC[C@@H](NC1=O)C(=O)O)C)C)CC(C)C)C(=O)O)C)CCCN=C(N)N)/C=C/C(=C/[C@H](C)[C@H](CC2=CC=CC=C2)OC)/C",
+            "chem_struct": "C/C=C\\1/C(=O)N[C@@H](C(=O)N[C@H](C(=O)N[C@H](CC(=O)N[C@H](C(=O)N[C@H]([C@@H](C(=O)N[C@H](CCC(=O)N1)C(=O)O)C)/C=C/C(=C/[C@H](C)[C@H](CC2=CC=CC=C2)OC)/C)CCCN=C(N)N)C(=O)O)CCC(C)C)C",
             "compound": "microcystin LR",
             "database_id": [
                 "pubchem:445434",
@@ -12566,7 +12566,7 @@
     ],
     "BGC0001019": [
         {
-            "chem_struct": "CN1CC(=O)N[C@H](CC2=CNC3=CC=CC=C23)C(=O)NCC(=O)NC[C@H](O)CC(=O)N[C@H]([C@H](O)[C@@H](O)CC=CC=CC=CC2=CC=CC=C2)[C@H](O)C(=O)N[C@@H]2CC(=O)N[C@@]2(O)CC1=O",
+            "chem_struct": "CN1CC(=O)N[C@@H](C(=O)NCC(=O)NC[C@@H](CC(=O)N[C@@H]([C@@H](C(=O)N[C@@H]2CC(=O)N[C@]2(CC1=O)O)O)[C@@H]([C@H](CC=CC=CC=CC3=CC=CC=C3)O)O)O)CC4=CNC5=CC=CC=C54",
             "compound": "microsclerodermin M",
             "database_id": [
                 "npatlas:NPA008944"
@@ -12577,7 +12577,7 @@
     ],
     "BGC0001020": [
         {
-            "chem_struct": "CO[C@@H]1[C@H](O)[C@@H](CN)O[C@H]1O[C@@H]([C@H](NCCCNC(=O)[C@@H](NC(=O)[C@@H](NC(=O)N[C@@H](C(C)C)C(O)=O)[C@@H]1CCNC(=N)N1)[C@@H](O)C(C)C)C(O)=O)[C@H]1O[C@H]([C@H](O)[C@@H]1O)N1C=CC(=O)NC1=O",
+            "chem_struct": "CC(C)[C@@H]([C@@H](C(=O)NCCCN[C@@H]([C@@H]([C@@H]1[C@H]([C@H]([C@@H](O1)N2C=CC(=O)NC2=O)O)O)O[C@H]3[C@@H]([C@@H]([C@H](O3)CN)O)OC)C(=O)O)NC(=O)[C@H]([C@@H]4CCN=C(N4)N)NC(=O)N[C@@H](C(C)C)C(=O)O)O",
             "compound": "muraymycin C1",
             "database_id": [
                 "npatlas:NPA006302"
@@ -12637,7 +12637,7 @@
     ],
     "BGC0001023": [
         {
-            "chem_struct": "C\\C=C\\C=C\\C=C\\C=C\\C=C\\C=C\\C=C\\C(=O)N(C)[C@H]1[C@@H](C)OC(=O)[C@H](CCC(N)=O)NC(=O)[C@H](C)NC(=O)[C@H](C)NC(=O)[C@H](CC(C)C)NC1=O",
+            "chem_struct": "C/C=C/C=C/C=C/C=C/C=C/C=C/C=C/C(=O)N(C)[C@H]1[C@H](OC(=O)[C@@H](NC(=O)[C@@H](NC(=O)[C@@H](NC(=O)[C@@H](NC1=O)CC(C)C)C)C)CCC(=O)N)C",
             "compound": "myxochromide S1",
             "database_id": [
                 "npatlas:NPA001302"
@@ -12648,7 +12648,7 @@
     ],
     "BGC0001024": [
         {
-            "chem_struct": "COC(\\C=C\\C1=CSC(=N1)C1=CSC(=N1)C(C)\\C=C\\C=C\\C(C)C)C(C)C(\\OC)=C/C(N)=O",
+            "chem_struct": "CC(C)/C=C/C=C/C(C)C1=NC(=CS1)C2=NC(=CS2)/C=C/C(C(C)/C(=C\\C(=O)N)/OC)OC",
             "compound": "myxothiazol",
             "database_id": [
                 "npatlas:NPA001854"
@@ -12659,7 +12659,7 @@
     ],
     "BGC0001025": [
         {
-            "chem_struct": "CCC[C@@H]1OC(=O)[C@@H](C)C[C@H](C)CCCCC(=O)CCCC(CC)\\C=C\\C=C(COC)\\CC[C@@H](O)[C@@H](O)C[C@H](O)CNC1=O",
+            "chem_struct": "CCC[C@H]1C(=O)NC[C@H](C[C@@H]([C@@H](CC/C(=C/C=C/C(CCCC(=O)CCCC[C@H](C[C@@H](C(=O)O1)C)C)CC)/COC)O)O)O",
             "compound": "myxovirescin A1",
             "database_id": [
                 "npatlas:NPA000423"
@@ -12670,7 +12670,7 @@
     ],
     "BGC0001026": [
         {
-            "chem_struct": "COC(=O)\\C(=C\\C)\\C=C(/C)\\C=C\\C=C\\C=C(/C)C(=O)[C@]12O[C@H]1[C@@](O)(CCO)NC2=O",
+            "chem_struct": "C/C=C(\\C=C(/C)\\C=C\\C=C\\C=C(/C)\\C(=O)[C@@]12[C@@H](O1)[C@](NC2=O)(CCO)O)/C(=O)OC",
             "compound": "NG-391",
             "database_id": [
                 "npatlas:NPA004762"
@@ -12822,7 +12822,7 @@
             "molecular_formula": "C50H80N8O17"
         },
         {
-            "chem_struct": "[H][C@@]12C[C@@H](O)CN1C(=O)[C@@]([H])(NC(=O)[C@@H](C[C@@H](O)[C@@H](O)NC(=O)[C@]1([H])[C@@H](O)[C@@H](C)CN1C(=O)[C@@]([H])(NC(=O)[C@@]([H])(NC2=O)[C@H](O)[C@@H](O)C1=CC=C(O)C=C1)[C@H](O)CC(N)=O)NC(=O)CCCCCCCC[C@@H](C)C[C@@H](C)CC)[C@@H](C)O",
+            "chem_struct": "CC[C@H](C)C[C@H](C)CCCCCCCCC(=O)N[C@@H]1C[C@H]([C@H](NC(=O)[C@@H]2[C@H]([C@H](CN2C(=O)[C@@H](NC(=O)[C@@H](NC(=O)[C@@H]3C[C@H](CN3C(=O)[C@@H](NC1=O)[C@@H](C)O)O)[C@@H]([C@H](C4=CC=C(C=C4)O)O)O)[C@@H](CC(=O)N)O)C)O)O)O",
             "compound": "pneumocandin A0",
             "database_id": [
                 "npatlas:NPA001123",
@@ -12845,7 +12845,7 @@
     ],
     "BGC0001037": [
         {
-            "chem_struct": "CC\\C=C/[C@H](O)[C@H](O)C1=C(C)C(=O)[C@@]2(O1)C(O)[C@](NC2=O)(OC)C(=O)C1=CC=CC=C1",
+            "chem_struct": "CC/C=C\\[C@@H]([C@@H](C1=C(C(=O)[C@@]2(O1)C([C@@](NC2=O)(C(=O)C3=CC=CC=C3)OC)O)C)O)O",
             "compound": "pseurotin",
             "database_id": [
                 "npatlas:NPA003544",
@@ -12855,7 +12855,7 @@
             "molecular_formula": "C22H25NO8"
         },
         {
-            "chem_struct": "CC\\C=C\\C=C\\C1=C(C)C(=O)[C@@]2(O1)[C@@H](O)[C@](O)(CC1=CC=CC=C1)NC2=O",
+            "chem_struct": "CC/C=C/C=C/C1=C(C(=O)[C@@]2(O1)[C@H]([C@@](NC2=O)(CC3=CC=CC=C3)O)O)C",
             "compound": "azaspirene",
             "database_id": [
                 "npatlas:NPA006799"
@@ -12890,7 +12890,7 @@
     ],
     "BGC0001040": [
         {
-            "chem_struct": "[H][C@@]12CC[C@@H](C)[C@@](O)(O1)C(=O)C(=O)N1CCCC[C@@]1([H])C(=O)O[C@@]([H])(CC(=O)[C@H](C)\\C=C(C)\\[C@@H](O)[C@@H](OC)C(=O)[C@H](C)C[C@H](C)\\C=C\\C=C\\C=C(C)\\[C@H](C2)OC)[C@H](C)C[C@@H]1CC[C@@H](O)[C@@H](C1)OC",
+            "chem_struct": "C[C@@H]1CC[C@H]2C[C@@H](/C(=C/C=C/C=C/[C@H](C[C@H](C(=O)[C@@H]([C@@H](/C(=C/[C@H](C(=O)C[C@H](OC(=O)[C@@H]3CCCCN3C(=O)C(=O)[C@@]1(O2)O)[C@H](C)C[C@@H]4CC[C@H]([C@@H](C4)OC)O)C)/C)O)OC)C)C)/C)OC",
             "compound": "rapamycin",
             "database_id": [
                 "npatlas:NPA000414",
@@ -12962,7 +12962,7 @@
     ],
     "BGC0001045": [
         {
-            "chem_struct": "[H][C@]12CSSCC\\C=C\\C(CC(=O)N[C@H](C)C(=O)N1)OC(=O)CC(O)C(NC2=O)C(C)C",
+            "chem_struct": "C[C@@H]1C(=O)N[C@@H]2CSSCC/C=C/C(CC(=O)N1)OC(=O)CC(C(NC2=O)C(C)C)O",
             "compound": "spiruchostatin A",
             "database_id": [
                 "npatlas:NPA007276",
@@ -13015,7 +13015,7 @@
     ],
     "BGC0001049": [
         {
-            "chem_struct": "CCC(C)\\C=C(/C)\\C=C\\C(=O)C1=C(O)C(=CN(O)C1=O)C1=CC=C(O)C=C1",
+            "chem_struct": "CCC(C)/C=C(\\C)/C=C/C(=O)C1=C(C(=CN(C1=O)O)C2=CC=C(C=C2)O)O",
             "compound": "tenellin",
             "database_id": [
                 "npatlas:NPA005743",
@@ -13027,7 +13027,7 @@
     ],
     "BGC0001050": [
         {
-            "chem_struct": "CCCCCC\\C=C/CC(=O)N[C@@H](CO)C(=O)N[C@@H](C(C)C)C(=O)N[C@@H](CO)[C@@H](O)CC(=O)N[C@@H](C(C)C)C(=O)N[C@H]1COC(=O)[C@H](CC2=CC=C(O)C=C2)N(C)C(=O)[C@@H](NC(=O)\\C=C\\1)C(C)C",
+            "chem_struct": "CCCCCC/C=C\\CC(=O)N[C@@H](CO)C(=O)N[C@@H](C(C)C)C(=O)N[C@@H](CO)[C@H](CC(=O)N[C@@H](C(C)C)C(=O)N[C@H]1COC(=O)[C@@H](N(C(=O)[C@@H](NC(=O)C=C1)C(C)C)C)CC2=CC=C(C=C2)O)O",
             "compound": "thalassospiramide A",
             "database_id": [
                 "npatlas:NPA001933",
@@ -13039,7 +13039,7 @@
     ],
     "BGC0001051": [
         {
-            "chem_struct": "CCCCCC\\C1=C/C2=CSC(=N2)C(C)C(O)CC(O)\\C=C\\C=C/CC(OC1=O)C(O)C(O)C(C)C(O)C(\\C)=C\\C(\\C)=C\\C",
+            "chem_struct": "C/C=C(C)/C=C(\\C)C(O)C(C)[C@H](O)[C@@H](O)[C@H]1C/C=C\\C=C\\[C@H](O)C[C@@H](O)[C@H](C)C2=NC(=CS2)/C=C(\\CCCCCC)C(=O)O1",
             "compound": "thuggacin A",
             "database_id": [
                 "npatlas:NPA009721"
@@ -13105,7 +13105,7 @@
     ],
     "BGC0001056": [
         {
-            "chem_struct": "CCCCCC(N)CCCCCCCC(N)CCCCCCCC(N)CCCCCCCC(N)CCCCCCCC(O)CCNC(=O)CC(O)CC(O)C(N)C(C)C",
+            "chem_struct": "CCCCCC(CCCCCCCC(CCCCCCCC(CCCCCCCC(CCCCCCCC(CCNC(=O)CC(CC(C(C(C)C)N)O)O)O)N)N)N)N",
             "compound": "zeamine",
             "database_id": [
                 "npatlas:NPA009575"
@@ -13157,7 +13157,7 @@
     ],
     "BGC0001058": [
         {
-            "chem_struct": "[H][C@](N)(CN[C@@]([H])(CC(N)=O)C1=NC(N)=C(C)C(=N1)C(=O)N[C@]([H])(C(=O)N[C@]([H])(CCO)[C@@]([H])(O)[C@]([H])(C)C(=O)N[C@]([H])(C(=O)NCCC1=N[C@]([H])(CS1)C1=NC(=CS1)C(=O)NCCC(N)=N)C(C)(C)O)[C@@]([H])(O[C@@H]1O[C@@H](C)[C@@H](O)[C@H](O)[C@@H]1O[C@H]1O[C@H](CO)[C@@H](O)[C@H](OC(N)=O)[C@@H]1O)C1=CNC=N1)C(N)=O",
+            "chem_struct": "C[C@H]1[C@H]([C@@H]([C@@H]([C@@H](O1)O[C@@H](C2=CN=CN2)[C@@H](C(=O)N[C@H](CCO)[C@H]([C@H](C)C(=O)N[C@H](C(=O)NCCC3=N[C@H](CS3)C4=NC(=CS4)C(=O)NCCC(=N)N)C(C)(C)O)O)NC(=O)C5=C(C(=NC(=N5)[C@H](CC(=O)N)NC[C@@H](C(=O)N)N)N)C)O[C@@H]6[C@H]([C@H]([C@@H]([C@H](O6)CO)O)OC(=O)N)O)O)O",
             "compound": "zorbamycin",
             "database_id": [
                 "npatlas:NPA008777",
@@ -13169,7 +13169,7 @@
     ],
     "BGC0001059": [
         {
-            "chem_struct": "NC(CO)C(O)CC(O)[C@@H](N)[C@@H](O)[C@H](O)C(=O)NC(CNC(N)=O)C(N)=O",
+            "chem_struct": "C(C([C@H]([C@H]([C@@H](C(=O)NC(CNC(=O)N)C(=O)N)O)O)N)O)C(C(CO)N)O",
             "compound": "zwittermicin A",
             "database_id": [
                 "npatlas:NPA002819"
@@ -13180,7 +13180,7 @@
     ],
     "BGC0001060": [
         {
-            "chem_struct": "COC1=C([C@H](C)[C@@]23O[C@@]22[C@@H]1C#C\\C=C/C#C[C@@H]3NC1=C2C=C(O)C2=C1C(=O)C1=C(C(O)=CC=C1O)C2=O)C(O)=O",
+            "chem_struct": "C[C@H]1C(=C([C@H]2C#C/C=C\\C#C[C@H]3[C@]14[C@]2(O4)C5=CC(=C6C(=C5N3)C(=O)C7=C(C=CC(=C7C6=O)O)O)O)OC)C(=O)O",
             "compound": "dynemicin A",
             "database_id": [
                 "npatlas:NPA000412"
@@ -13191,7 +13191,7 @@
     ],
     "BGC0001061": [
         {
-            "chem_struct": "COC1=CC(=O)C2=C(C(C)=C3CC4(O)C(O[C@H]5CC[C@H](O[C@H]6C[C@@](C)(O)[C@H](OC(=O)C7=C(C)C=CC(C)=C7O)[C@H](C)O6)[C@@H](C)O5)C(=O)\\C(=C(\\C)O)C(=O)C4(O)C(=O)C3=C2O)C1=O",
+            "chem_struct": "C[C@@H]1[C@H](CC[C@@H](O1)OC2C(=O)C(=C(C3(C2(CC4=C(C5=C(C(=O)C=C(C5=O)OC)C(=C4C3=O)O)C)O)O)O)C(=O)C)O[C@H]6C[C@@]([C@@H]([C@@H](O6)C)OC(=O)C7=C(C=CC(=C7O)C)C)(C)O",
             "compound": "polyketomycin",
             "database_id": [
                 "npatlas:NPA001096",
@@ -13214,7 +13214,7 @@
     ],
     "BGC0001063": [
         {
-            "chem_struct": "CCCCCCCCCCCC1=CC=C(N1)\\C=C1\\N=C(C=C1OC)C1=CC=CN1",
+            "chem_struct": "CCCCCCCCCCCC1=CC=C(N1)C=C2C(=CC(=N2)C3=CC=CN3)OC",
             "compound": "undecylprodigiosin",
             "database_id": [
                 "npatlas:NPA009372",
@@ -13258,7 +13258,7 @@
     ],
     "BGC0001065": [
         {
-            "chem_struct": "COC(C(C)O)C(C)C1OC1(C)CC(C)\\C=C\\C=C(/C)[C@@H]1OC(CC(O)=O)CC[C@H]1C",
+            "chem_struct": "C[C@@H]1CCC(O[C@H]1/C(=C/C=C/C(C)CC2(C(O2)C(C)C(C(C)O)OC)C)/C)CC(=O)O",
             "compound": "herboxidiene",
             "database_id": [
                 "npatlas:NPA006425",
@@ -13270,7 +13270,7 @@
     ],
     "BGC0001066": [
         {
-            "chem_struct": "[H][C@]12CC[C@H](C)\\C=C(C)\\C[C@@H](C)C[C@H](C)[C@]3(O)OC4=C(C)C(=O)C(O)=C(C4=C3)[C@]([H])(O1)[C@H](C)[C@@H](O)[C@H]2C",
+            "chem_struct": "C[C@H]\\1CC[C@@H]2[C@@H]([C@@H]([C@H]([C@@H](O2)C3=C(C(=O)C(=C4C3=C[C@@](O4)([C@H](C[C@@H](C/C(=C1)/C)C)C)O)C)O)C)O)C",
             "compound": "kendomycin",
             "database_id": [
                 "npatlas:NPA007727"
@@ -13311,7 +13311,7 @@
     ],
     "BGC0001068": [
         {
-            "chem_struct": "[H][C@@]12C[C@H](OC(C)=O)[C@@]3(C)OC4=C([C@H](O)[C@]3([H])[C@@]1(C)CC[C@H](OC(C)=O)[C@@]2(C)COC(C)=O)C(=O)OC(=C4)C1=CN=CC=C1",
+            "chem_struct": "CC(=O)OC[C@@]1([C@H](CC[C@]2([C@H]1C[C@@H]([C@@]3([C@@H]2[C@H](C4=C(O3)C=C(OC4=O)C5=CN=CC=C5)O)C)OC(=O)C)C)OC(=O)C)C",
             "compound": "pyripyropene A",
             "database_id": [
                 "npatlas:NPA007480",
@@ -13357,7 +13357,7 @@
     ],
     "BGC0001072": [
         {
-            "chem_struct": "C[C@H]1O[C@H](C[C@@H](OC(=O)\\C=C\\C=C\\C=C\\C=C\\C(=O)NC2=C(O)C3=C(OC2=O)C(Cl)=C(O)C=C3)[C@@H]1OC(C)=O)C1=CC=C2C(=O)C34OC3(C(O)CC3(O)CC(C)=CC(=O)C43O)C(O)C2=C1O",
+            "chem_struct": "C[C@@H]1[C@H]([C@@H](C[C@@H](O1)C2=C(C3=C(C=C2)C(=O)C45C(C3O)(O4)C(CC6(C5(C(=O)C=C(C6)C)O)O)O)O)OC(=O)/C=C/C=C/C=C/C=C/C(=O)NC7=C(C8=C(C(=C(C=C8)O)Cl)OC7=O)O)OC(=O)C",
             "compound": "simocyclinone D8",
             "database_id": [
                 "npatlas:NPA008898",
@@ -13370,7 +13370,7 @@
     ],
     "BGC0001073": [
         {
-            "chem_struct": "C[C@H]1[C@@]([C@@H](C[C@@H](O1)O[C@@H]2C3=C([C@@H]4C[C@]2(OC45C=C6CCN=C6N5)C)C(=C7C(=C3)C(=O)C8=C(C7=O)C=CC=C8O)O)O)(C(=O)C)O",
+            "chem_struct": "CC1C(C(CC(O1)O[C@@H]2C3=C(C4C[C@]2(O[C@]45C=C6CCN=C6N5)C)C(=C7C(=C3)C(=O)C8=C(C7=O)C=CC=C8O)O)O)(C(C)O)O",
             "compound": "kosinostatin",
             "database_id": [
                 "pubchem:102302126",
@@ -13382,7 +13382,7 @@
     ],
     "BGC0001074": [
         {
-            "chem_struct": "CC[C@@]1(O)C[C@H](O[C@H]2C[C@@H]([C@H](O[C@H]3C[C@H](O)[C@H](O[C@H]4CC[C@H](O)[C@H](C)O4)[C@H](C)O3)[C@H](C)O2)N(C)C)C2=C(O)C3=C(C(O)=C2[C@H]1O[C@H]1C[C@@H]([C@H](O[C@H]2C[C@H](O)[C@H](O[C@H]4CC[C@H](O)[C@H](C)O4)[C@H](C)O2)[C@H](C)O1)N(C)C)C(=O)C1=C(C(O)=CC=C1)C3=O",
+            "chem_struct": "CC[C@]1(C[C@@H](C2=C(C3=C(C(=C2[C@H]1O[C@H]4C[C@@H]([C@@H]([C@@H](O4)C)O[C@H]5C[C@@H]([C@@H]([C@@H](O5)C)O[C@H]6CC[C@@H]([C@@H](O6)C)O)O)N(C)C)O)C(=O)C7=C(C3=O)C(=CC=C7)O)O)O[C@H]8C[C@@H]([C@@H]([C@@H](O8)C)O[C@H]9C[C@@H]([C@@H]([C@@H](O9)C)O[C@H]1CC[C@@H]([C@@H](O1)C)O)O)N(C)C)O",
             "compound": "cosmomycin D",
             "database_id": [
                 "npatlas:NPA001627",
@@ -13394,7 +13394,7 @@
     ],
     "BGC0001075": [
         {
-            "chem_struct": "CC(C)=CC(O)C\\C(C)=C\\CC\\C(C)=C\\CC1=C(C)N(O)C2=CC=CC=C2C1=O",
+            "chem_struct": "CC1=C(C(=O)C2=CC=CC=C2N1O)C/C=C(\\C)/CC/C=C(\\C)/CC(C=C(C)C)O",
             "compound": "aurachin RE",
             "database_id": [
                 "npatlas:NPA000904",
@@ -13479,7 +13479,7 @@
     ],
     "BGC0001078": [
         {
-            "chem_struct": "COC1=C(C)C(=O)C2=C(C=C(O)C3=C2O[C@@H](C)[C@@]3(C)C(O)C\\C=C(/C)CO)C1=O",
+            "chem_struct": "C[C@H]1[C@@](C2=C(C=C3C(=C2O1)C(=O)C(=C(C3=O)OC)C)O)(C)C(C/C=C(\\C)/CO)O",
             "compound": "furaquinocin B",
             "database_id": [
                 "npatlas:NPA009549"
@@ -13535,7 +13535,7 @@
             "molecular_formula": "C18H16N2O2"
         },
         {
-            "chem_struct": "CN1C2=CC=CC(C(O)=O)=C2N=C2C(CC=C(C)C)=CC(=O)C=C12",
+            "chem_struct": "CC(=CCC1=CC(=O)C=C2C1=NC3=C(C=CC=C3N2C)C(=O)O)C",
             "compound": "endophenazine B",
             "database_id": [
                 "npatlas:NPA007331",
@@ -13557,7 +13557,7 @@
             "molecular_formula": "C27H33NO4"
         },
         {
-            "chem_struct": "[H][C@]12CC3=C(NC4=CC=CC=C34)[C@]1(C)[C@@]1(C)CC[C@]3([H])O[C@@H](CC[C@@]3(C)[C@]1([H])CC2)C(C)(C)O",
+            "chem_struct": "C[C@@]12CC[C@H](O[C@H]1CC[C@]3([C@H]2CC[C@@H]4[C@@]3(C5=C(C4)C6=CC=CC=C6N5)C)C)C(C)(C)O",
             "compound": "paspaline",
             "database_id": [
                 "npatlas:NPA008347",
@@ -13567,7 +13567,7 @@
             "molecular_formula": "C28H39NO2"
         },
         {
-            "chem_struct": "[H][C@]12CC3=C(NC4=CC=CC=C34)[C@]1(C)[C@@]1(C)CC[C@]3([H])O[C@@H](C(=O)C=C3[C@]1([H])CC2)C(C)(C)O",
+            "chem_struct": "C[C@]12CC[C@H]3C(=CC(=O)[C@H](O3)C(C)(C)O)[C@@H]1CC[C@@H]4[C@@]2(C5=C(C4)C6=CC=CC=C6N5)C",
             "compound": "13-dehydroxypaxilline",
             "database_id": [
                 "npatlas:NPA003569"
@@ -13576,7 +13576,7 @@
             "molecular_formula": "C27H33NO3"
         },
         {
-            "chem_struct": "CC(C)(O)C1CCC2(C=O)C(CCC3(C)C2CCC2CC4=C(NC5=CC=CC=C45)C32C)O1",
+            "chem_struct": "CC(C)(O)[C@@H]1CC[C@]2(C=O)C(CC[C@@]3(C)[C@H]2CCC2CC4=C(NC5=CC=CC=C45)[C@@]23C)O1",
             "compound": "paspaline B",
             "database_id": [
                 "npatlas:NPA003640",
@@ -13588,7 +13588,7 @@
     ],
     "BGC0001083": [
         {
-            "chem_struct": "CC(C)C1CC2C(C)(CCC=C(C)C)C3(Cl)C(=O)C2(C1)C1=CC(O)=CC(O)=C1C3=O",
+            "chem_struct": "CC(C)=CCC[C@@]1(C)[C@@H]2CC(=C(C)C)C[C@@]23C(=O)[C@]1(Cl)C(=O)C1=C(O)C=C(O)C=C13",
             "compound": "merochlorin A",
             "database_id": [
                 "npatlas:NPA007975"
@@ -13630,7 +13630,7 @@
             "molecular_formula": "C25H28Cl2O4"
         },
         {
-            "chem_struct": "CC(C)=CCCC(C)=CCC(CC1(O)C(=O)C2=C(C(O)=CC(O)=C2)C(=O)C1(C)Cl)=C(C)C",
+            "chem_struct": "CC(C)=CCCC(C)=CCC(C[C@]1(O)C(=O)C2=CC(O)=CC(O)=C2C(=O)[C@]1(C)Cl)=C(C)C",
             "compound": "merochlorin D",
             "database_id": [
                 "npatlas:NPA008389"
@@ -13650,7 +13650,7 @@
     ],
     "BGC0001084": [
         {
-            "chem_struct": "CC1(C)[C@@H]2C[C@]34CCCN3C(=O)[C@@]2(C[C@@]11C(=O)N(O)C2=C1C=CC1=C2C=CC(C)(C)O1)NC4=O",
+            "chem_struct": "CC1(C=CC2=C(O1)C=CC3=C2N(C(=O)[C@@]34C[C@]56[C@H](C4(C)C)C[C@@]7(CCCN7C5=O)C(=O)N6)O)C",
             "compound": "notoamide A",
             "database_id": [
                 "npatlas:NPA004681"
@@ -13697,7 +13697,7 @@
     ],
     "BGC0001090": [
         {
-            "chem_struct": "CCC(C)CCCCCCCCC1CC(=O)NC(CC(N)=O)C(=O)NC(CC2=CC=C(O)C=C2)C(=O)NC(CC(N)=O)C(=O)N2CCCC2C(=O)NC(CCC(O)=O)C(=O)NC(CO)C(=O)NC(C(C)O)C(=O)N1",
+            "chem_struct": "CCC(C)CCCCCCCCC1CC(=O)NC(C(=O)NC(C(=O)NC(C(=O)N2CCCC2C(=O)NC(C(=O)NC(C(=O)NC(C(=O)N1)C(C)O)CO)CCC(=O)O)CC(=O)N)CC3=CC=C(C=C3)O)CC(=O)N",
             "compound": "bacillomycin D",
             "database_id": [
                 "npatlas:NPA008510",
@@ -13778,7 +13778,7 @@
     ],
     "BGC0001100": [
         {
-            "chem_struct": "[H][C@]12C[C@]([H])(O)\\C=C\\C(\\C)=C\\C[C@]([H])(O)\\C=C\\C(\\C)=C\\[C@@]([H])(NC(=O)C(C)=O)[C@](C)(C(=O)O1)C(=O)[C@@H]2C",
+            "chem_struct": "C[C@@H]1[C@H]2C[C@@H](/C=C/C(=C/C[C@@H](/C=C/C(=C/[C@H]([C@@](C1=O)(C(=O)O2)C)NC(=O)C(=O)C)/C)O)/C)O",
             "compound": "lankacidin C",
             "database_id": [
                 "npatlas:NPA004098"
@@ -13953,7 +13953,7 @@
     ],
     "BGC0001114": [
         {
-            "chem_struct": "C[C@H](OC(C)=O)\\C=C/C(=O)N[C@@H]1C[C@H](C)[C@H](C\\C=C(/C)\\C=C\\[C@H]2O[C@H](CC(O)=O)C[C@@]3(CO3)[C@@H]2O)O[C@@H]1C",
+            "chem_struct": "C[C@H]1C[C@H]([C@H](O[C@H]1C/C=C(\\C)/C=C/[C@@H]2[C@H]([C@@]3(C[C@H](O2)CC(=O)O)CO3)O)C)NC(=O)/C=C\\[C@H](C)OC(=O)C",
             "compound": "thailanstatin A",
             "database_id": [
                 "npatlas:NPA008640",
@@ -13977,7 +13977,7 @@
     ],
     "BGC0001116": [
         {
-            "chem_struct": "[H][C@@]12CCCN1C(=O)[C@@]([H])(CC)NC(=O)[C@@]([H])(NC(=O)C1=C(O)C=CC=N1)[C@@]([H])(C)OC(=O)[C@@]([H])(NC(=O)[C@]1([H])CC(=O)CCN1C(=O)[C@]([H])(CC1=CC=CC=C1)N(C)C2=O)C1=CC=CC=C1",
+            "chem_struct": "CC[C@@H]1C(=O)N2CCC[C@H]2C(=O)N([C@H](C(=O)N3CCC(=O)C[C@H]3C(=O)N[C@H](C(=O)O[C@@H]([C@@H](C(=O)N1)NC(=O)C4=C(C=CC=N4)O)C)C5=CC=CC=C5)CC6=CC=CC=C6)C",
             "compound": "virginiamycin S1",
             "database_id": [
                 "npatlas:NPA009403"
@@ -14056,7 +14056,7 @@
     ],
     "BGC0001122": [
         {
-            "chem_struct": "CC(C)C[C@H](O)[C@@H]1OC2=C(O1)C(=O)NC(C)=C2",
+            "chem_struct": "CC1=CC2=C(C(=O)N1)O[C@@H](O2)[C@H](CC(C)C)O",
             "compound": "dihydroisoflavipucine",
             "database_id": [
                 "npatlas:NPA006949"
@@ -14076,7 +14076,7 @@
     ],
     "BGC0001123": [
         {
-            "chem_struct": "[H][C@@]12SS[C@]3([H])NC(=O)[C@@]1(OC1=C2C=C(Cl)C(O)=C1)N(OC)C3=O",
+            "chem_struct": "CON1C(=O)[C@H]2NC(=O)[C@]13[C@H](C4=CC(=C(C=C4O3)O)Cl)SS2",
             "compound": "aspirochlorine",
             "database_id": [
                 "npatlas:NPA009910",
@@ -14128,7 +14128,7 @@
     ],
     "BGC0001126": [
         {
-            "chem_struct": "[H][C@]12CC[C@@](C)(C=C)[C@H]([N+]#[C-])[C@@]1([H])C1=CNC3=C1C(=CC=C3)C2(C)C",
+            "chem_struct": "C[C@]1(CC[C@H]2[C@@H]([C@H]1[N+]#[C-])C3=CNC4=CC=CC(=C43)C2(C)C)C=C",
             "compound": "12-epi-hapalindole J isonitrile",
             "database_id": [
                 "npatlas:NPA003400"
@@ -14183,7 +14183,7 @@
             "molecular_formula": "C26H29ClN2O2"
         },
         {
-            "chem_struct": "CC1(C)[C@H]2C[C@@H](Cl)[C@](C)(C=C)[C@]3(C=CC(C)(C)C4=C(C5=C1C=CC=C5N4)[C@]23O)[N+]#[C-]",
+            "chem_struct": "C[C@@]1([C@@H](C[C@H]2[C@@]3([C@@]1(C=CC(C4=C3C5=C(C2(C)C)C=CC=C5N4)(C)C)[N+]#[C-])O)Cl)C=C",
             "compound": "ambiguine K isonitrile",
             "database_id": [
                 "npatlas:NPA001055",
@@ -14203,7 +14203,7 @@
             "molecular_formula": "C26H30N2O"
         },
         {
-            "chem_struct": "[H][C@]12CC[C@@](C)(C=C)[C@]3([N+]#[C-])[C@@H]4O[C@@H]4C(C)(C)C4=C(C5=C(C=CC=C5N4)C1(C)C)[C@@]23O",
+            "chem_struct": "C[C@]1(CC[C@@H]2[C@]3([C@]1([C@H]4[C@H](O4)C(C5=C3C6=C(C2(C)C)C=CC=C6N5)(C)C)[N+]#[C-])O)C=C",
             "compound": "ambiguine I isonitrile",
             "database_id": [
                 "npatlas:NPA000900",
@@ -14213,7 +14213,7 @@
             "molecular_formula": "C26H30N2O2"
         },
         {
-            "chem_struct": "[H][C@@]12CC[C@@](C)(C=C)[C@]3([N+]#[C-])[C@@H]4O[C@@H]4C(C)(C)C4=NC5=CC=CC(=C5[C@@]4(O)[C@@]13O)C2(C)C",
+            "chem_struct": "C[C@]1(CC[C@@H]2[C@]3([C@]1([C@H]4[C@H](O4)C(C5=NC6=CC=CC(=C6[C@]53O)C2(C)C)(C)C)[N+]#[C-])O)C=C",
             "compound": "ambiguine J isonitrile",
             "database_id": [
                 "npatlas:NPA002392"
@@ -14279,7 +14279,7 @@
     ],
     "BGC0001131": [
         {
-            "chem_struct": "CC(C)C[C@@H]1NC(=O)[C@@H](CC2=CC=CC=C2)NC(=O)[C@H](CCC(N)=O)NC(=O)[C@@H](CO)NC(=O)[C@H](CCCCN)NC(=O)[C@@H](CC2=CC=CC=C2)NC1=O",
+            "chem_struct": "CC(C)C[C@H]1C(=O)N[C@@H](C(=O)N[C@H](C(=O)N[C@@H](C(=O)N[C@H](C(=O)N[C@@H](C(=O)N1)CC2=CC=CC=C2)CCC(=O)N)CO)CCCCN)CC3=CC=CC=C3",
             "compound": "ambactin",
             "database_id": [
                 "npatlas:NPA001035"
@@ -14427,7 +14427,7 @@
             "molecular_formula": "C22H19N3O3"
         },
         {
-            "chem_struct": "CC(=O)C1=C2NC3=C(C=CC=C3)C2=CC(=N1)C(=O)NCCC1=CC=CC=C1",
+            "chem_struct": "CC(=O)C1=C2C(=CC(=N1)C(=O)NCCC3=CC=CC=C3)C4=CC=CC=C4N2",
             "compound": "marinacarboline C",
             "database_id": [
                 "npatlas:NPA002428"
@@ -14436,7 +14436,7 @@
             "molecular_formula": "C22H19N3O2"
         },
         {
-            "chem_struct": "CC(=O)C1=C2NC3=CC=CC=C3C2=CC(=N1)C(=O)NCCC1=CNC2=CC=CC=C12",
+            "chem_struct": "CC(=O)C1=C2C(=CC(=N1)C(=O)NCCC3=CNC4=CC=CC=C43)C5=CC=CC=C5N2",
             "compound": "marinacarboline D",
             "database_id": [
                 "npatlas:NPA000614"
@@ -14576,7 +14576,7 @@
     ],
     "BGC0001145": [
         {
-            "chem_struct": "[H][C@]12CSC(=N1)C1=CSC(=N1)C1=CSC(=N1)C(=C)NC(=O)[C@@]1([H])CSC(=N1)C1=CSC(=N1)C1=CC=C3C(=N1)[C@H](C)NC(=O)[C@]1([H])CCCN1C(=O)\\C(NC(=O)CNC(=O)[C@H](CCCNC(N)=N)NC(=O)C(C)(NC(=O)\\C(NC(=O)C1CSC(=N1)[C@H](CC(N)=O)NC3=O)=C\\C)SC[C@H](NC2=O)C(O)=O)=C\\C",
+            "chem_struct": "C/C=C\\1/C(=O)NC2(C(=O)N[C@H](C(=O)NCC(=O)N/C(=C\\C)/C(=O)N3CCC[C@H]3C(=O)N[C@H](C4=C(C=CC(=N4)C5=NC(=CS5)C6=N[C@H](CS6)C(=O)NC(=C)C7=NC(=CS7)C8=NC(=CS8)C9=N[C@H](CS9)C(=O)N[C@@H](CS2)C(=O)O)C(=O)N[C@H](C2=NC(CS2)C(=O)N1)CC(=O)N)C)CCCNC(=N)N)C",
             "compound": "cyclothiazomycin b1",
             "database_id": [
                 "npatlas:NPA009917"
@@ -14653,7 +14653,7 @@
     ],
     "BGC0001150": [
         {
-            "chem_struct": "CCCC(CC1CCC(O1)C(C)C1OC(=O)C(C)C2CCC(CC(CCC)OC(=O)C(C)C3CCC(O3)C1C)O2)N(C)C",
+            "chem_struct": "CCC[C@H]1C[C@@H]2CC[C@@H](O2)[C@H](C)C(=O)O[C@@H]([C@H](C)[C@H]2CC[C@@H](C[C@@H](CCC)N(C)C)O2)[C@H](C)[C@@H]2CC[C@@H](O2)[C@@H](C)C(=O)O1",
             "compound": "pamamycin-607",
             "database_id": [
                 "npatlas:NPA003559"
@@ -14674,7 +14674,7 @@
             "molecular_formula": "C14H23N3O6"
         },
         {
-            "chem_struct": "OCC[C@H]1CN2[C@H](CC2=O)O1",
+            "chem_struct": "C1[C@H]2N(C1=O)C[C@@H](O2)CCO",
             "compound": "(-)-2-(2-hydroxyethyl)clavam",
             "database_id": [
                 "npatlas:NPA001279"
@@ -14685,7 +14685,7 @@
     ],
     "BGC0001152": [
         {
-            "chem_struct": "CC(C)[C@H]1NC(=O)[C@@H](NC(=O)CC(O)CCCCCCCCCCCCNC(N)=N)C(C)OC(=O)[C@@H](C)NC(=O)[C@@H](CCC(N)=O)NC(=O)[C@H](NC(=O)[C@@H](NC1=O)C(C)C)[C@H](C)O",
+            "chem_struct": "C[C@@H]1C(=O)OC([C@@H](C(=O)N[C@@H](C(=O)N[C@H](C(=O)N[C@@H](C(=O)N[C@@H](C(=O)N1)CCC(=O)N)[C@H](C)O)C(C)C)C(C)C)NC(=O)CC(CCCCCCCCCCCCN=C(N)N)O)C",
             "compound": "fusaricidin B",
             "database_id": [
                 "npatlas:NPA000553",
@@ -14708,7 +14708,7 @@
     ],
     "BGC0001154": [
         {
-            "chem_struct": "OC(=O)C1=CC=C(N1)C(=O)NC1=C(O)C2=CC(Cl)=C(O)C(Cl)=C2OC1=O",
+            "chem_struct": "C1=C(NC(=C1)C(=O)O)C(=O)NC2=C(C3=CC(=C(C(=C3OC2=O)Cl)O)Cl)O",
             "compound": "cacibiocin B",
             "database_id": [
                 "npatlas:NPA003913"
@@ -14753,7 +14753,7 @@
     ],
     "BGC0001159": [
         {
-            "chem_struct": "OC1=CC=CC=C1C(=O)C1=CC(Cl)=C(Cl)N1C1=C(NC(Cl)=C1Cl)C(=O)C1=CC=CC=C1O",
+            "chem_struct": "C1=CC=C(C(=C1)C(=O)C2=CC(=C(N2C3=C(NC(=C3Cl)Cl)C(=O)C4=CC=CC=C4O)Cl)Cl)O",
             "compound": "marinopyrrole A",
             "database_id": [
                 "npatlas:NPA003314"
@@ -14762,7 +14762,7 @@
             "molecular_formula": "C22H12Cl4N2O4"
         },
         {
-            "chem_struct": "OC1=CC=CC=C1C(=O)C1=C(N2C(Cl)=C(Cl)C=C2C(=O)C2=CC(Br)=CC=C2O)C(Cl)=C(Cl)N1",
+            "chem_struct": "C1=CC=C(C(=C1)C(=O)C2=C(C(=C(N2)Cl)Cl)N3C(=CC(=C3Cl)Cl)C(=O)C4=C(C=CC(=C4)Br)O)O",
             "compound": "marinopyrrole E",
             "database_id": [
                 "npatlas:NPA002768"
@@ -14780,7 +14780,7 @@
             "molecular_formula": "C22H11Cl5N2O4"
         },
         {
-            "chem_struct": "OC1=CC=CC=C1C(=O)C1=CC(Cl)=C(Cl)N1C1=C(NC(Cl)=C1Cl)C(=O)C1=CC(Cl)=CC=C1O",
+            "chem_struct": "C1=CC=C(C(=C1)C(=O)C2=CC(=C(N2C3=C(NC(=C3Cl)Cl)C(=O)C4=C(C=CC(=C4)Cl)O)Cl)Cl)O",
             "compound": "marinopyrrole C",
             "database_id": [
                 "npatlas:NPA004618"
@@ -14789,7 +14789,7 @@
             "molecular_formula": "C22H11Cl5N2O4"
         },
         {
-            "chem_struct": "OC1=CC=CC=C1C(=O)C1=C(N2C(Cl)=C(Cl)C(Br)=C2C(=O)C2=CC=CC=C2O)C(Cl)=C(Cl)N1",
+            "chem_struct": "C1=CC=C(C(=C1)C(=O)C2=C(C(=C(N2)Cl)Cl)N3C(=C(C(=C3Cl)Cl)Br)C(=O)C4=CC=CC=C4O)O",
             "compound": "marinopyrrole B",
             "database_id": [
                 "npatlas:NPA001154"
@@ -14956,7 +14956,7 @@
     ],
     "BGC0001172": [
         {
-            "chem_struct": "OC1=CC2=C(C(=O)N3C(Cl)=C(Cl)C=C23)C(O)=C1[C@@H]1CCC2=CC(Cl)=C(Cl)N12",
+            "chem_struct": "C1CC2=CC(=C(N2[C@@H]1C3=C(C=C4C5=CC(=C(N5C(=O)C4=C3O)Cl)Cl)O)Cl)Cl",
             "compound": "chlorizidine A",
             "database_id": [
                 "npatlas:NPA008760"
@@ -14985,7 +14985,7 @@
     ],
     "BGC0001176": [
         {
-            "chem_struct": "CC[C@H](C)[C@H](NC(=O)[C@H](CC(C)C)NC(=O)[C@H](C)NC(=O)[C@@H]1CCCN1C(=O)[C@H](CC1=CC=C(O)C=C1)NC(=O)CNC(=O)[C@H](CC(C)C)NC(=O)[C@@H](NC(=O)[C@@H]1CC(=O)N[C@@H](CO)C(=O)N[C@@H](CC(C)C)C(=O)NCC(=O)N[C@@H](CO)C(=O)N[C@@H](CO)C(=O)N2CCC[C@H]2C(=O)N[C@@H](CC2=CC=C(O)C=C2)C(=O)N[C@@H](CC(N)=O)C(=O)N1)[C@@H](C)CC)C(=O)N[C@@H](C(C)C)C(=O)N[C@@H]([C@@H](C)CC)C(=O)N[C@@H](CC1=CC=C(O)C=C1)C(=O)N1CCC[C@H]1C(O)=O",
+            "chem_struct": "CC[C@H](C)[C@@H](C(=O)N[C@@H](CC(C)C)C(=O)NCC(=O)N[C@@H](CC1=CC=C(C=C1)O)C(=O)N2CCC[C@H]2C(=O)N[C@@H](C)C(=O)N[C@@H](CC(C)C)C(=O)N[C@@H]([C@@H](C)CC)C(=O)N[C@@H](C(C)C)C(=O)N[C@@H]([C@@H](C)CC)C(=O)N[C@@H](CC3=CC=C(C=C3)O)C(=O)N4CCC[C@H]4C(=O)O)NC(=O)[C@@H]5CC(=O)N[C@H](C(=O)N[C@H](C(=O)NCC(=O)N[C@H](C(=O)N[C@H](C(=O)N6CCC[C@H]6C(=O)N[C@H](C(=O)N[C@H](C(=O)N5)CC(=O)N)CC7=CC=C(C=C7)O)CO)CO)CC(C)C)CO",
             "compound": "streptomonomicin",
             "database_id": [
                 "npatlas:NPA003689"
@@ -15155,7 +15155,7 @@
     ],
     "BGC0001193": [
         {
-            "chem_struct": "CN1C(=O)C(NC(C)=O)=C2SSC=C12",
+            "chem_struct": "CC(=O)NC1=C2C(=CSS2)N(C1=O)C",
             "compound": "thiolutin",
             "database_id": [
                 "npatlas:NPA005113",
@@ -15257,7 +15257,7 @@
     ],
     "BGC0001200": [
         {
-            "chem_struct": "CCCC\\C=C\\C1=C(/C=C/CC(O)=O)C=CC(C)=C1",
+            "chem_struct": "CCCC/C=C/C1=C(C=CC(=C1)C)/C=C/CC(=O)O",
             "compound": "lorneic acid A",
             "database_id": [
                 "npatlas:NPA006963",
@@ -15269,7 +15269,7 @@
     ],
     "BGC0001201": [
         {
-            "chem_struct": "C[C@@H]1CCC=C2CC[C@@H](C[C@@]12C)C(C)=C",
+            "chem_struct": "C[C@@H]1CCC=C2[C@]1(C[C@H](CC2)C(=C)C)C",
             "compound": "eremophilene",
             "database_id": [
                 "npatlas:NPA009636"
@@ -15302,7 +15302,7 @@
     ],
     "BGC0001205": [
         {
-            "chem_struct": "[H][C@]12NC3=CC=CC=C3[C@@]34CCN(C(C)=O)[C@]3([H])N3CC[C@]14C1=C(C=CC=C1[C@H]3C1OC1(C)C)N2C",
+            "chem_struct": "CC(=O)N1CC[C@]23[C@H]1N4CC[C@]25[C@H](NC6=CC=CC=C36)N(C7=CC=CC(=C57)[C@H]4C8C(O8)(C)C)C",
             "compound": "communesin A",
             "database_id": [
                 "npatlas:NPA008864",
@@ -15312,7 +15312,7 @@
             "molecular_formula": "C28H32N4O2"
         },
         {
-            "chem_struct": "[H][C@]12NC3=CC=CC=C3[C@@]34CCN(C(=O)\\C=C\\C=C\\C)[C@]3([H])N3CC[C@]14C1=C(C=CC=C1[C@H]3C1OC1(C)C)N2C",
+            "chem_struct": "C/C=C/C=C/C(=O)N1CC[C@]23[C@H]1N4CC[C@]25[C@H](NC6=CC=CC=C36)N(C7=CC=CC(=C57)[C@H]4C8C(O8)(C)C)C",
             "compound": "communesin B",
             "database_id": [
                 "npatlas:NPA008621",
@@ -15341,7 +15341,7 @@
             "molecular_formula": "C32H34N4O3"
         },
         {
-            "chem_struct": "CN1[C@@H]2NC3=CC=CC=C3[C@]34CCN([C@H]3N3CC[C@@]24C2=C1C=CC=C2[C@@H]3C=C(C)C)C(C)=O",
+            "chem_struct": "CC(=C[C@H]1C2=C3C(=CC=C2)N([C@H]4[C@@]35CCN1[C@H]6[C@@]5(CCN6C(=O)C)C7=CC=CC=C7N4)C)C",
             "compound": "communesin E",
             "database_id": [
                 "npatlas:NPA000082"
@@ -15360,7 +15360,7 @@
             "molecular_formula": "C29H34N4O2"
         },
         {
-            "chem_struct": "[H][C@]1(OC1(C)C)[C@]1([H])N2CC[C@@]34C5=C(C=CC=C15)N(C)[C@]3([H])NC1=CC=CC=C1[C@@]41CCN(C(=O)CCC)[C@@]21[H]",
+            "chem_struct": "CCCC(=O)N1CC[C@@]23[C@@H]1N4CC[C@@]25[C@@H](NC6=CC=CC=C36)N(C7=CC=CC(=C57)[C@@H]4[C@H]8C(O8)(C)C)C",
             "compound": "communesin H",
             "database_id": [
                 "npatlas:NPA008504",
@@ -15475,7 +15475,7 @@
             "molecular_formula": "C44H70N8O11"
         },
         {
-            "chem_struct": "[H][C@@]12C[C@H](O)CNN1C(=O)[C@H](NC(=O)[C@@H](CC1=CC=C(OC)C=C1)NC(=O)[C@@H](NC(=O)[C@@H](NC=O)C(C)C)[C@@H](C)OC(=O)[C@H](C(C)C)N(C)C(=O)[C@H](CC(C)C)NC2=O)C(C)C",
+            "chem_struct": "C[C@@H]1[C@@H](C(=O)N[C@@H](C(=O)N[C@@H](C(=O)N2[C@@H](C[C@@H](CN2)O)C(=O)N[C@H](C(=O)N([C@H](C(=O)O1)C(C)C)C)CC(C)C)C(C)C)CC3=CC=C(C=C3)OC)NC(=O)[C@H](C(C)C)NC=O",
             "compound": "marformycin E",
             "database_id": [
                 "npatlas:NPA001180"
@@ -15495,7 +15495,7 @@
     ],
     "BGC0001215": [
         {
-            "chem_struct": "C[C@@H]1C[C@H](C)[C@H](CC2=CN=CO2)OC(=O)\\C(C)=C/[C@H](C)C[C@H](C)[C@H](CC2=CN=CO2)OC(=O)\\C(C)=C/1",
+            "chem_struct": "C[C@@H]1C[C@@H]([C@@H](OC(=O)/C(=C\\[C@@H](C[C@@H]([C@@H](OC(=O)C(=C1)C)CC2=CN=CO2)C)C)/C)CC3=CN=CO3)C",
             "compound": "conglobatin",
             "database_id": [
                 "npatlas:NPA006600"
@@ -15629,7 +15629,7 @@
             "molecular_formula": "C51H69N7O15"
         },
         {
-            "chem_struct": "CC[C@@H](C)[C@@H]1NC(=O)[C@H](NC(=O)[C@@H](C)[C@@H](O)C(C)C)[C@H](C)OC(=O)[C@H]2COC(=O)CNC(=O)\\C=C/[C@@](O)(CCl)[C@H](C)OC3=CC=C(C=C3)[C@@H](NC1=O)C(=O)N(C)[C@H](CC1=CC=CC=C1)C(=O)N[C@@H]([C@H](C)O)C(=O)N2",
+            "chem_struct": "CC[C@@H](C)[C@H]1C(=O)N[C@@H]2C3=CC=C(C=C3)O[C@H]([C@@](/C=C\\C(=O)NCC(=O)OC[C@H](C(=O)O[C@H]([C@H](C(=O)N1)NC(=O)[C@@H](C)[C@H](C(C)C)O)C)NC(=O)[C@@H](NC(=O)[C@H](N(C2=O)C)CC4=CC=CC=C4)[C@H](C)O)(CCl)O)C",
             "compound": "salinamide B",
             "database_id": [
                 "npatlas:NPA003444",
@@ -15639,7 +15639,7 @@
             "molecular_formula": "C51H70ClN7O15"
         },
         {
-            "chem_struct": "CC[C@H](C)[C@H]1NC(=O)[C@@H](NC(=O)[C@H](C)[C@H](O)C(C)C)[C@@H](C)OC(=O)[C@H](COC(=O)CNC(=O)\\C=C\\C(\\C)=C\\C)NC(=O)[C@H](NC(=O)[C@H](CC2=CC=CC=C2)N(C)C(=O)[C@@H](NC1=O)C1=CC=C(OC)C=C1)[C@@H](C)O",
+            "chem_struct": "CC[C@H](C)[C@@H]1C(=O)N[C@H](C(=O)N([C@H](C(=O)N[C@@H](C(=O)N[C@H](C(=O)O[C@@H]([C@@H](C(=O)N1)NC(=O)[C@H](C)[C@@H](C(C)C)O)C)COC(=O)CNC(=O)/C=C/C(=C/C)/C)[C@@H](C)O)CC2=CC=CC=C2)C)C3=CC=C(C=C3)OC",
             "compound": "salinamide C",
             "database_id": [
                 "npatlas:NPA002114",
@@ -15659,7 +15659,7 @@
             "molecular_formula": "C50H67N7O15"
         },
         {
-            "chem_struct": "CC[C@H](C)[C@@H]1NC(=O)[C@H](NC(=O)[C@@H](C)[C@H](O)C(C)C)[C@H](C)OC(=O)[C@@H](CO)NC(=O)[C@@H](NC(=O)[C@@H](CC2=CC=CC=C2)N(C)C(=O)[C@H](NC1=O)C1=CC=C(OC)C=C1)[C@@H](C)O",
+            "chem_struct": "CC[C@H](C)[C@H]1C(=O)N[C@@H](C(=O)N([C@@H](C(=O)N[C@H](C(=O)N[C@@H](C(=O)O[C@H]([C@H](C(=O)N1)NC(=O)[C@@H](C)[C@@H](C(C)C)O)C)CO)[C@@H](C)O)CC2=CC=CC=C2)C)C3=CC=C(C=C3)OC",
             "compound": "salinamide E",
             "database_id": [
                 "npatlas:NPA001452",
@@ -15697,7 +15697,7 @@
     ],
     "BGC0001233": [
         {
-            "chem_struct": "CC(C)C(NC(=O)C(NC(=O)C(N)C1=CC=C(O)C=C1)C1=CC(O)=CC(O)=C1)C(=O)NC(C(=O)NC(C(=O)NC(C(=O)NC(C(=O)NC(C(=O)NC(C(C)C)C(=O)NC(C(=O)NC(C(=O)NC(CC1=CC=CC=C1)C(=O)NC(CC(O)=O)C(O)=O)C1=CC=C(O)C=C1)C1=CC(O)=CC(O)=C1)C1=CC(O)=CC(O)=C1)C1=CC=C(O)C=C1)C1=CC(O)=CC(O)=C1)C1=CC=C(O)C=C1)C1=CC(O)=CC(O)=C1",
+            "chem_struct": "CC(C)C(C(=O)NC(C1=CC(=CC(=C1)O)O)C(=O)NC(C2=CC=C(C=C2)O)C(=O)NC(C3=CC(=CC(=C3)O)O)C(=O)NC(C4=CC=C(C=C4)O)C(=O)NC(C5=CC(=CC(=C5)O)O)C(=O)NC(C(C)C)C(=O)NC(C6=CC(=CC(=C6)O)O)C(=O)NC(C7=CC=C(C=C7)O)C(=O)NC(CC8=CC=CC=C8)C(=O)NC(CC(=O)O)C(=O)O)NC(=O)C(C9=CC(=CC(=C9)O)O)NC(=O)C(C1=CC=C(C=C1)O)N",
             "compound": "feglymycin",
             "database_id": [
                 "npatlas:NPA002530"
@@ -15724,7 +15724,7 @@
     ],
     "BGC0001237": [
         {
-            "chem_struct": "C\\C(C=C)=C/[C@@]1(C)SC(=O)C(C)=C1O",
+            "chem_struct": "CC1=C([C@@](SC1=O)(C)/C=C(\\C)/C=C)O",
             "compound": "thiolactomycin",
             "database_id": [
                 "npatlas:NPA007080"
@@ -15780,7 +15780,7 @@
     ],
     "BGC0001242": [
         {
-            "chem_struct": "COC1=CC(=O)C2=C(O)C3=C(CC(C)(O)OC3)C(O)=C2C1=O",
+            "chem_struct": "CC1(CC2=C(C3=C(C(=O)C=C(C3=O)OC)C(=C2CO1)O)O)O",
             "compound": "oxyjavanicin",
             "database_id": [
                 "npatlas:NPA000830"
@@ -15975,7 +15975,7 @@
             "molecular_formula": "C21H36O5"
         },
         {
-            "chem_struct": "[H][C@@](C)(CC)[C@@]1([H])[C@](C)(O)C(=O)[C@@]2([H])C[C@](C)(O)C[C@@H](C)[C@]2([H])[C@@]1(C)C(=O)\\C=C/O",
+            "chem_struct": "CC[C@@H](C)[C@@H]1[C@]([C@H]2[C@@H](C[C@@](C[C@@H]2C(=O)[C@@]1(C)O)(C)O)C)(C)C(=O)/C=C\\O",
             "compound": "betaenone C",
             "database_id": [
                 "npatlas:NPA002632",
@@ -16071,7 +16071,7 @@
             "molecular_formula": "C15H20O7"
         },
         {
-            "chem_struct": "[H][C@@]12O[C@]3([H])C=C(C)C(=O)[C@@H](O)[C@]3(CO)[C@@](C)(C[C@H]1O)[C@@]21CO1",
+            "chem_struct": "CC1=C[C@@H]2[C@]([C@@H](C1=O)O)([C@]3(C[C@H]([C@H]([C@]34CO4)O2)O)C)CO",
             "compound": "vomitoxin",
             "database_id": [
                 "npatlas:NPA005872"
@@ -16134,7 +16134,7 @@
             "molecular_formula": "C15H24O4"
         },
         {
-            "chem_struct": "[H][C@@]12O[C@]3([H])C=C(C)CC[C@]3(CO)[C@@](C)(C[C@H]1OC(C)=O)[C@]21CO1",
+            "chem_struct": "CC1=C[C@@H]2[C@](CC1)([C@]3(C[C@H]([C@H]([C@@]34CO4)O2)OC(=O)C)C)CO",
             "compound": "15-deacetylcalonectrin",
             "database_id": [
                 "npatlas:NPA003080"
@@ -16298,7 +16298,7 @@
     ],
     "BGC0001285": [
         {
-            "chem_struct": "CCCCCCC1=C(O)CC(CCCCC)OC1=O",
+            "chem_struct": "CCCCCCC1=C(CC(OC1=O)CCCCC)O",
             "compound": "pseudopyronine A",
             "database_id": [
                 "npatlas:NPA001300",
@@ -16308,7 +16308,7 @@
             "molecular_formula": "C16H28O3"
         },
         {
-            "chem_struct": "CCCCCCCC1=CC(=O)C(O)(CCCCCC)O1",
+            "chem_struct": "CCCCCCCC1=CC(=O)C(O1)(CCCCCC)O",
             "compound": "pseudopyronine B",
             "database_id": [
                 "npatlas:NPA007296",
@@ -16341,7 +16341,7 @@
             "molecular_formula": "C35H45NO10"
         },
         {
-            "chem_struct": "C[C@H]1\\C=C\\C=C/C(=O)NC2=C(C)C(=O)C3=C(C(O)=C(C)C=C3C2=O)C(=O)\\C(C)=C\\[C@H](C)[C@H](O)[C@@H](C)[C@@H](O)[C@H](C)[C@H](O)[C@H](C)[C@H]1O",
+            "chem_struct": "C[C@H]1/C=C/C=C\\C(=O)NC2=C(C(=O)C3=C(C(=C(C=C3C2=O)C)O)C(=O)/C(=C/[C@@H]([C@@H]([C@H]([C@H]([C@@H]([C@@H]([C@@H]([C@H]1O)C)O)C)O)C)O)C)/C)C",
             "compound": "chaxamycin B",
             "database_id": [
                 "npatlas:NPA000253",
@@ -16361,7 +16361,7 @@
             "molecular_formula": "C35H45NO11"
         },
         {
-            "chem_struct": "C[C@@H]1\\C=C\\C=C/C(=O)NC2=C(C)C(=O)C3=C4[C@H](O)[C@@](C)(OC4=C(C)C(O)=C3C2=O)O\\C=C\\[C@@H](O)[C@H](C)[C@H](OC(C)=O)[C@@H](C)[C@@H](O)[C@@H](C)[C@@H]1O",
+            "chem_struct": "C[C@@H]1/C=C/C=C\\C(=O)NC2=C(C(=O)C3=C(C2=O)C(=C(C4=C3[C@@H]([C@@](O4)(O/C=C/[C@H]([C@@H]([C@@H]([C@H]([C@H]([C@H]([C@@H]1O)C)O)C)OC(=O)C)C)O)C)O)C)O)C",
             "compound": "chaxamycin D",
             "database_id": [
                 "npatlas:NPA007450",
@@ -16373,7 +16373,7 @@
     ],
     "BGC0001288": [
         {
-            "chem_struct": "[H][C@@]12C[C@@H](C)CC[C@@]1([H])[C@]1(C)C(=O)C3=C(O)[C@@]4(C[C@@H](C[C@@H](C)O)C(CO)=C[C@@]4(C)C\\C=C\\[C@@H](C)[C@]1([H])C=C2)OC3=O",
+            "chem_struct": "C[C@H]1CC[C@@H]2[C@@H](C1)C=C[C@@H]3[C@]2(C(=C4C(=O)[C@@]5(C[C@H](C(=C[C@]5(C/C=C/[C@H]3C)C)CO)C[C@@H](C)O)OC4=O)O)C",
             "compound": "maklamicin",
             "database_id": [
                 "npatlas:NPA001191",
@@ -16428,7 +16428,7 @@
     ],
     "BGC0001293": [
         {
-            "chem_struct": "[H][C@]12[C@@H]3O[C@@H]3CCN1[C@@H](\\C=C(/C)\\C=C\\C1CC1)[C@H](O)[C@@]2(C)O",
+            "chem_struct": "C/C(=C\\[C@H]1[C@@H]([C@@]([C@@H]2N1CC[C@@H]3[C@H]2O3)(C)O)O)/C=C/C4CC4",
             "compound": "cyclizidine",
             "database_id": [
                 "npatlas:NPA006699",
@@ -16451,7 +16451,7 @@
     ],
     "BGC0001295": [
         {
-            "chem_struct": "COC1=CC=C(C(O)=O)C(=O)C1=[N+]=[N-]",
+            "chem_struct": "COC1=CC=C(C(=O)C1=[N+]=[N-])C(=O)O",
             "compound": "cremeomycin",
             "database_id": [
                 "npatlas:NPA006413",
@@ -16463,7 +16463,7 @@
     ],
     "BGC0001296": [
         {
-            "chem_struct": "C\\C=C\\C=C1/C=CC2=C1C(=O)CCN2",
+            "chem_struct": "C/C=C/C=C/1\\C=CC2=C1C(=O)CCN2",
             "compound": "streptazone E",
             "database_id": [
                 "npatlas:NPA005197"
@@ -16484,7 +16484,7 @@
     ],
     "BGC0001299": [
         {
-            "chem_struct": "[H][C@@]12CC(C)=C[C@@H](C)[C@@]1([H])[C@]1([H])C(=O)C(Cl)(Cl)C(=O)[C@H](C)C(=O)O[C@@H](C)\\C=C\\C=C/[C@@H](C)[C@]1([H])C=C2",
+            "chem_struct": "C[C@@H]1/C=C\\C=C\\[C@@H](OC(=O)[C@H](C(=O)C(C(=O)[C@@H]2[C@H]1C=C[C@H]3[C@H]2[C@@H](C=C(C3)C)C)(Cl)Cl)C)C",
             "compound": "chlorotonil A",
             "database_id": [
                 "npatlas:NPA005497"
@@ -16495,7 +16495,7 @@
     ],
     "BGC0001300": [
         {
-            "chem_struct": "[H][C@]12CC(C)=CC[C@]1([H])[C@@]1([H])\\C(O)=C\\C(=O)[C@@H](C)C(=O)O[C@H](C)\\C=C\\C=C/[C@@H](C)[C@@]1([H])C=C2",
+            "chem_struct": "C[C@@H]1/C=C\\C=C\\[C@H](OC(=O)[C@@H](C(=O)/C=C(/[C@H]2[C@@H]1C=C[C@@H]3[C@@H]2CC=C(C3)C)\\O)C)C",
             "compound": "anthracimycin",
             "database_id": [
                 "npatlas:NPA000874"
@@ -16526,7 +16526,7 @@
     ],
     "BGC0001303": [
         {
-            "chem_struct": "C[C@H]1CC=CC=C(C)C=C(C)C=C\\C=C/[C@H](O)C[C@H](O)[C@@H](O)[C@H](O)[C@@H](C)C=CC=CC=CC(=O)N1",
+            "chem_struct": "C[C@H]1CC=CC=C(C=C(C=C/C=C\\[C@@H](C[C@@H]([C@H]([C@@H]([C@H](C=CC=CC=CC(=O)N1)C)O)O)O)O)C)C",
             "compound": "lobosamide A",
             "database_id": [
                 "npatlas:NPA001294"
@@ -16544,7 +16544,7 @@
             "molecular_formula": "C29H41NO5"
         },
         {
-            "chem_struct": "C[C@H]1CC=CC=C(C)C=C(C)C=C\\C=C/[C@H](O)C[C@H](O)C[C@H](O)[C@@H](C)C=CC=CC=CC(=O)N1",
+            "chem_struct": "C[C@H]1CC=CC=C(C=C(C=C/C=C\\[C@@H](C[C@@H](C[C@@H]([C@H](C=CC=CC=CC(=O)N1)C)O)O)O)C)C",
             "compound": "lobosamide C",
             "database_id": [
                 "npatlas:NPA001511"
@@ -16587,7 +16587,7 @@
             "molecular_formula": "C12H18O4"
         },
         {
-            "chem_struct": "CCC(C)C(\\O)=C1/C(=O)OC(C)C(C)C1=O",
+            "chem_struct": "CCC(C)/C(=C\\1/C(=O)C(C(OC1=O)C)C)/O",
             "compound": "fujikurin D",
             "database_id": [
                 "npatlas:NPA004349",
@@ -16629,7 +16629,7 @@
     ],
     "BGC0001312": [
         {
-            "chem_struct": "CCCCCCCC(O)CC(=O)N[C@@H](CC(C)C)C(=O)N[C@H](CCC(O)=O)C(=O)N[C@@H]1C(C)OC(=O)[C@@H](NC(=O)[C@@H](CO)NC(=O)[C@H](CC(C)C)NC(=O)[C@@H](CO)NC(=O)[C@H](CC(C)C)NC(=O)[C@H](NC1=O)C(C)C)[C@@H](C)CC",
+            "chem_struct": "CCCCCCCC(CC(=O)N[C@@H](CC(C)C)C(=O)N[C@H](CCC(=O)O)C(=O)N[C@@H]1C(OC(=O)[C@@H](NC(=O)[C@H](NC(=O)[C@@H](NC(=O)[C@H](NC(=O)[C@@H](NC(=O)[C@H](NC1=O)C(C)C)CC(C)C)CO)CC(C)C)CO)[C@@H](C)CC)C)O",
             "compound": "viscosin",
             "database_id": [
                 "npatlas:NPA006108",
@@ -16673,32 +16673,6 @@
             "database_id": [
                 "pubchem:Compound(441467)"
             ]
-        }
-    ],
-    "BGC0001321": [
-        {
-            "compound": "monoterpenes-diterpenes"
-        }
-    ],
-    "BGC0001322": [
-        {
-            "chem_struct": "CC(=CCCC(C)(C(=O)CC[C@@]1(C2CC3C1(C3C2)C)C)O)C",
-            "compound": "lycosantalonol",
-            "database_id": [
-                "pubchem:101900499"
-            ],
-            "mol_mass": 304.240230264,
-            "molecular_formula": "C20H32O2"
-        }
-    ],
-    "BGC0001323": [
-        {
-            "compound": "monoterpenes-diterpenes"
-        }
-    ],
-    "BGC0001324": [
-        {
-            "compound": "monoterpenes-diterpenes"
         }
     ],
     "BGC0001327": [
@@ -16881,7 +16855,7 @@
     ],
     "BGC0001333": [
         {
-            "chem_struct": "COC1=C2N(C3=CC=CC=C13)[C@]1(O)C(=O)N(C)C(=O)[C@]1(O)C1=C2N(C)C2=CC=C(Cl)C=C12",
+            "chem_struct": "CN1C2=C(C=C(C=C2)Cl)C3=C1C4=C(C5=CC=CC=C5N4[C@]6([C@@]3(C(=O)N(C6=O)C)O)O)OC",
             "compound": "BE-54017",
             "database_id": [
                 "npatlas:NPA005807",
@@ -16902,7 +16876,7 @@
             "molecular_formula": "C22H16ClN3O5"
         },
         {
-            "chem_struct": "COC1=C2N(C3=C1C=C(Cl)C=C3)[C@]1(O)C(=O)N(C)C(=O)[C@]1(O)C1=C2NC2=C1C=C(Cl)C=C2",
+            "chem_struct": "CN1C(=O)[C@@]2(C3=C(C4=C(C5=C(N4[C@@]2(C1=O)O)C=CC(=C5)Cl)OC)NC6=C3C=C(C=C6)Cl)O",
             "compound": "cladoniamide B",
             "database_id": [
                 "npatlas:NPA003322",
@@ -16912,7 +16886,7 @@
             "molecular_formula": "C22H15Cl2N3O5"
         },
         {
-            "chem_struct": "COC1=C2N(C3=C1C=CC=C3)[C@]1(O)C(=O)N(C)C(=O)[C@]1(O)C1=C2NC2=C1C=CC=C2",
+            "chem_struct": "CN1C(=O)[C@@]2(C3=C(C4=C(C5=CC=CC=C5N4[C@@]2(C1=O)O)OC)NC6=CC=CC=C63)O",
             "compound": "cladoniamide C7",
             "database_id": [
                 "npatlas:NPA007636"
@@ -16931,7 +16905,7 @@
             "molecular_formula": "C21H16ClN3O4"
         },
         {
-            "chem_struct": "CNC(=O)[C@@]1(O)N2C3=C(C=C(Cl)C=C3)C(OC)=C2C2=C(C3=C(N2)C=CC(Cl)=C3)C1=O",
+            "chem_struct": "CNC(=O)[C@@]1(C(=O)C2=C(C3=C(C4=C(N31)C=CC(=C4)Cl)OC)NC5=C2C=C(C=C5)Cl)O",
             "compound": "cladoniamide E",
             "database_id": [
                 "npatlas:NPA002270",
@@ -17071,7 +17045,7 @@
     ],
     "BGC0001340": [
         {
-            "chem_struct": "CCC[C@@H]1CC2=C(C[C@H](CC)CC3=C1C(=O)OC3=O)C(=O)OC2=O",
+            "chem_struct": "CCC[C@@H]1CC2=C(C[C@@H](CC3=C1C(=O)OC3=O)CC)C(=O)OC2=O",
             "compound": "byssochlamic acid",
             "database_id": [
                 "npatlas:NPA004332",
@@ -17084,7 +17058,7 @@
     ],
     "BGC0001341": [
         {
-            "chem_struct": "CC(C)[C@@H]1NC(=O)C(C)OC(=O)[C@H](NC(=O)[C@H](OC(=O)[C@@H](NC(=O)[C@H](C)OC(=O)[C@H](NC(=O)[C@H](OC(=O)[C@@H](NC(=O)[C@H](C)OC(=O)[C@H](NC(=O)[C@H](OC1=O)C(C)C)C(C)C)C(C)C)C(C)C)C(C)C)C(C)C)C(C)C)C(C)C",
+            "chem_struct": "C[C@H]1C(=O)N[C@H](C(=O)O[C@@H](C(=O)N[C@@H](C(=O)OC(C(=O)N[C@H](C(=O)O[C@@H](C(=O)N[C@@H](C(=O)O[C@H](C(=O)N[C@H](C(=O)O[C@@H](C(=O)N[C@@H](C(=O)O1)C(C)C)C(C)C)C(C)C)C)C(C)C)C(C)C)C(C)C)C)C(C)C)C(C)C)C(C)C",
             "compound": "valinomycin",
             "database_id": [
                 "npatlas:NPA006953",
@@ -17158,7 +17132,7 @@
             "molecular_formula": "C42H63N5O10S"
         },
         {
-            "chem_struct": "[H][C@](C)(CC)[C@]([H])(NC(=O)[C@H]1CCCCN1C)C(=O)N(COC(=O)CC)[C@H](C[C@@H](OC(C)=O)C1=NC(=CS1)C(=O)N[C@H](C[C@H](C)C(O)=O)CC1=CC=C(O)C=C1)C(C)C",
+            "chem_struct": "CC[C@H](C)[C@@H](C(=O)N(COC(=O)CC)[C@H](C[C@H](C1=NC(=CS1)C(=O)N[C@@H](CC2=CC=C(C=C2)O)C[C@H](C)C(=O)O)OC(=O)C)C(C)C)NC(=O)[C@H]3CCCCN3C",
             "compound": "tubulysin C",
             "database_id": [
                 "npatlas:NPA009616",
@@ -17208,7 +17182,7 @@
             "molecular_formula": "C43H63N5O10S"
         },
         {
-            "chem_struct": "[H][C@](C)(CC)[C@]([H])(NC(=O)[C@H]1CCCCN1C)C(=O)N(COC(C)=O)[C@H](C[C@@H](OC(C)=O)C1=NC(=CS1)C(=O)N[C@H](C[C@H](C)C(O)=O)CC1=CC=CC=C1)C(C)C",
+            "chem_struct": "CC[C@H](C)[C@@H](C(=O)N(COC(=O)C)[C@H](C[C@H](C1=NC(=CS1)C(=O)N[C@@H](CC2=CC=CC=C2)C[C@H](C)C(=O)O)OC(=O)C)C(C)C)NC(=O)[C@H]3CCCCN3C",
             "compound": "tubulysin H",
             "database_id": [
                 "npatlas:NPA001723",
@@ -17230,7 +17204,7 @@
     ],
     "BGC0001345": [
         {
-            "chem_struct": "OC[C@H](CCCCNC(=O)C1=CC=CC(O)=C1O)NC(=O)C1=CC=CC(O)=C1O",
+            "chem_struct": "C1=CC(=C(C(=C1)O)O)C(=O)NCCCC[C@@H](CO)NC(=O)C2=C(C(=CC=C2)O)O",
             "compound": "myxochelin A",
             "database_id": [
                 "npatlas:NPA002219",
@@ -17282,7 +17256,7 @@
     ],
     "BGC0001349": [
         {
-            "chem_struct": "[H][C@]12\\C=C/C=C(C)/[C@@]3([H])[C@H](O)[C@H](O)C=C[C@]3([H])\\C=C(C)\\[C@@]1([H])[C@]1([H])[C@@H](O)C[C@@H](C\\C=C\\C=C\\CCC)N1C2=O",
+            "chem_struct": "CCC/C=C/C=C/C[C@@H]1C[C@@H]([C@@H]2N1C(=O)[C@@H]/3[C@H]2/C(=C/[C@H]4C=C[C@H]([C@H]([C@@H]4/C(=C/C=C3)/C)O)O)/C)O",
             "compound": "heronamide A",
             "database_id": [
                 "npatlas:NPA002271",
@@ -17301,7 +17275,7 @@
             "molecular_formula": "C29H39NO3"
         },
         {
-            "chem_struct": "CCC\\C=C\\C=C\\C[C@@H]1C\\C=C\\C=C(/C)\\C=C\\C=C/[C@H](O)[C@H](O)\\C=C(/C)\\C=C\\C=C\\C(=O)N1",
+            "chem_struct": "CCC/C=C/C=C/C[C@@H]1C/C=C/C=C(/C=C/C=C\\[C@@H]([C@@H](/C=C(/C=C/C=C/C(=O)N1)\\C)O)O)\\C",
             "compound": "heronamide C",
             "database_id": [
                 "npatlas:NPA002588",
@@ -17331,7 +17305,7 @@
             "molecular_formula": "C27H35NO3"
         },
         {
-            "chem_struct": "C\\C=C\\C=C\\C[C@@H]1C\\C=C\\C=C(/C)\\C=C\\C=C/[C@@H](O)[C@@H](O)\\C=C(/C)\\C=C\\C=C\\C(=O)N1",
+            "chem_struct": "C/C=C/C=C/C[C@@H]1C/C=C/C=C(/C=C/C=C\\[C@H]([C@H](/C=C(/C=C/C=C/C(=O)N1)\\C)O)O)\\C",
             "compound": "heronamide F",
             "database_id": [
                 "npatlas:NPA006236",
@@ -17343,7 +17317,7 @@
     ],
     "BGC0001350": [
         {
-            "chem_struct": "[H][C@@]12C[C@@]([H])(OC(=O)\\C=C(/C)\\C=C\\C[C@@H](O)CC(=C)\\C=C(C)\\C1)[C@](C)(O2)[C@@H](O)\\C=C(/C)C[C@H]1OC(C)(C)O[C@@H](C[C@H]2OC(C)(C)O[C@@H](C[C@H](CC(=C)C(\\OC)=C/Br)OC(=O)CCCCCCCCCCCCCCC)[C@H]2C)C1(C)C",
+            "chem_struct": "CCCCCCCCCCCCCCCC(=O)O[C@H](C[C@H]1[C@H]([C@H](OC(O1)(C)C)C[C@H]2C([C@H](OC(O2)(C)C)C/C(=C/[C@@H]([C@@]3([C@H]4C[C@@H](O3)C/C(=C/C(=C)C[C@@H](C/C=C/C(=C/C(=O)O4)/C)O)/C)C)O)/C)(C)C)C)CC(=C)/C(=C\\Br)/OC",
             "compound": "phormidolide",
             "database_id": [
                 "npatlas:NPA004201",
@@ -17389,7 +17363,7 @@
     ],
     "BGC0001357": [
         {
-            "chem_struct": "C[C@H]1CCCCC(CCCC(Cl)Cl)C2=C(O)C=C(C=C2O)[C@H](OC(N)=O)[C@@H](C)CCCCC(CCCC(Cl)Cl)C2=C(O)C=C(C=C2O)[C@@H]1OC(N)=O",
+            "chem_struct": "C[C@H]1CCCCC(C2=C(C=C(C=C2O)[C@@H]([C@H](CCCCC(C3=C(C=C([C@@H]1OC(=O)N)C=C3O)O)CCCC(Cl)Cl)C)OC(=O)N)O)CCCC(Cl)Cl",
             "compound": "carbamidocyclophane A",
             "database_id": [
                 "npatlas:NPA009092",
@@ -17399,7 +17373,7 @@
             "molecular_formula": "C38H54Cl4N2O8"
         },
         {
-            "chem_struct": "C[C@H]1CCCCC(CCCCCl)C2=C(O)C=C(C=C2O)[C@H](OC(N)=O)[C@@H](C)CCCCC(CCCC(Cl)Cl)C2=C(O)C=C(C=C2O)[C@@H]1OC(N)=O",
+            "chem_struct": "C[C@H]1CCCCC(C2=C(C=C(C=C2O)[C@@H]([C@H](CCCCC(C3=C(C=C([C@@H]1OC(=O)N)C=C3O)O)CCCC(Cl)Cl)C)OC(=O)N)O)CCCCCl",
             "compound": "carbamidocyclophane B",
             "database_id": [
                 "npatlas:NPA003410",
@@ -17439,7 +17413,7 @@
             "molecular_formula": "C38H58N2O8"
         },
         {
-            "chem_struct": "C[C@H]1CCCC[C@H](CCCC(Cl)Cl)C2=C(O)C=C(C=C2O)[C@H](OC(N)=O)[C@@H](C)CCCC[C@H](CCCC(Cl)Cl)C2=C(O)C=C(C=C2O)[C@@H]1O",
+            "chem_struct": "C[C@H]1CCCC[C@@H](C2=C(C=C(C=C2O)[C@@H]([C@H](CCCC[C@@H](C3=C(C=C([C@@H]1O)C=C3O)O)CCCC(Cl)Cl)C)OC(=O)N)O)CCCC(Cl)Cl",
             "compound": "carbamidocyclophane F",
             "database_id": [
                 "npatlas:NPA006200",
@@ -17593,12 +17567,18 @@
     ],
     "BGC0001365": [
         {
-            "compound": "clapurines"
+            "compound": "dithioclapurine"
+        },
+        {
+            "compound": "trithioclapurine"
+        },
+        {
+            "compound": "tetrathioclapurine"
         }
     ],
     "BGC0001366": [
         {
-            "chem_struct": "CC1=CC(O)=CC2=C1C1OC(C)(CC3=C1C(O)=C1C(=O)C4=C(C=C(O)C=C4O)C(C)(C)C1=C3)O2",
+            "chem_struct": "CC1=CC(=CC2=C1C3C4=C(CC(O3)(O2)C)C=C5C(=C4O)C(=O)C6=C(C=C(C=C6C5(C)C)O)O)O",
             "compound": "BE-24566B",
             "database_id": [
                 "npatlas:NPA001814",
@@ -17719,7 +17699,7 @@
             "molecular_formula": "C37H44ClNO6"
         },
         {
-            "chem_struct": "[H][C@]12C[C@@]3([H])[C@@]1([H])C1=C(CC2=C)C=CC2=C1C1=C(N2)[C@@]2(C)[C@@]([H])(CC[C@@]4(O)[C@@]56O[C@@H]5[C@@H](O)[C@H](O[C@@]6([H])CC[C@]24C)C(C)=C)[C@]1([H])OC3(C)C",
+            "chem_struct": "CC(=C)[C@@H]1[C@@H]([C@@H]2[C@@]3(O2)[C@@H](O1)CC[C@]4([C@]3(CC[C@@H]5[C@@]4(C6=C7[C@H]5OC([C@H]8C[C@H]9[C@@H]8C1=C(CC9=C)C=CC(=C17)N6)(C)C)C)O)C)O",
             "compound": "penitrem B",
             "database_id": [
                 "npatlas:NPA003988",
@@ -17729,7 +17709,7 @@
             "molecular_formula": "C37H45NO5"
         },
         {
-            "chem_struct": "CC(=C)C1OC2CCC3(C)C4(C)C(CCC3(O)C2=CC1O)C1OC(C)(C)C2CC3C2C2=C(CC3=C)C(Cl)=CC3=C2C1=C4N3",
+            "chem_struct": "C=C1CC2=C(Cl)C=C3NC4=C5C3=C2[C@H]2[C@@H]1C[C@@H]2C(C)(C)O[C@H]5[C@@H]1CC[C@@]2(O)C3=C[C@@H](O)[C@@H](C(=C)C)O[C@H]3CC[C@]2(C)[C@@]41C",
             "compound": "penitrem C",
             "database_id": [
                 "npatlas:NPA005425",
@@ -17759,7 +17739,7 @@
             "molecular_formula": "C37H45NO6"
         },
         {
-            "chem_struct": "[H][C@]12C[C@@]3([H])[C@@]1([H])C1=C(CC2=C)C(Cl)=CC2=C1C1=C(N2)[C@@]2(C)[C@@]([H])(CC[C@@]4(O)[C@@]56O[C@@H]5[C@@H](O)[C@H](O[C@@]6([H])CC[C@]24C)C(C)=C)[C@]1([H])OC3(C)C",
+            "chem_struct": "CC(=C)[C@@H]1[C@@H]([C@@H]2[C@@]3(O2)[C@@H](O1)CC[C@]4([C@]3(CC[C@@H]5[C@@]4(C6=C7[C@H]5OC([C@H]8C[C@H]9[C@@H]8C1=C7C(=CC(=C1CC9=C)Cl)N6)(C)C)C)O)C)O",
             "compound": "penitrem F",
             "database_id": [
                 "npatlas:NPA005947",
@@ -17771,7 +17751,7 @@
     ],
     "BGC0001376": [
         {
-            "chem_struct": "COC1=C2C(O)CC3=CC4=C(C(=O)OC(C)C4)C(O)=C3C2=C(O)C2=C1C(=O)C1=C(C=CC=C1O)C2=O",
+            "chem_struct": "CC1CC2=C(C(=C3C(=C2)CC(C4=C3C(=C5C(=C4OC)C(=O)C6=C(C5=O)C=CC=C6O)O)O)O)C(=O)O1",
             "compound": "WS79089A",
             "database_id": [
                 "npatlas:NPA008064"
@@ -17797,7 +17777,7 @@
     ],
     "BGC0001377": [
         {
-            "chem_struct": "CC(O)[C@@]12O[C@@]11[C@H](O)C#C\\C=C/C#C[C@@H]2NC2=C1C=C(O)C1=C2C(=O)C2=CC=CC=C2C1=O",
+            "chem_struct": "CC([C@]12[C@@H]3C#C/C=C\\C#C[C@H]([C@@]1(O2)C4=CC(=C5C(=C4N3)C(=O)C6=CC=CC=C6C5=O)O)O)O",
             "compound": "uncialamycin",
             "database_id": [
                 "npatlas:NPA001771",
@@ -17840,7 +17820,7 @@
             "molecular_formula": "C57H98O24"
         },
         {
-            "chem_struct": "CCCCC(C(=O)OC)C(=O)OC1CCCC(O)C2OC2C(C)C(OC(=O)\\C=C/CC(O)CC(O)CC(O)CCC(C)C(O)C[C@]2(O)O[C@@H](C[C@H](O)[C@H]2O)CC(O)C1)C(C)C(O)C(C)C(O)C(C)C(C)OC1CC(OC)C(OC)C(C)O1",
+            "chem_struct": "CCCCC(C(=O)OC)C(=O)OC1CCCC(C2C(O2)C(C(OC(=O)/C=C\\CC(CC(CC(CCC(C(C[C@]3([C@@H]([C@H](C[C@H](O3)CC(C1)O)O)O)O)O)C)O)O)O)C(C)C(C(C)C(C(C)C(C)OC4CC(C(C(O4)C)OC)OC)O)O)C)O",
             "compound": "brasilinolide B",
             "database_id": [
                 "npatlas:NPA006183",
@@ -17850,7 +17830,7 @@
             "molecular_formula": "C59H104O23"
         },
         {
-            "chem_struct": "[H][C@@]12O[C@@]1([H])[C@H](C)[C@H](OC(=O)\\C=C\\C[C@H](O)C[C@H](O)C[C@@H](O)CC[C@@H](C)[C@H](O)C[C@]1(O)O[C@@]([H])(C[C@H](O)[C@H]1O)C[C@@H](O)C[C@H](O)CCC[C@@H]2O)[C@@H](C)[C@@H](O)[C@H](C)[C@@H](O)[C@@H](C)[C@H](C)O[C@H]1C[C@H](O)[C@H](O)[C@H](C)O1",
+            "chem_struct": "C[C@@H]1CC[C@@H](C[C@H](C[C@H](C/C=C/C(=O)O[C@@H]([C@H]([C@H]2[C@@H](O2)[C@H](CCC[C@H](C[C@@H](C[C@@H]3C[C@@H]([C@H]([C@@](O3)(C[C@H]1O)O)O)O)O)O)O)C)[C@@H](C)[C@H]([C@H](C)[C@H]([C@@H](C)[C@H](C)O[C@H]4C[C@@H]([C@@H]([C@@H](O4)C)O)O)O)O)O)O)O",
             "compound": "brasilinolide C",
             "database_id": [
                 "npatlas:NPA002229"
@@ -17888,7 +17868,7 @@
             "molecular_formula": "C30H44O10"
         },
         {
-            "chem_struct": "C[C@@H]1CCC\\C=C\\C=C\\C(=O)C[C@@H](O)C\\C=C/C=C/[C@@H](O)C\\C=C\\C=C/C(=O)O1",
+            "chem_struct": "C[C@@H]1CCC/C=C/C=C/C(=O)C[C@H](C/C=C\\C=C\\[C@H](C/C=C/C=C\\C(=O)O1)O)O",
             "compound": "macrolactin E",
             "database_id": [
                 "npatlas:NPA008986"
@@ -18183,7 +18163,7 @@
             "molecular_formula": "C23H25ClO6"
         },
         {
-            "chem_struct": "[H][C@]12C(=O)O[C@H](C)[C@@H](C)[C@@]1(O)O[C@]1(C)C(=O)C(Cl)=C3C=C(OC=C3[C@]21[H])\\C=C\\[C@H](C)[C@@H](C)O",
+            "chem_struct": "C[C@@H]1[C@H](OC(=O)[C@H]2[C@@]1(O[C@]3([C@@H]2C4=COC(=CC4=C(C3=O)Cl)/C=C/[C@H](C)[C@@H](C)O)C)O)C",
             "compound": "11-epichaetomugilin A",
             "database_id": [
                 "npatlas:NPA009796"
@@ -18215,7 +18195,7 @@
     ],
     "BGC0001409": [
         {
-            "chem_struct": "CCC[C@@H](C)\\C=C(\\C)C(=O)OC1C(C)OC(CC1(C)O)OC1CCC(O[C@@H]2C(O)=C(C(C)=O)C(=O)[C@@]3(O)C(=O)C4=C(O)C5=C(C(C)=C4C[C@@]23O)C(=O)C(OC)=CC5=O)OC1C",
+            "chem_struct": "CCC[C@@H](C)/C=C(/C)\\C(=O)OC1C(OC(CC1(C)O)OC2CCC(OC2C)O[C@@H]3C(=O)C(=C([C@@]4([C@]3(CC5=C(C6=C(C(=O)C=C(C6=O)OC)C(=C5C4=O)O)C)O)O)O)C(=O)C)C",
             "compound": "dutomycin",
             "database_id": [
                 "npatlas:NPA007234"
@@ -18396,7 +18376,7 @@
     ],
     "BGC0001429": [
         {
-            "chem_struct": "C\\C=C\\C=C\\C=C\\C=C\\C=C\\C=C\\C=C\\C(=O)N(C)[C@H]1[C@@H](C)OC(=O)[C@H](CCC(N)=O)NC(=O)[C@H](C)NC(=O)[C@H](C)NC(=O)[C@H](CC(C)C)NC1=O",
+            "chem_struct": "C/C=C/C=C/C=C/C=C/C=C/C=C/C=C/C(=O)N(C)[C@H]1[C@H](OC(=O)[C@@H](NC(=O)[C@@H](NC(=O)[C@@H](NC(=O)[C@@H](NC1=O)CC(C)C)C)C)CCC(=O)N)C",
             "compound": "myxochromide S1",
             "database_id": [
                 "npatlas:NPA001302"
@@ -18449,7 +18429,7 @@
             "molecular_formula": "C17H18N2O3S"
         },
         {
-            "chem_struct": "C\\C=C\\C=C\\C=C\\C1=NCCCC1",
+            "chem_struct": "C/C=C/C=C/C=C/C1=NCCCC1",
             "compound": "nigrifactin",
             "database_id": [
                 "npatlas:NPA001371"
@@ -18484,7 +18464,7 @@
     ],
     "BGC0001434": [
         {
-            "chem_struct": "CCC(C)C(=O)C(=O)NCCC1=CNC2=CC=CC=C12",
+            "chem_struct": "CCC(C)C(=O)C(=O)NCCC1=CNC2=CC=CC=C21",
             "compound": "nematophin",
             "database_id": [
                 "npatlas:NPA007705"
@@ -18495,7 +18475,7 @@
     ],
     "BGC0001435": [
         {
-            "chem_struct": "[H][C@]12C[C@@H](C)[C@@H](CC)[C@]1([H])C=C[C@]1([H])[C@H]3C\\C=C/C(=O)NCCC[C@@H]4NC(=O)C(=C4O)C(=O)\\C=C\\[C@@H]3C[C@]21[H]",
+            "chem_struct": "CC[C@@H]1[C@@H](C[C@H]2[C@H]1C=C[C@H]3[C@@H]2C[C@@H]\\4[C@@H]3C/C=C\\C(=O)NCCC[C@H]5C(=O)C(=C(/C=C4)O)C(=O)N5)C",
             "compound": "ikarugamycin",
             "database_id": [
                 "npatlas:NPA003249",
@@ -18518,7 +18498,7 @@
     ],
     "BGC0001437": [
         {
-            "chem_struct": "OC1=C(O)C(=CC=C1)C(=O)N[C@H]1[C@@H](CC2=CC=C(C=C2)N(=O)=O)OC1=O",
+            "chem_struct": "C1=CC(=C(C(=C1)O)O)C(=O)N[C@H]2[C@H](OC2=O)CC3=CC=C(C=C3)[N+](=O)[O-]",
             "compound": "obafluorin",
             "database_id": [
                 "npatlas:NPA002806",
@@ -18562,7 +18542,7 @@
             "molecular_formula": "C59H77NO25"
         },
         {
-            "chem_struct": "[H][C@]12CC3=CC4=C(C(=O)C=C(OC)C4=O)C(O)=C3C(=O)[C@@]1(O[C@H]1CC[C@H](O[C@H]3CC[C@H](O)[C@@H](C)O3)[C@@H](C)O1)C(=O)C(C(N)=O)=C(O)[C@@H]2O[C@H]1CC[C@H](O[C@H]2CC[C@H](O[C@H]3CC[C@H](O[C@H]4CC[C@H](OC(=O)C(C)C(O)=O)[C@H](C)O4)[C@H](C)O3)[C@H](C)O2)[C@@H](C)O1",
+            "chem_struct": "C[C@@H]1[C@H](CC[C@@H](O1)O[C@H]2CC[C@@H](O[C@@H]2C)O[C@]34[C@H](CC5=C(C3=O)C(=C6C(=C5)C(=O)C(=CC6=O)OC)O)[C@H](C(=O)C(=C4O)C(=O)N)O[C@H]7CC[C@@H]([C@H](O7)C)O[C@H]8CC[C@@H]([C@@H](O8)C)O[C@H]9CC[C@@H]([C@@H](O9)C)O[C@H]1CC[C@@H]([C@@H](O1)C)OC(=O)C(C)C(=O)O)O",
             "compound": "cervimycin D",
             "database_id": [
                 "npatlas:NPA001341"
@@ -18580,7 +18560,7 @@
             "molecular_formula": "C61H81NO25"
         },
         {
-            "chem_struct": "[H][C@]12CC3=CC4=C(C(=O)C=C(OC)C4=O)C(O)=C3C(=O)[C@@]1(O[C@H]1CC[C@H](O[C@H]3CC[C@H](O)[C@@H](C)O3)[C@@H](C)O1)C(=O)C(C(C)=O)=C(O)[C@@H]2O[C@H]1CC[C@H](O[C@H]2CC[C@H](O[C@H]3CC[C@H](O[C@H]4CC[C@H](OC(=O)C(C)(C)C(O)=O)[C@H](C)O4)[C@H](C)O3)[C@H](C)O2)[C@@H](C)O1",
+            "chem_struct": "C[C@@H]1[C@H](CC[C@@H](O1)O[C@H]2CC[C@@H](O[C@@H]2C)O[C@]34[C@H](CC5=C(C3=O)C(=C6C(=C5)C(=O)C(=CC6=O)OC)O)[C@H](C(=O)C(=C4O)C(=O)C)O[C@H]7CC[C@@H]([C@H](O7)C)O[C@H]8CC[C@@H]([C@@H](O8)C)O[C@H]9CC[C@@H]([C@@H](O9)C)O[C@H]1CC[C@@H]([C@@H](O1)C)OC(=O)C(C)(C)C(=O)O)O",
             "compound": "cervimycin A",
             "database_id": [
                 "npatlas:NPA009633"
@@ -18591,7 +18571,7 @@
     ],
     "BGC0001440": [
         {
-            "chem_struct": "CC[C@H](C)[C@H](NC(=O)[C@@H](NC(=O)C1OC(=O)C1C(C)C)C(C)C)C(O)=O",
+            "chem_struct": "CC[C@H](C)[C@@H](C(=O)O)NC(=O)[C@H](C(C)C)NC(=O)C1C(C(=O)O1)C(C)C",
             "compound": "cystargolide A",
             "database_id": [
                 "npatlas:NPA004240",
@@ -18670,7 +18650,7 @@
     ],
     "BGC0001447": [
         {
-            "chem_struct": "CCCCC1C(O)C(C)CCC(O)CCCC(O)CCCC(O)C(C)=CC(O[C@H]2O[C@H](CO)[C@@H](O)[C@@H]2O)C(O)CC(O)CC(O)CC(O)CC(O)CCCCC(C)=CC(C)C(OC1=O)C(C)C(O)CCCNC(N)=N",
+            "chem_struct": "CCCCC1C(C(CCC(CCCC(CCCC(C(=CC(C(CC(CC(CC(CC(CCCCC(=CC(C(OC1=O)C(C)C(CCCN=C(N)N)O)C)C)O)O)O)O)O)O[C@@H]2[C@H]([C@@H]([C@H](O2)CO)O)O)C)O)O)O)C)O",
             "compound": "primycin",
             "database_id": [
                 "npatlas:NPA004540"
@@ -18817,7 +18797,7 @@
     ],
     "BGC0001458": [
         {
-            "chem_struct": "CCCCCCCCCCCCCCO[P@]1(=O)OC[C@@H]2COC(=O)C2=C(CCC)O1",
+            "chem_struct": "CCCCCCCCCCCCCCO[P@]1(=O)OC[C@@H]2COC(=O)C2=C(O1)CCC",
             "compound": "salinipostin G",
             "database_id": [
                 "npatlas:NPA002161",
@@ -18923,7 +18903,7 @@
     ],
     "BGC0001468": [
         {
-            "chem_struct": "[H][C@](O)([C@@](C)(O)CO)[C@@]12NC(=O)[C@@](O)(NC1=O)C(=C)CCO2",
+            "chem_struct": "C[C@](CO)([C@@H]([C@@]12C(=O)N[C@@](C(=C)CCO1)(C(=O)N2)O)O)O",
             "compound": "bicyclomycin",
             "database_id": [
                 "npatlas:NPA009159",
@@ -18935,7 +18915,7 @@
     ],
     "BGC0001469": [
         {
-            "chem_struct": "[H][C@@]12CSC(=N1)C1=CSC(=N1)C1=CSC(=N1)C1=CSC(=N1)[C@@H](C)NC(=O)[C@@]([H])(NC(=O)[C@@H](CC1=CC=CC=C1)NC2=O)[C@@H](C)CC",
+            "chem_struct": "CC[C@H](C)[C@H]1C(=O)N[C@@H](C2=NC(=CS2)C3=NC(=CS3)C4=NC(=CS4)C5=N[C@@H](CS5)C(=O)N[C@@H](C(=O)N1)CC6=CC=CC=C6)C",
             "compound": "marthiapeptide A",
             "database_id": [
                 "npatlas:NPA001576",
@@ -18997,7 +18977,7 @@
     ],
     "BGC0001476": [
         {
-            "chem_struct": "NC(=N)NCC(=O)N(O)[C@@H](CCC(N)=O)C(=O)NC[C@H]1O[C@H]([C@H](O)[C@@H]1O)C1=CNC(=O)NC1=O",
+            "chem_struct": "C1=C(C(=O)NC(=O)N1)[C@H]2[C@@H]([C@@H]([C@H](O2)CNC(=O)[C@H](CCC(=O)N)N(C(=O)CN=C(N)N)O)O)O",
             "compound": "pseudouridimycin",
             "database_id": [
                 "npatlas:NPA002322",
@@ -19033,7 +19013,7 @@
     ],
     "BGC0001479": [
         {
-            "chem_struct": "CC[C@H](C)[C@@H]1NC(=O)[C@@H](CCCCNC(=O)[C@H](CCC2=CC=C(O)C=C2)NC(=O)CN(C)C(=O)[C@H](CCC2=CC=C(O)C=C2)NC1=O)NC(=O)N[C@@H](CC1=CC=CC=C1)C(O)=O",
+            "chem_struct": "CC[C@@H](C)[C@@H]1NC(=O)[C@H](NC(=O)N[C@@H](CC2=CC=CC=C2)C(=O)O)CCCCNC(=O)[C@H](CCC2=CC=C(O)C=C2)NC(=O)CN(C)C(=O)[C@H](CCC2=CC=C(O)C=C2)NC1=O",
             "compound": "anabaenopeptin NZ857",
             "database_id": [
                 "npatlas:NPA006342",
@@ -19090,7 +19070,7 @@
             "molecular_formula": "C21H27ClN10O7"
         },
         {
-            "chem_struct": "N[C@@H]1[C@H](O)[C@@H](CO)O[C@H]1N1C=NC2=C1N=CN=C2N",
+            "chem_struct": "C1=NC2=C(C(=N1)N)N=CN2[C@H]3[C@@H]([C@@H]([C@H](O3)CO)O)N",
             "compound": "2'-amino-2'-deoxyadenosine",
             "database_id": [
                 "npatlas:NPA001164"
@@ -19272,7 +19252,7 @@
     ],
     "BGC0001495": [
         {
-            "chem_struct": "CCC1C(=O)C2(C)CC(C)=CCC(OC(=O)CC1(O)O2)C(C)C(O)C(C)CC(C)=CC(C)C(O)C(C)C(=O)CC",
+            "chem_struct": "CCC(=O)[C@@H](C)[C@H](O)[C@@H](C)C=C(C)C[C@@H](C)[C@@H](O)[C@@H](C)[C@H]1CC=C(C)CC2(C)OC(O)(CC(=O)O1)[C@H](CC)C2=O",
             "compound": "actinoallolide A",
             "database_id": [
                 "npatlas:NPA009490"
@@ -19447,7 +19427,7 @@
     ],
     "BGC0001512": [
         {
-            "chem_struct": "CC1=CC(O)=CC2=C1C1OC(C)(CC3=C1C(O)=C1C(=O)C4=C(C=C(O)C=C4O)C(C)(C)C1=C3)O2",
+            "chem_struct": "CC1=CC(=CC2=C1C3C4=C(CC(O3)(O2)C)C=C5C(=C4O)C(=O)C6=C(C=C(C=C6C5(C)C)O)O)O",
             "compound": "BE-24566B",
             "database_id": [
                 "npatlas:NPA001814"
@@ -19562,7 +19542,7 @@
     ],
     "BGC0001521": [
         {
-            "chem_struct": "CC[C@H](C)[C@H](O)C(=O)N[C@@H](CC1=CC(Cl)=C(O)C=C1)C(=O)CC",
+            "chem_struct": "CC[C@H](C)[C@@H](C(=O)N[C@@H](CC1=CC(=C(C=C1)O)Cl)C(=O)CC)O",
             "compound": "auriculamide",
             "database_id": [
                 "npatlas:NPA000620"
@@ -19582,7 +19562,7 @@
     ],
     "BGC0001523": [
         {
-            "chem_struct": "CC(CCC\\C=C\\CCCNC(N)=N)C1OC(=O)\\C(C)=C/C=C\\C(C)C(O)CC(O)C(C)C(O)CCC(C)C(O)CC2(O)OC(CC(O)C2O)CC(CC(O)CC(O)CC(O)\\C(C)=C/C=C\\C1C)OC(=O)CC(O)=O",
+            "chem_struct": "CC1CCC(C(C(CC(C(/C=C\\C=C(/C(=O)OC(C(/C=C\\C=C(/C(CC(CC(CC(CC2CC(C(C(O2)(CC1O)O)O)O)OC(=O)CC(=O)O)O)O)O)\\C)C)C(C)CCC/C=C/CCCN=C(N)N)\\C)C)O)O)C)O",
             "compound": "azalomycin F3a",
             "database_id": [
                 "npatlas:NPA005717"
@@ -19902,7 +19882,7 @@
     ],
     "BGC0001545": [
         {
-            "chem_struct": "C[C@H](O)C1=NC2=C(C=CC=C2)C(=O)N1",
+            "chem_struct": "C[C@@H](C1=NC2=CC=CC=C2C(=O)N1)O",
             "compound": "chrysogine",
             "database_id": [
                 "npatlas:NPA009507"
@@ -20006,7 +19986,7 @@
     ],
     "BGC0001558": [
         {
-            "chem_struct": "CC[C@@]1(O)C[C@H](O[C@H]2C[C@@H]([C@H](O[C@H]3C[C@H](O)[C@H](O[C@H]4CC[C@H](O)[C@H](C)O4)[C@H](C)O3)[C@H](C)O2)N(C)C)C2=C(O)C3=C(C(O)=C2[C@H]1O[C@H]1C[C@@H]([C@H](O[C@H]2CC[C@H](O[C@H]4CC[C@H](O)[C@H](C)O4)[C@H](C)O2)[C@H](C)O1)N(C)C)C(=O)C1=C(C(O)=CC=C1)C3=O",
+            "chem_struct": "CC[C@]1(C[C@@H](C2=C(C3=C(C(=C2[C@H]1O[C@H]4C[C@@H]([C@@H]([C@@H](O4)C)O[C@H]5CC[C@@H]([C@@H](O5)C)O[C@H]6CC[C@@H]([C@@H](O6)C)O)N(C)C)O)C(=O)C7=C(C3=O)C(=CC=C7)O)O)O[C@H]8C[C@@H]([C@@H]([C@@H](O8)C)O[C@H]9C[C@@H]([C@@H]([C@@H](O9)C)O[C@H]1CC[C@@H]([C@@H](O1)C)O)O)N(C)C)O",
             "compound": "cosmomycin C",
             "database_id": [
                 "npatlas:NPA002230"
@@ -20235,7 +20215,7 @@
     ],
     "BGC0001582": [
         {
-            "chem_struct": "[H][C@]1(NC(=O)[C@@H](NC(=O)[C@H](CC2=CNC3=CC=CC(OC)=C23)N(C)C(=O)[C@H](C(C)C)N(C)C(=O)[C@@H](NC(=O)[C@H](CC(C)C)N(C)C(=O)[C@@H](NC(=O)[C@]([H])([C@@H](C)O)N(C)C(=O)[C@@H](NC(=O)[C@H]([C@H](C)CC)N(C)C(=O)[C@@H](NC(=O)[C@H](C(C)C)N(C)C)C(C)C)[C@@H](C)OC(=O)[C@@H](NC1=O)C(C)C)C(C)C)C(C)C)C(C)C)[C@H](O)C1=CC=CC=C1",
+            "chem_struct": "CC[C@@H](C)[C@@H](C(=O)N[C@H]1[C@H](OC(=O)[C@@H](NC(=O)[C@@H](NC(=O)[C@@H](NC(=O)[C@@H](N(C(=O)[C@@H](N(C(=O)[C@@H](NC(=O)[C@@H](N(C(=O)[C@@H](NC(=O)[C@@H](N(C1=O)C)[C@@H](C)O)C(C)C)C)CC(C)C)C(C)C)C)C(C)C)C)CC2=CNC3=C2C(=CC=C3)OC)C(C)C)[C@@H](C4=CC=CC=C4)O)C(C)C)C)N(C)C(=O)[C@H](C(C)C)NC(=O)[C@H](C(C)C)N(C)C",
             "compound": "ecumicin",
             "database_id": [
                 "npatlas:NPA004733"
@@ -20498,7 +20478,7 @@
             "compound": "foxicin C"
         },
         {
-            "compound": "foxicin"
+            "compound": "foxicin D"
         }
     ],
     "BGC0001599": [
@@ -20570,7 +20550,7 @@
     ],
     "BGC0001607": [
         {
-            "chem_struct": "COC1=C(O)C2=C(CCN2C(C)=O)C2=C1NC(=C2)C(=O)N1CCC2=C1C(O)=C(OC)C1=C2C=C(N1)C(=O)N1CC2CC22C1=CC(=O)C1=C2C(C)=CN1",
+            "chem_struct": "CC1=CNC2=C1C34CC3CN(C4=CC2=O)C(=O)C5=CC6=C7CCN(C7=C(C(=C6N5)OC)O)C(=O)C8=CC9=C1CCN(C1=C(C(=C9N8)OC)O)C(=O)C",
             "compound": "gilvusmycin",
             "database_id": [
                 "npatlas:NPA001823"
@@ -20760,7 +20740,7 @@
             "molecular_formula": "C28H28N4O10"
         },
         {
-            "chem_struct": "COC1=C(O)C=C2C[C@H](N(CC2=C1O)C(=O)[C@@H](N)CC1=CNC2=CC=CC=C12)C(=O)N[C@@H](CC(CO)CO)C(O)=O",
+            "chem_struct": "COC1=C(C=C2C[C@H](N(CC2=C1O)C(=O)[C@H](CC3=CNC4=CC=CC=C43)N)C(=O)N[C@@H](CC(CO)CO)C(=O)O)O",
             "compound": "TMC-2A",
             "database_id": [
                 "npatlas:NPA002280"
@@ -20769,7 +20749,7 @@
             "molecular_formula": "C28H34N4O9"
         },
         {
-            "chem_struct": "COC1=C(O)C=C2C[C@H](N(CC2=C1O)C(=O)[C@@H](N)CC1=CNC2=C1C=CC=C2)C(=O)N[C@@H](CC(C)CO)C(O)=O",
+            "chem_struct": "CC(C[C@@H](C(=O)O)NC(=O)[C@@H]1CC2=CC(=C(C(=C2CN1C(=O)[C@H](CC3=CNC4=CC=CC=C43)N)O)OC)O)CO",
             "compound": "TMC-2B",
             "database_id": [
                 "npatlas:NPA002350"
@@ -20884,7 +20864,7 @@
     ],
     "BGC0001628": [
         {
-            "chem_struct": "CC(C)[C@H](O)[C@@H](NC(=O)[C@H](C)NC(=O)[C@@H](CC(O)=O)NC(=O)[C@@H](NC(=O)CC1=CC=CC=C1)C(C)C)C(=O)NCC(=O)N[C@H](C)C(=O)N[C@@H](CC1=CC=CC=C1)C(O)=O",
+            "chem_struct": "C[C@H](C(=O)N[C@@H](CC1=CC=CC=C1)C(=O)O)NC(=O)CNC(=O)[C@@H]([C@H](C(C)C)O)NC(=O)[C@H](C)NC(=O)[C@@H](CC(=O)O)NC(=O)[C@H](C(C)C)NC(=O)CC2=CC=CC=C2",
             "compound": "JBIR-78",
             "database_id": [
                 "npatlas:NPA006138"
@@ -20893,7 +20873,7 @@
             "molecular_formula": "C40H55N7O12"
         },
         {
-            "chem_struct": "CC(C)[C@H](O)[C@@H](NC(=O)[C@H](C)NC(=O)[C@@H](CS(O)(=O)=O)NC(=O)[C@@H](NC(=O)CC1=CC=CC=C1)C(C)C)C(=O)NCC(=O)N[C@H](C)C(=O)N[C@@H](CC1=CC=CC=C1)C(O)=O",
+            "chem_struct": "C[C@H](C(=O)N[C@@H](CC1=CC=CC=C1)C(=O)O)NC(=O)CNC(=O)[C@@H]([C@H](C(C)C)O)NC(=O)[C@H](C)NC(=O)[C@@H](CS(=O)(=O)O)NC(=O)[C@H](C(C)C)NC(=O)CC2=CC=CC=C2",
             "compound": "JBIR-95",
             "database_id": [
                 "npatlas:NPA000864"
@@ -20914,7 +20894,7 @@
     ],
     "BGC0001630": [
         {
-            "chem_struct": "NC(=N)NCCC[C@@H](NC(=O)C[C@H](O)[C@@H](CC1=CNC2=CC=CC=C12)NC(=O)CCNC(=O)[C@H](O)CC1=CC=CC=C1)C(=O)N[C@H]([C@H](O)C1=CC=CC=C1)C(O)=O",
+            "chem_struct": "C1=CC=C(C=C1)C[C@H](C(=O)NCCC(=O)N[C@H](CC2=CNC3=CC=CC=C32)[C@H](CC(=O)N[C@H](CCCN=C(N)N)C(=O)N[C@H]([C@@H](C4=CC=CC=C4)O)C(=O)O)O)O",
             "compound": "kasumigamide",
             "database_id": [
                 "npatlas:NPA000355"
@@ -20936,7 +20916,7 @@
     ],
     "BGC0001632": [
         {
-            "chem_struct": "[H][C@](C)(O)[C@]1([H])NC(=O)[C@]([H])(CO)NC(=O)[C@@H]2C[C@@]3(CC=C(C)C)C4=C(N[C@@]3([H])N2C(=O)[C@]([H])(CC(N)=O)NC(=O)[C@]([H])(CC(N)=O)NC(=O)[C@]([H])(CC(O)=O)NC(=O)CNC(=O)[C@]([H])(CC(N)=O)NC(=O)[C@@]([H])(CC(C)C)NC(=O)[C@@H]2C[C@@]3(CC=C(C)C)C5=CC=CC=C5N[C@@]3([H])N2C(=O)[C@]2([H])CCCN2C1=O)C=CC=C4",
+            "chem_struct": "C[C@H]([C@H]1C(=O)N2CCC[C@H]2C(=O)N3[C@@H](C[C@@]4([C@H]3NC5=CC=CC=C54)CC=C(C)C)C(=O)N[C@@H](C(=O)N[C@H](C(=O)NCC(=O)N[C@H](C(=O)N[C@H](C(=O)N[C@H](C(=O)N6[C@@H](C[C@@]7([C@H]6NC8=CC=CC=C87)CC=C(C)C)C(=O)N[C@H](C(=O)N1)CO)CC(=O)N)CC(=O)N)CC(=O)O)CC(=O)N)CC(C)C)O",
             "compound": "kawaguchipeptin A",
             "database_id": [
                 "npatlas:NPA007478"
@@ -21093,7 +21073,7 @@
             "molecular_formula": "C32H48O5"
         },
         {
-            "chem_struct": "CCCC1=CC=C(OC1=O)[C@H](C)[C@H](O)C(\\C)=C\\C\\C=C(/C)C\\C(C)=C\\C(\\C)=C\\C[C@@H](O)[C@@H](C)[C@H](O)C(\\C)=C\\C",
+            "chem_struct": "CCCC1=CC=C(OC1=O)[C@H](C)[C@@H](/C(=C/C/C=C(\\C)/C/C(=C/C(=C/C[C@H]([C@@H](C)[C@@H](/C(=C/C)/C)O)O)/C)/C)/C)O",
             "compound": "lagunapyrone B",
             "database_id": [
                 "npatlas:NPA003983"
@@ -21194,7 +21174,7 @@
             "molecular_formula": "C15H16N2O3"
         },
         {
-            "chem_struct": "[H][C@@]12C\\C(CN1C(=O)C1=CC=CC=C1N[C@@H]2O)=C/C",
+            "chem_struct": "C/C=C/1\\C[C@H]2[C@H](NC3=CC=CC=C3C(=O)N2C1)O",
             "compound": "limazepine F",
             "database_id": [
                 "npatlas:NPA001599"
@@ -21203,7 +21183,7 @@
             "molecular_formula": "C14H16N2O2"
         },
         {
-            "chem_struct": "[H][C@@]12CC(CC)=CN1C(=O)C1=CC=C(OC)C(O)=C1NC2=O",
+            "chem_struct": "CCC1=CN2[C@@H](C1)C(=O)NC3=C(C2=O)C=CC(=C3O)OC",
             "compound": "limazepine A",
             "database_id": [
                 "npatlas:NPA007410"
@@ -21316,7 +21296,7 @@
     ],
     "BGC0001661": [
         {
-            "chem_struct": "CN[C@@H]1C[C@@H](O[C@H](C)[C@H]1O)C1=C(O)C2=C(C(=O)C3=CC=CC(O)=C3C2=O)C2=C(O)C=C(C)C=C12",
+            "chem_struct": "C[C@@H]1[C@H]([C@@H](C[C@@H](O1)C2=C(C3=C(C4=C(C=C(C=C24)C)O)C(=O)C5=C(C3=O)C(=CC=C5)O)O)NC)O",
             "compound": "mayamycin",
             "database_id": [
                 "npatlas:NPA001659"
@@ -21432,7 +21412,7 @@
             "molecular_formula": "C49H74N10O12"
         },
         {
-            "chem_struct": "CO[C@@H](CC1=CC=CC=C1)[C@@H](C)\\C=C(/C)\\C=C\\[C@@H]1NC(=O)[C@H](CCCNC(N)=N)NC(=O)[C@@H](C)[C@@H](NC(=O)[C@H](CC2=CC=CC=C2)NC(=O)[C@@H](C)NC(=O)C(=C)N(C)C(=O)CC[C@@H](NC(=O)[C@H]1C)C(O)=O)C(O)=O",
+            "chem_struct": "C[C@H]1[C@@H](NC(=O)[C@@H](NC(=O)[C@H]([C@@H](NC(=O)[C@@H](NC(=O)[C@H](NC(=O)C(=C)N(C(=O)CC[C@@H](NC1=O)C(=O)O)C)C)CC2=CC=CC=C2)C(=O)O)C)CCCN=C(N)N)/C=C/C(=C/[C@H](C)[C@H](CC3=CC=CC=C3)OC)/C",
             "compound": "microcystin-FR",
             "database_id": [
                 "npatlas:NPA000266"
@@ -21725,7 +21705,7 @@
     ],
     "BGC0001706": [
         {
-            "chem_struct": "[H][C@]12CC3=C(NC4=C3C=CC=C4)[C@]1(C)[C@@]1(C)CC[C@H](O)[C@@](C)(CC\\C=C(/C)C(O)=O)[C@]1([H])CC2",
+            "chem_struct": "C/C(=C\\CC[C@]1([C@@H]2CC[C@H]3CC4=C([C@@]3([C@]2(CC[C@@H]1O)C)C)NC5=CC=CC=C45)C)/C(=O)O",
             "compound": "nodulisporic acid F",
             "database_id": [
                 "npatlas:NPA009237"
@@ -21763,7 +21743,7 @@
     ],
     "BGC0001711": [
         {
-            "chem_struct": "CCCCOC1CNC(=O)[C@H](CC(N)=O)NC(=O)[C@H](CO)NC(=O)[C@H](CC(N)=O)NC(=O)CNC(=O)[C@H](CCCCN)NC(=O)[C@@H](NC(=O)[C@H](CC2=CNC3=C2C=CC=C3)NC(=O)CC(C1)OC1OC[C@@H](O)[C@H](O)[C@H]1O)C(O)C1=CC=C(O)C=C1",
+            "chem_struct": "CCCCOC1CC(CC(=O)N[C@H](C(=O)N[C@H](C(=O)N[C@H](C(=O)NCC(=O)N[C@H](C(=O)N[C@H](C(=O)N[C@H](C(=O)NC1)CC(=O)N)CO)CC(=O)N)CCCCN)C(C2=CC=C(C=C2)O)O)CC3=CNC4=CC=CC=C43)OC5[C@@H]([C@H]([C@@H](CO5)O)O)O",
             "compound": "occidiofungin A",
             "database_id": [
                 "npatlas:NPA009265"
@@ -21774,7 +21754,7 @@
     ],
     "BGC0001712": [
         {
-            "chem_struct": "COC1=C(O)C(C2=CNC3=CC=CC=C23)=C(OC)C(CC=C(C)C)=C1C1=CNC2=C1C=CC=C2",
+            "chem_struct": "CC(=CCC1=C(C(=C(C(=C1OC)C2=CNC3=CC=CC=C32)O)OC)C4=CNC5=CC=CC=C54)C",
             "compound": "ochrindole A",
             "database_id": [
                 "npatlas:NPA001610"
@@ -21831,7 +21811,7 @@
     ],
     "BGC0001717": [
         {
-            "chem_struct": "CO[C@@H]1[C@@]2(O)N(C(=O)\\C3=C\\C4=C(NC5=CC=CC=C45)C(C)(C)\\C=C/N3C2=O)[C@]23[C@H](C)C(C)(C)N2C2=C(C=CC=C2)[C@]13O",
+            "chem_struct": "C[C@H]1[C@@]23[C@@]([C@@H]([C@]4(N2C(=O)/C/5=C/C6=C(C(/C=C\\N5C4=O)(C)C)NC7=CC=CC=C76)O)OC)(C8=CC=CC=C8N3C1(C)C)O",
             "compound": "okaramine B",
             "database_id": [
                 "npatlas:NPA000505"
@@ -21842,7 +21822,7 @@
     ],
     "BGC0001718": [
         {
-            "chem_struct": "CO[C@@H]1[C@@]2(O)N(C(=O)\\C3=C\\C4=C(NC5=C4C=CC=C5)C(C)(C)\\C=C/N3C2=O)[C@]23[C@H](CO)C(C)(C)N2C2=C(C=CC=C2)[C@]13O",
+            "chem_struct": "CC1(/C=C\\N2/C(=C\\C3=C1NC4=CC=CC=C43)/C(=O)N5[C@]67[C@@H](C(N6C8=CC=CC=C8[C@@]7([C@@H]([C@@]5(C2=O)O)OC)O)(C)C)CO)C",
             "compound": "okaramine D",
             "database_id": [
                 "npatlas:NPA009135"
@@ -21976,7 +21956,7 @@
     ],
     "BGC0001729": [
         {
-            "chem_struct": "[H][C@]12OC(=O)[C@]3(C)C[C@@]4([H])[C@H](C)C5=CC(=O)OC(C)(C)C5=C[C@]5([H])OC([C@H](C)O1)=C([C@]45C)[C@]23O",
+            "chem_struct": "C[C@H]1[C@@H]2C[C@]3(C(=O)O[C@@H]4[C@]3(C5=C([C@@H](O4)C)O[C@H]([C@@]25C)C=C6C1=CC(=O)OC6(C)C)O)C",
             "compound": "paraherquonin",
             "database_id": [
                 "npatlas:NPA009756"
@@ -22075,7 +22055,7 @@
     ],
     "BGC0001738": [
         {
-            "chem_struct": "[H][C@]12C[C@@H](C)CC[C@]1([H])[C@](C)([C@@H](\\C=C\\C=C\\C)C(C)=C2)C(\\O)=C1\\C(=O)[C@@H](CO)N(C)C1=O",
+            "chem_struct": "C/C=C/C=C/[C@H]1C(=C[C@H]2C[C@H](CC[C@@H]2[C@@]1(C)/C(=C\\3/C(=O)[C@H](N(C3=O)C)CO)/O)C)C",
             "compound": "phomasetin",
             "database_id": [
                 "npatlas:NPA003199"
@@ -22094,7 +22074,7 @@
     ],
     "BGC0001740": [
         {
-            "chem_struct": "C\\C(=C\\C=C/C=C/CC1=CN=CO1)[C@@H](O)C(C)(C)C(N)=O",
+            "chem_struct": "C/C(=C/C=C\\C=C\\CC1=CN=CO1)/[C@H](C(C)(C)C(=O)N)O",
             "compound": "phthoxazolin",
             "database_id": [
                 "npatlas:NPA006501"
@@ -22114,7 +22094,7 @@
             "molecular_formula": "C17H27NO5"
         },
         {
-            "chem_struct": "CCN1C(=O)\\C2=C3/CO[C@](OC)([C@H]3O)[C@@H](O)CCC[C@@]12C",
+            "chem_struct": "CCCCC[C@H]1[C@]([C@H](C2=C(O1)C(=C)N(C2=O)OC)O)(C)O",
             "compound": "phyllostictine B",
             "database_id": [
                 "npatlas:NPA007656"
@@ -22234,7 +22214,7 @@
     ],
     "BGC0001751": [
         {
-            "chem_struct": "CC(C)[C@@H](O)C(C)/C=C/C=C/C=C(\\C)/[C@]1(C)C2CC[C@@H](O)[C@H](C)C=2C2C(=O)NC(=C)C=2[C@@]1([H])C(O)=O",
+            "chem_struct": "C[C@H]1[C@@H](CCC2=C1C3=C([C@H]([C@]2(C)/C(=C/C=C/C=C/C(C)[C@@H](C(C)C)O)/C)C(=O)O)C(=C)NC3=O)O",
             "compound": "pyxipyrrolone A",
             "database_id": [
                 "npatlas:NPA001468"
@@ -22243,7 +22223,7 @@
             "molecular_formula": "C29H39NO5"
         },
         {
-            "chem_struct": "CC[C@@H](O)C(C)/C=C/C=C/C=C(\\C)/[C@]1(C)C2CC[C@@H](O)[C@H](C)C=2C2C(=O)NC(=C)C=2[C@@]1([H])C(O)=O",
+            "chem_struct": "CC[C@H](C(C)/C=C/C=C/C=C(\\C)/[C@]1([C@@H](C2=C(C3=C1CC[C@H]([C@@H]3C)O)C(=O)NC2=C)C(=O)O)C)O",
             "compound": "pyxipyrrolone B",
             "database_id": [
                 "npatlas:NPA003051"
@@ -22284,7 +22264,7 @@
     ],
     "BGC0001753": [
         {
-            "chem_struct": "CC(C)C1NC(=O)C2=CSC(=N2)C2=C(N=C(C=C2)C(=O)NC(=C)C(=O)NC(=C)C(N)=O)C2=C(C)OC(=N2)C(=C)NC(=O)C(=C)NC(=O)C2=CSC(=N2)C(C)NC(=O)C2=CSC(=N2)C(C)NC(=O)C2=C(C)OC(CNC1=O)=N2",
+            "chem_struct": "CC1C2=NC(=CS2)C(=O)NC(=C)C(=O)NC(=C)C3=NC(=C(O3)C)C4=C(C=CC(=N4)C(=O)NC(=C)C(=O)NC(=C)C(=O)N)C5=NC(=CS5)C(=O)NC(C(=O)NCC6=NC(=C(O6)C)C(=O)NC(C7=NC(=CS7)C(=O)N1)C)C(C)C",
             "compound": "radamycin",
             "database_id": [
                 "npatlas:NPA009696"
@@ -22442,7 +22422,7 @@
     ],
     "BGC0001761": [
         {
-            "chem_struct": "C\\C(CC[C@@]1(O)C[C@H]2C[C@@H](C\\C(C)=C/C\\C=C/C\\C(CC(O)=O)=C/C(=O)O2)O1)=C/CC1=CC=CC=C1",
+            "chem_struct": "C/C/1=C/C/C=C\\C/C(=C\\C(=O)O[C@@H]2C[C@@H](C1)O[C@](C2)(CC/C(=C/CC3=CC=CC=C3)/C)O)/CC(=O)O",
             "compound": "ripostatin A",
             "database_id": [
                 "npatlas:NPA000748"
@@ -22451,7 +22431,7 @@
             "molecular_formula": "C30H38O6"
         },
         {
-            "chem_struct": "C\\C(CC[C@@H](O)C[C@H]1C[C@H](O)C\\C(C)=C\\C\\C=C\\C\\C(CC(O)=O)=C/C(=O)O1)=C/CC1=CC=CC=C1",
+            "chem_struct": "C/C/1=C\\C/C=C/C/C(=C\\C(=O)O[C@H](C[C@@H](C1)O)C[C@@H](CC/C(=C/CC2=CC=CC=C2)/C)O)/CC(=O)O",
             "compound": "ripostatin B",
             "database_id": [
                 "npatlas:NPA000250"
@@ -22546,7 +22526,7 @@
     ],
     "BGC0001770": [
         {
-            "chem_struct": "CC1CNC(=O)\\C=C(/O)\\C=C\\C(\\C)=C\\C=C\\C(O)C(O)C(O)C(=O)\\C=C/C=C/C(/C)=C/C=C/C=C/1",
+            "chem_struct": "CC1CNC(=O)/C=C(/C=C/C(=C/C=C/C(C(C(C(=O)/C=C\\C=C\\C(=C\\C=C\\C=C1)\\C)O)O)O)/C)\\O",
             "compound": "sceliphrolactam",
             "database_id": [
                 "npatlas:NPA001145"
@@ -22588,7 +22568,7 @@
     ],
     "BGC0001774": [
         {
-            "chem_struct": "CC(C)CCCCCCCCCCCCC(=O)NCC(=O)N[C@@H]1[C@@H](O)[C@@H](O)[C@@H](NC2=C3N=CNC3=NC=N2)O[C@H]1C(O)CO",
+            "chem_struct": "CC(C)CCCCCCCCCCCCC(=O)NCC(=O)N[C@@H]1[C@H]([C@H]([C@H](O[C@H]1C(CO)O)NC2=NC=NC3=C2NC=N3)O)O",
             "compound": "spicamycin",
             "database_id": [
                 "npatlas:NPA004363"
@@ -22599,7 +22579,7 @@
     ],
     "BGC0001775": [
         {
-            "chem_struct": "[H][C@]12CC3=C(NC4=CC=C([C@H](O)C5OC5(C)C)C(CC=C(C)C)=C34)[C@]1(C)[C@@]1(C)CCC(=O)C(C)(C)[C@]1(O)CC2",
+            "chem_struct": "CC(=CCC1=C(C=CC2=C1C3=C(N2)[C@]4([C@H](C3)CC[C@@]5([C@@]4(CCC(=O)C5(C)C)C)O)C)[C@@H](C6C(O6)(C)C)O)C",
             "compound": "sespendole",
             "database_id": [
                 "npatlas:NPA009868"
@@ -22610,7 +22590,7 @@
     ],
     "BGC0001776": [
         {
-            "chem_struct": "[H][C@]12CC3=C(NC4=CC5=C(C=C34)[C@@H](O)[C@@]3([H])C5=CC(C)(C)OC3(C)C)[C@]1(C)[C@@]1(C)CC[C@@]34O[C@@]([H])(C(=O)C=C3[C@]1(O)CC2)C(C)(C)O4",
+            "chem_struct": "C[C@]12CC[C@]34C(=CC(=O)[C@H](O3)C(O4)(C)C)[C@@]1(CC[C@@H]5[C@@]2(C6=C(C5)C7=CC8=C(C=C7N6)C9=CC(OC([C@H]9[C@@H]8O)(C)C)(C)C)C)O",
             "compound": "shearinine D",
             "database_id": [
                 "npatlas:NPA002287"
@@ -22651,7 +22631,7 @@
     ],
     "BGC0001780": [
         {
-            "chem_struct": "COC1=C(O)C=C(\\C=C\\C2=NC(C(=O)CC3=NC(C(=O)NC\\C=C\\C=C)=C(C)O3)=C(C)O2)C=C1",
+            "chem_struct": "CC1=C(N=C(O1)CC(=O)C2=C(OC(=N2)/C=C/C3=CC(=C(C=C3)OC)O)C)C(=O)NC/C=C/C=C",
             "compound": "siphonazole",
             "database_id": [
                 "npatlas:NPA009453"
@@ -22671,7 +22651,7 @@
     ],
     "BGC0001782": [
         {
-            "chem_struct": "COC(=O)C1=C2C3=CNC4=C3C(=C(Cl)C=C4)[C@@]3(C=NC4=CC=C(Cl)C=C34)C2=C(N1)C(=O)OC",
+            "chem_struct": "COC(=O)C1=C2C3=CNC4=C3C(=C(C=C4)Cl)[C@]5(C2=C(N1)C(=O)OC)C=NC6=C5C=C(C=C6)Cl",
             "compound": "spiroindimicin A",
             "database_id": [
                 "npatlas:NPA002891"
@@ -22707,7 +22687,7 @@
             "molecular_formula": "C25H19Cl2N3O4"
         },
         {
-            "chem_struct": "[H][C@]12N(C)C3=CC=C(Cl)C=C3[C@@]1(C)C1=CN(C)C=C1C1=C2NC2=CC=C(Cl)C=C12",
+            "chem_struct": "C[C@@]12[C@@H](C3=C(C4=C(N3)C=CC(=C4)Cl)C5=CN(C=C51)C)N(C6=C2C=C(C=C6)Cl)C",
             "compound": "indimicin A",
             "database_id": [
                 "npatlas:NPA001960"
@@ -22734,7 +22714,7 @@
             "molecular_formula": "C23H19Cl2N3"
         },
         {
-            "chem_struct": "[H][C@]12N(C)C3=CC=C(Cl)C=C3[C@@]1(C)C1=CNC=C1C1=C2NC2=CC=C(Cl)C=C12",
+            "chem_struct": "C[C@@]12[C@@H](C3=C(C4=C(N3)C=CC(=C4)Cl)C5=CNC=C51)N(C6=C2C=C(C=C6)Cl)C",
             "compound": "indimicin D",
             "database_id": [
                 "npatlas:NPA003019"
@@ -22743,7 +22723,7 @@
             "molecular_formula": "C22H17Cl2N3"
         },
         {
-            "chem_struct": "CN1C=C(C2=CNC3=CC=C(Cl)C=C23)C(=C1)[C@@]1(C)CN(C)C2=CC=C(Cl)C=C12",
+            "chem_struct": "C[C@@]1(CN(C2=C1C=C(C=C2)Cl)C)C3=CN(C=C3C4=CNC5=C4C=C(C=C5)Cl)C",
             "compound": "indimicin E",
             "database_id": [
                 "npatlas:NPA008035"
@@ -22770,7 +22750,7 @@
             "molecular_formula": "C24H17Cl2N3O4"
         },
         {
-            "chem_struct": "COC(=O)C1=C(C(=CN1C)C1=CNC2=CC=C(Cl)C=C12)C1=CNC2=CC=C(Cl)C=C12",
+            "chem_struct": "CN1C=C(C(=C1C(=O)OC)C2=CNC3=C2C=C(C=C3)Cl)C4=CNC5=C4C=C(C=C5)Cl",
             "compound": "lynamicin F",
             "database_id": [
                 "npatlas:NPA001636"
@@ -22790,7 +22770,7 @@
     ],
     "BGC0001783": [
         {
-            "chem_struct": "COC1=CC=C(C(O)=C1OC)C1=C(N)C(=NC(C(O)=O)=C1C)C1=NC2=C(C=C1)C(=O)C(OC)=C(N)C2=O",
+            "chem_struct": "CC1=C(C(=C(N=C1C(=O)O)C2=NC3=C(C=C2)C(=O)C(=C(C3=O)N)OC)N)C4=C(C(=C(C=C4)OC)OC)O",
             "compound": "streptonigrin",
             "database_id": [
                 "npatlas:NPA002378"
@@ -22853,7 +22833,7 @@
     ],
     "BGC0001792": [
         {
-            "chem_struct": "CC[C@H](C)[C@@H]1NC(=O)[C@@H](CC(C)C)NC(=O)[C@@H](CC2=CC=CC=C2)NC(=O)[C@@H](NC(=O)[C@H](CCCCN)NC(=O)[C@H](NC(=O)[C@@H](NC(=O)[C@@H](C)NC1=O)[C@@H](C)CC)[C@H](C)CC)[C@@H](C)CC",
+            "chem_struct": "CC[C@H](C)[C@H]1C(=O)N[C@@H](C(=O)N[C@H](C(=O)N[C@H](C(=O)N[C@@H](C(=O)N[C@@H](C(=O)N[C@H](C(=O)N[C@@H](C(=O)N1)C)[C@@H](C)CC)CC(C)C)CC2=CC=CC=C2)[C@@H](C)CC)CCCCN)[C@@H](C)CC",
             "compound": "surugamide A",
             "database_id": [
                 "npatlas:NPA005450"
@@ -22862,7 +22842,7 @@
             "molecular_formula": "C48H81N9O8"
         },
         {
-            "chem_struct": "CC[C@H](C)[C@@H]1NC(=O)[C@@H](CC(C)C)NC(=O)[C@@H](CC2=CC=CC=C2)NC(=O)[C@@H](NC(=O)[C@H](CCCCN)NC(=O)[C@H](NC(=O)[C@@H](NC(=O)[C@@H](C)NC1=O)C(C)C)[C@H](C)CC)[C@@H](C)CC",
+            "chem_struct": "CC[C@H](C)[C@H]1C(=O)N[C@@H](C(=O)N[C@@H](C(=O)N[C@H](C(=O)N[C@@H](C(=O)N[C@H](C(=O)N[C@@H](C(=O)N[C@H](C(=O)N1)CCCCN)[C@H](C)CC)C(C)C)C)[C@@H](C)CC)CC(C)C)CC2=CC=CC=C2",
             "compound": "surugamide D",
             "database_id": [
                 "npatlas:NPA004501"
@@ -22897,7 +22877,7 @@
     ],
     "BGC0001796": [
         {
-            "chem_struct": "CC(C)CCCCCC(=O)N[C@H](CC1=CC=C(O)C=C1)C(=O)N[C@@H](CO)C(=O)N[C@H](CC(C)C)C(=O)N[C@@H](CC1=CNC2=C1C=CC=C2)C(=O)N[C@@H](CCCNC(N)=N)C(O)=O",
+            "chem_struct": "CC(C)CCCCCC(=O)N[C@H](CC1=CC=C(C=C1)O)C(=O)N[C@@H](CO)C(=O)N[C@H](CC(C)C)C(=O)N[C@@H](CC2=CNC3=CC=CC=C32)C(=O)N[C@@H](CCCN=C(N)N)C(=O)O",
             "compound": "tauramamide",
             "database_id": [
                 "npatlas:NPA005010"
@@ -22908,7 +22888,7 @@
     ],
     "BGC0001797": [
         {
-            "chem_struct": "CC1=C2N=C(O1)C1CSC(=N1)C1=COC(=N1)C1=COC(=N1)C1=COC(=N1)C1=COC(=N1)C1=COC(=N1)C1=C(C)OC2=N1",
+            "chem_struct": "CC1=C2C3=NC(=C(O3)C)C4=NC(=CO4)C5=NC(=CO5)C6=NC(=CO6)C7=NC(=CO7)C8=NC(=CO8)C9=NC(CS9)C(=N2)O1",
             "compound": "telomestatin",
             "database_id": [
                 "npatlas:NPA006938"
@@ -22930,7 +22910,7 @@
             "compound": "thiazostatin"
         },
         {
-            "chem_struct": "[H][C@]1(SC[C@@](C)(N1C)C(O)=O)[C@]1([H])N=C(S[C@H]1C)C1=CC=CC=C1O",
+            "chem_struct": "C[C@H]1[C@@H](N=C(S1)C2=CC=CC=C2O)[C@H]3N([C@@](CS3)(C)C(=O)O)C",
             "compound": "watasemycin A",
             "database_id": [
                 "npatlas:NPA008164"
@@ -22980,7 +22960,7 @@
     ],
     "BGC0001806": [
         {
-            "chem_struct": "CCC(C)C1NC(=O)C(NC(=O)C(\\NC(=O)C(NC(=O)C(CC(C)C)NC(=O)C(CCC(N)=O)NC(=O)C(NC(=O)C(NC(=O)C(CC(C)C)NC(=O)C(CO)NC(=O)C(NC(=O)C(CC(C)C)NC(=O)C(CO)NC(=O)C2CCCN2C(=O)C(\\NC(=O)CCCC(O)=O)=C\\C)C(C)C)C(C)C)C(C)C)C(C)C)=C\\C)C(C)OC(=O)C(CCCCN)NC(=O)C(CCN)NC(=O)C(CCO)NC1=O",
+            "chem_struct": "CCC(C)C1C(=O)NC(C(=O)NC(C(=O)NC(C(=O)OC(C(C(=O)N1)NC(=O)/C(=C/C)/NC(=O)C(C(C)C)NC(=O)C(CC(C)C)NC(=O)C(CCC(=O)N)NC(=O)C(C(C)C)NC(=O)C(C(C)C)NC(=O)C(CC(C)C)NC(=O)C(CO)NC(=O)C(C(C)C)NC(=O)C(CC(C)C)NC(=O)C(CO)NC(=O)C2CCCN2C(=O)/C(=C/C)/NC(=O)CCCC(=O)O)C)CCCCN)CCN)CCO",
             "compound": "tolaasin A",
             "database_id": [
                 "npatlas:NPA004692"
@@ -23256,7 +23236,7 @@
     ],
     "BGC0001827": [
         {
-            "chem_struct": "[H][C@]12CO[C@]3([H])[C@@]1([H])C(O[C@]1(C)C\\C=C\\C(C)(C)C\\C=C(C)\\CC[C@@]31[H])=C(O)C2=O",
+            "chem_struct": "C/C/1=C\\CC(/C=C/C[C@@]2([C@@H](CC1)[C@H]3[C@@H]4[C@H](CO3)C(=O)C(=C4O2)O)C)(C)C",
             "compound": "xenovulene A",
             "database_id": [
                 "npatlas:NPA007151"
@@ -23283,7 +23263,7 @@
     ],
     "BGC0001830": [
         {
-            "chem_struct": "CCC1OC(=O)CC(O)C(C)C(O[C@@H]2O[C@H](C)C[C@@H]([C@H]2O)N(C)C)C(CC=O)CC(C)C(=O)\\C=C\\C2(C)OC2C1C",
+            "chem_struct": "CC[C@H]1OC(=O)C[C@@H](O)[C@H](C)[C@@H](O[C@@H]2O[C@H](C)C[C@H](N(C)C)[C@H]2O)[C@@H](CC=O)C[C@@H](C)C(=O)/C=C/[C@]2(C)O[C@H]2[C@@H]1C",
             "compound": "rosamicin",
             "database_id": [
                 "npatlas:NPA004259"
@@ -24316,7 +24296,25 @@
     ],
     "BGC0001934": [
         {
-            "compound": "armeniaspirols"
+            "chem_struct": "CCCCCCC1=C(C=CC2=C1O[C@]3(C2=O)C(=C(C(=O)N3C)Cl)Cl)O",
+            "compound": "armeniaspirol A",
+            "database_id": [
+                "npatlas:NPA012127"
+            ]
+        },
+        {
+            "chem_struct": "CC(C)CCCC1=C(C=CC2=C1O[C@]3(C2=O)C(=C(C(=O)N3C)Cl)Cl)O",
+            "compound": "armeniaspirol B",
+            "database_id": [
+                "npatlas:NPA009920"
+            ]
+        },
+        {
+            "chem_struct": "CC[C@H](C)CCCC1=C(C=CC2=C1O[C@]3(C2=O)C(=C(C(=O)N3C)Cl)Cl)O",
+            "compound": "armeniaspirol C",
+            "database_id": [
+                "npatlas:NPA013915"
+            ]
         }
     ],
     "BGC0001937": [
@@ -24659,7 +24657,32 @@
     ],
     "BGC0001963": [
         {
-            "compound": "catenulisporolides"
+            "chem_struct": "C[C@H]1/C=C/C=C/C=C/[C@H](C[C@H](C[C@@H]2C[C@@H]([C@H]([C@@](O2)(C[C@@H](CCCCCC(=O)O[C@@H]1C[C@H]([C@H](C)[C@H]([C@@H](C)[C@H](CC(C)C)O[C@H]3C[C@H]([C@@H]([C@H](O3)C)O)O[C@H]4C[C@H]([C@@H]([C@H](O4)C)O)O)O)O)O)O)C)O)O[C@H]5C[C@H]([C@@H]([C@H](O5)C)O)OC)O",
+            "compound": "catenulisporolide A",
+            "database_id": [
+                "npatlas:NPA023981"
+            ]
+        },
+        {
+            "chem_struct": "C[C@H]1/C=C/C=C/C=C\\[C@H](C[C@H](C[C@@H]2C[C@@H]([C@H]([C@@](O2)(C[C@@H](CCCCCC(=O)O[C@@H]1C[C@H]([C@H](C)[C@H]([C@@H](C)[C@H](CC(C)C)O[C@H]3C[C@H]([C@@H]([C@H](O3)C)O)O[C@H]4C[C@H]([C@@H]([C@H](O4)C)O)O)O)O)O)O)C)O)O[C@H]5C[C@H]([C@@H]([C@H](O5)C)O)OC)O",
+            "compound": "catenulisporolide B",
+            "database_id": [
+                "npatlas:NPA023982"
+            ]
+        },
+        {
+            "chem_struct": "C[C@H]1/C=C/C=C/C=C/[C@H](C[C@H](C[C@@H]2C[C@@H]([C@H]([C@@](O2)(C[C@@H](CCCCCC(=O)O[C@@H]1C[C@H]([C@H](C)[C@H]([C@@H](C)[C@H](CC(C)C)O[C@H]3C[C@H]([C@@H]([C@H](O3)C)O)O[C@H]4C[C@H]([C@@H]([C@H](O4)C)O)O)O)O)O)O)C)O)O[C@H]5C[C@H]([C@@H]([C@H](O5)C)O)O)O",
+            "compound": "catenulisporolide C",
+            "database_id": [
+                "npatlas:NPA023983"
+            ]
+        },
+        {
+            "chem_struct": "C[C@H]1/C=C/C=C/C=C/[C@H](C[C@H](C[C@H](C/C=C(/C(=O)C[C@@H](CCCCCC(=O)O[C@@H]1C[C@H]([C@H](C)[C@H]([C@@H](C)[C@H](CC(C)C)O[C@H]2C[C@H]([C@@H]([C@H](O2)C)O)O[C@H]3C[C@H]([C@@H]([C@H](O3)C)O)O)O)O)O)\\C)O)O[C@H]4C[C@H]([C@@H]([C@H](O4)C)O)OC)O",
+            "compound": "catenulisporolide D",
+            "database_id": [
+                "npatlas:NPA023984"
+            ]
         }
     ],
     "BGC0001964": [
@@ -25150,7 +25173,17 @@
     ],
     "BGC0002008": [
         {
-            "compound": "aryl polyenes"
+            "chem_struct": "C1(C=C(C)C(O)C(C)C=1)/C=C/C=C/C=C/C=C/C=C/C=C/C(OC)=O",
+            "compound": "arylpolyene 1"
+        },
+        {
+            "compound": "arylpolyene 2"
+        },
+        {
+            "compound": "arylpolyene 3"
+        },
+        {
+            "compound": "arylpolyene 4"
         }
     ],
     "BGC0002009": [
@@ -29450,14 +29483,6 @@
         }
     ],
     "BGC0002288": [
-        {
-            "chem_struct": "O=C(N1)C(CO)(O)OC2=C1C(C(OC[C@@H]3NC([C@](N(C4)C3=C)(CCl)N(C)C4=O)=C)=O)=CC=C2",
-            "compound": "B"
-        },
-        {
-            "chem_struct": "O=C(N1)C(CO)(O)OC2=C1C(C(OC[C@@H]3NC([C@](N(C4)C3=C)(CO)N(C)C4=O)=C)=O)=CC=C2",
-            "compound": "ashimides A"
-        },
         {
             "chem_struct": "CN1C(=O)CN2C(=O)[C@H](COC(=O)C3=C4NC(=O)C(O)(CO)OC4=CC=C3)NC(=O)[C@]12CO",
             "compound": "ashimide A",
