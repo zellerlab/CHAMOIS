@@ -16,10 +16,22 @@ DATASET_TABLES=features classes mibig3.1_ani
 
 PYTHON=python -Wignore
 
-.PHONY: datasets
-datasets: $(foreach dataset,$(DATASET_NAMES),$(foreach table,$(DATASET_TABLES),$(DATA)/datasets/$(dataset)/$(table).hdf5))
+.PHONY: features
+features: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/features.hdf5)
 
-# --- Download or prepare data -----------------------------------------------
+.PHONY: classes
+classes: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/classes.hdf5)
+
+.PHONY: compounds
+compounds: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/compounds.json)
+
+.PHONY: clusters
+features: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/clusters.gbk)
+
+.PHONY: datasets
+datasets: features classes compounds clusters
+
+# --- External data ----------------------------------------------------------
 
 $(PFAM_HMM):
 	wget http://ftp.ebi.ac.uk/pub/databases/Pfam/releases/Pfam$(PFAM_VERSION)/Pfam-A.hmm.gz -O- | gunzip > $@
