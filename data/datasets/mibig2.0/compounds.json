@@ -5359,10 +5359,46 @@
     ],
     "BGC0000380": [
         {
-            "chem_struct": "C1(OC/C(=C(/C)\\CCC[*])/C/1=C/C1C2COC(=O)C(CC(C)C)CC(=O)OC3C(C)(CO)C(=O)OC3C(C)=CCC3NC(=CC=3)C(O2)=N1)CC(C)C",
-            "compound": "leupyrrin",
-            "mol_mass": 707.3907563399998,
-            "molecular_formula": "C40H55*N2O9"
+            "chem_struct": "C/C/1=C\\CC2=CC=C(N2)C3=NC(C(O3)COC(=O)[C@H](CC(=O)OC4C1OC(=O)C4(C)CO)CC(C)C)/C=C/5\\C(OC\\C5=C(\\C)/CCCOC)CC(C)C",
+            "compound": "leupyrrin A1",
+            "database_id": [
+                "npatlas:NPA012504"
+            ]
+        },
+        {
+            "chem_struct": "C/C/1=C\\CC2=CC=C(N2)C3=NC(C(O3)COC(=O)[C@H](CC(=O)OC4C1OC(=O)C4(C)CO)CC(C)C)/C=C/5\\C(OC\\C5=C(\\C)/C=C/COC)CC(C)C",
+            "compound": "leupyrrin A2",
+            "database_id": [
+                "npatlas:NPA004144"
+            ]
+        },
+        {
+            "chem_struct": "C/C/1=C\\CC2=CC=C(N2)C3=NC(C(O3)COC(=O)/C(=C/C(=O)OC4C1OC(=O)C4(C)CO)/CC(C)C)/C=C/5\\C(OC\\C5=C(\\C)/CCCOC)CC(C)C",
+            "compound": "leupyrrin B1",
+            "database_id": [
+                "npatlas:NPA010269"
+            ]
+        },
+        {
+            "chem_struct": "C/C/1=C\\CC2=CC=C(N2)C3=NC(C(O3)COC(=O)/C(=C/C(=O)OC4C1OC(=O)C4(C)CO)/CC(C)C)/C=C/5\\C(OC\\C5=C(\\C)/C=C/COC)CC(C)C",
+            "compound": "leupyrrin B2",
+            "database_id": [
+                "npatlas:NPA012747"
+            ]
+        },
+        {
+            "chem_struct": "C/C/1=C\\CC2=CC=C(N2)C3=NC(C(O3)COC(=O)[C@H](CC(=O)OC4C1OC(=O)C4(C)CO)CC(C)C)/C=C/5\\C(OC\\C5=C(\\C)/CCCO)CC(C)C",
+            "compound": "leupyrrin C",
+            "database_id": [
+                "npatlas:NPA006074"
+            ]
+        },
+        {
+            "chem_struct": "C/C/1=C\\CC2=CC=C(N2)C3=NC(C(O3)COC(=O)/C(=C/C(=O)OC4C1OC(=O)C4(C)CO)/CC(C)C)/C=C/5\\C(OC\\C5=C(\\C)/CCCO)CC(C)C",
+            "compound": "leupyrrin D",
+            "database_id": [
+                "npatlas:NPA008872"
+            ]
         }
     ],
     "BGC0000381": [
