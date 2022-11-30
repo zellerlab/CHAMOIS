@@ -64,7 +64,7 @@ with rich.progress.Progress() as progress:
                 proc = subprocess.run([
                     "blastn",
                     "-task",
-                    "megablast",
+                    "blastn",
                     "-query",
                     "-",
                     "-db",
