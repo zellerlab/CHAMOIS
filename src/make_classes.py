@@ -154,7 +154,7 @@ for term_id, i in chemont_indices.items():
 subclasses = scipy.sparse.dok_matrix((len(chemont_indices), len(chemont_indices)), dtype=numpy.bool_)
 for term_id, i in chemont_indices.items():
     for subclass in chemont[term_id].subclasses():
-        if superclass.id != "CHEMONTID:9999999":
+        if subclass.id != "CHEMONTID:9999999":
             j = chemont_indices[subclass.id]
             subclasses[i, j] = True
 
