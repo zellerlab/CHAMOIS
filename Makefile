@@ -42,7 +42,7 @@ $(ATLAS):
 # --- Generic Rules ----------------------------------------------------------
 
 $(DATA)/datasets/%/mibig3.1_ani.hdf5: $(DATA)/datasets/%/clusters.gbk $(DATA)/datasets/mibig3.1/clusters.gbk
-	$(PYTHON) src/make_identity.py --query $< --target $(DATA)/datasets/mibig3.1/clusters.gbk -o $@
+	$(PYTHON) src/make_ani.py --query $< --target $(DATA)/datasets/mibig3.1/clusters.gbk -o $@
 
 $(DATA)/datasets/%/features.hdf5: $(DATA)/datasets/%/clusters.gbk $(PFAM_HMM)
 	$(PYTHON) src/make_features.py --gbk $< --hmm $(PFAM_HMM) -o $@
