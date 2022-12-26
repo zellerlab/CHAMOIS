@@ -14,12 +14,13 @@ import joblib
 import pandas
 import pronto
 import numpy
+import rdkit.Chem
 import rich.progress
 import scipy.sparse
-from openbabel import pybel
+from rdkit import RDLogger
 
-# Disable warnings from OpenBabel
-pybel.ob.obErrorLog.SetOutputLevel(0)
+# disable logging
+RDLogger.DisableLog('rdApp.warning')  
 
 # get paths from command line
 parser = argparse.ArgumentParser()
@@ -91,7 +92,7 @@ for bgc_id, bgc_compounds in rich.progress.track(compounds.items(), description=
             rich.print(f"[bold yellow]{'Skipping':>12}[/] {compound['compound']!r} compound of {bgc_id} with no structure")
             continue
         # use InChi key to find annotation in NPAtlas
-        inchikey = pybel.readstring("smi", compound['chem_struct'].strip()).write("inchikey").strip()
+        inchikey = rdkit.Chem.inchi.MolToInchiKey(rdkit.Chem.MolFromSmiles(compound['chem_struct'].strip()))
         if inchikey in inchikey_index:
             npaid = inchikey_index[inchikey]["npaid"]
             compound.setdefault("database_id", []).append(f"npatlas:{npaid}")

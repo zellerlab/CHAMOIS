@@ -18,11 +18,12 @@ import joblib
 import requests
 import rich.console
 import rich.progress
+import rdkit.Chem
 from bs4 import BeautifulSoup
-from openbabel import pybel
+from rdkit import RDLogger
 
-# Disable warnings from OpenBabel
-pybel.ob.obErrorLog.SetOutputLevel(0)
+# disable logging
+RDLogger.DisableLog('rdApp.warning')  
 
 CGI_URL = "https://img.jgi.doe.gov/cgi-bin"
 
@@ -119,7 +120,7 @@ with rich.progress.Progress(
     # patch with NPAtlas cross-references
     for oid, compound in oid_data.items():
         if "chem_struct" in compound:
-            inchikey = pybel.readstring("smi", compound['chem_struct'].strip()).write("inchikey").strip()
+            inchikey = rdkit.Chem.inchi.MolToInchiKey(rdkit.Chem.MolFromSmiles(compound['chem_struct'].strip()))
             if inchikey in np_atlas_inchikeys:
                 npaid = np_atlas_inchikeys[inchikey]["npaid"]
                 compound["database_id"].append(f"npatlas:{npaid}")

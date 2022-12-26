@@ -83,21 +83,6 @@ features.obs["groups"] = numpy.array([group_set[i] for i in range(animatrix.n_ob
 
 chemont = pronto.Ontology("data/chemont/ChemOnt_2_1.obo")
 
-# --- Use Fisher's exact test to select features -----------------------------
-
-def compute_pvalues(X, y, kind="two_tail"):
-    pvalues = []
-    for feature in range(X.shape[1]):
-        x = X[:,feature]       
-        result = fisher.pvalue(
-            ((x > 0) & (y == 1)).sum(),
-            ((x == 0) & (y == 1)).sum(),
-            ((x > 0) & (y == 0)).sum(),
-            ((x == 0) & (y == 0)).sum(),
-        )
-        pvalues.append(getattr(result, kind))
-    return numpy.array(pvalues)
-
 
 # --- Build one classifier per class -----------------------------------------
 

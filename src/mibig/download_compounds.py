@@ -11,10 +11,11 @@ import joblib
 import rich.progress
 import pubchempy
 import pandas
-from openbabel import pybel
+import rdkit.Chem
+from rdkit import RDLogger
 
-# Disable warnings from OpenBabel
-pybel.ob.obErrorLog.SetOutputLevel(0)
+# disable logging
+RDLogger.DisableLog('rdApp.warning')  
 
 # get paths from command line
 parser = argparse.ArgumentParser()
@@ -220,6 +221,8 @@ for bgc_id, entry in mibig.items():
             {"compound": f"leupyrrin {x}"}
             for x in ("A1", "A2", "B1", "B2", "C", "D")
         ]
+    elif bgc_id == "BGC0002162":
+        entry["compounds"] = entry["compounds"][:2] # only keep the final compounds (sesterfisherol and sesterfisheric acid)
 
     for compound in entry["compounds"]:
         # β-D-galactosylvalidoxylamine-A is actually validamycin
@@ -358,19 +361,18 @@ for bgc_id, bgc in mibig.items():
     for compound in bgc["compounds"]:
         if not any(xref.startswith("npatlas") for xref in compound.get("database_id", ())):
             if "chem_struct" in compound:
-                inchikey = pybel.readstring("smi", compound['chem_struct'].strip()).write("inchikey").strip()
+                inchikey = rdkit.Chem.inchi.MolToInchiKey(rdkit.Chem.MolFromSmiles(compound['chem_struct'].strip()))
                 if inchikey in np_atlas_inchikeys:
                     npaid = np_atlas_inchikeys[inchikey]["npaid"]
                     compound.setdefault("database_id", []).append(f"npatlas:{npaid}")
-                    rich.print(f"[bold green]{'Added':>12}[/] cross-reference to NPAtlas compound {npaid} to {compound['compound']!r} product of [purple]{bgc_id}[/]")
-                    continue
+                    rich.print(f"[bold green]{'Added':>12}[/] cross-reference to NPAtlas compound [bold cyan]{npaid}[/] to {compound['compound']!r} product of [purple]{bgc_id}[/]")
             else:
                 compound_name = compound["compound"].casefold()
                 if compound_name in np_atlas_names:
                     entry = np_atlas_names[compound_name]
                     compound.setdefault("database_id", []).append(f"npatlas:{entry['npaid']}")
                     compound["chem_struct"] = entry["smiles"]
-                    rich.print(f"[bold green]{'Mapped':>12}[/] {compound['compound']!r} product of [purple]{bgc_id}[/] to NPAtlas compound {entry['npaid']}")
+                    rich.print(f"[bold green]{'Mapped':>12}[/] {compound['compound']!r} product of [purple]{bgc_id}[/] to NPAtlas compound [bold cyan]{entry['npaid']}[/]")
                 else:
                     rich.print(f"[bold red]{'Failed':>12}[/] to map {compound['compound']!r} product of [purple]{bgc_id}[/] to NPAtlas")
 
