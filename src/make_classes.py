@@ -20,7 +20,7 @@ import scipy.sparse
 from rdkit import RDLogger
 
 # disable logging
-RDLogger.DisableLog('rdApp.warning')  
+RDLogger.DisableLog('rdApp.warning')
 
 # get paths from command line
 parser = argparse.ArgumentParser()
@@ -62,7 +62,7 @@ inchikey_index = {entry["inchikey"]: entry for entry in data}
 chemont = pronto.Ontology(args.chemont)
 rich.print(f"[bold green]{'Loaded':>12}[/] {len(chemont)} terms from ChemOnt")
 
-chemont_indices = { 
+chemont_indices = {
     term.id: i
     for i, term in enumerate(sorted(chemont.terms()))
     if term.id != "CHEMONTID:9999999"
@@ -80,7 +80,7 @@ def get_classyfire_inchikey(inchikey):
         time.sleep(0.1)
         if "class" not in data:
             raise RuntimeError("classification not found")
-        return data if "class" in data else None       
+        return data if "class" in data else None
 
 annotations = {}
 for bgc_id, bgc_compounds in rich.progress.track(compounds.items(), description=f"[bold blue]{'Classifying':>12}[/]"):
@@ -89,6 +89,7 @@ for bgc_id, bgc_compounds in rich.progress.track(compounds.items(), description=
     for compound in bgc_compounds:
         # ignore compounds without structure (should have gotten one already)
         if "chem_struct" not in compound:
+            annotations[bgc_id].append(None)
             rich.print(f"[bold yellow]{'Skipping':>12}[/] {compound['compound']!r} compound of {bgc_id} with no structure")
             continue
         # use InChi key to find annotation in NPAtlas
@@ -106,6 +107,7 @@ for bgc_id, bgc_compounds in rich.progress.track(compounds.items(), description=
             classyfire = get_classyfire_inchikey(inchikey)
         except (RuntimeError, HTTPError):
             rich.print(f"[bold red]{'Failed':>12}[/] to get ClassyFire annotations for {compound['compound']!r} compound of {bgc_id}")
+            annotations[bgc_id].append(None)
         else:
             rich.print(f"[bold green]{'Downloaded':>12}[/] ClassyFire annotations for {compound['compound']!r} compound of {bgc_id}")
             annotations[bgc_id].append(classyfire)
@@ -114,33 +116,44 @@ for bgc_id, bgc_compounds in rich.progress.track(compounds.items(), description=
 
 # --- Binarize classes -------------------------------------------------------
 
+def full_classification(annotation):
+    return pronto.TermSet({
+        chemont[direct_parent["chemont_id"]] # type: ignore
+        for direct_parent in itertools.chain(
+            [annotation["kingdom"], annotation["superclass"], annotation["class"], annotation["subclass"], annotation["direct_parent"]],
+            annotation["intermediate_nodes"],
+            annotation["alternative_parents"],
+        )
+        if direct_parent is not None
+    }).superclasses().to_set()
+
 unknown_structure = numpy.zeros(len(bgc_ids), dtype=numpy.bool_)
 classes = numpy.zeros((len(compounds), len(chemont_indices)), dtype=numpy.bool_)
+smiles = [""]*len(compounds)
+names = [""]*len(compounds)
 
 for bgc_id in rich.progress.track(annotations, description=f"[bold blue]{'Binarizing':>12}[/]"):
+    bgc_index = bgc_indices[bgc_id]
     # record if this BGC has no chemical annotation available
-    if not annotations[bgc_id]:
-        bgc_index = bgc_indices[bgc_id]
+    if not any(annotations[bgc_id]):
         unknown_structure[bgc_index] = True
+        if compounds[bgc_id]:
+            names[bgc_index] = compounds[bgc_id][0]["compound"]
         continue
-    # get recursive superclasses from annotated classes
-    for annotation in annotations[bgc_id]:
-        # get all parents by traversing the ontology transitively
-        direct_parents = pronto.TermSet({
-            chemont[direct_parent["chemont_id"]] # type: ignore
-            for direct_parent in itertools.chain(
-                [annotation["kingdom"], annotation["superclass"], annotation["class"], annotation["subclass"], annotation["direct_parent"]],  
-                annotation["intermediate_nodes"],
-                annotation["alternative_parents"],
-            )
-            if direct_parent is not None
-        })
-        all_parents = direct_parents.superclasses().to_set()
-        # set label flag is compound belong to a class
-        bgc_index = bgc_indices[bgc_id]
-        for parent in all_parents:
-            if parent.id != "CHEMONTID:9999999":
-                classes[bgc_index, chemont_indices[parent.id]] = True
+    # find compound with the most classes
+    best_index = max(
+        range(len(annotations[bgc_id])),
+        key=lambda i: -1 if not annotations[bgc_id][i] else len(full_classification(annotations[bgc_id][i])),
+    )
+    assert best_index >= 0
+    # record classification and metadata for compound
+    bgc_compound = compounds[bgc_id][best_index]
+    bgc_annotation = annotations[bgc_id][best_index]
+    smiles[bgc_index] = bgc_annotation["smiles"]
+    names[bgc_index] = bgc_compound["compound"]
+    for parent in full_classification(bgc_annotation):
+        if parent.id != "CHEMONTID:9999999":
+            classes[bgc_index, chemont_indices[parent.id]] = True
 
 
 # --- Make adjacency matrix for the class graph ------------------------------
@@ -170,12 +183,16 @@ data = anndata.AnnData(
         index=bgc_ids,
         data=dict(
             unknown_structure=unknown_structure,
-            compound=["" if len(compounds[bgc_id]) == 0 else compounds[bgc_id][0]["compound"] for bgc_id in bgc_ids],
+            compound=names,
+            smiles=smiles,
         ),
     ),
     var=pandas.DataFrame(
         index=list(chemont_indices),
-        data=dict(n_positives=classes.sum(axis=0))
+        data=dict(
+            name=[chemont[id_].name for id_ in chemont_indices],
+            n_positives=classes.sum(axis=0)
+        )
     ),
     varp=dict(
         subclasses=subclasses.tocsr(),
@@ -186,5 +203,5 @@ data = anndata.AnnData(
 # save annotated data
 os.makedirs(os.path.dirname(args.output), exist_ok=True)
 data.write(args.output)
- 
+
 
