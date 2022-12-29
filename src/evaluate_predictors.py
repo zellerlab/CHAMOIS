@@ -61,13 +61,13 @@ class SelectPValueUnderThreshold(sklearn.base.TransformerMixin):
 
 # --- Load features and classes ----------------------------------------------
 
-features = anndata.read("data/datasets/mibig/features.hdf5")
-classes = anndata.read("data/datasets/mibig/classes.hdf5")
+features = anndata.read("data/datasets/mibig3.1/features.hdf5")
+classes = anndata.read("data/datasets/mibig3.1/classes.hdf5")
 assert (features.obs.index == classes.obs.index).all()
 
 # --- Load ANI matrix and build groups based on ANI --------------------------
 
-animatrix = anndata.read("data/datasets/mibig/mibig_ani.hdf5")
+animatrix = anndata.read("data/datasets/mibig3.1/mibig3.1_ani.hdf5")
 animatrix.X = animatrix.X.todok()
 assert (animatrix.obs.index == classes.obs.index).all()
 
