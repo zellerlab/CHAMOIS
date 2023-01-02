@@ -71,7 +71,7 @@ for bgc_id, entry in mibig.items():
         entry["compounds"] = [
             {
                 "compound": "bromophene",
-                "database_id": [f"pubchem:30891"],
+                "database_id": ["pubchem:30891"],
             },
             {
                 "compound": "bistribromopyrrole",
@@ -221,8 +221,28 @@ for bgc_id, entry in mibig.items():
             {"compound": f"leupyrrin {x}"}
             for x in ("A1", "A2", "B1", "B2", "C", "D")
         ]
+    # only keep the final compounds (sesterfisherol and sesterfisheric acid)
+    # and not the intermediates which have a very different topology
     elif bgc_id == "BGC0002162":
-        entry["compounds"] = entry["compounds"][:2] # only keep the final compounds (sesterfisherol and sesterfisheric acid)
+        entry["compounds"] = entry["compounds"][:2] 
+    # the antimycin formula in MIBiG is wrong
+    elif bgc_id == "BGC0001455": 
+        entry["compounds"] = [
+            { "compound": f"antimycin A{x+1}{y}" }
+            for x in range(4)
+            for y in ("a", "b")
+        ]
+    # the tiancimycin formula in MIBiG is wrong (paper and PubChem agree)
+    elif bgc_id == "BGC0001378":
+        entry["compounds"] = [
+            {
+                "compound": "tiancimycin A",
+                "database_id": ["pubchem:121477750"],
+            }
+        ]
+    # the SMILES in MIBiG is wrong, but the PubChem xref is correct
+    elif bgc_id == "BGC0000657":
+        del entry["compounds"][0]["chem_struct"]
 
     for compound in entry["compounds"]:
         # β-D-galactosylvalidoxylamine-A is actually validamycin
