@@ -17,6 +17,27 @@ args = parser.parse_args()
 
 url = f"https://dl.secondarymetabolites.org/mibig/mibig_gbk_{args.mibig_version}.tar.gz"
 
+
+def extract_records(response):
+    total = int(response.headers["Content-Length"])
+    with progress.wrap_file(response, total=total, description="Downloading...") as f:
+        with tarfile.open(fileobj=f, mode="r|gz") as tar:
+            for entry in iter(tar.next, None):
+                if entry.name.endswith(".gbk"):
+                    with tar.extractfile(entry) as f:
+                        data = io.StringIO(f.read().decode())
+                        yield Bio.SeqIO.read(data, "genbank")
+
+
+def get_gene(record, name):
+    return next(
+        f
+        for f in record.features
+        if f.type == "CDS"
+        and f.qualifiers.get("gene", [""])[0] == name
+    )
+
+
 with rich.progress.Progress() as progress:
 
     # load blocklist if any
@@ -27,28 +48,47 @@ with rich.progress.Progress() as progress:
         blocklist = set()
 
     # download MIBIG 3 records
-    records = []
     with urllib.request.urlopen(url) as response:
-        total = int(response.headers["Content-Length"])
-        with progress.wrap_file(response, total=total, description="Downloading...") as f:
-            with tarfile.open(fileobj=f, mode="r|gz") as tar:
-                for entry in iter(tar.next, None):
-                    if entry.name.endswith(".gbk"):
-                        with tar.extractfile(entry) as f:
-                            data = io.StringIO(f.read().decode())
-                            record = Bio.SeqIO.read(data, "genbank")
-                            # ignore BGCs in blocklist
-                            if record.id in blocklist:
-                                continue
-                            # clamp the BGC boundaries to the left- and rightmost genes
-                            start = min( f.location.start for f in record.features if f.type == "CDS" )
-                            end = max( f.location.end for f in record.features if f.type == "CDS" )
-                            bgc_record = record[start:end]
-                            bgc_record.annotations = record.annotations.copy()
-                            bgc_record.id = record.id 
-                            bgc_record.name = record.name
-                            bgc_record.description = record.description
-                            records.append(bgc_record)
+        
+        records = []
+        for record in extract_records(response):
+            # ignore BGCs in blocklist
+            if record.id in blocklist:
+                continue
+
+            # BGC0000017 has unneeded downstream genes, only keep until `anaH`
+            # (genes are characterized in doi:10.1016/j.toxicon.2014.07.016)
+            if record.id == "BGC0000017":
+                start = 0
+                end = get_gene(record, "anaH").location.end
+
+            # BGC0000938 has many uneeded genes, some of which have been shown
+            # to be unneeded for biosynthesis through deletion analysis, and
+            # the authors only consider fom3-fomC to be the core fosfomycin BGC
+            # (see doi:10.1016/j.chembiol.2006.09.007)
+            elif record.id == "BGC0000938":
+                start = get_gene(record, "fom3").location.start
+                end = get_gene(record, "fomC").location.end
+
+            # BGC0000122 has additional genes, the core BGC is only composed
+            # of phn1-phn2 (see doi:10.1002/cbic.201300676)
+            elif record.id == "BGC0000122":
+                start = get_gene(record, "phn2").location.start
+                end = get_gene(record, "phn1").location.end
+
+            # clamp the BGC boundaries to the left- and rightmost genes
+            else:
+                start = min( f.location.start for f in record.features if f.type == "CDS" )
+                end = max( f.location.end for f in record.features if f.type == "CDS" )
+
+            # copy
+            assert start < end, f"{record.id}: {start} < {end}"
+            bgc_record = record[start:end]
+            bgc_record.annotations = record.annotations.copy()
+            bgc_record.id = record.id
+            bgc_record.name = record.name
+            bgc_record.description = record.description
+            records.append(bgc_record)
 
     # sort records by MIBiG accession
     records.sort(key=lambda record: record.id)
