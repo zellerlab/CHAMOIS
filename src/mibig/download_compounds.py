@@ -162,7 +162,7 @@ for bgc_id, entry in mibig.items():
     elif bgc_id == "BGC0001700":
         entry["compounds"] = [
             {"compound": f"niphimycin {x}"}
-            for x in ""
+            for x in "CDE"
         ]
     elif bgc_id == "BGC0000289":
         entry["compounds"] = [
