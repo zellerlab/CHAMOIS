@@ -327,6 +327,13 @@ for bgc_id, entry in mibig.items():
         # add formula of foxicin A (drawn according to paper)
         if compound["compound"] == "foxicin A":
             compound["chem_struct"] = r"C[C@@H](C=C(C)C)\C=C(/C)C(=O)NC1=CC(=O)C(O)=C(NC(C)=O)C1=O"
+        # add formula of petrichorin B (drawn according to paper, primary formula matches)
+        elif compound["compound"] == "petrichorin B":
+            compound["chem_struct"] = r"[H][C@@]12C[C@@]3(O)C4=C(N[C@@]3([H])N1C(=O)[C@H](NC(=O)[C@H](COC)NC(=O)[C@@]1([H])C[C@H](O)CNN1C(=O)[C@@H]1CCCNN1C(=O)[C@H](NC2=O)[C@@H](C)CC)C(C)O)C=C(Cl)C(=C4)C1=CC2=C(N[C@@]3([H])N4C(=O)[C@H](NC(=O)[C@H](COC)NC(=O)[C@@]5([H])C[C@H](O)CNN5C(=O)[C@@H]5CCCNN5C(=O)[C@H](NC(=O)[C@]4([H])C[C@@]23O)[C@@H](C)CC)[C@H](C)O)C=C1Cl"
+        # add formula of octapeptin C4 (using octapeptin C8 from PubChem as a base,
+        # only the lipid group needs to be changed)
+        elif compound["compound"] == "octapeptin C4":
+            compound["chem_struct"] = r"CCCCCCCC(O)CC(=O)NC(CCN)C(\O)=N\C1CC\N=C(O)\C(CC(C)C)\N=C(O)\C(CCN)\N=C(O)\C(CCN)\N=C(O)/C(CC(C)C)\N=C(O)/C(CC2=CC=CC=C2)\N=C(O)\C(CCN)\N=C1/O"
 
 # --- Load NPAtlas -----------------------------------------------------------
 with rich.progress.open(args.atlas, "rb", description=f"[bold blue]{'Loading':>12}[/] NPAtlas") as handle:
