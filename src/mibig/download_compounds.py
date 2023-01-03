@@ -305,6 +305,18 @@ for bgc_id, entry in mibig.items():
                 "database_id": ["pubchem:132571090"]
             }
         ]
+    # Add manually drawn epoxide compounds of BGC0001202
+    elif bgc_id == "BGC00001202":
+        entry["compounds"] = [
+            {
+                "compound": "landepoxcin A"
+                "chem_struct": r"[H]CC(C)CC(=O)NC([C@@H](C)O)C(=O)N[C@@H](CC(C)=C)C(=O)C1([H])CO1",
+            },
+            {
+                "compound": "landepoxcin B",
+                "chem_struct": r"[H]C1(CO1)C(=O)[C@H](CC(C)=C)NC(=O)C(NC(=O)CC(C)CC)[C@@H](C)O",
+            }
+        ]
 
     for compound in entry["compounds"]:
         # β-D-galactosylvalidoxylamine-A is actually validamycin

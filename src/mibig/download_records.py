@@ -92,6 +92,12 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, gene="stmA").location.start
                 end = get_cds(record, gene="stmI").location.end
 
+            # MIBiG entry of BGC0001202 contains unrelated upstream and
+            # downstream genes
+            elif record.id == "BGC0001202":
+                start = get_cds(record, protein_id="AKA59430.1").location.start
+                end = get_cds(record, protein_id=" AKA59442.1").location.end
+
             # clamp the BGC boundaries to the left- and rightmost genes
             else:
                 start = min( f.location.start for f in record.features if f.type == "CDS" )
