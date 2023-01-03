@@ -449,6 +449,11 @@ for bgc_id, entry in mibig.items():
             compound["chem_struct"] = r"CC1=CC(O)=C(Cl)C2=C1C(=O)C1=C(O)C=CC=C1[C@H]2O"
         elif compound["compound"] == "chlororyzanthrone B":
             compound["chem_struct"] = r"C[C@@H]1C2=CC=CC(O)=C2C(=O)C2=C1C(Cl)=C(O)C=C2C"
+        # add formula of compounds isolated in PMID:25872030
+        elif compound["compound"] == "hydroxysporine":
+            compound["chem_struct"] = r"OC1=CC2=C(NC3=C2C2=C(C(=O)NC2)C2=C3NC3=C2C=C(O)C=C3)C=C1"
+        elif compound["compound"] == "reductasporine":
+            compound["chem_struct"] = r"C[N]1(C)CC2=C(C1)C1=C(NC3=C1C=CC=C3)C1=C2C2=C(N1)C=CC=C2"
 
 # --- Load NPAtlas -----------------------------------------------------------
 with rich.progress.open(args.atlas, "rb", description=f"[bold blue]{'Loading':>12}[/] NPAtlas") as handle:
