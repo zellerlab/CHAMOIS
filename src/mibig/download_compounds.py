@@ -15,7 +15,7 @@ import rdkit.Chem
 from rdkit import RDLogger
 
 # disable logging
-RDLogger.DisableLog('rdApp.warning')  
+RDLogger.DisableLog('rdApp.warning')
 
 # get paths from command line
 parser = argparse.ArgumentParser()
@@ -202,14 +202,23 @@ for bgc_id, entry in mibig.items():
         ]
     elif bgc_id == "BGC0001365":
         entry["compounds"] = [
-            {"compound": "dithioclapurine"},
-            {"compound": "trithioclapurine"},
-            {"compound": "tetrathioclapurine"},
+            {
+                "compound": "dithioclapurine",
+                "chem_struct": r"CC(C)=CCOC1=CC=C(C[C@]23NC(=O)C(NC2=O)SS3)C=C1"
+            },
+            {
+                "compound": "trithioclapurine"
+                "chem_struct": r"CC(C)=CCOC1=CC=C(C[C@]23NC(=O)C(NC2=O)SSS3)C=C1"
+            },
+            {
+                "compound": "tetrathioclapurine"
+                "chem_struct": r"CC(C)=CCOC1=CC=C(C[C@]23NC(=O)C(NC2=O)SSSS3)C=C1"
+            },
         ]
     elif bgc_id == "BGC0002008":
         entry["compounds"] = [
             {
-                "compound": "arylpolyene 1", 
+                "compound": "arylpolyene 1",
                 "chem_struct": r"C1(C=C(C)C(O)C(C)C=1)/C=C/C=C/C=C/C=C/C=C/C=C/C(OC)=O",  # drawn manually from the paper structure
             },
             { "compound": "arylpolyene 2" },
@@ -224,9 +233,9 @@ for bgc_id, entry in mibig.items():
     # only keep the final compounds (sesterfisherol and sesterfisheric acid)
     # and not the intermediates which have a very different topology
     elif bgc_id == "BGC0002162":
-        entry["compounds"] = entry["compounds"][:2] 
+        entry["compounds"] = entry["compounds"][:2]
     # the antimycin formula in MIBiG is wrong
-    elif bgc_id == "BGC0001455": 
+    elif bgc_id == "BGC0001455":
         entry["compounds"] = [
             { "compound": f"antimycin A{x+1}{y}" }
             for x in range(4)
