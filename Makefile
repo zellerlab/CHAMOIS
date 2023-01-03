@@ -15,6 +15,7 @@ DATASET_NAMES=abc mibig3.1 mibig2.0
 DATASET_TABLES=features classes mibig3.1_ani
 
 PYTHON=python -Wignore
+WGET=wget --no-check-certificate
 
 .PHONY: features
 features: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/features.hdf5)
@@ -34,10 +35,10 @@ datasets: features classes compounds clusters
 # --- External data ----------------------------------------------------------
 
 $(PFAM_HMM):
-	wget http://ftp.ebi.ac.uk/pub/databases/Pfam/releases/Pfam$(PFAM_VERSION)/Pfam-A.hmm.gz -O- | gunzip > $@
+	$(WGET) http://ftp.ebi.ac.uk/pub/databases/Pfam/releases/Pfam$(PFAM_VERSION)/Pfam-A.hmm.gz -O- | gunzip > $@
 
 $(ATLAS):
-	wget https://www.npatlas.org/static/downloads/NPAtlas_download.json -O- | gzip -c > $@
+	$(WGET) https://www.npatlas.org/static/downloads/NPAtlas_download.json -O- | gzip -c > $@
 
 # --- Generic Rules ----------------------------------------------------------
 

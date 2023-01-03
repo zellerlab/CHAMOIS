@@ -1735,30 +1735,6 @@
             "molecular_formula": "C11H4Cl5NO2"
         }
     ],
-    "BGC0000131": [
-        {
-            "chem_struct": "C1=C(C(=C(N1)Cl)Cl)[N+](=O)[O-]",
-            "compound": "pyrrolomycin",
-            "database_id": [
-                "pubchem:133275",
-                "npatlas:NPA020404"
-            ],
-            "mol_mass": 179.949332664,
-            "molecular_formula": "C4H2Cl2N2O2"
-        }
-    ],
-    "BGC0000132": [
-        {
-            "chem_struct": "C1=C(C(=C(N1)Cl)Cl)[N+](=O)[O-]",
-            "compound": "pyrrolomycin",
-            "database_id": [
-                "pubchem:133275",
-                "npatlas:NPA020404"
-            ],
-            "mol_mass": 179.949332664,
-            "molecular_formula": "C4H2Cl2N2O2"
-        }
-    ],
     "BGC0000133": [
         {
             "chem_struct": "C[C@@H]1C[C@@H]([C@H]2C3[C@@H]4[C@@H]5[C@H](C=C([C@H]4[C@@]2(C1)C)C)[C@@H](C[C@@]6(C5=O)C[C@@](CC7=CC=C(O3)C=C7)(NC6=O)O)O)C",
@@ -3837,7 +3813,8 @@
     ],
     "BGC0000282": [
         {
-            "compound": "alkylresorcinol"
+            "chem_struct": "COC1=CC(=O)C(C)=C(CCCCCCCCCCCCC(C)C)C1=O",
+            "compound": "2-Methoxy-5-methyl-6-isopentadecyl-1,4-benzoquinone"
         }
     ],
     "BGC0000283": [
@@ -8265,17 +8242,6 @@
             "molecular_formula": "C38H53NO12"
         }
     ],
-    "BGC0000656": [
-        {
-            "chem_struct": "CC1=C(C(C[C@@H](C1)O)(C)C)/C=C/C(=C/C=C/C(=C/C=C/C=C(/C=C/C=C(/C=C/C2=C(C[C@H](CC2(C)C)O)C)\\C)\\C)/C)/C",
-            "compound": "zeaxanthin",
-            "database_id": [
-                "pubchem:5280899"
-            ],
-            "mol_mass": 568.428031032,
-            "molecular_formula": "C40H56O2"
-        }
-    ],
     "BGC0000657": [
         {
             "chem_struct": "COC(=O)[C@@H]1C[C@@H](CN1CN2C(=S)OC(=N2)C3=CC(=CC=C3)Br)O",
@@ -9611,7 +9577,11 @@
     ],
     "BGC0000799": [
         {
-            "compound": "colanic acid"
+            "chem_struct": "C[C@H](CCC(=O)O)[C@H]1CC[C@@H]2[C@@]1(CC[C@H]3[C@H]2CCC4[C@@]3(CCCC4)C)C",
+            "compound": "colanic acid",
+            "database_id": [
+                "pubchem:Compound(9548797)"
+            ]
         }
     ],
     "BGC0000800": [
@@ -15100,11 +15070,13 @@
     ],
     "BGC0001223": [
         {
+            "chem_struct": "OC1=CC2=C(NC3=C2C2=C(C(=O)NC2)C2=C3NC3=C2C=C(O)C=C3)C=C1",
             "compound": "hydroxysporine"
         }
     ],
     "BGC0001224": [
         {
+            "chem_struct": "C[N+]1(C)CC2=C(C1)C1=C(NC3=C1C=CC=C3)C1=C2C2=C(N1)C=CC=C2",
             "compound": "reductasporine"
         }
     ],
@@ -17058,12 +17030,15 @@
     ],
     "BGC0001365": [
         {
+            "chem_struct": "CC(C)=CCOC1=CC=C(C[C@]23NC(=O)C(NC2=O)SS3)C=C1",
             "compound": "dithioclapurine"
         },
         {
+            "chem_struct": "CC(C)=CCOC1=CC=C(C[C@]23NC(=O)C(NC2=O)SSS3)C=C1",
             "compound": "trithioclapurine"
         },
         {
+            "chem_struct": "CC(C)=CCOC1=CC=C(C[C@]23NC(=O)C(NC2=O)SSSS3)C=C1",
             "compound": "tetrathioclapurine"
         }
     ],
@@ -17281,9 +17256,9 @@
     "BGC0001378": [
         {
             "chem_struct": "C[C@H]([C@]12[C@@H]3C#C/C=C\\C#C[C@H]([C@@]1(O2)C4=CC(=C5C(=C4N3)C(=O)C6=C(C5=O)C=CC(=C6O)OC)O)O)O",
-            "compound": "tiancimycin",
+            "compound": "tiancimycin A",
             "database_id": [
-                "pubchem:Compound(121477750)"
+                "pubchem:121477750"
             ]
         }
     ],
@@ -18222,13 +18197,60 @@
     ],
     "BGC0001455": [
         {
-            "chem_struct": "C[C@@H]1[C@H](OC=C2C1=C(C(=C(C2=O)C(=O)O)O)C)C",
-            "compound": "antimycin",
+            "chem_struct": "CCCCCC[C@@H]1[C@H]([C@@H](OC(=O)[C@H]([C@H](OC1=O)C)NC(=O)C2=C(C(=CC=C2)NC=O)O)C)OC(=O)C(C)CC",
+            "compound": "antimycin A1a",
             "database_id": [
-                "pubchem:54680783"
-            ],
-            "mol_mass": 250.084123548,
-            "molecular_formula": "C13H14O5"
+                "npatlas:NPA001151"
+            ]
+        },
+        {
+            "chem_struct": "CCCCCC[C@@H]1[C@H]([C@@H](OC(=O)[C@H]([C@H](OC1=O)C)NC(=O)C2=C(C(=CC=C2)NC=O)O)C)OC(=O)CC(C)C",
+            "compound": "antimycin A1b",
+            "database_id": [
+                "pubchem:Compound(14957)"
+            ]
+        },
+        {
+            "chem_struct": "CCCCCC[C@@H]1[C@H]([C@@H](OC(=O)[C@H]([C@H](OC1=O)C)NC(=O)C2=C(C(=CC=C2)NC=O)O)C)OC(=O)C(C)C",
+            "compound": "antimycin A2a",
+            "database_id": [
+                "pubchem:Compound(447434)"
+            ]
+        },
+        {
+            "chem_struct": "CCCCCC[C@@H]1[C@H]([C@@H](OC(=O)[C@H]([C@H](OC1=O)C)NC(=O)C2=C(C(=CC=C2)NC=O)O)C)OC(=O)CCC",
+            "compound": "antimycin A2b",
+            "database_id": [
+                "pubchem:Compound(10075804)"
+            ]
+        },
+        {
+            "chem_struct": "CCCC[C@@H]1[C@H]([C@@H](OC(=O)[C@H]([C@H](OC1=O)C)NC(=O)C2=C(C(=CC=C2)NC=O)O)C)OC(=O)C(C)CC",
+            "compound": "antimycin A3a",
+            "database_id": [
+                "npatlas:NPA003339"
+            ]
+        },
+        {
+            "chem_struct": "CCCC[C@@H]1[C@H]([C@@H](OC(=O)[C@H]([C@H](OC1=O)C)NC(=O)C2=C(C(=CC=C2)NC=O)O)C)OC(=O)CC(C)C",
+            "compound": "antimycin A3b",
+            "database_id": [
+                "pubchem:Compound(245869)"
+            ]
+        },
+        {
+            "chem_struct": "CCCC[C@@H]1[C@H]([C@@H](OC(=O)[C@H]([C@H](OC1=O)C)NC(=O)C2=C(C(=CC=C2)NC=O)O)C)OC(=O)C(C)C",
+            "compound": "antimycin A4a",
+            "database_id": [
+                "pubchem:Compound(10323928)"
+            ]
+        },
+        {
+            "chem_struct": "CCCC[C@@H]1[C@H]([C@@H](OC(=O)[C@H]([C@H](OC1=O)C)NC(=O)C2=C(C(=CC=C2)NC=O)O)C)OC(=O)CCC",
+            "compound": "antimycin A4b",
+            "database_id": [
+                "pubchem:Compound(11755913)"
+            ]
         }
     ],
     "BGC0001456": [
@@ -19829,6 +19851,7 @@
     ],
     "BGC0001598": [
         {
+            "chem_struct": "C[C@@H](C=C(C)C)\\C=C(/C)C(=O)NC1=CC(=O)C(O)=C(NC(C)=O)C1=O",
             "compound": "foxicin A"
         },
         {
@@ -20985,7 +21008,29 @@
             ]
         }
     ],
-    "BGC0001700": [],
+    "BGC0001700": [
+        {
+            "chem_struct": "C[C@H]1CC[C@@H]([C@H]([C@H](C[C@H]([C@H](/C=C/[C@H]([C@H](C(=O)O[C@@H]([C@H](/C=C/C=C/[C@H]([C@H]([C@@H](C[C@H](C[C@@H](C[C@@H]2C[C@@H]([C@H]([C@@](O2)(C[C@H]1O)O)O)O)O)OC(=O)CC(=O)O)O)C)O)C)[C@@H](C)C[C@@H](C)CCC/C=C/CCCNC(=NC)N)C)O)C)O)O)C)O",
+            "compound": "niphimycin C",
+            "database_id": [
+                "npatlas:NPA022538"
+            ]
+        },
+        {
+            "chem_struct": "C[C@H]1CC[C@@H]([C@H]([C@H](C[C@H]([C@H](/C=C/[C@H]([C@H](C(=O)O[C@@H]([C@H](/C=C/C=C/[C@H]([C@H]([C@@H](C[C@H](C[C@@H](C[C@@H]2C[C@@H]([C@H]([C@@](O2)(C[C@H]1O)O)O)OC(=O)CC(=O)O)O)OC(=O)CC(=O)O)O)C)O)C)[C@@H](C)C[C@@H](C)CCC/C=C/CCCNC(=NC)N)C)O)C)O)O)C)O",
+            "compound": "niphimycin D",
+            "database_id": [
+                "npatlas:NPA022539"
+            ]
+        },
+        {
+            "chem_struct": "C[C@H]1CC[C@@H]([C@H]([C@H](C[C@H]([C@H](/C=C/[C@H]([C@H](C(=O)O[C@@H]([C@H](/C=C/C=C/[C@H]([C@H]([C@@H](C[C@H](C[C@@H](C[C@@H]2C[C@@H]([C@H]([C@@](O2)(C[C@H]1OC(=O)CC(=O)O)O)O)O)OC(=O)CC(=O)O)O)O)C)O)C)[C@@H](C)C[C@@H](C)CCC/C=C/CCCNC(=NC)N)C)O)C)O)O)C)O",
+            "compound": "niphimycin E",
+            "database_id": [
+                "npatlas:NPA022540"
+            ]
+        }
+    ],
     "BGC0001701": [
         {
             "compound": "nisin O"
@@ -21103,7 +21148,11 @@
     ],
     "BGC0001715": [
         {
-            "compound": "octapeptin C4"
+            "chem_struct": "CCCCCCCC(O)CC(=O)NC(CCN)C(\\O)=N\\C1CC\\N=C(O)\\C(CC(C)C)\\N=C(O)\\C(CCN)\\N=C(O)\\C(CCN)\\N=C(O)/C(CC(C)C)\\N=C(O)/C(CC2=CC=CC=C2)\\N=C(O)\\C(CCN)\\N=C1/O",
+            "compound": "octapeptin C4",
+            "database_id": [
+                "npatlas:NPA020954"
+            ]
         }
     ],
     "BGC0001716": [
@@ -22545,7 +22594,12 @@
     ],
     "BGC0001829": [
         {
-            "compound": "\u03b1,\u03b2-epoxyketone"
+            "chem_struct": "CCCC(=O)N[C@@H](CO)C(=O)NC(CC(=C)C)C(=O)C1(CO1)CO",
+            "compound": "TMC-86A",
+            "database_id": [
+                "pubchem:9798121",
+                "npatlas:NPA004406"
+            ]
         }
     ],
     "BGC0001830": [
@@ -23728,7 +23782,11 @@
     ],
     "BGC0001967": [
         {
-            "compound": "acyldepsipeptide 1"
+            "chem_struct": "C\\C=C\\C=C\\C=C\\C(=O)N[C@@H](CC1=CC=CC=C1)C(=O)N[C@H]1COC(=O)[C@@H]2C[C@@H](C)CN2C(=O)[C@H](C)NC(=O)[C@H](C)N(C)C(=O)[C@@H]2CCCN2C1=O",
+            "compound": "acyldepsipeptide 1",
+            "database_id": [
+                "npatlas:NPA033451"
+            ]
         }
     ],
     "BGC0001968": [

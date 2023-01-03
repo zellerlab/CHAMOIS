@@ -207,11 +207,11 @@ for bgc_id, entry in mibig.items():
                 "chem_struct": r"CC(C)=CCOC1=CC=C(C[C@]23NC(=O)C(NC2=O)SS3)C=C1"
             },
             {
-                "compound": "trithioclapurine"
+                "compound": "trithioclapurine",
                 "chem_struct": r"CC(C)=CCOC1=CC=C(C[C@]23NC(=O)C(NC2=O)SSS3)C=C1"
             },
             {
-                "compound": "tetrathioclapurine"
+                "compound": "tetrathioclapurine",
                 "chem_struct": r"CC(C)=CCOC1=CC=C(C[C@]23NC(=O)C(NC2=O)SSSS3)C=C1"
             },
         ]
@@ -309,7 +309,7 @@ for bgc_id, entry in mibig.items():
     elif bgc_id == "BGC00001202":
         entry["compounds"] = [
             {
-                "compound": "landepoxcin A"
+                "compound": "landepoxcin A",
                 "chem_struct": r"[H]CC(C)CC(=O)NC([C@@H](C)O)C(=O)N[C@@H](CC(C)=C)C(=O)C1([H])CO1",
             },
             {
@@ -453,7 +453,7 @@ for bgc_id, entry in mibig.items():
         elif compound["compound"] == "hydroxysporine":
             compound["chem_struct"] = r"OC1=CC2=C(NC3=C2C2=C(C(=O)NC2)C2=C3NC3=C2C=C(O)C=C3)C=C1"
         elif compound["compound"] == "reductasporine":
-            compound["chem_struct"] = r"C[N]1(C)CC2=C(C1)C1=C(NC3=C1C=CC=C3)C1=C2C2=C(N1)C=CC=C2"
+            compound["chem_struct"] = r"C[N+]1(C)CC2=C(C1)C1=C(NC3=C1C=CC=C3)C1=C2C2=C(N1)C=CC=C2"
 
 # --- Load NPAtlas -----------------------------------------------------------
 with rich.progress.open(args.atlas, "rb", description=f"[bold blue]{'Loading':>12}[/] NPAtlas") as handle:

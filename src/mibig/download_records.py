@@ -96,7 +96,7 @@ with rich.progress.Progress() as progress:
             # downstream genes
             elif record.id == "BGC0001202":
                 start = get_cds(record, protein_id="AKA59430.1").location.start
-                end = get_cds(record, protein_id=" AKA59442.1").location.end
+                end = get_cds(record, protein_id="AKA59442.1").location.end
 
             # MIBiG entry of BGC0002386 contains many unrelated genes; the paper
             # performed heterologous expression and identified 7 core genes,
