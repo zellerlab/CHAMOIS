@@ -252,6 +252,26 @@ for bgc_id, entry in mibig.items():
     # the SMILES in MIBiG is wrong, but the PubChem xref is correct
     elif bgc_id == "BGC0000657":
         del entry["compounds"][0]["chem_struct"]
+    # BGC0000282 produces several alkylresorcinol and alkylcoprinin derivatives
+    # (see https://www.jbc.org/article/S0021-9258(20)71631-5/fulltext#gr5);
+    # compound 15 which has the highest peak in the heterologous expression profile
+    # is recorded below (in pseudo-IUPAC nomenclature, since it is never named)
+    elif bgc_id == "BGC0000282":
+        entry["compounds"] = [
+            {
+                "compound": "2-Methoxy-5-methyl-6-isopentadecyl-1,4-benzoquinone",
+                "chem_struct": r"COC1=CC(=O)C(C)=C(CCCCCCCCCCCCC(C)C)C1=O",
+            }
+        ]
+    # The IUPAC name of the compound in BGC0002734 is incorrect
+    elif bgc_id == "BGC0002734":
+        entry["compounds"] = [
+            {
+                "compound": "4,6-dihydroxy-2,3-dimethylbenzaldehyde",
+                "chem_struct": r"CC1=C(C(=C(C=C1O)O)C=O)C",
+                "database_id": ["pubchem:254155"]
+            }
+        ]
 
     for compound in entry["compounds"]:
         # β-D-galactosylvalidoxylamine-A is actually validamycin
@@ -334,6 +354,21 @@ for bgc_id, entry in mibig.items():
         # only the lipid group needs to be changed)
         elif compound["compound"] == "octapeptin C4":
             compound["chem_struct"] = r"CCCCCCCC(O)CC(=O)NC(CCN)C(\O)=N\C1CC\N=C(O)\C(CC(C)C)\N=C(O)\C(CCN)\N=C(O)\C(CCN)\N=C(O)/C(CC(C)C)\N=C(O)/C(CC2=CC=CC=C2)\N=C(O)\C(CCN)\N=C1/O"
+        # add formula of BGC0002656 compounds
+        elif compound["compound"] == "oryzanaphthopyran A":
+            compound["chem_struct"] = r"OC1=C(NC(=O)C2=CC3=C(Cl)C(=O)C4=C(O)C=CC(Cl)=C4C3(O)CO2)C(=O)CC1"
+        elif compound["compound"] == "oryzanaphthopyran B":
+            compound["chem_struct"] = r"OC1=C(NC(=O)C2=CC3=C(Cl)C(=O)C4=C(O)C=CC=C4C3(O)CO2)C(=O)CC1"
+        elif compound["compound"] == "oryzanaphthopyran C":
+            compound["chem_struct"] = r"OC1=C(NC(=O)C2=CC3=CC(=O)C4=C(O)C=CC=C4C3(O)CO2)C(=O)CC1"
+        elif compound["compound"] == "oryzanthrone A":
+            compound["chem_struct"] = r"CC1=C(C(O)=O)C(O)=CC2=C1C(=O)C1=C(O)C=CC=C1C2(C)O"
+        elif compound["compound"] == "oryzanthrone B":
+            compound["chem_struct"] = r"CC1=CC(O)=CC2=C1C(=O)C1=C(O)C=CC=C1C2(C)O"
+        elif compound["compound"] == "chlororyzanthrone A":
+            compound["chem_struct"] = r"CC1=CC(O)=C(Cl)C2=C1C(=O)C1=C(O)C=CC=C1[C@H]2O"
+        elif compound["compound"] == "chlororyzanthrone B":
+            compound["chem_struct"] = r"C[C@@H]1C2=CC=CC(O)=C2C(=O)C2=C1C(Cl)=C(O)C=C2C"
 
 # --- Load NPAtlas -----------------------------------------------------------
 with rich.progress.open(args.atlas, "rb", description=f"[bold blue]{'Loading':>12}[/] NPAtlas") as handle:
