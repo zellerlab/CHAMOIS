@@ -29,12 +29,14 @@ def extract_records(response):
                         yield Bio.SeqIO.read(data, "genbank")
 
 
-def get_gene(record, name):
+def get_cds(record, **kwargs):
+    for k, v in kwargs.items():
+        break
     return next(
         f
         for f in record.features
         if f.type == "CDS"
-        and f.qualifiers.get("gene", [""])[0] == name
+        and f.qualifiers.get(k, [""])[0] == v
     )
 
 
@@ -49,7 +51,7 @@ with rich.progress.Progress() as progress:
 
     # download MIBIG 3 records
     with urllib.request.urlopen(url) as response:
-        
+
         records = []
         for record in extract_records(response):
             # ignore BGCs in blocklist
@@ -60,21 +62,29 @@ with rich.progress.Progress() as progress:
             # (genes are characterized in doi:10.1016/j.toxicon.2014.07.016)
             if record.id == "BGC0000017":
                 start = 0
-                end = get_gene(record, "anaH").location.end
+                end = get_cds(record, gene="anaH").location.end
+
+            # BGC0000122 has additional genes, the core BGC is only composed
+            # of phn1-phn2 (see doi:10.1002/cbic.201300676)
+            elif record.id == "BGC0000122":
+                start = get_cds(record, gene="phn2").location.start
+                end = get_cds(record, gene="phn1").location.end
 
             # BGC0000938 has many uneeded genes, some of which have been shown
             # to be unneeded for biosynthesis through deletion analysis, and
             # the authors only consider fom3-fomC to be the core fosfomycin BGC
             # (see doi:10.1016/j.chembiol.2006.09.007)
             elif record.id == "BGC0000938":
-                start = get_gene(record, "fom3").location.start
-                end = get_gene(record, "fomC").location.end
+                start = get_cds(record, gene="fom3").location.start
+                end = get_cds(record, gene="fomC").location.end
 
-            # BGC0000122 has additional genes, the core BGC is only composed
-            # of phn1-phn2 (see doi:10.1002/cbic.201300676)
-            elif record.id == "BGC0000122":
-                start = get_gene(record, "phn2").location.start
-                end = get_gene(record, "phn1").location.end
+            # BGC0001367 has unneeded downstream genes, the authors only
+            # consider the two core genes `hla1` and `hla2` to be part of
+            # the BGC and sufficient for synthesis of the final compound
+            # (see https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6274090/)
+            elif record.id == "BGC0001367":
+                start = get_cds(record, locus_tag="Hoch_0798").location.start
+                end = get_cds(record, locus_tag="Hoch_0799").location.end
 
             # clamp the BGC boundaries to the left- and rightmost genes
             else:
