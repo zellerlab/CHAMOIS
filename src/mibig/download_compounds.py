@@ -272,6 +272,39 @@ for bgc_id, entry in mibig.items():
                 "database_id": ["pubchem:254155"]
             }
         ]
+    # The compounds for BGC0001917 have not been expanded in MIBiG: in total,
+    # there are 14 compounds described in the paper. Minimal cluster
+    # (`stmA` to `stmI`) is shown to produce streptoaminal 9i and 9n
+    # as well as three 5-alkyltetrahydroquinolines through heterologous
+    # expression.
+    elif bgc_id == "BGC00001917":
+        entry["compounds"] = [
+            {
+                "compound": "1,2,3,4-tetrahydro-5-isononylquinoline",
+                "chem_struct": r"CC(C)CCCCCCC1=CC=CC2=C1CCCN2",
+                "database_id": ["pubchem:73053139"],
+            },
+            {
+                "compound": "1,2,3,4-tetrahydro-5-nonylquinoline",
+                "chem_struct": r"CCCCCCCCCC1=CC=CC2=C1CCCN2",
+                "database_id": ["pubchem:106778340"],
+            },
+            {
+                "compound": "1,2,3,4-tetrahydro-5-decylquinoline",
+                "chem_struct": r"CCCCCCCCCCC1=CC=CC2=C1CCCN2",
+                "database_id": ["pubchem:106778710"],
+            },
+            {
+                "compound": "streptoaminal-9i",
+                "chem_struct": r"CC(C)CCCCCC[C@@H]1C[C@@H](O)C[C@]2(CCCCN2)O1",
+                "database_id": ["pubchem:139591491"]
+            },
+            {
+                "compound": "streptoaminal-9n",
+                "chem_struct": r"CCCCCCCCC[C@@H]1C[C@@H](O)C[C@]2(CCCCN2)O1",
+                "database_id": ["pubchem:132571090"]
+            }
+        ]
 
     for compound in entry["compounds"]:
         # β-D-galactosylvalidoxylamine-A is actually validamycin

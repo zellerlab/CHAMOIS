@@ -86,6 +86,12 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, locus_tag="Hoch_0798").location.start
                 end = get_cds(record, locus_tag="Hoch_0799").location.end
 
+            # Heterologous expression of BGC0001917 shows that only `stmA` to `stmI`
+            # are required for synthesis (see doi:10.1039/c8ob02846j, Fig.3)
+            elif record.id == "BGC00001917":
+                start = get_cds(record, gene="stmA").location.start
+                end = get_cds(record, gene="stmI").location.end
+
             # clamp the BGC boundaries to the left- and rightmost genes
             else:
                 start = min( f.location.start for f in record.features if f.type == "CDS" )
