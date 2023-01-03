@@ -317,6 +317,32 @@ for bgc_id, entry in mibig.items():
                 "chem_struct": r"[H]C1(CO1)C(=O)[C@H](CC(C)=C)NC(=O)C(NC(=O)CC(C)CC)[C@@H](C)O",
             }
         ]
+    # The correct product of BGC0001829 is TMC-86A, as shown in the
+    # paper abstract (see doi:10.1021/jacs.6b01619)
+    elif bgc_id == "BGC0001829":
+        entry["compounds"] = [
+            {
+                "compound": "TMC-86A",
+                "database_id": ["pubchem:9798121"],
+            }
+        ]
+    # Add manually drawn NRP compounds of BGC0002386 according to
+    # the paper (see doi:10.12211/2096-8280.2021-024, Fig. 5)
+    elif bgc_id == "BGC0002386":
+        entry["compounds"] = [
+            {
+                "compound": "cyclo(N-methyl-(L)-Leu-(L)-Val)",
+                "chem_struct": r"CC(C)C[C@@H]1N(C)C(=O)[C@@H](NC1=O)C(C)C",
+            },
+            {
+                "compound": "cyclo(N-methyl-(L)-Leu-(L)-Leu)",
+                "chem_struct": r"CC(C)C[C@@H]1NC(=O)[C@H](CC(C)C)N(C)C1=O",
+            },
+            {
+                "compound": "cyclo(N-methyl-(L)-Leu-(L)-Ile)",
+                "chem_struct": r"CC[C@H](C)[C@@H]1NC(=O)[C@H](CC(C)C)N(C)C1=O",
+            },
+        ]
 
     for compound in entry["compounds"]:
         # β-D-galactosylvalidoxylamine-A is actually validamycin

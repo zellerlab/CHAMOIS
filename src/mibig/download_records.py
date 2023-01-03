@@ -98,6 +98,14 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, protein_id="AKA59430.1").location.start
                 end = get_cds(record, protein_id=" AKA59442.1").location.end
 
+            # MIBiG entry of BGC0002386 contains many unrelated genes; the paper
+            # performed heterologous expression and identified 7 core genes,
+            # although the whole synthesis seems to be done by the core NRPS
+            # (see doi:10.12211/2096-8280.2021-024, Fig.2 and Fig.6)
+            elif record.id == "BGC0002386":
+                start = get_cds(record, locus_tag="SCE1572_24700").location.start
+                end = get_cds(record, locus_tag="SCE1572_24730").location.end
+
             # clamp the BGC boundaries to the left- and rightmost genes
             else:
                 start = min( f.location.start for f in record.features if f.type == "CDS" )
