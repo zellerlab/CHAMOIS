@@ -210,7 +210,7 @@ for bgc_id, entry in mibig.items():
         entry["compounds"] = [
             {
                 "compound": "arylpolyene 1", 
-                "chem_struct": "C1(C=C(C)C(O)C(C)C=1)/C=C/C=C/C=C/C=C/C=C/C=C/C(OC)=O",  # drawn manually from the paper structure
+                "chem_struct": r"C1(C=C(C)C(O)C(C)C=1)/C=C/C=C/C=C/C=C/C=C/C=C/C(OC)=O",  # drawn manually from the paper structure
             },
             { "compound": "arylpolyene 2" },
             { "compound": "arylpolyene 3" },
@@ -253,7 +253,7 @@ for bgc_id, entry in mibig.items():
             compound["compound"] = "fusarin C"
         elif compound["compound"] == "PreQ0 Base":
             compound["compound"] = "7-cyano-7-deazaguanine"
-            compound["chem_struct"] = "Nc1nc2[nH]cc(C#N)c2c(=O)[nH]1"
+            compound["chem_struct"] = r"Nc1nc2[nH]cc(C#N)c2c(=O)[nH]1"
         # aureusimine BGCs actually produce aureusimine A, B and C
         elif compound["compound"] == "aureusimine":
             entry["compounds"] = [{"compound": f"aureusimine {x}"} for x in "ABC"]
@@ -315,6 +315,9 @@ for bgc_id, entry in mibig.items():
         # fix names of fortimicin
         if compound["compound"] == "fortimicin":
             compound["compound"] = "fortimicin A"
+        # add formula of foxicin A (drawn according to paper)
+        if compound["compound"] == "foxicin A":
+            compound["chem_struct"] = r"C[C@@H](C=C(C)C)\C=C(/C)C(=O)NC1=CC(=O)C(O)=C(NC(C)=O)C1=O"
 
 # --- Load NPAtlas -----------------------------------------------------------
 with rich.progress.open(args.atlas, "rb", description=f"[bold blue]{'Loading':>12}[/] NPAtlas") as handle:
