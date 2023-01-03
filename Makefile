@@ -23,6 +23,9 @@ features: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/feature
 .PHONY: classes
 classes: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/classes.hdf5)
 
+.PHONY: maccs
+maccs: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/maccs.hdf5)
+
 .PHONY: compounds
 compounds: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/compounds.json)
 
@@ -30,7 +33,7 @@ compounds: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/compou
 features: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/clusters.gbk)
 
 .PHONY: datasets
-datasets: features classes compounds clusters
+datasets: features classes compounds clusters maccs
 
 # --- External data ----------------------------------------------------------
 
@@ -50,6 +53,9 @@ $(DATA)/datasets/%/features.hdf5: $(DATA)/datasets/%/clusters.gbk $(PFAM_HMM)
 
 $(DATA)/datasets/%/classes.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(CHEMONT)
 	$(PYTHON) src/make_classes.py -i $< -o $@ --atlas $(ATLAS) --chemont $(CHEMONT) --cache $(BUILD)
+
+$(DATA)/datasets/%/maccs.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(CHEMONT)
+	$(PYTHON) src/make_maccs.py -i $< -o $@ --cache $(BUILD)
 
 # --- Download MIBiG 2.0 data ------------------------------------------------
 
