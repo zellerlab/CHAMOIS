@@ -106,6 +106,12 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, locus_tag="SCE1572_24700").location.start
                 end = get_cds(record, locus_tag="SCE1572_24730").location.end
 
+            # MIBiG entry of BGC0001967 contains unrelated genes on both sides
+            # of the `ade` operon
+            elif record.id == "BGC0001967":
+                start = get_cds(record, gene="adeA").location.start
+                end = get_cds(record, gene="adeI").location.end
+
             # clamp the BGC boundaries to the left- and rightmost genes
             else:
                 start = min( f.location.start for f in record.features if f.type == "CDS" )

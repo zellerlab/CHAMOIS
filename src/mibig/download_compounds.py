@@ -343,6 +343,15 @@ for bgc_id, entry in mibig.items():
                 "chem_struct": r"CC[C@H](C)[C@@H]1NC(=O)[C@H](CC(C)C)N(C)C1=O",
             },
         ]
+    # Manually draw the ADEP1 formula using paper reference
+    # (see https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6805094/)
+    elif bgc_id == "BGC0001967":
+        entry["compounds"] = [
+            {
+                "compound": "acyldepsipeptide 1",
+                "chem_struct": r"C\C=C\C=C\C=C\C(=O)N[C@@H](CC1=CC=CC=C1)C(=O)N[C@H]1COC(=O)[C@@H]2C[C@@H](C)CN2C(=O)[C@H](C)NC(=O)[C@H](C)N(C)C(=O)[C@@H]2CCCN2C1=O",
+            }
+        ]
 
     for compound in entry["compounds"]:
         # β-D-galactosylvalidoxylamine-A is actually validamycin
