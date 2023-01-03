@@ -119,8 +119,6 @@ BGC0000127	pyoluteorin	220664	Pseudomonas protegens Pf-5	Pseudomonas protegens	P
 BGC0000128	pyoluteorin	228095		Pseudomonas sp. M18	Pseudomonas	Pseudomonadaceae	Pseudomonadales	Gammaproteobacteria	Proteobacteria		Bacteria																		
 BGC0000129	pyripyropene A	330879	Aspergillus fumigatus Af293	Aspergillus fumigatus	Aspergillus	Aspergillaceae	Eurotiales	Eurotiomycetes	Ascomycota	Opisthokonta	Eukaryota				Eurotiomycetidae	Pezizomycotina	Dikarya	Fungi	Aspergillus subgen. Fumigati										
 BGC0000130	pyrrolomycin A	76728		Wenjunlia vitaminophila	Wenjunlia	Streptomycetaceae	Streptomycetales	Actinomycetia	Actinobacteria	Terrabacteria group	Bacteria																		
-BGC0000131	pyrrolomycin	428401		Streptomyces sp. UC 11065	Streptomyces	Streptomycetaceae	Streptomycetales	Actinomycetia	Actinobacteria	Terrabacteria group	Bacteria																		
-BGC0000132	pyrrolomycin	428401		Streptomyces sp. UC 11065	Streptomyces	Streptomycetaceae	Streptomycetales	Actinomycetia	Actinobacteria	Terrabacteria group	Bacteria																		
 BGC0000133	quartromicin A1	31958		Amycolatopsis orientalis	Amycolatopsis	Pseudonocardiaceae	Pseudonocardiales	Actinomycetia	Actinobacteria	Terrabacteria group	Bacteria																		
 BGC0000134	radicicol	280754		Pochonia chlamydosporia	Pochonia	Clavicipitaceae	Hypocreales	Sordariomycetes	Ascomycota	Opisthokonta	Eukaryota				Hypocreomycetidae	Pezizomycotina	Dikarya	Fungi											
 BGC0000135	reveromycin A	659352		Streptomyces sp. SN-593	Streptomyces	Streptomycetaceae	Streptomycetales	Actinomycetia	Actinobacteria	Terrabacteria group	Bacteria																		
@@ -615,7 +613,6 @@ BGC0000651	KS-505a	67274		Streptomyces argenteolus	Streptomyces	Streptomycetacea
 BGC0000652	napyradiomycin	418855		Streptomyces sp. CNQ-525	Streptomyces	Streptomycetaceae	Streptomycetales	Actinomycetia	Actinobacteria	Terrabacteria group	Bacteria																		
 BGC0000653	pentalenolactone	29301		Streptomyces arenae	Streptomyces	Streptomycetaceae	Streptomycetales	Actinomycetia	Actinobacteria	Terrabacteria group	Bacteria																		
 BGC0000654	phenalinolactone A	355249		Streptomyces sp. Tu6071	Streptomyces	Streptomycetaceae	Streptomycetales	Actinomycetia	Actinobacteria	Terrabacteria group	Bacteria																		
-BGC0000656	zeaxanthin	78245	Xanthobacter autotrophicus Py2	Xanthobacter autotrophicus	Xanthobacter	Xanthobacteraceae	Hyphomicrobiales	Alphaproteobacteria	Proteobacteria		Bacteria																		
 BGC0000657	2-methylisoborneol	1002505		Pseudanabaena sp. dqh15	Pseudanabaena	Pseudanabaenaceae	Pseudanabaenales		Cyanobacteria	Terrabacteria group	Bacteria																		
 BGC0000658	2-methylisoborneol	455632	Streptomyces griseus subsp. griseus NBRC 13350	Streptomyces griseus	Streptomyces	Streptomycetaceae	Streptomycetales	Actinomycetia	Actinobacteria	Terrabacteria group	Bacteria	Streptomyces griseus group								Streptomyces griseus subsp. griseus	Streptomyces griseus subgroup								
 BGC0000659	2-methylisoborneol	405948	Saccharopolyspora erythraea NRRL 2338	Saccharopolyspora erythraea	Saccharopolyspora	Pseudonocardiaceae	Pseudonocardiales	Actinomycetia	Actinobacteria	Terrabacteria group	Bacteria																		
