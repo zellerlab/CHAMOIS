@@ -34,6 +34,7 @@ BGC0000463	retired in MIBiG 3.1
 BGC0000467	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/094
 BGC0000629	retired in MIBiG 3.1	
 BGC0000655	exact duplicate of BGC0000611	https://github.com/mibig-secmet/mibig-json/issues/078
+BGC0000656	cluster is missing 2 genes	doi:10.1007/s00203-002-0442-2
 BGC0000671	not a gene cluster (plant)	https://mibig.secondarymetabolites.org/repository/BGC0000671/#r1c1
 BGC0000672	not a gene cluster (plant)	https://mibig.secondarymetabolites.org/repository/BGC0000672/#r1c1
 BGC0000680	retired in MIBiG 3.1	
