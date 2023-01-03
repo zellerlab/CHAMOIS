@@ -10,13 +10,15 @@ from urllib.error import HTTPError
 from typing import Dict, List
 
 import anndata
-import joblib
+import disjoint_set
 import pandas
 import numpy
 import rich.progress
 import scipy.sparse
+import scipy.spatial.distance
 import rdkit.Chem
 from rdkit.Chem import MACCSkeys
+from rdkit.Chem.rdMHFPFingerprint import MHFPEncoder
 from rdkit import RDLogger
 
 NAMES = [
@@ -196,14 +198,9 @@ RDLogger.DisableLog('rdApp.warning')
 parser = argparse.ArgumentParser()
 parser.add_argument("-i", "--input", required=True)
 parser.add_argument("-o", "--output", required=True)
-parser.add_argument("--cache")
+parser.add_argument("-D", "--distance", type=float, default=0.5)
 args = parser.parse_args()
 
-# create persistent cache
-if args.cache:
-    rich.print(f"[bold green]{'Using':>12}[/] joblib cache folder {args.cache!r}")
-    os.makedirs(args.cache, exist_ok=True)
-memory = joblib.Memory(location=args.cache, verbose=False)
 
 # --- Load MIBiG -------------------------------------------------------------
 
@@ -242,6 +239,26 @@ for bgc_id, bgc_compounds in rich.progress.track(compounds.items(), description=
     else:
         unknown_structure[bgc_index] = True
 
+
+# --- Build groups using MHFP6 distances -------------------------------------
+
+rich.print(f"[bold blue]{'Building':>12}[/] MHFP6 fingerprints for {len(bgc_indices)} compounds")
+
+encoder = MHFPEncoder(2048, 42)
+group_set = disjoint_set.DisjointSet({ i:i for i in range(len(bgc_ids)) })
+fps = numpy.array(encoder.EncodeSmilesBulk(smiles, kekulize=True))
+indices = itertools.combinations(range(len(bgc_ids)), 2)
+total = len(bgc_ids) * (len(bgc_ids) - 1) / 2
+
+for (i, j) in rich.progress.track(indices, total=total, description=f"[bold blue]{'Joining':>12}[/]"):
+    d = scipy.spatial.distance.hamming(fps[i], fps[j])
+    if d < args.distance:
+        group_set.union(i, j)
+
+n = sum(1 for _ in group_set.itersets())
+rich.print(f"[bold green]{'Built':>12}[/] {n} groups of molecules with MHFP6 distance over {args.distance}")
+
+
 # --- Create annotated data --------------------------------------------------
 
 # generate annotated data
@@ -255,6 +272,7 @@ data = anndata.AnnData(
             compound=names,
             smiles=smiles,
             inchikey=inchikey,
+            groups=[group_set[i] for i in range(len(bgc_ids))]
         ),
     ),
     var=pandas.DataFrame(

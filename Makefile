@@ -55,7 +55,7 @@ $(DATA)/datasets/%/classes.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(CH
 	$(PYTHON) src/make_classes.py -i $< -o $@ --atlas $(ATLAS) --chemont $(CHEMONT) --cache $(BUILD)
 
 $(DATA)/datasets/%/maccs.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(CHEMONT)
-	$(PYTHON) src/make_maccs.py -i $< -o $@ --cache $(BUILD)
+	$(PYTHON) src/make_maccs.py -i $< -o $@
 
 # --- Download MIBiG 2.0 data ------------------------------------------------
 

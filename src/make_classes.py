@@ -10,6 +10,7 @@ from urllib.error import HTTPError
 from typing import Dict, List
 
 import anndata
+import disjoint_set
 import joblib
 import pandas
 import pronto
@@ -18,6 +19,7 @@ import rdkit.Chem
 import rich.progress
 import scipy.sparse
 from rdkit import RDLogger
+from rdkit.Chem.rdMHFPFingerprint import MHFPEncoder
 
 # disable logging
 RDLogger.DisableLog('rdApp.warning')
@@ -28,6 +30,7 @@ parser.add_argument("-i", "--input", required=True)
 parser.add_argument("--atlas", required=True)
 parser.add_argument("--chemont", required=True)
 parser.add_argument("-o", "--output", required=True)
+parser.add_argument("-D", "--distance", type=float, default=0.5)
 parser.add_argument("--cache")
 args = parser.parse_args()
 
@@ -131,6 +134,7 @@ unknown_structure = numpy.zeros(len(bgc_ids), dtype=numpy.bool_)
 classes = numpy.zeros((len(compounds), len(chemont_indices)), dtype=numpy.bool_)
 smiles = [""]*len(compounds)
 names = [""]*len(compounds)
+inchikey = [""] * len(compounds)
 
 for bgc_id in rich.progress.track(annotations, description=f"[bold blue]{'Binarizing':>12}[/]"):
     bgc_index = bgc_indices[bgc_id]
@@ -146,11 +150,13 @@ for bgc_id in rich.progress.track(annotations, description=f"[bold blue]{'Binari
         key=lambda i: -1 if not annotations[bgc_id][i] else len(full_classification(annotations[bgc_id][i])),
     )
     assert best_index >= 0
-    # record classification and metadata for compound
+    # record compount structure
     bgc_compound = compounds[bgc_id][best_index]
     bgc_annotation = annotations[bgc_id][best_index]
     smiles[bgc_index] = bgc_annotation["smiles"]
     names[bgc_index] = bgc_compound["compound"]
+    inchikey[bgc_index] = rdkit.Chem.MolToInchiKey(rdkit.Chem.MolFromSmiles(bgc_annotation["smiles"]))
+    # record classification and metadata for compound
     for parent in full_classification(bgc_annotation):
         if parent.id != "CHEMONTID:9999999":
             classes[bgc_index, chemont_indices[parent.id]] = True
@@ -173,6 +179,25 @@ for term_id, i in chemont_indices.items():
             subclasses[i, j] = True
 
 
+# --- Build groups using MHFP6 distances -------------------------------------
+
+rich.print(f"[bold blue]{'Building':>12}[/] MHFP6 fingerprints for {len(bgc_indices)} compounds")
+
+encoder = MHFPEncoder(2048, 42)
+group_set = disjoint_set.DisjointSet({ i:i for i in range(len(bgc_ids)) })
+fps = numpy.array(encoder.EncodeSmilesBulk(smiles, kekulize=True))
+indices = itertools.combinations(range(len(bgc_ids)), 2)
+total = len(bgc_ids) * (len(bgc_ids) - 1) / 2
+
+for (i, j) in rich.progress.track(indices, total=total, description=f"[bold blue]{'Joining':>12}[/]"):
+    d = scipy.spatial.distance.hamming(fps[i], fps[j])
+    if d < args.distance:
+        group_set.union(i, j)
+
+n = sum(1 for _ in group_set.itersets())
+rich.print(f"[bold green]{'Built':>12}[/] {n} groups of molecules with MHFP6 distance over {args.distance}")
+
+
 # --- Create annotated data --------------------------------------------------
 
 # generate annotated data
@@ -185,6 +210,8 @@ data = anndata.AnnData(
             unknown_structure=unknown_structure,
             compound=names,
             smiles=smiles,
+            inchikey=inchikey,
+            groups=[group_set[i] for i in range(len(bgc_ids))]
         ),
     ),
     var=pandas.DataFrame(
