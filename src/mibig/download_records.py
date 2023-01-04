@@ -112,6 +112,16 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, gene="adeA").location.start
                 end = get_cds(record, gene="adeI").location.end
 
+            # lasalocid BGCs contains unrelated flanking genes; the reference
+            # identifies only the core 16 genes, `las1` to `lasB`, as the BGC
+            # (see doi:10.1002/cbic.200800585)
+            elif record.id == "BGC0000086":
+                start = get_cds(record, gene="lsd1").location.start
+                end = get_cds(record, gene="lsd19").location.end
+            elif record.id == "BGC0000087":
+                start = get_cds(record, gene="las1").location.start
+                end = get_cds(record, gene="lasB").location.end
+
             # clamp the BGC boundaries to the left- and rightmost genes
             else:
                 start = min( f.location.start for f in record.features if f.type == "CDS" )
