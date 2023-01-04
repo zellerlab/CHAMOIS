@@ -8,7 +8,7 @@ MIBIG_VERSION=3.1
 PFAM_VERSION=35.0
 PFAM_HMM=$(DATA)/Pfam$(PFAM_VERSION).hmm
 
-ATLAS=$(DATA)/NPAtlas_download.json.gz
+ATLAS=$(DATA)/npatlas/NPAtlas_download.json.gz
 CHEMONT=$(DATA)/chemont/ChemOnt_2_1.obo
 
 DATASET_NAMES=abc mibig3.1 mibig2.0
@@ -40,8 +40,17 @@ datasets: features classes compounds clusters maccs
 $(PFAM_HMM):
 	$(WGET) http://ftp.ebi.ac.uk/pub/databases/Pfam/releases/Pfam$(PFAM_VERSION)/Pfam-A.hmm.gz -O- | gunzip > $@
 
+# --- NP Atlas ---------------------------------------------------------------
+
 $(ATLAS):
 	$(WGET) https://www.npatlas.org/static/downloads/NPAtlas_download.json -O- | gzip -c > $@
+
+$(DATA)/npatlas/classes.hdf5: $(CHEMONT) $(ATLAS) 
+	$(PYTHON) src/npatlas/make_classes.py --atlas $(ATLAS) --chemont $(CHEMONT) -o $@
+
+$(DATA)/npatlas/maccs.hdf5: $(ATLAS) 
+	$(PYTHON) src/npatlas/make_maccs.py --atlas $(ATLAS) -o $@
+
 
 # --- Generic Rules ----------------------------------------------------------
 

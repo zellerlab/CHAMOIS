@@ -213,7 +213,7 @@ bgc_indices = {name:i for i, name in enumerate(bgc_ids)}
 rich.print(f"[bold green]{'Loaded':>12}[/] {len(bgc_indices)} BGCs")
 
 
-# --- Get ClassyFire annotations for all compounds ----------------------------
+# --- Compute MACCS keys for all compounds -----------------------------------
 
 unknown_structure = numpy.zeros(len(bgc_ids), dtype=numpy.bool_)
 maccs_keys = numpy.zeros((len(bgc_ids), 167), dtype=numpy.bool_)
