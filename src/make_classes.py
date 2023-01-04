@@ -190,9 +190,10 @@ indices = itertools.combinations(range(len(bgc_ids)), 2)
 total = len(bgc_ids) * (len(bgc_ids) - 1) / 2
 
 for (i, j) in rich.progress.track(indices, total=total, description=f"[bold blue]{'Joining':>12}[/]"):
-    d = scipy.spatial.distance.hamming(fps[i], fps[j])
-    if d < args.distance:
-        group_set.union(i, j)
+    if not unknown_structure[i] and not unknown_structure[j]:
+        d = scipy.spatial.distance.hamming(fps[i], fps[j])
+        if d < args.distance:
+            group_set.union(i, j)
 
 n = sum(1 for _ in group_set.itersets())
 rich.print(f"[bold green]{'Built':>12}[/] {n} groups of molecules with MHFP6 distance over {args.distance}")

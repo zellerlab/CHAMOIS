@@ -65,19 +65,6 @@ features = anndata.read("data/datasets/mibig3.1/features.hdf5")
 classes = anndata.read("data/datasets/mibig3.1/classes.hdf5")
 assert (features.obs.index == classes.obs.index).all()
 
-# --- Load ANI matrix and build groups based on ANI --------------------------
-
-animatrix = anndata.read("data/datasets/mibig3.1/mibig3.1_ani.hdf5")
-animatrix.X = animatrix.X.todok()
-assert (animatrix.obs.index == classes.obs.index).all()
-
-group_set = disjoint_set.DisjointSet({ i:i for i in range(animatrix.n_obs) })
-indices = itertools.combinations(range(animatrix.n_obs), 2)
-total = animatrix.n_obs * (animatrix.n_obs - 1) / 2
-for (i, j) in rich.progress.track(indices, total=total, description="Grouping..."):
-    if animatrix.X[i, j] >= 0.8:
-        group_set.union(i, j)
-features.obs["groups"] = numpy.array([group_set[i] for i in range(animatrix.n_obs)])
 
 # --- Load ChemOnt -----------------------------------------------------------
 
@@ -113,7 +100,7 @@ with rich.progress.Progress() as progress:
             # skip classes with no negative or no positives
             if y_true.sum() < CV_FOLDS or y_true.sum() >= len(y_true) - CV_FOLDS:
                 continue
-            elif numpy.unique(features.obs.groups[y_true]).shape[0] < CV_FOLDS:
+            elif numpy.unique(classes.obs.groups[y_true]).shape[0] < CV_FOLDS:
                 continue
             else:
                 rich.print(f"Training [bold blue]{class_name}[/] ({chemont[class_name].name!r}) classifier with {y_true.sum()} positive and {(~y_true).sum()} negatives")
@@ -129,7 +116,7 @@ with rich.progress.Progress() as progress:
             curve_index = len(curves)
 
             # train all classifiers
-            task = progress.add_task(total=len(CLASSIFIERS), description="Training...")
+            task = progress.add_task(total=len(CLASSIFIERS), description=f"[bold blue]{'Training':>12}[/]")
             for classifier_name, classifier in progress.track(CLASSIFIERS.items(), task_id=task):
                 # cross-validate predictor in cross-validation and compute stats
                 try:
@@ -140,7 +127,7 @@ with rich.progress.Progress() as progress:
                         method="predict_proba", 
                         cv=sklearn.model_selection.GroupKFold(CV_FOLDS), 
                         n_jobs=-1,
-                        groups=features.obs.groups,
+                        groups=classes.obs.groups,
                     )[:, 1]
                 except AttributeError:
                     y_pred = sklearn.model_selection.cross_val_predict(
@@ -150,7 +137,7 @@ with rich.progress.Progress() as progress:
                         method="predict", 
                         cv=sklearn.model_selection.GroupKFold(CV_FOLDS), 
                         n_jobs=-1,
-                        groups=features.obs.groups,
+                        groups=classes.obs.groups,
                     )
 
                 # compute evaluation statistics
