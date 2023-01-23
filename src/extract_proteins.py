@@ -16,6 +16,8 @@ from pprint import pprint
 import Bio.SeqIO
 import pyrodigal
 import rich.progress
+from Bio.Seq import Seq
+from Bio.SeqRecord import SeqRecord
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--gbk", help="The GenBank file containing all records to annnotate", required=True)
@@ -54,10 +56,10 @@ with rich.progress.Progress(
         genes = dict(pool.starmap(find_genes, records.items()))
 
     # convert Pyrodigal genes to PyHMMER sequences
-    with gzip.open(args.output, "wb") as dst:
+    with gzip.open(args.output, "wt") as dst:
         for bgc_id, bgc_genes in genes.items():
             for i, gene in enumerate(bgc_genes):
                name = f"{bgc_id}_{i+1}"
-               prot = gene.translate().rstrip("*")
-               seq = pyhmmer.easel.TextSequence(name=name.encode(), sequence=prot)
-               seq.write(dst)
+               seq = Seq(gene.translate().rstrip("*"))
+               record = SeqRecord(id=f"{bgc_id}_{i+1}", seq=seq)
+               Bio.SeqIO.write(record, dst, "fasta")
