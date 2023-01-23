@@ -12,13 +12,16 @@ ATLAS=$(DATA)/npatlas/NPAtlas_download.json.gz
 CHEMONT=$(DATA)/chemont/ChemOnt_2_1.obo
 
 DATASET_NAMES=abc mibig3.1 mibig2.0
-DATASET_TABLES=features classes mibig3.1_ani
+DATASET_TABLES=pfam35 classes mibig3.1_ani
 
 PYTHON=python -Wignore
 WGET=wget --no-check-certificate
 
+.PHONY: pfam35
+pfam35: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/pfam35.hdf5)
+
 .PHONY: features
-features: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/features.hdf5)
+features: pfam35
 
 .PHONY: classes
 classes: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/classes.hdf5)
@@ -30,7 +33,7 @@ maccs: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/maccs.hdf5
 compounds: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/compounds.json)
 
 .PHONY: clusters
-features: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/clusters.gbk)
+clusters: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/clusters.gbk)
 
 .PHONY: datasets
 datasets: features classes compounds clusters maccs
@@ -57,7 +60,7 @@ $(DATA)/npatlas/maccs.hdf5: $(ATLAS)
 $(DATA)/datasets/%/mibig3.1_ani.hdf5: $(DATA)/datasets/%/clusters.gbk $(DATA)/datasets/mibig3.1/clusters.gbk
 	$(PYTHON) src/make_ani.py --query $< --target $(DATA)/datasets/mibig3.1/clusters.gbk -o $@
 
-$(DATA)/datasets/%/features.hdf5: $(DATA)/datasets/%/clusters.gbk $(PFAM_HMM)
+$(DATA)/datasets/%/pfam35.hdf5: $(DATA)/datasets/%/clusters.gbk $(PFAM_HMM)
 	$(PYTHON) src/make_features.py --gbk $< --hmm $(PFAM_HMM) -o $@
 
 $(DATA)/datasets/%/classes.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(CHEMONT)
