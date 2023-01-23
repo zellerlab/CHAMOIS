@@ -44,9 +44,9 @@ with rich.progress.Progress(
 
     # load genbank records
     with progress.open(args.gbk, description="Reading...") as f:
-        records = { 
-            record.id: record 
-            for i, record in enumerate(Bio.SeqIO.parse(f, "genbank")) 
+        records = {
+            record.id: record
+            for i, record in enumerate(Bio.SeqIO.parse(f, "genbank"))
         }
 
     # find ORFs
@@ -64,7 +64,7 @@ with rich.progress.Progress(
     alphabet = pyhmmer.easel.Alphabet.amino()
     for bgc_id, bgc_genes in genes.items():
         sequences[bgc_id] = [
-            pyhmmer.easel.TextSequence( 
+            pyhmmer.easel.TextSequence(
                 name=f"{bgc_id}_{i+1}".encode(),
                 sequence=gene.translate().rstrip("*")
             ).digitize(alphabet)
@@ -73,10 +73,8 @@ with rich.progress.Progress(
 
     # extract all possible HMM names
     hmm_names = {}
-
-    # annotate genes with Pfam domains
     all_sequences = list(itertools.chain.from_iterable(sequences.values()))
-    domain_counts = collections.defaultdict(collections.Counter)
+    protein_domains = collections.defaultdict(list)
     task = progress.add_task(total=None, description="Finding domains...")
     with pyhmmer.plan7.HMMFile(args.hmm) as hmm_file:
         def callback(hmm, total):
@@ -86,11 +84,43 @@ with rich.progress.Progress(
             hmm_name = hits.query_name.decode()
             hmm_names[hmm_accession] = hmm_name
             for hit in hits:
-                if hit.pvalue < args.p_value:
-                    sequence_id = hit.name.decode()
-                    bgc_id = sequence_id.split("_", 1)[0]
-                    domain_counts[bgc_id][hmm_accession] += 1
-            
+                for domain in hit.domains:
+                    if domain.pvalue < args.p_value:
+                        sequence_id = hit.name.decode()
+                        protein_domains[sequence_id].append(domain)
+
+    def overlaps(dom1: pyhmmer.plan7.Domain, dom2: pyhmmer.plan7.Domain):
+        start1 = dom1.alignment.target_from
+        end1 = dom1.alignment.target_to
+        start2 = dom2.alignment.target_from
+        end2 = dom2.alignment.target_to
+        return start1 <= end2 and start2 <= end1
+
+    # resolve overlaps
+    domain_counts = collections.defaultdict(collections.Counter)
+    for sequence_id, domains in protein_domains.items():
+        while domains:
+            # get a candidate domain for the current gene
+            candidate_domain = domains.pop()
+            # check if does overlap with other domains
+            overlapping = [d for d in domains if overlaps(candidate_domain, d)]
+            for other_domain in overlapping:
+                if other_domain.pvalue > candidate_domain.pvalue:
+                    # remove other domain if it's worse than the one we
+                    # currently have
+                    domains.remove(other_domain)
+                else:
+                    # stop going through overlapping domains, as we found
+                    # one better than the candidate; this will cause the
+                    # candidate domain to be discarded as well
+                    break
+            else:
+                # no overlapping domain found, candidate is a true positive,
+                # we can record this one as a true hit and count it in the BGC
+                bgc_id = sequence_id.rsplit("_", 1)[0]
+                hmm_accession = candidate_domain.hit.hits.query_accession.decode()
+                domain_counts[bgc_id][hmm_accession] += 1
+
     # record all HMMs from the file
     all_possible = sorted(hmm_names)
     name_index = { name:i for i,name in enumerate(all_possible) }
@@ -125,5 +155,5 @@ with rich.progress.Progress(
     os.makedirs(os.path.dirname(args.output), exist_ok=True)
     data.write(args.output)
 
- 
-        
+
+
