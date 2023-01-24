@@ -23,8 +23,11 @@ import sklearn.neural_network
 import sklearn.pipeline
 import sklearn.linear_model
 import sklearn.neighbors
+import matplotlib
 import matplotlib.pyplot as plt
 from palettable.cartocolors.qualitative import Bold_10
+
+matplotlib.use('Agg')
 
 
 # --- sklearn Feature Selection implementation -------------------------------
@@ -61,7 +64,7 @@ class SelectPValueUnderThreshold(sklearn.base.TransformerMixin):
 
 # --- Load features and classes ----------------------------------------------
 
-features = anndata.read("data/datasets/mibig3.1/features.hdf5")
+features = anndata.read("data/datasets/mibig3.1/pfam35.hdf5")
 classes = anndata.read("data/datasets/mibig3.1/classes.hdf5")
 assert (features.obs.index == classes.obs.index).all()
 
@@ -78,6 +81,8 @@ CLASSIFIERS = {
     "LogisticRegression(penalty='l1')": sklearn.linear_model.LogisticRegression(penalty="l1", solver="liblinear"),
     "RandomForest()": sklearn.ensemble.RandomForestClassifier(),
 }
+
+os.makedirs(os.path.join("build", "classifier"), exist_ok=True)
 
 with rich.progress.Progress() as progress:
 

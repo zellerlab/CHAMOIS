@@ -52,7 +52,7 @@ chemont_indices = {
 # --- Load features and classes ----------------------------------------------
 
 # load the whole MIBiG 3.1
-features = anndata.read("data/datasets/mibig3.1/features.hdf5")
+features = anndata.read("data/datasets/mibig3.1/pfam35.hdf5")
 classes = anndata.read("data/datasets/mibig3.1/classes.hdf5")
 assert (features.obs.index == classes.obs.index).all()
 
@@ -62,12 +62,8 @@ assert (features.obs.index == classes.obs.index).all()
 features = features[~classes.obs.unknown_structure]
 classes = classes[~classes.obs.unknown_structure]
 
-# compute weights for the hamming distance: superclasses have a higher weight than leaves
-weights = classes.varp["subclasses"].sum(axis=1).A1
-
 # remove classes with less than 10 members
 mask = (classes.var.n_positives >= 10) & (classes.var.n_positives < classes.n_obs - 10)
-weights = weights[mask]
 classes = classes[:, mask]
 rich.print(f"[bold green]{'Using':>12}[/] {classes.n_vars} target classes")
 
