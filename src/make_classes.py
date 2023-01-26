@@ -64,12 +64,8 @@ inchikey_index = {entry["inchikey"]: entry for entry in data}
 
 chemont = pronto.Ontology(args.chemont)
 rich.print(f"[bold green]{'Loaded':>12}[/] {len(chemont)} terms from ChemOnt")
+chemont_indices = { term.id:i for i, term in enumerate(sorted(chemont.terms()))}
 
-chemont_indices = {
-    term.id: i
-    for i, term in enumerate(sorted(chemont.terms()))
-    if term.id != "CHEMONTID:9999999"
-}
 
 # --- Get ClassyFire annotations for all compounds ----------------------------
 
@@ -158,26 +154,30 @@ for bgc_id in rich.progress.track(annotations, description=f"[bold blue]{'Binari
     inchikey[bgc_index] = rdkit.Chem.MolToInchiKey(rdkit.Chem.MolFromSmiles(bgc_annotation["smiles"]))
     # record classification and metadata for compound
     for parent in full_classification(bgc_annotation):
-        if parent.id != "CHEMONTID:9999999":
-            classes[bgc_index, chemont_indices[parent.id]] = True
+        classes[bgc_index, chemont_indices[parent.id]] = True
 
 
 # --- Make adjacency matrix for the class graph ------------------------------
 
+parents = scipy.sparse.dok_matrix((len(chemont_indices), len(chemont_indices)), dtype=numpy.bool_)
 superclasses = scipy.sparse.dok_matrix((len(chemont_indices), len(chemont_indices)), dtype=numpy.bool_)
 for term_id, i in chemont_indices.items():
     for superclass in chemont[term_id].superclasses():
-        if superclass.id != "CHEMONTID:9999999":
-            j = chemont_indices[superclass.id]
-            superclasses[i, j] = True
+        j = chemont_indices[superclass.id]
+        superclasses[i, j] = True
+    for superclass in chemont[term_id].superclasses(with_self=False, distance=1):
+        j = chemont_indices[superclass.id]
+        parents[i, j] = True   
 
+children = scipy.sparse.dok_matrix((len(chemont_indices), len(chemont_indices)), dtype=numpy.bool_)
 subclasses = scipy.sparse.dok_matrix((len(chemont_indices), len(chemont_indices)), dtype=numpy.bool_)
 for term_id, i in chemont_indices.items():
     for subclass in chemont[term_id].subclasses():
-        if subclass.id != "CHEMONTID:9999999":
-            j = chemont_indices[subclass.id]
-            subclasses[i, j] = True
-
+        j = chemont_indices[subclass.id]
+        subclasses[i, j] = True
+    for subclass in chemont[term_id].subclasses(with_self=False, distance=1):
+        j = chemont_indices[subclass.id]
+        children[i, j] = True
 
 # --- Build groups using MHFP6 distances -------------------------------------
 
@@ -223,6 +223,8 @@ data = anndata.AnnData(
         )
     ),
     varp=dict(
+        parents=parents.tocsr(),
+        children=children.tocsr(),
         subclasses=subclasses.tocsr(),
         superclasses=superclasses.tocsr(),
     )
