@@ -28,7 +28,6 @@ parser.add_argument("--hmm", help="The HMM to use for annotating proteins", requ
 parser.add_argument("--gbk", help="The GenBank file containing all records to annnotate", required=True)
 # parser.add_argument("--json", required=True)
 parser.add_argument("-j", "--jobs", help="The number of threads to use to parallelize Pyrodigal and PyHMMER", type=int, default=os.cpu_count() or 1)
-parser.add_argument("--p-value", help="The p-value threshold for retaining domains", type=float, default=1e-9)
 parser.add_argument("-o", "--output", help="The name of the file to generate", required=True)
 args = parser.parse_args()
 
@@ -79,15 +78,14 @@ with rich.progress.Progress(
     with pyhmmer.plan7.HMMFile(args.hmm) as hmm_file:
         def callback(hmm, total):
             progress.update(task_id=task, advance=1, total=total)
-        for hits in pyhmmer.hmmer.hmmsearch(hmm_file, all_sequences, callback=callback, cpus=args.jobs):
+        for hits in pyhmmer.hmmer.hmmsearch(hmm_file, all_sequences, callback=callback, cpus=args.jobs, bit_cutoffs="trusted"):
             hmm_accession = hits.query_accession.decode()
             hmm_name = hits.query_name.decode()
             hmm_names[hmm_accession] = hmm_name
-            for hit in hits:
-                for domain in hit.domains:
-                    if domain.pvalue < args.p_value:
-                        sequence_id = hit.name.decode()
-                        protein_domains[sequence_id].append(domain)
+            for hit in hits.reported:
+                for domain in hit.domains.reported:
+                    sequence_id = hit.name.decode()
+                    protein_domains[sequence_id].append(domain)
 
     def overlaps(dom1: pyhmmer.plan7.Domain, dom2: pyhmmer.plan7.Domain):
         start1 = dom1.alignment.target_from
