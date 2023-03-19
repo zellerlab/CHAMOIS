@@ -8,6 +8,9 @@ MIBIG_VERSION=3.1
 PFAM_VERSION=35.0
 PFAM_HMM=$(DATA)/Pfam$(PFAM_VERSION).hmm
 
+KOFAM_DATE=2023-01-01
+KOFAM_HMM=$(DATA)/Kofam$(KOFAM_DATE).hmm
+
 ATLAS=$(DATA)/npatlas/NPAtlas_download.json.gz
 CHEMONT=$(DATA)/chemont/ChemOnt_2_1.obo
 
@@ -44,6 +47,9 @@ clusters: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/cluster
 $(PFAM_HMM):
 	$(WGET) http://ftp.ebi.ac.uk/pub/databases/Pfam/releases/Pfam$(PFAM_VERSION)/Pfam-A.hmm.gz -O- | gunzip > $@
 
+$(KOFAM_HMM):
+	$(WGET) ftp://ftp.genome.jp/pub/db/kofam/archives/$(KOFAM_DATE)/profiles.tar.gz -O- | tar xz --wildcards '*.hmm' -O > $@
+
 # --- NP Atlas ---------------------------------------------------------------
 
 $(ATLAS):
@@ -63,6 +69,9 @@ $(DATA)/datasets/%/mibig3.1_ani.hdf5: $(DATA)/datasets/%/clusters.gbk $(DATA)/da
 
 $(DATA)/datasets/%/pfam35.hdf5: $(DATA)/datasets/%/clusters.gbk $(PFAM_HMM)
 	$(PYTHON) src/make_features.py --gbk $< --hmm $(PFAM_HMM) -o $@
+
+$(DATA)/datasets/%/kofam.hdf5: $(DATA)/datasets/%/clusters.gbk $(KOFAM_HMM)
+	$(PYTHON) src/make_features.py --gbk $< --hmm $(KOFAM_HMM) -o $@
 
 $(DATA)/datasets/%/classes.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(CHEMONT)
 	$(PYTHON) src/make_classes.py -i $< -o $@ --atlas $(ATLAS) --chemont $(CHEMONT) --cache $(BUILD)
