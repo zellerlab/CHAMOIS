@@ -28,7 +28,6 @@ rich.print(f"[bold green]{'Loaded':>12}[/] {len(chemont)} terms from ChemOnt")
 chemont_indices = { 
     term.id: i
     for i, term in enumerate(sorted(chemont.terms()))
-    if term.id != "CHEMONTID:9999999"
 }
 
 # --- Make adjacency matrix for the class graph ------------------------------
@@ -36,16 +35,14 @@ chemont_indices = {
 superclasses = scipy.sparse.dok_matrix((len(chemont_indices), len(chemont_indices)), dtype=numpy.bool_)
 for term_id, i in chemont_indices.items():
     for superclass in chemont[term_id].superclasses():
-        if superclass.id != "CHEMONTID:9999999":
-            j = chemont_indices[superclass.id]
-            superclasses[i, j] = True
+        j = chemont_indices[superclass.id]
+        superclasses[i, j] = True
 
 subclasses = scipy.sparse.dok_matrix((len(chemont_indices), len(chemont_indices)), dtype=numpy.bool_)
 for term_id, i in chemont_indices.items():
     for subclass in chemont[term_id].subclasses():
-        if subclass.id != "CHEMONTID:9999999":
-            j = chemont_indices[subclass.id]
-            subclasses[i, j] = True
+        j = chemont_indices[subclass.id]
+        subclasses[i, j] = True
 
 
 # --- Load NPAtlas ------------------------------------------------------------

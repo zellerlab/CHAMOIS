@@ -73,6 +73,10 @@ with rich.progress.Progress(
             params = dict(section="BiosyntheticDetail", page="geneExport", taxon_oid=img_bgc['GenomeID'], cluster_id=img_bgc['ClusterID'], fasta="genbank")
             with session.get("https://img.jgi.doe.gov/cgi-bin/abc-public/main.cgi", params=params) as res:
                 soup = BeautifulSoup(res.text, "html.parser")
+                pre = soup.find("pre")
+                if pre is None:
+                    progress.console.print(f"[bold yellow]{'Failed':>12}[/] to retrieve record for [purple]{img_bgc['ClusterID']}[/]")
+                    continue
                 content = soup.find("pre").text
                 bgc_record = Bio.SeqIO.read(io.StringIO(content), "genbank")
                 assert len(bgc_record.seq) > 0

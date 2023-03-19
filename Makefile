@@ -17,6 +17,9 @@ DATASET_TABLES=pfam35 classes mibig3.1_ani
 PYTHON=python -Wignore
 WGET=wget --no-check-certificate
 
+.PHONY: datasets
+datasets: features classes compounds clusters maccs
+
 .PHONY: pfam35
 pfam35: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/pfam35.hdf5)
 
@@ -35,8 +38,6 @@ compounds: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/compou
 .PHONY: clusters
 clusters: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/clusters.gbk)
 
-.PHONY: datasets
-datasets: features classes compounds clusters maccs
 
 # --- External data ----------------------------------------------------------
 

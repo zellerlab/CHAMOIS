@@ -12,6 +12,7 @@ import pronto
 import rich.progress
 import scipy.sparse
 import rdkit.Chem
+from rdkit import RDLogger
 from rdkit.Chem import MACCSkeys
 
 NAMES = [
