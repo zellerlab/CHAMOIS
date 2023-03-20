@@ -9,6 +9,7 @@ PFAM_VERSION=35.0
 PFAM_HMM=$(DATA)/Pfam$(PFAM_VERSION).hmm
 
 KOFAM_DATE=2023-01-01
+KOFAM_LIST=$(DATA)/Kofam$(KOFAM_DATE).tsv
 KOFAM_HMM=$(DATA)/Kofam$(KOFAM_DATE).hmm
 
 ATLAS=$(DATA)/npatlas/NPAtlas_download.json.gz
@@ -26,8 +27,11 @@ datasets: features classes compounds clusters maccs
 .PHONY: pfam35
 pfam35: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/pfam35.hdf5)
 
+.PHONY: kofam2023
+kofam2023: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/kofam2023.hdf5)
+
 .PHONY: features
-features: pfam35
+features: pfam35 kofam2023
 
 .PHONY: classes
 classes: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/classes.hdf5)
@@ -47,8 +51,12 @@ clusters: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/cluster
 $(PFAM_HMM):
 	$(WGET) http://ftp.ebi.ac.uk/pub/databases/Pfam/releases/Pfam$(PFAM_VERSION)/Pfam-A.hmm.gz -O- | gunzip > $@
 
-$(KOFAM_HMM):
+$(KOFAM_HMM): $(KOFAM_LIST)
 	$(WGET) ftp://ftp.genome.jp/pub/db/kofam/archives/$(KOFAM_DATE)/profiles.tar.gz -O- | tar xz --wildcards '*.hmm' -O > $@
+	$(PYTHON) src/kofam/set_thresholds.py --hmm $@ --list $<
+
+$(KOFAM_LIST):
+	$(WGET) ftp://ftp.genome.jp/pub/db/kofam/archives/$(KOFAM_DATE)/ko_list.gz -O | gunzip -c > $@
 
 # --- NP Atlas ---------------------------------------------------------------
 
@@ -70,7 +78,7 @@ $(DATA)/datasets/%/mibig3.1_ani.hdf5: $(DATA)/datasets/%/clusters.gbk $(DATA)/da
 $(DATA)/datasets/%/pfam35.hdf5: $(DATA)/datasets/%/clusters.gbk $(PFAM_HMM)
 	$(PYTHON) src/make_features.py --gbk $< --hmm $(PFAM_HMM) -o $@
 
-$(DATA)/datasets/%/kofam.hdf5: $(DATA)/datasets/%/clusters.gbk $(KOFAM_HMM)
+$(DATA)/datasets/%/kofam2023.hdf5: $(DATA)/datasets/%/clusters.gbk $(KOFAM_HMM)
 	$(PYTHON) src/make_features.py --gbk $< --hmm $(KOFAM_HMM) -o $@
 
 $(DATA)/datasets/%/classes.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(CHEMONT)
