@@ -15,22 +15,21 @@ with urllib.request.urlopen(f"https://github.com/antismash/antismash/archive/ref
     data = io.BytesIO(res.read())
 
 with tarfile.open(fileobj=data) as tar:
-    with tar.extractfile(f"antismash-{args.version}/antismash/detection/hmm_detection/hmmdetails.txt") as f:
+    with tar.extractfile(f"antismash-{args.version}/antismash/detection/hmm_detection/data/hmmdetails.txt") as f:
         table = pandas.read_table(f, header=None, names=["name", "description", "threshold", "filename"])
-        table["smcog_id"] = table.index.apply("SMCOGS{:05}".format)
+        table["smcog_id"] = [f"SMCOGS{i:05}" for i in range(len(table))]
         table = table.set_index("name")
     with open(args.output, "wb") as dst:
-        for entry in iter(tar.next, None):
+        for entry in tar.getmembers():
             path = entry.name.split("/")
             if "hmm_detection" in path and entry.name.endswith(".hmm"):
                 with tar.extractfile(entry) as f:
                     with pyhmmer.plan7.HMMFile(f) as hmm_file:
                         hmm = hmm_file.read()
-                i = table.index.get_loc(hmm.name.decode())
-                t = table.iloc[i, "threshold"]
-                hmm.name = table.iloc[i, "name"].encode()
-                hmm.accession = table.iloc[i, "smcog_id"].encode()
-                hmm.description = table.iloc[i, "description"].encode()
+                name = hmm.name.decode()
+                t = table.loc[name, "threshold"]
+                hmm.accession = table.loc[name, "smcog_id"].encode()
+                hmm.description = table.loc[name, "description"].encode()
                 hmm.cutoffs.trusted = t, t
                 hmm.write(dst)
 

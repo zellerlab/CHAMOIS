@@ -15,6 +15,9 @@ KOFAM_DATE=2023-01-01
 KOFAM_LIST=$(DATA)/Kofam$(KOFAM_DATE).tsv
 KOFAM_HMM=$(DATA)/Kofam$(KOFAM_DATE).hmm
 
+SMCOGS_VERSION=6-1-1
+SMCOGS_HMM=$(DATA)/smCOGS$(SMCOGS_VERSION).hmm
+
 ATLAS=$(DATA)/npatlas/NPAtlas_download.json.gz
 CHEMONT=$(DATA)/chemont/ChemOnt_2_1.obo
 
@@ -35,6 +38,9 @@ kofam2023: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/kofam2
 
 .PHONY: pgap11
 pgap11: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/pgap11.hdf5)
+
+.PHONY: smcogs6
+smcogs6: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/smcogs6.hdf5)
 
 .PHONY: features
 features: pfam35 kofam2023 pgap11
@@ -67,6 +73,9 @@ $(KOFAM_LIST):
 $(PGAP_HMM):
 	$(WGET) ftp://ftp.ncbi.nlm.nih.gov/hmm/11.0/hmm_PGAP.LIB -O $@
 
+$(SMCOGS_HMM):
+	$(PYTHON) src/smcogs/download.py --version $(SMCOGS_VERSION) --output $@
+
 # --- NP Atlas ---------------------------------------------------------------
 
 $(ATLAS):
@@ -92,6 +101,9 @@ $(DATA)/datasets/%/kofam2023.hdf5: $(DATA)/datasets/%/clusters.gbk $(KOFAM_HMM)
 
 $(DATA)/datasets/%/pgap11.hdf5: $(DATA)/datasets/%/clusters.gbk $(PGAP_HMM)
 	$(PYTHON) src/make_features.py --gbk $< --hmm $(PGAP_HMM) -o $@
+
+$(DATA)/datasets/%/smcogs6.hdf5: $(DATA)/datasets/%/clusters.gbk $(SMCOGS_HMM)
+	$(PYTHON) src/make_features.py --gbk $< --hmm $(SMCOGS_HMM) -o $@
 
 $(DATA)/datasets/%/classes.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(CHEMONT)
 	$(PYTHON) src/make_classes.py -i $< -o $@ --atlas $(ATLAS) --chemont $(CHEMONT) --cache $(BUILD)
