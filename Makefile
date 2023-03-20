@@ -8,6 +8,9 @@ MIBIG_VERSION=3.1
 PFAM_VERSION=35.0
 PFAM_HMM=$(DATA)/Pfam$(PFAM_VERSION).hmm
 
+PGAP_VERSION=11.0
+PGAP_HMM=$(DATA)/PGAP$(PGAP_VERSION).hmm
+
 KOFAM_DATE=2023-01-01
 KOFAM_LIST=$(DATA)/Kofam$(KOFAM_DATE).tsv
 KOFAM_HMM=$(DATA)/Kofam$(KOFAM_DATE).hmm
@@ -30,8 +33,11 @@ pfam35: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/pfam35.hd
 .PHONY: kofam2023
 kofam2023: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/kofam2023.hdf5)
 
+.PHONY: pgap11
+pfam35: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/pgap11.hdf5)
+
 .PHONY: features
-features: pfam35 kofam2023
+features: pfam35 kofam2023 pgap11
 
 .PHONY: classes
 classes: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/classes.hdf5)
@@ -58,6 +64,9 @@ $(KOFAM_HMM): $(KOFAM_LIST)
 $(KOFAM_LIST):
 	$(WGET) ftp://ftp.genome.jp/pub/db/kofam/archives/$(KOFAM_DATE)/ko_list.gz -O | gunzip -c > $@
 
+$(PGAP_HMM):
+	$(WGET) ftp://ftp.ncbi.nlm.nih.gov/hmm/11.0/hmm_PGAP.LIB -O $@
+
 # --- NP Atlas ---------------------------------------------------------------
 
 $(ATLAS):
@@ -80,6 +89,9 @@ $(DATA)/datasets/%/pfam35.hdf5: $(DATA)/datasets/%/clusters.gbk $(PFAM_HMM)
 
 $(DATA)/datasets/%/kofam2023.hdf5: $(DATA)/datasets/%/clusters.gbk $(KOFAM_HMM)
 	$(PYTHON) src/make_features.py --gbk $< --hmm $(KOFAM_HMM) -o $@
+
+$(DATA)/datasets/%/pgap11.hdf5: $(DATA)/datasets/%/clusters.gbk $(PGAP_HMM)
+	$(PYTHON) src/make_features.py --gbk $< --hmm $(PGAP_HMM) -o $@
 
 $(DATA)/datasets/%/classes.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(CHEMONT)
 	$(PYTHON) src/make_classes.py -i $< -o $@ --atlas $(ATLAS) --chemont $(CHEMONT) --cache $(BUILD)
