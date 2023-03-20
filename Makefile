@@ -34,7 +34,7 @@ pfam35: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/pfam35.hd
 kofam2023: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/kofam2023.hdf5)
 
 .PHONY: pgap11
-pfam35: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/pgap11.hdf5)
+pgap11: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/pgap11.hdf5)
 
 .PHONY: features
 features: pfam35 kofam2023 pgap11
