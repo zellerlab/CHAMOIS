@@ -16,6 +16,11 @@ from torch.utils.data import Dataset, DataLoader
 from torch_treecrf import TreeCRF, TreeCRFLayer, TreeMatrix
 from torchmetrics.functional.classification import multilabel_auroc, binary_auroc, binary_precision
 
+try:
+    import anndata
+except ImportError:
+    anndata = None
+
 
 class AnnotatedDataSet:
 
@@ -42,11 +47,56 @@ class NoCRF(torch.nn.Module):
         return torch.sigmoid(self.linear(X))
 
 
+class TreeCRF(torch.nn.Module):
+    """A Tree-structured CRF for binary classification of labels.
+    """
+
+    def __init__(
+        self, 
+        n_features: int, 
+        hierarchy: TreeMatrix,
+        device=None,
+        dtype=None,
+    ):  
+        super().__init__()
+        self.linear = torch.nn.Linear(n_features, len(hierarchy), device=device, dtype=dtype)
+        self.crf = TreeCRFLayer(hierarchy, device=device, dtype=dtype)
+        torch.nn.init.zeros_(self.crf.pairs)
+
+    def forward(self, X):
+        emissions_pos = self.linear(X)
+        emissions_all = torch.stack((-emissions_pos, emissions_pos), dim=2)
+        return self.crf(emissions_all)[:, :, 1]
+
+
 class AutochemPredictor:
     
-    def __init__(self):
+    def __init__(
+        self,
+        base_lr: float = 1.0,
+        max_lr: float = 10.0,
+        warmup_percent: int = 0.1,
+        anneal_strategy: str = "linear",
+        epochs: int = 200,
+    ):
+        # record training parameters
+        self.base_lr = base_lr
+        self.max_lr = max_lr
+        self.warmup_percent = warmup_percent
+        self.anneal_strategy = anneal_strategy
+        self.epochs = epochs
+
+        # record class / feature metadata
+        self.feature_names_in_ = None
+        self.n_features_in_ = None
+        self.classes_ = None
+
         # use CPU device
-        self.devices = [ torch.device("cuda") ]
+        self.devices = [ 
+            torch.device("cuda") 
+            if torch.cuda.is_available() 
+            else torch.device("cpu") 
+        ]
         # cache the autocast context manager to use if we
         # are using CUDA devices
         if self.devices[0].type == 0:
@@ -75,24 +125,40 @@ class AutochemPredictor:
         micro_auroc: float
         macro_auroc: float
 
-    def predict_probas(self, X):
-        return self.model(torch.asarray(X, dtype=torch.float, device=self.data_device))
+    def predict_log_proba(self, X):
+        """Predict logarithm of probability estimates.
+        """
+        if anndata is not None and isinstance(X, anndata.AnnData):
+            X = X.X.toarray()
+        if not isinstance(X, torch.Tensor):
+            X = torch.tensor(X)
+        self.model.eval()
+        with torch.no_grad():
+            return self.model(X.to(dtype=torch.float, device=self.data_device)).detach()
+
+    def predict_proba(self, X):
+        """Predict probability estimates.
+        """
+        return self.predict_log_proba(X).exp()
 
     def fit(
         self, 
         X, 
         Y,
-        *,
-        progress,
-        hierarchy,
         test_X = None,
         test_Y = None,
-        base_lr: float = 1.0,
-        max_lr: float = 10.0,
-        warmup_ratio: int = 10,
-        anneal_strategy: str = "linear",
-        epochs: int = 50,
+        *,
+        hierarchy,
+        progress,
     ):
+        # keep metadata from input if any
+        if anndata is not None and isinstance(X, anndata.AnnData):
+            self.feature_names_in_ = X.var_names
+            X = X.X.toarray()
+        if anndata is not None and isinstance(Y, anndata.AnnData):
+            self.classes_ = Y.var_names
+            Y = Y.X.toarray()
+
         # Prepare training data - no need for batching
         _X = torch.asarray(X, dtype=torch.float, device=self.data_device)
         _Y = torch.asarray(Y, dtype=torch.float, device=self.data_device)
@@ -109,7 +175,6 @@ class AutochemPredictor:
 
         # Initialize model with input dimensions
         self.model = TreeCRF(_X.shape[1], hierarchy, device=self.data_device, dtype=_X.dtype)
-        torch.nn.init.zeros_(self.model.crf.pairs)
         # self.model = NoCRF(_X.shape[1], hierarchy, device=self.data_device, dtype=_X.dtype)
 
         # compute pos / neg weights for cross-entropy
@@ -120,21 +185,21 @@ class AutochemPredictor:
         optimizer = torch.optim.ASGD(
             self.model.parameters(),
             weight_decay=0.0001,
-            lr=base_lr
+            lr=self.base_lr
         )
         criterion = torch.nn.BCELoss()
-        scaler = torch.cuda.amp.GradScaler()
+        scaler = torch.cuda.amp.GradScaler(enabled=self.data_device.type == "cuda")
         scheduler = torch.optim.lr_scheduler.OneCycleLR(  # type: ignore
             optimizer,
-            max_lr=max_lr,
-            pct_start=1/warmup_ratio,
-            epochs=epochs,
+            max_lr=self.max_lr,
+            pct_start=self.warmup_percent,
+            epochs=self.epochs,
             steps_per_epoch=1,
             base_momentum=0,
             cycle_momentum=False,
-            anneal_strategy=anneal_strategy,
-            div_factor=max_lr/base_lr,
-            final_div_factor=max_lr/base_lr,
+            anneal_strategy=self.anneal_strategy,
+            div_factor=self.max_lr/self.base_lr,
+            final_div_factor=self.max_lr/self.base_lr,
         )
 
         # Record the best model with the highest loss, so that it can
@@ -142,12 +207,12 @@ class AutochemPredictor:
         best_model_state = None
         best_loss = math.inf
 
-        for epoch in range(epochs):
+        for epoch in range(self.epochs):
             # run the model and update weights with new gradients
             self.model.train()
             optimizer.zero_grad()
             with self._autocast():
-                probas = self.model(_X)
+                probas = self.model(_X).exp()
                 loss = criterion(probas, _Y)   
             scaler.scale(loss).backward()
             scaler.step(optimizer)
@@ -162,7 +227,7 @@ class AutochemPredictor:
                 micro_auroc = multilabel_auroc(probas, _Y.to(torch.long), _Y.shape[1], average="micro")
                 macro_auroc = multilabel_auroc(probas, _Y.to(torch.long), _Y.shape[1], average="macro")
             else:
-                probas = self.model(_test_X).detach()
+                probas = self.model(_test_X).exp().detach()
                 loss = criterion(probas, _test_Y)
                 micro_auroc = multilabel_auroc(probas, _test_Y.to(torch.long), _test_Y.shape[1], average="micro")
                 macro_auroc = multilabel_auroc(probas, _test_Y.to(torch.long), _test_Y.shape[1], average="macro")
@@ -171,7 +236,7 @@ class AutochemPredictor:
             progress(
                 self.TrainingIteration(
                     epoch+1,
-                    epochs,
+                    self.epochs,
                     scheduler.get_last_lr()[0],
                     loss.item(),
                     micro_auroc,
