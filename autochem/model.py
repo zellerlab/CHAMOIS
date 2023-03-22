@@ -158,14 +158,22 @@ class AutochemPredictor:
         if anndata is not None and isinstance(Y, anndata.AnnData):
             self.classes_ = Y.var_names
             Y = Y.X.toarray()
-
+        # convert to tensor
+        if not isinstance(X, torch.Tensor):
+            X = torch.Tensor(X)
+        if not isinstance(Y, torch.Tensor):
+            Y = torch.Tensor(Y)
         # Prepare training data - no need for batching
-        _X = torch.asarray(X, dtype=torch.float, device=self.data_device)
-        _Y = torch.asarray(Y, dtype=torch.float, device=self.data_device)
+        _X = X.to(dtype=torch.float, device=self.data_device)
+        _Y = Y.to(dtype=torch.long, device=self.data_device)
         # Prepare validation data
         if test_X is not None:
-            _test_X = torch.asarray(test_X, dtype=torch.float, device=self.data_device)
-            _test_Y = torch.asarray(test_Y, dtype=torch.float, device=self.data_device)
+            if not isinstance(test_X, torch.Tensor):
+                test_X = torch.Tensor(test_X)
+            if not isinstance(test_Y, torch.Tensor):
+                test_Y = torch.Tensor(test_Y)   
+            _test_X = test_X.to(dtype=torch.float, device=self.data_device)
+            _test_Y = test_Y.to(dtype=torch.long, device=self.data_device)
             assert _test_X.shape[1] == _X.shape[1]
             assert _test_Y.shape[1] == _Y.shape[1]
             assert _test_X.shape[0] == _test_Y.shape[0]
@@ -227,7 +235,8 @@ class AutochemPredictor:
                 micro_auroc = multilabel_auroc(probas, _Y.to(torch.long), _Y.shape[1], average="micro")
                 macro_auroc = multilabel_auroc(probas, _Y.to(torch.long), _Y.shape[1], average="macro")
             else:
-                probas = self.model(_test_X).exp().detach()
+                self.model.eval()
+                probas = self.model(_test_X).exp()
                 loss = criterion(probas, _test_Y)
                 micro_auroc = multilabel_auroc(probas, _test_Y.to(torch.long), _test_Y.shape[1], average="micro")
                 macro_auroc = multilabel_auroc(probas, _test_Y.to(torch.long), _test_Y.shape[1], average="macro")
