@@ -165,7 +165,7 @@ class AutochemPredictor:
             Y = torch.Tensor(Y)
         # Prepare training data - no need for batching
         _X = X.to(dtype=torch.float, device=self.data_device)
-        _Y = Y.to(dtype=torch.long, device=self.data_device)
+        _Y = Y.to(dtype=torch.float, device=self.data_device)
         # Prepare validation data
         if test_X is not None:
             if not isinstance(test_X, torch.Tensor):
@@ -173,7 +173,7 @@ class AutochemPredictor:
             if not isinstance(test_Y, torch.Tensor):
                 test_Y = torch.Tensor(test_Y)   
             _test_X = test_X.to(dtype=torch.float, device=self.data_device)
-            _test_Y = test_Y.to(dtype=torch.long, device=self.data_device)
+            _test_Y = test_Y.to(dtype=torch.float, device=self.data_device)
             assert _test_X.shape[1] == _X.shape[1]
             assert _test_Y.shape[1] == _Y.shape[1]
             assert _test_X.shape[0] == _test_Y.shape[0]

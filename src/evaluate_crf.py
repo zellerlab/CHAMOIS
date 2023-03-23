@@ -6,6 +6,7 @@ import anndata
 import pandas
 import rich.progress
 import sklearn.linear_model
+import sklearn.preprocessing
 import torch
 import matplotlib.pyplot as plt
 from sklearn.metrics import roc_curve, roc_auc_score, auc, precision_recall_curve
@@ -30,6 +31,9 @@ features = features[:, features.X.sum(axis=0).A1 > 0]
 classes = classes[:, (classes.X.sum(axis=0).A1 >= 5) & (classes.X.sum(axis=0).A1 <= classes.n_obs - 5)]
 # prepare class hierarchy
 hierarchy = classes.varp["parents"].toarray()
+# standardize features
+scaler = sklearn.preprocessing.StandardScaler()
+features.X = scaler.fit_transform(features.X.toarray())
 
 criterion = torch.nn.BCELoss()
 kfold = sklearn.model_selection.GroupShuffleSplit(n_splits=5, random_state=SEED)
@@ -128,13 +132,13 @@ class LinearAutochem:
             if test_X is None:
                 # probas = self.model(_X).detach()
                 # loss = criterion(probas, _Y)
-                micro_auroc = multilabel_auroc(probas, _Y.to(torch.long), _Y.shape[1], average="micro")
-                macro_auroc = multilabel_auroc(probas, _Y.to(torch.long), _Y.shape[1], average="macro")
+                micro_auroc = multilabel_auroc(probas, _Y.to(torch.float), _Y.shape[1], average="micro")
+                macro_auroc = multilabel_auroc(probas, _Y.to(torch.float), _Y.shape[1], average="macro")
             else:
                 probas = self.model(_test_X).exp().detach()
                 loss = criterion(probas, _test_Y)
-                micro_auroc = multilabel_auroc(probas, _test_Y.to(torch.long), _test_Y.shape[1], average="micro")
-                macro_auroc = multilabel_auroc(probas, _test_Y.to(torch.long), _test_Y.shape[1], average="macro")
+                micro_auroc = multilabel_auroc(probas, _test_Y.to(torch.float), _test_Y.shape[1], average="micro")
+                macro_auroc = multilabel_auroc(probas, _test_Y.to(torch.float), _test_Y.shape[1], average="macro")
             
             # Report progress using the callback provided in arguments
             progress(
@@ -190,7 +194,7 @@ with rich.progress.Progress(*rich.progress.Progress.get_default_columns(), rich.
         )
 
         # test fold
-        probas_crf[test_indices] = model.predict_proba(features[test_indices]).cpu().numpy()
+        probas_crf[test_indices] = model.predict_proba(features[test_indices])
   
         
         # === LR ===
@@ -218,10 +222,28 @@ with rich.progress.Progress(*rich.progress.Progress.get_default_columns(), rich.
         )
 
         # test fold
-        probas_lr[test_indices] = model.predict_proba(features[test_indices]).cpu().numpy()
+        probas_lr[test_indices] = model.predict_proba(features[test_indices])
   
+
+
+# Save results
+
+predictions_lr = anndata.AnnData(
+    X=probas_lr.detach().cpu().numpy(), 
+    var=classes.var, 
+    obs=classes.obs
+)
+predictions_lr.write(os.path.join("build", "lr.cv5_predictions.hdf5"))
+
+predictions_crf = anndata.AnnData(
+    X=probas_crf.detach().cpu().numpy(), 
+    var=classes.var, 
+    obs=classes.obs
+)
+predictions_lr.write(os.path.join("build", "crf.cv5_predictions.hdf5"))
         
 
+# Plot results
 
 plt.figure(1)
 
