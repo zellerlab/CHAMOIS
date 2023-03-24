@@ -1,7 +1,8 @@
 import contextlib
+import json
 import math
 import typing
-from typing import Literal, Tuple
+from typing import Literal, Tuple, Dict
 
 import numpy
 import torch.cuda.amp
@@ -58,9 +59,8 @@ class ChemicalHierarchyPredictor:
         self.epochs = epochs
 
         # record class / feature metadata
-        self.feature_names_in_ = None
-        self.n_features_in_ = None
-        self.classes_ = None
+        self.features = None
+        self.classes = None
 
         # use CPU device
         self.devices = [
@@ -74,6 +74,36 @@ class ChemicalHierarchyPredictor:
             self._autocast: Callable[[], ContextManager[None]] = torch.cuda.amp.autocast
         else:
             self._autocast = contextlib.nullcontext
+
+    def __getstate__(self) -> Dict[str, Any]:
+        state = {
+            "architecture": self.architecture,
+            "base_lr": self.base_lr,
+            "max_lr": self.max_lr,
+            "warmup_percent": self.warmup_percent,
+            "anneal_strategy": self.anneal_strategy,
+            "epochs": self.epochs,
+            "model": None,
+            "features": None,
+            "classes": None,
+        }
+        if self.model is not None:
+            state["model"] = self.model.state_dict()
+        if self.features is not None:
+            state["features"] = self.features
+        if self.classes is not None:
+            state["classes"] = self.classes``
+        return state
+
+    def __setstate__(self, state: Dict[str, Any]) -> None:
+        model = state.pop("model")
+        features = state.pop("features")
+        classes = state.pop("classes")
+        self.__init__(**state)
+        if model is not None:
+            self.model.load_state_dict(model)
+        self.features = features
+        self.classes = classes
 
     def _initialize_model(self, n_features, n_labels, hierarchy):
         if self.architecture == "crf":
@@ -216,3 +246,12 @@ class ChemicalHierarchyPredictor:
             raise RuntimeError("No best model found, training iterations were likely not successful")
         self.model.load_state_dict(best_model_state)
 
+    @classmethod
+    def load(cls, file: BinaryIO) -> ChemicalHierarchyPredictor:
+        predictor = cls()
+        predictor.__setstate__(json.load(file))
+        return predictor
+
+    def save(self, file: BinaryIO) -> None:
+        state = self.__getstate__()
+        json.dump(state, file)
