@@ -22,44 +22,9 @@ except ImportError:
     anndata = None
 
 
-class AnnotatedDataSet:
-
-    def __init__(self, X: Tensor, Y: Tensor) -> None:  # noqa: D107
-        if X.shape[0] != Y.shape[0]:
-            raise ValueError("Length mismatch between features and labels")
-        self.Y = Y
-        self.X = X
-
-    def __len__(self) -> int:  # noqa: D105
-        return self.X.shape[0]
-
-    def __getitem__(self, index: int) -> Tuple[Tensor, Tensor]:  # noqa: D105
-        return self.X[index], self.Y[index]
-
-
-class TreeCRF(torch.nn.Module):
-    """A Tree-structured CRF for binary classification of labels.
+class ChemicalHierarchyPredictor:
+    """A model for predicting chemical hierarchy from BGC compositions.
     """
-
-    def __init__(
-        self,
-        n_features: int,
-        hierarchy: TreeMatrix,
-        device=None,
-        dtype=None,
-    ):
-        super().__init__()
-        self.linear = torch.nn.Linear(n_features, len(hierarchy), device=device, dtype=dtype)
-        self.crf = TreeCRFLayer(hierarchy, device=device, dtype=dtype)
-        torch.nn.init.zeros_(self.crf.pairs)
-
-    def forward(self, X):
-        emissions_pos = self.linear(X)
-        emissions_all = torch.stack((-emissions_pos, emissions_pos), dim=2)
-        return self.crf(emissions_all)[:, :, 1]
-
-
-class AutochemPredictor:
 
     class TrainingIteration(typing.NamedTuple):
         """The statistics about a training iteration.
