@@ -1,20 +1,11 @@
 import contextlib
-import json
 import math
 import typing
-from typing import Literal, Tuple, Dict
+from typing import Any, Literal, Tuple, Dict, BinaryIO
 
-import numpy
 import torch.cuda.amp
 import torch.nn
-import torchmetrics.classification
-import sklearn.metrics
-from sklearn.model_selection import train_test_split
-from sklearn.feature_selection import VarianceThreshold
-from torch import Tensor
-from torch.nn import DataParallel, BCELoss, BCEWithLogitsLoss
-from torch.utils.data import Dataset, DataLoader
-from torch_treecrf import TreeCRF, TreeCRFLayer, TreeMatrix
+from torch_treecrf import TreeCRF, TreeMatrix
 from torchmetrics.functional.classification import multilabel_auroc, binary_auroc, binary_precision
 
 try:
@@ -92,7 +83,7 @@ class ChemicalHierarchyPredictor:
         if self.features is not None:
             state["features"] = self.features
         if self.classes is not None:
-            state["classes"] = self.classes``
+            state["classes"] = self.classes
         return state
 
     def __setstate__(self, state: Dict[str, Any]) -> None:
@@ -108,10 +99,10 @@ class ChemicalHierarchyPredictor:
     def _initialize_model(self, n_features, n_labels, hierarchy):
         if self.architecture == "crf":
             self.model = TreeCRF(n_features, hierarchy, device=self.data_device, dtype=torch.float)
-            self.output_function = torch.exp
+            self.output_function = torch.nn.Identity()
         elif self.architecture == "lr":
             self.model = torch.nn.Linear(n_features, n_labels, device=self.data_device, dtype=torch.float)
-            self.output_function = torch.sigmoid
+            self.output_function = torch.nn.Sigmoid()
         else:
             raise ValueError(f"Invalid model architecture: {self.architecture!r}")
 
@@ -137,8 +128,6 @@ class ChemicalHierarchyPredictor:
         self,
         X,
         Y,
-        test_X = None,
-        test_Y = None,
         *,
         hierarchy = None,
         progress,
@@ -158,22 +147,10 @@ class ChemicalHierarchyPredictor:
         # Prepare training data - no need for batching
         _X = X.to(dtype=torch.float, device=self.data_device)
         _Y = Y.to(dtype=torch.float, device=self.data_device)
-        # Prepare validation data
-        if test_X is not None:
-            if not isinstance(test_X, torch.Tensor):
-                test_X = torch.Tensor(test_X)
-            if not isinstance(test_Y, torch.Tensor):
-                test_Y = torch.Tensor(test_Y)
-            _test_X = test_X.to(dtype=torch.float, device=self.data_device)
-            _test_Y = test_Y.to(dtype=torch.float, device=self.data_device)
-            assert _test_X.shape[1] == _X.shape[1]
-            assert _test_Y.shape[1] == _Y.shape[1]
-            assert _test_X.shape[0] == _test_Y.shape[0]
-        # Prepare hierarchy
+
+        # Prepare hierarchy and initialize the model
         if self.architecture == "crf" and not isinstance(hierarchy, TreeMatrix):
             hierarchy = TreeMatrix(hierarchy)
-
-        # Initialize model with input dimensions and label hierarchy
         self._initialize_model(_X.shape[1], _Y.shape[1], hierarchy)
 
         # Setup the optimization framework
@@ -214,18 +191,10 @@ class ChemicalHierarchyPredictor:
             scaler.update()
             scheduler.step()
 
-            # evaluate on validation set
-            self.model.eval()
-            if test_X is None:
-                micro_auroc = multilabel_auroc(probas, _Y.to(torch.long), _Y.shape[1], average="micro")
-                macro_auroc = multilabel_auroc(probas, _Y.to(torch.long), _Y.shape[1], average="macro")
-            else:
-                self.model.eval()
-                probas = self.output_function(self.model(_test_X))
-                loss = criterion(probas, _test_Y)
-                micro_auroc = multilabel_auroc(probas, _test_Y.to(torch.long), _test_Y.shape[1], average="micro")
-                macro_auroc = multilabel_auroc(probas, _test_Y.to(torch.long), _test_Y.shape[1], average="macro")
-
+            # compute metrics on training predictions
+            micro_auroc = multilabel_auroc(probas, _Y.to(torch.long), _Y.shape[1], average="micro")
+            macro_auroc = multilabel_auroc(probas, _Y.to(torch.long), _Y.shape[1], average="macro")
+            
             # Report progress using the callback provided in arguments
             progress(
                 self.TrainingIteration(
@@ -247,11 +216,11 @@ class ChemicalHierarchyPredictor:
         self.model.load_state_dict(best_model_state)
 
     @classmethod
-    def load(cls, file: BinaryIO) -> ChemicalHierarchyPredictor:
+    def load(cls, file: BinaryIO) -> "ChemicalHierarchyPredictor":
         predictor = cls()
-        predictor.__setstate__(json.load(file))
+        predictor.__setstate__(torch.load(file))
         return predictor
 
     def save(self, file: BinaryIO) -> None:
         state = self.__getstate__()
-        json.dump(state, file)
+        torch.save(state, file)
