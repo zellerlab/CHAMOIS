@@ -1,7 +1,7 @@
 import contextlib
 import math
 import typing
-from typing import Tuple
+from typing import Literal, Tuple
 
 import numpy
 import torch.cuda.amp
@@ -37,27 +37,17 @@ class AnnotatedDataSet:
         return self.X[index], self.Y[index]
 
 
-class NoCRF(torch.nn.Module):
-
-    def __init__(self, n_features, hierarchy, device=None, dtype=None) -> None:
-        super().__init__()
-        self.linear = torch.nn.Linear(n_features, len(hierarchy)).to(device=device, dtype=dtype)
-
-    def forward(self, X):
-        return torch.sigmoid(self.linear(X))
-
-
 class TreeCRF(torch.nn.Module):
     """A Tree-structured CRF for binary classification of labels.
     """
 
     def __init__(
-        self, 
-        n_features: int, 
+        self,
+        n_features: int,
         hierarchy: TreeMatrix,
         device=None,
         dtype=None,
-    ):  
+    ):
         super().__init__()
         self.linear = torch.nn.Linear(n_features, len(hierarchy), device=device, dtype=dtype)
         self.crf = TreeCRFLayer(hierarchy, device=device, dtype=dtype)
@@ -70,15 +60,31 @@ class TreeCRF(torch.nn.Module):
 
 
 class AutochemPredictor:
-    
+
+    class TrainingIteration(typing.NamedTuple):
+        """The statistics about a training iteration.
+        """
+        epoch: int
+        total: int
+        learning_rate: float
+        loss: float
+        micro_auroc: float
+        macro_auroc: float
+
     def __init__(
         self,
+        architecture: Literal["crf", "lr"] = "crf",
         base_lr: float = 1.0,
         max_lr: float = 10.0,
         warmup_percent: int = 0.1,
         anneal_strategy: str = "linear",
         epochs: int = 200,
     ):
+        # record model architecture
+        self.architecture = architecture
+        self.model = None
+        self.output_function = None
+
         # record training parameters
         self.base_lr = base_lr
         self.max_lr = max_lr
@@ -92,10 +98,10 @@ class AutochemPredictor:
         self.classes_ = None
 
         # use CPU device
-        self.devices = [ 
-            torch.device("cuda") 
-            if torch.cuda.is_available() 
-            else torch.device("cpu") 
+        self.devices = [
+            torch.device("cuda")
+            if torch.cuda.is_available()
+            else torch.device("cpu")
         ]
         # cache the autocast context manager to use if we
         # are using CUDA devices
@@ -104,10 +110,15 @@ class AutochemPredictor:
         else:
             self._autocast = contextlib.nullcontext
 
-    def autocast(self) -> typing.ContextManager[None]:
-        """Obtain a context manager for enabling mixed precision mode.
-        """
-        return self._autocast()
+    def _initialize_model(self, n_features, n_labels, hierarchy):
+        if self.architecture == "crf":
+            self.model = TreeCRF(n_features, hierarchy, device=self.data_device, dtype=torch.float)
+            self.output_function = torch.exp
+        elif self.architecture == "lr":
+            self.model = torch.nn.Linear(n_features, n_labels, device=self.data_device, dtype=torch.float)
+            self.output_function = torch.sigmoid
+        else:
+            raise ValueError(f"Invalid model architecture: {self.architecture!r}")
 
     @property
     def data_device(self):
@@ -115,18 +126,8 @@ class AutochemPredictor:
         """
         return self.devices[0]
 
-    class TrainingIteration(typing.NamedTuple):
-        """The statistics about a training iteration.
-        """
-        epoch: int
-        total: int
-        learning_rate: float
-        loss: float
-        micro_auroc: float
-        macro_auroc: float
-
-    def predict_log_proba(self, X):
-        """Predict logarithm of probability estimates.
+    def predict_proba(self, X):
+        """Predict probability estimates.
         """
         if anndata is not None and isinstance(X, anndata.AnnData):
             X = X.X.toarray()
@@ -134,21 +135,17 @@ class AutochemPredictor:
             X = torch.tensor(X)
         self.model.eval()
         with torch.no_grad():
-            return self.model(X.to(dtype=torch.float, device=self.data_device)).detach()
-
-    def predict_proba(self, X):
-        """Predict probability estimates.
-        """
-        return self.predict_log_proba(X).exp()
+            _X = X.to(dtype=torch.float, device=self.data_device)
+            return self.output_function(self.model(_X)).detach()
 
     def fit(
-        self, 
-        X, 
+        self,
+        X,
         Y,
         test_X = None,
         test_Y = None,
         *,
-        hierarchy,
+        hierarchy = None,
         progress,
     ):
         # keep metadata from input if any
@@ -171,23 +168,18 @@ class AutochemPredictor:
             if not isinstance(test_X, torch.Tensor):
                 test_X = torch.Tensor(test_X)
             if not isinstance(test_Y, torch.Tensor):
-                test_Y = torch.Tensor(test_Y)   
+                test_Y = torch.Tensor(test_Y)
             _test_X = test_X.to(dtype=torch.float, device=self.data_device)
             _test_Y = test_Y.to(dtype=torch.float, device=self.data_device)
             assert _test_X.shape[1] == _X.shape[1]
             assert _test_Y.shape[1] == _Y.shape[1]
             assert _test_X.shape[0] == _test_Y.shape[0]
         # Prepare hierarchy
-        if not isinstance(hierarchy, TreeMatrix):
+        if self.architecture == "crf" and not isinstance(hierarchy, TreeMatrix):
             hierarchy = TreeMatrix(hierarchy)
 
-        # Initialize model with input dimensions
-        self.model = TreeCRF(_X.shape[1], hierarchy, device=self.data_device, dtype=_X.dtype)
-        # self.model = NoCRF(_X.shape[1], hierarchy, device=self.data_device, dtype=_X.dtype)
-
-        # compute pos / neg weights for cross-entropy
-        pos = _Y.count_nonzero(axis=0) + 1e-9
-        neg = _Y.shape[1] - pos
+        # Initialize model with input dimensions and label hierarchy
+        self._initialize_model(_X.shape[1], _Y.shape[1], hierarchy)
 
         # Setup the optimization framework
         optimizer = torch.optim.ASGD(
@@ -220,8 +212,8 @@ class AutochemPredictor:
             self.model.train()
             optimizer.zero_grad()
             with self._autocast():
-                probas = self.model(_X).exp()
-                loss = criterion(probas, _Y)   
+                probas = self.output_function(self.model(_X))
+                loss = criterion(probas, _Y)
             scaler.scale(loss).backward()
             scaler.step(optimizer)
             scaler.update()
@@ -230,17 +222,15 @@ class AutochemPredictor:
             # evaluate on validation set
             self.model.eval()
             if test_X is None:
-                # probas = self.model(_X).detach()
-                # loss = criterion(probas, _Y)
                 micro_auroc = multilabel_auroc(probas, _Y.to(torch.long), _Y.shape[1], average="micro")
                 macro_auroc = multilabel_auroc(probas, _Y.to(torch.long), _Y.shape[1], average="macro")
             else:
                 self.model.eval()
-                probas = self.model(_test_X).exp()
+                probas = self.output_function(self.model(_test_X))
                 loss = criterion(probas, _test_Y)
                 micro_auroc = multilabel_auroc(probas, _test_Y.to(torch.long), _test_Y.shape[1], average="micro")
                 macro_auroc = multilabel_auroc(probas, _test_Y.to(torch.long), _test_Y.shape[1], average="macro")
-            
+
             # Report progress using the callback provided in arguments
             progress(
                 self.TrainingIteration(
