@@ -112,6 +112,7 @@ class ChemicalHierarchyPredictor:
         if self.architecture == "crf":
             self.model = TreeCRF(n_features, hierarchy, device=self.data_device, dtype=torch.float)
             self.output_function = torch.nn.Identity()
+            torch.nn.init.zeros_(self.model.crf.pairs)
         elif self.architecture == "lr":
             self.model = torch.nn.Linear(n_features, n_labels, device=self.data_device, dtype=torch.float)
             self.output_function = torch.nn.Sigmoid()
