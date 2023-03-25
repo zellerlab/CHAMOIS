@@ -3,6 +3,7 @@ import math
 import typing
 from typing import Any, Literal, Tuple, Dict, BinaryIO
 
+import pandas
 import torch.cuda.amp
 import torch.nn
 from torch_treecrf import TreeCRF, TreeMatrix
@@ -51,7 +52,7 @@ class ChemicalHierarchyPredictor:
 
         # record class / feature metadata
         self.features = None
-        self.classes = None
+        self.labels = None
         self.hierarchy = None
 
         # use CPU device
@@ -69,35 +70,42 @@ class ChemicalHierarchyPredictor:
 
     def __getstate__(self) -> Dict[str, Any]:
         state = {
-            "architecture": self.architecture,
-            "base_lr": self.base_lr,
-            "max_lr": self.max_lr,
-            "warmup_percent": self.warmup_percent,
-            "anneal_strategy": self.anneal_strategy,
-            "epochs": self.epochs,
-            "model": None,
-            "features": None,
-            "classes": None,
+            "params": {
+                "architecture": self.architecture,
+                "base_lr": self.base_lr,
+                "max_lr": self.max_lr,
+                "warmup_percent": self.warmup_percent,
+                "anneal_strategy": self.anneal_strategy,
+                "epochs": self.epochs,
+            },
+            "n_features": self.n_features,
+            "n_labels": self.n_labels,
+            "hierarchy": None,
         }
         if self.model is not None:
             state["model"] = self.model.state_dict()
-            state["features"] = self.features
-            state["classes"] = self.classes
             state["hierarchy"] = self.hierarchy
+        if self.features is not None:
+            state["features"] = self.features.to_dict()
+        if self.labels is not None:
+            state["labels"] = self.labels.to_dict()
         return state
 
     def __setstate__(self, state: Dict[str, Any]) -> None:
         model = state.pop("model")
-        features = state.pop("features")
-        classes = state.pop("classes")
+        features = state.pop("features", None)
+        labels = state.pop("labels", None)
         hierarchy = state.pop("hierarchy")
-        self.__init__(**state)
+        self.__init__(**state["params"])
         if model is not None:
-            self._initialize_model(len(features), len(classes), hierarchy)
+            self._initialize_model(state["n_features"], state["n_labels"], hierarchy)
             self.model.load_state_dict(model)
-        self.features = features
-        self.classes = classes
-        self.hierarchy = hierarchy
+        if features is not None:
+            self.features = pandas.DataFrame.from_dict(features)
+            assert len(self.features) == self.n_features
+        if labels is not None:
+            self.labels = pandas.DataFrame.from_dict(labels)
+            assert len(self.labels) == self.n_labels
 
     def _initialize_model(self, n_features, n_labels, hierarchy):
         self.hierarchy = hierarchy
@@ -111,6 +119,14 @@ class ChemicalHierarchyPredictor:
             raise ValueError(f"Invalid model architecture: {self.architecture!r}")
 
     @property
+    def n_features(self):
+        return getattr(self.model, "linear", self.model).in_features
+
+    @property
+    def n_labels(self):
+        return getattr(self.model, "linear", self.model).out_features
+
+    @property
     def data_device(self):
         """`torch.device`: The device where to store the model data.
         """
@@ -120,9 +136,11 @@ class ChemicalHierarchyPredictor:
         """Predict probability estimates.
         """
         if anndata is not None and isinstance(X, anndata.AnnData):
-            X = X.X.toarray()
+            X = X[:, self.features.index].X.toarray()
         if not isinstance(X, torch.Tensor):
             X = torch.tensor(X)
+        if X.shape[1] != self.n_features:
+            raise ValueError("Input data does not have the right number of features (got {X.shape[1]}, expected {self.n_features})")
         self.model.eval()
         with torch.no_grad():
             _X = X.to(dtype=torch.float, device=self.data_device)
@@ -138,10 +156,10 @@ class ChemicalHierarchyPredictor:
     ):
         # keep metadata from input if any
         if anndata is not None and isinstance(X, anndata.AnnData):
-            self.features = X.var_names
+            self.features = X.var
             X = X.X.toarray()
         if anndata is not None and isinstance(Y, anndata.AnnData):
-            self.classes = Y.var_names
+            self.labels = Y.var
             Y = Y.X.toarray()
         # convert to tensor
         if not isinstance(X, torch.Tensor):
@@ -222,7 +240,7 @@ class ChemicalHierarchyPredictor:
     @classmethod
     def load(cls, file: BinaryIO) -> "ChemicalHierarchyPredictor":
         predictor = cls()
-        predictor.__setstate__(torch.load(file))
+        predictor.__setstate__(torch.load(file, map_location=predictor.data_device))
         return predictor
 
     def save(self, file: BinaryIO) -> None:
