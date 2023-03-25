@@ -2,8 +2,9 @@ import contextlib
 import math
 import typing
 import importlib.resources
-from typing import Any, Literal, Tuple, Dict, BinaryIO
+from typing import Any, Literal, Tuple, Dict, BinaryIO, Type, Union, Optional, Callable
 
+import numpy
 import pandas
 import torch.cuda.amp
 import torch.nn
@@ -15,6 +16,7 @@ try:
 except ImportError:
     anndata = None
 
+_T = typing.TypeVar("_T", bound="ChemicalHierarchyPredictor")
 
 class ChemicalHierarchyPredictor:
     """A model for predicting chemical hierarchy from BGC compositions.
@@ -134,7 +136,10 @@ class ChemicalHierarchyPredictor:
         """
         return self.devices[0]
 
-    def predict_proba(self, X):
+    def predict_proba(
+        self, 
+        X: Union[anndata.AnnData, numpy.ndarray, torch.Tensor]
+    ) -> torch.Tensor:
         """Predict probability estimates.
         """
         if anndata is not None and isinstance(X, anndata.AnnData):
@@ -150,12 +155,12 @@ class ChemicalHierarchyPredictor:
 
     def fit(
         self,
-        X,
-        Y,
+        X: Union[anndata.AnnData, numpy.ndarray, torch.Tensor],
+        Y: Union[anndata.AnnData, numpy.ndarray, torch.Tensor],
         *,
-        hierarchy = None,
-        progress,
-    ):
+        hierarchy: Union[None, torch.Tensor, numpy.ndarray, TreeMatrix] = None,
+        callback: Optional[Callable[[TrainingIteration], None]] = None,
+    ) -> None:
         # keep metadata from input if any
         if anndata is not None and isinstance(X, anndata.AnnData):
             self.features = X.var
@@ -220,16 +225,17 @@ class ChemicalHierarchyPredictor:
             macro_auroc = multilabel_auroc(probas, _Y.to(torch.long), _Y.shape[1], average="macro")
             
             # Report progress using the callback provided in arguments
-            progress(
-                self.TrainingIteration(
-                    epoch+1,
-                    self.epochs,
-                    scheduler.get_last_lr()[0],
-                    loss.item(),
-                    micro_auroc,
-                    macro_auroc
+            if callback is not None:
+                callback(
+                    self.TrainingIteration(
+                        epoch+1,
+                        self.epochs,
+                        scheduler.get_last_lr()[0],
+                        loss.item(),
+                        micro_auroc,
+                        macro_auroc
+                    )
                 )
-            )
             # Record model
             best_model_state = self.model.state_dict()
 
@@ -240,12 +246,12 @@ class ChemicalHierarchyPredictor:
         self.model.load_state_dict(best_model_state)
 
     @classmethod
-    def trained(cls):
+    def trained(cls: Type[_T]) -> _T:
         with importlib.resources.open_binary("conch", "predictor.pt") as f:
             return cls.load(f)
 
     @classmethod
-    def load(cls, file: BinaryIO) -> "ChemicalHierarchyPredictor":
+    def load(cls: Type[_T], file: BinaryIO) -> _T:
         predictor = cls()
         predictor.__setstate__(torch.load(file, map_location=predictor.data_device))
         return predictor

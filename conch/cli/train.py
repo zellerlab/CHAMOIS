@@ -50,7 +50,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
             if (it.epoch - 1) % args.report_period == 0:
                 progress.console.print(f"[bold blue]{'Training':>12}[/] epoch {it.epoch} of {it.total} for {model.architecture.upper()} model:", *stats)
         model = ChemicalHierarchyPredictor(epochs=args.epochs)
-        model.fit(features, classes, progress=progress_callback, hierarchy=hierarchy)
+        model.fit(features, classes, callback=progress_callback, hierarchy=hierarchy)
 
     # save result
     progress.console.print(f"[bold blue]{'Saving':>12}[/] trained model to {str(args.output)!r}")
