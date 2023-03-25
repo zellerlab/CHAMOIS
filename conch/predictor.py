@@ -52,6 +52,7 @@ class ChemicalHierarchyPredictor:
         # record class / feature metadata
         self.features = None
         self.classes = None
+        self.hierarchy = None
 
         # use CPU device
         self.devices = [
@@ -80,23 +81,26 @@ class ChemicalHierarchyPredictor:
         }
         if self.model is not None:
             state["model"] = self.model.state_dict()
-        if self.features is not None:
             state["features"] = self.features
-        if self.classes is not None:
             state["classes"] = self.classes
+            state["hierarchy"] = self.hierarchy
         return state
 
     def __setstate__(self, state: Dict[str, Any]) -> None:
         model = state.pop("model")
         features = state.pop("features")
         classes = state.pop("classes")
+        hierarchy = state.pop("hierarchy")
         self.__init__(**state)
         if model is not None:
+            self._initialize_model(len(features), len(classes), hierarchy)
             self.model.load_state_dict(model)
         self.features = features
         self.classes = classes
+        self.hierarchy = hierarchy
 
     def _initialize_model(self, n_features, n_labels, hierarchy):
+        self.hierarchy = hierarchy
         if self.architecture == "crf":
             self.model = TreeCRF(n_features, hierarchy, device=self.data_device, dtype=torch.float)
             self.output_function = torch.nn.Identity()
@@ -134,10 +138,10 @@ class ChemicalHierarchyPredictor:
     ):
         # keep metadata from input if any
         if anndata is not None and isinstance(X, anndata.AnnData):
-            self.feature_names_in_ = X.var_names
+            self.features = X.var_names
             X = X.X.toarray()
         if anndata is not None and isinstance(Y, anndata.AnnData):
-            self.classes_ = Y.var_names
+            self.classes = Y.var_names
             Y = Y.X.toarray()
         # convert to tensor
         if not isinstance(X, torch.Tensor):
