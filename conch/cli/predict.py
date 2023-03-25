@@ -4,14 +4,18 @@ import functools
 import itertools
 import multiprocessing.pool
 import pathlib
-from typing import List, Iterable
+from typing import List, Iterable, Set
 
 import anndata
+import pandas
 import pyhmmer
 import pyrodigal
 import rich.progress
+import rich.tree
 import torch
+import scipy.sparse
 from rich.console import Console
+from torch_treecrf import TreeMatrix
 
 from ..model import GeneCluster, Protein
 from ..predictor import ChemicalHierarchyPredictor
@@ -85,6 +89,46 @@ def domains_overlap(dom1: pyhmmer.plan7.Domain, dom2: pyhmmer.plan7.Domain):
     return start1 <= end2 and start2 <= end1
 
 
+def all_superclasses( classes: Iterable[int], hierarchy: TreeMatrix ) -> Set[int]:
+    superclasses = set()
+    classes = set(classes)
+    while classes:
+        i = classes.pop()
+        superclasses.add(i)
+        classes.update(j.item() for j in hierarchy.parents(i))
+        superclasses.update(j.item() for j in hierarchy.parents(i))
+    return superclasses
+
+def render_hierarchy(model: ChemicalHierarchyPredictor, probas: torch.Tensor, bgcs: List[GeneCluster], console: Console) -> None:
+    for bgc_index, bgc_proba in enumerate(probas):
+        # get probabilities and corresponding positive terms from ChemOnt
+        bgc_labels = bgc_proba > 0.5
+        terms = { j for j in range(model.n_labels) if bgc_proba[j] > 0.5 }
+        whitelist = all_superclasses(terms, model.hierarchy)
+        # render a tree structure with rich
+        def render(i, tree, whitelist):
+            term_id = model.labels.index[i]
+            term_name = model.labels.name[i]
+            label = f"[bold blue]{term_id}[/] ([green]{term_name}[/]): [bold cyan]{bgc_proba[i]:.3f}[/]"
+            subtree = tree.add(label, highlight=False)
+            for j in model.hierarchy.children(i):
+                j = j.item()
+                if j in whitelist:
+                    render(j, subtree, whitelist)
+        roots = [
+            i 
+            for i in range(model.n_labels) 
+            if not len(model.hierarchy.parents(i)) 
+            and bgc_proba[i] > 0.5
+        ]
+        tree = rich.tree.Tree(".", hide_root=True)
+        for root in roots:
+            render(root, tree, whitelist=whitelist)
+        # show one panel 
+        panel = rich.panel.Panel(tree, title=bgcs[bgc_index].id)
+        console.print(panel)
+
+
 def run(args: argparse.Namespace, console: Console) -> int:
     # load data
     console.print(f"[bold blue]{'Loading':>12}[/] trained model from {str(args.model)!r}")
@@ -96,7 +140,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
     bgcs = load_sequences(args.input, console)
 
     # index the features and the observations
-    feature_index = { feat:i for i,feat in enumerate(model.features) }
+    feature_index = { feat:i for i,feat in enumerate(model.features.index) }
     bgcs_index = { bgc.id:i for i,bgc in enumerate(bgcs) }
     if len(bgcs_index) < len(bgcs):
         raise RuntimeError("Duplicate identifiers found in input BGCs")
@@ -139,8 +183,10 @@ def run(args: argparse.Namespace, console: Console) -> int:
             for hits in pyhmmer.hmmer.hmmsearch(hmms, protein_sequences, bit_cutoffs="trusted", callback=callback, cpus=args.jobs or 0):
                 for hit in hits.reported:
                     protein_domains[hit.name].extend(hit.domains.reported)
-        
+        console.print(f"[bold green]{'Found':>12}[/] {sum(map(len, protein_domains.values()))} domains under inclusion thresholds")
+
     # deinterlace hits and generate compositional matrix
+    console.print(f"[bold blue]{'Resolving':>12}[/] overlapping domains")
     compositions = torch.zeros((len(bgcs_index), len(feature_index)), dtype=int)
     for sequence_id, domains in protein_domains.items():
         while domains:
@@ -165,11 +211,18 @@ def run(args: argparse.Namespace, console: Console) -> int:
                 hmm_accession = candidate_domain.hit.hits.query_accession.decode()
                 compositions[bgcs_index[bgc_id], feature_index[hmm_accession]] += 1
 
-    # predict classes
+    # predict labels
+    console.print(f"[bold blue]{'Predicting':>12}[/] chemical class probabilities")
     probas = model.predict_proba(compositions).detach().cpu().numpy()
+
+    console.print(f"[bold blue]{'Saving':>12}[/] result probabilities to {str(args.output)!r}")
     data = anndata.AnnData(
-        data=probas,
+        X=probas,
         obs=pandas.DataFrame(index=[bgc.id for bgc in bgcs]),
-        var=pandas.DataFrame(index=model.classes)
+        var=model.labels
     )
     data.write(args.output)
+
+    # render
+    render_hierarchy(model, probas, bgcs, console)
+    
