@@ -1,6 +1,7 @@
 import contextlib
 import math
 import typing
+import importlib.resources
 from typing import Any, Literal, Tuple, Dict, BinaryIO
 
 import pandas
@@ -237,6 +238,11 @@ class ChemicalHierarchyPredictor:
         if best_model_state is None:
             raise RuntimeError("No best model found, training iterations were likely not successful")
         self.model.load_state_dict(best_model_state)
+
+    @classmethod
+    def trained(cls):
+        with importlib.resources.open_binary("conch", "predictor.pt") as f:
+            return cls.load(f)
 
     @classmethod
     def load(cls, file: BinaryIO) -> "ChemicalHierarchyPredictor":
