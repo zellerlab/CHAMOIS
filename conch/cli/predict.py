@@ -4,7 +4,7 @@ import functools
 import itertools
 import multiprocessing.pool
 import pathlib
-from typing import List, Iterable, Set
+from typing import List, Iterable, Set, Optional
 
 import anndata
 import pandas
