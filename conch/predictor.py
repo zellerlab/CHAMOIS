@@ -2,7 +2,7 @@ import contextlib
 import math
 import typing
 import importlib.resources
-from typing import Any, Literal, Tuple, Dict, BinaryIO, Type, Union, Optional, Callable
+from typing import Any, Literal, List, Tuple, Dict, BinaryIO, Type, Union, Optional, Callable
 
 import numpy
 import pandas
@@ -40,6 +40,7 @@ class ChemicalHierarchyPredictor:
         warmup_percent: int = 0.1,
         anneal_strategy: str = "linear",
         epochs: int = 200,
+        devices: List[torch.device] = [],
     ):
         # record model architecture
         self.architecture = architecture
@@ -58,12 +59,17 @@ class ChemicalHierarchyPredictor:
         self.labels = None
         self.hierarchy = None
 
-        # use CPU device
-        self.devices = [
-            torch.device("cuda")
-            if torch.cuda.is_available()
-            else torch.device("cpu")
-        ]
+        # use provided device or CUDA if available
+        if not devices:
+            if torch.cuda.is_available():
+                self.devices = [torch.device("cuda")]
+            else:
+                self.devices = [torch.device("cpu")]
+        elif all(isinstance(device, torch.device) for device in devices):
+            self.devices = devices
+        else:
+            self.devices = [torch.device(device) for device in devices]
+
         # cache the autocast context manager to use if we
         # are using CUDA devices
         if self.devices[0].type == 0:

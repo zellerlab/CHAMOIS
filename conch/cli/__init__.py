@@ -4,22 +4,29 @@ from typing import Optional
 import torch
 from rich.console import Console
 
-from . import train, predict, render
+from . import train, predict, render, cv
 
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
 
     parser.add_argument("-j", "--jobs", default=None, type=int, help="The number of jobs to run in parallel sections.")
+    parser.add_argument("--seed", default=0, type=int, help="The seed to use for initializing pseudo-random number generators.")
+    parser.add_argument(
+        "-D", 
+        "--device", 
+        action="append",
+        default=[], 
+        type=torch.device, 
+        help="The device to use for running the PyTorch model."
+    )
 
     commands = parser.add_subparsers(required=True)
-    parser_train = commands.add_parser("train")
-    train.configure_parser(parser_train)
-    parser_predict = commands.add_parser("predict")
-    predict.configure_parser(parser_predict)
-    parser_render = commands.add_parser("render")
-    render.configure_parser(parser_render)
-    
+    train.configure_parser(commands.add_parser("train"))
+    predict.configure_parser(commands.add_parser("predict"))
+    render.configure_parser(commands.add_parser("render"))
+    cv.configure_parser(commands.add_parser("cv"))
+
     return parser
 
 def run(console: Optional[Console] = None) -> int:

@@ -49,7 +49,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
             progress.update(task, advance=1, total=it.total)
             if (it.epoch - 1) % args.report_period == 0:
                 progress.console.print(f"[bold blue]{'Training':>12}[/] epoch {it.epoch} of {it.total} for {model.architecture.upper()} model:", *stats)
-        model = ChemicalHierarchyPredictor(epochs=args.epochs)
+        model = ChemicalHierarchyPredictor(epochs=args.epochs, device=args.device or None)
         model.fit(features, classes, callback=progress_callback, hierarchy=hierarchy)
 
     # save result
