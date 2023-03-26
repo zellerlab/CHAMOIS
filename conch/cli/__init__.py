@@ -4,7 +4,7 @@ from typing import Optional
 import torch
 from rich.console import Console
 
-from . import train, predict, render, cv
+from . import train, predict, render, cv, annotate
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -22,10 +22,11 @@ def build_parser() -> argparse.ArgumentParser:
     )
 
     commands = parser.add_subparsers(required=True)
-    train.configure_parser(commands.add_parser("train"))
+    annotate.configure_parser(commands.add_parser("annotate"))
+    cv.configure_parser(commands.add_parser("cv"))
     predict.configure_parser(commands.add_parser("predict"))
     render.configure_parser(commands.add_parser("render"))
-    cv.configure_parser(commands.add_parser("cv"))
+    train.configure_parser(commands.add_parser("train"))
 
     return parser
 
