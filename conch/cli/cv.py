@@ -39,29 +39,29 @@ def run(args: argparse.Namespace, console: Console) -> int:
 
     # get devices from a CLI arguments
     if args.device:
-        device = args.device[0]
+        devices = args.device
     elif torch.cuda.is_available():
-        device = "cuda"
+        devices = [torch.device("cuda")]
     else:
-        device = "cpu"
+        devices = [torch.device("cpu")]
 
     # start training
     with rich.progress.Progress(
-        *rich.progress.Progress.get_default_columns(), 
+        *rich.progress.Progress.get_default_columns(),
         rich.progress.MofNCompleteColumn(),
         console=console
     ) as progress:
         kfold = sklearn.model_selection.GroupShuffleSplit(n_splits=args.kfolds, random_state=args.seed)
-        probas = torch.zeros(classes.X.shape, dtype=torch.float)
+        probas = torch.zeros(classes.X.shape, dtype=torch.float, device=devices[0])
         for i, (train_indices, test_indices) in enumerate(kfold.split(features.X, classes.X, groups)):
-            model = ChemicalHierarchyPredictor(epochs=args.epochs, devices=args.device or None)
+            model = ChemicalHierarchyPredictor(epochs=args.epochs, devices=devices)
             # split data
-            train_X = torch.tensor(features.X[train_indices].toarray(), dtype=torch.float, device=model.data_device)
-            train_Y = torch.tensor(classes.X[train_indices].toarray(), dtype=torch.float, device=model.data_device)
-            test_X = torch.tensor(features.X[test_indices].toarray(), dtype=torch.float, device=model.data_device)
-            test_Y = torch.tensor(classes.X[test_indices].toarray(), dtype=torch.float, device=model.data_device)
+            train_X = torch.tensor(features.X[train_indices].toarray(), dtype=torch.float, device=devices[0])
+            train_Y = torch.tensor(classes.X[train_indices].toarray(), dtype=torch.float, device=devices[0])
+            test_X = torch.tensor(features.X[test_indices].toarray(), dtype=torch.float, device=devices[0])
+            test_Y = torch.tensor(classes.X[test_indices].toarray(), dtype=torch.float, device=devices[0])
             # train fold
-            task = progress.add_task(f"[bold blue]{'Training':>12}[/]", total=None)
+            task = progress.add_task(f"[bold blue]{'Training':>12}[/]", total=args.epochs)
             def progress_callback(it) -> None:
                 stats = [
                     f"[bold magenta]lr=[/][bold cyan]{it.learning_rate:.2e}[/]",
