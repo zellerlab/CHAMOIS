@@ -13,7 +13,7 @@ def configure_parser(parser: argparse.ArgumentParser):
     parser.add_argument("-c", "--classes", required=True, type=pathlib.Path)
     parser.add_argument("-o", "--output", required=True, type=pathlib.Path)
     parser.add_argument("-e", "--epochs", type=int, default=200, help="The number of epochs to train the model for.")
-    parser.add_argument("--report-period", type=int, default=1, help="Report evaluation metrics every N iterations.")
+    parser.add_argument("--report-period", type=int, default=20, help="Report evaluation metrics every N iterations.")
     parser.set_defaults(run=run)
 
 
@@ -49,7 +49,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
             progress.update(task, advance=1, total=it.total)
             if (it.epoch - 1) % args.report_period == 0:
                 progress.console.print(f"[bold blue]{'Training':>12}[/] epoch {it.epoch} of {it.total} for {model.architecture.upper()} model:", *stats)
-        model = ChemicalHierarchyPredictor(epochs=args.epochs, device=args.device or None)
+        model = ChemicalHierarchyPredictor(epochs=args.epochs, devices=args.device or None)
         model.fit(features, classes, callback=progress_callback, hierarchy=hierarchy)
 
     # save result
