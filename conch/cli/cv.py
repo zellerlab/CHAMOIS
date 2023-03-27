@@ -16,7 +16,7 @@ def configure_parser(parser: argparse.ArgumentParser):
     parser.add_argument("-c", "--classes", required=True, type=pathlib.Path)
     parser.add_argument("-o", "--output", required=True, type=pathlib.Path)
     parser.add_argument("-e", "--epochs", type=int, default=200, help="The number of epochs to train the model for.")
-    parser.add_argument("-k", "--kfolds", type=int, default=5, help="Number of cross-validation folds to run.")
+    parser.add_argument("-k", "--kfolds", type=int, default=10, help="Number of cross-validation folds to run.")
     parser.add_argument("--report-period", type=int, default=20, help="Report evaluation metrics every N iterations.")
     parser.set_defaults(run=run)
 
