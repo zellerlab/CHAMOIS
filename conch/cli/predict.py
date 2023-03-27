@@ -59,7 +59,6 @@ def run(args: argparse.Namespace, console: Console) -> int:
     clusters = list(load_sequences(args.input, console))
     proteins = find_proteins(clusters, args.jobs, console)
     domains = annotate_domains(args.hmm, proteins, args.jobs, console)
-    domains = resolve_overlaps(domains, console)
     obs = build_observations(clusters)
     compositions = make_compositions(domains, obs, model.features, console)
 

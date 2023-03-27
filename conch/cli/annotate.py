@@ -172,7 +172,7 @@ def make_compositions(domains: List[Domain], obs: pandas.DataFrame, var: pandas.
 
 
 def save_compositions(compositions: anndata.AnnData, path: pathlib.Path, console: Console) -> None:
-    console.print(f"[bold blue]{'Saving':>12}[/] compositional matrix to {str(args.output)!r}")
+    console.print(f"[bold blue]{'Saving':>12}[/] compositional matrix to {str(path)!r}")
     if path.parent:
         path.parent.mkdir(parents=True, exist_ok=True)
     compositions.write(path)
@@ -182,7 +182,6 @@ def run(args: argparse.Namespace, console: Console) -> int:
     clusters = list(load_sequences(args.input, console))
     proteins = find_proteins(clusters, args.jobs, console)
     domains = annotate_domains(args.hmm, proteins, args.jobs, console)
-    domains = resolve_overlaps(domains, console)
     obs = build_observations(clusters)
     var = build_variables(domains)
     compositions = make_compositions(domains, obs, var, console)
