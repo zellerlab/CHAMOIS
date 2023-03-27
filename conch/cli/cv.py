@@ -18,6 +18,7 @@ def configure_parser(parser: argparse.ArgumentParser):
     parser.add_argument("-e", "--epochs", type=int, default=200, help="The number of epochs to train the model for.")
     parser.add_argument("-k", "--kfolds", type=int, default=10, help="Number of cross-validation folds to run.")
     parser.add_argument("--report-period", type=int, default=20, help="Report evaluation metrics every N iterations.")
+    parser.add_argument("--architecture", choices={"lr", "crf"}, default="crf", help="Model architecture to use for predicting classes")
     parser.set_defaults(run=run)
 
 
@@ -54,7 +55,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
         kfold = sklearn.model_selection.GroupShuffleSplit(n_splits=args.kfolds, random_state=args.seed)
         probas = torch.zeros(classes.X.shape, dtype=torch.float, device=devices[0])
         for i, (train_indices, test_indices) in enumerate(kfold.split(features.X, classes.X, groups)):
-            model = ChemicalHierarchyPredictor(epochs=args.epochs, devices=devices)
+            model = ChemicalHierarchyPredictor(epochs=args.epochs, devices=devices, architecture=args.architecture)
             # split data
             train_X = torch.tensor(features.X[train_indices].toarray(), dtype=torch.float, device=devices[0])
             train_Y = torch.tensor(classes.X[train_indices].toarray(), dtype=torch.float, device=devices[0])
