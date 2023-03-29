@@ -8,6 +8,8 @@ import numpy
 import pandas
 import torch.cuda.amp
 import torch.nn
+import sklearn.multiclass
+import sklearn.linear_model
 from torch_treecrf import TreeCRF, TreeMatrix
 from torchmetrics.functional.classification import multilabel_auroc, binary_auroc, binary_precision
 
@@ -35,9 +37,9 @@ class ChemicalHierarchyPredictor:
     def __init__(
         self,
         architecture: Literal["crf", "lr"] = "crf",
-        base_lr: float = 1.0,
-        max_lr: float = 10.0,
-        warmup_percent: int = 0.1,
+        base_lr: float = 0.01,
+        max_lr: float = 1.0,
+        warmup_percent: int = 0.2,
         anneal_strategy: str = "linear",
         epochs: int = 200,
         devices: List[torch.device] = [],
@@ -116,7 +118,12 @@ class ChemicalHierarchyPredictor:
             self.labels = pandas.DataFrame.from_dict(labels)
             assert len(self.labels) == self.n_labels
 
-    def _initialize_model(self, n_features, n_labels, hierarchy):
+    def _initialize_model(
+        self, 
+        n_features: int, 
+        n_labels: int, 
+        hierarchy: TreeMatrix,
+    ) -> None:
         self.hierarchy = hierarchy
         if self.architecture == "crf":
             self.model = TreeCRF(n_features, hierarchy, device=self.data_device, dtype=torch.float)
@@ -128,16 +135,48 @@ class ChemicalHierarchyPredictor:
         else:
             raise ValueError(f"Invalid model architecture: {self.architecture!r}")
 
+    def _pretrain_linear(
+        self,
+        X: Union[anndata.AnnData, numpy.ndarray, torch.Tensor],
+        Y: Union[anndata.AnnData, numpy.ndarray, torch.Tensor],
+        *,
+        hierarchy: Union[None, torch.Tensor, numpy.ndarray, TreeMatrix] = None,
+    ) -> None:
+        #
+        if not isinstance(X, numpy.ndarray):
+            X = numpy.asarray(X)
+        if not isinstance(Y, numpy.ndarray):
+            Y = numpy.asarray(Y)
+
+        # Create independent classifiers for each label
+        classifier = sklearn.multiclass.OneVsRestClassifier(
+            sklearn.linear_model.LogisticRegression(penalty="l1", solver="liblinear"),
+            n_jobs=-1,
+        )
+
+        # Pre-train with liblinear
+        classifier.fit(X, Y)
+        
+        # Copy weights 
+        with torch.no_grad():
+            linear = self.model.linear if self.architecture == "crf" else self.model
+            for i, estimator in enumerate(classifier.estimators_):
+                if isinstance(estimator, type(classifier.estimator)):
+                    w = torch.tensor(estimator.coef_[0])
+                    w /= torch.norm(w)
+                    linear.weight[i, :] = w.to(device=linear.weight.device)
+                    linear.bias[i] = estimator.intercept_[0]
+
     @property
-    def n_features(self):
+    def n_features(self) -> int:
         return getattr(self.model, "linear", self.model).in_features
 
     @property
-    def n_labels(self):
+    def n_labels(self) -> int:
         return getattr(self.model, "linear", self.model).out_features
 
     @property
-    def data_device(self):
+    def data_device(self) -> torch.device:
         """`torch.device`: The device where to store the model data.
         """
         return self.devices[0]
@@ -182,16 +221,20 @@ class ChemicalHierarchyPredictor:
         # Prepare training data - no need for batching
         _X = X.to(dtype=torch.float, device=self.data_device)
         _Y = Y.to(dtype=torch.float, device=self.data_device)
+        _Y_labels = _Y.to(torch.long)
 
         # Prepare hierarchy and initialize the model
         if self.architecture == "crf" and not isinstance(hierarchy, TreeMatrix):
             hierarchy = TreeMatrix(hierarchy)
         self._initialize_model(_X.shape[1], _Y.shape[1], hierarchy)
 
+        # Pre-train model with liblinear from sklearn
+        self._pretrain_linear(_X, _Y)
+
         # Setup the optimization framework
         optimizer = torch.optim.ASGD(
             self.model.parameters(),
-            weight_decay=0.0001,
+            weight_decay=0.001,
             lr=self.base_lr
         )
         criterion = torch.nn.BCELoss()
@@ -227,8 +270,8 @@ class ChemicalHierarchyPredictor:
             scheduler.step()
 
             # compute metrics on training predictions
-            micro_auroc = multilabel_auroc(probas, _Y.to(torch.long), _Y.shape[1], average="micro")
-            macro_auroc = multilabel_auroc(probas, _Y.to(torch.long), _Y.shape[1], average="macro")
+            micro_auroc = multilabel_auroc(probas, _Y_labels, _Y.shape[1], average="micro")
+            macro_auroc = multilabel_auroc(probas, _Y_labels, _Y.shape[1], average="macro")
             
             # Report progress using the callback provided in arguments
             if callback is not None:
