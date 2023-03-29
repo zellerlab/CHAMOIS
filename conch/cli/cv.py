@@ -62,7 +62,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
             test_X = torch.tensor(features.X[test_indices].toarray(), dtype=torch.float, device=devices[0])
             test_Y = torch.tensor(classes.X[test_indices].toarray(), dtype=torch.float, device=devices[0])
             # train fold
-            task = progress.add_task(f"[bold blue]{'Training':>12}[/]", total=args.epochs)
+            task = progress.add_task(f"[bold blue]{'Training':>12}[/]", total=args.epochs, start=False)
             def progress_callback(it) -> None:
                 stats = [
                     f"[bold magenta]lr=[/][bold cyan]{it.learning_rate:.2e}[/]",
@@ -70,9 +70,12 @@ def run(args: argparse.Namespace, console: Console) -> int:
                     f"[bold magenta]AUROC(µ)=[/][bold cyan]{it.micro_auroc:05.1%}[/]",
                     f"[bold magenta]AUROC(M)=[/][bold cyan]{it.macro_auroc:05.1%}[/]",
                 ]
-                progress.update(task, advance=1, total=it.total)
+                if it.epoch == 0:
+                    progress.start_task(task)
+                progress.update(task, completed=it.epoch, total=it.total)
                 if (it.epoch - 1) % args.report_period == 0:
                     progress.console.print(f"[bold blue]{'Training':>12}[/] epoch {it.epoch} of {it.total} for {model.architecture.upper()} model:", *stats)
+            progress.console.print(f"[bold blue]{'Pretraining':>12}[/] linear layer of the CRF")
             model.fit(train_X, train_Y, callback=progress_callback, hierarchy=hierarchy)
             # test fold
             probas[test_indices] = model.predict_proba(test_X)
