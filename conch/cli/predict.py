@@ -58,13 +58,13 @@ def run(args: argparse.Namespace, console: Console) -> int:
     model = load_model(args.model, console)
     clusters = list(load_sequences(args.input, console))
     proteins = find_proteins(clusters, args.jobs, console)
-    domains = annotate_domains(args.hmm, proteins, args.jobs, console)
+    domains = annotate_domains(args.hmm, proteins, args.jobs, console, whitelist=set(model.features.index))
     obs = build_observations(clusters)
     compositions = make_compositions(domains, obs, model.features, console)
 
     # predict labels
     console.print(f"[bold blue]{'Predicting':>12}[/] chemical class probabilities")
-    probas = model.predict_proba(compositions).detach().cpu().numpy()
+    probas = model.predict_proba(compositions).detach().cpu().numpy()   
     predictions = anndata.AnnData(X=probas, obs=compositions.obs, var=model.labels)
     save_predictions(predictions, args.output, console)
     

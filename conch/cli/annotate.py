@@ -5,7 +5,7 @@ import itertools
 import operator
 import multiprocessing.pool
 import pathlib
-from typing import List, Iterable, Set, Optional
+from typing import List, Iterable, Set, Optional, Container
 
 import anndata
 import Bio.SeqIO
@@ -86,15 +86,16 @@ def find_proteins(clusters: List[ClusterSequence], cpus: Optional[int], console:
     return proteins
 
 
-def annotate_domains(path: pathlib.Path, proteins: List[Protein], cpus: Optional[int], console: Console) -> List[Domain]:
-    domain_annotator = HMMERAnnotator(path, cpus=cpus)
+def annotate_domains(path: pathlib.Path, proteins: List[Protein], cpus: Optional[int], console: Console, whitelist: Optional[Container[str]] = None) -> List[Domain]:
+    domain_annotator = HMMERAnnotator(path, cpus=cpus, whitelist=whitelist)
     with rich.progress.Progress(
         *rich.progress.Progress.get_default_columns(),
         rich.progress.MofNCompleteColumn(),
         console=console,
         transient=True
     ) as progress:
-        task_id = progress.add_task(f"[bold blue]{'Working':>12}[/]", total=None)
+        total = len(whitelist) if whitelist is not None else None
+        task_id = progress.add_task(f"[bold blue]{'Working':>12}[/]", total=total)
         def callback(hmm: HMM, total: int):
             progress.update(task_id, total=total, advance=1)
         domains = list(domain_annotator.annotate_domains(proteins, progress=callback))

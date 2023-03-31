@@ -92,7 +92,7 @@ class HMMERAnnotator(DomainAnnotator):
             hmms = (
                 hmm
                 for hmm in hmm_file
-                if hmm.accession in self.whitelist
+                if hmm.accession.decode() in self.whitelist
             )
             # Run search pipeline using the filtered HMMs
             cpus = 0 if self.cpus is None else self.cpus
