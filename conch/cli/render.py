@@ -10,10 +10,11 @@ from rich.console import Console
 
 from ..treematrix import TreeMatrix
 from ..predictor import ChemicalHierarchyPredictor
+from .predict import load_model
 
 
 def configure_parser(parser: argparse.ArgumentParser):
-    parser.add_argument("-m", "--model", required=True, type=pathlib.Path)
+    parser.add_argument("-m", "--model", type=pathlib.Path)
     parser.add_argument("-i", "--input", required=True, type=pathlib.Path)
     parser.set_defaults(run=run)
 
@@ -61,10 +62,7 @@ def build_tree(
 
 
 def run(args: argparse.Namespace, console: Console) -> int:
-    # load model
-    console.print(f"[bold blue]{'Loading':>12}[/] trained model from {str(args.model)!r}")
-    with open(args.model, "rb") as src:
-        model = ChemicalHierarchyPredictor.load(src)
+    model = load_model(args.model, console)
 
     # load predictions
     console.print(f"[bold blue]{'Loading':>12}[/] probability predictions from {str(args.input)!r}")
