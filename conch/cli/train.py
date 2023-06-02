@@ -34,29 +34,9 @@ def run(args: argparse.Namespace, console: Console) -> int:
     # prepare class hierarchy
     hierarchy = classes.varp["parents"].toarray()
     
-    # start training
-    # with rich.progress.Progress(
-    #     *rich.progress.Progress.get_default_columns(), 
-    #     rich.progress.MofNCompleteColumn(),
-    #     console=console
-    # ) as progress:
-    #     task = progress.add_task(f"[bold blue]{'Training':>12}[/]", total=None, start=False)
-    #     def progress_callback(it) -> None:
-    #         stats = [
-    #             f"[bold magenta]lr=[/][bold cyan]{it.learning_rate:.2e}[/]",
-    #             f"[bold magenta]loss=[/][bold cyan]{it.loss:.2f}[/]",
-    #             f"[bold magenta]AUROC(µ)=[/][bold cyan]{it.micro_auroc:05.1%}[/]",
-    #             f"[bold magenta]AUROC(M)=[/][bold cyan]{it.macro_auroc:05.1%}[/]",
-    #         ]
-    #         if it.epoch == 0:
-    #             progress.start_task(task)
-    #         progress.update(task, completed=it.epoch, total=it.total)
-    #         if (it.epoch - 1) % args.report_period == 0:
-    #             progress.console.print(f"[bold blue]{'Training':>12}[/] epoch {it.epoch} of {it.total} for {model.architecture.upper()} model:", *stats)
-
     console.print(f"[bold blue]{'Training':>12}[/] logistic regression model")
     model = ChemicalHierarchyPredictor(n_jobs=args.jobs, hierarchy=TreeMatrix(hierarchy))
-    model.fit(features, classes)#, callback=progress_callback, hierarchy=hierarchy)
+    model.fit(features, classes)
 
     # save result
     console.print(f"[bold blue]{'Saving':>12}[/] trained model to {str(args.output)!r}")

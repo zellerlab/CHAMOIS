@@ -63,7 +63,6 @@ class ChemicalHierarchyPredictor:
             _Y = Y
             self.classes_ = pandas.DataFrame(index=list(map(str, range(1, _Y.shape[1] + 1))))
 
-
         model = sklearn.multiclass.OneVsRestClassifier(
             sklearn.linear_model.LogisticRegression("l1", solver="liblinear", max_iter=self.max_iter),
             n_jobs=self.n_jobs,
@@ -93,10 +92,10 @@ class ChemicalHierarchyPredictor:
         pickle.dump(state, file)
         # numpy.savez_compressed(file, **state)
 
-    # @classmethod
-    # def trained(cls: Type[_T]) -> _T:
-    #     with importlib.resources.open_binary("conch", "predictor.pt") as f:
-    #         return cls.load(f)
+    @classmethod
+    def trained(cls: Type[_T]) -> _T:
+        with importlib.resources.open_binary("conch", "predictor.pkl") as f:
+            return cls.load(f)
 
     @classmethod
     def load(cls: Type[_T], file: BinaryIO) -> _T:
