@@ -14,11 +14,9 @@ import pyhmmer
 import pyrodigal
 import rich.progress
 import rich.tree
-import torch
 import scipy.sparse
 from pyhmmer.plan7 import HMM
 from rich.console import Console
-from torch_treecrf import TreeMatrix
 
 from ..domains import HMMERAnnotator
 from ..orf import PyrodigalFinder
@@ -96,8 +94,11 @@ def annotate_domains(path: pathlib.Path, proteins: List[Protein], cpus: Optional
     ) as progress:
         total = len(whitelist) if whitelist is not None else None
         task_id = progress.add_task(f"[bold blue]{'Working':>12}[/]", total=total)
-        def callback(hmm: HMM, total: int):
-            progress.update(task_id, total=total, advance=1)
+        def callback(hmm: HMM, total_: int):
+            if total is None:
+                progress.update(task_id, total=total_, advance=1)
+            else:
+                progress.update(task_id, advance=1)
         domains = list(domain_annotator.annotate_domains(proteins, progress=callback))
     console.print(f"[bold green]{'Found':>12}[/] {len(domains)} domains under inclusion threshold in {len(proteins)} proteins")
     return domains

@@ -12,10 +12,8 @@ import pyhmmer
 import pyrodigal
 import rich.progress
 import rich.tree
-import torch
 import scipy.sparse
 from rich.console import Console
-from torch_treecrf import TreeMatrix
 
 from ..model import ClusterSequence, Protein
 from ..predictor import ChemicalHierarchyPredictor
@@ -58,14 +56,14 @@ def run(args: argparse.Namespace, console: Console) -> int:
     model = load_model(args.model, console)
     clusters = list(load_sequences(args.input, console))
     proteins = find_proteins(clusters, args.jobs, console)
-    domains = annotate_domains(args.hmm, proteins, args.jobs, console, whitelist=set(model.features.index))
+    domains = annotate_domains(args.hmm, proteins, args.jobs, console, whitelist=set(model.features_.index))
     obs = build_observations(clusters)
-    compositions = make_compositions(domains, obs, model.features, console)
+    compositions = make_compositions(domains, obs, model.features_, console)
 
     # predict labels
     console.print(f"[bold blue]{'Predicting':>12}[/] chemical class probabilities")
-    probas = model.predict_proba(compositions).detach().cpu().numpy()   
-    predictions = anndata.AnnData(X=probas, obs=compositions.obs, var=model.labels)
+    probas = model.predict_proba(compositions) 
+    predictions = anndata.AnnData(X=probas, obs=compositions.obs, var=model.classes_)
     save_predictions(predictions, args.output, console)
     
 

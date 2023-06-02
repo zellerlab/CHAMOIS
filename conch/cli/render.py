@@ -7,8 +7,8 @@ import numpy
 import rich.tree
 import rich.panel
 from rich.console import Console
-from torch_treecrf import TreeMatrix
 
+from ..treematrix import TreeMatrix
 from ..predictor import ChemicalHierarchyPredictor
 
 
@@ -36,12 +36,12 @@ def build_tree(
 ) -> None:
     # get probabilities and corresponding positive terms from ChemOnt
     bgc_labels = bgc_probas > 0.5
-    terms = { j for j in range(model.n_labels) if bgc_probas[j] > 0.5 }
+    terms = { j for j in range(len(model.classes_)) if bgc_probas[j] > 0.5 }
     whitelist = all_superclasses(terms, model.hierarchy)
     # render a tree structure with rich
     def render(i, tree, whitelist):
-        term_id = model.labels.index[i]
-        term_name = model.labels.name[i]
+        term_id = model.classes_.index[i]
+        term_name = model.classes_.name[i]
         label = f"[bold blue]{term_id}[/] ([green]{term_name}[/]): [bold cyan]{bgc_probas[i]:.3f}[/]"
         subtree = tree.add(label, highlight=False)
         for j in model.hierarchy.children(i):
@@ -50,7 +50,7 @@ def build_tree(
                 render(j, subtree, whitelist)
     roots = [
         i 
-        for i in range(model.n_labels) 
+        for i in range(len(model.classes_.index)) 
         if not len(model.hierarchy.parents(i)) 
         and bgc_probas[i] > 0.5
     ]
