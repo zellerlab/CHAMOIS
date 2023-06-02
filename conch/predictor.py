@@ -8,9 +8,10 @@ from typing import Any, Literal, List, Tuple, Dict, BinaryIO, Type, Union, Optio
 
 import numpy
 import pandas
-from scipy.special import expit
+import scipy.sparse
 import sklearn.multiclass
 import sklearn.linear_model
+from scipy.special import expit
 
 try:
     import anndata
@@ -37,7 +38,7 @@ class ChemicalHierarchyPredictor:
             "classes_": self.classes_,
             "features_": self.features_,
             "intercept_": self.intercept_,
-            "coef_": self.coef_,
+            "coef_": scipy.sparse.csr_matrix(self.coef_),
             "hierarchy": self.hierarchy,
         }
 
@@ -45,19 +46,18 @@ class ChemicalHierarchyPredictor:
         self.classes_ = state["classes_"]
         self.features_ = state["features_"]
         self.intercept_ = numpy.asarray(state["intercept_"])
-        self.coef_ = numpy.asarray(state["coef_"])
+        self.coef_ = state["coef_"].toarray()
         self.hierarchy = state["hierarchy"]
 
     def fit(self: _T, X, Y) -> _T:
         if isinstance(X, anndata.AnnData):
-            _X = X.X.toarray()
+            _X = X.X
             self.features_ = X.var
         else:
             _X = X
             self.features_ = pandas.DataFrame(index=list(map(str, range(1, _X.shape[1] + 1))))
-        
         if isinstance(Y, anndata.AnnData):
-            _Y = Y.X.toarray()
+            _Y = Y.X
             self.classes_ = Y.var
         else:
             _Y = Y
@@ -68,23 +68,25 @@ class ChemicalHierarchyPredictor:
             n_jobs=self.n_jobs,
         ).fit(_X, _Y)
 
-        self.coef_ = numpy.zeros((_X.shape[1], _Y.shape[1]), order="F")
-        self.intercept_ = numpy.zeros(_Y.shape[1], order="F")
+        coef_ = numpy.zeros((_X.shape[1], _Y.shape[1]), order="F")
+        intercept_ = numpy.zeros(_Y.shape[1], order="F")
 
         for i, estimator in enumerate(model.estimators_):
             if isinstance(estimator, sklearn.linear_model.LogisticRegression):
-                self.coef_[:, i] = estimator.coef_
-                self.intercept_[i] = estimator.intercept_
+                coef_[:, i] = estimator.coef_
+                intercept_[i] = estimator.intercept_
             else:
-                self.intercept_[i] = -1000 if estimator.y_[0] == 0 else 1000
+                intercept_[i] = -1000 if estimator.y_[0] == 0 else 1000
 
+        self.coef_ = scipy.sparse.csr_matrix(coef_)
+        self.intercept_ = intercept_
         return self
 
     def predict_proba(self, X) -> numpy.ndarray:
         if isinstance(X, anndata.AnnData):
             _X = X.X.toarray()
         else:
-            _X = X
+            _X = numpy.asarray(X)
         return expit(_X @ self.coef_ + self.intercept_)
 
     def save(self, file: BinaryIO) -> None:
