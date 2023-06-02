@@ -3,6 +3,7 @@ import collections
 import functools
 import itertools
 import operator
+import os
 import multiprocessing.pool
 import pathlib
 from typing import List, Iterable, Set, Optional, Container
@@ -62,12 +63,13 @@ def load_sequences(input_files: List[pathlib.Path], console: Console) -> Iterabl
         ) as progress:
             with progress.open(input_file, "r", description=f"[bold blue]{'Reading':>12}[/]") as src:
                 for record in Bio.SeqIO.parse(src, "genbank"):
-                    yield ClusterSequence(record, input_file)
+                    yield ClusterSequence(record, os.fspath(input_file))
                     n_sequences += 1
         console.print(f"[bold green]{'Loaded':>12}[/] {n_sequences} BGCs from {str(input_file)!r}")
 
 
 def find_proteins(clusters: List[ClusterSequence], cpus: Optional[int], console: Console) -> List[Protein]:
+    console.print(f"[bold blue]{'Finding':>12}[/] genes with Pyrodigal")
     gene_finder = PyrodigalFinder(cpus=cpus)
     with rich.progress.Progress(
         *rich.progress.Progress.get_default_columns(),
@@ -101,7 +103,7 @@ def annotate_domains(path: pathlib.Path, proteins: List[Protein], cpus: Optional
                 progress.update(task_id, advance=1)
         domains = list(domain_annotator.annotate_domains(proteins, progress=callback))
     console.print(f"[bold green]{'Found':>12}[/] {len(domains)} domains under inclusion threshold in {len(proteins)} proteins")
-    return domains
+    return resolve_overlaps(domains, console)
 
 
 def resolve_overlaps(domains: List[Domain], console: Console) -> List[Domain]:
@@ -120,7 +122,7 @@ def resolve_overlaps(domains: List[Domain], console: Console) -> List[Domain]:
             # check if does overlap with other domains
             overlapping = (d for d in protein_domains if candidate_domain.overlaps(d))
             for other_domain in overlapping:
-                if other_domain.pvalue > candidate_domain.pvalue:
+                if other_domain.score < candidate_domain.score:
                     # remove other domain if it's worse than the one we
                     # currently have
                     protein_domains.remove(other_domain)
@@ -136,7 +138,12 @@ def resolve_overlaps(domains: List[Domain], console: Console) -> List[Domain]:
 
 
 def build_observations(clusters: List[ClusterSequence]) -> pandas.DataFrame:
-    return pandas.DataFrame(index=sorted(cluster.id for cluster in clusters))
+    return pandas.DataFrame(
+        index=[cluster.id for cluster in clusters],
+        data=dict(
+            source=[cluster.source for cluster in clusters],
+        )
+    )
 
 
 def build_variables(domains: List[Domain]) -> pandas.DataFrame:
@@ -170,7 +177,12 @@ def make_compositions(domains: List[Domain], obs: pandas.DataFrame, var: pandas.
                 compositions[bgc_index, domain_index] += 1
             except KeyError:
                 continue
-    return anndata.AnnData(X=compositions.tocsr(), obs=obs, var=var, dtype=int)
+    return anndata.AnnData(
+        X=compositions.tocsr(), 
+        obs=obs, 
+        var=var, 
+        dtype=int
+    )
 
 
 def save_compositions(compositions: anndata.AnnData, path: pathlib.Path, console: Console) -> None:

@@ -43,7 +43,7 @@ pgap11: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/pgap11.hd
 smcogs6: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/smcogs6.hdf5)
 
 .PHONY: features
-features: pfam35 kofam2023 pgap11
+features: pfam35 # kofam2023 pgap11
 
 .PHONY: classes
 classes: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/classes.hdf5)
@@ -94,16 +94,16 @@ $(DATA)/datasets/%/mibig3.1_ani.hdf5: $(DATA)/datasets/%/clusters.gbk $(DATA)/da
 	$(PYTHON) src/make_ani.py --query $< --target $(DATA)/datasets/mibig3.1/clusters.gbk -o $@
 
 $(DATA)/datasets/%/pfam35.hdf5: $(DATA)/datasets/%/clusters.gbk $(PFAM_HMM)
-	$(PYTHON) src/make_features.py --gbk $< --hmm $(PFAM_HMM) -o $@
+	$(PYTHON) -m conch.cli annotate --i $< --hmm $(PFAM_HMM) -o $@
 
 $(DATA)/datasets/%/kofam2023.hdf5: $(DATA)/datasets/%/clusters.gbk $(KOFAM_HMM)
-	$(PYTHON) src/make_features.py --gbk $< --hmm $(KOFAM_HMM) -o $@
+	$(PYTHON) -m conch.cli annotate --gbk $< --hmm $(KOFAM_HMM) -o $@
 
 $(DATA)/datasets/%/pgap11.hdf5: $(DATA)/datasets/%/clusters.gbk $(PGAP_HMM)
-	$(PYTHON) src/make_features.py --gbk $< --hmm $(PGAP_HMM) -o $@
+	$(PYTHON) -m conch.cli annotate --gbk $< --hmm $(PGAP_HMM) -o $@
 
 $(DATA)/datasets/%/smcogs6.hdf5: $(DATA)/datasets/%/clusters.gbk $(SMCOGS_HMM)
-	$(PYTHON) src/make_features.py --gbk $< --hmm $(SMCOGS_HMM) -o $@
+	$(PYTHON) -m conch.cli annotate --gbk $< --hmm $(SMCOGS_HMM) -o $@
 
 $(DATA)/datasets/%/classes.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(CHEMONT)
 	$(PYTHON) src/make_classes.py -i $< -o $@ --atlas $(ATLAS) --chemont $(CHEMONT) --cache $(BUILD)
