@@ -70,6 +70,7 @@ def download_compound(oid):
     params = dict(section='ImgCompound', page='imgCpdDetail', compound_oid=oid)
     with session.get(f"{CGI_URL}/abc-public/main.cgi", params=params) as res:
         soup = BeautifulSoup(res.text, "html.parser")
+        print(res.url)
     # parse the table and extract key/value pairs
     table = soup.find("table", class_="img")
     compound_data = {}

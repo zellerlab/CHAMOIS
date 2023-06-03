@@ -5181,14 +5181,18 @@
             ]
         },
         {
-            "chem_struct": "CCCCCCCCCCCCCC(C(C(=O)NC(C(C)O)C(=O)N[C@H]1[C@H](OC(=O)[C@@H](NC(=O)C(N(C(=O)CNC(=O)[C@H](NC(=O)/C(=C/C)/NC(=O)[C@H](NC(=O)[C@@H](NC1=O)[C@H](C)O)CC2=CC=C(C=C2)O)CCC(=O)N)C)C(C)OC3C(C(C(C(O3)CO)O)O)O)CCCCN)C)O)OC4C(C(C(CO4)O)OC5C(C(C(C(O5)CO)O)O)NC(=O)C)O",
+            "chem_struct": "CCCCCCCCCCCCCC(C(C(=O)NC(C(C)O)C(=O)NC1C(OC(=O)C(NC(=O)C(N(C(=O)CNC(=O)[C@H](NC(=O)C(=CC)NC(=O)[C@H](NC(=O)[C@H](NC1=O)[C@@H](C)O)CC2=CC=C(C=C2)O)CCC(=O)N)C)C(C)OC3C(C(C(C(O3)CO)O)O)O)CCCCN)C)O)OC4C(C(C(CO4)O)OC5C(C(C(C(O5)CO)O)O)NC(=O)C)O.CC=O.CC=O",
             "compound": "hassallidin C",
             "database_id": [
-                "pubchem:Compound(163107865)"
+                "pubchem:Compound(155802031)"
             ]
         },
         {
-            "compound": "hassallidin D"
+            "chem_struct": "CCCCCCCCCCCCCC(C(C(=O)NC(C(C)O)C(=O)NC1C(OC(=O)[C@@H](NC(=O)C(N(C(=O)CNC(=O)[C@H](NC(=O)C(=CC)NC(=O)[C@H](NC(=O)[C@H](NC1=O)[C@@H](C)O)CC2=CC=C(C=C2)O)CCC(=O)N)C)C(C)O[C@@H]3[C@H]([C@H]([C@@H]([C@H](O3)COC(=O)C)OC(=O)C)O)O)CC4=CC=C(C=C4)O)C)O)O[C@H]5[C@H]([C@@H]([C@@H](CO5)O)O[C@H]6[C@@H]([C@H]([C@@H]([C@H](O6)CO)O)O)NC(=O)C)O.C1C[C@@H]([C@@H](OC1)O)O",
+            "compound": "hassallidin D",
+            "database_id": [
+                "pubchem:Compound(155802025)"
+            ]
         }
     ],
     "BGC0000371": [
@@ -9477,11 +9481,7 @@
     ],
     "BGC0000774": [
         {
-            "chem_struct": "CCCCCCCCCCCCCCCC1[C@H](OC([C@H]([C@@H]1OC(=O)CC(CCCCCCCCCCC)O)O)CO[C@H]2[C@H](C([C@@H](C(O2)CO[C@@]3(CC([C@H](C(O3)C(CO)O)O[C@H]4[C@@H](C([C@@H](C(O4)C(CO)O)OP(=O)(O)OP(=O)(O)OCCN)O[C@@H]5[C@@H](C([C@@H](C(O5)C(CO[C@@H]6[C@@H](C([C@](CO6)(C(CO)O)O)O)O)O)OP(=O)(O)O)O[C@@H]7C(C([C@@H](C(O7)CO[C@@H]8C(C([C@H](C(O8)CO)O)O)O)O)O[C@@H]9C(C([C@H](C(O9)CO)O)O)O[C@@H]1C(C([C@@H](C(O1)CO)O[C@@H]1C(C([C@H](C(O1)CO)O)OC1[C@@H](C(C([C@@H](O1)C)O[C@@H]1C(C([C@@H](C(O1)CO)O)O[C@@H]1C(C[C@H](C(O1)C)O)O)O[C@@H]1C(C([C@H](C(O1)CO)O)O)O)O)O)O)O)O[C@@H]1[C@H](C([C@@H](C(O1)CO)O)O)NC(=O)C)O)O)O)O[C@@]1(CC([C@H](C(O1)C(CO)O)O)O[C@@]1(CC([C@H](C(O1)C(CO)O)O)O)C(=O)O)C(=O)O)C(=O)O)OP(=O)(O)O)OC(=O)CC(CCCCCCCCCCC)OC(=O)CCCCCCCCCCCCC)NC(=O)CC(CCCCCCCCCCC)OC(=O)CCCCCCCCCCC)CP(=O)(O)O",
             "compound": "lipopolysaccharide",
-            "database_id": [
-                "pubchem:Compound(11970143)"
-            ],
             "mol_mass": 4897.147004
         }
     ],
@@ -9520,20 +9520,12 @@
     ],
     "BGC0000778": [
         {
-            "chem_struct": "CCCCCCCCCCCCCCCC1[C@H](OC([C@H]([C@@H]1OC(=O)CC(CCCCCCCCCCC)O)O)CO[C@H]2[C@H](C([C@@H](C(O2)CO[C@@]3(CC([C@H](C(O3)C(CO)O)O[C@H]4[C@@H](C([C@@H](C(O4)C(CO)O)OP(=O)(O)OP(=O)(O)OCCN)O[C@@H]5[C@@H](C([C@@H](C(O5)C(CO[C@@H]6[C@@H](C([C@](CO6)(C(CO)O)O)O)O)O)OP(=O)(O)O)O[C@@H]7C(C([C@@H](C(O7)CO[C@@H]8C(C([C@H](C(O8)CO)O)O)O)O)O[C@@H]9C(C([C@H](C(O9)CO)O)O)O[C@@H]1C(C([C@@H](C(O1)CO)O[C@@H]1C(C([C@H](C(O1)CO)O)OC1[C@@H](C(C([C@@H](O1)C)O[C@@H]1C(C([C@@H](C(O1)CO)O)O[C@@H]1C(C[C@H](C(O1)C)O)O)O[C@@H]1C(C([C@H](C(O1)CO)O)O)O)O)O)O)O)O[C@@H]1[C@H](C([C@@H](C(O1)CO)O)O)NC(=O)C)O)O)O)O[C@@]1(CC([C@H](C(O1)C(CO)O)O)O[C@@]1(CC([C@H](C(O1)C(CO)O)O)O)C(=O)O)C(=O)O)C(=O)O)OP(=O)(O)O)OC(=O)CC(CCCCCCCCCCC)OC(=O)CCCCCCCCCCCCC)NC(=O)CC(CCCCCCCCCCC)OC(=O)CCCCCCCCCCC)CP(=O)(O)O",
-            "compound": "lipopolysaccharide",
-            "database_id": [
-                "pubchem:Compound(11970143)"
-            ]
+            "compound": "lipopolysaccharide"
         }
     ],
     "BGC0000779": [
         {
-            "chem_struct": "CCCCCCCCCCCCCCCC1[C@H](OC([C@H]([C@@H]1OC(=O)CC(CCCCCCCCCCC)O)O)CO[C@H]2[C@H](C([C@@H](C(O2)CO[C@@]3(CC([C@H](C(O3)C(CO)O)O[C@H]4[C@@H](C([C@@H](C(O4)C(CO)O)OP(=O)(O)OP(=O)(O)OCCN)O[C@@H]5[C@@H](C([C@@H](C(O5)C(CO[C@@H]6[C@@H](C([C@](CO6)(C(CO)O)O)O)O)O)OP(=O)(O)O)O[C@@H]7C(C([C@@H](C(O7)CO[C@@H]8C(C([C@H](C(O8)CO)O)O)O)O)O[C@@H]9C(C([C@H](C(O9)CO)O)O)O[C@@H]1C(C([C@@H](C(O1)CO)O[C@@H]1C(C([C@H](C(O1)CO)O)OC1[C@@H](C(C([C@@H](O1)C)O[C@@H]1C(C([C@@H](C(O1)CO)O)O[C@@H]1C(C[C@H](C(O1)C)O)O)O[C@@H]1C(C([C@H](C(O1)CO)O)O)O)O)O)O)O)O[C@@H]1[C@H](C([C@@H](C(O1)CO)O)O)NC(=O)C)O)O)O)O[C@@]1(CC([C@H](C(O1)C(CO)O)O)O[C@@]1(CC([C@H](C(O1)C(CO)O)O)O)C(=O)O)C(=O)O)C(=O)O)OP(=O)(O)O)OC(=O)CC(CCCCCCCCCCC)OC(=O)CCCCCCCCCCCCC)NC(=O)CC(CCCCCCCCCCC)OC(=O)CCCCCCCCCCC)CP(=O)(O)O",
-            "compound": "lipopolysaccharide",
-            "database_id": [
-                "pubchem:Compound(11970143)"
-            ]
+            "compound": "lipopolysaccharide"
         }
     ],
     "BGC0000780": [
@@ -24373,11 +24365,7 @@
     ],
     "BGC0001929": [
         {
-            "chem_struct": "C1=CC=C2C(=C1)C(=CN2)CC(C(=O)NCC(=O)NC(CCCCN)C(=O)O)N",
-            "compound": "WGK",
-            "database_id": [
-                "pubchem:Compound(18231607)"
-            ]
+            "compound": "WGK"
         }
     ],
     "BGC0001931": [
@@ -29739,7 +29727,11 @@
     ],
     "BGC0002297": [
         {
-            "compound": "MC-LR"
+            "chem_struct": "C[C@H]1[C@@H](NC(=O)[C@@H](NC(=O)[C@H]([C@@H](NC(=O)[C@@H](NC(=O)[C@H](NC(=O)C(=C)N(C(=O)CC[C@@H](NC1=O)C(=O)O)C)C)CC(C)C)C(=O)O)C)CCCN=C(N)N)C=CC(=C[C@H](C)[C@H](CC2=CC=CC=C2)OC)C",
+            "compound": "MC-LR",
+            "database_id": [
+                "pubchem:Compound(440645)"
+            ]
         },
         {
             "chem_struct": "C[C@H]1[C@@H](NC(=O)[C@@H](NC(=O)[C@H]([C@@H](NC(=O)[C@@H](NC(=O)[C@H](NC(=O)C(=C)N(C(=O)CC[C@@H](NC1=O)C(=O)O)C)C)CC(C)C)C(=O)O)C)CCC2=CC=C(C=C2)O)/C=C/C(=C/[C@H](C)[C@H](CC3=CC=CC=C3)OC)/C",

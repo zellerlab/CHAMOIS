@@ -103,7 +103,7 @@ def annotate_domains(path: pathlib.Path, proteins: List[Protein], cpus: Optional
                 progress.update(task_id, advance=1)
         domains = list(domain_annotator.annotate_domains(proteins, progress=callback))
     console.print(f"[bold green]{'Found':>12}[/] {len(domains)} domains under inclusion threshold in {len(proteins)} proteins")
-    return resolve_overlaps(domains, console)
+    return domains
 
 
 def resolve_overlaps(domains: List[Domain], console: Console) -> List[Domain]:
