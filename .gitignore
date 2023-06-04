@@ -2,6 +2,7 @@
 # Added manually
 
 *.BAK
+backup
 build
 
 # Created by https://www.gitignore.io/api/python,c
@@ -171,5 +172,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Jupyter
+.ipynb_checkpoints/
 
 # End of https://www.gitignore.io/api/python,c
