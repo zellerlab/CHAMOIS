@@ -68,18 +68,16 @@ class ChemicalHierarchyPredictor:
             n_jobs=self.n_jobs,
         ).fit(_X, _Y)
 
-        coef_ = numpy.zeros((_X.shape[1], _Y.shape[1]), order="F")
-        intercept_ = numpy.zeros(_Y.shape[1], order="F")
+        self.coef_ = numpy.zeros((_X.shape[1], _Y.shape[1]), order="C")
+        self.intercept_ = numpy.zeros(_Y.shape[1], order="C")
 
         for i, estimator in enumerate(model.estimators_):
             if isinstance(estimator, sklearn.linear_model.LogisticRegression):
-                coef_[:, i] = estimator.coef_
-                intercept_[i] = estimator.intercept_
+                self.coef_[:, i] = estimator.coef_
+                self.intercept_[i] = estimator.intercept_
             else:
-                intercept_[i] = -1000 if estimator.y_[0] == 0 else 1000
+                self.intercept_[i] = -1000 if estimator.y_[0] == 0 else 1000
 
-        self.coef_ = scipy.sparse.csr_matrix(coef_)
-        self.intercept_ = intercept_
         return self
 
     def predict_proba(self, X) -> numpy.ndarray:
