@@ -21,7 +21,8 @@ from .annotate import (
     load_sequences,
     build_observations,
     find_proteins,
-    annotate_domains,
+    annotate_hmmer,
+    annotate_nrpys,
     make_compositions,
 )
 
