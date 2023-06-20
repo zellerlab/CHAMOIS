@@ -17,12 +17,6 @@ INTERPRO_JSON=$(DATA)/pfam/interpro$(INTERPRO_VERSION).json
 PFAM_VERSION=35.0
 PFAM_HMM=$(DATA)/pfam/Pfam$(PFAM_VERSION).hmm
 
-PGAP_VERSION=11.0
-PGAP_HMM=$(DATA)/PGAP$(PGAP_VERSION).hmm
-
-SMCOGS_VERSION=6-1-1
-SMCOGS_HMM=$(DATA)/smCOGS$(SMCOGS_VERSION).hmm
-
 ATLAS=$(DATA)/npatlas/NPAtlas_download.json.gz
 CHEMONT=$(DATA)/ontologies/ChemOnt_2_1.obo
 
@@ -62,6 +56,7 @@ $(PGAP_HMM):
 $(SMCOGS_HMM):
 	$(PYTHON) $(SCRIPTS)/smcogs/download.py --version $(SMCOGS_VERSION) --output $@
 
+
 # --- InterPro ---------------------------------------------------------------
 
 $(GO_OBO):
@@ -72,6 +67,7 @@ $(INTERPRO_XML):
 
 $(INTERPRO_JSON): $(GO_OBO) $(INTERPRO_XML)
 	python $(SCRIPTS)/pfam/interpro_json.py --go $(GO_OBO) --xml $(INTERPRO_XML) --out $@
+
 
 # --- NP Atlas ---------------------------------------------------------------
 
@@ -99,6 +95,7 @@ $(DATA)/datasets/%/classes.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(CH
 $(DATA)/datasets/%/maccs.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(CHEMONT)
 	$(PYTHON) $(SCRIPTS)/common/make_maccs.py -i $< -o $@
 
+
 # --- Download MIBiG 2.0 data ------------------------------------------------
 
 $(DATA)/datasets/mibig2.0/clusters.gbk: $(DATA)/mibig/blocklist.tsv
@@ -110,6 +107,7 @@ $(DATA)/datasets/mibig2.0/compounds.json: $(DATA)/mibig/blocklist.tsv $(ATLAS)
 $(DATA)/datasets/mibig2.0/taxonomy.tsv: $(DATA)/mibig/blocklist.tsv $(TAXONOMY)/names.dmp $(TAXONOMY)/nodes.dmp $(TAXONOMY)/merged.dmp
 	$(PYTHON) $(SCRIPTS)/mibig/download_taxonomy.py --blocklist $< --mibig-version 2.0 -o $@ --taxonomy $(TAXONOMY)
 
+
 # --- Download MIBiG 3.1 data ------------------------------------------------
 
 $(DATA)/datasets/mibig3.1/clusters.gbk: $(DATA)/mibig/blocklist.tsv
@@ -120,6 +118,7 @@ $(DATA)/datasets/mibig3.1/compounds.json: $(DATA)/mibig/blocklist.tsv $(ATLAS)
 
 $(DATA)/datasets/mibig3.1/taxonomy.tsv: $(DATA)/mibig/blocklist.tsv $(TAXONOMY)/names.dmp $(TAXONOMY)/nodes.dmp $(TAXONOMY)/merged.dmp
 	$(PYTHON) $(SCRIPTS)/mibig/download_taxonomy.py --blocklist $< --mibig-version 3.1 -o $@ --taxonomy $(TAXONOMY)
+
 
 # --- Download JGI data ------------------------------------------------------
 

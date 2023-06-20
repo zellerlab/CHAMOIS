@@ -24,7 +24,7 @@ class ChemicalHierarchyPredictor:
     """A model for predicting chemical hierarchy from BGC compositions.
     """
 
-    def __init__(self, n_jobs=None, hierarchy=None, max_iter=100):
+    def __init__(self, hierarchy, n_jobs=None, max_iter=100):
         self.n_jobs = n_jobs
         self.max_iter = max_iter
         self.classes_ = None
@@ -32,7 +32,7 @@ class ChemicalHierarchyPredictor:
         self.coef_ = None
         self.intercept_ = None
         self.hierarchy = hierarchy
-        
+
     def __getstate__(self):
         return {
             "classes_": self.classes_,
@@ -80,12 +80,26 @@ class ChemicalHierarchyPredictor:
 
         return self
 
-    def predict_proba(self, X) -> numpy.ndarray:
+    def propagate(self, Y) -> numpy.ndarray:
+        _Y = numpy.array(Y, dtype=bool)
+        for i in reversed(self.hierarchy):
+            for j in self.hierarchy.parents(i):
+                _Y[:, j] |= _Y[:, i]
+        return _Y
+
+    def predict_probas(self, X) -> numpy.ndarray:
         if isinstance(X, anndata.AnnData):
             _X = X.X.toarray()
         else:
             _X = numpy.asarray(X)
         return expit(_X @ self.coef_ + self.intercept_)
+
+    def predict(self, X, propagate=True) -> numpy.ndarray:
+        probas = self.predict_probas(X)
+        classes = probas > 0.5
+        if propagate:
+            return self.propagate(classes)
+        return classes
 
     def save(self, file: BinaryIO) -> None:
         state = self.__getstate__()

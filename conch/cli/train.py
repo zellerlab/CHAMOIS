@@ -35,7 +35,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
     hierarchy = classes.varp["parents"].toarray()
     
     console.print(f"[bold blue]{'Training':>12}[/] logistic regression model")
-    model = ChemicalHierarchyPredictor(n_jobs=args.jobs, hierarchy=TreeMatrix(hierarchy))
+    model = ChemicalHierarchyPredictor(hierarchy=TreeMatrix(hierarchy), n_jobs=args.jobs)
     model.fit(features, classes)
 
     # save result
