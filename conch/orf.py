@@ -13,7 +13,17 @@ import tempfile
 import typing
 from multiprocessing.pool import Pool, ThreadPool
 from multiprocessing.sharedctypes import Value
-from typing import Callable, Iterable, Iterator, List, Optional, Tuple, Type, Union
+from typing import (
+    Callable, 
+    Iterable, 
+    Iterator, 
+    List, 
+    Optional, 
+    Sequence,
+    Tuple, 
+    Type, 
+    Union,
+)
 
 import pyrodigal
 
@@ -79,7 +89,7 @@ class PyrodigalFinder(ORFFinder):
 
     def find_genes(
         self,
-        clusters: Iterable[ClusterSequence],
+        clusters: Sequence[ClusterSequence],
         progress: Optional[Callable[[ClusterSequence, int], None]] = None,
         *,
         pool_factory: Union[Type[Pool], Callable[[Optional[int]], Pool]] = ThreadPool,
@@ -137,7 +147,7 @@ class CDSFinder(ORFFinder):
 
     def find_genes(
         self,
-        clusters: Iterable[ClusterSequence],
+        clusters: Sequence[ClusterSequence],
         progress: Optional[Callable[[ClusterSequence, int], None]] = None,
     ) -> Iterator[Protein]:
         """Find all genes contained in a sequence of DNA records.
@@ -172,4 +182,4 @@ class CDSFinder(ORFFinder):
                     cluster,
                 )
                 genes_found += 1
-            _progress(cluster, genes_found)
+            _progress(cluster, len(clusters))
