@@ -150,20 +150,21 @@ class CDSFinder(ORFFinder):
             features = filter(lambda feat: feat.type == self.feature, cluster.record.features)
             for i, feature in enumerate(features):
                 # get the gene translation
-                tt = feature.qualifiers.get("transl_table", [self.translation_table])[0]
-                if "translation" in feature.qualifiers:
-                    prot_seq = feature.qualifiers["translation"][0]
+                qualifiers = feature.qualifiers.to_dict()
+                tt = qualifiers.get("transl_table", [self.translation_table])[0]
+                if "translation" in qualifiers:
+                    prot_seq = qualifiers["translation"][0]
                 else:
                     prot_seq = feature.location.extract(record.sequence).translate(table=tt)
                 # get the gene name
-                if self.locus_tag in feature.qualifiers:
-                    prot_id = feature.qualifiers[self.locus_tag][0]
+                if self.locus_tag in qualifiers:
+                    prot_id = qualifiers[self.locus_tag][0]
                 else:
                     prot_id = f"{cluster.record.name}_{i+1}"
                 # check IDs are unique
-                if protein.id in ids:
-                    raise ValueError(f"Duplicate gene identifier found in {cluster.record.name!r}: {protein.id!r}")
-                ids.add(protein.id)
+                #if prot_id in ids:
+                #    raise ValueError(f"Duplicate gene identifier found in {cluster.record.name!r}: {prot_id!r}")
+                #ids.add(prot_id)
                 # wrap the gene into a Gene
                 yield Protein(
                     prot_id,
@@ -171,4 +172,4 @@ class CDSFinder(ORFFinder):
                     cluster,
                 )
                 genes_found += 1
-            _progress(record, genes_found)
+            _progress(cluster, genes_found)

@@ -2,17 +2,17 @@ import pathlib
 import dataclasses
 from typing import Optional, List
 
-from Bio.SeqRecord import SeqRecord
+import gb_io
 
 
 @dataclasses.dataclass(frozen=True)
 class ClusterSequence:
-    record: SeqRecord
+    record: gb_io.Record
     source: Optional[pathlib.Path] = None
 
     @property
     def id(self) -> str:
-        return self.record.id
+        return self.record.name
 
 
 @dataclasses.dataclass(frozen=True)

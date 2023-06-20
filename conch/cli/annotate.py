@@ -21,7 +21,7 @@ from pyhmmer.plan7 import HMM
 from rich.console import Console
 
 from ..domains import HMMERAnnotator, NRPSPredictor2Annotator
-from ..orf import PyrodigalFinder
+from ..orf import ORFFinder, PyrodigalFinder, CDSFinder
 from ..model import ClusterSequence, Protein, Domain, ProteinDomain, AdenylationDomain
 from ..predictor import ChemicalHierarchyPredictor
 
@@ -53,6 +53,11 @@ def configure_parser(parser: argparse.ArgumentParser):
         type=pathlib.Path,
         help="The path where to write the sequence annotations in HDF5 format."
     )
+    parser.add_argument(
+        "--cds",
+        action="store_true",
+        help="Use CDS features in the GenBank input as genes instead of running Pyrodigal",
+    )
     parser.set_defaults(run=run)
 
 
@@ -79,9 +84,7 @@ def load_sequences(input_files: List[pathlib.Path], console: Console) -> Iterabl
         console.print(f"[bold green]{'Loaded':>12}[/] {n_sequences} BGCs from {str(input_file)!r}")
 
 
-def find_proteins(clusters: List[ClusterSequence], cpus: Optional[int], console: Console) -> List[Protein]:
-    console.print(f"[bold blue]{'Finding':>12}[/] genes with Pyrodigal")
-    gene_finder = PyrodigalFinder(cpus=cpus)
+def find_proteins(clusters: List[ClusterSequence], orf_finder: ORFFinder, console: Console) -> List[Protein]:
     with rich.progress.Progress(
         *rich.progress.Progress.get_default_columns(),
         rich.progress.MofNCompleteColumn(),
@@ -89,7 +92,7 @@ def find_proteins(clusters: List[ClusterSequence], cpus: Optional[int], console:
         transient=True,
     ) as progress:
         task_id = progress.add_task(f"[bold blue]{'Working':>12}[/]", total=None)
-        proteins = list(gene_finder.find_genes(
+        proteins = list(orf_finder.find_genes(
             clusters,
             progress=lambda c, t: progress.update(task_id, total=t, advance=1),
         ))
@@ -197,11 +200,21 @@ def save_compositions(compositions: anndata.AnnData, path: pathlib.Path, console
 
 def run(args: argparse.Namespace, console: Console) -> int:
     clusters = list(load_sequences(args.input, console))
-    proteins = find_proteins(clusters, args.jobs, console)
+    
+    if args.cds:
+        console.print(f"[bold blue]{'Extracting':>12}[/] genes from [bold cyan]CDS[/] features")
+        orf_finder = CDSFinder()
+    else:
+        console.print(f"[bold blue]{'Finding':>12}[/] genes with Pyrodigal")
+        orf_finder = PyrodigalFinder(cpus=args.jobs) 
+    proteins = find_proteins(clusters, orf_finder, console)
 
-    domains = []
-    domains.extend(annotate_hmmer(args.hmm, proteins, args.jobs, console))
-    domains.extend(annotate_nrpys(proteins, args.jobs, console))
+    domains = [
+        *annotate_hmmer(args.hmm, proteins, args.jobs, console),
+        *annotate_nrpys(proteins, args.jobs, console),
+    ]
+    domains.extend()
+    domains.extend()
 
     obs = build_observations(clusters)
     var = build_variables(domains)

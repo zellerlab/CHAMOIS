@@ -17,6 +17,7 @@ import scipy.sparse
 from rich.console import Console
 
 from ..model import ClusterSequence, Protein
+from ..orf import ORFFinder, PyrodigalFinder, CDSFinder
 from ..predictor import ChemicalHierarchyPredictor
 from ._common import load_model
 from .render import build_tree
@@ -65,6 +66,11 @@ def configure_parser(parser: argparse.ArgumentParser):
         action="store_true",
         help="Display results in"
     )
+    parser.add_argument(
+        "--cds",
+        action="store_true",
+        help="Use CDS features in the GenBank input as genes instead of running Pyrodigal",
+    )
     parser.set_defaults(run=run)
 
 
@@ -78,11 +84,20 @@ def save_predictions(predictions: anndata.AnnData, path: pathlib.Path, console: 
 def run(args: argparse.Namespace, console: Console) -> int:
     model = load_model(args.model, console)
     clusters = list(load_sequences(args.input, console))
-    proteins = find_proteins(clusters, args.jobs, console)
 
-    domains = []
-    domains.extend(annotate_hmmer(args.hmm, proteins, args.jobs, console, whitelist=set(model.features_.index)))
-    domains.extend(annotate_nrpys(proteins, args.jobs, console))
+    if args.cds:
+        console.print(f"[bold blue]{'Extracting':>12}[/] genes from [bold cyan]CDS[/] features")
+        orf_finder = CDSFinder()
+    else:
+        console.print(f"[bold blue]{'Finding':>12}[/] genes with Pyrodigal")
+        orf_finder = PyrodigalFinder(cpus=args.jobs) 
+    proteins = find_proteins(clusters, orf_finder, console)
+
+    featurelist = set(model.features_[model.features_.kind == "HMMER"].index)
+    domains = [
+        *annotate_hmmer(args.hmm, proteins, args.jobs, console, featurelist),
+        *annotate_nrpys(proteins, args.jobs, console)
+    ]
 
     obs = build_observations(clusters)
     compositions = make_compositions(domains, obs, model.features_, console)
