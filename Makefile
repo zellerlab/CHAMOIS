@@ -20,10 +20,6 @@ PFAM_HMM=$(DATA)/pfam/Pfam$(PFAM_VERSION).hmm
 PGAP_VERSION=11.0
 PGAP_HMM=$(DATA)/PGAP$(PGAP_VERSION).hmm
 
-KOFAM_DATE=2023-01-01
-KOFAM_LIST=$(DATA)/Kofam$(KOFAM_DATE).tsv
-KOFAM_HMM=$(DATA)/Kofam$(KOFAM_DATE).hmm
-
 SMCOGS_VERSION=6-1-1
 SMCOGS_HMM=$(DATA)/smCOGS$(SMCOGS_VERSION).hmm
 
@@ -31,7 +27,7 @@ ATLAS=$(DATA)/npatlas/NPAtlas_download.json.gz
 CHEMONT=$(DATA)/ontologies/ChemOnt_2_1.obo
 
 DATASET_NAMES=mibig3.1 mibig2.0
-DATASET_TABLES=pfam35 classes mibig3.1_ani
+DATASET_TABLES=features classes mibig3.1_ani
 
 PYTHON=python -Wignore
 WGET=wget --no-check-certificate
@@ -39,20 +35,8 @@ WGET=wget --no-check-certificate
 .PHONY: datasets
 datasets: features classes compounds clusters maccs
 
-.PHONY: pfam35
-pfam35: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/pfam35.hdf5)
-
-.PHONY: kofam2023
-kofam2023: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/kofam2023.hdf5)
-
-.PHONY: pgap11
-pgap11: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/pgap11.hdf5)
-
-.PHONY: smcogs6
-smcogs6: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/smcogs6.hdf5)
-
 .PHONY: features
-features: pfam35 # kofam2023 pgap11
+features: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/features.hdf5)
 
 .PHONY: classes
 classes: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/classes.hdf5)
@@ -71,13 +55,6 @@ clusters: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/cluster
 
 $(PFAM_HMM):
 	$(WGET) http://ftp.ebi.ac.uk/pub/databases/Pfam/releases/Pfam$(PFAM_VERSION)/Pfam-A.hmm.gz -O- | gunzip > $@
-
-$(KOFAM_HMM): $(KOFAM_LIST)
-	$(WGET) ftp://ftp.genome.jp/pub/db/kofam/archives/$(KOFAM_DATE)/profiles.tar.gz -O- | tar xz --wildcards '*.hmm' -O > $@
-	$(PYTHON) $(SCRIPTS)/kofam/set_thresholds.py --hmm $@ --list $<
-
-$(KOFAM_LIST):
-	$(WGET) ftp://ftp.genome.jp/pub/db/kofam/archives/$(KOFAM_DATE)/ko_list.gz -O | gunzip -c > $@
 
 $(PGAP_HMM):
 	$(WGET) ftp://ftp.ncbi.nlm.nih.gov/hmm/11.0/hmm_PGAP.LIB -O $@
@@ -113,17 +90,8 @@ $(DATA)/npatlas/maccs.hdf5: $(ATLAS)
 $(DATA)/datasets/%/mibig3.1_ani.hdf5: $(DATA)/datasets/%/clusters.gbk $(DATA)/datasets/mibig3.1/clusters.gbk
 	$(PYTHON) $(SCRIPTS)/common/make_ani.py --query $< --target $(DATA)/datasets/mibig3.1/clusters.gbk -o $@
 
-$(DATA)/datasets/%/pfam35.hdf5: $(DATA)/datasets/%/clusters.gbk $(PFAM_HMM)
+$(DATA)/datasets/%/features.hdf5: $(DATA)/datasets/%/clusters.gbk $(PFAM_HMM)
 	$(PYTHON) -m conch.cli annotate --i $< --hmm $(PFAM_HMM) -o $@
-
-$(DATA)/datasets/%/kofam2023.hdf5: $(DATA)/datasets/%/clusters.gbk $(KOFAM_HMM)
-	$(PYTHON) -m conch.cli annotate --gbk $< --hmm $(KOFAM_HMM) -o $@
-
-$(DATA)/datasets/%/pgap11.hdf5: $(DATA)/datasets/%/clusters.gbk $(PGAP_HMM)
-	$(PYTHON) -m conch.cli annotate --gbk $< --hmm $(PGAP_HMM) -o $@
-
-$(DATA)/datasets/%/smcogs6.hdf5: $(DATA)/datasets/%/clusters.gbk $(SMCOGS_HMM)
-	$(PYTHON) -m conch.cli annotate --gbk $< --hmm $(SMCOGS_HMM) -o $@
 
 $(DATA)/datasets/%/classes.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(CHEMONT)
 	$(PYTHON) $(SCRIPTS)/common/make_classes.py -i $< -o $@ --atlas $(ATLAS) --chemont $(CHEMONT) --cache $(BUILD)
@@ -168,6 +136,3 @@ $(DATA)/datasets/abc/clusters.gbk: $(BUILD)/abc/clusters.json
 $(DATA)/datasets/abc/compounds.json: $(BUILD)/abc/clusters.json $(ATLAS)
 	mkdir -p build/cache/abc_compounds
 	$(PYTHON) $(SCRIPTS)/abc/download_compounds.py --input $< --output $@ --atlas $(ATLAS) --cache $(BUILD)
-
-# --- Download Nuccore data --------------------------------------------------
-
