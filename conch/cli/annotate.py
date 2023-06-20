@@ -2,6 +2,7 @@ import argparse
 import collections
 import functools
 import itertools
+import io
 import operator
 import os
 import multiprocessing.pool
@@ -9,7 +10,7 @@ import pathlib
 from typing import List, Iterable, Set, Optional, Container
 
 import anndata
-import Bio.SeqIO
+import gb_io
 import pandas
 import pyhmmer
 import pyrodigal
@@ -24,6 +25,10 @@ from ..orf import PyrodigalFinder
 from ..model import ClusterSequence, Protein, Domain, ProteinDomain, AdenylationDomain
 from ..predictor import ChemicalHierarchyPredictor
 
+try:
+    from isal import igzip as gzip
+except ImportError:
+    import gzip
 
 def configure_parser(parser: argparse.ArgumentParser):
     parser.add_argument(
@@ -63,8 +68,12 @@ def load_sequences(input_files: List[pathlib.Path], console: Console) -> Iterabl
             console=console,
             transient=True
         ) as progress:
-            with progress.open(input_file, "r", description=f"[bold blue]{'Reading':>12}[/]") as src:
-                for record in Bio.SeqIO.parse(src, "genbank"):
+            with progress.open(input_file, "rb", description=f"[bold blue]{'Reading':>12}[/]") as src:
+                reader = io.BufferedReader(src)
+                if reader.peek().startswith(b"\x1f\x8b"):
+                    reader = gzip.GzipFile(fileobj=reader, mode="rb")
+                reader = io.TextIOWrapper(reader)
+                for record in gb_io.iter(reader):
                     yield ClusterSequence(record, os.fspath(input_file))
                     n_sequences += 1
         console.print(f"[bold green]{'Loaded':>12}[/] {n_sequences} BGCs from {str(input_file)!r}")

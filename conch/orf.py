@@ -75,7 +75,7 @@ class PyrodigalFinder(ORFFinder):
         self.orf_finder =  pyrodigal.OrfFinder(meta=True, mask=mask)
 
     def _process_clusters(self, cluster: ClusterSequence) -> Tuple[ClusterSequence, pyrodigal.Genes]:
-        return cluster, self.orf_finder.find_genes(str(cluster.record.seq))
+        return cluster, self.orf_finder.find_genes(str(cluster.record.sequence))
 
     def find_genes(
         self,
@@ -115,7 +115,7 @@ class PyrodigalFinder(ORFFinder):
                 _progress(cluster, len(clusters))
                 for j, orf in enumerate(orfs):
                     yield Protein(
-                        f"{cluster.record.id}_{j+1}", 
+                        f"{cluster.record.name}_{j+1}", 
                         orf.translate(), 
                         cluster
                     )
@@ -154,15 +154,15 @@ class CDSFinder(ORFFinder):
                 if "translation" in feature.qualifiers:
                     prot_seq = feature.qualifiers["translation"][0]
                 else:
-                    prot_seq = feature.location.extract(record.seq).translate(table=tt)
+                    prot_seq = feature.location.extract(record.sequence).translate(table=tt)
                 # get the gene name
                 if self.locus_tag in feature.qualifiers:
                     prot_id = feature.qualifiers[self.locus_tag][0]
                 else:
-                    prot_id = f"{cluster.record.id}_{i+1}"
+                    prot_id = f"{cluster.record.name}_{i+1}"
                 # check IDs are unique
                 if protein.id in ids:
-                    raise ValueError(f"Duplicate gene identifier found in {cluster.record.id!r}: {protein.id!r}")
+                    raise ValueError(f"Duplicate gene identifier found in {cluster.record.name!r}: {protein.id!r}")
                 ids.add(protein.id)
                 # wrap the gene into a Gene
                 yield Protein(
