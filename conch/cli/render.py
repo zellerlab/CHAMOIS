@@ -10,12 +10,23 @@ from rich.console import Console
 
 from ..treematrix import TreeMatrix
 from ..predictor import ChemicalHierarchyPredictor
-from .predict import load_model
+from ._common import load_model
 
 
 def configure_parser(parser: argparse.ArgumentParser):
-    parser.add_argument("-m", "--model", type=pathlib.Path)
-    parser.add_argument("-i", "--input", required=True, type=pathlib.Path)
+    parser.add_argument(
+        "-i",
+        "--input",
+        required=True,
+        type=pathlib.Path,
+        help="The input probabilites obtained from the predictor."
+    )
+    parser.add_argument(
+        "-m",
+        "--model",
+        type=pathlib.Path,
+        help="The path to an alternative model for predicting classes.",
+    )
     parser.set_defaults(run=run)
 
 
@@ -31,9 +42,9 @@ def all_superclasses( classes: Iterable[int], hierarchy: TreeMatrix ) -> Set[int
 
 
 def build_tree(
-    model: ChemicalHierarchyPredictor, 
+    model: ChemicalHierarchyPredictor,
     bgc_index: int,
-    bgc_probas: numpy.ndarray, 
+    bgc_probas: numpy.ndarray,
 ) -> None:
     # get probabilities and corresponding positive terms from ChemOnt
     bgc_labels = bgc_probas > 0.5
@@ -50,9 +61,9 @@ def build_tree(
             if j in whitelist:
                 render(j, subtree, whitelist)
     roots = [
-        i 
-        for i in range(len(model.classes_.index)) 
-        if not len(model.hierarchy.parents(i)) 
+        i
+        for i in range(len(model.classes_.index))
+        if not len(model.hierarchy.parents(i))
         and bgc_probas[i] > 0.5
     ]
     tree = rich.tree.Tree(".", hide_root=True)

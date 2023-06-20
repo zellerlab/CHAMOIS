@@ -10,12 +10,27 @@ from ..predictor import ChemicalHierarchyPredictor
 
 
 def configure_parser(parser: argparse.ArgumentParser):
-    parser.add_argument("-f", "--features", required=True, type=pathlib.Path)
-    parser.add_argument("-c", "--classes", required=True, type=pathlib.Path)
-    parser.add_argument("-o", "--output", required=True, type=pathlib.Path)
-    parser.add_argument("-j", "--jobs", type=int, default=None)
-    # parser.add_argument("-e", "--epochs", type=int, default=200, help="The number of epochs to train the model for.")
-    # parser.add_argument("--report-period", type=int, default=20, help="Report evaluation metrics every N iterations.")
+    parser.add_argument(
+        "-f",
+        "--features",
+        required=True,
+        type=pathlib.Path,
+        help="The feature table in HDF5 format to use for training the predictor."
+    )
+    parser.add_argument(
+        "-c",
+        "--classes",
+        required=True,
+        type=pathlib.Path,
+        help="The classes table in HDF5 format to use for training the predictor."
+    )
+    parser.add_argument(
+        "-o",
+        "--output",
+        required=True,
+        type=pathlib.Path,
+        help="The path where to write the trained model in pickle format."
+    )
     parser.set_defaults(run=run)
 
 
@@ -33,7 +48,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
     classes = classes[:, (classes.X.sum(axis=0).A1 >= 5) & (classes.X.sum(axis=0).A1 <= classes.n_obs - 5)]
     # prepare class hierarchy
     hierarchy = classes.varp["parents"].toarray()
-    
+
     console.print(f"[bold blue]{'Training':>12}[/] logistic regression model")
     model = ChemicalHierarchyPredictor(hierarchy=TreeMatrix(hierarchy), n_jobs=args.jobs)
     model.fit(features, classes)

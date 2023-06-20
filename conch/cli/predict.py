@@ -15,6 +15,7 @@ import rich.tree
 import scipy.sparse
 from rich.console import Console
 
+from ._common import load_model
 from ..model import ClusterSequence, Protein
 from ..predictor import ChemicalHierarchyPredictor
 from .annotate import (
@@ -28,21 +29,41 @@ from .annotate import (
 
 
 def configure_parser(parser: argparse.ArgumentParser):
-    parser.add_argument("-i", "--input", required=True, type=pathlib.Path, action="append")
-    parser.add_argument("-m", "--model", default=None, type=pathlib.Path)
-    parser.add_argument("-H", "--hmm", required=True, type=pathlib.Path)
-    parser.add_argument("-o", "--output", required=True, type=pathlib.Path)
+    parser.add_argument(
+        "-i",
+        "--input",
+        required=True,
+        type=pathlib.Path,
+        action="append",
+        help="The input BGC sequences to process."
+    )
+    parser.add_argument(
+        "-m",
+        "--model",
+        default=None,
+        type=pathlib.Path,
+        help="The path to an alternative model for predicting classes."
+    )
+    parser.add_argument(
+        "-H",
+        "--hmm",
+        required=True,
+        type=pathlib.Path,
+        help="The path to the HMM file containing protein domains for annotation."
+    )
+    parser.add_argument(
+        "-o",
+        "--output",
+        required=True,
+        type=pathlib.Path,
+        help="The path where to write the predicted class probabilities in HDF5 format."
+    )
+    parser.add_argument(
+        "--render",
+        action="store_true",
+        help="Display results in"
+    )
     parser.set_defaults(run=run)
-
-
-def load_model(path: Optional[pathlib.Path], console: Console) -> ChemicalHierarchyPredictor:
-    if path is not None:
-        console.print(f"[bold blue]{'Loading':>12}[/] trained model from {str(path)!r}")
-        with open(path, "rb") as src:
-            return ChemicalHierarchyPredictor.load(src)
-    else:
-        console.print(f"[bold blue]{'Loading':>12}[/] embedded model")
-        return ChemicalHierarchyPredictor.trained()
 
 
 def save_predictions(predictions: anndata.AnnData, path: pathlib.Path, console: Console) -> None:

@@ -14,11 +14,40 @@ from ..treematrix import TreeMatrix
 
 
 def configure_parser(parser: argparse.ArgumentParser):
-    parser.add_argument("-f", "--features", required=True, type=pathlib.Path)
-    parser.add_argument("-c", "--classes", required=True, type=pathlib.Path)
-    parser.add_argument("-o", "--output", required=True, type=pathlib.Path)
-    parser.add_argument("-k", "--kfolds", type=int, default=10, help="Number of cross-validation folds to run.")
-    parser.add_argument("--sampling", choices={"random", "group", "kennard-stone"}, default="group", help="Algorithm for partitioning folds")
+    parser.add_argument(
+        "-f",
+        "--features",
+        required=True,
+        type=pathlib.Path,
+        help="The feature table in HDF5 format to use for training the predictor."
+    )
+    parser.add_argument(
+        "-c",
+        "--classes",
+        required=True,
+        type=pathlib.Path,
+        help="The classes table in HDF5 format to use for training the predictor."
+    )
+    parser.add_argument(
+        "-o",
+        "--output",
+        required=True,
+        type=pathlib.Path,
+        help="The path where to write the probabilities for each test fold."
+    )
+    parser.add_argument(
+        "-k",
+        "--kfolds",
+        type=int,
+        default=10,
+        help="The number of cross-validation folds to run.",
+    )
+    parser.add_argument(
+        "--sampling",
+        choices={"random", "group", "kennard-stone"},
+        default="group",
+        help="The algorithm to use for partitioning folds.",
+    )
     parser.set_defaults(run=run)
 
 

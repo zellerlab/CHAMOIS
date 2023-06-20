@@ -26,27 +26,29 @@ from ..predictor import ChemicalHierarchyPredictor
 
 
 def configure_parser(parser: argparse.ArgumentParser):
-    parser.add_argument("-i", "--input", required=True, type=pathlib.Path, action="append")
-    parser.add_argument("-H", "--hmm", required=True, type=pathlib.Path)
-    parser.add_argument("-o", "--output", required=True, type=pathlib.Path)
+    parser.add_argument(
+        "-i",
+        "--input",
+        required=True,
+        type=pathlib.Path,
+        action="append",
+        help="The input BGC sequences to process."
+    )
+    parser.add_argument(
+        "-H",
+        "--hmm",
+        required=True,
+        type=pathlib.Path,
+        help="The path to the HMM file containing protein domains for annotation."
+    )
+    parser.add_argument(
+        "-o",
+        "--output",
+        required=True,
+        type=pathlib.Path,
+        help="The path where to write the sequence annotations in HDF5 format."
+    )
     parser.set_defaults(run=run)
-
-
-# def load_hmms(hmm_file: pathlib.Path, whitelist: Iterable[str], console: Console) -> List[pyhmmer.plan7.HMM]:
-#     whitelist = set(whitelist)
-#     console.print(f"[bold blue]{'Loading':>12}[/] HMMs from {str(hmm_file)!r}")
-#     with rich.progress.Progress(
-#         *rich.progress.Progress.get_default_columns(),
-#         rich.progress.DownloadColumn(),
-#         rich.progress.TransferSpeedColumn(),
-#         console=console,
-#         transient=True
-#     ) as progress:
-#         with progress.open(hmm_file, "rb", description=f"[bold blue]{'Reading':>12}[/]") as src:
-#             with pyhmmer.plan7.HMMFile(src) as hmms:
-#                 hmms = [ hmm for hmm in hmms if hmm.accession.decode() in whitelist ]
-#     console.print(f"[bold green]{'Loaded':>12}[/] {len(hmms)} HMMs from {str(hmm_file)!r}")
-#     return hmms
 
 
 def load_sequences(input_files: List[pathlib.Path], console: Console) -> Iterable[ClusterSequence]:
