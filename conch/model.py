@@ -1,6 +1,6 @@
 import pathlib
 import dataclasses
-from typing import Optional
+from typing import Optional, List
 
 from Bio.SeqRecord import SeqRecord
 
@@ -26,12 +26,16 @@ class Protein(object):
 class Domain(object):
     name: str
     accession: Optional[str]
+    protein: Protein
+
+
+@dataclasses.dataclass(frozen=True)
+class ProteinDomain(Domain):
     start: int
     end: int
     score: float
     pvalue: float
     evalue: float
-    protein: Protein
 
     def overlaps(self, other: "Domain") -> bool:
         return (
@@ -39,3 +43,8 @@ class Domain(object):
             and self.start <= other.end
             and other.start <= self.end
         )
+
+@dataclasses.dataclass(frozen=True)
+class AdenylationDomain(Domain):
+    specificity: List[str]
+    score: float

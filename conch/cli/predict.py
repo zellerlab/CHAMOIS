@@ -22,7 +22,6 @@ from .annotate import (
     build_observations,
     find_proteins,
     annotate_domains,
-    resolve_overlaps,
     make_compositions,
 )
 
@@ -56,15 +55,19 @@ def run(args: argparse.Namespace, console: Console) -> int:
     model = load_model(args.model, console)
     clusters = list(load_sequences(args.input, console))
     proteins = find_proteins(clusters, args.jobs, console)
-    domains = annotate_domains(args.hmm, proteins, args.jobs, console, whitelist=set(model.features_.index))
+
+    domains = []
+    domains.extend(annotate_hmmer(args.hmm, proteins, args.jobs, console, whitelist=set(model.features_.index)))
+    domains.extend(annotate_nrpys(proteins, args.jobs, console))
+
     obs = build_observations(clusters)
     compositions = make_compositions(domains, obs, model.features_, console)
 
     # predict labels
     console.print(f"[bold blue]{'Predicting':>12}[/] chemical class probabilities")
-    probas = model.predict_proba(compositions) 
+    probas = model.predict_proba(compositions)
     predictions = anndata.AnnData(X=probas, obs=compositions.obs, var=model.classes_)
     save_predictions(predictions, args.output, console)
-    
 
-    
+
+

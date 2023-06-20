@@ -19,9 +19,9 @@ import scipy.sparse
 from pyhmmer.plan7 import HMM
 from rich.console import Console
 
-from ..domains import HMMERAnnotator
+from ..domains import HMMERAnnotator, NRPSPredictor2Annotator
 from ..orf import PyrodigalFinder
-from ..model import ClusterSequence, Protein, Domain
+from ..model import ClusterSequence, Protein, Domain, ProteinDomain, AdenylationDomain
 from ..predictor import ChemicalHierarchyPredictor
 
 
@@ -36,7 +36,7 @@ def configure_parser(parser: argparse.ArgumentParser):
 #     whitelist = set(whitelist)
 #     console.print(f"[bold blue]{'Loading':>12}[/] HMMs from {str(hmm_file)!r}")
 #     with rich.progress.Progress(
-#         *rich.progress.Progress.get_default_columns(), 
+#         *rich.progress.Progress.get_default_columns(),
 #         rich.progress.DownloadColumn(),
 #         rich.progress.TransferSpeedColumn(),
 #         console=console,
@@ -55,7 +55,7 @@ def load_sequences(input_files: List[pathlib.Path], console: Console) -> Iterabl
         console.print(f"[bold blue]{'Loading':>12}[/] BGCs from {str(input_file)!r}")
         n_sequences = 0
         with rich.progress.Progress(
-            *rich.progress.Progress.get_default_columns(), 
+            *rich.progress.Progress.get_default_columns(),
             rich.progress.DownloadColumn(),
             rich.progress.TransferSpeedColumn(),
             console=console,
@@ -86,15 +86,14 @@ def find_proteins(clusters: List[ClusterSequence], cpus: Optional[int], console:
     return proteins
 
 
-def annotate_domains(path: pathlib.Path, proteins: List[Protein], cpus: Optional[int], console: Console, whitelist: Optional[Container[str]] = None) -> List[Domain]:
-    domain_annotator = HMMERAnnotator(path, cpus=cpus, whitelist=whitelist)
+def annotate_domains(domain_annotator, proteins: List[Protein], console: Console) -> List[Domain]:
     with rich.progress.Progress(
         *rich.progress.Progress.get_default_columns(),
         rich.progress.MofNCompleteColumn(),
         console=console,
         transient=True
     ) as progress:
-        total = len(whitelist) if whitelist is not None else None
+        total = domain_annotator.total
         task_id = progress.add_task(f"[bold blue]{'Working':>12}[/]", total=total)
         def callback(hmm: HMM, total_: int):
             if total is None:
@@ -102,39 +101,21 @@ def annotate_domains(path: pathlib.Path, proteins: List[Protein], cpus: Optional
             else:
                 progress.update(task_id, advance=1)
         domains = list(domain_annotator.annotate_domains(proteins, progress=callback))
-    console.print(f"[bold green]{'Found':>12}[/] {len(domains)} domains under inclusion threshold in {len(proteins)} proteins")
+
     return domains
 
 
-def resolve_overlaps(domains: List[Domain], console: Console) -> List[Domain]:
-    # sort domains
-    console.print(f"[bold blue]{'Sorting':>12}[/] domains by source protein")
-    domains.sort(key=lambda d: id(d.protein))
+def annotate_hmmer(path: pathlib.Path, proteins: List[Protein], cpus: Optional[int], console: Console, whitelist: Optional[Container[str]] = None) -> List[ProteinDomain]:
+    console.print(f"[bold blue]{'Searching':>12}[/] protein domains with HMMER")
+    domain_annotator = HMMERAnnotator(path, cpus=cpus, whitelist=whitelist)
+    domains = annotate_domains(domain_annotator, proteins, console)
+    console.print(f"[bold green]{'Found':>12}[/] {len(domains)} domains under inclusion threshold in {len(proteins)} proteins")
+    return domains
 
-    # remove overlapping domains
-    console.print(f"[bold blue]{'Resolving':>12}[/] overlapping domains")
-    best_domains = []
-    for _, protein_domains in itertools.groupby(domains, key=lambda d: id(d.protein)):
-        protein_domains = list(protein_domains)
-        while protein_domains:
-            # get a candidate domain for the current gene
-            candidate_domain = protein_domains.pop()
-            # check if does overlap with other domains
-            overlapping = (d for d in protein_domains if candidate_domain.overlaps(d))
-            for other_domain in overlapping:
-                if other_domain.score < candidate_domain.score:
-                    # remove other domain if it's worse than the one we
-                    # currently have
-                    protein_domains.remove(other_domain)
-                else:
-                    # stop going through overlapping domains, as we found
-                    # one better than the candidate; this will cause the
-                    # candidate domain to be discarded as well
-                    break
-            else:
-                best_domains.append(candidate_domain)
-    
-    return best_domains
+def annotate_nrpys(proteins: List[Protein], cpus: Optional[int], console: Console) -> List[AdenylationDomain]:
+    console.print(f"[bold blue]{'Predicting':>12}[/] adenylation domain specificity with NRPyS")
+    domain_annotator = NRPSPredictor2Annotator(cpus=cpus)
+    return annotate_domains(domain_annotator, proteins, console)
 
 
 def build_observations(clusters: List[ClusterSequence]) -> pandas.DataFrame:
@@ -147,13 +128,23 @@ def build_observations(clusters: List[ClusterSequence]) -> pandas.DataFrame:
 
 
 def build_variables(domains: List[Domain]) -> pandas.DataFrame:
-    if all(domain.accession is not None for domain in domains):
-        data = {d.accession: {"name": d.name} for d in domains}
-        var = pandas.DataFrame.from_dict(data, orient="index")
-        var.sort_index(inplace=True)
-    else:
-        data = { d.name for d in domains }
-        var = pandas.DataFrame(index=sorted(data))
+    accessions = []
+    names = []
+    kind = []
+
+    for domain in domains:
+        accessions.append(domain.accession)
+        names.append(domain.name)
+        if isinstance(domain, ProteinDomain):
+            kind.append("HMMER")
+        elif isinstance(domain, AdenylationDomain):
+            kind.append("NRPyS")
+
+    var = pandas.DataFrame(dict(name=names, accession=accessions, kind=kind))
+    var.drop_duplicates(inplace=True)
+    var.set_index("accession" if all(accessions) else name, inplace=True)
+    var.sort_index(inplace=True)
+
     return var
 
 
@@ -164,7 +155,7 @@ def make_compositions(domains: List[Domain], obs: pandas.DataFrame, var: pandas.
     # sort domains
     console.print(f"[bold blue]{'Sorting':>12}[/] {len(domains)} remaining domains by source BGC")
     domains.sort(key=lambda d: id(d.protein.cluster))
-    
+
     # build compositional data
     console.print(f"[bold blue]{'Build':>12}[/] compositional matrix with {len(obs)} observations and {len(var)} variables")
     compositions = scipy.sparse.dok_matrix((len(obs), len(var)), dtype=int)
@@ -177,10 +168,11 @@ def make_compositions(domains: List[Domain], obs: pandas.DataFrame, var: pandas.
                 compositions[bgc_index, domain_index] += 1
             except KeyError:
                 continue
+
     return anndata.AnnData(
-        X=compositions.tocsr(), 
-        obs=obs, 
-        var=var, 
+        X=compositions.tocsr(),
+        obs=obs,
+        var=var,
         dtype=int
     )
 
@@ -195,7 +187,11 @@ def save_compositions(compositions: anndata.AnnData, path: pathlib.Path, console
 def run(args: argparse.Namespace, console: Console) -> int:
     clusters = list(load_sequences(args.input, console))
     proteins = find_proteins(clusters, args.jobs, console)
-    domains = annotate_domains(args.hmm, proteins, args.jobs, console)
+
+    domains = []
+    domains.extend(annotate_hmmer(args.hmm, proteins, args.jobs, console))
+    domains.extend(annotate_nrpys(proteins, args.jobs, console))
+
     obs = build_observations(clusters)
     var = build_variables(domains)
     compositions = make_compositions(domains, obs, var, console)
@@ -203,4 +199,4 @@ def run(args: argparse.Namespace, console: Console) -> int:
 
 
 
-    
+
