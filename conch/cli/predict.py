@@ -10,14 +10,16 @@ import anndata
 import pandas
 import pyhmmer
 import pyrodigal
+import rich.panel
 import rich.progress
 import rich.tree
 import scipy.sparse
 from rich.console import Console
 
-from ._common import load_model
 from ..model import ClusterSequence, Protein
 from ..predictor import ChemicalHierarchyPredictor
+from ._common import load_model
+from .render import build_tree
 from .annotate import (
     load_sequences,
     build_observations,
@@ -91,5 +93,11 @@ def run(args: argparse.Namespace, console: Console) -> int:
     predictions = anndata.AnnData(X=probas, obs=compositions.obs, var=model.classes_)
     save_predictions(predictions, args.output, console)
 
+    # render if required
+    if args.render:
+        for bgc_index in range(predictions.n_obs):
+            tree = build_tree(model, bgc_index, predictions.X[bgc_index])
+            panel = rich.panel.Panel(tree, title=predictions.obs_names[bgc_index])
+            console.print(panel)
 
 
