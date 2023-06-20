@@ -87,7 +87,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
 
     # predict labels
     console.print(f"[bold blue]{'Predicting':>12}[/] chemical class probabilities")
-    probas = model.predict_proba(compositions)
+    probas = model.predict_probas(compositions)
     predictions = anndata.AnnData(X=probas, obs=compositions.obs, var=model.classes_)
     save_predictions(predictions, args.output, console)
 

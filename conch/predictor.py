@@ -13,6 +13,8 @@ import sklearn.multiclass
 import sklearn.linear_model
 from scipy.special import expit
 
+from .treematrix import TreeMatrix
+
 try:
     import anndata
 except ImportError:
@@ -63,20 +65,26 @@ class ChemicalHierarchyPredictor:
             _Y = Y
             self.classes_ = pandas.DataFrame(index=list(map(str, range(1, _Y.shape[1] + 1))))
 
+        # train model using scikit-learn
         model = sklearn.multiclass.OneVsRestClassifier(
             sklearn.linear_model.LogisticRegression("l1", solver="liblinear", max_iter=self.max_iter),
             n_jobs=self.n_jobs,
         ).fit(_X, _Y)
 
+        # copy coefficients & intercept to a single NumPy array
         self.coef_ = numpy.zeros((_X.shape[1], _Y.shape[1]), order="C")
         self.intercept_ = numpy.zeros(_Y.shape[1], order="C")
-
         for i, estimator in enumerate(model.estimators_):
             if isinstance(estimator, sklearn.linear_model.LogisticRegression):
                 self.coef_[:, i] = estimator.coef_
                 self.intercept_[i] = estimator.intercept_
             else:
                 self.intercept_[i] = -1000 if estimator.y_[0] == 0 else 1000
+
+        # remove features with all-zero weights
+        nonzero_weights = numpy.abs(self.coef_).sum(axis=1) > 0
+        self.coef_ = self.coef_[nonzero_weights]
+        self.features_ = self.features_[nonzero_weights]
 
         return self
 
@@ -113,7 +121,7 @@ class ChemicalHierarchyPredictor:
 
     @classmethod
     def load(cls: Type[_T], file: BinaryIO) -> _T:
-        predictor = cls()
+        predictor = cls(TreeMatrix(numpy.zeros((0, 0))))
         state = pickle.load(file)
         predictor.__setstate__(state)
         return predictor
