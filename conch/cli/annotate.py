@@ -100,14 +100,13 @@ def find_proteins(clusters: List[ClusterSequence], orf_finder: ORFFinder, consol
     return proteins
 
 
-def annotate_domains(domain_annotator, proteins: List[Protein], console: Console) -> List[Domain]:
+def annotate_domains(domain_annotator, proteins: List[Protein], console: Console, total: Optional[int] = None) -> List[Domain]:
     with rich.progress.Progress(
         *rich.progress.Progress.get_default_columns(),
         rich.progress.MofNCompleteColumn(),
         console=console,
         transient=True
     ) as progress:
-        total = domain_annotator.total
         task_id = progress.add_task(f"[bold blue]{'Working':>12}[/]", total=total)
         def callback(hmm: HMM, total_: int):
             if total is None:
@@ -122,14 +121,16 @@ def annotate_domains(domain_annotator, proteins: List[Protein], console: Console
 def annotate_hmmer(path: pathlib.Path, proteins: List[Protein], cpus: Optional[int], console: Console, whitelist: Optional[Container[str]] = None) -> List[ProteinDomain]:
     console.print(f"[bold blue]{'Searching':>12}[/] protein domains with HMMER")
     domain_annotator = HMMERAnnotator(path, cpus=cpus, whitelist=whitelist)
-    domains = annotate_domains(domain_annotator, proteins, console)
+    total = len(whitelist) if whitelist else None
+    domains = annotate_domains(domain_annotator, proteins, console, total=total)
     console.print(f"[bold green]{'Found':>12}[/] {len(domains)} domains under inclusion threshold in {len(proteins)} proteins")
     return domains
+    
 
 def annotate_nrpys(proteins: List[Protein], cpus: Optional[int], console: Console) -> List[AdenylationDomain]:
     console.print(f"[bold blue]{'Predicting':>12}[/] adenylation domain specificity with NRPyS")
     domain_annotator = NRPSPredictor2Annotator(cpus=cpus)
-    return annotate_domains(domain_annotator, proteins, console)
+    return annotate_domains(domain_annotator, proteins, console, total=len(proteins))
 
 
 def build_observations(clusters: List[ClusterSequence]) -> pandas.DataFrame:
@@ -213,8 +214,6 @@ def run(args: argparse.Namespace, console: Console) -> int:
         *annotate_hmmer(args.hmm, proteins, args.jobs, console),
         *annotate_nrpys(proteins, args.jobs, console),
     ]
-    domains.extend()
-    domains.extend()
 
     obs = build_observations(clusters)
     var = build_variables(domains)

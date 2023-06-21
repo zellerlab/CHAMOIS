@@ -36,7 +36,7 @@ class DomainAnnotator(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def annotate_domains(
         self,
-        proteins: Iterable[Protein],
+        proteins: List[Protein],
         progress: Optional[Callable[[HMM, int], None]] = None,
     ) -> Iterable[Domain]:
         """Run annotation on proteins of ``genes`` and update their domains.
@@ -85,19 +85,16 @@ class HMMERAnnotator(DomainAnnotator):
 
     def annotate_domains(
         self,
-        proteins: Iterable[Protein],
+        proteins: List[Protein],
         progress: Optional[Callable[[HMM, int], None]] = None,
     ) -> Iterable[ProteinDomain]:
-        # collect proteins and keep them in original order
-        protein_index = list(proteins)
-
         # convert proteins to Easel sequences, naming them after
         # their location in the original input to ignore any duplicate
         # protein identifiers
         esl_abc = Alphabet.amino()
         esl_sqs = TextSequenceBlock([
             TextSequence(name=str(i).encode(), sequence=str(protein.sequence))
-            for i, protein in enumerate(protein_index)
+            for i, protein in enumerate(proteins)
         ])
 
         with contextlib.ExitStack() as ctx:
@@ -138,7 +135,7 @@ class HMMERAnnotator(DomainAnnotator):
                             score=domain.score,
                             pvalue=domain.pvalue,
                             evalue=domain.i_evalue,
-                            protein=protein_index[target_index],
+                            protein=proteins[target_index],
                         )
 
 
@@ -210,19 +207,16 @@ class NRPSPredictor2Annotator(DomainAnnotator):
 
     def annotate_domains(
         self,
-        proteins: Iterable[Protein],
+        proteins: List[Protein],
         progress: Optional[Callable[[HMM, int], None]] = None,
     ) -> Iterable[AdenylationDomain]:
-        # collect proteins and keep them in original order
-        protein_index = list(proteins)
-
         # convert proteins to Easel sequences, naming them after
         # their location in the original input to ignore any duplicate
         # protein identifiers
         esl_abc = Alphabet.amino()
         esl_sqs = TextSequenceBlock([
             TextSequence(name=str(i).encode(), sequence=str(protein.sequence))
-            for i, protein in enumerate(protein_index)
+            for i, protein in enumerate(proteins)
         ])
 
         # find adenylation domains
@@ -272,6 +266,6 @@ class NRPSPredictor2Annotator(DomainAnnotator):
                     accession=f"NRPyS:{'|'.join(sorted(specificity))}",
                     name=self._get_name(specificity),
                     specificity=specificity,
-                    protein=protein_index[target_index],
+                    protein=proteins[target_index],
                     score=pred.score,
                 )
