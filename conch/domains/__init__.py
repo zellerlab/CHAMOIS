@@ -232,15 +232,16 @@ class NRPSPredictor2Annotator(DomainAnnotator):
                 [hmm],
                 cpus=cpus,
                 callback=progress, # type: ignore
-                E=0.01,
+                T=20.0,
+                domT=20.0,
             )
             # extract subsequences with a match
             signatures = []
             names = []
             for hits in hmms_hits:
                 target_index = int(hits.query_name)
-                for hit in hits.reported:
-                    for domain in hit.domains.reported:
+                for hit in hits:
+                    for domain in hit.domains:
                         signature = self._make_signature(domain.alignment)
                         if signature is not None:
                             names.append(hits.query_name.decode())
