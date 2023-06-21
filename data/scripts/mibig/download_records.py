@@ -128,7 +128,7 @@ with rich.progress.Progress() as progress:
             # (see https://pubmed.ncbi.nlm.nih.gov/15600304/)
             elif record.id == "BGC0002043":
                 start = get_cds(record, protein_id="QLH55578.1").location.start
-                end = get_cds(record, protein_id=" QLH55580.1").location.end
+                end = get_cds(record, protein_id="QLH55580.1").location.end
 
             # MIBIG entry of BGC0001196 contains ORF-2 to ORF+3
             elif record.id == "BGC0001196":

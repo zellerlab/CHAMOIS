@@ -352,6 +352,15 @@ for bgc_id, entry in mibig.items():
                 "chem_struct": r"C\C=C\C=C\C=C\C(=O)N[C@@H](CC1=CC=CC=C1)C(=O)N[C@H]1COC(=O)[C@@H]2C[C@@H](C)CN2C(=O)[C@H](C)NC(=O)[C@H](C)N(C)C(=O)[C@@H]2CCCN2C1=O",
             }
         ]
+    # Add the PubChem reference to BGC0001847 compound
+    elif bgc_id == "BGC0001847":
+        entry["compounds"] = [
+            {
+                "compound": "1-carbapen-2-em-3-carboxylic acid",
+                "chem_struct": "C1C=C(N2[C@H]1CC2=O)C(=O)O",
+                "database_id": ["pubchem:441133"]
+            }
+        ]
 
     for compound in entry["compounds"]:
         # β-D-galactosylvalidoxylamine-A is actually validamycin

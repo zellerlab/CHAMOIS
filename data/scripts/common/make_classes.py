@@ -76,7 +76,7 @@ def get_classyfire_inchikey(inchikey):
     # otherwise use the ClassyFire website API
     with urllib.request.urlopen(f"http://classyfire.wishartlab.com/entities/{inchikey}.json") as res:
         data = json.load(res)
-        time.sleep(0.1)
+        time.sleep(10.0)
         if "class" not in data:
             raise RuntimeError("classification not found")
         return data if "class" in data else None
@@ -89,7 +89,7 @@ for bgc_id, bgc_compounds in rich.progress.track(compounds.items(), description=
         # ignore compounds without structure (should have gotten one already)
         if "chem_struct" not in compound:
             annotations[bgc_id].append(None)
-            rich.print(f"[bold yellow]{'Skipping':>12}[/] {compound['compound']!r} compound of {bgc_id} with no structure")
+            rich.print(f"[bold yellow]{'Skipping':>12}[/] {compound['compound']!r} compound of [purple]{bgc_id}[/] with no structure")
             continue
         # use InChi key to find annotation in NPAtlas
         inchikey = rdkit.Chem.inchi.MolToInchiKey(rdkit.Chem.MolFromSmiles(compound['chem_struct'].strip()))
@@ -97,15 +97,15 @@ for bgc_id, bgc_compounds in rich.progress.track(compounds.items(), description=
             npaid = inchikey_index[inchikey]["npaid"]
             compound.setdefault("database_id", []).append(f"npatlas:{npaid}")
             if np_atlas[npaid]["classyfire"] is not None:
-                rich.print(f"[bold green]{'Found':>12}[/] NPAtlas classification ({npaid}) for compound {compound['compound']!r} of {bgc_id}")
+                rich.print(f"[bold green]{'Found':>12}[/] NPAtlas classification ([bold cyan]{npaid}[/]) for compound {compound['compound']!r} of [purple]{bgc_id}[/]")
                 annotations[bgc_id].append(np_atlas[npaid]["classyfire"])
                 continue
         # try to use classyfire by InChi key othewrise
-        rich.print(f"[bold blue]{'Querying':>12}[/] ClassyFire for compound {compound['compound']!r} of {bgc_id}")
+        rich.print(f"[bold blue]{'Querying':>12}[/] ClassyFire for compound {compound['compound']!r} of [purple]{bgc_id}[/]")
         try:
             classyfire = get_classyfire_inchikey(inchikey)
         except (RuntimeError, HTTPError):
-            rich.print(f"[bold red]{'Failed':>12}[/] to get ClassyFire annotations for {compound['compound']!r} compound of {bgc_id}")
+            rich.print(f"[bold red]{'Failed':>12}[/] to get ClassyFire annotations for {compound['compound']!r} compound of [purple]{bgc_id}[/]")
             annotations[bgc_id].append(None)
         else:
             rich.print(f"[bold green]{'Downloaded':>12}[/] ClassyFire annotations for {compound['compound']!r} compound of {bgc_id}")
