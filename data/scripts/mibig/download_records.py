@@ -122,6 +122,19 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, gene="las1").location.start
                 end = get_cds(record, gene="lasB").location.end
 
+            # MIBiG entry of BGC0002043 contains many unrelated genes: the paper
+            # performed heterologous expression and identified 3 core genes
+            # + a distant peptidase
+            # (see https://pubmed.ncbi.nlm.nih.gov/15600304/)
+            elif record.id == "BGC0002043":
+                start = get_cds(record, protein_id="QLH55578.1").location.start
+                end = get_cds(record, protein_id=" QLH55580.1").location.end
+
+            # MIBIG entry of BGC0001196 contains ORF-2 to ORF+3
+            elif record.id == "BGC0001196":
+                start = get_cds(record, protein_id="AJW76703.1").location.start
+                end = get_cds(record, protein_id="AJW76719.1").location.end
+
             # clamp the BGC boundaries to the left- and rightmost genes
             else:
                 start = min( f.location.start for f in record.features if f.type == "CDS" )
