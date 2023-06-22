@@ -23554,7 +23554,7 @@
             "chem_struct": "C1C=C(N2[C@H]1CC2=O)C(=O)O",
             "compound": "1-carbapen-2-em-3-carboxylic acid",
             "database_id": [
-                "pubchem:Compound(441133)"
+                "pubchem:441133"
             ]
         }
     ],
@@ -31918,10 +31918,10 @@
     ],
     "BGC0002452": [
         {
-            "chem_struct": "CC1C/C=C\\C=C/C(C(CC(C(C(C(CC(=O)O1)O)OC)OC2C(C(C(C(O2)C)OC3CC(C(C(O3)C)O)(C)O)N(C)C)O)CC=O)C)O",
+            "chem_struct": "C[C@@H]1C/C=C/C=C/[C@@H]([C@@H](C[C@@H]([C@@H]([C@H]([C@@H](CC(=O)O1)O)OC)O[C@H]2[C@@H]([C@H]([C@@H]([C@H](O2)C)O[C@H]3C[C@@]([C@H]([C@@H](O3)C)O)(C)O)N(C)C)O)CC=O)C)O",
             "compound": "leucomycin",
             "database_id": [
-                "pubchem:Compound(156619588)"
+                "pubchem:Compound(5282189)"
             ]
         }
     ],
@@ -34192,15 +34192,6 @@
             ]
         }
     ],
-    "BGC0002608": [
-        {
-            "chem_struct": "C[C@@H]1CC2=C(C=C(C(=C2C(=O)O1)O)C(=O)N[C@@H](CC3=CC=CC=C3)C(=O)O)Cl",
-            "compound": "ochratoxin A",
-            "database_id": [
-                "npatlas:NPA016066"
-            ]
-        }
-    ],
     "BGC0002609": [
         {
             "chem_struct": "C[C@@H]1CC2=C(C=C(C(=C2C(=O)O1)O)C(=O)N[C@@H](CC3=CC=CC=C3)C(=O)O)Cl",
@@ -34448,7 +34439,11 @@
             ]
         },
         {
-            "compound": "arabinofuranosyladenine"
+            "chem_struct": "C1=NC(=C2C(=N1)N(C=N2)[C@H]3[C@H]([C@@H]([C@H](O3)CO)O)O)N",
+            "compound": "arabinofuranosyladenine",
+            "database_id": [
+                "pubchem:Compound(21704)"
+            ]
         }
     ],
     "BGC0002622": [
@@ -34482,13 +34477,25 @@
     ],
     "BGC0002625": [
         {
-            "compound": "desmamide A"
+            "chem_struct": "CCCCCC(CC1C(C(=O)N[C@@H](C(=O)NCC(=O)N2CCC[C@H]2C(=O)N[C@H](C(=O)N[C@H](C(=O)N[C@H](C(=O)N[C@H](C(=O)N[C@H](C(=O)N[C@H](C(=O)N3CCC[C@H]3C(=O)O1)CC(C)C)[C@@H](C)O)CC(C)C)CO)CC4=CC=C(C=C4)O[C@@H]5[C@@H]([C@H]([C@@H](CO5)O)O)O)C(C)C)CCC(=O)N)C)O",
+            "compound": "desmamide A",
+            "database_id": [
+                "pubchem:Compound(168010362)"
+            ]
         },
         {
-            "compound": "desmamide B"
+            "chem_struct": "CCCCCC(CC1C(C(=O)N[C@@H](C(=O)NCC(=O)N2CCC[C@H]2C(=O)N[C@H](C(=O)N[C@H](C(=O)N[C@H](C(=O)N[C@H](C(=O)N[C@H](C(=O)N[C@H](C(=O)N3CCC[C@H]3C(=O)O1)CC(C)C)[C@@H](C)O)CC(C)C)CO)CC4=CC=C(C=C4)O[C@@H]5[C@@H]([C@H]([C@@H](CO5)OC(=O)C)O)O)C(C)C)CCC(=O)N)C)O",
+            "compound": "desmamide B",
+            "database_id": [
+                "pubchem:Compound(168010288)"
+            ]
         },
         {
-            "compound": "desmamide C"
+            "chem_struct": "CCCCCC(CC1C(C(=O)N[C@@H](C(=O)NCC(=O)N2CCC[C@H]2C(=O)N[C@H](C(=O)N[C@H](C(=O)N[C@H](C(=O)N[C@H](C(=O)N[C@H](C(=O)N[C@H](C(=O)N3CCC[C@H]3C(=O)O1)CC(C)C)[C@@H](C)O)CC(C)C)CO)CC4=CC=C(C=C4)O)C(C)C)CCC(=O)N)C)O",
+            "compound": "desmamide C",
+            "database_id": [
+                "pubchem:Compound(168010266)"
+            ]
         }
     ],
     "BGC0002626": [
@@ -34496,10 +34503,18 @@
             "compound": "microviridin 1688"
         },
         {
-            "compound": "microviridin 1739"
+            "chem_struct": "CC(=O)NC(CC1=CC=C(C=C1)O)C(=O)NC(CCC(=O)O)C(=O)NC2COC(=O)CC3C(=O)NC(C(=O)NC4CCC(=O)OCC(C(=O)N3)NC(=O)C5CCCN5C(=O)C(NC(=O)C(CCCCNC(=O)CCC(NC4=O)C(=O)NC(CC6=CC=C(C=C6)O)C(=O)O)NC(=O)C(NC2=O)CCCNC(=N)N)CC7=CC=C(C=C7)O)CC8=CNC9=CC=CC=C98",
+            "compound": "microviridin 1739",
+            "database_id": [
+                "pubchem:Compound(168010386)"
+            ]
         },
         {
-            "compound": "microviridin 1748"
+            "chem_struct": "CC1C(C(=O)NC(C(=O)NC2CCCCNC(=O)CCC(NC(=O)C3CCC(=O)OCC(C(=O)NC(CC(=O)O1)C(=O)NC(C(=O)N3)CC4=CNC5=CC=CC=C54)NC(=O)C6CCCN6C(=O)C(NC2=O)CC7=CNC8=CC=CC=C87)C(=O)NC(CC9=CC=C(C=C9)O)C(=O)O)CCCCN)NC(=O)C(CCC(=O)O)NC(=O)C(CC1=CC=C(C=C1)O)NC(=O)C",
+            "compound": "microviridin 1748",
+            "database_id": [
+                "pubchem:Compound(168010346)"
+            ]
         }
     ],
     "BGC0002627": [
@@ -35505,7 +35520,11 @@
             ]
         },
         {
-            "compound": "9-dehydronostovalerolactone"
+            "chem_struct": "CCCC/C=C/C=C/CC1C(=CC(=O)C2=C(C(=C)OC(=O)C2(O1)O)O)C",
+            "compound": "9-dehydronostovalerolactone",
+            "database_id": [
+                "pubchem:Compound(168010402)"
+            ]
         }
     ],
     "BGC0002712": [

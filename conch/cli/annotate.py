@@ -1,13 +1,16 @@
 import argparse
+import pathlib
 
+import anndata
 from rich.console import Console
 
 from ..orf import CDSFinder, PyrodigalFinder
 from ..compositions import build_observations, build_variables, build_compositions
 from ._common import (
-    annotate_hmmer, 
+    annotate_hmmer,
     annotate_nrpys,
     find_proteins,
+    load_sequences,
 )
 
 

@@ -23,6 +23,9 @@ CHEMONT=$(DATA)/ontologies/ChemOnt_2_1.obo
 DATASET_NAMES=mibig3.1 mibig2.0
 DATASET_TABLES=features classes mibig3.1_ani
 
+TAXONOMY=$(DATA)/taxonomy
+TAXONOMY_VERSION=2023-06-01
+
 PYTHON=python -Wignore
 WGET=wget --no-check-certificate
 
@@ -56,6 +59,13 @@ $(PGAP_HMM):
 $(SMCOGS_HMM):
 	$(PYTHON) $(SCRIPTS)/smcogs/download.py --version $(SMCOGS_VERSION) --output $@
 
+$(TAXONOMY)/taxdmp_$(TAXONOMY_VERSION).zip:
+	mkdir -p $(TAXONOMY)
+	$(WGET) https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/taxdump_archive/taxdmp_$(TAXONOMY_VERSION).zip -O $@
+
+$(TAXONOMY)/%.dmp: $(TAXONOMY)/taxdmp_$(TAXONOMY_VERSION).zip
+	unzip $< -d $(TAXONOMY) $(notdir $@)
+	touch $@
 
 # --- InterPro ---------------------------------------------------------------
 
