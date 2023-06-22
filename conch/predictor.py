@@ -118,7 +118,7 @@ class ChemicalHierarchyPredictor:
 
     @classmethod
     def trained(cls: Type[_T]) -> _T:
-        with files("conch").joinpath("predictor.json").open() as f:
+        with files(__package__).joinpath("predictor.json").open() as f:
             return cls.load(f)
 
     @classmethod

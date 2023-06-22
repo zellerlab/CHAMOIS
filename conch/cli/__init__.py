@@ -4,7 +4,7 @@ from typing import Optional
 from rich.console import Console
 from rich_argparse import RichHelpFormatter
 
-from . import train, predict, render, cv, annotate
+from . import train, predict, render, cv, annotate, search
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -30,6 +30,7 @@ def build_parser() -> argparse.ArgumentParser:
     predict.configure_parser(commands.add_parser("predict"))
     render.configure_parser(commands.add_parser("render"))
     train.configure_parser(commands.add_parser("train"))
+    search.configure_parser(commands.add_parser("search"))
 
     return parser
 

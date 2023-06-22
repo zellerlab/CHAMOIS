@@ -97,7 +97,7 @@ class HMMERAnnotator(DomainAnnotator):
         if self.path is not None:
             file: BinaryIO = io.BufferedReader(ctx.enter_context(open(self.path, "rb")))
         else:
-            file = ctx.enter_context(files(__name__).joinpath("Pfam35.0.hmm.lz4").open("rb"))
+            file = ctx.enter_context(files(__package__).joinpath("Pfam35.0.hmm.lz4").open("rb"))
         
         peek = file.peek()
         if peek.startswith(_GZIP_MAGIC):
@@ -277,7 +277,7 @@ class NRPSPredictor2Annotator(DomainAnnotator):
 
             # run NRPyS
             config = nrpys.Config()
-            config.model_dir = ctx.enter_context(as_file(files(__name__).joinpath("models")))
+            config.model_dir = ctx.enter_context(as_file(files(__package__).joinpath("models")))
             config.skip_v1 = True
             config.skip_v3 = True
             config.skip_stachelhaus = True
