@@ -33,22 +33,30 @@ class TreeMatrix:
     """A tree encoded as an incidence matrix.
     """
 
-    def __init__(self, data: numpy.ndarray) -> None:
-        _data = numpy.asarray(data, dtype=numpy.int32)
+    def __init__(self, data: numpy.ndarray = None) -> None:
+        if data is None:
+            _data = numpy.array([])
+        elif isinstance(data, scipy.sparse.spmatrix):
+            _data = data.toarray()
+        else:
+            _data = numpy.asarray(data, dtype=numpy.int32)
 
-        # cache parents and children
-        self._parents = _VariableColumnStorage(
-            [numpy.where(_data[i, :] != 0)[0] for i in range(_data.shape[0])],
-            dtype=numpy.int64
-        )
-        self._children = _VariableColumnStorage(
-            [numpy.where(_data[:, i] != 0)[0] for i in range(_data.shape[0])],
-            dtype=numpy.int64
-        )
-
-        # run a BFS walk and store indices
-        self._down = self._roots_to_leaves(_data)
-        self._up = self._leaves_to_root(_data)
+        if _data.size:
+            # cache parents and children
+            self._parents = _VariableColumnStorage(
+                [numpy.where(_data[i, :] != 0)[0] for i in range(_data.shape[0])],
+                dtype=numpy.int64
+            )
+            self._children = _VariableColumnStorage(
+                [numpy.where(_data[:, i] != 0)[0] for i in range(_data.shape[0])],
+                dtype=numpy.int64
+            )
+            # run a BFS walk and store indices
+            self._down = self._roots_to_leaves(_data)
+            self._up = self._leaves_to_root(_data)
+        else:
+            self._parents = self._children = _VariableColumnStorage([])
+            self._down = self._up = numpy.array([])
 
         # store data as a sparse matrix
         self.data = scipy.sparse.csr_matrix(_data)
@@ -63,21 +71,10 @@ class TreeMatrix:
         return iter(self._up)
 
     def __getstate__(self) -> Dict[str, object]:
-        return {
-            "data": {
-                "shape": tuple(self.data.shape),
-                "indices": list(self.data.indices),
-                "indptr": list(self.data.indptr),
-            }
-        }
+        return dict(data=self.data)
 
     def __setstate__(self, state: Dict[str, object]) -> None:
-        indices = state["data"]["indices"]
-        indptr =  state["data"]["indptr"]
-        shape = state["data"]["shape"]
-        data = numpy.ones(len(indices), dtype=numpy.int32)
-        csr = scipy.sparse.csr_matrix((data, indices, indptr), shape=shape, dtype=numpy.int32)
-        self.__init__(csr.toarray())
+        self.__init__(state["data"])
 
     def _roots_to_leaves(self, data: numpy.ndarray) -> numpy.ndarray:
         """Generate a walk order to explore the tree from roots to leaves.

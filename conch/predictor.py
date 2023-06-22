@@ -51,8 +51,6 @@ class ChemicalHierarchyPredictor:
         self.features_ = state["features_"]
         self.intercept_ = numpy.asarray(state["intercept_"])
         self.coef_ = state["coef_"].toarray()
-        
-        self.hierarchy = TreeMatrix(numpy.array([[0, 0], [1, 0]]))
         self.hierarchy.__setstate__(state["hierarchy"])
 
     def fit(self: _T, X, Y) -> _T:
@@ -126,7 +124,7 @@ class ChemicalHierarchyPredictor:
     @classmethod
     def load(cls: Type[_T], file: TextIO) -> _T:
         state = json.load(file, cls=_json.JSONDecoder)
-        predictor = cls(TreeMatrix(numpy.array( [[0, 0], [1, 0]] )))
+        predictor = cls(TreeMatrix())
         predictor.__setstate__(state)
         return predictor
 
