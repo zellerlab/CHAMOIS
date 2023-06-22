@@ -1,4 +1,5 @@
 import abc
+import bz2
 import collections.abc
 import contextlib
 import io
@@ -16,6 +17,15 @@ try:
     from importlib.resources import files, as_file
 except ImportError:
     from importlib_resources import files, as_file
+
+try:
+    import lz4.frame
+except ImportError as err:
+    lz4 = err
+
+_BZ2_MAGIC = b"BZh"
+_GZIP_MAGIC = b"\x1f\x8b"
+_LZ4_MAGIC = b"\x04\x22\x4d\x18"
 
 
 class _UniversalContainer(collections.abc.Container):
@@ -87,9 +97,19 @@ class HMMERAnnotator(DomainAnnotator):
         if self.path is not None:
             file: BinaryIO = io.BufferedReader(ctx.enter_context(open(self.path, "rb")))
         else:
-            file = ctx.enter_context(files(__name__).joinpath("Pfam35.0.hmm").open("rb"))
-        if file.peek().startswith(b"\x1f\x8b"):
-            file = ctx.enter_context(gzip.GzipFile(fileobj=file, mode="rb"))  # type: ignore
+            file = ctx.enter_context(files(__name__).joinpath("Pfam35.0.hmm.lz4").open("rb"))
+        
+        peek = file.peek()
+        if peek.startswith(_GZIP_MAGIC):
+            file = ctx.enter_context(gzip.GzipFile(fileobj=file, mode="rb")) # type: ignore
+        elif peek.startswith(_LZ4_MAGIC):
+            if isinstance(lz4, ImportError):
+                raise RuntimeError("failed to decompress LZ4 file") from lz4
+            else:
+                file = ctx.enter_context(lz4.frame.open(file, mode="rb")) # type: ignore
+        elif peek.startswith(_BZ2_MAGIC):
+            file = ctx.enter_context(bzip2.open(file, mode="rb")) # type: ignore
+
         return ctx.enter_context(HMMFile(file))
 
     def annotate_domains(

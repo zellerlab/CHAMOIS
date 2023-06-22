@@ -41,6 +41,11 @@ try:
 except ImportError:
     import gzip
 
+try:
+    import lz4.frame
+except ImportError as err:
+    lz4 = err
+
 
 class sdist(_sdist):
     """An extension to the `sdist` command that generates a `pyproject.toml`.
@@ -130,6 +135,8 @@ class download_pfam(setuptools.Command):
             raise RuntimeError("pyhmmer is required to run the `download_pfam` command") from HMMFile
         if isinstance(rich, ImportError):
             raise RuntimeError("`rich` is required to run the `download_pfam` command") from rich
+        if isinstance(rich, ImportError):
+            raise RuntimeError("`lz4` is required to run the `download_pfam` command") from rich
 
         # Load domain whitelist from the predictor
         predictor_file = os.path.join("conch", "predictor.json")
@@ -142,7 +149,7 @@ class download_pfam(setuptools.Command):
         ]
 
         # Download and binarize required HMMs
-        local = os.path.join(self.build_lib, "conch", "domains", f"Pfam{self.version}.hmm")
+        local = os.path.join(self.build_lib, "conch", "domains", f"Pfam{self.version}.hmm.lz4")
         self.mkpath(os.path.dirname(local))
         self.download_pfam(local, domains)
         if self.inplace:
@@ -158,14 +165,6 @@ class download_pfam(setuptools.Command):
             if os.path.exists(local):
                 os.remove(local)
             raise
-
-        # # update the MD5 if the HMMs are being rebuilt, otherwise
-        # # check the hashes are consistent
-        # if self.rebuild:
-        #     self._rebuild_checksum(in_, local, cfg)
-        #     self._rebuild_size(in_, local, cfg)
-        # else:
-        #     self._validate_checksum(local, options)
 
     def download_hmms(self, output, domains):
         # get URL for the requested Pfam version
@@ -185,7 +184,7 @@ class download_pfam(setuptools.Command):
         with contextlib.ExitStack() as ctx:
             dl = ctx.enter_context(pbar)
             src = ctx.enter_context(gzip.open(dl))
-            dst = ctx.enter_context(open(output, "wb"))
+            dst = ctx.enter_context(lz4.frame.open(output, "wb"))
             for hmm in HMMFile(src):
                 nsource += 1
                 if hmm.accession.decode() in domains:
