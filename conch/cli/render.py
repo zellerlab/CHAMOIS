@@ -1,4 +1,5 @@
 import argparse
+import contextlib
 import pathlib
 from typing import List, Set, Iterable
 
@@ -25,7 +26,19 @@ def configure_parser(parser: argparse.ArgumentParser):
         "-m",
         "--model",
         type=pathlib.Path,
-        help="The path to an alternative model for predicting classes.",
+        help="The path to an alternative predictor with classes metadata.",
+    )
+    parser.add_argument(
+        "-p",
+        "--pager",
+        action="store_true",
+        help="Use the given pager to display results."
+    )
+    parser.add_argument(
+        "-c",
+        "--color",
+        action="store_true",
+        help="Use colored input in pager."
     )
     parser.set_defaults(run=run)
 
@@ -54,7 +67,8 @@ def build_tree(
     def render(i, tree, whitelist):
         term_id = model.classes_.index[i]
         term_name = model.classes_.name[i]
-        label = f"[bold blue]{term_id}[/] ([green]{term_name}[/]): [bold cyan]{bgc_probas[i]:.3f}[/]"
+        color = "cyan" if bgc_probas[i] >= 0.5 else "yellow"
+        label = f"[bold blue]{term_id}[/] ([green]{term_name}[/]): [bold {color}]{bgc_probas[i]:.3f}[/]"
         subtree = tree.add(label, highlight=False)
         for j in model.hierarchy.children(i):
             j = j.item()
@@ -80,7 +94,8 @@ def run(args: argparse.Namespace, console: Console) -> int:
     predictions = anndata.read(args.input)
 
     # render tree
-    for bgc_index in range(predictions.n_obs):
-        tree = build_tree(model, bgc_index, predictions.X[bgc_index])
-        panel = rich.panel.Panel(tree, title=predictions.obs_names[bgc_index])
-        console.print(panel)
+    with console.pager(styles=args.color) if args.pager else contextlib.nullcontext():
+        for bgc_index in range(predictions.n_obs):
+            tree = build_tree(model, bgc_index, predictions.X[bgc_index])
+            panel = rich.panel.Panel(tree, title=predictions.obs_names[bgc_index])
+            console.print(panel)
