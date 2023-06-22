@@ -222,7 +222,7 @@ class NRPSPredictor2Annotator(DomainAnnotator):
         # find adenylation domains
         with contextlib.ExitStack() as ctx:
             # load AMP-binding specific HMM
-            with files(__name__).joinpath("aa-activating.aroundLys.hmm").open("rb") as f:
+            with files(__name__).joinpath("aa-activating.hmm").open("rb") as f:
                 with pyhmmer.plan7.HMMFile(f) as hmm_file:
                     hmm = hmm_file.read()
             # Run search pipeline using the filtered HMMs
