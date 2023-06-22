@@ -47,7 +47,7 @@ def configure_parser(parser: argparse.ArgumentParser):
     parser.add_argument(
         "-H",
         "--hmm",
-        required=True,
+        default=None,
         type=pathlib.Path,
         help="The path to the HMM file containing protein domains for annotation."
     )

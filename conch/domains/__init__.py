@@ -55,7 +55,7 @@ class HMMERAnnotator(DomainAnnotator):
 
     def __init__(
         self,
-        path: pathlib.Path,
+        path: Optional[pathlib.Path] = None,
         cpus: Optional[int] = None,
         whitelist: Optional[Container[str]] = None,
         use_name: bool = False,
@@ -83,6 +83,15 @@ class HMMERAnnotator(DomainAnnotator):
             return None 
         return len(self.whitelist)
 
+    def _load_hmm(self, ctx: contextlib.ExitStack) -> HMMFile:
+        if self.path is not None:
+            file: BinaryIO = io.BufferedReader(ctx.enter_context(open(self.path, "rb")))
+        else:
+            file = ctx.enter_context(files(__name__).joinpath("Pfam35.0.hmm").open("rb"))
+        if file.peek().startswith(b"\x1f\x8b"):
+            file = ctx.enter_context(gzip.GzipFile(fileobj=file, mode="rb"))  # type: ignore
+        return ctx.enter_context(HMMFile(file))
+
     def annotate_domains(
         self,
         proteins: List[Protein],
@@ -98,12 +107,8 @@ class HMMERAnnotator(DomainAnnotator):
         ])
 
         with contextlib.ExitStack() as ctx:
-            # decompress the input if needed
-            file: BinaryIO = io.BufferedReader(ctx.enter_context(open(self.path, "rb")))
-            if file.peek().startswith(b"\x1f\x8b"):
-                file = ctx.enter_context(gzip.GzipFile(fileobj=file, mode="rb"))  # type: ignore
-            # Only retain the HMMs which are in the whitelist
-            hmm_file = ctx.enter_context(HMMFile(file))
+            # only retain the HMMs which are in the whitelist
+            hmm_file = self._load_hmm(ctx)
             hmms = (
                 hmm
                 for hmm in hmm_file
@@ -205,6 +210,11 @@ class NRPSPredictor2Annotator(DomainAnnotator):
             return "Aliphatic, branched hydrophobic"
         return ",".join(specificity)
 
+    def _load_hmm(self) -> HMM:
+        with files(__name__).joinpath("aa-activating-core.hmm").open("rb") as f:
+            with pyhmmer.plan7.HMMFile(f) as hmm_file:
+                return hmm_file.read()
+
     def annotate_domains(
         self,
         proteins: List[Protein],
@@ -222,9 +232,7 @@ class NRPSPredictor2Annotator(DomainAnnotator):
         # find adenylation domains
         with contextlib.ExitStack() as ctx:
             # load AMP-binding specific HMM
-            with files(__name__).joinpath("aa-activating.hmm").open("rb") as f:
-                with pyhmmer.plan7.HMMFile(f) as hmm_file:
-                    hmm = hmm_file.read()
+            hmm = self._load_hmm()
             # Run search pipeline using the filtered HMMs
             cpus = 0 if self.cpus is None else self.cpus
             hmms_hits = pyhmmer.hmmer.hmmscan(
