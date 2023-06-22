@@ -1,0 +1,4 @@
+include README.md
+include COPYING
+
+include conch/predictor.json

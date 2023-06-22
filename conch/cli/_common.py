@@ -30,7 +30,7 @@ try:
     from isal import igzip as gzip
 except ImportError:
     import gzip
-    
+
 
 def load_model(path: Optional[pathlib.Path], console: Console) -> ChemicalHierarchyPredictor:
     if path is not None:
@@ -114,8 +114,3 @@ def annotate_nrpys(proteins: List[Protein], cpus: Optional[int], console: Consol
     return annotate_domains(domain_annotator, proteins, console, total=len(proteins))
 
 
-def save_compositions(compositions: anndata.AnnData, path: pathlib.Path, console: Console) -> None:
-    console.print(f"[bold blue]{'Saving':>12}[/] compositional matrix to {str(path)!r}")
-    if path.parent:
-        path.parent.mkdir(parents=True, exist_ok=True)
-    compositions.write(path)
