@@ -1,7 +1,6 @@
 import argparse
 import itertools
 import json
-import gzip
 import os
 
 import anndata
@@ -11,6 +10,9 @@ import pandas
 import pronto
 import rich.progress
 import scipy.sparse
+
+try:
+    from isal import igzip as gzip
 
 # get paths from command line
 parser = argparse.ArgumentParser()
@@ -105,6 +107,9 @@ np_classes = anndata.AnnData(
             compound=[entry["original_name"] for entry in data],
             inchikey=[entry["inchikey"] for entry in data],
             smiles=[entry["smiles"] for entry in data],
+            mol_formula=[entry["mol_formula"] for entry in data],
+            mol_weight=[entry["mol_weight"] for entry in data],
+            exact_mass=[entry["exact_mass"] for entry in data],
         )
     ),
     dtype=numpy.bool_
