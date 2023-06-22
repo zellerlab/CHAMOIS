@@ -94,14 +94,13 @@ def run(args: argparse.Namespace, console: Console) -> int:
         probas = numpy.zeros(classes.X.shape, dtype=float)
         for i, (train_indices, test_indices) in enumerate(splits):
             model = ChemicalHierarchyPredictor(n_jobs=-1, hierarchy=hierarchy, max_iter=200)
-            # split data
-            train_X = features.X[train_indices].toarray()
-            train_Y = classes.X[train_indices].toarray()
-            test_X = features.X[test_indices].toarray()
-            test_Y = classes.X[test_indices].toarray()
             # train fold
+            train_X = features[train_indices]#.X.toarray()
+            train_Y = classes[train_indices]#.X.toarray()
             model.fit(train_X, train_Y)
             # test fold
+            test_X = features[test_indices, model.features_.index]#.X.toarray()
+            test_Y = classes[test_indices, model.classes_.index].X.toarray()
             probas[test_indices] = model.predict_probas(test_X)
             # compute AUROC for classes that have positive and negative members
             # (scikit-learn will crash if a class only has positives/negatives)
