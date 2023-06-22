@@ -16,18 +16,15 @@ import rich.tree
 import scipy.sparse
 from rich.console import Console
 
-from ..model import ClusterSequence, Protein
-from ..orf import ORFFinder, PyrodigalFinder, CDSFinder
-from ..predictor import ChemicalHierarchyPredictor
-from ._common import load_model
+from ..compositions import build_compositions, build_observations
+from ..orf import PyrodigalFinder, CDSFinder
 from .render import build_tree
-from .annotate import (
+from ._common import (
+    load_model,
     load_sequences,
-    build_observations,
     find_proteins,
     annotate_hmmer,
     annotate_nrpys,
-    make_compositions,
 )
 
 
@@ -99,8 +96,9 @@ def run(args: argparse.Namespace, console: Console) -> int:
         *annotate_nrpys(proteins, args.jobs, console)
     ]
 
+    # make compositional data
     obs = build_observations(clusters)
-    compositions = make_compositions(domains, obs, model.features_, console)
+    compositions = build_compositions(domains, obs, model.features_)
 
     # predict labels
     console.print(f"[bold blue]{'Predicting':>12}[/] chemical class probabilities")
