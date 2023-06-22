@@ -1,6 +1,6 @@
 import collections
 import typing
-from typing import Iterator, Union, Sequence
+from typing import Iterator, Union, Sequence, Dict
 
 import numpy
 import scipy.sparse
@@ -33,7 +33,7 @@ class TreeMatrix:
     """A tree encoded as an incidence matrix.
     """
 
-    def __init__(self, data: numpy.ndarray):
+    def __init__(self, data: numpy.ndarray) -> None:
         _data = numpy.asarray(data, dtype=numpy.int32)
 
         # cache parents and children
@@ -51,7 +51,7 @@ class TreeMatrix:
         self._up = self._leaves_to_root(_data)
 
         # store data as a sparse matrix
-        self.data = scipy.sparse.coo_matrix(_data)
+        self.data = scipy.sparse.csr_matrix(_data)
 
     def __len__(self) -> int:
         return self.data.shape[0]
@@ -61,6 +61,23 @@ class TreeMatrix:
 
     def __reversed__(self) -> Iterator[int]:
         return iter(self._up)
+
+    def __getstate__(self) -> Dict[str, object]:
+        return {
+            "data": {
+                "shape": tuple(self.data.shape),
+                "indices": list(self.data.indices),
+                "indptr": list(self.data.indptr),
+            }
+        }
+
+    def __setstate__(self, state: Dict[str, object]) -> None:
+        indices = state["data"]["indices"]
+        indptr =  state["data"]["indptr"]
+        shape = state["data"]["shape"]
+        data = numpy.ones(len(indices), dtype=numpy.int32)
+        csr = scipy.sparse.csr_matrix((data, indices, indptr), shape=shape, dtype=numpy.int32)
+        self.__init__(csr.toarray())
 
     def _roots_to_leaves(self, data: numpy.ndarray) -> numpy.ndarray:
         """Generate a walk order to explore the tree from roots to leaves.

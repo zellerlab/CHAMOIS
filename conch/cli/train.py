@@ -63,7 +63,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
     console.print(f"[bold blue]{'Saving':>12}[/] trained model to {str(args.output)!r}")
     if args.output.parent:
         args.output.parent.mkdir(parents=True, exist_ok=True)
-    with open(args.output, "wb") as dst:
+    with open(args.output, "w") as dst:
         model.save(dst)
     console.print(f"[bold green]{'Finished':>12}[/] training model")
 

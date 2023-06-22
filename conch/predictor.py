@@ -4,8 +4,9 @@ import math
 import pickle
 import typing
 import importlib.resources
-from typing import Any, Literal, List, Tuple, Dict, BinaryIO, Type, Union, Optional, Callable
+from typing import Any, Literal, List, Tuple, Dict, TextIO, Type, Union, Optional, Callable
 
+import anndata
 import numpy
 import pandas
 import scipy.sparse
@@ -13,12 +14,13 @@ import sklearn.multiclass
 import sklearn.linear_model
 from scipy.special import expit
 
+from . import _json
 from .treematrix import TreeMatrix
 
 try:
-    import anndata
+    from importlib.resources import files
 except ImportError:
-    anndata = None
+    from importlib_resources import files
 
 _T = typing.TypeVar("_T", bound="ChemicalHierarchyPredictor")
 
@@ -39,9 +41,9 @@ class ChemicalHierarchyPredictor:
         return {
             "classes_": self.classes_,
             "features_": self.features_,
-            "intercept_": self.intercept_,
+            "intercept_": list(self.intercept_),
+            "hierarchy": self.hierarchy.__getstate__(),
             "coef_": scipy.sparse.csr_matrix(self.coef_),
-            "hierarchy": self.hierarchy,
         }
 
     def __setstate__(self, state):
@@ -49,7 +51,9 @@ class ChemicalHierarchyPredictor:
         self.features_ = state["features_"]
         self.intercept_ = numpy.asarray(state["intercept_"])
         self.coef_ = state["coef_"].toarray()
-        self.hierarchy = state["hierarchy"]
+        
+        self.hierarchy = TreeMatrix(numpy.array([[0, 0], [1, 0]]))
+        self.hierarchy.__setstate__(state["hierarchy"])
 
     def fit(self: _T, X, Y) -> _T:
         if isinstance(X, anndata.AnnData):
@@ -109,23 +113,20 @@ class ChemicalHierarchyPredictor:
             return self.propagate(classes)
         return classes
 
-    def save(self, file: BinaryIO) -> None:
+    def save(self, file: TextIO) -> None:
         state = self.__getstate__()
-        pickle.dump(state, file)
-        # numpy.savez_compressed(file, **state)
+        json.dump(state, file, cls=_json.JSONEncoder, sort_keys=True, indent=1)
+        # pickle.dump(state, file)
 
     @classmethod
     def trained(cls: Type[_T]) -> _T:
-        with importlib.resources.open_binary("conch", "predictor.pkl") as f:
+        with files("conch").joinpath("predictor.json").open() as f:
             return cls.load(f)
 
     @classmethod
-    def load(cls: Type[_T], file: BinaryIO) -> _T:
-        predictor = cls(TreeMatrix(numpy.zeros((0, 0))))
-        state = pickle.load(file)
+    def load(cls: Type[_T], file: TextIO) -> _T:
+        state = json.load(file, cls=_json.JSONDecoder)
+        predictor = cls(TreeMatrix(numpy.array( [[0, 0], [1, 0]] )))
         predictor.__setstate__(state)
         return predictor
 
-    # def save(self, file: BinaryIO) -> None:
-    #     state = self.__getstate__()
-    #     torch.save(state, file)
