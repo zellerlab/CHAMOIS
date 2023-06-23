@@ -56,7 +56,6 @@ def all_superclasses( classes: Iterable[int], hierarchy: TreeMatrix ) -> Set[int
 
 def build_tree(
     model: ChemicalHierarchyPredictor,
-    bgc_index: int,
     bgc_probas: numpy.ndarray,
 ) -> None:
     # get probabilities and corresponding positive terms from ChemOnt
@@ -96,6 +95,6 @@ def run(args: argparse.Namespace, console: Console) -> int:
     # render tree
     with console.pager(styles=args.color) if args.pager else contextlib.nullcontext():
         for bgc_index in range(predictions.n_obs):
-            tree = build_tree(model, bgc_index, predictions.X[bgc_index])
+            tree = build_tree(model, predictions.X[bgc_index])
             panel = rich.panel.Panel(tree, title=predictions.obs_names[bgc_index])
             console.print(panel)

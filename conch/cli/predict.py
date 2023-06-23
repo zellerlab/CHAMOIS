@@ -109,7 +109,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
     # render if required
     if args.render:
         for bgc_index in range(predictions.n_obs):
-            tree = build_tree(model, bgc_index, predictions.X[bgc_index])
+            tree = build_tree(model, predictions.X[bgc_index])
             panel = rich.panel.Panel(tree, title=predictions.obs_names[bgc_index])
             console.print(panel)
 
