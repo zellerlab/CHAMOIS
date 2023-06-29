@@ -10,11 +10,10 @@ import anndata
 import numpy
 import pandas
 import scipy.sparse
-import sklearn.multiclass
-import sklearn.linear_model
 from scipy.special import expit
 
 from . import _json
+from ._meta import requires
 from .treematrix import TreeMatrix
 
 try:
@@ -53,6 +52,8 @@ class ChemicalHierarchyPredictor:
         self.coef_ = state["coef_"].toarray()
         self.hierarchy.__setstate__(state["hierarchy"])
 
+    @requires("sklearn.multiclass")
+    @requires("sklearn.linear_model")
     def fit(self: _T, X, Y) -> _T:
         if isinstance(X, anndata.AnnData):
             _X = X.X
@@ -68,8 +69,8 @@ class ChemicalHierarchyPredictor:
             self.classes_ = pandas.DataFrame(index=list(map(str, range(1, _Y.shape[1] + 1))))
 
         # train model using scikit-learn
-        model = sklearn.multiclass.OneVsRestClassifier(
-            sklearn.linear_model.LogisticRegression("l1", solver="liblinear", max_iter=self.max_iter),
+        model = multiclass.OneVsRestClassifier(
+            linear_model.LogisticRegression("l1", solver="liblinear", max_iter=self.max_iter),
             n_jobs=self.n_jobs,
         ).fit(_X, _Y)
 
@@ -77,7 +78,7 @@ class ChemicalHierarchyPredictor:
         self.coef_ = numpy.zeros((_X.shape[1], _Y.shape[1]), order="C")
         self.intercept_ = numpy.zeros(_Y.shape[1], order="C")
         for i, estimator in enumerate(model.estimators_):
-            if isinstance(estimator, sklearn.linear_model.LogisticRegression):
+            if isinstance(estimator, linear_model.LogisticRegression):
                 self.coef_[:, i] = estimator.coef_
                 self.intercept_[i] = estimator.intercept_
             else:

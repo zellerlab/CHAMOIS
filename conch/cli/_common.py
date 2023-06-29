@@ -32,6 +32,16 @@ except ImportError:
     import gzip
 
 
+class MissingPackageError(ImportError):
+
+    def __init__(self, name, command):
+        self.name = name
+        self.command = command
+
+    def __str__(self):
+        return f"{name!r} package is required to run the {command!r} command"
+
+
 def load_model(path: Optional[pathlib.Path], console: Console) -> ChemicalHierarchyPredictor:
     if path is not None:
         console.print(f"[bold blue]{'Loading':>12}[/] trained model from {str(path)!r}")

@@ -2,15 +2,13 @@ import argparse
 import pathlib
 
 import anndata
-import kennard_stone
 import numpy
 import rich.progress
-import sklearn.model_selection
-import sklearn.metrics
 from rich.console import Console
 
 from ..predictor import ChemicalHierarchyPredictor
 from ..treematrix import TreeMatrix
+from ._common import MissingPackageError
 
 
 def configure_parser(parser: argparse.ArgumentParser):
@@ -58,6 +56,13 @@ def configure_parser(parser: argparse.ArgumentParser):
 
 
 def run(args: argparse.Namespace, console: Console) -> int:
+    # make sure scikit-learn is installed
+    try:
+        import sklearn.model_selection
+        import sklearn.metrics
+    except ImportError as err:
+        raise MissingPackageError("scikit-learn", "cv") from err
+
     # load data
     console.print(f"[bold blue]{'Loading':>12}[/] training data")
     features = anndata.read(args.features)
@@ -85,6 +90,10 @@ def run(args: argparse.Namespace, console: Console) -> int:
         elif args.sampling == "random":
             kfold = sklearn.model_selection.KFold(n_splits=args.kfolds, random_state=args.seed)
         elif args.sampling == "kennard-stone":
+            try:
+                import kennard_stone
+            except ImportError as err:
+                raise MissingPackageError("kennard-stone", "cv") from err
             kfold = kennard_stone.KFold(n_splits=args.kfolds, n_jobs=args.jobs, metric="cosine")
         else:
             raise ValueError(f"Invalid value for `--sampling`: {args.sampling!r}")
@@ -93,7 +102,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
         progress.console.print(f"[bold blue]{'Running':>12}[/] cross-validation evaluation")
         probas = numpy.zeros(classes.X.shape, dtype=float)
         for i, (train_indices, test_indices) in enumerate(splits):
-            model = ChemicalHierarchyPredictor(n_jobs=-1, hierarchy=hierarchy, max_iter=200)
+            model = ChemicalHierarchyPredictor(n_jobs=args.jobs, hierarchy=hierarchy, max_iter=200)
             # train fold
             train_X = features[train_indices]#.X.toarray()
             train_Y = classes[train_indices]#.X.toarray()
