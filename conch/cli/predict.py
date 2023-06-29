@@ -61,7 +61,7 @@ def configure_parser(parser: argparse.ArgumentParser):
     parser.add_argument(
         "--render",
         action="store_true",
-        help="Display results in"
+        help="Display prediction results in tree format for each input BGC.",
     )
     parser.add_argument(
         "--cds",

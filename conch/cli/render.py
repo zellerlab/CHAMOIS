@@ -8,6 +8,7 @@ import numpy
 import rich.tree
 import rich.panel
 from rich.console import Console
+from rich.table import Table
 
 from ..treematrix import TreeMatrix
 from ..predictor import ChemicalHierarchyPredictor
@@ -92,9 +93,13 @@ def run(args: argparse.Namespace, console: Console) -> int:
     console.print(f"[bold blue]{'Loading':>12}[/] probability predictions from {str(args.input)!r}")
     predictions = anndata.read(args.input)
 
-    # render tree
+    # build table with all tree to have output with consistent width
+    table = Table.grid()
+    for bgc_index in range(predictions.n_obs):
+        tree = build_tree(model, predictions.X[bgc_index])
+        panel = rich.panel.Panel(tree, title=f"[bold purple]{predictions.obs_names[bgc_index]}[/]")
+        table.add_row(panel)
+
+    # render output
     with console.pager(styles=args.color) if args.pager else contextlib.nullcontext():
-        for bgc_index in range(predictions.n_obs):
-            tree = build_tree(model, predictions.X[bgc_index])
-            panel = rich.panel.Panel(tree, title=predictions.obs_names[bgc_index])
-            console.print(panel)
+        console.print(table)
