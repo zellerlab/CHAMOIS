@@ -20,26 +20,12 @@ import scipy.sparse
 from pyhmmer.plan7 import HMM
 from rich.console import Console
 
+from .._meta import zopen
 from ..domains import HMMERAnnotator, NRPSPredictor2Annotator
 from ..compositions import build_compositions, build_observations, build_variables
 from ..orf import ORFFinder, PyrodigalFinder, CDSFinder
 from ..model import ClusterSequence, Protein, Domain, ProteinDomain, AdenylationDomain
 from ..predictor import ChemicalHierarchyPredictor
-
-try:
-    from isal import igzip as gzip
-except ImportError:
-    import gzip
-
-
-class MissingPackageError(ImportError):
-
-    def __init__(self, name, command):
-        self.name = name
-        self.command = command
-
-    def __str__(self):
-        return f"{name!r} package is required to run the {command!r} command"
 
 
 def load_model(path: Optional[pathlib.Path], console: Console) -> ChemicalHierarchyPredictor:
@@ -65,13 +51,10 @@ def load_sequences(input_files: List[pathlib.Path], console: Console) -> Iterabl
             transient=True
         ) as progress:
             with progress.open(input_file, "rb", description=f"[bold blue]{'Reading':>12}[/]") as src:
-                reader = io.BufferedReader(src)
-                if reader.peek().startswith(b"\x1f\x8b"):
-                    reader = gzip.GzipFile(fileobj=reader, mode="rb")
-                reader = io.TextIOWrapper(reader)
-                for record in gb_io.iter(reader):
-                    yield ClusterSequence(record, os.fspath(input_file))
-                    n_sequences += 1
+                with zopen(src) as reader:
+                    for record in gb_io.iter(reader):
+                        yield ClusterSequence(record, os.fspath(input_file))
+                        n_sequences += 1
         console.print(f"[bold green]{'Loaded':>12}[/] {n_sequences} BGCs from {str(input_file)!r}")
 
 

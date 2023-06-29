@@ -9,7 +9,6 @@ from rich.console import Console
 from .._meta import requires
 from ..predictor import ChemicalHierarchyPredictor
 from ..treematrix import TreeMatrix
-from ._common import MissingPackageError
 
 
 def configure_parser(parser: argparse.ArgumentParser):

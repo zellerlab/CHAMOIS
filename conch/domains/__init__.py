@@ -1,5 +1,4 @@
 import abc
-import bz2
 import collections.abc
 import contextlib
 import io
@@ -11,17 +10,13 @@ import pyhmmer
 from pyhmmer.plan7 import HMM, HMMFile
 from pyhmmer.easel import Alphabet, DigitalSequenceBlock, TextSequenceBlock, TextSequence
 
+from .._meta import zopen
 from ..model import Protein, Domain, ProteinDomain, AdenylationDomain
 
 try:
     from importlib.resources import files, as_file
 except ImportError:
     from importlib_resources import files, as_file
-
-try:
-    import lz4.frame
-except ImportError as err:
-    lz4 = err
 
 _BZ2_MAGIC = b"BZh"
 _GZIP_MAGIC = b"\x1f\x8b"
@@ -95,21 +90,10 @@ class HMMERAnnotator(DomainAnnotator):
 
     def _load_hmm(self, ctx: contextlib.ExitStack) -> HMMFile:
         if self.path is not None:
-            file: BinaryIO = io.BufferedReader(ctx.enter_context(open(self.path, "rb")))
+            file: BinaryIO = ctx.enter_context(zopen(self.path))
         else:
-            file = ctx.enter_context(files(__package__).joinpath("Pfam35.0.hmm.lz4").open("rb"))
-        
-        peek = file.peek()
-        if peek.startswith(_GZIP_MAGIC):
-            file = ctx.enter_context(gzip.GzipFile(fileobj=file, mode="rb")) # type: ignore
-        elif peek.startswith(_LZ4_MAGIC):
-            if isinstance(lz4, ImportError):
-                raise RuntimeError("failed to decompress LZ4 file") from lz4
-            else:
-                file = ctx.enter_context(lz4.frame.open(file, mode="rb")) # type: ignore
-        elif peek.startswith(_BZ2_MAGIC):
-            file = ctx.enter_context(bzip2.open(file, mode="rb")) # type: ignore
-
+            handle = files(__package__).joinpath("Pfam35.0.hmm.lz4")
+            file = ctx.enter_context(zopen(ctx.enter_context(handle.open("rb"))))
         return ctx.enter_context(HMMFile(file))
 
     def annotate_domains(

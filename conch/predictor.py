@@ -115,7 +115,6 @@ class ChemicalHierarchyPredictor:
     def save(self, file: TextIO) -> None:
         state = self.__getstate__()
         json.dump(state, file, cls=_json.JSONEncoder, sort_keys=True, indent=1)
-        # pickle.dump(state, file)
 
     @classmethod
     def trained(cls: Type[_T]) -> _T:
