@@ -69,8 +69,8 @@ class ChemicalHierarchyPredictor:
             self.classes_ = pandas.DataFrame(index=list(map(str, range(1, _Y.shape[1] + 1))))
 
         # train model using scikit-learn
-        model = multiclass.OneVsRestClassifier(
-            linear_model.LogisticRegression("l1", solver="liblinear", max_iter=self.max_iter),
+        model = sklearn.multiclass.OneVsRestClassifier(
+            sklearn.linear_model.LogisticRegression("l1", solver="liblinear", max_iter=self.max_iter),
             n_jobs=self.n_jobs,
         ).fit(_X, _Y)
 
@@ -78,7 +78,7 @@ class ChemicalHierarchyPredictor:
         self.coef_ = numpy.zeros((_X.shape[1], _Y.shape[1]), order="C")
         self.intercept_ = numpy.zeros(_Y.shape[1], order="C")
         for i, estimator in enumerate(model.estimators_):
-            if isinstance(estimator, linear_model.LogisticRegression):
+            if isinstance(estimator, sklearn.linear_model.LogisticRegression):
                 self.coef_[:, i] = estimator.coef_
                 self.intercept_[i] = estimator.intercept_
             else:

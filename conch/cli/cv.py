@@ -6,6 +6,7 @@ import numpy
 import rich.progress
 from rich.console import Console
 
+from .._meta import requires
 from ..predictor import ChemicalHierarchyPredictor
 from ..treematrix import TreeMatrix
 from ._common import MissingPackageError
@@ -55,14 +56,10 @@ def configure_parser(parser: argparse.ArgumentParser):
     parser.set_defaults(run=run)
 
 
+@requires("sklearn.model_selection")
+@requires("sklearn.metrics")
+@requires("kennard_stone")
 def run(args: argparse.Namespace, console: Console) -> int:
-    # make sure scikit-learn is installed
-    try:
-        import sklearn.model_selection
-        import sklearn.metrics
-    except ImportError as err:
-        raise MissingPackageError("scikit-learn", "cv") from err
-
     # load data
     console.print(f"[bold blue]{'Loading':>12}[/] training data")
     features = anndata.read(args.features)
@@ -90,10 +87,6 @@ def run(args: argparse.Namespace, console: Console) -> int:
         elif args.sampling == "random":
             kfold = sklearn.model_selection.KFold(n_splits=args.kfolds, random_state=args.seed)
         elif args.sampling == "kennard-stone":
-            try:
-                import kennard_stone
-            except ImportError as err:
-                raise MissingPackageError("kennard-stone", "cv") from err
             kfold = kennard_stone.KFold(n_splits=args.kfolds, n_jobs=args.jobs, metric="cosine")
         else:
             raise ValueError(f"Invalid value for `--sampling`: {args.sampling!r}")
@@ -104,11 +97,11 @@ def run(args: argparse.Namespace, console: Console) -> int:
         for i, (train_indices, test_indices) in enumerate(splits):
             model = ChemicalHierarchyPredictor(n_jobs=args.jobs, hierarchy=hierarchy, max_iter=200)
             # train fold
-            train_X = features[train_indices]#.X.toarray()
-            train_Y = classes[train_indices]#.X.toarray()
+            train_X = features[train_indices]
+            train_Y = classes[train_indices]
             model.fit(train_X, train_Y)
             # test fold
-            test_X = features[test_indices, model.features_.index]#.X.toarray()
+            test_X = features[test_indices, model.features_.index]
             test_Y = classes[test_indices, model.classes_.index].X.toarray()
             probas[test_indices] = model.predict_probas(test_X)
             # compute AUROC for classes that have positive and negative members

@@ -5,6 +5,7 @@ import anndata
 import rich.progress
 from rich.console import Console
 
+from .._meta import requires
 from ..treematrix import TreeMatrix
 from ..predictor import ChemicalHierarchyPredictor
 
@@ -39,14 +40,8 @@ def configure_parser(parser: argparse.ArgumentParser):
     )
     parser.set_defaults(run=run)
 
-
+@requires("sklearn")
 def run(args: argparse.Namespace, console: Console) -> int:
-    # make sure scikit-learn is installed
-    try:
-        import sklearn
-    except ImportError as err:
-        raise MissingPackageError("scikit-learn", "train") from err
-
     # load data
     console.print(f"[bold blue]{'Loading':>12}[/] training data")
     features = anndata.read(args.features)

@@ -1,5 +1,6 @@
 import functools
 import importlib
+import sys
 import typing
 from typing import Union, Callable, TypeVar
 
@@ -33,7 +34,7 @@ class requires:
         else:
 
             newfunc = func
-            basename = self.module_name.split(".")[-1]
-            newfunc.__globals__[basename] = self.module
+            basename = self.module_name.split(".")[0]
+            newfunc.__globals__[basename] = sys.modules[basename]
 
         return newfunc # type: ignore

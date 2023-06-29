@@ -1,6 +1,7 @@
 import argparse
 import pathlib
 import time
+import typing
 from typing import List, Iterable, Set, Optional
 
 import anndata
@@ -8,20 +9,24 @@ import numpy
 import pandas
 import rich.table
 import scipy.stats
-import rdkit.Chem
 from rich.console import Console
 from rich.columns import Columns
 from rich.panel import Panel
 from rich.table import Table
 from scipy.spatial.distance import cdist
 
+from .._meta import requires
 from ..predictor import ChemicalHierarchyPredictor
 from ..classyfire import query_classyfire, get_results, extract_classification, binarize_classification
 from ._common import load_model
 from .render import build_tree
 
+if typing.TYPE_CHECKING:
+    from rdkit.Chem import Mol
 
-def _parse_molecule(text: str) -> "rdkit.Chem.Mol":
+@requires("rdkit.Chem")
+@requires("rdkit.RDLogger")
+def _parse_molecule(text: str) -> "Mol":
     rdkit.RDLogger.DisableLog('rdApp.error')
     for parse in (rdkit.Chem.MolFromInchi, rdkit.Chem.MolFromSmiles):
         mol = parse(text)
@@ -89,8 +94,9 @@ def load_predictions(path: pathlib.Path, predictor: ChemicalHierarchyPredictor, 
     return probas, anndata.AnnData(X=classes, obs=probas.obs, var=probas.var, dtype=bool)
 
 
+@requires("rdkit.Chem")
 def build_results(
-    queries: List[rdkit.Chem.Mol], 
+    queries: List["Mol"], 
     classes: anndata.AnnData, 
     distances: numpy.ndarray, 
     ranks: numpy.ndarray,
@@ -102,9 +108,9 @@ def build_results(
             if ranks[i, j] > max_rank:
                 break
             rows.append([ 
-                rdkit.Chem.MolToInchiKey(query),
-                rdkit.Chem.MolToInchi(query),
-                rdkit.Chem.MolToSmiles(query),
+                Chem.MolToInchiKey(query),
+                Chem.MolToInchi(query),
+                Chem.MolToSmiles(query),
                 ranks[i, j],
                 classes.obs_names[j],
                 *classes.obs.iloc[j], 
@@ -137,6 +143,8 @@ def build_table(results: pandas.DataFrame) -> rich.table.Table:
     return table
 
 
+@requires("rdkit.Chem")
+@requires("rdkit.RDLogger")
 def run(args: argparse.Namespace, console: Console) -> int:
     rdkit.RDLogger.DisableLog('rdApp.warning')
     rdkit.RDLogger.DisableLog('rdApp.info')
