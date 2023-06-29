@@ -1,6 +1,6 @@
 import collections
 import typing
-from typing import Iterator, Union, Sequence, Dict
+from typing import Optional, Iterator, Union, Sequence, Dict
 
 import numpy
 import scipy.sparse
@@ -33,7 +33,7 @@ class TreeMatrix:
     """A tree encoded as an incidence matrix.
     """
 
-    def __init__(self, data: numpy.ndarray = None) -> None:
+    def __init__(self, data: Optional[numpy.ndarray] = None) -> None:
         if data is None:
             _data = numpy.array([])
         elif isinstance(data, scipy.sparse.spmatrix):

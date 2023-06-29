@@ -21,10 +21,10 @@ from pyhmmer.plan7 import HMM
 from rich.console import Console
 
 from .._meta import zopen
-from ..domains import HMMERAnnotator, NRPSPredictor2Annotator
+from ..domains import HMMERAnnotator, NRPySAnnotator
 from ..compositions import build_compositions, build_observations, build_variables
 from ..orf import ORFFinder, PyrodigalFinder, CDSFinder
-from ..model import ClusterSequence, Protein, Domain, ProteinDomain, AdenylationDomain
+from ..model import ClusterSequence, Protein, Domain, HMMDomain, AdenylationDomain
 from ..predictor import ChemicalHierarchyPredictor
 
 
@@ -92,7 +92,7 @@ def annotate_domains(domain_annotator, proteins: List[Protein], console: Console
     return domains
 
 
-def annotate_hmmer(path: pathlib.Path, proteins: List[Protein], cpus: Optional[int], console: Console, whitelist: Optional[Container[str]] = None) -> List[ProteinDomain]:
+def annotate_hmmer(path: pathlib.Path, proteins: List[Protein], cpus: Optional[int], console: Console, whitelist: Optional[Container[str]] = None) -> List[HMMDomain]:
     console.print(f"[bold blue]{'Searching':>12}[/] protein domains with HMMER")
     domain_annotator = HMMERAnnotator(path, cpus=cpus, whitelist=whitelist)
     total = len(whitelist) if whitelist else None
@@ -103,7 +103,7 @@ def annotate_hmmer(path: pathlib.Path, proteins: List[Protein], cpus: Optional[i
 
 def annotate_nrpys(proteins: List[Protein], cpus: Optional[int], console: Console) -> List[AdenylationDomain]:
     console.print(f"[bold blue]{'Predicting':>12}[/] adenylation domain specificity with NRPyS")
-    domain_annotator = NRPSPredictor2Annotator(cpus=cpus)
+    domain_annotator = NRPySAnnotator(cpus=cpus)
     return annotate_domains(domain_annotator, proteins, console, total=len(proteins))
 
 

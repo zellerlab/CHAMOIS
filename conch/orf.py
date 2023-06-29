@@ -82,7 +82,7 @@ class PyrodigalFinder(ORFFinder):
         super().__init__()
         self.mask = mask
         self.cpus = cpus
-        self.orf_finder =  pyrodigal.OrfFinder(meta=True, mask=mask)
+        self.orf_finder =  pyrodigal.OrfFinder(meta=True, closed=True, mask=mask)
 
     def _process_clusters(self, cluster: ClusterSequence) -> Tuple[ClusterSequence, pyrodigal.Genes]:
         return cluster, self.orf_finder.find_genes(str(cluster.record.sequence))
@@ -171,10 +171,6 @@ class CDSFinder(ORFFinder):
                     prot_id = qualifiers[self.locus_tag][0]
                 else:
                     prot_id = f"{cluster.record.name}_{i+1}"
-                # check IDs are unique
-                #if prot_id in ids:
-                #    raise ValueError(f"Duplicate gene identifier found in {cluster.record.name!r}: {prot_id!r}")
-                #ids.add(prot_id)
                 # wrap the gene into a Gene
                 yield Protein(
                     prot_id,

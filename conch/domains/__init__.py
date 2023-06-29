@@ -11,16 +11,12 @@ from pyhmmer.plan7 import HMM, HMMFile
 from pyhmmer.easel import Alphabet, DigitalSequenceBlock, TextSequenceBlock, TextSequence
 
 from .._meta import zopen
-from ..model import Protein, Domain, ProteinDomain, AdenylationDomain
+from ..model import Protein, Domain, HMMDomain, AdenylationDomain
 
 try:
     from importlib.resources import files, as_file
 except ImportError:
     from importlib_resources import files, as_file
-
-_BZ2_MAGIC = b"BZh"
-_GZIP_MAGIC = b"\x1f\x8b"
-_LZ4_MAGIC = b"\x04\x22\x4d\x18"
 
 
 class _UniversalContainer(collections.abc.Container):
@@ -100,7 +96,7 @@ class HMMERAnnotator(DomainAnnotator):
         self,
         proteins: List[Protein],
         progress: Optional[Callable[[HMM, int], None]] = None,
-    ) -> Iterable[ProteinDomain]:
+    ) -> Iterable[HMMDomain]:
         # convert proteins to Easel sequences, naming them after
         # their location in the original input to ignore any duplicate
         # protein identifiers
@@ -136,9 +132,10 @@ class HMMERAnnotator(DomainAnnotator):
                         # extract HMM name and coordinates
                         name = domain.alignment.hmm_name
                         acc = domain.alignment.hmm_accession
-                        yield ProteinDomain(
+                        yield HMMDomain(
                             name=name.decode(),
                             accession=None if acc is None else acc.decode(),
+                            kind="HMMER",
                             start=domain.alignment.target_from,
                             end=domain.alignment.target_to,
                             score=domain.score,
@@ -148,7 +145,7 @@ class HMMERAnnotator(DomainAnnotator):
                         )
 
 
-class NRPSPredictor2Annotator(DomainAnnotator):
+class NRPySAnnotator(DomainAnnotator):
 
     _POSITIONS = [
         12, 15, 16, 40, 45, 46, 47, 48, 49, 50, 51, 54, 92, 93, 124, 125, 126, 127,
@@ -278,6 +275,7 @@ class NRPSPredictor2Annotator(DomainAnnotator):
                 yield AdenylationDomain(
                     accession=f"NRPyS:{'|'.join(sorted(specificity))}",
                     name=self._get_name(specificity),
+                    kind="NRPyS",
                     specificity=specificity,
                     protein=proteins[target_index],
                     score=pred.score,

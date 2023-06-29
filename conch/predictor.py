@@ -27,16 +27,21 @@ class ChemicalHierarchyPredictor:
     """A model for predicting chemical hierarchy from BGC compositions.
     """
 
-    def __init__(self, hierarchy, n_jobs=None, max_iter=100):
-        self.n_jobs = n_jobs
-        self.max_iter = max_iter
-        self.classes_ = None
-        self.features_ = None
-        self.coef_ = None
-        self.intercept_ = None
-        self.hierarchy = hierarchy
+    def __init__(
+        self, 
+        hierarchy: TreeMatrix, 
+        n_jobs: Optional[int] = None, 
+        max_iter: int = 100
+    ) -> None:
+        self.n_jobs: Optional[int] = n_jobs
+        self.max_iter: int = max_iter
+        self.classes_: Optional[pandas.DataFrame] = None
+        self.features_: Optional[pandas.DataFrame] = None
+        self.coef_: Optional[numpy.ndarray[float]] = None
+        self.intercept_: Optional[numpy.ndarray[float]] = None
+        self.hierarchy: TreeMatrix = hierarchy
 
-    def __getstate__(self):
+    def __getstate__(self) -> Dict[str, object]:
         return {
             "classes_": self.classes_,
             "features_": self.features_,
@@ -45,7 +50,7 @@ class ChemicalHierarchyPredictor:
             "coef_": scipy.sparse.csr_matrix(self.coef_),
         }
 
-    def __setstate__(self, state):
+    def __setstate__(self, state: Dict[str, object]) -> None:
         self.classes_ = state["classes_"]
         self.features_ = state["features_"]
         self.intercept_ = numpy.asarray(state["intercept_"])
@@ -54,7 +59,11 @@ class ChemicalHierarchyPredictor:
 
     @requires("sklearn.multiclass")
     @requires("sklearn.linear_model")
-    def fit(self: _T, X, Y) -> _T:
+    def fit(
+        self: _T, 
+        X: Union[numpy.ndarray, anndata.AnnData], 
+        Y: Union[numpy.ndarray, anndata.AnnData],
+    ) -> _T:
         if isinstance(X, anndata.AnnData):
             _X = X.X
             self.features_ = X.var
@@ -91,21 +100,28 @@ class ChemicalHierarchyPredictor:
 
         return self
 
-    def propagate(self, Y) -> numpy.ndarray:
+    def propagate(self, Y: numpy.ndarray) -> numpy.ndarray:
         _Y = numpy.array(Y, dtype=bool)
         for i in reversed(self.hierarchy):
             for j in self.hierarchy.parents(i):
                 _Y[:, j] |= _Y[:, i]
         return _Y
 
-    def predict_probas(self, X) -> numpy.ndarray:
+    def predict_probas(
+        self, 
+        X: Union[numpy.ndarray, anndata.AnnData],
+    ) -> numpy.ndarray:
         if isinstance(X, anndata.AnnData):
             _X = X.X.toarray()
         else:
             _X = numpy.asarray(X)
         return expit(_X @ self.coef_ + self.intercept_)
 
-    def predict(self, X, propagate=True) -> numpy.ndarray:
+    def predict(
+        self, 
+        X: Union[numpy.ndarray, anndata.AnnData], 
+        propagate: bool = True,
+    ) -> numpy.ndarray:
         probas = self.predict_probas(X)
         classes = probas > 0.5
         if propagate:
