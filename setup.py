@@ -159,14 +159,20 @@ class download_pfam(setuptools.Command):
     def download_pfam(self, local, domains):
         # download the HMM to `local`, and delete the file if any error
         # or interruption happens during the download
-        try:
-            self.make_file([], local, self.download_hmms, (local, domains))
-        except BaseException:
-            if os.path.exists(local):
-                os.remove(local)
-            raise
+        if not os.path.exists(local):
+            # streaming the HMMs may not work on all platforms (e.g. MacOS)
+            # so we fall back to a buffered implementation if needed.
+            for stream in (True, False):
+                try:
+                    self.download_hmms(local, domains, stream=stream)
+                except Exception:
+                    if os.path.exists(local):
+                        os.remove(local)
+                else:
+                    return
+            raise RuntimeError("Failed to download Pfam HMMs")
 
-    def download_hmms(self, output, domains):
+    def download_hmms(self, output, domains, stream=True):
         # get URL for the requested Pfam version
         url = self.get_url()
         self.info(f"fetching {url}")
@@ -185,7 +191,14 @@ class download_pfam(setuptools.Command):
             dl = ctx.enter_context(pbar)
             src = ctx.enter_context(gzip.open(dl))
             dst = ctx.enter_context(lz4.frame.open(output, "wb"))
-            for hmm in HMMFile(src):
+            if stream:
+                hmm_file = HMMFile(src)
+            else:
+                buffer = io.BytesIO()
+                shutil.copyfileobj(src, buffer)
+                buffer.seek(0)
+                hmm_file = HMMFile(buffer)
+            for hmm in hmm_file:
                 nsource += 1
                 if hmm.accession.decode() in domains:
                     nwritten += 1
