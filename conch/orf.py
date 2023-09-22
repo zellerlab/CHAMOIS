@@ -56,7 +56,7 @@ class PyrodigalFinder(ORFFinder):
     Since BGCs are short sequences, only "meta" mode can be used for 
     detecting genes in the input.
 
-    See Also:
+    References:
         - `Martin Larralde. "Pyrodigal: Python bindings and interface to 
           Prodigal, an efficient method for gene prediction in prokaryotes",
           Journal of Open Source Software, 7(72), 4296, 

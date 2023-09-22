@@ -52,6 +52,13 @@ class DomainAnnotator(metaclass=abc.ABCMeta):
 
 class HMMERAnnotator(DomainAnnotator):
     """A domain annotator that uses PyHMMER to annotate domains in proteins.
+
+    References:
+        - `Martin Larralde and Georg Zeller. "PyHMMER: a Python library
+          binding to HMMER for efficient sequence analysis",
+          Bioinformatics, Volume 39, Issue 5, May 2023,
+          <https://doi.org/10.1093/bioinformatics/btad214>`_.
+
     """
 
     def __init__(
@@ -81,7 +88,7 @@ class HMMERAnnotator(DomainAnnotator):
     @property
     def total(self):
         if isinstance(self.whitelist, _UniversalContainer):
-            return None 
+            return None
         return len(self.whitelist)
 
     def _load_hmm(self, ctx: contextlib.ExitStack) -> HMMFile:
@@ -146,6 +153,17 @@ class HMMERAnnotator(DomainAnnotator):
 
 
 class NRPySAnnotator(DomainAnnotator):
+    """An adenylation domain annotator that uses NRPSpredictor2.
+
+    References:
+        - `Marc Röttig, Marnix H. Medema, Kai Blin, Tilmann Weber,
+          Christian Rausch, and Oliver Kohlbacher. "NRPSpredictor2 — a web
+          server for predicting NRPS adenylation domain specificity",
+          Nucleic Acids Res. 2011 Jul 1; 39(Web Server issue): W362–W367.
+          <https://doi.org/10.1093%2Fnar%2Fgkr323>`_.
+
+    """
+
 
     _POSITIONS = [
         12, 15, 16, 40, 45, 46, 47, 48, 49, 50, 51, 54, 92, 93, 124, 125, 126, 127,

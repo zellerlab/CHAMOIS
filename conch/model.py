@@ -58,6 +58,7 @@ class HMMDomain(Domain):
             and other.start <= self.end
         )
 
+
 @dataclasses.dataclass(frozen=True)
 class AdenylationDomain(Domain):
     """An adenylation domain with specificity for a certain subtrate.
