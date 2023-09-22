@@ -363,6 +363,10 @@ for bgc_id, entry in mibig.items():
         ]
 
     for compound in entry["compounds"]:
+        # mask formula of all capsular polysaccharide BGCs
+        if compound["compound"] == "capsular polysaccharide":
+            compound.pop("chem_struct")
+            break
         # β-D-galactosylvalidoxylamine-A is actually validamycin
         if compound["compound"] == "β-D-galactosylvalidoxylamine-A":
             compound["compound"] = "validamycin A"
