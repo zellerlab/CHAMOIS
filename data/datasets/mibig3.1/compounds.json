@@ -34682,6 +34682,7 @@
     ],
     "BGC0002641": [
         {
+            "chem_struct": "S1C(CCCCC(C)CC)=NC(C2=NC(C3SC=C(C(N[C@@](CO)C(=O)O)=O)N=3)=CS2)=C1",
             "compound": "bacillothiazol A"
         },
         {
