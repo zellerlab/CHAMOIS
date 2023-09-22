@@ -82,7 +82,7 @@ class PyrodigalFinder(ORFFinder):
         super().__init__()
         self.mask = mask
         self.cpus = cpus
-        self.orf_finder =  pyrodigal.OrfFinder(meta=True, closed=True, mask=mask)
+        self.orf_finder =  pyrodigal.GeneFinder(meta=True, closed=True, mask=mask)
 
     def _process_clusters(self, cluster: ClusterSequence) -> Tuple[ClusterSequence, pyrodigal.Genes]:
         return cluster, self.orf_finder.find_genes(str(cluster.record.sequence))
