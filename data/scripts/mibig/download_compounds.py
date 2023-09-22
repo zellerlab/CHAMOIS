@@ -365,7 +365,7 @@ for bgc_id, entry in mibig.items():
     for compound in entry["compounds"]:
         # mask formula of all capsular polysaccharide BGCs
         if compound["compound"] == "capsular polysaccharide":
-            compound.pop("chem_struct")
+            compound.pop("chem_struct", None)
             break
         # β-D-galactosylvalidoxylamine-A is actually validamycin
         if compound["compound"] == "β-D-galactosylvalidoxylamine-A":
@@ -467,6 +467,10 @@ for bgc_id, entry in mibig.items():
             compound["chem_struct"] = r"OC1=CC2=C(NC3=C2C2=C(C(=O)NC2)C2=C3NC3=C2C=C(O)C=C3)C=C1"
         elif compound["compound"] == "reductasporine":
             compound["chem_struct"] = r"C[N+]1(C)CC2=C(C1)C1=C(NC3=C1C=CC=C3)C1=C2C2=C(N1)C=CC=C2"
+        # add formula of bacillothiazole A
+        elif compound["compound"] == "bacillothiazol A":
+            compound["chem_struct"] = "S1C(CCCCC(C)CC)=NC(C2=NC(C3SC=C(C(N[C@@](CO)C(=O)O)=O)N=3)=CS2)=C1"
+
 
 # --- Load NPAtlas -----------------------------------------------------------
 with rich.progress.open(args.atlas, "rb", description=f"[bold blue]{'Loading':>12}[/] NPAtlas") as handle:
