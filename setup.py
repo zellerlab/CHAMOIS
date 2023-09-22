@@ -118,7 +118,7 @@ class download_pfam(setuptools.Command):
         _build_py = self.get_finalized_command("build_py")
         self.build_lib = _build_py.build_lib
         if self.version is None:
-            self.version = "35.0"
+            self.version = "36.0"
 
     def info(self, msg):
         self.announce(msg, level=2)

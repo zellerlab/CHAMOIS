@@ -14,7 +14,7 @@ INTERPRO_VERSION=94.0
 INTERPRO_XML=$(DATA)/pfam/interpro$(INTERPRO_VERSION).xml.gz
 INTERPRO_JSON=$(DATA)/pfam/interpro$(INTERPRO_VERSION).json
 
-PFAM_VERSION=35.0
+PFAM_VERSION=36.0
 PFAM_HMM=$(DATA)/pfam/Pfam$(PFAM_VERSION).hmm
 
 ATLAS=$(DATA)/npatlas/NPAtlas_download.json.gz
