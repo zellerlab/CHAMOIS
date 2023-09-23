@@ -372,6 +372,21 @@ for bgc_id, entry in mibig.items():
                 "chem_struct": r"C1=CC=C(C(=O)OC)C2=NC3=CC=CC([C@@](SC[C@@](C(O)=O)NC(=O)C)[C@@](CCCCC(C)C)C(=O)OC)=C3N=C12",
             },
         ]
+    elif bgc_id == "BGC0002624":
+        entry["compounds"] = [
+            {
+                "compound": "fischerazole A",
+                "chem_struct": r"C(/Cl)(\Cl)=C/C[C@@](Cl)CCC[C@@](O)(C=C)CCCC[C@](CC1SC=C(C(=O)NC)N=1)Cl",
+            },
+            {
+                "compound": "fischerazole B",
+                "chem_struct": r"C(/Cl)(\Cl)=C/CCCCC[C@@](O)(C=C)CCCC[C@](CC1SC=C(C(=O)NC)N=1)Cl",
+            },
+            {
+                "compound": "fischerazole C",
+                "chem_struct": r"C(/Cl)(\Cl)=C/C[C@@](Cl)CCC[C@@]([H])(C=C)CCCC[C@](CC1SC=C(C(=O)NC)N=1)Cl",
+            },
+        ]
 
     for compound in entry["compounds"]:
         # mask formula of all capsular polysaccharide BGCs
