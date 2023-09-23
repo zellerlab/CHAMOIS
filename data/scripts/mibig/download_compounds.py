@@ -405,7 +405,7 @@ for bgc_id, entry in mibig.items():
     elif bgc_id == "BGC0002402":
         entry["compounds"] = [
             {
-                "compound" "yossoside I",
+                "compound": "yossoside I",
                 "chem_struct": r"C1[C@](O)[C@](O[C@@]2O[C@](C(=O)O)[C@@](O)[C@](O)[C@]2O)[C@](C(=O)O)(C)C2CC[C@](C)3[C@@](C)4CC[C@](C(O[C@]5[C@](O)[C@@](O)[C@@](O)[C@@](C)O5)=O)5CC[C@@](C)(C)CC5C4=CCC3[C@@]12C",
             },
             {

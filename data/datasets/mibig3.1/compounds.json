@@ -30220,10 +30220,12 @@
     ],
     "BGC0002336": [
         {
-            "compound": "gladiochelin A1"
+            "chem_struct": "C(O)(=O)CC(CCCC/C=C\\CCCCCCC/C=C\\C(N/C=C/C(N[C@]1COC(=O)[C@](CO)NC(=O)[C@@](NC(=O)[C@@](C(C)C)NC1=O)CCO)=O)=O)(C(O)=O)OC",
+            "compound": "gladiochelin A"
         },
         {
-            "compound": "gladiochelin B2"
+            "chem_struct": "C(O)(=O)CC(CCCC/C=C\\CCCCCCC/C=C\\C(N/C=C/C(N[C@]1COC(=O)[C@](CO)NC(=O)[C@@](NC(=O)[C@@]([C@@](CC)C)NC1=O)CCO)=O)=O)(C(O)=O)OC",
+            "compound": "gladiochelin B"
         }
     ],
     "BGC0002337": [
@@ -31179,7 +31181,24 @@
     ],
     "BGC0002402": [
         {
-            "compound": "yossosides"
+            "chem_struct": "C1[C@](O)[C@](O[C@@]2O[C@](C(=O)O)[C@@](O)[C@](O)[C@]2O)[C@](C(=O)O)(C)C2CC[C@](C)3[C@@](C)4CC[C@](C(O[C@]5[C@](O)[C@@](O)[C@@](O)[C@@](C)O5)=O)5CC[C@@](C)(C)CC5C4=CCC3[C@@]12C",
+            "compound": "yossoside I"
+        },
+        {
+            "chem_struct": "C1[C@](O)[C@](O[C@@]2O[C@](C(=O)O)[C@@](O)[C@](O)[C@]2O)[C@](C(=O)O)(C)C2CC[C@](C)3[C@@](C)4CC[C@](C(O[C@]5[C@](O[C@]6[C@](O)[C@](O)[C@@](O)[C@](C)O6)[C@@](O)[C@@](O)[C@@](C)O5)=O)5CC[C@@](C)(C)CC5C4=CCC3[C@@]12C",
+            "compound": "yossoside II"
+        },
+        {
+            "chem_struct": "C1[C@](O)[C@](O[C@@]2O[C@](C(=O)O)[C@@](O)[C@](O)[C@]2O)[C@](C(=O)O)(C)C2CC[C@](C)3[C@@](C)4CC[C@](C(O[C@]5[C@](O[C@]6[C@](O)[C@](O)[C@@](O[C@@]7O[C@](CO)[C@@](O)[C@](O)[C@]7O)[C@](C)O6)[C@@](O)[C@@](O)[C@@](C)O5)=O)5CC[C@@](C)(C)CC5C4=CCC3[C@@]12C",
+            "compound": "yossoside III"
+        },
+        {
+            "chem_struct": "C1[C@](O)[C@](O[C@@]2O[C@](C(=O)O)[C@@](O)[C@](O[C@]3[C@](O)[C@@](O)[C@](O)CO3)[C@]2O)[C@](C(=O)O)(C)C2CC[C@](C)3[C@@](C)4CC[C@](C(O[C@]5[C@](O[C@]6[C@](O)[C@](O)[C@@](O[C@@]7O[C@](CO)[C@@](O)[C@](O)[C@]7O)[C@](C)O6)[C@@](O)[C@@](O)[C@@](C)O5)=O)5CC[C@@](C)(C)CC5C4=CCC3[C@@]12C",
+            "compound": "yossoside IV"
+        },
+        {
+            "chem_struct": "C1[C@](O)[C@](O[C@@]2O[C@](C(=O)O)[C@@](O)[C@](O[C@]3[C@](O)[C@@](O)[C@](O)CO3)[C@]2O)[C@](C(=O)O)(C)C2CC[C@](C)3[C@@](C)4CC[C@](C(O[C@]5[C@](O[C@]6[C@](O)[C@](O)[C@@](O[C@@]7O[C@](CO)[C@@](O)[C@](O)[C@]7O)[C@](C)O6)[C@@](O)[C@@](OC(=O)C)[C@@](C)O5)=O)5CC[C@@](C)(C)CC5C4=CCC3[C@@]12C",
+            "compound": "yossoside V"
         }
     ],
     "BGC0002403": [
@@ -32074,6 +32093,7 @@
     ],
     "BGC0002467": [
         {
+            "chem_struct": "CC(N(CCCC(NC(=O)C)C(=O)NC(CCC(N)=O)C(N(O)CCCC1NC(=O)C(CCCN(O)C(C)=O)NC1=O)=O)O)=O",
             "compound": "thermochelin"
         }
     ],
@@ -34126,7 +34146,16 @@
     ],
     "BGC0002597": [
         {
-            "compound": "nocuolactylates"
+            "chem_struct": "C([H])(Cl)CCCCCCC/C=C/CC(=O)O[C@@](C)C(OCCC(=O)N1O[C@](CCCCC)CC(CCCCC)=N1)=O",
+            "compound": "nocuolactylate A"
+        },
+        {
+            "chem_struct": "C(Cl)(Cl)CCCCCCC/C=C/CC(=O)O[C@@](C)C(OCCC(=O)N1O[C@](CCCCC)CC(CCCCC)=N1)=O",
+            "compound": "nocuolactylate B"
+        },
+        {
+            "chem_struct": "C([H])([H])CCCCCCC/C=C/CC(=O)O[C@@](C)C(OCCC(=O)N1O[C@](CCCCC)CC(CCCCC)=N1)=O",
+            "compound": "nocuolactylate C"
         }
     ],
     "BGC0002598": [
