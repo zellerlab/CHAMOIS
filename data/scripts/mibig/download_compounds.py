@@ -470,6 +470,9 @@ for bgc_id, entry in mibig.items():
         # add formula of bacillothiazole A
         elif compound["compound"] == "bacillothiazol A":
             compound["chem_struct"] = "S1C(CCCCC(C)CC)=NC(C2=NC(C3SC=C(C(N[C@@](CO)C(=O)O)=O)N=3)=CS2)=C1"
+        # add aspcandine
+        elif compound["compound"] == "aspcandine":
+            compound["chem_struct"] = "C1[C@@]([H])2NC(=O)C=C2NC2=C(O)C=CC=C2C1=O"
 
 
 # --- Load NPAtlas -----------------------------------------------------------
