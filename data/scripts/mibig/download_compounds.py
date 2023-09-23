@@ -473,6 +473,10 @@ for bgc_id, entry in mibig.items():
         # add aspcandine
         elif compound["compound"] == "aspcandine":
             compound["chem_struct"] = "C1[C@@]([H])2NC(=O)C=C2NC2=C(O)C=CC=C2C1=O"
+        # fix clipibicyclene annotation
+        elif compound["compound"] == "clipibycyclene":
+            compound["compound"] = "clipibicyclene"
+            compound["chem_struct"] = r"C1=C(/NC(=O)/C=C/C(/C)=C/C=C/C(O)CC)\OC(=O)N2CC(O)/C/2=C/1.O.N"
 
 
 # --- Load NPAtlas -----------------------------------------------------------
