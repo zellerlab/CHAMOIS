@@ -402,6 +402,29 @@ for bgc_id, entry in mibig.items():
                 "chem_struct": r"C([H])([H])CCCCCCC/C=C/CC(=O)O[C@@](C)C(OCCC(=O)N1O[C@](CCCCC)CC(CCCCC)=N1)=O",
             },
         ]
+    elif bgc_id == "BGC0002402":
+        entry["compounds"] = [
+            {
+                "compound" "yossoside I",
+                "chem_struct": r"C1[C@](O)[C@](O[C@@]2O[C@](C(=O)O)[C@@](O)[C@](O)[C@]2O)[C@](C(=O)O)(C)C2CC[C@](C)3[C@@](C)4CC[C@](C(O[C@]5[C@](O)[C@@](O)[C@@](O)[C@@](C)O5)=O)5CC[C@@](C)(C)CC5C4=CCC3[C@@]12C",
+            },
+            {
+                "compound": "yossoside II",
+                "chem_struct": r"C1[C@](O)[C@](O[C@@]2O[C@](C(=O)O)[C@@](O)[C@](O)[C@]2O)[C@](C(=O)O)(C)C2CC[C@](C)3[C@@](C)4CC[C@](C(O[C@]5[C@](O[C@]6[C@](O)[C@](O)[C@@](O)[C@](C)O6)[C@@](O)[C@@](O)[C@@](C)O5)=O)5CC[C@@](C)(C)CC5C4=CCC3[C@@]12C",
+            },
+            {
+                "compound": "yossoside III",
+                "chem_struct": r"C1[C@](O)[C@](O[C@@]2O[C@](C(=O)O)[C@@](O)[C@](O)[C@]2O)[C@](C(=O)O)(C)C2CC[C@](C)3[C@@](C)4CC[C@](C(O[C@]5[C@](O[C@]6[C@](O)[C@](O)[C@@](O[C@@]7O[C@](CO)[C@@](O)[C@](O)[C@]7O)[C@](C)O6)[C@@](O)[C@@](O)[C@@](C)O5)=O)5CC[C@@](C)(C)CC5C4=CCC3[C@@]12C",
+            },
+            {
+                "compound": "yossoside IV",
+                "chem_struct": r"C1[C@](O)[C@](O[C@@]2O[C@](C(=O)O)[C@@](O)[C@](O[C@]3[C@](O)[C@@](O)[C@](O)CO3)[C@]2O)[C@](C(=O)O)(C)C2CC[C@](C)3[C@@](C)4CC[C@](C(O[C@]5[C@](O[C@]6[C@](O)[C@](O)[C@@](O[C@@]7O[C@](CO)[C@@](O)[C@](O)[C@]7O)[C@](C)O6)[C@@](O)[C@@](O)[C@@](C)O5)=O)5CC[C@@](C)(C)CC5C4=CCC3[C@@]12C",
+            },
+            {
+                "compound": "yossoside V",
+                "chem_struct": r"C1[C@](O)[C@](O[C@@]2O[C@](C(=O)O)[C@@](O)[C@](O[C@]3[C@](O)[C@@](O)[C@](O)CO3)[C@]2O)[C@](C(=O)O)(C)C2CC[C@](C)3[C@@](C)4CC[C@](C(O[C@]5[C@](O[C@]6[C@](O)[C@](O)[C@@](O[C@@]7O[C@](CO)[C@@](O)[C@](O)[C@]7O)[C@](C)O6)[C@@](O)[C@@](OC(=O)C)[C@@](C)O5)=O)5CC[C@@](C)(C)CC5C4=CCC3[C@@]12C",
+            },
+        ]
 
     for compound in entry["compounds"]:
         # mask formula of all capsular polysaccharide BGCs
