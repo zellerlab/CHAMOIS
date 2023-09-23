@@ -111,7 +111,7 @@ $(DATA)/datasets/%/maccs.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(CHEM
 $(DATA)/datasets/mibig2.0/clusters.gbk: $(DATA)/mibig/blocklist.tsv
 	$(PYTHON) $(SCRIPTS)/mibig/download_records.py --blocklist $< --mibig-version 2.0 -o $@
 
-$(DATA)/datasets/mibig2.0/compounds.json: $(DATA)/mibig/blocklist.tsv $(ATLAS)
+$(DATA)/datasets/mibig2.0/compounds.json: $(DATA)/mibig/blocklist.tsv $(ATLAS) $(SCRIPTS)/mibig/download_compounds.py
 	$(PYTHON) $(SCRIPTS)/mibig/download_compounds.py --blocklist $< --mibig-version 2.0 -o $@ --atlas $(ATLAS) --cache $(BUILD)
 
 $(DATA)/datasets/mibig2.0/taxonomy.tsv: $(DATA)/mibig/blocklist.tsv $(TAXONOMY)/names.dmp $(TAXONOMY)/nodes.dmp $(TAXONOMY)/merged.dmp
@@ -123,7 +123,7 @@ $(DATA)/datasets/mibig2.0/taxonomy.tsv: $(DATA)/mibig/blocklist.tsv $(TAXONOMY)/
 $(DATA)/datasets/mibig3.1/clusters.gbk: $(DATA)/mibig/blocklist.tsv
 	$(PYTHON) $(SCRIPTS)/mibig/download_records.py --blocklist $< --mibig-version 3.1 -o $@
 
-$(DATA)/datasets/mibig3.1/compounds.json: $(DATA)/mibig/blocklist.tsv $(ATLAS)
+$(DATA)/datasets/mibig3.1/compounds.json: $(DATA)/mibig/blocklist.tsv $(ATLAS) $(SCRIPTS)/mibig/download_compounds.py
 	$(PYTHON) $(SCRIPTS)/mibig/download_compounds.py --blocklist $< --mibig-version 3.1 -o $@ --atlas $(ATLAS) --cache $(BUILD)
 
 $(DATA)/datasets/mibig3.1/taxonomy.tsv: $(DATA)/mibig/blocklist.tsv $(TAXONOMY)/names.dmp $(TAXONOMY)/nodes.dmp $(TAXONOMY)/merged.dmp

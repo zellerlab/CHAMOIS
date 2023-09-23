@@ -605,7 +605,7 @@ for entry in rich.progress.track(mibig.values(), description=f"[bold blue]{'Mapp
             cids = get_cids(name)
             if cids:
                 c = get_compounds(cids[:1])[0]
-                compound["database_id"] = [f"pubchem:{c}"]
+                compound["database_id"] = [f"pubchem:{cids[0]}"]
                 compound["chem_struct"] = c.isomeric_smiles
                 rich.print(f"[bold green]{'Mapped':>12}[/] {compound['compound']!r} product of [purple]{entry['mibig_accession']}[/] to PubChem compound {c.cid}")
                 time.sleep(1)
