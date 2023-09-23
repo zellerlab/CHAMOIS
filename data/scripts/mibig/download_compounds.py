@@ -425,6 +425,17 @@ for bgc_id, entry in mibig.items():
                 "chem_struct": r"C1[C@](O)[C@](O[C@@]2O[C@](C(=O)O)[C@@](O)[C@](O[C@]3[C@](O)[C@@](O)[C@](O)CO3)[C@]2O)[C@](C(=O)O)(C)C2CC[C@](C)3[C@@](C)4CC[C@](C(O[C@]5[C@](O[C@]6[C@](O)[C@](O)[C@@](O[C@@]7O[C@](CO)[C@@](O)[C@](O)[C@]7O)[C@](C)O6)[C@@](O)[C@@](OC(=O)C)[C@@](C)O5)=O)5CC[C@@](C)(C)CC5C4=CCC3[C@@]12C",
             },
         ]
+    elif bgc_id == "BGC0002336":
+        entry["compounds"] = [
+            {
+                "compound": "gladiochelin A",
+                "chem_struct": r"C(O)(=O)CC(CCCC/C=C\CCCCCCC/C=C\C(N/C=C/C(N[C@]1COC(=O)[C@](CO)NC(=O)[C@@](NC(=O)[C@@](C(C)C)NC1=O)CCO)=O)=O)(C(O)=O)OC",
+            },
+            {
+                "compound": "gladiochelin B",
+                "chem_struct": r"C(O)(=O)CC(CCCC/C=C\CCCCCCC/C=C\C(N/C=C/C(N[C@]1COC(=O)[C@](CO)NC(=O)[C@@](NC(=O)[C@@]([C@@](CC)C)NC1=O)CCO)=O)=O)(C(O)=O)OC",
+            }
+        ]
 
     for compound in entry["compounds"]:
         # mask formula of all capsular polysaccharide BGCs
