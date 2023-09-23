@@ -361,6 +361,17 @@ for bgc_id, entry in mibig.items():
                 "database_id": ["pubchem:441133"]
             }
         ]
+    elif bgc_id == "BGC0002636":
+        entry["compounds"] = [
+            {
+                "compound": "N-acetyl-cysteinylated streptophenazine A",
+                "chem_struct": r"C1=CC=C(C(=O)OC)C2=NC3=CC=CC([C@@](SC[C@@](C(O)=O)NC(=O)C)[C@@](CCCC(C)C)C(=O)OC)=C3N=C12",
+            },
+            {
+                "compound": "N-acetyl-cysteinylated streptophenazine F",
+                "chem_struct": r"C1=CC=C(C(=O)OC)C2=NC3=CC=CC([C@@](SC[C@@](C(O)=O)NC(=O)C)[C@@](CCCCC(C)C)C(=O)OC)=C3N=C12",
+            },
+        ]
 
     for compound in entry["compounds"]:
         # mask formula of all capsular polysaccharide BGCs
