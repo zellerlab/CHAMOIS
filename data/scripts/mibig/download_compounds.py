@@ -387,6 +387,21 @@ for bgc_id, entry in mibig.items():
                 "chem_struct": r"C(/Cl)(\Cl)=C/C[C@@](Cl)CCC[C@@]([H])(C=C)CCCC[C@](CC1SC=C(C(=O)NC)N=1)Cl",
             },
         ]
+    elif bgc_id == "BGC0002597":
+        entry["compounds"] = [
+            {
+                "compound": "nocuolactylate A",
+                "chem_struct": r"C([H])(Cl)CCCCCCC/C=C/CC(=O)O[C@@](C)C(OCCC(=O)N1O[C@](CCCCC)CC(CCCCC)=N1)=O",
+            },
+            {
+                "compound": "nocuolactylate B",
+                "chem_struct": r"C(Cl)(Cl)CCCCCCC/C=C/CC(=O)O[C@@](C)C(OCCC(=O)N1O[C@](CCCCC)CC(CCCCC)=N1)=O",
+            },
+            {
+                "compound": "nocuolactylate C",
+                "chem_struct": r"C([H])([H])CCCCCCC/C=C/CC(=O)O[C@@](C)C(OCCC(=O)N1O[C@](CCCCC)CC(CCCCC)=N1)=O",
+            },
+        ]
 
     for compound in entry["compounds"]:
         # mask formula of all capsular polysaccharide BGCs
@@ -503,6 +518,8 @@ for bgc_id, entry in mibig.items():
         elif compound["compound"] == "clipibycyclene":
             compound["compound"] = "clipibicyclene"
             compound["chem_struct"] = r"C1=C(/NC(=O)/C=C/C(/C)=C/C=C/C(O)CC)\OC(=O)N2CC(O)/C/2=C/1.O.N"
+        elif compound["compound"] == "thermochelin":
+            compound["chem_struct"] = r"CC(N(CCCC(NC(=O)C)C(=O)NC(CCC(N)=O)C(N(O)CCCC1NC(=O)C(CCCN(O)C(C)=O)NC1=O)=O)O)=O"
 
 
 # --- Load NPAtlas -----------------------------------------------------------
