@@ -95,7 +95,7 @@ class HMMERAnnotator(DomainAnnotator):
         if self.path is not None:
             file: BinaryIO = ctx.enter_context(zopen(self.path))
         else:
-            handle = files(__package__).joinpath("Pfam35.0.hmm.lz4")
+            handle = files(__package__).joinpath("Pfam36.0.hmm.lz4")
             file = ctx.enter_context(zopen(ctx.enter_context(handle.open("rb"))))
         return ctx.enter_context(HMMFile(file))
 
