@@ -11,7 +11,7 @@ from rich.console import Console
 from scipy.spatial.distance import cdist
 
 from ._common import load_model
-from ..predictor import ChemicalHierarchyPredictor
+from ..predictor import ChemicalOntologyPredictor
 
 
 def configure_parser(parser: argparse.ArgumentParser):
@@ -58,7 +58,7 @@ def configure_parser(parser: argparse.ArgumentParser):
     parser.set_defaults(run=run)
 
 
-def load_predictions(path: pathlib.Path, predictor: ChemicalHierarchyPredictor, console: Console) -> anndata.AnnData:
+def load_predictions(path: pathlib.Path, predictor: ChemicalOntologyPredictor, console: Console) -> anndata.AnnData:
     console.print(f"[bold blue]{'Loading':>12}[/] probability predictions from {str(path)!r}")
     probas = anndata.read(path)
     probas = probas[:, predictor.classes_.index]

@@ -1,9 +1,46 @@
 import collections
 import typing
-from typing import Optional, Iterator, Union, Sequence, Dict
+from typing import Optional, Iterator, Iterable, Union, Sequence, Dict
 
 import numpy
 import scipy.sparse
+import scipy.spatial.distance
+
+
+def _compute_semantic_similarity(incidence_matrix: "IncidenceMatrix", c=2.0, d=0.5) -> scipy.sparse.spmatrix:
+    # compute downstream semantic contribution
+    semantic_contribution = numpy.eye(len(incidence_matrix))
+    for i in range(len(incidence_matrix)):
+        semantic_contribution[i, i] = 1
+        nodes = collections.deque()
+        nodes.append(i)
+        while nodes:
+            j = nodes.popleft()
+            for k in incidence_matrix.parents(j):
+                we = 1 / (c + len(incidence_matrix.children(k))) + d
+                semantic_contribution[i, k] = max(semantic_contribution[i, k], we * semantic_contribution[i, j])
+                nodes.append(k)
+
+    # compute semantic value of each term
+    semantic_value = semantic_contribution.sum(axis=1)
+
+    # compute semantic similarity
+    semantic_similarity = numpy.eye(len(incidence_matrix))
+    ancestors = _VariableColumnStorage([
+        incidence_matrix.ancestors(i)
+        for i in range(len(incidence_matrix))
+    ])
+    for i in range(len(incidence_matrix)):
+        ancestors1 = set(ancestors[i])
+        for j in range(i+1, len(incidence_matrix)):
+            ancestors2 = set([j])
+            indices = numpy.array(list(ancestors1 & ancestors2))
+            if len(indices):
+                denominator = semantic_contribution[i, indices].sum() + semantic_contribution[j, indices].sum()
+                if denominator > 0:
+                    semantic_similarity[i, j] = semantic_similarity[j, i] = denominator / (semantic_value[i] + semantic_value[j])
+    
+    return semantic_similarity
 
 
 class _VariableColumnStorage:
@@ -29,11 +66,11 @@ class _VariableColumnStorage:
         return self.data[start:end]
 
 
-class TreeMatrix:
+class IncidenceMatrix:
     """A tree encoded as an incidence matrix.
     """
 
-    def __init__(self, data: Optional[numpy.ndarray] = None) -> None:
+    def __init__(self, data: Union[numpy.ndarray, scipy.sparse.spmatrix, None] = None) -> None:
         if data is None:
             _data = numpy.array([])
         elif isinstance(data, scipy.sparse.spmatrix):
@@ -58,7 +95,7 @@ class TreeMatrix:
             self._parents = self._children = _VariableColumnStorage([])
             self._down = self._up = numpy.array([])
 
-        # store data as a sparse matrix
+        # store input data as a sparse matrix
         self.data = scipy.sparse.csr_matrix(_data)
 
     def __len__(self) -> int:
@@ -146,3 +183,73 @@ class TreeMatrix:
 
     def neighbors(self, i: int) -> numpy.ndarray:
         return numpy.cat([ self.parents(i), self.children(i) ])
+
+    def ancestors(self, i: int) -> numpy.ndarray:
+        ancestors = set()
+        nodes = collections.deque()
+        nodes.append(i)
+        while nodes:
+            j = nodes.popleft()
+            parents = self.parents(j)
+            ancestors.update(parents)
+            nodes.extend(parents)
+        return numpy.array(list(ancestors))
+
+    def descendants(self, i: int) -> numpy.ndarray:
+        descendants = set()
+        nodes = collections.deque()
+        nodes.append(i)
+        while nodes:
+            j = nodes.popleft()
+            children = self.children(j)
+            descendants.update(children)
+            nodes.extend(children)
+        return numpy.array(list(descendants))
+
+
+class Ontology:
+    """An ontology represented as a Directed Acyclic Graph.
+
+    The ontology is encoded using an incidence matrix representing the graph
+    of subclasses. It supports computing the similarity between terms or
+    term groups based on the GOGO algorithm by Zhao and Wang.
+
+    References:
+        Zhao, C., Wang, Z. "GOGO: An improved algorithm to measure the 
+        semantic similarity between gene ontology terms". 
+        Sci Rep 8, 15107 (2018). :doi:`10.1038/s41598-018-33219-y`
+
+    """
+    
+    def __init__(
+        self, 
+        incidence_matrix: Union[IncidenceMatrix, numpy.ndarray, scipy.sparse.spmatrix],
+    ):
+        # convert input to incidence matrix if needed
+        if not isinstance(incidence_matrix, IncidenceMatrix):
+            incidence_matrix = IncidenceMatrix(incidence_matrix)
+        self.incidence_matrix = incidence_matrix
+        if len(incidence_matrix) > 1:
+            self.semantic_similarity = _compute_semantic_similarity(incidence_matrix)
+        else:
+            self.semantic_similarity = numpy.eye(1)
+
+    def __getstate__(self) -> Dict[str, object]:
+        return {
+            "incidence_matrix": self.incidence_matrix.__getstate__(),
+            "semantic_similarity": scipy.sparse.csr_matrix(self.semantic_similarity),
+        }
+
+    def __setstate__(self, state: Dict[str, object]) -> None:
+        self.semantic_similarity = state["semantic_similarity"].toarray()
+        self.incidence_matrix = IncidenceMatrix() 
+        self.incidence_matrix.__setstate__(state["incidence_matrix"])
+
+    def similarity(self, x: Iterable[int], y: Iterable[int]) -> float:
+        """Return the semantic similarity between two set of terms.
+        """
+        _x = numpy.asarray(x)
+        _y = numpy.asarray(y)
+        sx = self.semantic_similarity[_x][:, _y].max(initial=0, axis=0).sum()
+        sy = self.semantic_similarity[_y][:, _x].max(initial=0, axis=0).sum()
+        return (sx+sy) / (_x.shape[0] + _y.shape[0])

@@ -9,8 +9,8 @@ from typing import Dict, Set, List
 import numpy
 import pandas
 
-from .predictor import ChemicalHierarchyPredictor
-from .treematrix import TreeMatrix
+from .ontology import IncidenceMatrix
+from .predictor import ChemicalOntologyPredictor
 
 _BASE_URL = "http://classyfire.wishartlab.com"
 
@@ -51,7 +51,11 @@ def extract_classification(data: Dict[str, object]) -> Set[str]:
     }
 
 
-def binarize_classification(classes: pandas.DataFrame, hierarchy: TreeMatrix, leaves: Set[str]) -> numpy.ndarray:
+def binarize_classification(
+    classes: pandas.DataFrame, 
+    incidence_matrix: IncidenceMatrix, 
+    leaves: Set[str]
+) -> numpy.ndarray:
     out = numpy.zeros(len(classes), dtype=bool)
 
     indices = []
@@ -62,8 +66,8 @@ def binarize_classification(classes: pandas.DataFrame, hierarchy: TreeMatrix, le
         except KeyError:
             pass
 
-    for i in reversed(hierarchy):
+    for i in reversed(incidence_matrix):
         if out[i]:
-            out[hierarchy.parents(i)] = True
+            out[incidence_matrix.parents(i)] = True
 
     return out

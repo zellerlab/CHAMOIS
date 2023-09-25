@@ -25,17 +25,17 @@ from ..domains import HMMERAnnotator, NRPySAnnotator
 from ..compositions import build_compositions, build_observations, build_variables
 from ..orf import ORFFinder, PyrodigalFinder, CDSFinder
 from ..model import ClusterSequence, Protein, Domain, HMMDomain, AdenylationDomain
-from ..predictor import ChemicalHierarchyPredictor
+from ..predictor import ChemicalOntologyPredictor
 
 
-def load_model(path: Optional[pathlib.Path], console: Console) -> ChemicalHierarchyPredictor:
+def load_model(path: Optional[pathlib.Path], console: Console) -> ChemicalOntologyPredictor:
     if path is not None:
         console.print(f"[bold blue]{'Loading':>12}[/] trained model from {str(path)!r}")
         with open(path, "rb") as src:
-            return ChemicalHierarchyPredictor.load(src)
+            return ChemicalOntologyPredictor.load(src)
     else:
         console.print(f"[bold blue]{'Loading':>12}[/] embedded model")
-        return ChemicalHierarchyPredictor.trained()
+        return ChemicalOntologyPredictor.trained()
 
 
 def load_sequences(input_files: List[pathlib.Path], console: Console) -> Iterable[ClusterSequence]:

@@ -14,22 +14,22 @@ from scipy.special import expit
 
 from . import _json
 from ._meta import requires
-from .treematrix import TreeMatrix
+from .ontology import Ontology
 
 try:
     from importlib.resources import files
 except ImportError:
     from importlib_resources import files
 
-_T = typing.TypeVar("_T", bound="ChemicalHierarchyPredictor")
+_T = typing.TypeVar("_T", bound="ChemicalOntologyPredictor")
 
-class ChemicalHierarchyPredictor:
+class ChemicalOntologyPredictor:
     """A model for predicting chemical hierarchy from BGC compositions.
     """
 
     def __init__(
         self, 
-        hierarchy: TreeMatrix, 
+        ontology: Ontology, 
         n_jobs: Optional[int] = None, 
         max_iter: int = 100
     ) -> None:
@@ -39,14 +39,14 @@ class ChemicalHierarchyPredictor:
         self.features_: Optional[pandas.DataFrame] = None
         self.coef_: Optional[numpy.ndarray[float]] = None
         self.intercept_: Optional[numpy.ndarray[float]] = None
-        self.hierarchy: TreeMatrix = hierarchy
+        self.ontology: Ontology = ontology
 
     def __getstate__(self) -> Dict[str, object]:
         return {
             "classes_": self.classes_,
             "features_": self.features_,
             "intercept_": list(self.intercept_),
-            "hierarchy": self.hierarchy.__getstate__(),
+            "ontology": self.ontology.__getstate__(),
             "coef_": scipy.sparse.csr_matrix(self.coef_),
         }
 
@@ -55,7 +55,7 @@ class ChemicalHierarchyPredictor:
         self.features_ = state["features_"]
         self.intercept_ = numpy.asarray(state["intercept_"])
         self.coef_ = state["coef_"].toarray()
-        self.hierarchy.__setstate__(state["hierarchy"])
+        self.ontology.__setstate__(state["ontology"])
 
     @requires("sklearn.multiclass")
     @requires("sklearn.linear_model")
@@ -76,6 +76,13 @@ class ChemicalHierarchyPredictor:
         else:
             _Y = Y
             self.classes_ = pandas.DataFrame(index=list(map(str, range(1, _Y.shape[1] + 1))))
+
+        # check training data consistency
+        if _Y.shape[1] != len(self.ontology.incidence_matrix):
+            raise ValueError(
+                f"Ontology contains {len(self.ontology.incidence_matrix)} terms, "
+                f"{_Y.shape[1]} found in data"
+            )
 
         # train model using scikit-learn
         model = sklearn.multiclass.OneVsRestClassifier(
@@ -102,8 +109,8 @@ class ChemicalHierarchyPredictor:
 
     def propagate(self, Y: numpy.ndarray) -> numpy.ndarray:
         _Y = numpy.array(Y, dtype=bool)
-        for i in reversed(self.hierarchy):
-            for j in self.hierarchy.parents(i):
+        for i in reversed(self.ontology.incidence_matrix):
+            for j in self.ontology.incidence_matrix.parents(i):
                 _Y[:, j] |= _Y[:, i]
         return _Y
 
@@ -140,7 +147,7 @@ class ChemicalHierarchyPredictor:
     @classmethod
     def load(cls: Type[_T], file: TextIO) -> _T:
         state = json.load(file, cls=_json.JSONDecoder)
-        predictor = cls(TreeMatrix())
+        predictor = cls(Ontology(None))
         predictor.__setstate__(state)
         return predictor
 

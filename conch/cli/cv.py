@@ -7,8 +7,8 @@ import rich.progress
 from rich.console import Console
 
 from .._meta import requires
-from ..predictor import ChemicalHierarchyPredictor
-from ..treematrix import TreeMatrix
+from ..predictor import ChemicalOntologyPredictor
+from ..ontology import Ontology
 
 
 def configure_parser(parser: argparse.ArgumentParser):
@@ -70,8 +70,8 @@ def run(args: argparse.Namespace, console: Console) -> int:
     features = features[:, features.X.sum(axis=0).A1 >= args.min_occurences]
     # remove clases absent from training set
     classes = classes[:, (classes.X.sum(axis=0).A1 >= 5) & (classes.X.sum(axis=0).A1 <= classes.n_obs - 5)]
-    # prepare class hierarchy and groups
-    hierarchy = TreeMatrix(classes.varp["parents"].toarray())
+    # prepare ontology and groups
+    ontology = Ontology(classes.varp["parents"])
     groups = classes.obs["compound"].cat.codes
 
     # start training
@@ -94,7 +94,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
         progress.console.print(f"[bold blue]{'Running':>12}[/] cross-validation evaluation")
         probas = numpy.zeros(classes.X.shape, dtype=float)
         for i, (train_indices, test_indices) in enumerate(splits):
-            model = ChemicalHierarchyPredictor(n_jobs=args.jobs, hierarchy=hierarchy, max_iter=200)
+            model = ChemicalOntologyPredictor(ontology, n_jobs=args.jobs, max_iter=200)
             # train fold
             train_X = features[train_indices]
             train_Y = classes[train_indices]

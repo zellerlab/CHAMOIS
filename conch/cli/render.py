@@ -10,8 +10,8 @@ import rich.panel
 from rich.console import Console
 from rich.table import Table
 
-from ..treematrix import TreeMatrix
-from ..predictor import ChemicalHierarchyPredictor
+from ..ontology import IncidenceMatrix
+from ..predictor import ChemicalOntologyPredictor
 from ._common import load_model
 
 
@@ -44,25 +44,25 @@ def configure_parser(parser: argparse.ArgumentParser):
     parser.set_defaults(run=run)
 
 
-def all_superclasses( classes: Iterable[int], hierarchy: TreeMatrix ) -> Set[int]:
+def all_superclasses( classes: Iterable[int], incidence_matrix: IncidenceMatrix ) -> Set[int]:
     superclasses = set()
     classes = set(classes)
     while classes:
         i = classes.pop()
         superclasses.add(i)
-        classes.update(j.item() for j in hierarchy.parents(i))
-        superclasses.update(j.item() for j in hierarchy.parents(i))
+        classes.update(j.item() for j in incidence_matrix.parents(i))
+        superclasses.update(j.item() for j in incidence_matrix.parents(i))
     return superclasses
 
 
 def build_tree(
-    model: ChemicalHierarchyPredictor,
+    model: ChemicalOntologyPredictor,
     bgc_probas: numpy.ndarray,
 ) -> None:
     # get probabilities and corresponding positive terms from ChemOnt
     bgc_labels = bgc_probas > 0.5
     terms = { j for j in range(len(model.classes_)) if bgc_probas[j] > 0.5 }
-    whitelist = all_superclasses(terms, model.hierarchy)
+    whitelist = all_superclasses(terms, model.ontology.incidence_matrix)
     # render a tree structure with rich
     def render(i, tree, whitelist):
         term_id = model.classes_.index[i]
@@ -70,14 +70,14 @@ def build_tree(
         color = "cyan" if bgc_probas[i] >= 0.5 else "yellow"
         label = f"[bold blue]{term_id}[/] ([green]{term_name}[/]): [bold {color}]{bgc_probas[i]:.3f}[/]"
         subtree = tree.add(label, highlight=False)
-        for j in model.hierarchy.children(i):
+        for j in model.ontology.incidence_matrix.children(i):
             j = j.item()
             if j in whitelist:
                 render(j, subtree, whitelist)
     roots = [
         i
         for i in range(len(model.classes_.index))
-        if not len(model.hierarchy.parents(i))
+        if not len(model.ontology.incidence_matrix.parents(i))
         and bgc_probas[i] > 0.5
     ]
     tree = rich.tree.Tree(".", hide_root=True)

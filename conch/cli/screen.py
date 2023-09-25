@@ -16,7 +16,7 @@ from rich.table import Table
 from scipy.spatial.distance import cdist
 
 from .._meta import requires
-from ..predictor import ChemicalHierarchyPredictor
+from ..predictor import ChemicalOntologyPredictor
 from ..classyfire import query_classyfire, get_results, extract_classification, binarize_classification
 from ._common import load_model
 from .render import build_tree
@@ -86,7 +86,7 @@ def configure_parser(parser: argparse.ArgumentParser):
     parser.set_defaults(run=run)
 
 
-def load_predictions(path: pathlib.Path, predictor: ChemicalHierarchyPredictor, console: Console) -> anndata.AnnData:
+def load_predictions(path: pathlib.Path, predictor: ChemicalOntologyPredictor, console: Console) -> anndata.AnnData:
     console.print(f"[bold blue]{'Loading':>12}[/] probability predictions from {str(path)!r}")
     probas = anndata.read(path)
     probas = probas[:, predictor.classes_.index]
