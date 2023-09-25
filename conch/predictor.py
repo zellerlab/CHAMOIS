@@ -31,7 +31,8 @@ class ChemicalOntologyPredictor:
         self, 
         ontology: Ontology, 
         n_jobs: Optional[int] = None, 
-        max_iter: int = 100
+        max_iter: int = 100,
+        model: str = "logistic",
     ) -> None:
         self.n_jobs: Optional[int] = n_jobs
         self.max_iter: int = max_iter
@@ -40,6 +41,7 @@ class ChemicalOntologyPredictor:
         self.coef_: Optional[numpy.ndarray[float]] = None
         self.intercept_: Optional[numpy.ndarray[float]] = None
         self.ontology: Ontology = ontology
+        self.model = model
 
     def __getstate__(self) -> Dict[str, object]:
         return {
@@ -48,6 +50,7 @@ class ChemicalOntologyPredictor:
             "intercept_": list(self.intercept_),
             "ontology": self.ontology.__getstate__(),
             "coef_": scipy.sparse.csr_matrix(self.coef_),
+            "model": self.model,
         }
 
     def __setstate__(self, state: Dict[str, object]) -> None:
@@ -56,9 +59,33 @@ class ChemicalOntologyPredictor:
         self.intercept_ = numpy.asarray(state["intercept_"])
         self.coef_ = state["coef_"].toarray()
         self.ontology.__setstate__(state["ontology"])
+        self.model = state["model"]
 
     @requires("sklearn.multiclass")
     @requires("sklearn.linear_model")
+    def _fit_logistic(self, X, Y):
+        # train model using scikit-learn
+        model = sklearn.multiclass.OneVsRestClassifier(
+            sklearn.linear_model.LogisticRegression("l1", solver="liblinear", max_iter=self.max_iter),
+            n_jobs=self.n_jobs,
+        )
+        model.fit(X, Y)
+
+        # copy coefficients & intercept to a single NumPy array
+        self.coef_ = numpy.zeros((X.shape[1], Y.shape[1]), order="C")
+        self.intercept_ = numpy.zeros(Y.shape[1], order="C")
+        for i, estimator in enumerate(model.estimators_):
+            if isinstance(estimator, sklearn.linear_model.LogisticRegression):
+                self.coef_[:, i] = estimator.coef_
+                self.intercept_[i] = estimator.intercept_
+            else:
+                self.intercept_[i] = -1000 if estimator.y_[0] == 0 else 1000
+
+        # remove features with all-zero weights
+        nonzero_weights = numpy.abs(self.coef_).sum(axis=1) > 0
+        self.coef_ = self.coef_[nonzero_weights]
+        self.features_ = self.features_[nonzero_weights]
+
     def fit(
         self: _T, 
         X: Union[numpy.ndarray, anndata.AnnData], 
@@ -84,26 +111,8 @@ class ChemicalOntologyPredictor:
                 f"{_Y.shape[1]} found in data"
             )
 
-        # train model using scikit-learn
-        model = sklearn.multiclass.OneVsRestClassifier(
-            sklearn.linear_model.LogisticRegression("l1", solver="liblinear", max_iter=self.max_iter),
-            n_jobs=self.n_jobs,
-        ).fit(_X, _Y)
-
-        # copy coefficients & intercept to a single NumPy array
-        self.coef_ = numpy.zeros((_X.shape[1], _Y.shape[1]), order="C")
-        self.intercept_ = numpy.zeros(_Y.shape[1], order="C")
-        for i, estimator in enumerate(model.estimators_):
-            if isinstance(estimator, sklearn.linear_model.LogisticRegression):
-                self.coef_[:, i] = estimator.coef_
-                self.intercept_[i] = estimator.intercept_
-            else:
-                self.intercept_[i] = -1000 if estimator.y_[0] == 0 else 1000
-
-        # remove features with all-zero weights
-        nonzero_weights = numpy.abs(self.coef_).sum(axis=1) > 0
-        self.coef_ = self.coef_[nonzero_weights]
-        self.features_ = self.features_[nonzero_weights]
+        if self.model == "logistic":
+            self._fit_logistic(_X, _Y)
 
         return self
 
@@ -114,6 +123,9 @@ class ChemicalOntologyPredictor:
                 _Y[:, j] |= _Y[:, i]
         return _Y
 
+    def _predict_logistic(self, X: numpy.ndarray) -> numpy.ndarray:
+        return expit(X @ self.coef_ + self.intercept_)
+
     def predict_probas(
         self, 
         X: Union[numpy.ndarray, anndata.AnnData],
@@ -122,7 +134,8 @@ class ChemicalOntologyPredictor:
             _X = X.X.toarray()
         else:
             _X = numpy.asarray(X)
-        return expit(_X @ self.coef_ + self.intercept_)
+        if self.model == "logistic":
+            return self._predict_logistic(_X)
 
     def predict(
         self, 
