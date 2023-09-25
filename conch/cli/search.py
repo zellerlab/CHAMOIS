@@ -118,9 +118,14 @@ def run(args: argparse.Namespace, console: Console) -> int:
     # load catalog
     catalog = load_catalog(args.catalog, console)[:, classes.var.index]
 
+    def metric(x: numpy.ndarray, y: numpy.ndarray) -> float:
+        i = numpy.where(x)[0]
+        j = numpy.where(y)[0]
+        return 1.0 - predictor.ontology.similarity(i, j)
+
     # compute distance
     console.print(f"[bold blue]{'Computing':>12}[/] pairwise distances and ranks")
-    distances = cdist(classes.X, catalog.X.toarray(), metric=args.distance)
+    distances = cdist(classes.X, catalog.X.toarray(), metric=metric)
     ranks = scipy.stats.rankdata(distances, method="dense", axis=1)
 
     # save results
