@@ -151,6 +151,14 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, gene="nbrT3").location.start
                 end = get_cds(record, gene="nbrU").location.end
 
+            # MIBiG entry of BGC0002523 contains unrelated flanking genes;
+            # supplementary material of the paper describes the core cluster
+            # of going only from `dstR` to `dstG`
+            # (see https://pubmed.ncbi.nlm.nih.gov/32457441/)
+            elif record.id == "BGC0002523":
+                start = get_cds(record, gene="dstR").location.start
+                end = get_cds(record, gene="dstG").location.end
+
             # clamp the BGC boundaries to the left- and rightmost genes
             else:
                 start = min( f.location.start for f in record.features if f.type == "CDS" )
