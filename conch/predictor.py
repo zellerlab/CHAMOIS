@@ -86,6 +86,16 @@ class ChemicalOntologyPredictor:
         self.coef_ = self.coef_[nonzero_weights]
         self.features_ = self.features_[nonzero_weights]
 
+    @requires("sklearn.linear_model")
+    def _fit_ridge(self, X, Y):
+        model = sklearn.linear_model.RidgeClassifier()
+        model.fit(X, Y)
+        # remove features with all-zero weights
+        nonzero_weights = numpy.abs(model.coef_.T).sum(axis=0) > 0
+        # copy coefficients
+        self.coef_ = model.coef_[nonzero_weights].T
+        self.intercept_ = model.intercept_[nonzero_weights]
+
     def fit(
         self: _T, 
         X: Union[numpy.ndarray, anndata.AnnData], 
@@ -113,6 +123,8 @@ class ChemicalOntologyPredictor:
 
         if self.model == "logistic":
             self._fit_logistic(_X, _Y)
+        elif self.model == "ridge":
+            self._fit_ridge(_X, _Y)
 
         return self
 
@@ -126,6 +138,11 @@ class ChemicalOntologyPredictor:
     def _predict_logistic(self, X: numpy.ndarray) -> numpy.ndarray:
         return expit(X @ self.coef_ + self.intercept_)
 
+    def _predict_ridge(self, X: numpy.ndarray) -> numpy.ndarray:
+        result = X @ self.coef_ + self.intercept_
+        probas = (result + 1.0) / 2.0
+        return numpy.clip(probas, 0.0, 1.0)
+
     def predict_probas(
         self, 
         X: Union[numpy.ndarray, anndata.AnnData],
@@ -136,6 +153,8 @@ class ChemicalOntologyPredictor:
             _X = numpy.asarray(X)
         if self.model == "logistic":
             return self._predict_logistic(_X)
+        elif self.model == "ridge":
+            return self._predict_ridge(_X)
 
     def predict(
         self, 

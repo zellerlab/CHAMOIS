@@ -52,6 +52,12 @@ def configure_parser(parser: argparse.ArgumentParser):
         default=3,
         help="The minimum of occurences for a feature to be retained."
     )
+    parser.add_argument(
+        "--model",
+        choices={"logistic", "ridge"},
+        default="logistic",
+        help="The kind of model to train."
+    )
     parser.set_defaults(run=run)
 
 
@@ -94,7 +100,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
         progress.console.print(f"[bold blue]{'Running':>12}[/] cross-validation evaluation")
         probas = numpy.zeros(classes.X.shape, dtype=float)
         for i, (train_indices, test_indices) in enumerate(splits):
-            model = ChemicalOntologyPredictor(ontology, n_jobs=args.jobs, max_iter=200)
+            model = ChemicalOntologyPredictor(ontology, n_jobs=args.jobs, max_iter=200, model=args.model)
             # train fold
             train_X = features[train_indices]
             train_Y = classes[train_indices]
