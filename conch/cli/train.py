@@ -38,6 +38,12 @@ def configure_parser(parser: argparse.ArgumentParser):
         default=3,
         help="The minimum of occurences for a feature to be retained."
     )
+    parser.add_argument(
+        "--model",
+        choices={"logistic", "ridge"},
+        default="logistic",
+        help="The kind of model to train."
+    )
     parser.set_defaults(run=run)
 
 @requires("sklearn")
@@ -57,7 +63,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
     ontology = Ontology(classes.varp["parents"].toarray())
 
     console.print(f"[bold blue]{'Training':>12}[/] logistic regression model")
-    model = ChemicalOntologyPredictor(ontology, n_jobs=args.jobs)
+    model = ChemicalOntologyPredictor(ontology, n_jobs=args.jobs, model=args.model)
     model.fit(features, classes)
 
     # save result

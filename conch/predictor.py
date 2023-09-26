@@ -89,13 +89,18 @@ class ChemicalOntologyPredictor:
 
     @requires("sklearn.linear_model")
     def _fit_ridge(self, X, Y):
+        # train model using scikit-learn
         model = sklearn.linear_model.RidgeClassifier()
         model.fit(X, Y)
+
+        # copy coefficients & intercept to a single NumPy array
+        self.coef_ = model.coef_.T
+        self.intercept_ = model.intercept_
+
         # remove features with all-zero weights
-        nonzero_weights = numpy.abs(model.coef_.T).sum(axis=0) > 0
-        # copy coefficients
-        self.coef_ = model.coef_[nonzero_weights].T
-        self.intercept_ = model.intercept_[nonzero_weights]
+        nonzero_weights = numpy.abs(self.coef_).sum(axis=1) > 0
+        self.coef_ = self.coef_[nonzero_weights]
+        self.features_ = self.features_[nonzero_weights]
 
     def fit(
         self: _T, 
