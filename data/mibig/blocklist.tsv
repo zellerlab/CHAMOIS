@@ -237,7 +237,11 @@ BGC0002371	retired in MIBiG 3.1
 BGC0002375	retired in MIBiG 3.1	
 BGC0002379	two gene cluster halves split by 70kbp	https://mibig.secondarymetabolites.org/repository/BGC0002379/
 BGC0002388	retired in MIBiG 3.1	
+BGC0002389	not a gene cluster (plant, 282k nt)	
 BGC0002390	not a gene cluster (plant, 643k nt)	https://mibig.secondarymetabolites.org/repository/BGC0002390/
+BGC0002394	not a gene cluster (plant, 200k nt)
+BGC0002395	not a gene cluster (plant, 598k nt)
+BGC0002406	not a gene cluster (plant, 194k nt)		
 BGC0002459	retired in MIBiG 3.1	
 BGC0002463	retired in MIBiG 3.1	
 BGC0002481	retired in MIBiG 3.1	
@@ -267,6 +271,8 @@ BGC0002705	retired in MIBiG 3.1
 BGC0002714	retired in MIBiG 3.1	
 BGC0002717	retired in MIBiG 3.1	
 BGC0002720	retired in MIBiG 3.1	
+BGC0002721	not a gene cluster (plant, 542k nt)	
+BGC0002722	not a gene cluster (plant, 337k nt)
 BGC0002727	retired in MIBiG 3.1	
 BGC0002728	retired in MIBiG 3.1	
 BGC0002730	retired in MIBiG 3.1	
