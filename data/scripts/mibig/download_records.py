@@ -64,6 +64,13 @@ with rich.progress.Progress() as progress:
                 start = 0
                 end = get_cds(record, gene="anaH").location.end
 
+            # BGC0000078 includes several ORFs marked outside of the gene 
+            # cluster by the authors
+            # (see https://pubmed.ncbi.nlm.nih.gov/23921821/, Table 1)
+            elif record.id == "BGC0000078":
+                start = get_cds(record, gene="idnA").location.start
+                end = get_cds(record, gene="idnM5").location.end
+
             # BGC0000122 has additional genes, the core BGC is only composed
             # of phn1-phn2 (see doi:10.1002/cbic.201300676)
             elif record.id == "BGC0000122":
@@ -158,6 +165,12 @@ with rich.progress.Progress() as progress:
             elif record.id == "BGC0002523":
                 start = get_cds(record, gene="dstR").location.start
                 end = get_cds(record, gene="dstG").location.end
+
+            # MIBiG entry of BGC0002520 contains additional flanking genes
+            # that have not been included in the BGC by the authors
+            elif record.id == "BGC0002520":
+                start = get_cds(record, protein_id="BCK51620.1").location.start,
+                end = get_cds(record, protein_id="BCK51663.1").location.end
 
             # clamp the BGC boundaries to the left- and rightmost genes
             else:
