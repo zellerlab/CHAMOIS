@@ -5158,10 +5158,10 @@
             ]
         },
         {
-            "chem_struct": "CCCCCCCCCCCCCC(C(C(=O)NC(C(C)O)C(=O)NC1C(OC(=O)C(NC(=O)C(N(C(=O)CNC(=O)[C@H](NC(=O)C(=CC)NC(=O)[C@H](NC(=O)[C@H](NC1=O)[C@@H](C)O)CC2=CC=C(C=C2)O)CCC(=O)N)C)C(C)OC3C(C(C(C(O3)CO)O)O)O)CCCCN)C)O)OC4C(C(C(CO4)O)OC5C(C(C(C(O5)CO)O)O)NC(=O)C)O.CC=O.CC=O",
+            "chem_struct": "CCCCCCCCCCCCCC(C(C(=O)NC(C(C)O)C(=O)N[C@H]1[C@H](OC(=O)[C@@H](NC(=O)C(N(C(=O)CNC(=O)[C@H](NC(=O)/C(=C/C)/NC(=O)[C@H](NC(=O)[C@@H](NC1=O)[C@H](C)O)CC2=CC=C(C=C2)O)CCC(=O)N)C)C(C)OC3C(C(C(C(O3)CO)O)O)O)CCCCN)C)O)OC4C(C(C(CO4)O)OC5C(C(C(C(O5)CO)O)O)NC(=O)C)O",
             "compound": "hassallidin C",
             "database_id": [
-                "pubchem:155802031"
+                "pubchem:163107865"
             ]
         },
         {
@@ -13849,10 +13849,10 @@
     ],
     "BGC0001128": [
         {
-            "chem_struct": "CC(C)C[C@@H]1C(=O)N[C@H](C(=O)N[C@@H](C(=O)N[C@H](C(=O)N[C@@H](C(=O)N1)CC2=CC=CC=C2)CC(C)C)C(C)C)CC(C)C",
+            "chem_struct": "CC(C)CC1C(=O)NC(C(=O)NC(C(=O)NC(C(=O)NC(C(=O)N1)CC2=CC=CC=C2)CC(C)C)C(C)C)CC(C)C",
             "compound": "luminmide A",
             "database_id": [
-                "pubchem:101582538"
+                "pubchem:72981718"
             ]
         },
         {
@@ -23225,10 +23225,10 @@
     ],
     "BGC0001909": [
         {
-            "chem_struct": "CC(=CC1OC(C2(O1)COC3=C(O2)C=C(C=C3)/C=C/C=C(/C)\\C(=C\\OC)\\C(=O)O)(C)C)C",
+            "chem_struct": "CC(=CC1OC(C2(O1)COC3=C(O2)C=C(C=C3)/C=C/C=C(\\C)/C(=C/OC)/C(=O)O)(C)C)C",
             "compound": "strobilurin",
             "database_id": [
-                "pubchem:101063449"
+                "pubchem:156963699"
             ]
         }
     ],
@@ -23349,20 +23349,12 @@
     ],
     "BGC0001927": [
         {
-            "chem_struct": "CCC(C)CCCCCCCC(C)/C=C(\\C)/C=C/C(=O)NCC(=O)NC1C(C(C(OC1OP(=O)(O)OC(C(C[C@@H]2[C@H]([C@H]([C@@H](O2)N3C=CC(=O)NC3=O)O)O)OC4C(C(C(C(O4)CO)O)O)O)C(=O)O)CO)O)O",
-            "compound": "A-94964",
-            "database_id": [
-                "pubchem:102034703"
-            ]
+            "compound": "A-94964"
         }
     ],
     "BGC0001928": [
         {
-            "chem_struct": "C([C@H]([C@H]([C@H](C(=O)O)O)O)O)F",
-            "compound": "(2R,3S,4S)-5-fluoro-2,3,4-trihydroxypentanoic acid",
-            "database_id": [
-                "pubchem:122225563"
-            ]
+            "compound": "(2R,3S,4S)-5-fluoro-2,3,4-trihydroxypentanoic acid"
         }
     ],
     "BGC0001929": [

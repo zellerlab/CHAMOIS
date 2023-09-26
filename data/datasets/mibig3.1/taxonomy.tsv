@@ -2124,7 +2124,6 @@ BGC0002374	pulvomycin B	1931		Streptomyces sp.	Streptomyces	Streptomycetaceae	Ki
 BGC0002376	bombyxamycin A	1931		Streptomyces sp.	Streptomyces	Streptomycetaceae	Kitasatosporales	Actinomycetes	Actinomycetota	Terrabacteria group	Bacteria																		
 BGC0002377	WS9326B	1571707		Streptomyces sp. SNM55	Streptomyces	Streptomycetaceae	Kitasatosporales	Actinomycetes	Actinomycetota	Terrabacteria group	Bacteria																		
 BGC0002378	coprisamide C	1931		Streptomyces sp.	Streptomyces	Streptomycetaceae	Kitasatosporales	Actinomycetes	Actinomycetota	Terrabacteria group	Bacteria																		
-BGC0002379	MA026	2749999		Pseudomonas sp. RtIB026	Pseudomonas	Pseudomonadaceae	Pseudomonadales	Gammaproteobacteria	Pseudomonadota		Bacteria																		
 BGC0002380	microviridin 1777	2529855	Microcystis aeruginosa EAWAG127a	Microcystis aeruginosa	Microcystis	Microcystaceae	Chroococcales	Cyanophyceae	Cyanobacteriota	Terrabacteria group	Bacteria				Oscillatoriophycideae														
 BGC0002381	tambjamine BE-18591	67257		Streptomyces albus	Streptomyces	Streptomycetaceae	Kitasatosporales	Actinomycetes	Actinomycetota	Terrabacteria group	Bacteria									Streptomyces albus subsp. albus									
 BGC0002382	grimoviridin	646534		Grimontia marina	Grimontia	Vibrionaceae	Vibrionales	Gammaproteobacteria	Pseudomonadota		Bacteria																		
@@ -2133,12 +2132,9 @@ BGC0002384	lysocin E	72226		Lysobacter sp.	Lysobacter	Xanthomonadaceae	Xanthomon
 BGC0002385	dumulmycin	1931		Streptomyces sp.	Streptomyces	Streptomycetaceae	Kitasatosporales	Actinomycetes	Actinomycetota	Terrabacteria group	Bacteria																		
 BGC0002386	cyclo(n-Me-L-Leu-L-Val)	1254432	Sorangium cellulosum So0157-2	Sorangium cellulosum	Sorangium	Polyangiaceae	Polyangiales		Myxococcota		Bacteria				Polyangia														
 BGC0002387	yangpumicin A	683228		Micromonospora yangpuensis	Micromonospora	Micromonosporaceae	Micromonosporales	Actinomycetes	Actinomycetota	Terrabacteria group	Bacteria																		
-BGC0002389	β-bisabolene	4577		Zea mays	Zea	Poaceae	Poales	Magnoliopsida	Streptophyta	Embryophyta	Eukaryota				Petrosaviidae	Streptophytina		Viridiplantae				Panicoideae			Andropogoneae	Tripsacinae			
 BGC0002391	zealexin B2	4577		Zea mays	Zea	Poaceae	Poales	Magnoliopsida	Streptophyta	Embryophyta	Eukaryota				Petrosaviidae	Streptophytina		Viridiplantae				Panicoideae			Andropogoneae	Tripsacinae			
 BGC0002392	5,10-diketo-casbene	39947		Oryza sativa	Oryza	Poaceae	Poales	Magnoliopsida	Streptophyta	Embryophyta	Eukaryota				Petrosaviidae	Streptophytina		Viridiplantae				Oryzoideae			Oryzeae	Oryzinae			
 BGC0002393	casbene	3988		Ricinus communis	Ricinus	Euphorbiaceae	Malpighiales	Magnoliopsida	Streptophyta	Embryophyta	Eukaryota					Streptophytina		Viridiplantae				Acalyphoideae			Acalypheae				
-BGC0002394	taxa-4(5),11(12)-diene	29808		Taxus chinensis	Taxus	Taxaceae	Cupressales	Pinopsida	Streptophyta	Embryophyta	Eukaryota				Pinidae	Streptophytina		Viridiplantae											
-BGC0002395	hordediene	112509		Hordeum vulgare	Hordeum	Poaceae	Poales	Magnoliopsida	Streptophyta	Embryophyta	Eukaryota				Petrosaviidae	Streptophytina		Viridiplantae		Hordeum vulgare subsp. vulgare		Pooideae			Triticeae	Hordeinae			
 BGC0002396	tanshinones	180675		Salvia splendens	Salvia	Lamiaceae	Lamiales	Magnoliopsida	Streptophyta	Embryophyta	Eukaryota					Streptophytina		Viridiplantae	Salvia subgen. Calosphace			Nepetoideae			Mentheae	Salviinae			
 BGC0002397	astallatene	3702		Arabidopsis thaliana	Arabidopsis	Brassicaceae	Brassicales	Magnoliopsida	Streptophyta	Embryophyta	Eukaryota					Streptophytina		Viridiplantae							Camelineae				
 BGC0002398	ent-quiannuatene	3702		Arabidopsis thaliana	Arabidopsis	Brassicaceae	Brassicales	Magnoliopsida	Streptophyta	Embryophyta	Eukaryota					Streptophytina		Viridiplantae							Camelineae				
@@ -2149,7 +2145,6 @@ BGC0002402	yossosides	3562		Spinacia oleracea	Spinacia	Chenopodiaceae	Caryophyll
 BGC0002403	β-Diketones	112509		Hordeum vulgare	Hordeum	Poaceae	Poales	Magnoliopsida	Streptophyta	Embryophyta	Eukaryota				Petrosaviidae	Streptophytina		Viridiplantae		Hordeum vulgare subsp. vulgare		Pooideae			Triticeae	Hordeinae			
 BGC0002404	falcarindiol	4081		Solanum lycopersicum	Solanum	Solanaceae	Solanales	Magnoliopsida	Streptophyta	Embryophyta	Eukaryota					Streptophytina		Viridiplantae	Solanum subgen. Lycopersicon			Solanoideae			Solaneae				
 BGC0002405	mid-chain acyl sugars	4081		Solanum lycopersicum	Solanum	Solanaceae	Solanales	Magnoliopsida	Streptophyta	Embryophyta	Eukaryota					Streptophytina		Viridiplantae	Solanum subgen. Lycopersicon			Solanoideae			Solaneae				
-BGC0002406	hydroxycinnamoyltyramine	39947		Oryza sativa	Oryza	Poaceae	Poales	Magnoliopsida	Streptophyta	Embryophyta	Eukaryota				Petrosaviidae	Streptophytina		Viridiplantae				Oryzoideae			Oryzeae	Oryzinae			
 BGC0002407	angustmycin A	285578		Streptomyces angustmyceticus	Streptomyces	Streptomycetaceae	Kitasatosporales	Actinomycetes	Actinomycetota	Terrabacteria group	Bacteria																		
 BGC0002408	malleobactin X	279113		Collimonas pratensis	Collimonas	Oxalobacteraceae	Burkholderiales	Betaproteobacteria	Pseudomonadota		Bacteria																		
 BGC0002409	frankobactin A1	683308		Parafrankia sp. CH37	Parafrankia	Frankiaceae	Frankiales	Actinomycetes	Actinomycetota	Terrabacteria group	Bacteria																		
@@ -2404,7 +2399,6 @@ BGC0002681	rhizobactin	177416	Francisella tularensis subsp. tularensis SCHU S4	F
 BGC0002682	aerobactin	674		Vibrio mimicus	Vibrio	Vibrionaceae	Vibrionales	Gammaproteobacteria	Pseudomonadota		Bacteria																		
 BGC0002683	schizokinen	103690		Nostoc sp. PCC 7120 = FACHB-418	Nostoc	Nostocaceae	Nostocales	Cyanophyceae	Cyanobacteriota	Terrabacteria group	Bacteria																		
 BGC0002685	enterobactin	553201	Rothia mucilaginosa ATCC 25296	Rothia mucilaginosa	Rothia	Micrococcaceae	Micrococcales	Actinomycetes	Actinomycetota	Terrabacteria group	Bacteria																		
-BGC0002686	madurastatin D1	2591108		Actinomadura sp. WMMA1423	Actinomadura	Thermomonosporaceae	Streptosporangiales	Actinomycetes	Actinomycetota	Terrabacteria group	Bacteria																		
 BGC0002687	massiliachelin	1678028		Massilia sp. NR 4-1	Massilia	Oxalobacteraceae	Burkholderiales	Betaproteobacteria	Pseudomonadota		Bacteria																		
 BGC0002688	benarthin	35762		Planobispora rosea	Planobispora	Streptosporangiaceae	Streptosporangiales	Actinomycetes	Actinomycetota	Terrabacteria group	Bacteria																		
 BGC0002689	2,3-dihydroxybenzoylserine	522373	Stenotrophomonas maltophilia K279a	Stenotrophomonas maltophilia	Stenotrophomonas	Xanthomonadaceae	Xanthomonadales	Gammaproteobacteria	Pseudomonadota		Bacteria	Stenotrophomonas maltophilia group																	
@@ -2435,8 +2429,6 @@ BGC0002715	HTTPCA	141679		Photorhabdus laumondii	Photorhabdus	Morganellaceae	Ent
 BGC0002716	gamexpeptide A	141679		Photorhabdus laumondii	Photorhabdus	Morganellaceae	Enterobacterales	Gammaproteobacteria	Pseudomonadota		Bacteria									Photorhabdus laumondii subsp. laumondii									
 BGC0002718	madurastatin A2	2691577		Actinomadura sp. RB99	Actinomadura	Thermomonosporaceae	Streptosporangiales	Actinomycetes	Actinomycetota	Terrabacteria group	Bacteria																		
 BGC0002719	thanafactin A	294		Pseudomonas fluorescens	Pseudomonas	Pseudomonadaceae	Pseudomonadales	Gammaproteobacteria	Pseudomonadota		Bacteria	Pseudomonas fluorescens group																	
-BGC0002721	α-hydroxynitrile glucoside	112509		Hordeum vulgare	Hordeum	Poaceae	Poales	Magnoliopsida	Streptophyta	Embryophyta	Eukaryota				Petrosaviidae	Streptophytina		Viridiplantae		Hordeum vulgare subsp. vulgare		Pooideae			Triticeae	Hordeinae			
-BGC0002722	α-chaconine	4113		Solanum tuberosum	Solanum	Solanaceae	Solanales	Magnoliopsida	Streptophyta	Embryophyta	Eukaryota					Streptophytina		Viridiplantae				Solanoideae			Solaneae				
 BGC0002723	casbene	180498		Jatropha curcas	Jatropha	Euphorbiaceae	Malpighiales	Magnoliopsida	Streptophyta	Embryophyta	Eukaryota					Streptophytina		Viridiplantae				Crotonoideae			Jatropheae				
 BGC0002724	casbene	180498		Jatropha curcas	Jatropha	Euphorbiaceae	Malpighiales	Magnoliopsida	Streptophyta	Embryophyta	Eukaryota					Streptophytina		Viridiplantae				Crotonoideae			Jatropheae				
 BGC0002725	prunipeptin	1312234	Streptomyces prunicolor NBRC 13075	Streptomyces prunicolor	Streptomyces	Streptomycetaceae	Kitasatosporales	Actinomycetes	Actinomycetota	Terrabacteria group	Bacteria																		

@@ -167,7 +167,7 @@ with rich.progress.Progress() as progress:
             # MIBiG entry of BGC0002520 contains additional flanking genes
             # that have not been included in the BGC by the authors
             elif record.id == "BGC0002520":
-                start = get_cds(record, protein_id="BCK51620.1").location.start,
+                start = get_cds(record, protein_id="BCK51620.1").location.start
                 end = get_cds(record, protein_id="BCK51663.1").location.end
 
             # MIBiG entry of BGC0002523 contains unrelated flanking genes;
@@ -184,7 +184,7 @@ with rich.progress.Progress() as progress:
             # (see https://pubs.acs.org/doi/10.1021/acs.jnatprod.1c00547, Table S1;
             # and https://pubmed.ncbi.nlm.nih.gov/21456593/, Table 1)
             elif record.id == "BGC0002676":
-                start = get_cds(record, locus_tag="KZO11_19415").location.start,
+                start = get_cds(record, locus_tag="KZO11_19415").location.start
                 end = get_cds(record, locus_tag="KZO11_19670").location.end
 
             # clamp the BGC boundaries to the left- and rightmost genes
