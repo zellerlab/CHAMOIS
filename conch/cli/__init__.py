@@ -4,8 +4,8 @@ from typing import Optional
 from rich.console import Console
 from rich_argparse import RichHelpFormatter
 
-from . import train, predict, render, cv, annotate, search, screen
 from .. import __version__, __package__ as _module
+from . import train, predict, render, cv, annotate, search, screen, explain
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -89,6 +89,13 @@ def build_parser() -> argparse.ArgumentParser:
             "screen", 
             formatter_class=RichHelpFormatter,
             help="Search predicted classes for a particular compound.",
+        )
+    )
+    explain.configure_parser(
+        commands.add_parser(
+            "explain",
+            formatter_class=RichHelpFormatter,
+            help="Explain "
         )
     )
 
