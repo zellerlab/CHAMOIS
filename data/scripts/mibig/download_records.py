@@ -142,6 +142,15 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, protein_id="WP_025099964.1").location.start
                 end = get_cds(record, protein_id="WP_036055450.1").location.end
 
+            # MIBiG entry of BGC0001381 contains the whole contig;
+            # authors don't really identify the minimal BGC but mark most 
+            # genes after `nbrU` as hypothetical or miscellaneous and most 
+            # genes before `nbrT3` as regulatory or miscellaneous
+            # (see https://pubmed.ncbi.nlm.nih.gov/26754528/)
+            elif record.id == "BGC0001381":
+                start = get_cds(record, gene="nbrT3").location.start
+                end = get_cds(record, gene="nbrU").location.end
+
             # clamp the BGC boundaries to the left- and rightmost genes
             else:
                 start = min( f.location.start for f in record.features if f.type == "CDS" )
