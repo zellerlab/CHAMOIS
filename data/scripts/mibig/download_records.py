@@ -64,12 +64,28 @@ with rich.progress.Progress() as progress:
                 start = 0
                 end = get_cds(record, gene="anaH").location.end
 
-            # BGC0000078 includes several ORFs marked outside of the gene 
+            # BGC0000078 includes several ORFs marked outside of the gene
             # cluster by the authors
             # (see https://pubmed.ncbi.nlm.nih.gov/23921821/, Table 1)
             elif record.id == "BGC0000078":
                 start = get_cds(record, gene="idnA").location.start
                 end = get_cds(record, gene="idnM5").location.end
+
+            # lasalocid BGCs contains unrelated flanking genes; the reference
+            # identifies only the core 16 genes, `las1` to `lasB`, as the BGC
+            # (see doi:10.1002/cbic.200800585)
+            elif record.id == "BGC0000086":
+                start = get_cds(record, gene="lsd1").location.start
+                end = get_cds(record, gene="lsd19").location.end
+            elif record.id == "BGC0000087":
+                start = get_cds(record, gene="las1").location.start
+                end = get_cds(record, gene="lasB").location.end
+
+            # BGC0000108 has a couple of unrelated upstream genes
+            # (see https://pubmed.ncbi.nlm.nih.gov/21330439/, Figure 1)
+            elif record.id == "BGC0000108":
+                start = get_cds(record, gene="scnRII").location.start
+                end = get_cds(record, gene="scnD").location.end
 
             # BGC0000122 has additional genes, the core BGC is only composed
             # of phn1-phn2 (see doi:10.1002/cbic.201300676)
@@ -85,6 +101,17 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, gene="fom3").location.start
                 end = get_cds(record, gene="fomC").location.end
 
+            # MIBIG entry of BGC0001196 contains ORF-2 to ORF+3
+            elif record.id == "BGC0001196":
+                start = get_cds(record, protein_id="AJW76703.1").location.start
+                end = get_cds(record, protein_id="AJW76719.1").location.end
+
+            # MIBiG entry of BGC0001202 contains unrelated upstream and
+            # downstream genes
+            elif record.id == "BGC0001202":
+                start = get_cds(record, protein_id="AKA59430.1").location.start
+                end = get_cds(record, protein_id="AKA59442.1").location.end
+
             # BGC0001367 has unneeded downstream genes, the authors only
             # consider the two core genes `hla1` and `hla2` to be part of
             # the BGC and sufficient for synthesis of the final compound
@@ -93,41 +120,26 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, locus_tag="Hoch_0798").location.start
                 end = get_cds(record, locus_tag="Hoch_0799").location.end
 
+            # MIBiG entry of BGC0001381 contains the whole contig;
+            # authors don't really identify the minimal BGC but mark most
+            # genes after `nbrU` as hypothetical or miscellaneous and most
+            # genes before `nbrT3` as regulatory or miscellaneous
+            # (see https://pubmed.ncbi.nlm.nih.gov/26754528/)
+            elif record.id == "BGC0001381":
+                start = get_cds(record, gene="nbrT3").location.start
+                end = get_cds(record, gene="nbrU").location.end
+
             # Heterologous expression of BGC0001917 shows that only `stmA` to `stmI`
             # are required for synthesis (see doi:10.1039/c8ob02846j, Fig.3)
             elif record.id == "BGC00001917":
                 start = get_cds(record, gene="stmA").location.start
                 end = get_cds(record, gene="stmI").location.end
 
-            # MIBiG entry of BGC0001202 contains unrelated upstream and
-            # downstream genes
-            elif record.id == "BGC0001202":
-                start = get_cds(record, protein_id="AKA59430.1").location.start
-                end = get_cds(record, protein_id="AKA59442.1").location.end
-
-            # MIBiG entry of BGC0002386 contains many unrelated genes; the paper
-            # performed heterologous expression and identified 7 core genes,
-            # although the whole synthesis seems to be done by the core NRPS
-            # (see doi:10.12211/2096-8280.2021-024, Fig.2 and Fig.6)
-            elif record.id == "BGC0002386":
-                start = get_cds(record, locus_tag="SCE1572_24700").location.start
-                end = get_cds(record, locus_tag="SCE1572_24730").location.end
-
             # MIBiG entry of BGC0001967 contains unrelated genes on both sides
             # of the `ade` operon
             elif record.id == "BGC0001967":
                 start = get_cds(record, gene="adeA").location.start
                 end = get_cds(record, gene="adeI").location.end
-
-            # lasalocid BGCs contains unrelated flanking genes; the reference
-            # identifies only the core 16 genes, `las1` to `lasB`, as the BGC
-            # (see doi:10.1002/cbic.200800585)
-            elif record.id == "BGC0000086":
-                start = get_cds(record, gene="lsd1").location.start
-                end = get_cds(record, gene="lsd19").location.end
-            elif record.id == "BGC0000087":
-                start = get_cds(record, gene="las1").location.start
-                end = get_cds(record, gene="lasB").location.end
 
             # MIBiG entry of BGC0002043 contains many unrelated genes: the paper
             # performed heterologous expression and identified 3 core genes
@@ -137,11 +149,6 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, protein_id="QLH55578.1").location.start
                 end = get_cds(record, protein_id="QLH55580.1").location.end
 
-            # MIBIG entry of BGC0001196 contains ORF-2 to ORF+3
-            elif record.id == "BGC0001196":
-                start = get_cds(record, protein_id="AJW76703.1").location.start
-                end = get_cds(record, protein_id="AJW76719.1").location.end
-
             # MIBiG entry of BGC0002087 contains the whole antiSMASH prediction
             # and not just the BGC homologous to the migrastatin BGC
             # (see https://onlinelibrary.wiley.com/doi/10.1002/anie.202009007)
@@ -149,14 +156,19 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, protein_id="WP_025099964.1").location.start
                 end = get_cds(record, protein_id="WP_036055450.1").location.end
 
-            # MIBiG entry of BGC0001381 contains the whole contig;
-            # authors don't really identify the minimal BGC but mark most 
-            # genes after `nbrU` as hypothetical or miscellaneous and most 
-            # genes before `nbrT3` as regulatory or miscellaneous
-            # (see https://pubmed.ncbi.nlm.nih.gov/26754528/)
-            elif record.id == "BGC0001381":
-                start = get_cds(record, gene="nbrT3").location.start
-                end = get_cds(record, gene="nbrU").location.end
+            # MIBiG entry of BGC0002386 contains many unrelated genes; the paper
+            # performed heterologous expression and identified 7 core genes,
+            # although the whole synthesis seems to be done by the core NRPS
+            # (see doi:10.12211/2096-8280.2021-024, Fig.2 and Fig.6)
+            elif record.id == "BGC0002386":
+                start = get_cds(record, locus_tag="SCE1572_24700").location.start
+                end = get_cds(record, locus_tag="SCE1572_24730").location.end
+
+            # MIBiG entry of BGC0002520 contains additional flanking genes
+            # that have not been included in the BGC by the authors
+            elif record.id == "BGC0002520":
+                start = get_cds(record, protein_id="BCK51620.1").location.start,
+                end = get_cds(record, protein_id="BCK51663.1").location.end
 
             # MIBiG entry of BGC0002523 contains unrelated flanking genes;
             # supplementary material of the paper describes the core cluster
@@ -166,14 +178,8 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, gene="dstR").location.start
                 end = get_cds(record, gene="dstG").location.end
 
-            # MIBiG entry of BGC0002520 contains additional flanking genes
-            # that have not been included in the BGC by the authors
-            elif record.id == "BGC0002520":
-                start = get_cds(record, protein_id="BCK51620.1").location.start,
-                end = get_cds(record, protein_id="BCK51663.1").location.end
-
             # MIBiG entry of BGC0002676 contains unrelated genes downstream
-            # of the BGC; two different papers about the skyllamycin BGC 
+            # of the BGC; two different papers about the skyllamycin BGC
             # limit the cluster at the DNA polIII gene
             # (see https://pubs.acs.org/doi/10.1021/acs.jnatprod.1c00547, Table S1;
             # and https://pubmed.ncbi.nlm.nih.gov/21456593/, Table 1)
