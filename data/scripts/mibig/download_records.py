@@ -135,6 +135,13 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, protein_id="AJW76703.1").location.start
                 end = get_cds(record, protein_id="AJW76719.1").location.end
 
+            # MIBiG entry of BGC0002087 contains the whole antiSMASH prediction
+            # and not just the BGC homologous to the migrastatin BGC
+            # (see https://onlinelibrary.wiley.com/doi/10.1002/anie.202009007)
+            elif record.id == "BGC0002087":
+                start = get_cds(record, protein_id="WP_025099964.1").location.start
+                end = get_cds(record, protein_id="WP_036055450.1").location.end
+
             # clamp the BGC boundaries to the left- and rightmost genes
             else:
                 start = min( f.location.start for f in record.features if f.type == "CDS" )
