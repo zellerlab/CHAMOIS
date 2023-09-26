@@ -172,6 +172,15 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, protein_id="BCK51620.1").location.start,
                 end = get_cds(record, protein_id="BCK51663.1").location.end
 
+            # MIBiG entry of BGC0002676 contains unrelated genes downstream
+            # of the BGC; two different papers about the skyllamycin BGC 
+            # limit the cluster at the DNA polIII gene
+            # (see https://pubs.acs.org/doi/10.1021/acs.jnatprod.1c00547, Table S1;
+            # and https://pubmed.ncbi.nlm.nih.gov/21456593/, Table 1)
+            elif record.id == "BGC0002676":
+                start = get_cds(record, locus_tag="KZO11_19415").location.start,
+                end = get_cds(record, locus_tag="KZO11_19670").location.end
+
             # clamp the BGC boundaries to the left- and rightmost genes
             else:
                 start = min( f.location.start for f in record.features if f.type == "CDS" )
