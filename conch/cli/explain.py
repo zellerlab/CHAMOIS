@@ -107,7 +107,7 @@ def run_class(args: argparse.Namespace, console: Console) -> int:
 
     # Render the table
     table = rich.table.Table("Feature", "Kind", "Name", "Weight")
-    for row in positive_features.sort_values("weight", ascending=False).itertuples():
+    for row in selected_classes.sort_values("weight", ascending=False).itertuples():
         table.add_row(
             rich.text.Text(row.Index, style="repr.tag_name"),
             row.kind,
