@@ -1,5 +1,6 @@
 import argparse
 import collections
+import datetime
 import functools
 import itertools
 import io
@@ -7,6 +8,8 @@ import operator
 import os
 import multiprocessing.pool
 import pathlib
+import shlex
+import sys
 from typing import List, Iterable, Set, Optional, Container
 
 import anndata
@@ -20,6 +23,7 @@ import scipy.sparse
 from pyhmmer.plan7 import HMM
 from rich.console import Console
 
+from .. import __version__
 from .._meta import zopen
 from ..domains import HMMERAnnotator, NRPySAnnotator
 from ..compositions import build_compositions, build_observations, build_variables
@@ -107,3 +111,12 @@ def annotate_nrpys(proteins: List[Protein], cpus: Optional[int], console: Consol
     return annotate_domains(domain_annotator, proteins, console, total=len(proteins))
 
 
+def record_metadata(predictor: Optional[ChemicalOntologyPredictor] = None) -> Dict[str, Any]:
+    metadata = {
+        "version": __version__,
+        "datetime": datetime.datetime.now().isoformat(),
+        "command": shlex.join(sys.argv),
+    }
+    if predictor is not None:
+        metadata["predictor"] = predictor.checksum()
+    return {"conch": metadata}

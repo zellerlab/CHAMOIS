@@ -1,4 +1,5 @@
 import contextlib
+import hashlib
 import json
 import math
 import pickle
@@ -183,3 +184,9 @@ class ChemicalOntologyPredictor:
         predictor.__setstate__(state)
         return predictor
 
+    def checksum(self, hasher: Optional[Any] = None) -> str:
+        if hasher is None:
+            hasher = hashlib.sha256()
+        hasher.update(self.coef_)
+        hasher.update(self.intercept_)
+        return hasher.hexdigest()

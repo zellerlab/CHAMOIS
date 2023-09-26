@@ -9,6 +9,7 @@ from rich.console import Console
 from .._meta import requires
 from ..predictor import ChemicalOntologyPredictor
 from ..ontology import Ontology
+from ._common import record_metadata
 
 
 def configure_parser(parser: argparse.ArgumentParser):
@@ -128,6 +129,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
         X=probas,
         obs=classes.obs,
         var=classes.var,
+        uns=record_metadata(),
     )
     data.write(args.output)
     progress.console.print(f"[bold green]{'Finished':>12}[/] cross-validating model")

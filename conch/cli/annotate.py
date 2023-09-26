@@ -1,9 +1,12 @@
 import argparse
+import datetime
 import pathlib
+import sys
 
 import anndata
 from rich.console import Console
 
+from .. import __version__
 from ..orf import CDSFinder, PyrodigalFinder
 from ..compositions import build_observations, build_variables, build_compositions
 from ._common import (
@@ -11,6 +14,7 @@ from ._common import (
     annotate_nrpys,
     find_proteins,
     load_sequences,
+    record_metadata,
 )
 
 
@@ -54,7 +58,8 @@ def save_compositions(compositions: anndata.AnnData, path: pathlib.Path, console
 
 def run(args: argparse.Namespace, console: Console) -> int:
     clusters = list(load_sequences(args.input, console))
-    
+    uns = record_metadata()    
+
     if args.cds:
         console.print(f"[bold blue]{'Extracting':>12}[/] genes from [bold cyan]CDS[/] features")
         orf_finder = CDSFinder()
@@ -70,7 +75,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
 
     obs = build_observations(clusters)
     var = build_variables(domains)
-    compositions = build_compositions(domains, obs, var)
+    compositions = build_compositions(domains, obs, var, uns=uns)
     save_compositions(compositions, args.output, console)
 
 

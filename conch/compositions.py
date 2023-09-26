@@ -1,4 +1,4 @@
-from typing import List
+from typing import Any, List, Mapping, Optional
 
 import anndata
 import pandas
@@ -12,6 +12,7 @@ def build_observations(clusters: List[ClusterSequence]) -> pandas.DataFrame:
         index=[cluster.id for cluster in clusters],
         data=dict(
             source=[cluster.source for cluster in clusters],
+            length=[len(cluster.record.sequence) for cluster in clusters],
         )
     )
 
@@ -27,7 +28,12 @@ def build_variables(domains: List[Domain]) -> pandas.DataFrame:
     return var
 
 
-def build_compositions(domains: List[Domain], obs: pandas.DataFrame, var: pandas.DataFrame) -> anndata.AnnData:
+def build_compositions(
+    domains: List[Domain], 
+    obs: pandas.DataFrame, 
+    var: pandas.DataFrame,
+    uns: Optional[Mapping[str, Any]] = None,
+) -> anndata.AnnData:
     use_accession = "name" in var.columns
     compositions = scipy.sparse.dok_matrix((len(obs), len(var)), dtype=int)
     for domain in domains:
@@ -41,5 +47,6 @@ def build_compositions(domains: List[Domain], obs: pandas.DataFrame, var: pandas
         X=compositions.tocsr(),
         obs=obs,
         var=var,
-        dtype=int
+        dtype=int,
+        uns=uns
     )
