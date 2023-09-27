@@ -44,6 +44,12 @@ def configure_parser(parser: argparse.ArgumentParser):
         default="logistic",
         help="The kind of model to train."
     )
+    parser.add_argument(
+        "--alpha",
+        type=float,
+        default=1.0,
+        help="The strength of the parameters regularization.",
+    )
     parser.set_defaults(run=run)
 
 @requires("sklearn")
@@ -63,7 +69,12 @@ def run(args: argparse.Namespace, console: Console) -> int:
     ontology = Ontology(classes.varp["parents"].toarray())
 
     console.print(f"[bold blue]{'Training':>12}[/] logistic regression model")
-    model = ChemicalOntologyPredictor(ontology, n_jobs=args.jobs, model=args.model)
+    model = ChemicalOntologyPredictor(
+        ontology,
+        n_jobs=args.jobs,
+        model=args.model,
+        alpha=args.alpha,
+    )
     model.fit(features, classes)
 
     # save result

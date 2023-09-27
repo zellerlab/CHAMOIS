@@ -29,11 +29,12 @@ class ChemicalOntologyPredictor:
     """
 
     def __init__(
-        self, 
-        ontology: Ontology, 
-        n_jobs: Optional[int] = None, 
+        self,
+        ontology: Ontology,
+        n_jobs: Optional[int] = None,
         max_iter: int = 100,
         model: str = "logistic",
+        alpha: float = 1.0,
     ) -> None:
         self.n_jobs: Optional[int] = n_jobs
         self.max_iter: int = max_iter
@@ -42,7 +43,8 @@ class ChemicalOntologyPredictor:
         self.coef_: Optional[numpy.ndarray[float]] = None
         self.intercept_: Optional[numpy.ndarray[float]] = None
         self.ontology: Ontology = ontology
-        self.model = model
+        self.model: str = model
+        self.alpha: float = 1.0
 
     def __getstate__(self) -> Dict[str, object]:
         return {
@@ -52,6 +54,7 @@ class ChemicalOntologyPredictor:
             "ontology": self.ontology.__getstate__(),
             "coef_": scipy.sparse.csr_matrix(self.coef_),
             "model": self.model,
+            "alpha": self.alpha,
         }
 
     def __setstate__(self, state: Dict[str, object]) -> None:
@@ -61,13 +64,20 @@ class ChemicalOntologyPredictor:
         self.coef_ = state["coef_"].toarray()
         self.ontology.__setstate__(state["ontology"])
         self.model = state["model"]
+        self.alpha = state.get("alpha", 1.0)
 
     @requires("sklearn.multiclass")
     @requires("sklearn.linear_model")
+    @requires("sklearn.preprocessing")
     def _fit_logistic(self, X, Y):
         # train model using scikit-learn
         model = sklearn.multiclass.OneVsRestClassifier(
-            sklearn.linear_model.LogisticRegression("l1", solver="liblinear", max_iter=self.max_iter),
+            sklearn.linear_model.LogisticRegression(
+                "l1",
+                solver="liblinear",
+                max_iter=self.max_iter,
+                C=1.0/self.alpha
+            ),
             n_jobs=self.n_jobs,
         )
         model.fit(X, Y)
@@ -90,7 +100,7 @@ class ChemicalOntologyPredictor:
     @requires("sklearn.linear_model")
     def _fit_ridge(self, X, Y):
         # train model using scikit-learn
-        model = sklearn.linear_model.RidgeClassifier()
+        model = sklearn.linear_model.RidgeClassifier(alpha=self.alpha)
         model.fit(X, Y)
 
         # copy coefficients & intercept to a single NumPy array
@@ -103,8 +113,8 @@ class ChemicalOntologyPredictor:
         self.features_ = self.features_[nonzero_weights]
 
     def fit(
-        self: _T, 
-        X: Union[numpy.ndarray, anndata.AnnData], 
+        self: _T,
+        X: Union[numpy.ndarray, anndata.AnnData],
         Y: Union[numpy.ndarray, anndata.AnnData],
     ) -> _T:
         if isinstance(X, anndata.AnnData):
@@ -150,7 +160,7 @@ class ChemicalOntologyPredictor:
         return numpy.clip(probas, 0.0, 1.0)
 
     def predict_probas(
-        self, 
+        self,
         X: Union[numpy.ndarray, anndata.AnnData],
     ) -> numpy.ndarray:
         if isinstance(X, anndata.AnnData):
@@ -163,8 +173,8 @@ class ChemicalOntologyPredictor:
             return self._predict_ridge(_X)
 
     def predict(
-        self, 
-        X: Union[numpy.ndarray, anndata.AnnData], 
+        self,
+        X: Union[numpy.ndarray, anndata.AnnData],
         propagate: bool = True,
     ) -> numpy.ndarray:
         probas = self.predict_probas(X)
