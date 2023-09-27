@@ -2,6 +2,7 @@ import argparse
 import pathlib
 
 import anndata
+import numpy
 import rich.progress
 from rich.console import Console
 
@@ -52,7 +53,7 @@ def configure_parser(parser: argparse.ArgumentParser):
     )
     parser.set_defaults(run=run)
 
-@requires("sklearn")
+@requires("sklearn.metrics")
 def run(args: argparse.Namespace, console: Console) -> int:
     # load data
     console.print(f"[bold blue]{'Loading':>12}[/] training data")
@@ -68,6 +69,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
     # prepare class hierarchy
     ontology = Ontology(classes.varp["parents"].toarray())
 
+    # traing model
     console.print(f"[bold blue]{'Training':>12}[/] logistic regression model")
     model = ChemicalOntologyPredictor(
         ontology,
@@ -76,6 +78,18 @@ def run(args: argparse.Namespace, console: Console) -> int:
         alpha=args.alpha,
     )
     model.fit(features, classes)
+
+    # compute AUROC for classes that have positive and negative members
+    # (scikit-learn will crash if a class only has positives/negatives)
+    probas = model.predict_probas(features[:, model.features_.index])
+    truth = classes.X.toarray()
+    micro_auroc = sklearn.metrics.roc_auc_score(truth, probas, average="micro")
+    macro_auroc = sklearn.metrics.roc_auc_score(truth, probas, average="macro")
+    stats = [
+        f"[bold magenta]AUROC(µ)=[/][bold cyan]{micro_auroc:05.1%}[/]",
+        f"[bold magenta]AUROC(M)=[/][bold cyan]{macro_auroc:05.1%}[/]",
+    ]
+    console.print(f"[bold green]{'Finished':>12}[/] training:", *stats)
 
     # save result
     console.print(f"[bold blue]{'Saving':>12}[/] trained model to {str(args.output)!r}")
