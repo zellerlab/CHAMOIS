@@ -91,7 +91,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
         if args.sampling == "group":
             kfold = sklearn.model_selection.GroupShuffleSplit(n_splits=args.kfolds, random_state=args.seed)
         elif args.sampling == "random":
-            kfold = sklearn.model_selection.KFold(n_splits=args.kfolds, random_state=args.seed)
+            kfold = sklearn.model_selection.KFold(n_splits=args.kfolds, random_state=args.seed, shuffle=True)
         elif args.sampling == "kennard-stone":
             kfold = kennard_stone.KFold(n_splits=args.kfolds, n_jobs=args.jobs, metric="cosine")
         else:
