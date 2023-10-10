@@ -21,7 +21,7 @@ ATLAS=$(DATA)/npatlas/NPAtlas_download.json.gz
 CHEMONT=$(DATA)/ontologies/ChemOnt_2_1.obo
 
 DATASET_NAMES=mibig3.1 mibig2.0
-DATASET_TABLES=features classes mibig3.1_ani
+DATASET_TABLES=features classes ani
 
 TAXONOMY=$(DATA)/taxonomy
 TAXONOMY_VERSION=2023-06-01
@@ -46,6 +46,9 @@ compounds: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/compou
 
 .PHONY: clusters
 clusters: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/clusters.gbk)
+
+.PHONY: ani
+ani: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/ani.hdf5)
 
 
 # --- External data ----------------------------------------------------------
@@ -93,8 +96,8 @@ $(DATA)/npatlas/maccs.hdf5: $(ATLAS)
 
 # --- Generic Rules ----------------------------------------------------------
 
-$(DATA)/datasets/%/mibig3.1_ani.hdf5: $(DATA)/datasets/%/clusters.gbk $(DATA)/datasets/mibig3.1/clusters.gbk
-	$(PYTHON) $(SCRIPTS)/common/make_ani.py --query $< --target $(DATA)/datasets/mibig3.1/clusters.gbk -o $@
+#$(DATA)/datasets/%/mibig3.1_ani.hdf5: $(DATA)/datasets/%/clusters.gbk $(DATA)/datasets/mibig3.1/clusters.gbk
+#	$(PYTHON) $(SCRIPTS)/common/make_ani.py --query $< --target $(DATA)/datasets/mibig3.1/clusters.gbk -o $@
 
 $(DATA)/datasets/%/features.hdf5: $(DATA)/datasets/%/clusters.gbk $(PFAM_HMM)
 	$(PYTHON) -m conch.cli annotate --i $< --hmm $(PFAM_HMM) -o $@
@@ -104,6 +107,9 @@ $(DATA)/datasets/%/classes.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(CH
 
 $(DATA)/datasets/%/maccs.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(CHEMONT)
 	$(PYTHON) $(SCRIPTS)/common/make_maccs.py -i $< -o $@
+
+$(DATA)/datasets/%/ani.hdf5: $(DATA)/datasets/%/clusters.gbk $(CHEMONT)
+	$(PYTHON) $(SCRIPTS)/common/make_ani.py -i $< -o $@ -s 0.3
 
 
 # --- Download MIBiG 2.0 data ------------------------------------------------
