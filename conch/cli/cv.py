@@ -88,52 +88,64 @@ def run(args: argparse.Namespace, console: Console) -> int:
     groups = classes.obs["compound"].cat.codes
 
     # start training
-    with rich.progress.Progress(
-        *rich.progress.Progress.get_default_columns(),
-        rich.progress.MofNCompleteColumn(),
-        console=console
-    ) as progress:
-        progress.console.print(f"[bold blue]{'Splitting':>12}[/] data into {args.kfolds} folds")
-        if args.sampling == "group":
-            kfold = sklearn.model_selection.GroupShuffleSplit(n_splits=args.kfolds, random_state=args.seed)
-        elif args.sampling == "random":
-            kfold = sklearn.model_selection.KFold(n_splits=args.kfolds, random_state=args.seed, shuffle=True)
-        elif args.sampling == "kennard-stone":
-            kfold = kennard_stone.KFold(n_splits=args.kfolds, n_jobs=args.jobs, metric="cosine")
-        else:
-            raise ValueError(f"Invalid value for `--sampling`: {args.sampling!r}")
-        splits = list(kfold.split(features.X.toarray(), classes.X.toarray(), groups))
+    console.print(f"[bold blue]{'Splitting':>12}[/] data into {args.kfolds} folds")
+    if args.sampling == "group":
+        kfold = sklearn.model_selection.GroupShuffleSplit(n_splits=args.kfolds, random_state=args.seed)
+    elif args.sampling == "random":
+        kfold = sklearn.model_selection.KFold(n_splits=args.kfolds, random_state=args.seed, shuffle=True)
+    elif args.sampling == "kennard-stone":
+        kfold = kennard_stone.KFold(n_splits=args.kfolds, n_jobs=args.jobs, metric="cosine")
+    else:
+        raise ValueError(f"Invalid value for `--sampling`: {args.sampling!r}")
+    splits = list(kfold.split(features.X.toarray(), classes.X.toarray(), groups))
 
-        progress.console.print(f"[bold blue]{'Running':>12}[/] cross-validation evaluation")
-        probas = numpy.zeros(classes.X.shape, dtype=float)
-        for i, (train_indices, test_indices) in enumerate(splits):
-            model = ChemicalOntologyPredictor(
-                ontology,
-                n_jobs=args.jobs,
-                model=args.model,
-                alpha=args.alpha,
-            )
-            # train fold
-            train_X = features[train_indices]
-            train_Y = classes[train_indices]
-            model.fit(train_X, train_Y)
-            # test fold
-            test_X = features[test_indices, model.features_.index]
-            test_Y = classes[test_indices, model.classes_.index].X.toarray()
-            probas[test_indices] = model.predict_probas(test_X)
-            # compute AUROC for classes that have positive and negative members
-            # (scikit-learn will crash if a class only has positives/negatives)
-            mask = ~numpy.all(test_Y == test_Y[0], axis=0)
-            micro_auroc = sklearn.metrics.roc_auc_score(test_Y[:, mask], probas[test_indices][:, mask], average="micro")
-            macro_auroc = sklearn.metrics.roc_auc_score(test_Y[:, mask], probas[test_indices][:, mask], average="macro")
-            stats = [
-                f"[bold magenta]AUROC(µ)=[/][bold cyan]{micro_auroc:05.1%}[/]",
-                f"[bold magenta]AUROC(M)=[/][bold cyan]{macro_auroc:05.1%}[/]",
-            ]
-            progress.console.print(f"[bold green]{'Finished':>12}[/] fold {i+1}:", *stats)
+    console.print(f"[bold blue]{'Running':>12}[/] cross-validation evaluation")
+    probas = numpy.zeros(classes.X.shape, dtype=float)
+    for i, (train_indices, test_indices) in enumerate(splits):
+        model = ChemicalOntologyPredictor(
+            ontology,
+            n_jobs=args.jobs,
+            model=args.model,
+            alpha=args.alpha,
+        )
+        # train fold
+        train_X = features[train_indices]
+        train_Y = classes[train_indices]
+        model.fit(train_X, train_Y)
+        # test fold
+        test_X = features[test_indices, model.features_.index]
+        test_Y = classes[test_indices, model.classes_.index].X.toarray()
+        probas[test_indices] = model.predict_probas(test_X)
+        # compute AUROC for classes that have positive and negative members
+        # (scikit-learn will crash if a class only has positives/negatives)
+        mask = ~numpy.all(test_Y == test_Y[0], axis=0)
+        micro_auroc = sklearn.metrics.roc_auc_score(test_Y[:, mask], probas[test_indices][:, mask], average="micro")
+        macro_auroc = sklearn.metrics.roc_auc_score(test_Y[:, mask], probas[test_indices][:, mask], average="macro")
+        micro_avgpr = sklearn.metrics.average_precision_score(test_Y[:, mask], probas[test_indices][:, mask], average="micro")
+        macro_avgpr = sklearn.metrics.average_precision_score(test_Y[:, mask], probas[test_indices][:, mask], average="macro")
+        stats = [
+            f"[bold magenta]AUROC(µ)=[/][bold cyan]{micro_auroc:05.1%}[/]",
+            f"[bold magenta]AUROC(M)=[/][bold cyan]{macro_auroc:05.1%}[/]",
+            f"[bold magenta]Avg.Precision(µ)=[/][bold cyan]{micro_avgpr:05.1%}[/]",
+            f"[bold magenta]Avg.Precision(M)=[/][bold cyan]{macro_avgpr:05.1%}[/]",
+        ]
+        console.print(f"[bold green]{'Finished':>12}[/] fold {i+1:2}:", *stats)
+
+    #
+    micro_auroc = sklearn.metrics.roc_auc_score(classes.X.toarray(), probas, average="micro")
+    macro_auroc = sklearn.metrics.roc_auc_score(classes.X.toarray(), probas, average="macro")
+    micro_avgpr = sklearn.metrics.average_precision_score(classes.X.toarray(), probas, average="micro")
+    macro_avgpr = sklearn.metrics.average_precision_score(classes.X.toarray(), probas, average="macro")
+    stats = [
+        f"[bold magenta]AUROC(µ)=[/][bold cyan]{micro_auroc:05.1%}[/]",
+        f"[bold magenta]AUROC(M)=[/][bold cyan]{macro_auroc:05.1%}[/]",
+        f"[bold magenta]Avg.Precision(µ)=[/][bold cyan]{micro_avgpr:05.1%}[/]",
+        f"[bold magenta]Avg.Precision(M)=[/][bold cyan]{macro_avgpr:05.1%}[/]",
+    ]
+    console.print(f"[bold green]{'Finished':>12}[/] cross-validation", *stats)
 
     # save predictions
-    progress.console.print(f"[bold blue]{'Saving':>12}[/] cross-validation predictions to {str(args.output)!r}")
+    console.print(f"[bold blue]{'Saving':>12}[/] predictions to {str(args.output)!r}")
     if args.output.parent:
         args.output.parent.mkdir(parents=True, exist_ok=True)
     data = anndata.AnnData(
@@ -143,6 +155,6 @@ def run(args: argparse.Namespace, console: Console) -> int:
         uns=record_metadata(),
     )
     data.write(args.output)
-    progress.console.print(f"[bold green]{'Finished':>12}[/] cross-validating model")
+    console.print(f"[bold green]{'Finished':>12}[/] cross-validating model")
 
 
