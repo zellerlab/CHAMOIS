@@ -1,4 +1,6 @@
 import argparse
+import json
+import math
 import pathlib
 
 import anndata
@@ -9,6 +11,7 @@ from rich.console import Console
 from .._meta import requires
 from ..ontology import Ontology
 from ..predictor import ChemicalOntologyPredictor
+from ._common import save_metrics
 
 
 def configure_parser(parser: argparse.ArgumentParser):
@@ -38,6 +41,11 @@ def configure_parser(parser: argparse.ArgumentParser):
         required=True,
         type=pathlib.Path,
         help="The path where to write the trained model in pickle format."
+    )
+    parser.add_argument(
+        "--metrics",
+        type=pathlib.Path,
+        help="The path to an optional metrics file to write in DVC/JSON format."
     )
     parser.add_argument(
         "--min-occurences",
@@ -117,12 +125,25 @@ def run(args: argparse.Namespace, console: Console) -> int:
     ]
     console.print(f"[bold green]{'Finished':>12}[/] training:", *stats)
 
+    # save metrics
+    metrics = {
+        "training": {
+            "AUROC(µ)": micro_auroc,
+            "AUROC(M)": macro_auroc,
+            "AveragePrecision(µ)": micro_avgpr,
+            "AveragePrecision(M)": macro_avgpr,
+        },
+        "variance": math.nan if model.variance is None else model.variance,
+        "features": len(model.features_),
+        "classes": len(model.classes_),
+        "observations": features.n_obs,
+    }
+    save_metrics(metrics, args.metrics, console)
+    
     # save result
     console.print(f"[bold blue]{'Saving':>12}[/] trained model to {str(args.output)!r}")
     if args.output.parent:
         args.output.parent.mkdir(parents=True, exist_ok=True)
-    with open(args.output, "w") as dst:
+    with args.output.open("w") as dst:
         model.save(dst)
     console.print(f"[bold green]{'Finished':>12}[/] training model")
-
-

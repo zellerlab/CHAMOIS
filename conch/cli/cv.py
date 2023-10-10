@@ -1,4 +1,6 @@
 import argparse
+import json
+import math
 import pathlib
 
 import anndata
@@ -9,7 +11,7 @@ from rich.console import Console
 from .._meta import requires
 from ..predictor import ChemicalOntologyPredictor
 from ..ontology import Ontology
-from ._common import record_metadata
+from ._common import record_metadata, save_metrics
 
 
 def configure_parser(parser: argparse.ArgumentParser):
@@ -39,6 +41,11 @@ def configure_parser(parser: argparse.ArgumentParser):
         required=True,
         type=pathlib.Path,
         help="The path where to write the probabilities for each test fold."
+    )
+    parser.add_argument(
+        "--metrics",
+        type=pathlib.Path,
+        help="The path to an optional metrics file to write in DVC/JSON format."
     )
     parser.add_argument(
         "-k",
@@ -154,7 +161,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
         ]
         console.print(f"[bold green]{'Finished':>12}[/] fold {i+1:2}:", *stats)
 
-    #
+    # compute AUROC for the entire classification
     micro_auroc = sklearn.metrics.roc_auc_score(classes.X.toarray(), probas, average="micro")
     macro_auroc = sklearn.metrics.roc_auc_score(classes.X.toarray(), probas, average="macro")
     micro_avgpr = sklearn.metrics.average_precision_score(classes.X.toarray(), probas, average="micro")
@@ -166,6 +173,21 @@ def run(args: argparse.Namespace, console: Console) -> int:
         f"[bold magenta]Avg.Precision(M)=[/][bold cyan]{macro_avgpr:05.1%}[/]",
     ]
     console.print(f"[bold green]{'Finished':>12}[/] cross-validation", *stats)
+
+    # save metrics
+    metrics = {
+        "cv": {
+            "AUROC(µ)": micro_auroc,
+            "AUROC(M)": macro_auroc,
+            "AveragePrecision(µ)": micro_avgpr,
+            "AveragePrecision(M)": macro_avgpr,
+        },
+        "variance": math.nan if model.variance is None else model.variance,
+        "features": len(model.features_),
+        "classes": len(model.classes_),
+        "observations": features.n_obs,
+    }
+    save_metrics(metrics, args.metrics, console)
 
     # save predictions
     console.print(f"[bold blue]{'Saving':>12}[/] predictions to {str(args.output)!r}")
@@ -180,4 +202,4 @@ def run(args: argparse.Namespace, console: Console) -> int:
     data.write(args.output)
     console.print(f"[bold green]{'Finished':>12}[/] cross-validating model")
 
-
+   

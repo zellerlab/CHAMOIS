@@ -4,8 +4,10 @@ import datetime
 import functools
 import itertools
 import io
+import json
 import operator
 import os
+import math
 import multiprocessing.pool
 import pathlib
 import shlex
@@ -120,3 +122,15 @@ def record_metadata(predictor: Optional[ChemicalOntologyPredictor] = None) -> Di
     if predictor is not None:
         metadata["predictor"] = predictor.checksum()
     return {"conch": metadata}
+
+def save_metrics(
+    metrics: Dict[str, float],
+    path: Optional[pathlib.Path], 
+    console: Console,
+):
+    if path is not None:
+        console.print(f"[bold blue]{'Saving':>12}[/] metrics to {str(path)!r}")
+        if path.parent:
+            path.parent.mkdir(parents=True, exist_ok=True)
+        with path.open("w") as dst:
+            json.dump(metrics, dst)
