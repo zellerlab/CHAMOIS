@@ -35,6 +35,7 @@ class ChemicalOntologyPredictor:
         max_iter: int = 100,
         model: str = "logistic",
         alpha: float = 1.0,
+        variance: Optional[float] = None,
     ) -> None:
         self.n_jobs: Optional[int] = n_jobs
         self.max_iter: int = max_iter
@@ -45,6 +46,7 @@ class ChemicalOntologyPredictor:
         self.ontology: Ontology = ontology
         self.model: str = model
         self.alpha: float = 1.0
+        self.variance = variance
 
     def __getstate__(self) -> Dict[str, object]:
         return {
@@ -55,6 +57,7 @@ class ChemicalOntologyPredictor:
             "coef_": scipy.sparse.csr_matrix(self.coef_),
             "model": self.model,
             "alpha": self.alpha,
+            "variance": self.variance
         }
 
     def __setstate__(self, state: Dict[str, object]) -> None:
@@ -65,6 +68,16 @@ class ChemicalOntologyPredictor:
         self.ontology.__setstate__(state["ontology"])
         self.model = state["model"]
         self.alpha = state.get("alpha", 1.0)
+        self.variance = state.get("variance", None)
+
+    @requires("sklearn.feature_selection")
+    def _select_features(self, X: Union[numpy.ndarray, scipy.sparse.spmatrix]):
+        _X = X.toarray() if isinstance(X, scipy.sparse.spmatrix) else X
+        varfilt = sklearn.feature_selection.VarianceThreshold(self.variance)
+        varfilt.fit(_X)
+        support = varfilt.get_support()
+        self.features_ = self.features_.loc[support]
+        return _X[:, support]
 
     @requires("sklearn.multiclass")
     @requires("sklearn.linear_model")
@@ -136,6 +149,10 @@ class ChemicalOntologyPredictor:
                 f"Ontology contains {len(self.ontology.incidence_matrix)} terms, "
                 f"{_Y.shape[1]} found in data"
             )
+        
+        # run variance selection if requested
+        if self.variance is not None:
+            _X = self._select_features(_X)
 
         if self.model == "logistic":
             self._fit_logistic(_X, _Y)

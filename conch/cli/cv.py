@@ -28,6 +28,12 @@ def configure_parser(parser: argparse.ArgumentParser):
         help="The classes table in HDF5 format to use for training the predictor."
     )
     parser.add_argument(
+        "-s",
+        "--similarity",
+        type=pathlib.Path,
+        help="Pairwise nucleotide similarities for deduplication the observations."
+    )
+    parser.add_argument(
         "-o",
         "--output",
         required=True,
@@ -65,10 +71,16 @@ def configure_parser(parser: argparse.ArgumentParser):
         default=1.0,
         help="The strength of the parameters regularization.",
     )
+    parser.add_argument(
+        "--variance",
+        type=float,
+        help="The variance threshold for filtering features.",
+    )
     parser.set_defaults(run=run)
 
 
 @requires("sklearn.model_selection")
+@requires("sklearn.feature_selection")
 @requires("sklearn.metrics")
 @requires("kennard_stone")
 def run(args: argparse.Namespace, console: Console) -> int:
@@ -76,13 +88,21 @@ def run(args: argparse.Namespace, console: Console) -> int:
     console.print(f"[bold blue]{'Loading':>12}[/] training data")
     features = anndata.read(args.features)
     classes = anndata.read(args.classes)
+    console.print(f"[bold green]{'Loaded':>12}[/] {features.n_obs} observations, {features.n_vars} features and {classes.n_vars} classes")
     # remove compounds with unknown structure
     features = features[~classes.obs.unknown_structure]
     classes = classes[~classes.obs.unknown_structure]
-    # remove features absent from training set
-    features = features[:, features.X.sum(axis=0).A1 >= args.min_occurences]
-    # remove clases absent from training set
+    console.print(f"[bold blue]{'Using':>12}[/] {features.n_obs} observations with known compounds")
+    # remove similar BGCs based on nucleotide similarity
+    if args.similarity is not None:
+        ani = anndata.read(args.similarity).obs
+        ani = ani.loc[classes.obs_names].drop_duplicates("groups")
+        classes = classes[ani.index]
+        features = features[ani.index]
+        console.print(f"[bold blue]{'Using':>12}[/] {features.n_obs} unique observations based on nucleotide similarity")
+    # remove classes absent from training set
     classes = classes[:, (classes.X.sum(axis=0).A1 >= 5) & (classes.X.sum(axis=0).A1 <= classes.n_obs - 5)]
+    console.print(f"[bold blue]{'Using':>12}[/] {classes.n_vars} nontautological classes")
     # prepare ontology and groups
     ontology = Ontology(classes.varp["parents"])
     groups = classes.obs["compound"].cat.codes
@@ -102,16 +122,19 @@ def run(args: argparse.Namespace, console: Console) -> int:
     console.print(f"[bold blue]{'Running':>12}[/] cross-validation evaluation")
     probas = numpy.zeros(classes.X.shape, dtype=float)
     for i, (train_indices, test_indices) in enumerate(splits):
+        # extract fold observations
+        train_X = features[train_indices]
+        train_Y = classes[train_indices]
+        # train fold
         model = ChemicalOntologyPredictor(
             ontology,
             n_jobs=args.jobs,
             model=args.model,
             alpha=args.alpha,
+            variance=args.variance,
         )
-        # train fold
-        train_X = features[train_indices]
-        train_Y = classes[train_indices]
         model.fit(train_X, train_Y)
+
         # test fold
         test_X = features[test_indices, model.features_.index]
         test_Y = classes[test_indices, model.classes_.index].X.toarray()
