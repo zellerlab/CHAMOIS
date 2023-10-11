@@ -44,7 +44,7 @@ def configure_parser(parser: argparse.ArgumentParser):
         help="The chemical class probabilities predicted for BGCs."
     )
     parser.add_argument(
-        "-q", 
+        "-q",
         "--query",
         action="append",
         required=True,
@@ -96,9 +96,9 @@ def load_predictions(path: pathlib.Path, predictor: ChemicalOntologyPredictor, c
 
 @requires("rdkit.Chem")
 def build_results(
-    queries: List["Mol"], 
-    classes: anndata.AnnData, 
-    distances: numpy.ndarray, 
+    queries: List["Mol"],
+    classes: anndata.AnnData,
+    distances: numpy.ndarray,
     ranks: numpy.ndarray,
     max_rank: int,
 ) -> pandas.DataFrame:
@@ -107,24 +107,24 @@ def build_results(
         for j in ranks[i].argsort():
             if ranks[i, j] > max_rank:
                 break
-            rows.append([ 
-                Chem.MolToInchiKey(query),
-                Chem.MolToInchi(query),
-                Chem.MolToSmiles(query),
+            rows.append([
+                rdkit.Chem.MolToInchiKey(query),
+                rdkit.Chem.MolToInchi(query),
+                rdkit.Chem.MolToSmiles(query),
                 ranks[i, j],
                 classes.obs_names[j],
-                *classes.obs.iloc[j], 
+                *classes.obs.iloc[j],
                 distances[i, j],
             ])
     return pandas.DataFrame(
-        rows, 
+        rows,
         columns=[
-            "inchikey", 
-            "inchi", 
-            "smiles", 
-            "rank", 
+            "inchikey",
+            "inchi",
+            "smiles",
+            "rank",
             "bgc_id",
-            *classes.obs.columns, 
+            *classes.obs.columns,
             "distance"
         ]
     )
@@ -190,11 +190,20 @@ def run(args: argparse.Namespace, console: Console) -> int:
     for i, query in enumerate(args.queries):
         inchikey = rdkit.Chem.inchi.MolToInchiKey(query)
         leaves = classifications[inchikey]
-        compounds[i] = binarize_classification(predictor.classes_, predictor.hierarchy, leaves)
+        compounds[i] = binarize_classification(
+            predictor.classes_,
+            predictor.ontology.incidence_matrix,
+            leaves
+        )
+
+    def metric(x: numpy.ndarray, y: numpy.ndarray) -> float:
+        i = numpy.where(x)[0]
+        j = numpy.where(y)[0]
+        return 1.0 - predictor.ontology.similarity(i, j)
 
     # compute distance
     console.print(f"[bold blue]{'Computing':>12}[/] distances to predictions")
-    distances = cdist(compounds, classes.X, metric=args.distance)
+    distances = cdist(compounds, classes.X, metric=metric)
     ranks = scipy.stats.rankdata(distances, method="dense", axis=1)
 
     # show most likely BGC for input compound

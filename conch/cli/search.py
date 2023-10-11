@@ -73,9 +73,9 @@ def load_catalog(path: pathlib.Path, console: Console) -> anndata.AnnData:
 
 
 def build_results(
-    classes: anndata.AnnData, 
-    catalog: anndata.AnnData, 
-    distances: numpy.ndarray, 
+    classes: anndata.AnnData,
+    catalog: anndata.AnnData,
+    distances: numpy.ndarray,
     ranks: numpy.ndarray,
     max_rank: int,
 ) -> pandas.DataFrame:
@@ -84,15 +84,15 @@ def build_results(
         for j in ranks[i].argsort():
             if ranks[i, j] > max_rank:
                 break
-            rows.append([ 
-                name, 
+            rows.append([
+                name,
                 ranks[i, j],
-                catalog.obs.index[j], 
-                catalog.obs.compound[j], 
+                catalog.obs.index[j],
+                catalog.obs.compound[j],
                 distances[i, j],
             ])
     return pandas.DataFrame(
-        rows, 
+        rows,
         columns=["bgc_id", "rank", "index", "compound", "distance"]
     )
 
