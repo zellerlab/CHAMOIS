@@ -5,6 +5,7 @@ import pathlib
 
 import anndata
 import numpy
+import pandas
 import rich.progress
 from rich.console import Console
 
@@ -83,6 +84,11 @@ def configure_parser(parser: argparse.ArgumentParser):
         type=float,
         help="The variance threshold for filtering features.",
     )
+    parser.add_argument(
+        "--report",
+        type=pathlib.Path,
+        help="An optional file where to generate a label-wise evaluation report."
+    )
     parser.set_defaults(run=run)
 
 
@@ -115,6 +121,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
     groups = classes.obs["compound"].cat.codes
 
     # start training
+    ground_truth = classes.X.toarray()
     console.print(f"[bold blue]{'Splitting':>12}[/] data into {args.kfolds} folds")
     if args.sampling == "group":
         kfold = sklearn.model_selection.GroupShuffleSplit(n_splits=args.kfolds, random_state=args.seed)
@@ -124,7 +131,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
         kfold = kennard_stone.KFold(n_splits=args.kfolds, n_jobs=args.jobs, metric="cosine")
     else:
         raise ValueError(f"Invalid value for `--sampling`: {args.sampling!r}")
-    splits = list(kfold.split(features.X.toarray(), classes.X.toarray(), groups))
+    splits = list(kfold.split(features.X.toarray(), ground_truth, groups))
 
     console.print(f"[bold blue]{'Running':>12}[/] cross-validation evaluation")
     probas = numpy.zeros(classes.X.shape, dtype=float)
@@ -162,10 +169,10 @@ def run(args: argparse.Namespace, console: Console) -> int:
         console.print(f"[bold green]{'Finished':>12}[/] fold {i+1:2}:", *stats)
 
     # compute AUROC for the entire classification
-    micro_auroc = sklearn.metrics.roc_auc_score(classes.X.toarray(), probas, average="micro")
-    macro_auroc = sklearn.metrics.roc_auc_score(classes.X.toarray(), probas, average="macro")
-    micro_avgpr = sklearn.metrics.average_precision_score(classes.X.toarray(), probas, average="micro")
-    macro_avgpr = sklearn.metrics.average_precision_score(classes.X.toarray(), probas, average="macro")
+    micro_auroc = sklearn.metrics.roc_auc_score(ground_truth, probas, average="micro")
+    macro_auroc = sklearn.metrics.roc_auc_score(ground_truth, probas, average="macro")
+    micro_avgpr = sklearn.metrics.average_precision_score(ground_truth, probas, average="micro")
+    macro_avgpr = sklearn.metrics.average_precision_score(ground_truth, probas, average="macro")
     stats = [
         f"[bold magenta]AUROC(µ)=[/][bold cyan]{micro_auroc:05.1%}[/]",
         f"[bold magenta]AUROC(M)=[/][bold cyan]{macro_auroc:05.1%}[/]",
@@ -202,4 +209,30 @@ def run(args: argparse.Namespace, console: Console) -> int:
     data.write(args.output)
     console.print(f"[bold green]{'Finished':>12}[/] cross-validating model")
 
-   
+    # generate report
+    if args.report is not None:
+        console.print(f"[bold blue]{'Generating':>12}[/] class-specific report")
+        data = []
+        preds = probas > 0.5
+        for j in range(classes.n_vars):
+            data.append({
+                "class": classes.var_names[j],
+                "average_precision": sklearn.metrics.average_precision_score(ground_truth[:, j], probas[:, j]),
+                "auroc": sklearn.metrics.roc_auc_score(ground_truth[:, j], probas[:, j]),
+                "f1_score": sklearn.metrics.f1_score(ground_truth[:, j], preds[:, j]),
+                "hamming_loss": sklearn.metrics.hamming_loss(ground_truth[:, j], preds[:, j]),
+                "accuracy_score": sklearn.metrics.hamming_loss(ground_truth[:, j], preds[:, j]),
+                "precision": sklearn.metrics.precision_score(ground_truth[:, j], preds[:, j]),
+                "recall": sklearn.metrics.recall_score(ground_truth[:, j], preds[:, j]),
+                "balanced_accuracy": sklearn.metrics.balanced_accuracy_score(ground_truth[:, j], preds[:, j]),
+                "adjusted_balanced_accuracy": sklearn.metrics.balanced_accuracy_score(ground_truth[:, j], preds[:, j], adjusted=True),
+            })
+        report = pandas.merge(classes.var, pandas.DataFrame(data), left_index=True, right_on="class")
+        if args.report.parent:
+            args.report.parent.mkdir(parents=True, exist_ok=True)
+        console.print(f"[bold blue]{'Saving':>12}[/] class-specific report to {str(args.report)!r}")
+        report.to_csv(args.report, sep="\t", index=False)
+
+
+
+
