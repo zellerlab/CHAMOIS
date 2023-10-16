@@ -107,6 +107,13 @@ def run_class(args: argparse.Namespace, console: Console) -> int:
 
     # Render the table
     table = rich.table.Table("Feature", "Kind", "Name", "Weight")
+    table.add_row(
+        rich.text.Text("Intercept", style="b i"),
+        "",
+        "",
+        rich.text.Text(format(predictor.intercept_[class_index], ".5f"), style="repr.number"),
+        end_section=True,
+    )
     for row in selected_classes.sort_values("weight", ascending=False).itertuples():
         table.add_row(
             rich.text.Text(row.Index, style="repr.tag_name"),
