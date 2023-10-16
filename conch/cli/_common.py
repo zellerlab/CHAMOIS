@@ -27,10 +27,10 @@ from rich.console import Console
 
 from .. import __version__
 from .._meta import zopen
-from ..domains import HMMERAnnotator, NRPySAnnotator
+from ..domains import PfamAnnotator, NRPySAnnotator
 from ..compositions import build_compositions, build_observations, build_variables
 from ..orf import ORFFinder, PyrodigalFinder, CDSFinder
-from ..model import ClusterSequence, Protein, Domain, HMMDomain, AdenylationDomain
+from ..model import ClusterSequence, Protein, Domain, PfamDomain, AdenylationDomain
 from ..predictor import ChemicalOntologyPredictor
 
 
@@ -98,9 +98,9 @@ def annotate_domains(domain_annotator, proteins: List[Protein], console: Console
     return domains
 
 
-def annotate_hmmer(path: pathlib.Path, proteins: List[Protein], cpus: Optional[int], console: Console, whitelist: Optional[Container[str]] = None) -> List[HMMDomain]:
+def annotate_hmmer(path: pathlib.Path, proteins: List[Protein], cpus: Optional[int], console: Console, whitelist: Optional[Container[str]] = None) -> List[PfamDomain]:
     console.print(f"[bold blue]{'Searching':>12}[/] protein domains with HMMER")
-    domain_annotator = HMMERAnnotator(path, cpus=cpus, whitelist=whitelist)
+    domain_annotator = PfamAnnotator(path, cpus=cpus, whitelist=whitelist)
     total = len(whitelist) if whitelist else None
     domains = annotate_domains(domain_annotator, proteins, console, total=total)
     console.print(f"[bold green]{'Found':>12}[/] {len(domains)} domains under inclusion threshold in {len(proteins)} proteins")

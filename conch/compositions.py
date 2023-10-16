@@ -19,7 +19,12 @@ def build_observations(clusters: List[ClusterSequence]) -> pandas.DataFrame:
 
 def build_variables(domains: List[Domain]) -> pandas.DataFrame:
     var = pandas.DataFrame([
-        dict(name=domain.name, accession=domain.accession, kind=domain.kind)
+        dict(
+            name=domain.name, 
+            accession=domain.accession, 
+            description=domain.description,
+            kind=domain.kind,
+        )
         for domain in domains
     ])
     var.drop_duplicates(inplace=True)
@@ -35,12 +40,12 @@ def build_compositions(
     uns: Optional[Mapping[str, Any]] = None,
 ) -> anndata.AnnData:
     use_accession = "name" in var.columns
-    compositions = scipy.sparse.dok_matrix((len(obs), len(var)), dtype=int)
+    compositions = scipy.sparse.dok_matrix((len(obs), len(var)), dtype=bool)
     for domain in domains:
         bgc_index = obs.index.get_loc(domain.protein.cluster.id)
         try:
             domain_index = var.index.get_loc(domain.accession if use_accession else domain.name)
-            compositions[bgc_index, domain_index] += 1
+            compositions[bgc_index, domain_index] = True
         except KeyError:
             continue
     return anndata.AnnData(

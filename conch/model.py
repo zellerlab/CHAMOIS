@@ -32,16 +32,17 @@ class Domain(object):
     """
     name: str
     accession: Optional[str]
+    description: Optional[str]
     kind: str
     protein: Protein
 
 
 @dataclasses.dataclass(frozen=True)
-class HMMDomain(Domain):
+class PfamDomain(Domain):
     """A protein domain that was found with a Hidden Markov Model.
 
     See Also:
-        `~conch.domains.HMMERAnnotator`: The domain annotator used for 
+        `~conch.domains.PfamAnnotator`: The domain annotator used for 
         searching HMM domains with HMMER.
 
     """
@@ -51,7 +52,7 @@ class HMMDomain(Domain):
     pvalue: float
     evalue: float
 
-    def overlaps(self, other: "HMMDomain") -> bool:
+    def overlaps(self, other: "PfamDomain") -> bool:
         return (
             other.protein is self.protein
             and self.start <= other.end

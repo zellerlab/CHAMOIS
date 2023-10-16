@@ -2,6 +2,7 @@ import abc
 import collections.abc
 import contextlib
 import io
+import itertools
 import pathlib
 from typing import Iterable, Optional, Callable, Container, List, Set
 
@@ -11,7 +12,7 @@ from pyhmmer.plan7 import HMM, HMMFile
 from pyhmmer.easel import Alphabet, DigitalSequenceBlock, TextSequenceBlock, TextSequence
 
 from .._meta import zopen
-from ..model import Protein, Domain, HMMDomain, AdenylationDomain
+from ..model import Protein, Domain, PfamDomain, AdenylationDomain
 
 try:
     from importlib.resources import files, as_file
@@ -50,8 +51,8 @@ class DomainAnnotator(metaclass=abc.ABCMeta):
         return NotImplemented
 
 
-class HMMERAnnotator(DomainAnnotator):
-    """A domain annotator that uses PyHMMER to annotate domains in proteins.
+class PfamAnnotator(DomainAnnotator):
+    """A domain annotator that uses PyHMMER to find Pfam domains in proteins.
 
     References:
         - `Martin Larralde and Georg Zeller. "PyHMMER: a Python library
@@ -71,7 +72,8 @@ class HMMERAnnotator(DomainAnnotator):
         """Prepare a new HMMER annotation handler with the given ``hmms``.
 
         Arguments:
-            file (`pathlib.Path`): The path to the file containing the HMMs.
+            file (`pathlib.Path`): The path to the file containing the 
+                Pfam HMMs.
             cpus (`int`, optional): The number of CPUs to allocate for the
                 ``hmmsearch`` command. Give ``None`` to use the default.
             whitelist (container of `str`): If given, a container containing
@@ -103,7 +105,7 @@ class HMMERAnnotator(DomainAnnotator):
         self,
         proteins: List[Protein],
         progress: Optional[Callable[[HMM, int], None]] = None,
-    ) -> Iterable[HMMDomain]:
+    ) -> Iterable[PfamDomain]:
         # convert proteins to Easel sequences, naming them after
         # their location in the original input to ignore any duplicate
         # protein identifiers
@@ -116,15 +118,15 @@ class HMMERAnnotator(DomainAnnotator):
         with contextlib.ExitStack() as ctx:
             # only retain the HMMs which are in the whitelist
             hmm_file = self._load_hmm(ctx)
-            hmms = (
+            hmms1, hmms2 = itertools.tee((
                 hmm
                 for hmm in hmm_file
                 if hmm.accession.decode() in self.whitelist
-            )
+            ))
             # Run search pipeline using the filtered HMMs
             cpus = 0 if self.cpus is None else self.cpus
             hmms_hits = pyhmmer.hmmer.hmmsearch(
-                hmms,
+                hmms1,
                 esl_sqs.digitize(esl_abc),
                 cpus=cpus,
                 callback=progress, # type: ignore
@@ -132,17 +134,19 @@ class HMMERAnnotator(DomainAnnotator):
             )
 
             # Transcribe HMMER hits to model
-            for hits in hmms_hits:
+            for hmm, hits in zip(hmms2, hmms_hits):
                 for hit in hits.reported:
                     target_index = int(hit.name)
                     for domain in hit.domains.reported:
                         # extract HMM name and coordinates
-                        name = domain.alignment.hmm_name
-                        acc = domain.alignment.hmm_accession
-                        yield HMMDomain(
+                        name = hmm.name
+                        acc = hmm.accession
+                        desc = hmm.description
+                        yield PfamDomain(
                             name=name.decode(),
                             accession=None if acc is None else acc.decode(),
-                            kind="HMMER",
+                            description=None if desc is None else desc.decode(),
+                            kind="Pfam",
                             start=domain.alignment.target_from,
                             end=domain.alignment.target_to,
                             score=domain.score,
@@ -293,6 +297,7 @@ class NRPySAnnotator(DomainAnnotator):
                 yield AdenylationDomain(
                     accession=f"NRPyS:{'|'.join(sorted(specificity))}",
                     name=self._get_name(specificity),
+                    description=None,
                     kind="NRPyS",
                     specificity=specificity,
                     protein=proteins[target_index],
