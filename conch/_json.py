@@ -16,7 +16,7 @@ class JSONEncoder(json.JSONEncoder):
         elif isinstance(o, numpy.ndarray):
             return list(o)
         elif isinstance(o, pandas.DataFrame):
-            return dict(__type__="DataFrame", **o.to_dict())
+            return dict(__type__="DataFrame", **o.to_dict(orient="split"))
         elif isinstance(o, scipy.sparse.csr_matrix):
             return dict(
                 __type__="csr_matrix",
@@ -37,7 +37,7 @@ class JSONDecoder(json.JSONDecoder):
     def _hook(obj):
         ty = obj.pop("__type__", None)
         if ty == "DataFrame":
-            return pandas.DataFrame.from_dict(obj)
+            return pandas.DataFrame(**obj)
         elif ty == "csr_matrix":
             return scipy.sparse.csr_matrix(
                 (obj["data"], obj["indices"], obj["indptr"]), 
