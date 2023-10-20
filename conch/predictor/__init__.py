@@ -29,6 +29,8 @@ class ChemicalOntologyPredictor:
     """A model for predicting chemical hierarchy from BGC compositions.
     """
 
+    _MODELS = ["ridge", "logistic", "dummy"]
+
     def __init__(
         self,
         ontology: Ontology,
@@ -38,6 +40,8 @@ class ChemicalOntologyPredictor:
         alpha: float = 1.0,
         variance: Optional[float] = None,
     ) -> None:
+        if model not in self._MODELS:
+            raise ValueError(f"invalid model architecture: {model!r}")
         self.n_jobs: Optional[int] = n_jobs
         self.max_iter: int = max_iter
         self.classes_: Optional[pandas.DataFrame] = None
@@ -141,6 +145,14 @@ class ChemicalOntologyPredictor:
         self.coef_ = self.coef_[nonzero_weights]
         self.features_ = self.features_[nonzero_weights]
 
+    def _fit_dummy(self, X, Y):
+        self.intercept_ = numpy.zeros(Y.shape[1])
+        self.coef_ = numpy.zeros((0, Y.shape[1]))
+        for i in range(Y.shape[1]):
+            n_pos = Y[:, i].sum()
+            n_neg = Y.shape[0] - n_pos
+            self.intercept_[i] = -10 if n_pos < n_neg else +10
+
     def fit(
         self: _T,
         X: Union[numpy.ndarray, anndata.AnnData],
@@ -176,6 +188,8 @@ class ChemicalOntologyPredictor:
             self._fit_logistic(_X, _Y)
         elif self.model == "ridge":
             self._fit_ridge(_X, _Y)
+        elif self.model == "dummy":
+            self._fit_dummy(_X, _Y)
 
         return self
 
@@ -195,6 +209,9 @@ class ChemicalOntologyPredictor:
         probas = (result + 1.0) / 2.0
         return numpy.clip(probas, 0.0, 1.0)
 
+    def _predict_dummy(self) -> numpy.ndarray:
+        return expit(self.intercept_)
+
     def predict_probas(
         self,
         X: Union[numpy.ndarray, anndata.AnnData],
@@ -208,8 +225,10 @@ class ChemicalOntologyPredictor:
             probas = self._predict_logistic(_X)
         elif self.model == "ridge":
             probas = self._predict_ridge(_X)
+        elif self.model == "dummy":
+            probas = self._predict_dummy()
         else:
-            raise RuntimeError(f"Invalid model architecture: {self.model!r}")
+            raise RuntimeError(f"invalid model architecture: {self.model!r}")
         if propagate:
             probas = self.propagate(probas)
         return probas
@@ -228,8 +247,8 @@ class ChemicalOntologyPredictor:
     def information_content(self, Y: numpy.ndarray) -> numpy.ndarray:
         r"""Compute the information content of a prediction.
 
-        The information content for an annotation subgraph :math:`ic(T)` is 
-        defined as the sum of information accretion :math:`ia(i)` for every 
+        The information content for an annotation subgraph :math:`ic(T)` is
+        defined as the sum of information accretion :math:`ia(i)` for every
         node :math:`i` of the subgraph :math:`T`. Information accretion is
         computed from partial probabilities extracted from the training set:
 
@@ -242,15 +261,15 @@ class ChemicalOntologyPredictor:
 
         Arguments:
             Y (`numpy.ndarray` of shape (n_samples, n_classes)): The array
-                of predicted class labels for which to compute 
+                of predicted class labels for which to compute
 
         Returns:
             `numpy.ndarray` of shape (n_samples,): The computed information
             content for each sample prediction.
-        
+
         References:
-            Clark WT, Radivojac P. *Information-theoretic evaluation of 
-            predicted ontological annotations*. Bioinformatics. 
+            Clark WT, Radivojac P. *Information-theoretic evaluation of
+            predicted ontological annotations*. Bioinformatics.
             2013;29(13):i53-i61. :doi:`10.1093/bioinformatics/btt228`.
 
         """

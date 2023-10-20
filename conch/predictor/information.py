@@ -82,7 +82,8 @@ def information_theoric_curve(y_true, y_scores, information_accretion):
     """Return the information theoric curve for the predictions.
     """
     scores = numpy.sort(numpy.unique(y_scores.ravel()))
-    thresholds = scores[::len(scores)//50]
+    n = 1 if len(scores) < 50 else len(scores) // 50
+    thresholds = scores[::n]
 
     mi = numpy.zeros_like(thresholds)
     ru = numpy.zeros_like(thresholds)
@@ -104,7 +105,8 @@ def weighted_information_theoric_curve(y_true, y_scores, information_accretion):
     """Return the weighted information theoric curve for the predictions.
     """
     scores = numpy.sort(numpy.unique(y_scores.ravel()))
-    thresholds = scores[::len(scores)//50]
+    n = 1 if len(scores) < 50 else len(scores) // 50
+    thresholds = scores[::n]
 
     mi = numpy.zeros_like(thresholds)
     ru = numpy.zeros_like(thresholds)
