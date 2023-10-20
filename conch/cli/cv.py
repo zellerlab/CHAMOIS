@@ -11,6 +11,7 @@ from rich.console import Console
 
 from .._meta import requires
 from ..predictor import ChemicalOntologyPredictor
+from ..predictor.information import information_accretion, information_theoric_curve, semantic_distance_score
 from ..ontology import Ontology
 from ._common import record_metadata, save_metrics
 
@@ -69,7 +70,7 @@ def configure_parser(parser: argparse.ArgumentParser):
     )
     parser.add_argument(
         "--model",
-        choices={"logistic", "ridge"},
+        choices=ChemicalOntologyPredictor._MODELS,
         default="logistic",
         help="The kind of model to train."
     )
@@ -149,7 +150,6 @@ def run(args: argparse.Namespace, console: Console) -> int:
             variance=args.variance,
         )
         model.fit(train_X, train_Y)
-
         # test fold
         test_X = features[test_indices, model.features_.index]
         test_Y = classes[test_indices, model.classes_.index].X.toarray()
@@ -170,31 +170,21 @@ def run(args: argparse.Namespace, console: Console) -> int:
         console.print(f"[bold green]{'Finished':>12}[/] fold {i+1:2}:", *stats)
 
     # compute AUROC for the entire classification
-    micro_auroc = sklearn.metrics.roc_auc_score(ground_truth, probas, average="micro")
-    macro_auroc = sklearn.metrics.roc_auc_score(ground_truth, probas, average="macro")
-    micro_avgpr = sklearn.metrics.average_precision_score(ground_truth, probas, average="micro")
-    macro_avgpr = sklearn.metrics.average_precision_score(ground_truth, probas, average="macro")
-    stats = [
-        f"[bold magenta]AUROC(µ)=[/][bold cyan]{micro_auroc:05.1%}[/]",
-        f"[bold magenta]AUROC(M)=[/][bold cyan]{macro_auroc:05.1%}[/]",
-        f"[bold magenta]Avg.Precision(µ)=[/][bold cyan]{micro_avgpr:05.1%}[/]",
-        f"[bold magenta]Avg.Precision(M)=[/][bold cyan]{macro_avgpr:05.1%}[/]",
-    ]
-    console.print(f"[bold green]{'Finished':>12}[/] cross-validation", *stats)
-
-    # compute AUROC for the entire classification
+    ia = information_accretion(ground_truth, ontology.incidence_matrix)
     probas_prop = model.propagate(probas)
     micro_auroc = sklearn.metrics.roc_auc_score(ground_truth, probas_prop, average="micro")
     macro_auroc = sklearn.metrics.roc_auc_score(ground_truth, probas_prop, average="macro")
     micro_avgpr = sklearn.metrics.average_precision_score(ground_truth, probas_prop, average="micro")
     macro_avgpr = sklearn.metrics.average_precision_score(ground_truth, probas_prop, average="macro")
+    semdist = semantic_distance_score(ground_truth, probas_prop, ia)    
     stats = [
         f"[bold magenta]AUROC(µ)=[/][bold cyan]{micro_auroc:05.1%}[/]",
         f"[bold magenta]AUROC(M)=[/][bold cyan]{macro_auroc:05.1%}[/]",
         f"[bold magenta]Avg.Precision(µ)=[/][bold cyan]{micro_avgpr:05.1%}[/]",
         f"[bold magenta]Avg.Precision(M)=[/][bold cyan]{macro_avgpr:05.1%}[/]",
+        f"[bold magenta]SemanticDistance=[/][bold cyan]{semdist:.2f}[/]",
     ]
-    console.print(f"[bold green]{'Applied':>12}[/] probability propagation", *stats)
+    console.print(f"[bold green]{'Finished':>12}[/] cross-validation", *stats)
 
     # save metrics
     metrics = {
@@ -203,6 +193,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
             "AUROC(M)": macro_auroc,
             "AveragePrecision(µ)": micro_avgpr,
             "AveragePrecision(M)": macro_avgpr,
+            "SemanticDistance": semdist,
         },
         "variance": math.nan if model.variance is None else model.variance,
         "features": len(model.features_),
@@ -216,10 +207,10 @@ def run(args: argparse.Namespace, console: Console) -> int:
     if args.output.parent:
         args.output.parent.mkdir(parents=True, exist_ok=True)
     data = anndata.AnnData(
-        X=probas,
-        obs=classes.obs,
-        var=classes.var,
-        uns=record_metadata(),
+        X=probas, 
+        obs=classes.obs, 
+        var=classes.var.assign(information_accretion=ia), 
+        uns=record_metadata()
     )
     data.write(args.output)
     console.print(f"[bold green]{'Finished':>12}[/] cross-validating model")
@@ -247,7 +238,3 @@ def run(args: argparse.Namespace, console: Console) -> int:
             args.report.parent.mkdir(parents=True, exist_ok=True)
         console.print(f"[bold blue]{'Saving':>12}[/] class-specific report to {str(args.report)!r}")
         report.to_csv(args.report, sep="\t", index=False)
-
-
-
-

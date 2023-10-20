@@ -55,7 +55,7 @@ def configure_parser(parser: argparse.ArgumentParser):
     )
     parser.add_argument(
         "--model",
-        choices={"logistic", "ridge"},
+        choices=ChemicalOntologyPredictor._MODELS,
         default="logistic",
         help="The kind of model to train."
     )
