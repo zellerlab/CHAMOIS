@@ -96,7 +96,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
         orf_finder = PyrodigalFinder(cpus=args.jobs) 
     proteins = find_proteins(clusters, orf_finder, console)
 
-    featurelist = set(model.features_[model.features_.kind == "HMMER"].index)
+    featurelist = set(model.features_[model.features_.kind == "Pfam"].index)
     domains = [
         *annotate_hmmer(args.hmm, proteins, args.jobs, console, featurelist),
         *annotate_nrpys(proteins, args.jobs, console)

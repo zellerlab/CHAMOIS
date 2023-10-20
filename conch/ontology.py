@@ -81,11 +81,11 @@ class IncidenceMatrix:
         if _data.size:
             # cache parents and children
             self._parents = _VariableColumnStorage(
-                [numpy.where(_data[i, :] != 0)[0] for i in range(_data.shape[0])],
+                [numpy.nonzero(_data[i, :])[0] for i in range(_data.shape[0])],
                 dtype=numpy.int64
             )
             self._children = _VariableColumnStorage(
-                [numpy.where(_data[:, i] != 0)[0] for i in range(_data.shape[0])],
+                [numpy.nonzero(_data[:, i])[0] for i in range(_data.shape[0])],
                 dtype=numpy.int64
             )
             # run a BFS walk and store indices

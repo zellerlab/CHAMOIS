@@ -143,9 +143,12 @@ class download_pfam(setuptools.Command):
         self.info(f"loading domain accesssions from {predictor_file}")
         with open(predictor_file, "rb") as f:
             data = json.load(f)
+        features = data["features_"]
+        kind_index = features['columns'].index('kind')
         domains = [
-            accession for accession,kind in data["features_"]["kind"].items()
-            if kind == "HMMER"
+            accession
+            for accession, row in zip(features["index"], features["data"])
+            if row[kind_index] == "Pfam"
         ]
 
         # Download and binarize required HMMs
@@ -177,7 +180,7 @@ class download_pfam(setuptools.Command):
         url = self.get_url()
         self.info(f"fetching {url}")
         response = urllib.request.urlopen(url)
-        
+
         # use `rich` to make a progress bar
         pbar = rich.progress.wrap_file(
             response,
@@ -203,7 +206,7 @@ class download_pfam(setuptools.Command):
                 if hmm.accession.decode() in domains:
                     nwritten += 1
                     hmm.write(dst, binary=False)
-        
+
         # log number of HMMs kept in final files
         self.info(f"downloaded {nwritten} HMMs out of {nsource} in the source file")
 
@@ -255,7 +258,7 @@ class download_nrps2(setuptools.Command):
         url = "https://dl.secondarymetabolites.org/releases/nrps_svm/2.0/models.tar.xz"
         self.info(f"fetching {url}")
         response = urllib.request.urlopen(url)
-        
+
         # use `rich` to make a progress bar
         pbar = rich.progress.wrap_file(
             response,
@@ -267,7 +270,7 @@ class download_nrps2(setuptools.Command):
         with contextlib.ExitStack() as ctx:
             dl = ctx.enter_context(pbar)
             buffer = io.BytesIO(dl.read())
-            
+
         # extract
         with tarfile.open(fileobj=buffer) as tar:
             for entry in tar.getmembers():
@@ -280,7 +283,7 @@ class download_nrps2(setuptools.Command):
         self.info(f"fetching {url}")
         self.info(f"fetching {url}")
         response = urllib.request.urlopen(url)
-        
+
         # use `rich` to make a progress bar
         pbar = rich.progress.wrap_file(
             response,
