@@ -162,10 +162,11 @@ class ChemicalOntologyPredictor:
         return self
 
     def propagate(self, Y: numpy.ndarray) -> numpy.ndarray:
-        _Y = numpy.array(Y, dtype=bool)
+        assert Y.shape[1] == len(self.ontology.incidence_matrix)
+        _Y = numpy.array(Y, dtype=Y.dtype)
         for i in reversed(self.ontology.incidence_matrix):
             for j in self.ontology.incidence_matrix.parents(i):
-                _Y[:, j] |= _Y[:, i]
+                _Y[:, j] = numpy.maximum(_Y[:, j], _Y[:, i])
         return _Y
 
     def _predict_logistic(self, X: numpy.ndarray) -> numpy.ndarray:
@@ -179,15 +180,21 @@ class ChemicalOntologyPredictor:
     def predict_probas(
         self,
         X: Union[numpy.ndarray, anndata.AnnData],
+        propagate: bool = True,
     ) -> numpy.ndarray:
         if isinstance(X, anndata.AnnData):
             _X = X.X.toarray()
         else:
             _X = numpy.asarray(X)
         if self.model == "logistic":
-            return self._predict_logistic(_X)
+            probas = self._predict_logistic(_X)
         elif self.model == "ridge":
-            return self._predict_ridge(_X)
+            probas = self._predict_ridge(_X)
+        else:
+            raise RuntimeError(f"Invalid model architecture: {self.model!r}")
+        if propagate:
+            probas = self.propagate(probas)
+        return probas
 
     def predict(
         self,
