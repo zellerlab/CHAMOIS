@@ -139,7 +139,7 @@ class download_pfam(setuptools.Command):
             raise RuntimeError("`lz4` is required to run the `download_pfam` command") from rich
 
         # Load domain whitelist from the predictor
-        predictor_file = os.path.join("conch", "predictor.json")
+        predictor_file = os.path.join("conch", "predictor", "predictor.json")
         self.info(f"loading domain accesssions from {predictor_file}")
         with open(predictor_file, "rb") as f:
             data = json.load(f)

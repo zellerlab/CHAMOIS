@@ -90,7 +90,8 @@ class ChemicalOntologyPredictor:
                 pos = _Y[_Y[:, parents[0]], i].sum()
                 tot = _Y[:, parents[0]].sum()
                 freq = pos / tot
-                ia[i] = - math.log2(freq)
+                if freq > 0.0:
+                    ia[i] = - math.log2(freq)
         self.classes_["information_accretion"] = ia
 
     @requires("sklearn.multiclass")
