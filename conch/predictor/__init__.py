@@ -13,9 +13,10 @@ import pandas
 import scipy.sparse
 from scipy.special import expit
 
-from . import _json
-from ._meta import requires
-from .ontology import Ontology
+from .. import _json
+from .._meta import requires
+from ..ontology import Ontology
+from .information import information_accretion
 
 try:
     from importlib.resources import files
@@ -165,6 +166,7 @@ class ChemicalOntologyPredictor:
                 f"{_Y.shape[1]} found in data"
             )
         # compute information accretion
+        self.classes_["information_accretion"] = information_accretion(_Y, self.ontology.incidence_matrix)
         self._compute_information_accretion(_Y)
         # run variance selection if requested
         if self.variance is not None:
