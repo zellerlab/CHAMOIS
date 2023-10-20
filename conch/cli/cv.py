@@ -153,7 +153,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
         # test fold
         test_X = features[test_indices, model.features_.index]
         test_Y = classes[test_indices, model.classes_.index].X.toarray()
-        probas[test_indices] = model.predict_probas(test_X)
+        probas[test_indices] = model.predict_probas(test_X, propagate=False)
         # compute AUROC for classes that have positive and negative members
         # (scikit-learn will crash if a class only has positives/negatives)
         mask = ~numpy.all(test_Y == test_Y[0], axis=0)
@@ -181,6 +181,20 @@ def run(args: argparse.Namespace, console: Console) -> int:
         f"[bold magenta]Avg.Precision(M)=[/][bold cyan]{macro_avgpr:05.1%}[/]",
     ]
     console.print(f"[bold green]{'Finished':>12}[/] cross-validation", *stats)
+
+    # compute AUROC for the entire classification
+    probas_prop = model.propagate(probas)
+    micro_auroc = sklearn.metrics.roc_auc_score(ground_truth, probas_prop, average="micro")
+    macro_auroc = sklearn.metrics.roc_auc_score(ground_truth, probas_prop, average="macro")
+    micro_avgpr = sklearn.metrics.average_precision_score(ground_truth, probas_prop, average="micro")
+    macro_avgpr = sklearn.metrics.average_precision_score(ground_truth, probas_prop, average="macro")
+    stats = [
+        f"[bold magenta]AUROC(µ)=[/][bold cyan]{micro_auroc:05.1%}[/]",
+        f"[bold magenta]AUROC(M)=[/][bold cyan]{macro_auroc:05.1%}[/]",
+        f"[bold magenta]Avg.Precision(µ)=[/][bold cyan]{micro_avgpr:05.1%}[/]",
+        f"[bold magenta]Avg.Precision(M)=[/][bold cyan]{macro_avgpr:05.1%}[/]",
+    ]
+    console.print(f"[bold green]{'Applied':>12}[/] probability propagation", *stats)
 
     # save metrics
     metrics = {
