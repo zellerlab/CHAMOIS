@@ -79,6 +79,20 @@ class ChemicalOntologyPredictor:
         self.features_ = self.features_.loc[support]
         return _X[:, support]
 
+    def _compute_information_accretion(self, Y: Union[numpy.ndarray, scipy.sparse.spmatrix]):
+        _Y = Y.toarray() if isinstance(Y, scipy.sparse.spmatrix) else Y
+        ia = numpy.zeros(Y.shape[1])
+        for i in self.ontology.incidence_matrix:
+            parents = self.ontology.incidence_matrix.parents(i)
+            assert parents.shape[0] <= 1
+
+            if len(parents) == 1:
+                pos = _Y[_Y[:, parents[0]], i].sum()
+                tot = _Y[:, parents[0]].sum()
+                freq = pos / tot
+                ia[i] = - math.log2(freq)
+        self.classes_["information_accretion"] = ia
+
     @requires("sklearn.multiclass")
     @requires("sklearn.linear_model")
     @requires("sklearn.preprocessing")
@@ -132,13 +146,13 @@ class ChemicalOntologyPredictor:
     ) -> _T:
         if isinstance(X, anndata.AnnData):
             _X = X.X
-            self.features_ = X.var
+            self.features_ = X.var.copy()
         else:
             _X = X
             self.features_ = pandas.DataFrame(index=list(map(str, range(1, _X.shape[1] + 1))))
         if isinstance(Y, anndata.AnnData):
             _Y = Y.X
-            self.classes_ = Y.var
+            self.classes_ = Y.var.copy()
         else:
             _Y = Y
             self.classes_ = pandas.DataFrame(index=list(map(str, range(1, _Y.shape[1] + 1))))
@@ -149,7 +163,8 @@ class ChemicalOntologyPredictor:
                 f"Ontology contains {len(self.ontology.incidence_matrix)} terms, "
                 f"{_Y.shape[1]} found in data"
             )
-        
+        # compute information accretion
+        self._compute_information_accretion(_Y)
         # run variance selection if requested
         if self.variance is not None:
             _X = self._select_features(_X)
@@ -206,6 +221,42 @@ class ChemicalOntologyPredictor:
         if propagate:
             return self.propagate(classes)
         return classes
+
+    def information_content(self, Y: numpy.ndarray) -> numpy.ndarray:
+        r"""Compute the information content of a prediction.
+
+        The information content for an annotation subgraph :math:`ic(T)` is 
+        defined as the sum of information accretion :math:`ia(i)` for every 
+        node :math:`i` of the subgraph :math:`T`. Information accretion is
+        computed from partial probabilities extracted from the training set:
+
+        .. math::
+
+            ia(T) = \sum_{i \in T}{ - log_2(P(i | \matcal{P}(i))) }
+
+        where :math:`\mathcal{P}(i)` is the parent of node :math:`i` in the
+        ontology graph.
+
+        Arguments:
+            Y (`numpy.ndarray` of shape (n_samples, n_classes)): The array
+                of predicted class labels for which to compute 
+
+        Returns:
+            `numpy.ndarray` of shape (n_samples,): The computed information
+            content for each sample prediction.
+        
+        References:
+            Clark WT, Radivojac P. *Information-theoretic evaluation of 
+            predicted ontological annotations*. Bioinformatics. 
+            2013;29(13):i53-i61. :doi:`10.1093/bioinformatics/btt228`.
+
+        """
+        if Y.dtype != numpy.bool_:
+            raise TypeError(f"Expected bool matrix, found {Y.dtype}")
+        ic = numpy.zeros(Y.shape[0])
+        for i in range(Y.shape[0]):
+            ic[i] = self.classes_["information_accretion"][Y[i]].sum()
+        return ic
 
     def save(self, file: TextIO) -> None:
         state = self.__getstate__()
