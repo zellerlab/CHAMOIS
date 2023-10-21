@@ -12,7 +12,7 @@ from pyhmmer.plan7 import HMM, HMMFile
 from pyhmmer.easel import Alphabet, DigitalSequenceBlock, TextSequenceBlock, TextSequence
 
 from .._meta import zopen
-from ..model import Protein, Domain, PfamDomain, AdenylationDomain
+from ..model import Protein, Domain, PfamDomain, AMPBindingDomain
 
 try:
     from importlib.resources import files, as_file
@@ -157,7 +157,7 @@ class PfamAnnotator(DomainAnnotator):
 
 
 class NRPySAnnotator(DomainAnnotator):
-    """An adenylation domain annotator that uses NRPSpredictor2.
+    """An annotator using NRPSpredictor2 to predict AMP-binding specificity.
 
     References:
         - `Marc Röttig, Marnix H. Medema, Kai Blin, Tilmann Weber,
@@ -242,7 +242,7 @@ class NRPySAnnotator(DomainAnnotator):
         self,
         proteins: List[Protein],
         progress: Optional[Callable[[HMM, int], None]] = None,
-    ) -> Iterable[AdenylationDomain]:
+    ) -> Iterable[AMPBindingDomain]:
         # convert proteins to Easel sequences, naming them after
         # their location in the original input to ignore any duplicate
         # protein identifiers
@@ -294,7 +294,7 @@ class NRPySAnnotator(DomainAnnotator):
                     continue
                 target_index = int(result.name)
                 specificity = set(map(str.capitalize, pred.name.split(",")))
-                yield AdenylationDomain(
+                yield AMPBindingDomain(
                     accession=f"NRPyS:{'|'.join(sorted(specificity))}",
                     name=self._get_name(specificity),
                     description=None,

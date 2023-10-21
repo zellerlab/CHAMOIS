@@ -61,8 +61,8 @@ class PfamDomain(Domain):
 
 
 @dataclasses.dataclass(frozen=True)
-class AdenylationDomain(Domain):
-    """An adenylation domain with specificity for a certain subtrate.
+class AMPBindingDomain(Domain):
+    """An AMP-binding domain with specificity for a certain subtrate.
 
     See Also:
         `~conch.domains.NRPySAnnotator`: The domain annotator used 
