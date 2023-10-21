@@ -47,7 +47,7 @@ def configure_parser(parser: argparse.ArgumentParser):
         "--distance",
         default="hamming",
         help="The metric to use for comparing classes fingerprints.",
-        choices={"hamming", "jaccard"},
+        choices={"hamming", "jaccard", "cosine", "gogo"},
     )
     parser.add_argument(
         "--rank",
@@ -118,14 +118,14 @@ def run(args: argparse.Namespace, console: Console) -> int:
     # load catalog
     catalog = load_catalog(args.catalog, console)[:, classes.var.index]
 
-    def metric(x: numpy.ndarray, y: numpy.ndarray) -> float:
+    def gogo(x: numpy.ndarray, y: numpy.ndarray) -> float:
         i = numpy.where(x)[0]
         j = numpy.where(y)[0]
         return 1.0 - predictor.ontology.similarity(i, j)
 
     # compute distance
     console.print(f"[bold blue]{'Computing':>12}[/] pairwise distances and ranks")
-    distances = cdist(classes.X, catalog.X.toarray(), metric=metric)
+    distances = cdist(classes.X, catalog.X.toarray(), metric=gogo if args.metric == "gogo" else args.metric)
     ranks = scipy.stats.rankdata(distances, method="dense", axis=1)
 
     # save results

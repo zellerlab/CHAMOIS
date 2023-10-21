@@ -5,7 +5,7 @@ from rich.console import Console
 from rich_argparse import RichHelpFormatter
 
 from .. import __version__, __package__ as _module
-from . import train, predict, render, cv, annotate, search, screen, explain
+from . import train, predict, render, cv, cvsearch, annotate, search, screen, explain
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -54,6 +54,13 @@ def build_parser() -> argparse.ArgumentParser:
             "cv", 
             formatter_class=RichHelpFormatter,
             help="Evaluate predictor performance on a training set with cross-validation."
+        )
+    )
+    cvsearch.configure_parser(
+        commands.add_parser(
+            "cvsearch", 
+            formatter_class=RichHelpFormatter,
+            help="Evaluate compound search on a training set with cross-validation."
         )
     )
     predict.configure_parser(
