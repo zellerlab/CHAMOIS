@@ -29,9 +29,12 @@ def information_accretion(
             all_parents = _Y[:, parents].all(axis=1)
             pos = _Y[all_parents, i].sum()
             tot = all_parents.sum()
+        else:
+            pos = _Y[:, i].sum()
+            tot = _Y.shape[0]
             freq = pos / tot
-            if freq > 0.0:
-                ia[i] = - math.log2(freq)
+        freq = pos / tot
+        ia[i] = -math.log2(freq)
     return ia
 
 
