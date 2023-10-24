@@ -584,6 +584,30 @@ for bgc_id, entry in mibig.items():
                 "database_id": ["pubchem:3084535"],
             }
         ]
+    # Use proper compounds for the partial fungal BGCs synthesizing dalmano
+    # (see https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6335865/)
+    elif bgc_id == "BGC0001906":
+        entry["compounds"] = [
+            {
+                "compound": "naphthalene-1,3,6,8-tetrol",
+                "database_id": ["pubchem:440202"],
+            },
+            {
+                "compound": "2-acetylnaphthalene-1,3,6,8-tetrol",
+                "database_id": ["pubchem:86018477"],
+            },
+        ]
+    elif bgc_id == "BGC0001907":
+        entry["compounds"] = [
+            {
+                "compound": "5-hydroxy-2-methyl-4-chromanone",
+                "database_id": ["pubchem:13316455"],
+            },
+            {
+                "compound": "1-(2,6-dihydroxyphenyl)but-2-en-1-one",
+                "chem_struct": r"C1=C(O)C(C(=O)/C=C/C)=C(O)C=C1",
+            },
+        ]
 
     for compound in entry["compounds"]:
         # mask formula of all capsular polysaccharide BGCs
