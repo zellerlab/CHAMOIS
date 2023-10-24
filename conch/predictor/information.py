@@ -128,3 +128,28 @@ def weighted_information_theoric_curve(y_true, y_scores, information_accretion):
     mi /= ic.sum()
     ru /= ic.sum()
     return mi, ru, thresholds
+
+
+def weighted_precision_recall_curve(y_true, y_scores, information_accretion):
+    scores = numpy.sort(numpy.unique(y_scores.ravel()))
+    n = 1 if len(scores) < 50 else len(scores) // 50
+    thresholds = scores[::n]
+
+    pr = numpy.zeros_like(thresholds)
+    rc = numpy.zeros_like(thresholds)
+    ia = numpy.tile(information_accretion, y_true.shape[0]).reshape(y_true.shape)
+
+    ic = (ia * y_true).sum(axis=1)
+    assert ic.shape[0] == y_true.shape[0]
+    for i, t in enumerate(thresholds):
+        y_pred = y_scores >= t
+        tp = y_pred & y_true
+        pr[i] = ( numpy.nan_to_num((ia * tp).sum(axis=1) / (ia * y_pred).sum(axis=1), 1) * ic).sum()
+        rc[i] = ( numpy.nan_to_num((ia * tp).sum(axis=1) / (ia * y_true).sum(axis=1), 0) * ic).sum()
+
+    pr /= ic.sum()
+    rc /= ic.sum()
+
+    pr[-1] = 1.0
+    rc[-1] = 0.0
+    return pr, rc, thresholds
