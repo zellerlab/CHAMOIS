@@ -436,6 +436,154 @@ for bgc_id, entry in mibig.items():
                 "chem_struct": r"C(O)(=O)CC(CCCC/C=C\CCCCCCC/C=C\C(N/C=C/C(N[C@]1COC(=O)[C@](CO)NC(=O)[C@@](NC(=O)[C@@]([C@@](CC)C)NC1=O)CCO)=O)=O)(C(O)=O)OC",
             }
         ]
+    # Use the non-salt version of lasalocid
+    elif bgc_id == "BGC0000086" or bgc_id == "BGC0000087":
+        entry["compounds"] = [
+            {
+                "compound": "lasalocid",
+                "database_id": ["pubchem:5360807"]
+            }
+        ]
+    # Use the non-salt version of tetronomycin
+    elif bgc_id == "BGC0000164":
+        entry["compounds"] = [
+            {
+                "compound": "tetronomycin",
+                "database_id": ["pubchem:54717181"],
+            }
+        ]
+    # Fix annotated compounds of tartrolon BGC
+    # (see https://pubmed.ncbi.nlm.nih.gov/23288898/)
+    elif bgc_id == "BGC0000185":
+        entry["compounds"] = [
+            {
+                "compound": "tartrolon D",
+                "database_id": ["pubchem:44614261"],
+            },
+            {
+                "compound": "tartrolon E",
+            }
+        ]
+    # kinamycin BGC produced kinamycin D
+    # (see https://pubmed.ncbi.nlm.nih.gov/9531987/)
+    elif bgc_id == "BGC0000236":
+        entry["compounds"] = [
+            {
+                "compound": "kinamycin D",
+                "database_id": ["pubchem:135440049"],
+            }
+        ]
+    # BGC0000404 produces penicillin N and isopenicillin N
+    # (see https://pubmed.ncbi.nlm.nih.gov/16713314/)
+    elif bgc_id == "BGC0000404":
+        entry["compounds"] = [
+            {
+                "compound": "isopenicillin N",
+                "database_id": ["pubchem:440723"],
+            },
+            {
+                "compound": "penicillin N",
+                "database_id": ["pubchem:71724"],
+            },
+        ]
+    # BGC0000548 produces salivaricin A, which is very broken on PubChem,
+    # so this is the proper compound SMILES drawn from precursor petpide with PTM
+    # (see https://www.sciencedirect.com/science/article/pii/S0966842X20300585, Fig.4)
+    elif bgc_id == "BGC0000548":
+        entry["compounds"] = [
+            {
+                "compound": "salivaricin A",
+                "chem_struct": r"N[C@@H](CCCCN)C(=O)N[C@@H](CCCNC(=N)N)C(=O)NCC(=O)N[C@@H](CO)C(=O)NCC(=O)N[C@@H](Cc1cNc2c1cccc2)C(=O)N[C@@H]([C@@H](C)CC)C(=O)N[C@@H](C)C(=O)N[C@@H]([C@@H]3C)C(=O)N[C@@H]([C@@H](C)CC)C(=O)N[C@@H]([C@@H]4C)C(=O)N[C@@H](CC(O)=O)C(=O)N[C@@H](CC(O)=O)C(=O)N[C@@H](CS3)C(=O)N1CCC[C@H]1C(=O)N[C@@H](CC(=O)N)C(=O)N[C@@H](C5)C(=O)N[C@@H](C(C)C)C(=O)N[C@@H](Cc1ccccc1)C(=O)N[C@@H](C(C)C)C(=O)N[C@@H](CS4)C(=O)N[C@@H](CS5)C(=O)-O",
+            }
+        ]
+    # Use iron-free ferrichrome formula produced by BGC0000901
+    # (see https://pubmed.ncbi.nlm.nih.gov/18680426/)
+    elif bgc_id == "BGC0000901":
+        entry["compounds"] = [
+            {
+                "compound": "ferrichrome",
+                "database_id": ["pubchem:23451539"]
+            }
+        ]
+    # Use iron-free heme-d(1) formula (porphyrindione) produced by BGC0000906
+    elif bgc_id == "BGC0000906":
+        entry["compounds"] = [
+            {
+                "compound": "porphyrindione",
+                "database_id": ["pubchem:6438546"]
+            }
+        ]
+    # Use the non-complexed molybdenum cofactor molecule (molydopterin)
+    # for BGC0000916 and BGC0000917
+    elif bgc_id == "BGC0000916" or bgc_id == "BGC0000917":
+        entry["compounds"] = [
+            {
+                "compound": "molydopterin",
+                "database_id": ["pubchem:135398581"]
+            }
+        ]
+    # Use the right mycobactin compound produced by BGC0001021
+    elif bgc_id == "BGC0001021":
+        entry["compounds"] = [
+            {
+                "compound": "mycobactin",
+                "database_id": ["pubchem:3083702"],
+            }
+        ]
+    # Use the iron-free, neutral charge compound for BGC0001249
+    elif bgc_id == "BGC0001249":
+        entry["compounds"] = [
+            {
+                "compound": "dimethyl coprogen",
+                "database_id": ["pubchem:24954742"]
+            }
+        ]
+    # Use the nickel-free compound for BGC0001554
+    elif bgc_id == "BGC0001554":
+        entry["compounds"] = [
+            {
+                "compound": "coenzyme F430",
+                "database_id": ["pubchem:6912387"],
+            }
+        ]
+    # Use the iron-free monomer for BGC0001592 and add bagremycins
+    # (see https://www.biorxiv.org/content/10.1101/631242v1.full-text)
+    elif bgc_id == "BGC0001592":
+        entry["compounds"] = [
+            {
+                "compound": "(4-ethenylphenyl) 4-hydroxy-3-nitrosobenzoate",
+                "database_id": ["pubchem:193618"],
+            },
+            *(
+                { "compound": f"bagremycin {x}" }
+                for x in "ABCDEF"
+            )
+        ]
+    # Use the iron-free chelator for BGC0001989
+    # (pulcherriminic acid instead of of pucherrimin)
+    elif bgc_id == "BGC0001989":
+        entry["compounds"] = [
+            {
+                "compound": "pulcherriminic acid",
+                "database_id": ["pubchem:3083664"],
+            }
+        ]
+    # Use the iron-free chelator for BGC0002300
+    elif bgc_id == "BGC0002300":
+        entry["compounds"] = [
+            {
+                "compound": "deferrialbomycin delta2",
+                "database_id": ["pubchem:86290046"],
+            }
+        ]
+    # Use the copper-free chelator for BGC0002645
+    elif bgc_id == "BGC0002645":
+        entry["compounds"] = [
+            {
+                "compound": "fluopsin",
+                "database_id": ["pubchem:3084535"],
+            }
+        ]
 
     for compound in entry["compounds"]:
         # mask formula of all capsular polysaccharide BGCs
