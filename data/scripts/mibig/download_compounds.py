@@ -527,7 +527,8 @@ for bgc_id, entry in mibig.items():
         entry["compounds"] = [
             {
                 "compound": "mycobactin",
-                "database_id": ["pubchem:3083702"],
+                "database_id": ["pubchem:3083702", "npatlas:NPA024789"],
+                "chem_struct": r"C1CCN(C(=O)C(C1)NC(=O)CCOC(=O)C(CCCCCN(C=O)O)NC(=O)C2COC(=N2)C3=CC=CC=C3O)O",
             }
         ]
     # Use the iron-free, neutral charge compound for BGC0001249

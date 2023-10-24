@@ -12301,9 +12301,10 @@
     ],
     "BGC0001021": [
         {
-            "chem_struct": "CCCCCCCCCCCCCCCCCCCC(=O)N(CCCC[C@@H](C(=O)O[C@H](C)CC(=O)N[C@H]1CCCCN(C1=O)O)NC(=O)[C@H]2COC(=N2)C3=CC=CC=C3O)O",
-            "compound": "Mycobactin T",
+            "chem_struct": "C1CCN(C(=O)C(C1)NC(=O)CCOC(=O)C(CCCCCN(C=O)O)NC(=O)C2COC(=N2)C3=CC=CC=C3O)O",
+            "compound": "mycobactin",
             "database_id": [
+                "pubchem:3083702",
                 "npatlas:NPA024789"
             ]
         }
