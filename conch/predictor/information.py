@@ -10,7 +10,9 @@ import math
 from typing import Union
 
 import numpy
+import numpy.ma
 import scipy.sparse
+from sklearn.metrics import roc_curve
 
 from ..ontology import IncidenceMatrix
 
@@ -22,7 +24,7 @@ def information_accretion(
     """Compute the information accretion using frequencies from the given labels.
     """
     _Y = y_true.toarray() if isinstance(y_true, scipy.sparse.spmatrix) else y_true
-    ia = numpy.zeros(_Y.shape[1])
+    ia = numpy.zeros(_Y.shape[1], dtype=numpy.float32)
     for i in hierarchy:
         parents = hierarchy.parents(i)
         if parents.shape[0] > 0:
@@ -53,7 +55,7 @@ def remaining_uncertainty_score(y_true, y_pred, information_accretion):
     ru = numpy.zeros(y_true.shape[0])
     not_predicted = y_true & (~y_pred)
     ia = numpy.tile(information_accretion, y_true.shape[0])
-    ru[:] = (ia * not_predicted).sum(axis=0)
+    ru[:] = ia.sum(axis=0, where=not_predicted)
     return ru
 
 
@@ -72,7 +74,7 @@ def misinformation_score(y_true, y_pred, information_accretion):
     mi = numpy.zeros(y_true.shape[0])
     wrong_prediction = y_pred & (~y_true)
     ia = numpy.tile(information_accretion, y_true.shape[0]).reshape(y_true.shape)
-    mi[:] = (ia * wrong_prediction).sum(axis=0)
+    mi[:] = ia.sum(axis=0, where=wrong_prediction)
     return mi
 
 
@@ -84,20 +86,19 @@ def semantic_distance_score(y_true, y_scores, information_accretion, *, k=2):
 def information_theoric_curve(y_true, y_scores, information_accretion):
     """Return the information theoric curve for the predictions.
     """
-    scores = numpy.sort(numpy.unique(y_scores.ravel()))
-    n = 1 if len(scores) < 50 else len(scores) // 50
-    thresholds = scores[::n]
+    _, _, thresholds = roc_curve(y_true.ravel(), y_scores.ravel(), drop_intermediate=True)
 
     mi = numpy.zeros_like(thresholds)
     ru = numpy.zeros_like(thresholds)
+
     ia = numpy.tile(information_accretion, y_true.shape[0]).reshape(y_true.shape)
 
     for i, t in enumerate(thresholds):
         y_pred = y_scores >= t
         fp = y_pred & (~y_true)
         fn = y_true & (~y_pred)
-        mi[i] = (ia * fp).sum()
-        ru[i] = (ia * fn).sum()
+        mi[i] = ia.sum(where=fp)
+        ru[i] = ia.sum(where=fn)
 
     mi /= y_true.shape[0]
     ru /= y_pred.shape[0]
@@ -107,23 +108,26 @@ def information_theoric_curve(y_true, y_scores, information_accretion):
 def weighted_information_theoric_curve(y_true, y_scores, information_accretion):
     """Return the weighted information theoric curve for the predictions.
     """
-    scores = numpy.sort(numpy.unique(y_scores.ravel()))
-    n = 1 if len(scores) < 50 else len(scores) // 50
-    thresholds = scores[::n]
+    # scores = numpy.sort(numpy.unique(y_scores.ravel()))
+    # n = 1 if len(scores) < 50 else len(scores) // 50
+    # thresholds = scores[::n]
+    _, _, thresholds = roc_curve(y_true.ravel(), y_scores.ravel(), drop_intermediate=True)
 
     mi = numpy.zeros_like(thresholds)
     ru = numpy.zeros_like(thresholds)
-    ia = numpy.tile(information_accretion, y_true.shape[0]).reshape(y_true.shape)
 
-    ic = (ia * y_true).sum(axis=1)
-    assert ic.shape[0] == y_true.shape[0]
+    ia = numpy.tile(information_accretion, y_true.shape[0]).reshape(y_true.shape)
+    ic = ia.sum(axis=1, where=y_true)
+    ia_w = ia * ic
 
     for i, t in enumerate(thresholds):
         y_pred = y_scores >= t
         fp = y_pred & (~y_true)
         fn = y_true & (~y_pred)
-        mi[i] = ((ia * fp).sum(axis=1) * ic).sum()
-        ru[i] = ((ia * fn).sum(axis=1) * ic).sum()
+        # mi[i] = (ia.sum(axis=1, where=fp)*ic).sum()
+        # ru[i] = (ia.sum(axis=1, where=fn)*ic).sum()
+        mi[i] = ia_w.sum(where=fp)
+        ru[i] = ia_w.sum(where=fn)
 
     mi /= ic.sum()
     ru /= ic.sum()
@@ -131,25 +135,27 @@ def weighted_information_theoric_curve(y_true, y_scores, information_accretion):
 
 
 def weighted_precision_recall_curve(y_true, y_scores, information_accretion):
-    scores = numpy.sort(numpy.unique(y_scores.ravel()))
-    n = 1 if len(scores) < 50 else len(scores) // 50
-    thresholds = scores[::n]
+    # scores = numpy.sort(numpy.unique(y_scores.ravel()))
+    # n = 1 if len(scores) < 50 else len(scores) // 50
+    # thresholds = scores[::n]
+    _, _, thresholds = roc_curve(y_true.ravel(), y_scores.ravel(), drop_intermediate=True)
 
     pr = numpy.zeros_like(thresholds)
     rc = numpy.zeros_like(thresholds)
+   
     ia = numpy.tile(information_accretion, y_true.shape[0]).reshape(y_true.shape)
+    ic = ia.sum(axis=1, where=y_true)
 
-    ic = (ia * y_true).sum(axis=1)
-    assert ic.shape[0] == y_true.shape[0]
     for i, t in enumerate(thresholds):
         y_pred = y_scores >= t
         tp = y_pred & y_true
-        pr[i] = ( numpy.nan_to_num((ia * tp).sum(axis=1) / (ia * y_pred).sum(axis=1), 1) * ic).sum()
-        rc[i] = ( numpy.nan_to_num((ia * tp).sum(axis=1) / (ia * y_true).sum(axis=1), 0) * ic).sum()
+        n = ia.sum(axis=1, where=tp)
+        pr[i] = ( numpy.nan_to_num(n / ia.sum(axis=1, where=y_pred), 1) * ic).sum()
+        rc[i] = ( numpy.nan_to_num(n / ic, 0) * ic).sum()
 
     pr /= ic.sum()
     rc /= ic.sum()
-
-    pr[-1] = 1.0
-    rc[-1] = 0.0
+    i = rc.argmin()
+    pr[i] = 1.0
+    rc[i] = 0.0
     return pr, rc, thresholds
