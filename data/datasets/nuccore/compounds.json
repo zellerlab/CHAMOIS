@@ -62,312 +62,6 @@
             ]
         }
     ],
-    "AY838877.1_cluster1": [
-        {
-            "chem_struct": "CN1C(=O)[C@]23CC4=CC=C[C@@H]([C@H]4N2C(=O)[C@]1(SS3)CO)O",
-            "compound": "gliotoxin",
-            "database_id": [
-                "pubchem:6223"
-            ]
-        }
-    ],
-    "BD269392.1_cluster1": [
-        {
-            "chem_struct": "CC1=C(C(=O)C2=C(C1=O)N3C[C@H]4[C@@H]([C@@]3([C@H]2COC(=O)N)O)N4C)OC",
-            "compound": "mitomycin B",
-            "database_id": [
-                "npatlas:NPA016541"
-            ]
-        }
-    ],
-    "BD269394.1_cluster1": [
-        {
-            "chem_struct": "CC1=C(C(=O)C2=C(C1=O)N3C[C@H]4[C@@H]([C@@]3([C@H]2COC(=O)N)O)N4C)OC",
-            "compound": "mitomycin B",
-            "database_id": [
-                "npatlas:NPA016541"
-            ]
-        }
-    ],
-    "BD269396.1_cluster1": [
-        {
-            "chem_struct": "CC1=C(C(=O)C2=C(C1=O)N3C[C@H]4[C@@H]([C@@]3([C@H]2COC(=O)N)O)N4C)OC",
-            "compound": "mitomycin B",
-            "database_id": [
-                "npatlas:NPA016541"
-            ]
-        }
-    ],
-    "BD269402.1_cluster1": [
-        {
-            "chem_struct": "CC1=C(C(=O)C2=C(C1=O)N3C[C@H]4[C@@H]([C@@]3([C@H]2COC(=O)N)O)N4C)OC",
-            "compound": "mitomycin B",
-            "database_id": [
-                "npatlas:NPA016541"
-            ]
-        }
-    ],
-    "BD269403.1_cluster1": [
-        {
-            "chem_struct": "CC1=C(C(=O)C2=C(C1=O)N3C[C@H]4[C@@H]([C@@]3([C@H]2COC(=O)N)O)N4C)OC",
-            "compound": "mitomycin B",
-            "database_id": [
-                "npatlas:NPA016541"
-            ]
-        }
-    ],
-    "BD269404.1_cluster1": [
-        {
-            "chem_struct": "CC1=C(C(=O)C2=C(C1=O)N3C[C@H]4[C@@H]([C@@]3([C@H]2COC(=O)N)O)N4C)OC",
-            "compound": "mitomycin B",
-            "database_id": [
-                "npatlas:NPA016541"
-            ]
-        }
-    ],
-    "BD269406.1_cluster1": [
-        {
-            "chem_struct": "CC1=C(C(=O)C2=C(C1=O)N3C[C@H]4[C@@H]([C@@]3([C@H]2COC(=O)N)O)N4C)OC",
-            "compound": "mitomycin B",
-            "database_id": [
-                "npatlas:NPA016541"
-            ]
-        }
-    ],
-    "BD269409.1_cluster1": [
-        {
-            "chem_struct": "CC1=C(C(=O)C2=C(C1=O)N3C[C@H]4[C@@H]([C@@]3([C@H]2COC(=O)N)O)N4C)OC",
-            "compound": "mitomycin B",
-            "database_id": [
-                "npatlas:NPA016541"
-            ]
-        }
-    ],
-    "BD269411.1_cluster1": [
-        {
-            "chem_struct": "CC1=C(C(=O)C2=C(C1=O)N3C[C@H]4[C@@H]([C@@]3([C@H]2COC(=O)N)O)N4C)OC",
-            "compound": "mitomycin B",
-            "database_id": [
-                "npatlas:NPA016541"
-            ]
-        }
-    ],
-    "BD269416.1_cluster1": [
-        {
-            "chem_struct": "CC1=C(C(=O)C2=C(C1=O)N3C[C@H]4[C@@H]([C@@]3([C@H]2COC(=O)N)O)N4C)OC",
-            "compound": "mitomycin B",
-            "database_id": [
-                "npatlas:NPA016541"
-            ]
-        }
-    ],
-    "BD269421.1_cluster1": [
-        {
-            "chem_struct": "CC1=C(C(=O)C2=C(C1=O)N3C[C@H]4[C@@H]([C@@]3([C@H]2COC(=O)N)O)N4C)OC",
-            "compound": "mitomycin B",
-            "database_id": [
-                "npatlas:NPA016541"
-            ]
-        }
-    ],
-    "BD269423.1_cluster1": [
-        {
-            "chem_struct": "CC1=C(C(=O)C2=C(C1=O)N3C[C@H]4[C@@H]([C@@]3([C@H]2COC(=O)N)O)N4C)OC",
-            "compound": "mitomycin B",
-            "database_id": [
-                "npatlas:NPA016541"
-            ]
-        }
-    ],
-    "BD269424.1_cluster1": [
-        {
-            "chem_struct": "CC1=C(C(=O)C2=C(C1=O)N3C[C@H]4[C@@H]([C@@]3([C@H]2COC(=O)N)O)N4C)OC",
-            "compound": "mitomycin B",
-            "database_id": [
-                "npatlas:NPA016541"
-            ]
-        }
-    ],
-    "BD269425.1_cluster1": [
-        {
-            "chem_struct": "CC1=C(C(=O)C2=C(C1=O)N3C[C@H]4[C@@H]([C@@]3([C@H]2COC(=O)N)O)N4C)OC",
-            "compound": "mitomycin B",
-            "database_id": [
-                "npatlas:NPA016541"
-            ]
-        }
-    ],
-    "BD269426.1_cluster1": [
-        {
-            "chem_struct": "CC1=C(C(=O)C2=C(C1=O)N3C[C@H]4[C@@H]([C@@]3([C@H]2COC(=O)N)O)N4C)OC",
-            "compound": "mitomycin B",
-            "database_id": [
-                "npatlas:NPA016541"
-            ]
-        }
-    ],
-    "BD269427.1_cluster1": [
-        {
-            "chem_struct": "CC1=C(C(=O)C2=C(C1=O)N3C[C@H]4[C@@H]([C@@]3([C@H]2COC(=O)N)O)N4C)OC",
-            "compound": "mitomycin B",
-            "database_id": [
-                "npatlas:NPA016541"
-            ]
-        }
-    ],
-    "BD269428.1_cluster1": [
-        {
-            "chem_struct": "CC1=C(C(=O)C2=C(C1=O)N3C[C@H]4[C@@H]([C@@]3([C@H]2COC(=O)N)O)N4C)OC",
-            "compound": "mitomycin B",
-            "database_id": [
-                "npatlas:NPA016541"
-            ]
-        }
-    ],
-    "BD269434.1_cluster1": [
-        {
-            "chem_struct": "CC1=C(C(=O)C2=C(C1=O)N3C[C@H]4[C@@H]([C@@]3([C@H]2COC(=O)N)O)N4C)OC",
-            "compound": "mitomycin B",
-            "database_id": [
-                "npatlas:NPA016541"
-            ]
-        }
-    ],
-    "BD269435.1_cluster1": [
-        {
-            "chem_struct": "CC1=C(C(=O)C2=C(C1=O)N3C[C@H]4[C@@H]([C@@]3([C@H]2COC(=O)N)O)N4C)OC",
-            "compound": "mitomycin B",
-            "database_id": [
-                "npatlas:NPA016541"
-            ]
-        }
-    ],
-    "BD269436.1_cluster1": [
-        {
-            "chem_struct": "CC1=C(C(=O)C2=C(C1=O)N3C[C@H]4[C@@H]([C@@]3([C@H]2COC(=O)N)O)N4C)OC",
-            "compound": "mitomycin B",
-            "database_id": [
-                "npatlas:NPA016541"
-            ]
-        }
-    ],
-    "BD269439.1_cluster1": [
-        {
-            "chem_struct": "CC1=C(C(=O)C2=C(C1=O)N3C[C@H]4[C@@H]([C@@]3([C@H]2COC(=O)N)O)N4C)OC",
-            "compound": "mitomycin B",
-            "database_id": [
-                "npatlas:NPA016541"
-            ]
-        }
-    ],
-    "BD269444.1_cluster1": [
-        {
-            "chem_struct": "CC1=C(C(=O)C2=C(C1=O)N3C[C@H]4[C@@H]([C@@]3([C@H]2COC(=O)N)O)N4C)OC",
-            "compound": "mitomycin B",
-            "database_id": [
-                "npatlas:NPA016541"
-            ]
-        }
-    ],
-    "BD269445.1_cluster1": [
-        {
-            "chem_struct": "CC1=C(C(=O)C2=C(C1=O)N3C[C@H]4[C@@H]([C@@]3([C@H]2COC(=O)N)O)N4C)OC",
-            "compound": "mitomycin B",
-            "database_id": [
-                "npatlas:NPA016541"
-            ]
-        }
-    ],
-    "BD269458.1_cluster1": [
-        {
-            "chem_struct": "CC1=C(C(=O)C2=C(C1=O)N3C[C@H]4[C@@H]([C@@]3([C@H]2COC(=O)N)O)N4C)OC",
-            "compound": "mitomycin B",
-            "database_id": [
-                "npatlas:NPA016541"
-            ]
-        }
-    ],
-    "BD269466.1_cluster1": [
-        {
-            "chem_struct": "CC1=C(C(=O)C2=C(C1=O)N3C[C@H]4[C@@H]([C@@]3([C@H]2COC(=O)N)O)N4C)OC",
-            "compound": "mitomycin B",
-            "database_id": [
-                "npatlas:NPA016541"
-            ]
-        }
-    ],
-    "BK063395.1_cluster1": [
-        {
-            "chem_struct": "COC1=C(C[C@](CC1=O)(CO)O)NC(CO)CO",
-            "compound": "mycosporine",
-            "database_id": [
-                "pubchem:442866"
-            ]
-        }
-    ],
-    "BK063396.1_cluster1": [
-        {
-            "chem_struct": "COC1=C(C[C@](CC1=O)(CO)O)NC(CO)CO",
-            "compound": "mycosporine",
-            "database_id": [
-                "pubchem:442866"
-            ]
-        }
-    ],
-    "BK063397.1_cluster1": [
-        {
-            "chem_struct": "COC1=C(C[C@](CC1=O)(CO)O)NC(CO)CO",
-            "compound": "mycosporine",
-            "database_id": [
-                "pubchem:442866"
-            ]
-        }
-    ],
-    "BK063398.1_cluster1": [
-        {
-            "chem_struct": "COC1=C(C[C@](CC1=O)(CO)O)NC(CO)CO",
-            "compound": "mycosporine",
-            "database_id": [
-                "pubchem:442866"
-            ]
-        }
-    ],
-    "BK063399.1_cluster1": [
-        {
-            "chem_struct": "COC1=C(C[C@](CC1=O)(CO)O)NC(CO)CO",
-            "compound": "mycosporine",
-            "database_id": [
-                "pubchem:442866"
-            ]
-        }
-    ],
-    "BK063400.1_cluster1": [
-        {
-            "chem_struct": "COC1=C(C[C@](CC1=O)(CO)O)NC(CO)CO",
-            "compound": "mycosporine",
-            "database_id": [
-                "pubchem:442866"
-            ]
-        }
-    ],
-    "BK063401.1_cluster1": [
-        {
-            "chem_struct": "COC1=C(C[C@](CC1=O)(CO)O)NC(CO)CO",
-            "compound": "mycosporine",
-            "database_id": [
-                "pubchem:442866"
-            ]
-        }
-    ],
-    "BK063402.1_cluster1": [
-        {
-            "chem_struct": "COC1=C(C[C@](CC1=O)(CO)O)NC(CO)CO",
-            "compound": "mycosporine",
-            "database_id": [
-                "pubchem:442866"
-            ]
-        }
-    ],
     "EF587764.1_cluster1": [
         {
             "chem_struct": "CN1C2=NC(=O)N(C(=O)C2=NC=N1)C",
@@ -494,15 +188,6 @@
             ]
         }
     ],
-    "JF826561.1_cluster1": [
-        {
-            "chem_struct": "CC(C)C1C(=O)N(C(C(=O)OC(C(=O)N(C(C(=O)OC(C(=O)N(C(C(=O)O1)CC2=CC=CC=C2)C)C(C)C)CC3=CC=CC=C3)C)C(C)C)CC4=CC=CC=C4)C",
-            "compound": "beauvericin",
-            "database_id": [
-                "npatlas:NPA001888"
-            ]
-        }
-    ],
     "JN602207.1_cluster1": [
         {
             "chem_struct": "CC1=C(SC=[N+]1CC2=CN=C(N=C2N)C)CCO",
@@ -608,15 +293,6 @@
             "compound": "1-deoxyjirimycin",
             "database_id": [
                 "pubchem:29435"
-            ]
-        }
-    ],
-    "JX421684.1_cluster1": [
-        {
-            "chem_struct": "CCCCC/C=C\\C/C=C\\CCCCCCCC(=O)N[C@H]1C[C@H]([C@H](NC(=O)[C@@H]2[C@H]([C@H](CN2C(=O)[C@@H](NC(=O)[C@@H](NC(=O)[C@@H]3C[C@H](CN3C(=O)[C@@H](NC1=O)[C@@H](C)O)O)[C@@H]([C@H](C4=CC=C(C=C4)O)O)O)[C@@H](C)O)C)O)O)O",
-            "compound": "echinocandin B",
-            "database_id": [
-                "npatlas:NPA020288"
             ]
         }
     ],
@@ -836,15 +512,6 @@
             ]
         }
     ],
-    "KP835202.1_cluster1": [
-        {
-            "chem_struct": "C/C=C(/C)\\[C@@H]1C=C[C@@H]2C[C@@H](C[C@@H]([C@H]2[C@@H]1/C(=C/3\\C(=O)[C@H](NC3=O)C[C@](C)(C(=O)[O-])O)/[O-])C)C",
-            "compound": "sch210972",
-            "database_id": [
-                "pubchem:102515467"
-            ]
-        }
-    ],
     "KP861867.1_cluster1": [
         {
             "chem_struct": "CC1=C(C(=O)NC(=O)N1)/C=C/C(=O)N[C@@H](CO)C[S@@](=O)CSC",
@@ -908,129 +575,12 @@
             ]
         }
     ],
-    "KU572424.1_cluster1": [
-        {
-            "chem_struct": "C[C@@H]1[C@H]2CC[C@@]1([C@]3(CCC(=C[C@H]3O2)C)C)C",
-            "compound": "trichothec-9-ene",
-            "database_id": [
-                "pubchem:21117948"
-            ]
-        }
-    ],
-    "KU572425.1_cluster1": [
-        {
-            "chem_struct": "C[C@@H]1[C@H]2CC[C@@]1([C@]3(CCC(=C[C@H]3O2)C)C)C",
-            "compound": "trichothec-9-ene",
-            "database_id": [
-                "pubchem:21117948"
-            ]
-        }
-    ],
-    "KU572426.1_cluster1": [
-        {
-            "chem_struct": "C[C@@H]1[C@H]2CC[C@@]1([C@]3(CCC(=C[C@H]3O2)C)C)C",
-            "compound": "trichothec-9-ene",
-            "database_id": [
-                "pubchem:21117948"
-            ]
-        }
-    ],
-    "KU572427.1_cluster1": [
-        {
-            "chem_struct": "C[C@@H]1[C@H]2CC[C@@]1([C@]3(CCC(=C[C@H]3O2)C)C)C",
-            "compound": "trichothec-9-ene",
-            "database_id": [
-                "pubchem:21117948"
-            ]
-        }
-    ],
-    "KU572428.1_cluster1": [
-        {
-            "chem_struct": "C[C@@H]1[C@H]2CC[C@@]1([C@]3(CCC(=C[C@H]3O2)C)C)C",
-            "compound": "trichothec-9-ene",
-            "database_id": [
-                "pubchem:21117948"
-            ]
-        }
-    ],
-    "KU572429.1_cluster1": [
-        {
-            "chem_struct": "C[C@@H]1[C@H]2CC[C@@]1([C@]3(CCC(=C[C@H]3O2)C)C)C",
-            "compound": "trichothec-9-ene",
-            "database_id": [
-                "pubchem:21117948"
-            ]
-        }
-    ],
-    "KU572430.1_cluster1": [
-        {
-            "chem_struct": "C[C@@H]1[C@H]2CC[C@@]1([C@]3(CCC(=C[C@H]3O2)C)C)C",
-            "compound": "trichothec-9-ene",
-            "database_id": [
-                "pubchem:21117948"
-            ]
-        }
-    ],
-    "KU572431.1_cluster1": [
-        {
-            "chem_struct": "C[C@@H]1[C@H]2CC[C@@]1([C@]3(CCC(=C[C@H]3O2)C)C)C",
-            "compound": "trichothec-9-ene",
-            "database_id": [
-                "pubchem:21117948"
-            ]
-        }
-    ],
-    "KU572432.1_cluster1": [
-        {
-            "chem_struct": "C[C@@H]1[C@H]2CC[C@@]1([C@]3(CCC(=C[C@H]3O2)C)C)C",
-            "compound": "trichothec-9-ene",
-            "database_id": [
-                "pubchem:21117948"
-            ]
-        }
-    ],
-    "KU572433.1_cluster1": [
-        {
-            "chem_struct": "C[C@@H]1[C@H]2CC[C@@]1([C@]3(CCC(=C[C@H]3O2)C)C)C",
-            "compound": "trichothec-9-ene",
-            "database_id": [
-                "pubchem:21117948"
-            ]
-        }
-    ],
-    "KU572434.1_cluster1": [
-        {
-            "chem_struct": "C[C@@H]1[C@H]2CC[C@@]1([C@]3(CCC(=C[C@H]3O2)C)C)C",
-            "compound": "trichothec-9-ene",
-            "database_id": [
-                "pubchem:21117948"
-            ]
-        }
-    ],
     "KU753007.1_cluster1": [
         {
             "chem_struct": "CCC(=O)NC1=C2C(=CSS2)N(C1=O)C",
             "compound": "aureothricin",
             "database_id": [
                 "npatlas:NPA015053"
-            ]
-        }
-    ],
-    "KX267736.1_cluster1": [
-        {
-            "chem_struct": "CCOC(=O)[C@H](CC1=CC=CC=C1)NC(=O)C2=CC(=C3CC(OC(=O)C3=C2O)C)Cl",
-            "compound": "ochratoxin C",
-            "database_id": [
-                "npatlas:NPA007448"
-            ]
-        }
-    ],
-    "KX267737.1_cluster1": [
-        {
-            "chem_struct": "CCOC(=O)[C@H](CC1=CC=CC=C1)NC(=O)C2=CC(=C3CC(OC(=O)C3=C2O)C)Cl",
-            "compound": "ochratoxin C",
-            "database_id": [
-                "npatlas:NPA007448"
             ]
         }
     ],
@@ -1076,51 +626,6 @@
             "compound": "Amipurimycin",
             "database_id": [
                 "npatlas:NPA021133"
-            ]
-        }
-    ],
-    "LC390205.1_cluster1": [
-        {
-            "chem_struct": "CC12[C@H](CC[C@@]3([C@@H]1[C@@H]([C@]45[C@H]3CC[C@H](C4)C(=C)C5)C(=O)O)OC2=O)O",
-            "compound": "gibberellin A4",
-            "database_id": [
-                "npatlas:NPA001469"
-            ]
-        }
-    ],
-    "LC390342.1_cluster1": [
-        {
-            "chem_struct": "CC12[C@H](CC[C@@]3([C@@H]1[C@@H]([C@]45[C@H]3CC[C@H](C4)C(=C)C5)C(=O)O)OC2=O)O",
-            "compound": "gibberellin A4",
-            "database_id": [
-                "npatlas:NPA001469"
-            ]
-        }
-    ],
-    "LC486409.1_cluster1": [
-        {
-            "chem_struct": "C/C=C/C1=CC(=O)C[C@@H]1O",
-            "compound": "cyclohelminthol I",
-            "database_id": [
-                "npatlas:NPA004884"
-            ]
-        }
-    ],
-    "LC486410.1_cluster1": [
-        {
-            "chem_struct": "C/C=C(\\C1=C(C(=O)[C@H]([C@]1(C(=O)OC)O)Cl)Cl)/Cl",
-            "compound": "palmaenone B",
-            "database_id": [
-                "npatlas:NPA011098"
-            ]
-        }
-    ],
-    "LC486411.1_cluster1": [
-        {
-            "chem_struct": "C/C=C(\\C1=C(C(=O)[C@H]([C@]1(C(=O)OC)O)Cl)Cl)/Cl",
-            "compound": "palmaenone B",
-            "database_id": [
-                "npatlas:NPA011098"
             ]
         }
     ],
@@ -1322,15 +827,6 @@
             ]
         }
     ],
-    "MK044769.1_cluster1": [
-        {
-            "chem_struct": "C[C@H]1[C@@H]2CC[C@]3([C@H]([C@]2(CC[C@H]1O)C)[C@@H](C[C@@H]\\4[C@@]3(C[C@@H](/C4=C(/CCC=C(C)C)\\C(=O)O)OC(=O)C)C)O)C",
-            "compound": "fusidic acid",
-            "database_id": [
-                "pubchem:3000226"
-            ]
-        }
-    ],
     "MK061747.1_cluster1": [
         {
             "chem_struct": "CC1=C(C=C(C2=C1OC3=CC=CC=C3C(=O)N2)C(=O)N)Cl",
@@ -1529,15 +1025,6 @@
             ]
         }
     ],
-    "MT109336.1_cluster1": [
-        {
-            "chem_struct": "CC(=CCC/C(=C/CCC(=C)C#CC1=C[C@H]([C@H]([C@@H]([C@@H]1O)O)O)O)/C)C",
-            "compound": "pestynol",
-            "database_id": [
-                "npatlas:NPA022734"
-            ]
-        }
-    ],
     "MT247069.1_cluster1": [
         {
             "chem_struct": "C[C@H]1[C@@H]([C@H]([C@H]([C@@H](O1)O[C@H]2C[C@@]3([C@H](CC[C@@]4([C@@H]3CC=C([C@@H]4CC[C@@H](C(=O)O)N)C)C)C([C@@H]2O)(C)C)C)O)O[C@H]5[C@@H]([C@H]([C@@H]([C@H](O5)CO)O)O)NC(=O)C)OC(=O)C6=CC(=CC=C6)O",
@@ -1637,42 +1124,6 @@
             ]
         }
     ],
-    "MW526247.1_cluster1": [
-        {
-            "chem_struct": "CCOC(=O)[C@H](CC1=CC=CC=C1)NC(=O)C2=CC(=C3CC(OC(=O)C3=C2O)C)Cl",
-            "compound": "ochratoxin C",
-            "database_id": [
-                "npatlas:NPA007448"
-            ]
-        }
-    ],
-    "MW526248.1_cluster1": [
-        {
-            "chem_struct": "CCOC(=O)[C@H](CC1=CC=CC=C1)NC(=O)C2=CC(=C3CC(OC(=O)C3=C2O)C)Cl",
-            "compound": "ochratoxin C",
-            "database_id": [
-                "npatlas:NPA007448"
-            ]
-        }
-    ],
-    "MW526249.1_cluster1": [
-        {
-            "chem_struct": "CCOC(=O)[C@H](CC1=CC=CC=C1)NC(=O)C2=CC(=C3CC(OC(=O)C3=C2O)C)Cl",
-            "compound": "ochratoxin C",
-            "database_id": [
-                "npatlas:NPA007448"
-            ]
-        }
-    ],
-    "MW526250.1_cluster1": [
-        {
-            "chem_struct": "CCOC(=O)[C@H](CC1=CC=CC=C1)NC(=O)C2=CC(=C3CC(OC(=O)C3=C2O)C)Cl",
-            "compound": "ochratoxin C",
-            "database_id": [
-                "npatlas:NPA007448"
-            ]
-        }
-    ],
     "MW544165.1_cluster1": [
         {
             "chem_struct": "CC(C)C/C=C/C=C\\C1=CC=CC=C1/C=C/C(=O)N[C@H](C)C(=O)N[C@@H]1COC(=O)[C@H]([C@H](C)C(=O)O)NC(=O)[C@H](CNC(=O)[C@@H](N)C(C)C)NC(=O)[C@H](C(C)C)NC(=O)[C@@H](CC(C)C)NC1=O",
@@ -1763,30 +1214,12 @@
             ]
         }
     ],
-    "MZ437983.1_cluster1": [
-        {
-            "chem_struct": "C[C@H]1CC[C@H]2[C@H](C[C@H]3C2=C(C(=O)O3)[C@@]4([C@@H]1C[C@]5([C@@H](C[C@@H]([C@@H]5C4)C(C)C)O)C)O)C",
-            "compound": "sesteralterin",
-            "database_id": [
-                "npatlas:NPA022439"
-            ]
-        }
-    ],
     "MZ566864.1_cluster1": [
         {
             "chem_struct": "C[C@@H]1[C@H](C(=O)NC(C(=O)N[C@@H](C(=O)N[C@@H](C(=O)N[C@@H](C(=O)O1)C2=CC(=CC(=C2)O)O)C3=CC(=CC(=C3)O)O)C)CC4=CC=CC=C4)NC(=O)[C@H](CC5=CC=CC=C5)NC(=O)C6=CC=CN6",
             "compound": "cochinmicin I",
             "database_id": [
                 "npatlas:NPA003388"
-            ]
-        }
-    ],
-    "MZ848195.1_cluster1": [
-        {
-            "chem_struct": "C[C@]12CCCC([C@@H]1CC[C@@]3([C@@H]2CC4=CNC5=C4C3=CC(=O)C5=O)C)(C)C",
-            "compound": "mycoleptodiscin A",
-            "database_id": [
-                "npatlas:NPA000643"
             ]
         }
     ],
@@ -1799,48 +1232,12 @@
             ]
         }
     ],
-    "MZ968822.1_cluster1": [
-        {
-            "chem_struct": "CC1=CC(=C2C(=C1OC)C[C@@H]3[C@@]2(CC[C@H]4[C@@]3(CC[C@@H]5[C@]4(CC[C@@H](C5(C)C)O)C)C)C)O",
-            "compound": "flabellinol",
-            "database_id": [
-                "pubchem:11304872"
-            ]
-        }
-    ],
-    "OK169903.1_cluster1": [
-        {
-            "chem_struct": "C[C@H](/C=C/C=C(/C)\\[C@H]1CN[C@@H]([C@H]1CC(=O)O)C(=O)O)C(=O)O",
-            "compound": "domoic acid",
-            "database_id": [
-                "pubchem:5282253"
-            ]
-        }
-    ],
-    "OK169904.1_cluster1": [
-        {
-            "chem_struct": "C[C@H](/C=C/C=C(/C)\\[C@H]1CN[C@@H]([C@H]1CC(=O)O)C(=O)O)C(=O)O",
-            "compound": "domoic acid",
-            "database_id": [
-                "pubchem:5282253"
-            ]
-        }
-    ],
     "OL452061.1_cluster1": [
         {
             "chem_struct": "CC1=C[C@@H]2[C@@H](CC[C@H]([C@H]2O)O)[C@@]([C@@H]1CCC(C)C(/C(=C/CC(/C=C/C(C)C(/C=C/CC(/C(=C/CC(CC3CCCN3C(=N)N)O)/C)O)O)O)/C)O)(C)C(=C4C(=O)CNC4=O)O",
             "compound": "lydicamycin",
             "database_id": [
                 "npatlas:NPA020675"
-            ]
-        }
-    ],
-    "OL537176.1_cluster1": [
-        {
-            "chem_struct": "C/C=C/C1=C(C(=O)C2=C(O1)[C@H](NC2=O)O)O",
-            "compound": "pyranonigrin A",
-            "database_id": [
-                "npatlas:NPA012801"
             ]
         }
     ],
@@ -1868,15 +1265,6 @@
             "compound": "lavanduquinocin",
             "database_id": [
                 "npatlas:NPA014336"
-            ]
-        }
-    ],
-    "OM976642.1_cluster1": [
-        {
-            "chem_struct": "CC1=C[C@@H]2[C@](CC[C@H]3[C@@]24CC[C@@H](C3(C)C)OC4=O)([C@]5([C@@]1(C(=O)[C@@](C5=O)(C)O)C)C(=O)OC)C",
-            "compound": "atlantinone B",
-            "database_id": [
-                "npatlas:NPA012714"
             ]
         }
     ],
@@ -1934,39 +1322,12 @@
             ]
         }
     ],
-    "OP171903.1_cluster1": [
-        {
-            "chem_struct": "C=CC(C)(C)C1=C(C=C2NC(=O)[C@@]34[C@@H](CCN3C2=O)[C@@H]2CCN3C(=O)/C(=C/C5=C(C(C)(C)C=C)[NH]C6=CC=CC=C56)NC(=O)[C@@]234)C2=CC=CC=C2[NH]1",
-            "compound": "(+)-asperginulin A",
-            "database_id": [
-                "npatlas:NPA026865"
-            ]
-        }
-    ],
-    "OP253974.1_cluster1": [
-        {
-            "chem_struct": "CC1=C(C2=C(C(=C1Cl)O)C(=O)C3=C(CO2)C(=CC(=C3CC=C(C)C)O)O)Cl",
-            "compound": "pestalachloride B",
-            "database_id": [
-                "npatlas:NPA003538"
-            ]
-        }
-    ],
     "OP297967.1_cluster1": [
         {
             "chem_struct": "C[C@@]1(CC[C@H]2C(=C1)CC[C@@H]3[C@@]2(CCCC3(C)C)C)C=C",
             "compound": "sandaracopimaradiene",
             "database_id": [
                 "pubchem:443469"
-            ]
-        }
-    ],
-    "OP651004.1_cluster1": [
-        {
-            "chem_struct": "C[C@@H](C1=NC2=CC=CC=C2C(=O)N1)O",
-            "compound": "chrysogine",
-            "database_id": [
-                "npatlas:NPA009507"
             ]
         }
     ],
@@ -1997,75 +1358,12 @@
             ]
         }
     ],
-    "OQ547787.1_cluster1": [
-        {
-            "chem_struct": "COC1=C(C[C@](CC1=O)(CO)O)NC(CO)CO",
-            "compound": "mycosporine",
-            "database_id": [
-                "pubchem:442866"
-            ]
-        }
-    ],
-    "OQ547788.1_cluster1": [
-        {
-            "chem_struct": "COC1=C(C[C@](CC1=O)(CO)O)NC(CO)CO",
-            "compound": "mycosporine",
-            "database_id": [
-                "pubchem:442866"
-            ]
-        }
-    ],
-    "OQ547789.1_cluster1": [
-        {
-            "chem_struct": "COC1=C(C[C@](CC1=O)(CO)O)NC(CO)CO",
-            "compound": "mycosporine",
-            "database_id": [
-                "pubchem:442866"
-            ]
-        }
-    ],
-    "OQ547790.1_cluster1": [
-        {
-            "chem_struct": "COC1=C(C[C@](CC1=O)(CO)O)NC(CO)CO",
-            "compound": "mycosporine",
-            "database_id": [
-                "pubchem:442866"
-            ]
-        }
-    ],
-    "OQ547791.1_cluster1": [
-        {
-            "chem_struct": "COC1=C(C[C@](CC1=O)(CO)O)NC(CO)CO",
-            "compound": "mycosporine",
-            "database_id": [
-                "pubchem:442866"
-            ]
-        }
-    ],
-    "OQ547792.1_cluster1": [
-        {
-            "chem_struct": "COC1=C(C[C@](CC1=O)(CO)O)NC(CO)CO",
-            "compound": "mycosporine",
-            "database_id": [
-                "pubchem:442866"
-            ]
-        }
-    ],
     "OQ633075.1_cluster1": [
         {
             "chem_struct": "CCCC1C2=C(C3=C(C=C2C=C(O1)C)C(=O)C=C(C3=O)[C@@H]4OC[C@H]([C@@H](O4)CO)O)O",
             "compound": "alnumycin",
             "database_id": [
                 "pubchem:10502019"
-            ]
-        }
-    ],
-    "OQ787034.1_cluster1": [
-        {
-            "chem_struct": "CCC(C)[C@@H]1NC(=O)CNC(=O)[C@H](CC2=CC=CC=C2)N(C)C(=O)[C@H](C(C)C)NC(=O)[C@H](C(C)O)N(C)C(=O)[C@H](CC(C)C)NC(=O)CNC(=O)[C@H](C(C)C)N(C)C(=O)[C@H](C(C)C)NC(=O)[C@H](CO)NC1=O",
-            "compound": "auyuittuqamide A",
-            "database_id": [
-                "npatlas:NPA033284"
             ]
         }
     ],
@@ -2117,15 +1415,6 @@
             "compound": "octacosamicin A",
             "database_id": [
                 "pubchem:6444219"
-            ]
-        }
-    ],
-    "OR485311.1_cluster1": [
-        {
-            "chem_struct": "CC[C@](C)(C(=O)NCC(=O)NC(CC(C)C)C(=O)N(C)C(C)C(=O)N(C)CC(=O)N1C[C@H](CC1C(=O)NC(CCC(=O)N)C(=O)N[C@](C)(CC)C(=O)N2C[C@H](CC2C(=O)N(C)C(C)C(=O)N3CCCC3C(=O)N[C@@H](CC4=CC=CC=C4)CO)O)O)NC(=O)CN(C)C(=O)C(C)N(C)C(=O)C(C)N(C)C(=O)C(CC5=CC=CC=C5)NC(=O)C",
-            "compound": "antiamoebin",
-            "database_id": [
-                "pubchem:16132282"
             ]
         }
     ]
