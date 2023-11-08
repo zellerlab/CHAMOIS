@@ -145,6 +145,13 @@ with tempfile.TemporaryDirectory() as dst:
     hits["query_index"] = hits["query_cluster"].map(query_indices.__getitem__)
     hits["target_index"] = hits["target_cluster"].map(target_indices.__getitem__)
 
+# only keep one hit per query protein per target cluster
+hits = (
+    hits
+        .sort_values(["query_protein", "bitscore"])
+        .drop_duplicates(["query_protein", "target_cluster"], keep="last")
+)
+
 # compute identity
 identity = numpy.zeros((len(query_records), len(target_records)), dtype=numpy.float_)
 for row in hits.itertuples():
@@ -157,7 +164,6 @@ for i, query_id in enumerate(query_ids):
         for protein in query_genes 
         if protein.cluster.id == query_id
     )
-    print(query_id, query_length)
     identity[i] /= query_length
 
 # make distances symmetric
