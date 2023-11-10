@@ -11,9 +11,9 @@
     "AB643578.1_cluster1": [
         {
             "chem_struct": "C1CCNC(=O)CCC(=O)N(CCCCCNC(=O)CCC(=O)N(CC1)O)O",
-            "compound": "Bisucaberin",
+            "compound": "bisucaberin B",
             "database_id": [
-                "npatlas:NPA019381"
+                "npatlas:NPA013972"
             ]
         }
     ],
@@ -254,7 +254,7 @@
     "KJ645792.1_cluster1": [
         {
             "chem_struct": "C[C@H]1[C@H](CC[C@@H](O1)O[C@@H]2C[C@@H](O[C@@H]([C@H]2O)C)O[C@@H]3[C@H](O[C@H](C[C@H]3O)OC4=C5C(=C(C=C4)O)C(=O)C6=C(C5=O)[C@@H](CC7=C6C(=CC(=C7)C)O)O)C)O",
-            "compound": "Landomycin E",
+            "compound": "landomycin E",
             "database_id": [
                 "pubchem:53297398"
             ]
@@ -398,7 +398,7 @@
     "LC389220.1_cluster1": [
         {
             "chem_struct": "C1C[C@H]([C@H](C1)N)C(=O)N[C@H]([C@H]2C[C@]([C@@H]([C@@H](O2)N3C=NC4=CN=C(N=C43)N)O)([C@H](CO)O)O)C(=O)O",
-            "compound": "Amipurimycin",
+            "compound": "amipurimycin",
             "database_id": [
                 "npatlas:NPA021133"
             ]
@@ -407,7 +407,7 @@
     "LC659998.1_cluster1": [
         {
             "chem_struct": "CC1=C(CCC(C1)(C)C)CC2=CC3=C(C=C2)NC4=C3C(=O)C(=O)C(=C4C[C@@H](C)O)C",
-            "compound": "Lavanduquinocin",
+            "compound": "lavanduquinocin",
             "database_id": [
                 "npatlas:NPA014336"
             ]
@@ -461,7 +461,7 @@
     "MH015023.1_cluster1": [
         {
             "chem_struct": "CC(=O)N(CCCC[C@@H](C(=O)O)NC(=O)CC(CC(=O)N[C@@H](CCCCN(C(=O)C)O)C(=O)O)(C(=O)O)O)O",
-            "compound": "Aerobactin",
+            "compound": "aerobactin",
             "database_id": [
                 "npatlas:NPA024863"
             ]
@@ -560,7 +560,7 @@
     "MH493900.1_cluster1": [
         {
             "chem_struct": "NC(=O)C1=C(O)C([C@@H]2O[C@H](CO)[C@@H](O)[C@H]2O)=N[NH]1",
-            "compound": "Pyrazofurin",
+            "compound": "pyrazofurin",
             "database_id": [
                 "npatlas:NPA033439"
             ]
@@ -587,7 +587,7 @@
     "MK251551.1_cluster1": [
         {
             "chem_struct": "CC1CC(=O)C(CC2=CC=CC=C2)NC(=O)C2NC(=O)C(CC3=CC=CC=C3)NC(=O)C3CCCN3C(=O)CNC(=O)C(C)NC(=O)C3CNCCCCC(C(=O)O)NC(=O)C4NC(=O)C(CO)NC(=O)CNC(=O)C(C(O)C(=O)O)NC(=O)C(CSC(C)C(NC(=O)C(CO)NC(=O)C(C)NC(=O)C(N)CSC4C)C(=O)NC(CSC2C)C(=O)N3)NC1=O",
-            "compound": "Kyamicin",
+            "compound": "kyamicin",
             "database_id": [
                 "npatlas:NPA033500"
             ]

@@ -151,3 +151,8 @@ $(DATA)/datasets/abc/clusters.gbk: $(BUILD)/abc/clusters.json
 $(DATA)/datasets/abc/compounds.json: $(BUILD)/abc/clusters.json $(ATLAS)
 	mkdir -p build/cache/abc_compounds
 	$(PYTHON) $(SCRIPTS)/abc/download_compounds.py --input $< --output $@ --atlas $(ATLAS) --cache $(BUILD)
+
+# --- Download GenBank data ------------------------------------------------------
+
+$(DATA)/datasets/nuccore/clusters.gbk: $(DATA)/datasets/nuccore/compounds.json
+	$(PYTHON) $(SCRIPTS)/nuccore/download_clusters.py --compounds $< --clusters $@
