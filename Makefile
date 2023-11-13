@@ -156,3 +156,6 @@ $(DATA)/datasets/abc/compounds.json: $(BUILD)/abc/clusters.json $(ATLAS)
 
 $(DATA)/datasets/nuccore/clusters.gbk: $(DATA)/datasets/nuccore/compounds.json
 	$(PYTHON) $(SCRIPTS)/nuccore/download_clusters.py --compounds $< --clusters $@
+
+$(DATA)/datasets/nuccore-lite/clusters.gbk: $(DATA)/datasets/nuccore-lite/compounds.json $(DATA)/datasets/nuccore-lite/coordinates.tsv
+	$(PYTHON) $(SCRIPTS)/nuccore/download_clusters.py --compounds $< --clusters $@ --coordinates $(word 2,$^)

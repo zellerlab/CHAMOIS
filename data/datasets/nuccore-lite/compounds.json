@@ -1,0 +1,254 @@
+{
+    "AB746937.1_cluster1": [
+        {
+            "chem_struct": "CCCCCCCCCCCC(CC(=O)OC1CN(C(C(=O)N(C1C(=O)O)C)C([C@@H]2[C@H](C[C@@H](O2)N3C=CC(=O)NC3=O)O)O[C@H]4C[C@@H]([C@H](O4)CN)O)C)OC(=O)CC(C)CC(=O)O[C@H]5[C@@H]([C@@H]([C@H]([C@@H](O5)C)OC)OC(=O)CCC(=O)O)OC",
+            "compound": "muraminomicin H",
+            "database_id": [
+                "npatlas:NPA024942"
+            ]
+        }
+    ],
+    "HE648922.1_cluster1": [
+        {
+            "chem_struct": "C(C(C(C(=O)O)N)O)Cl",
+            "compound": "4-chlorothreonine",
+            "database_id": [
+                "npatlas:NPA014892"
+            ]
+        }
+    ],
+    "HM594285.1_cluster1": [
+        {
+            "chem_struct": "C1=CC=C2C(=C1)N=C3C=CC(=CC3=N2)O",
+            "compound": "2-hydroxyphenazine",
+            "database_id": [
+                "pubchem:135441800"
+            ]
+        }
+    ],
+    "HQ202571.1_cluster1": [
+        {
+            "chem_struct": "C(C[C@@H](C(=O)O)N)CN=C(N)N",
+            "compound": "L-arginine",
+            "database_id": [
+                "pubchem:6322"
+            ]
+        }
+    ],
+    "JN602207.1_cluster1": [
+        {
+            "chem_struct": "CC1=C(SC=[N+]1CC2=CN=C(N=C2N)C)CCO",
+            "compound": "thiamine",
+            "database_id": [
+                "pubchem:1130"
+            ]
+        }
+    ],
+    "JN602209.1_cluster1": [
+        {
+            "chem_struct": "C1=C(NC2=C(N1)N=C(NC2=O)N)/C(=C(/C(COP(=O)(O)O)O)\\S)/S",
+            "compound": "molybdopterin",
+            "database_id": [
+                "npatlas:NPA015518"
+            ]
+        }
+    ],
+    "JQ771052.1_cluster1": [
+        {
+            "chem_struct": "CC[C@@H]1C[C@H]2[C@H](CCC2=O)C(=C1)C(=O)O",
+            "compound": "Coronafacic acid",
+            "database_id": [
+                "npatlas:NPA013714"
+            ]
+        }
+    ],
+    "JX174443.1_cluster1": [
+        {
+            "chem_struct": "C1[C@@H]([C@H]([C@@H]([C@H](N1)CO)O)O)O",
+            "compound": "1-deoxyjirimycin",
+            "database_id": [
+                "pubchem:29435"
+            ]
+        }
+    ],
+    "KC188778.1_cluster1": [
+        {
+            "chem_struct": "CC(C(C(=O)N/C=C/1\\C[C@H]([C@@H](O1)N2C=CC(=O)NC2=O)O)NC(=O)C(CCSC)NC(=O)NC(CC3=CNC4=CC=CC=C43)C(=O)O)N(C)C(=O)C(CC5=CC(=CC=C5)O)N",
+            "compound": "sansanmycin",
+            "database_id": [
+                "npatlas:NPA001954"
+            ]
+        }
+    ],
+    "KC915040.1_cluster1": [
+        {
+            "chem_struct": "C[C@@H]([C@@H]([C@H](CC1=CC=CC=C1)NC(=O)[C@@H]2CCCNN2C(=O)[C@@H]([C@@H](C(C)C)O)NC(=O)COC)O)C(=O)N[C@H]3CCC(=O)NC3=O",
+            "compound": "padanamide B",
+            "database_id": [
+                "npatlas:NPA020068"
+            ]
+        }
+    ],
+    "KJ659887.1_cluster1": [
+        {
+            "chem_struct": "CCCCCCC/C=C/C(=O)N1[C@@H](C(=C(C1=O)C(=O)C)O)CC(C)C",
+            "compound": "reutericyclin",
+            "database_id": [
+                "pubchem:54684555"
+            ]
+        }
+    ],
+    "KM264312.1_cluster1": [
+        {
+            "chem_struct": "COC1CC(OC2CC(OC3C(O)CC(OC4CC(C5=C(O)C6=C(C=C5)C(=O)C5=C(C6=O)[C@@H](O)[C@H](OC(C)=O)[C@@]6(O)CC(C)=C[C@@H](OC7CC(OC)C(O)C(C)O7)[C@@]56O)OC(C)C4O)OC3C)OC(C)C2O)OC(C)C1O",
+            "compound": "chattamycin B",
+            "database_id": [
+                "npatlas:NPA013453"
+            ]
+        }
+    ],
+    "KP026916.1_cluster1": [
+        {
+            "chem_struct": "C[C@@H](C(=O)N[C@@H](C)C(=O)O)NC(=O)[C@H](CCP(=O)(C)O)N",
+            "compound": "bialaphos",
+            "database_id": [
+                "pubchem:5462314"
+            ]
+        }
+    ],
+    "KP761740.1_cluster1": [
+        {
+            "chem_struct": "CC/C=C/C=C/CC/C=C/C=C/C=C/CC1C(C(=O)NC2CC(=O)OC2C(C(=O)NCC(=O)NCC(=O)N1)O)O",
+            "compound": "anabaenolysin A",
+            "database_id": [
+                "pubchem:146683737"
+            ]
+        }
+    ],
+    "KP861867.1_cluster1": [
+        {
+            "chem_struct": "CC1=C(C(=O)NC(=O)N1)/C=C/C(=O)N[C@@H](CO)C[S@@](=O)CSC",
+            "compound": "sparsomycin",
+            "database_id": [
+                "npatlas:NPA014239"
+            ]
+        }
+    ],
+    "KU753007.1_cluster1": [
+        {
+            "chem_struct": "CCC(=O)NC1=C2C(=CSS2)N(C1=O)C",
+            "compound": "aureothricin",
+            "database_id": [
+                "npatlas:NPA015053"
+            ]
+        }
+    ],
+    "LC035135.1_cluster1": [
+        {
+            "chem_struct": "CCC1=C(C=C(C=C1O)[C@@H](C(=O)NCC(=O)O)N=C(N)N)O",
+            "compound": "resorcinomycin B",
+            "database_id": [
+                "npatlas:NPA020750"
+            ]
+        }
+    ],
+    "LC659998.1_cluster1": [
+        {
+            "chem_struct": "CC1=C(CCC(C1)(C)C)CC2=CC3=C(C=C2)NC4=C3C(=O)C(=O)C(=C4C[C@@H](C)O)C",
+            "compound": "lavanduquinocin",
+            "database_id": [
+                "npatlas:NPA014336"
+            ]
+        }
+    ],
+    "MT017918.1_cluster1": [
+        {
+            "chem_struct": "CC(C)(CCCCCCC([C@@H]1[C@@H](COC1=O)CO)O)O",
+            "compound": "gamma-butyrolactone",
+            "database_id": [
+                "npatlas:NPA013757"
+            ]
+        }
+    ],
+    "MZ209415.1_cluster1": [
+        {
+            "chem_struct": "C/C=C/[C@H](O)[C@H](O)C1=CC=CC=C1/C=C/C(=O)N[C@@H]1C(=O)N[C@@H](CO)C(=O)N[C@H](CC(C)C)C(=O)N[C@@H]([C@H](O)C2=CC=CC=C2)C(=O)N[C@@H](CO)C(=O)N[C@H]([C@@H](C)O)C(=O)N[C@H](CO)C(=O)N[C@H](C2=CC=C(O)C=C2)C(=O)N[C@@H](C(C)C)C(=O)N[C@H](CC(C)C)C(=O)O[C@H]1C",
+            "compound": "atrovimycin",
+            "database_id": [
+                "npatlas:NPA026766"
+            ]
+        }
+    ],
+    "MZ913435.1_cluster1": [
+        {
+            "chem_struct": "CC(=CC[C@@]12C[C@H]3C(=O)N4[C@@H](C[C@]5([C@@H]4NC6=CC=CC=C65)C)C(=O)N3[C@@H]1N(C7=CC=CC=C27)C)C",
+            "compound": "nocardioazine B",
+            "database_id": [
+                "npatlas:NPA019282"
+            ]
+        }
+    ],
+    "OM622254.1_cluster1": [
+        {
+            "chem_struct": "COC1=CC(=C2C(=C1)OC(=C)C(=O)N2)C(=O)O",
+            "compound": "benzoxazolinate",
+            "database_id": [
+                "pubchem:5281925"
+            ]
+        }
+    ],
+    "OM802155.1_cluster1": [
+        {
+            "chem_struct": "COC1=C2C(=CC3=CC(=C(C(=C31)OC)C(=O)/C=C(/C4=CC=CC=C4O)\\O)CC(=O)O)C=C5C=C(OC(=O)C5=C2O)C(=O)OC",
+            "compound": "thermorubin",
+            "database_id": [
+                "pubchem:5458199"
+            ]
+        }
+    ],
+    "ON399210.1_cluster1": [
+        {
+            "chem_struct": "CC1=CC2=CC3=C(C4=C(C5=C(C6=C4C(C3)OCO6)C(=O)C7=C(O5)C(CCC7O)OC)O)C(=C2C(=O)N1N)O",
+            "compound": "albofungin",
+            "database_id": [
+                "npatlas:NPA010916"
+            ]
+        }
+    ],
+    "ON960037.1_cluster1": [
+        {
+            "chem_struct": "CCCCC/C=C/C=C/C(=O)O[C@@H]1[C@H](O[C@H](C[C@H]1O)C2=C(C3=C(C=C2)C(=O)C4=C(C3=O)C(=CC5=CC(=CC(=C54)O)C)O)O)C",
+            "compound": "balmoralmycin",
+            "database_id": [
+                "npatlas:NPA001437"
+            ]
+        }
+    ],
+    "ON993775.1_cluster1": [
+        {
+            "chem_struct": "C/C=C(\\C)/C1=CC(=O)C2=C(C=C3C(=C2O1)C(=O)C4=C(C3=O)C(=CC(=C4O)C5C[C@]([C@@H]([C@@H](O5)C)O)(C)N(C)C)C6C[C@H]([C@@H]([C@H](O6)C)O)N(C)C)C",
+            "compound": "kidamycin",
+            "database_id": [
+                "npatlas:NPA007362"
+            ]
+        }
+    ],
+    "OP297967.1_cluster1": [
+        {
+            "chem_struct": "C[C@@]1(CC[C@H]2C(=C1)CC[C@@H]3[C@@]2(CCCC3(C)C)C)C=C",
+            "compound": "sandaracopimaradiene",
+            "database_id": [
+                "pubchem:443469"
+            ]
+        }
+    ],
+    "VILE02000015.1_cluster1": [
+        {
+            "chem_struct": "CC(=O)NC1CCC(=C[C@@H](C(=O)O)NC(=O)[C@H](/C=C/2\\CC[C@H](C=C2)N)NC(=O)C)CC1",
+            "compound": "radiosumin",
+            "database_id": [
+                "pubchem:10812638"
+            ]
+        }
+    ]
+}
