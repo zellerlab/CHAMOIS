@@ -8,6 +8,22 @@
             ]
         }
     ],
+    "BK059219.1_cluster1": [
+        {
+            "chem_struct": "CC(C)[C@]\\1([C@H](C(=O)O/C1=C\\C2=CC=C(C=C2)OC)CC3=CC4=C(C(=C3)Cl)OCO4)O",
+            "compound": "cyanobacterin",
+            "database_id": [
+                "pubchem:6437843"
+            ]
+        }
+    ],
+    "CP001510.1_cluster1": [
+        {
+            "chem_struct": "C(CN(C(=O)C)CCCNC(=O)C1=CC=C(O)C=C1)CCNC(=O)CC(O)(C(O)=O)CC(=O)NCCCCN(C(=O)C)CCCNC(=O)C1=CC=C(O)C=C1",
+            "compound": "methylolanthanin",
+            "database_id": []
+        }
+    ],
     "HE648922.1_cluster1": [
         {
             "chem_struct": "C(C(C(C(=O)O)N)O)Cl",
@@ -50,15 +66,6 @@
             "compound": "molybdopterin",
             "database_id": [
                 "npatlas:NPA015518"
-            ]
-        }
-    ],
-    "JQ771052.1_cluster1": [
-        {
-            "chem_struct": "CC[C@@H]1C[C@H]2[C@H](CCC2=O)C(=C1)C(=O)O",
-            "compound": "Coronafacic acid",
-            "database_id": [
-                "npatlas:NPA013714"
             ]
         }
     ],
@@ -233,6 +240,12 @@
             ]
         }
     ],
+    "OP035811.1_cluster1": [
+        {
+            "chem_struct": "C12=C(Cl)C(C=C)=CC=C1C(O)C(OC1OC(C)C(NC)C(O)(C)C1O)1C2=CC2C1OC(=O)O2",
+            "compound": "jejucarboside A"
+        }
+    ],
     "OP297967.1_cluster1": [
         {
             "chem_struct": "C[C@@]1(CC[C@H]2C(=C1)CC[C@@H]3[C@@]2(CCCC3(C)C)C)C=C",
@@ -240,6 +253,22 @@
             "database_id": [
                 "pubchem:443469"
             ]
+        }
+    ],
+    "OR074026.1_cluster1": [
+        {
+            "chem_struct": "CCC(C)C(C(=O)NC1C(OC(=O)C2CCCNN2C(=O)C(NC(=O)C3CCCNN3C(=O)C(NC(=O)C(NC1=O)CC(C)C)C(C)C)CC(C)C)C)NC=O",
+            "compound": "depsidomycin",
+            "database_id": [
+                "npatlas:NPA020689"
+            ]
+        }
+    ],
+    "OR335751.1_cluster1": [
+        {
+            "chem_struct": "C1=CC(C(=O)NCC(=O)NCC(N[C@](C(N[C@](CO)(C(=O)N[C@@](CCCN(C(CCCCCCC(C)C)=O)O)(C(=O)N[C@]([H])2CCCN(O)C2=O)[H])[H])=O)(CO)[H])=O)=C(O)C(O)=C1Cl",
+            "compound": "nobachelin B",
+            "database_id": []
         }
     ],
     "VILE02000015.1_cluster1": [
