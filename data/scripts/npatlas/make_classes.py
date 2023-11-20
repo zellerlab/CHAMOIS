@@ -13,6 +13,8 @@ import scipy.sparse
 
 try:
     from isal import igzip as gzip
+except ImportError:
+    import gzip
 
 # get paths from command line
 parser = argparse.ArgumentParser()

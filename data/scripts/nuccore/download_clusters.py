@@ -55,7 +55,7 @@ with open(args.clusters, "w") as dst:
                 for row in coordinates[coordinates.sequence_id == record.id].itertuples():
                     bgc_record = record[ row.start:row.end ]
                     bgc_record.annotations = record.annotations.copy()
-                    bgc_record.id = row.bgc_id
+                    bgc_record.id = bgc_record.name = row.bgc_id
                     Bio.SeqIO.write(bgc_record, dst, "genbank")
             else:
                 # find feature for BGCs in the record, ignore multi-BGC record
