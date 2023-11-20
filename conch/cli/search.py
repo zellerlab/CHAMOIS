@@ -125,7 +125,8 @@ def run(args: argparse.Namespace, console: Console) -> int:
 
     # compute distance
     console.print(f"[bold blue]{'Computing':>12}[/] pairwise distances and ranks")
-    distances = cdist(classes.X, catalog.X.toarray(), metric=gogo if args.metric == "gogo" else args.metric)
+    distances = cdist(classes.X, catalog.X.toarray(), metric=gogo if args.distance == "gogo" else args.distance)
+    distances = numpy.nan_to_num(distances, copy=False, nan=1.0)
     ranks = scipy.stats.rankdata(distances, method="dense", axis=1)
 
     # save results
