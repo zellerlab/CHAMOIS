@@ -140,8 +140,8 @@ with tempfile.TemporaryDirectory() as dst:
             "bitscore"
         ]
     )
-    hits["query_cluster"] = hits["query_protein"].str.rsplit("_", 1).str[0]
-    hits["target_cluster"] = hits["target_protein"].str.rsplit("_", 1).str[0]
+    hits["query_cluster"] = hits["query_protein"].str.rsplit("_", n=1).str[0]
+    hits["target_cluster"] = hits["target_protein"].str.rsplit("_", n=1).str[0]
     hits["query_index"] = hits["query_cluster"].map(query_indices.__getitem__)
     hits["target_index"] = hits["target_cluster"].map(target_indices.__getitem__)
 
