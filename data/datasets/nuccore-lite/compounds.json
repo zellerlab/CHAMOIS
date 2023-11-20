@@ -1,10 +1,68 @@
 {
     "AB746937.1_cluster1": [
         {
+            "chem_struct": "CCCCCCC=CCCCC(CC(=O)OC1CN(C(C(=O)N(C1C(=O)O)C)C([C@@H]2[C@H](C[C@@H](O2)N3C=CC(=O)NC3=O)O)O[C@H]4C[C@@H]([C@H](O4)CN)O)C)OC(=O)CC(C)CC(=O)OC5C(C(C(C(O5)CC)OC)OC(=O)CCC(=O)O)OC",
+            "compound": "muraminomicin A",
+            "database_id": [
+                "pubchem:145720725"
+            ]
+        },
+        {
+            "compound": "muraminomicin B",
+            "database_id": [
+                "pubchem:145720726"
+            ]
+        },
+        {
+            "compound": "muraminomicin C",
+            "database_id": [
+                "pubchem:145720727"
+            ]
+        },
+        {
+            "compound": "muraminomicin D",
+            "database_id": [
+                "pubchem:145720728"
+            ]
+        },
+        {
+            "compound": "muraminomicin E1",
+            "database_id": [
+                "pubchem:145720729"
+            ]
+        },
+        {
+            "compound": "muraminomicin E2",
+            "database_id": [
+                "pubchem:145720730"
+            ]
+        },
+        {
+            "compound": "muraminomicin G",
+            "database_id": [
+                "pubchem:145720732"
+            ]
+        },
+        {
+            "compound": "muraminomicin I",
+            "database_id": [
+                "pubchem:145720722"
+            ]
+        },
+        {
             "chem_struct": "CCCCCCCCCCCC(CC(=O)OC1CN(C(C(=O)N(C1C(=O)O)C)C([C@@H]2[C@H](C[C@@H](O2)N3C=CC(=O)NC3=O)O)O[C@H]4C[C@@H]([C@H](O4)CN)O)C)OC(=O)CC(C)CC(=O)O[C@H]5[C@@H]([C@@H]([C@H]([C@@H](O5)C)OC)OC(=O)CCC(=O)O)OC",
             "compound": "muraminomicin H",
             "database_id": [
                 "npatlas:NPA024942"
+            ]
+        }
+    ],
+    "BJUR01000001.1_cluster1": [
+        {
+            "chem_struct": "C1=CC=C2C(=C1)C(=C(N2)C3=CC(=C(C4=NC(=N)C(=C34)CCC(=O)O)O)O)CC(C(=O)O)N",
+            "compound": "tryptophan tryptophylquinone",
+            "database_id": [
+                "pubchem:3035424"
             ]
         }
     ],
@@ -24,12 +82,37 @@
             "database_id": []
         }
     ],
-    "HE648922.1_cluster1": [
+    "CP048397.1_cluster1": [
         {
-            "chem_struct": "C(C(C(C(=O)O)N)O)Cl",
-            "compound": "4-chlorothreonine",
+            "chem_struct": "CC[C@H](C)[C@@H](C(=O)N[C@H](CC1=CC=CC=C1)C(=O)N[C@H](CS(=O)(=O)O)C(=O)N[C@@H](CC(=O)O)C(=O)N[C@H]2[C@H](OC(=O)[C@@H]3CCCN3C(=O)[C@@H](NC(=O)[C@H](NC(=O)CNC(=O)CNC(=O)[C@H](N(C2=O)C)C(C)C)CCC(=O)O)C)C)NC(=O)[C@H](CC(=O)N)NC(=O)/C=C\\C=C\\CCC(C)C",
+            "compound": "viennamycin A",
             "database_id": [
-                "npatlas:NPA014892"
+                "pubchem:156580802"
+            ]
+        },
+        {
+            "chem_struct": "CC[C@H](C)[C@@H](C(=O)N[C@H](CC1=CC=CC=C1)C(=O)N[C@H](CC(=O)O)C(=O)N[C@@H](CC(=O)O)C(=O)N[C@H]2[C@H](OC(=O)[C@@H]3CCCN3C(=O)[C@@H](NC(=O)[C@H](NC(=O)CNC(=O)CNC(=O)[C@H](N(C2=O)C)C(C)C)CCC(=O)O)C)C)NC(=O)[C@H](CC(=O)N)NC(=O)/C=C\\C=C\\CCC(C)C",
+            "compound": "viennamycin B",
+            "database_id": [
+                "pubchem:156580803"
+            ]
+        }
+    ],
+    "CP058977.1_cluster1": [
+        {
+            "chem_struct": "CCC(C)[C@H]1C(=O)N2[C@@H](C[C@]3([C@@H]2NC4=CC=CC=C43)C5=CC6=C(C=C5)N7C=C6C[C@@H](C(=O)N[C@@H](CC8=CC7=C(C=C8)O)C(=O)N1)NC(=O)[C@H](C)N)C(=O)N[C@@H](CC9=CC=C(C=C9)O)C(=O)O",
+            "compound": "tryptorubin A",
+            "database_id": [
+                "pubchem:139590171"
+            ]
+        }
+    ],
+    "HM037272.1_cluster1": [
+        {
+            "chem_struct": "C1=NC(=C2C(=N1)N(C=N2)C3C(C(C(O3)COC4C(OC(C(C4O)O)OC(C(C(C(C(=O)O)O)OP(=O)(O)O)O)C(=O)O)CO)O)O)N",
+            "compound": "thuringiensin",
+            "database_id": [
+                "pubchem:20056441"
             ]
         }
     ],
@@ -40,14 +123,12 @@
             "database_id": [
                 "pubchem:135441800"
             ]
-        }
-    ],
-    "HQ202571.1_cluster1": [
+        },
         {
-            "chem_struct": "C(C[C@@H](C(=O)O)N)CN=C(N)N",
-            "compound": "L-arginine",
+            "chem_struct": "C1=CC=C2C(=C1)N=C3C=CC=C(C3=N2)C(=O)O",
+            "compound": "phenazine-1-carboxylic acid",
             "database_id": [
-                "pubchem:6322"
+                "pubchem:95069"
             ]
         }
     ],
@@ -83,7 +164,38 @@
             "chem_struct": "CC(C(C(=O)N/C=C/1\\C[C@H]([C@@H](O1)N2C=CC(=O)NC2=O)O)NC(=O)C(CCSC)NC(=O)NC(CC3=CNC4=CC=CC=C43)C(=O)O)N(C)C(=O)C(CC5=CC(=CC=C5)O)N",
             "compound": "sansanmycin",
             "database_id": [
-                "npatlas:NPA001954"
+                "npatlas:NPA001954",
+                "pubchem:57395472"
+            ]
+        }
+    ],
+    "KC836748.1_cluster1": [
+        {
+            "chem_struct": "C[C@@H]([C@H]1C2=CC=CC=C2N(C1=O)C)[C@H]3/C(=C/4\\CC=CC4=O)/N[C@H](C(=O)N3)CSC",
+            "compound": "FR900452",
+            "database_id": [
+                "pubchem:9866325"
+            ]
+        },
+        {
+            "chem_struct": "C=12C3=C([C@H](C4(C1CCC2=O)C(N(C5=C4C=CC=C5)C)=O)C)NC(C(=N3)CSC)=O",
+            "compound": "maremycin G",
+            "database_id": [
+                "chebi:167566"
+            ]
+        },
+        {
+            "chem_struct": "C[C@H]([C@H]1C(=O)N[C@H](C(=O)N1)CSC)[C@@]2(C3=CC=CC=C3N(C2=O)C)O",
+            "compound": "maremycin A",
+            "database_id": [
+                "pubchem:10473900"
+            ]
+        },
+        {
+            "chem_struct": "C[C@H]([C@H]1C(=O)N[C@H](C(=O)N1)CSC)[C@]2(C3=CC=CC=C3N(C2=O)C)O",
+            "compound": "maremycin B",
+            "database_id": [
+                "pubchem:9975951"
             ]
         }
     ],
@@ -105,12 +217,35 @@
             ]
         }
     ],
+    "KJ817374.1_cluster1": [
+        {
+            "chem_struct": "CC(C(=O)NS(=O)(=O)OCC1C(C(C(O1)N2C=NC3=C(N=C(N=C32)Cl)N)O)O)N",
+            "compound": "ascamycin",
+            "database_id": [
+                "pubchem:13994715"
+            ]
+        },
+        {
+            "chem_struct": "C1=NC2=C(N=C(N=C2N1C3C(C(C(O3)COS(=O)(=O)N)O)O)Cl)N",
+            "compound": "dealanylascamycin",
+            "database_id": [
+                "pubchem:13994713"
+            ]
+        }
+    ],
     "KM264312.1_cluster1": [
         {
-            "chem_struct": "COC1CC(OC2CC(OC3C(O)CC(OC4CC(C5=C(O)C6=C(C=C5)C(=O)C5=C(C6=O)[C@@H](O)[C@H](OC(C)=O)[C@@]6(O)CC(C)=C[C@@H](OC7CC(OC)C(O)C(C)O7)[C@@]56O)OC(C)C4O)OC3C)OC(C)C2O)OC(C)C1O",
+            "chem_struct": "CC1C(C(CC(O1)C2=C(C3=C(C=C2)C(=O)C4=C(C3=O)C(C(C5(C4(C(C=C(C5)C)OC6CC(C(C(O6)C)O)OC)O)O)OC(=O)C)O)O)O)O",
+            "compound": "chattamycin A",
+            "database_id": [
+                "pubchem:156580509"
+            ]
+        },
+        {
+            "chem_struct": "CC1C(C(CC(O1)C2=C(C3=C(C=C2)C(=O)C4=C(C3=O)C(C(C5(C4(C(C=C(C5)C)OC6CC(C(C(O6)C)O)OC)O)O)OC(=O)C)O)O)OC7CC(C(C(O7)C)OC8CC(C(C(O8)C)O)OC9CC(C(C(O9)C)O)OC)O)O",
             "compound": "chattamycin B",
             "database_id": [
-                "npatlas:NPA013453"
+                "pubchem:156580482"
             ]
         }
     ],
@@ -166,6 +301,67 @@
             "database_id": [
                 "npatlas:NPA014336"
             ]
+        }
+    ],
+    "LGKG01000136.1_cluster1": [
+        {
+            "chem_struct": "C1=CC(=CC=C1C=CC=CC(=O)NC(CCC(=O)N)C(=O)O)N=[N+](C2=CC=C(C=C2)C=CC=CC(=O)NC(CCC(=O)N)C(=O)O)[O-]",
+            "compound": "azoxymycin A",
+            "database_id": [
+                "pubchem:139588705"
+            ]
+        },
+        {
+            "chem_struct": "C1=CC(=CC=C1C=CC=CC(=O)O)N=[N+](C2=CC=C(C=C2)C=CC=CC(=O)NC(CCC(=O)N)C(=O)O)[O-]",
+            "compound": "azoxymycin B",
+            "database_id": [
+                "pubchem:139588706"
+            ]
+        },
+        {
+            "chem_struct": "C1=CC(=CC=C1C=CC=CC(=O)O)N=[N+](C2=CC=C(C=C2)C=CC=CC(=O)O)[O-]",
+            "compound": "azoxymycin C",
+            "database_id": [
+                "pubchem:139587019"
+            ]
+        }
+    ],
+    "MF055656.1_cluster1": [
+        {
+            "chem_struct": "CC(C(C1=NC=C(C=C1)O)O)C(C(=O)NC(C2C(C(C(O2)N3C=CC(=O)NC3=O)O)O)C(=O)O)N",
+            "compound": "nikkomycin Z",
+            "database_id": [
+                "pubchem:456557"
+            ]
+        },
+        {
+            "chem_struct": "CC(C(C1=NC=C(C=C1)O)O)C(C(=O)NC(C2C(C(C(O2)N3C=C(NC3=O)C=O)O)O)C(=O)O)N",
+            "compound": "nikkomycin X",
+            "database_id": [
+                "pubchem:194647"
+            ]
+        }
+    ],
+    "MN158725.1_cluster1": [
+        {
+            "chem_struct": "CCC(C1OC(=O)C(C(=O)C(OC(=O)C(OC(=O)C(NC(=O)C2=CC(O)=CC=C2)C(OC1=O)C)C(C)C)CC1C=CC=CC=1)(C)C)C",
+            "compound": "unantimycin B",
+            "database_id": []
+        },
+        {
+            "chem_struct": "CCC(C1OC(=O)C(C(O)C(OC(=O)C(OC(=O)C(NC(=O)C2=CC(O)=CC=C2)C(OC1=O)C)C(C)C)CC1C=CC=CC=1)(C)C)C",
+            "compound": "unantimycin C",
+            "database_id": []
+        },
+        {
+            "chem_struct": "CC(C1OC(=O)C(C(=O)C(OC(=O)C(OC(=O)C(NC(=O)C2=CC(O)=CC=C2)C(OC1=O)C)C(C)C)CC1C=CC=CC=1)(C)C)C",
+            "compound": "unantimycin D",
+            "database_id": []
+        },
+        {
+            "chem_struct": "CC(C1OC(=O)C(C(O)C(OC(=O)C(OC(=O)C(NC(=O)C2=CC(O)=CC=C2)C(OC1=O)C)C(C)C)CC1C=CC=CC=1)(C)C)C",
+            "compound": "unantimycin E",
+            "database_id": []
         }
     ],
     "MT017918.1_cluster1": [
@@ -269,6 +465,15 @@
             "chem_struct": "C1=CC(C(=O)NCC(=O)NCC(N[C@](C(N[C@](CO)(C(=O)N[C@@](CCCN(C(CCCCCCC(C)C)=O)O)(C(=O)N[C@]([H])2CCCN(O)C2=O)[H])[H])=O)(CO)[H])=O)=C(O)C(O)=C1Cl",
             "compound": "nobachelin B",
             "database_id": []
+        }
+    ],
+    "SSBQ01000002.1_cluster1": [
+        {
+            "chem_struct": "CC(C)C[C@@H](CO)NC(=O)[C@@H](CNC(=O)[C@H](CO)N1C(=O)C2=C(S1)C(=O)C(=C(N2)C3=COC(=N3)C4=CC=CC=C4N)OC)O",
+            "compound": "levesquamide",
+            "database_id": [
+                "pubchem:155289491"
+            ]
         }
     ],
     "VILE02000015.1_cluster1": [
