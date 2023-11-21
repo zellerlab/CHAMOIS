@@ -14,9 +14,7 @@ import urllib.request
 import Bio.Entrez
 import Bio.SeqIO
 import pandas
-import pubchempy
 import rich.progress
-import rapidfuzz.process
 from rich.prompt import Confirm, Prompt
 from rich.progress import TextColumn, BarColumn, MofNCompleteColumn, TaskProgressColumn, TimeRemainingColumn
 
