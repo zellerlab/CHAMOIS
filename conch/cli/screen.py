@@ -20,6 +20,11 @@ from ..predictor import ChemicalOntologyPredictor
 from ..classyfire import query_classyfire, get_results, extract_classification, binarize_classification
 from ._common import load_model
 from .render import build_tree
+from ._parser import (
+    configure_group_search_input,
+    configure_group_search_parameters,
+    configure_group_search_output,
+)
 
 if typing.TYPE_CHECKING:
     from rdkit.Chem import Mol
@@ -36,14 +41,8 @@ def _parse_molecule(text: str) -> "Mol":
 
 
 def configure_parser(parser: argparse.ArgumentParser):
-    parser.add_argument(
-        "-i",
-        "--input",
-        required=True,
-        type=pathlib.Path,
-        help="The chemical class probabilities predicted for BGCs."
-    )
-    parser.add_argument(
+    params_input = configure_group_search_input(parser)
+    params_input.add_argument(
         "-q",
         "--query",
         action="append",
@@ -52,37 +51,8 @@ def configure_parser(parser: argparse.ArgumentParser):
         type=_parse_molecule,
         help="The compounds to search in the predictions.",
     )
-    parser.add_argument(
-        "-o",
-        "--output",
-        type=pathlib.Path,
-        help="The path where to write the catalog search results in TSV format."
-    )
-    parser.add_argument(
-        "-m",
-        "--model",
-        default=None,
-        type=pathlib.Path,
-        help="The path to an alternative model for predicting classes."
-    )
-    parser.add_argument(
-        "-d",
-        "--distance",
-        default="hamming",
-        help="The metric to use for comparing classes fingerprints.",
-        choices={"hamming", "jaccard"},
-    )
-    parser.add_argument(
-        "--rank",
-        default=10,
-        type=int,
-        help="The maximum search rank to record in the table output.",
-    )
-    parser.add_argument(
-        "--render",
-        action="store_true",
-        help="Display best match for each query compound.",
-    )
+    configure_group_search_parameters(parser)
+    configure_group_search_output(parser)
     parser.set_defaults(run=run)
 
 

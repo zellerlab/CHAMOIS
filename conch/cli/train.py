@@ -12,66 +12,37 @@ from .._meta import requires
 from ..ontology import Ontology
 from ..predictor import ChemicalOntologyPredictor
 from ._common import save_metrics
+from ._parser import (
+    configure_group_preprocessing,
+    configure_group_training_input,
+    configure_group_hyperparameters,
+)
 
 
 def configure_parser(parser: argparse.ArgumentParser):
-    parser.add_argument(
-        "-f",
-        "--features",
-        required=True,
-        type=pathlib.Path,
-        help="The feature table in HDF5 format to use for training the predictor."
+    configure_group_training_input(parser)
+    configure_group_preprocessing(parser)
+    configure_group_hyperparameters(parser)
+
+    params_output = parser.add_argument_group(
+        'Output',
+        'Mandatory and optional outputs.'
     )
-    parser.add_argument(
-        "-c",
-        "--classes",
-        required=True,
-        type=pathlib.Path,
-        help="The classes table in HDF5 format to use for training the predictor."
-    )
-    parser.add_argument(
-        "-s",
-        "--similarity",
-        type=pathlib.Path,
-        help="Pairwise nucleotide similarities for deduplication the observations."
-    )
-    parser.add_argument(
+    params_output.add_argument(
         "-o",
         "--output",
         required=True,
         type=pathlib.Path,
-        help="The path where to write the trained model in pickle format."
+        help="The path where to write the trained model in JSON format."
     )
-    parser.add_argument(
+    params_output.add_argument(
         "--metrics",
         type=pathlib.Path,
         help="The path to an optional metrics file to write in DVC/JSON format."
     )
-    parser.add_argument(
-        "--min-class-occurrences",
-        type=int,
-        default=10,
-        help="The minimum of occurences for a class to be retained."
-    )
-    parser.add_argument(
-        "--model",
-        choices=ChemicalOntologyPredictor._MODELS,
-        default="logistic",
-        help="The kind of model to train."
-    )
-    parser.add_argument(
-        "--alpha",
-        type=float,
-        default=1.0,
-        help="The strength of the parameters regularization.",
-    )
-    parser.add_argument(
-        "--variance",
-        type=float,
-        help="The variance threshold for filtering features.",
-        default=None,
-    )
+
     parser.set_defaults(run=run)
+
 
 @requires("sklearn.metrics")
 def run(args: argparse.Namespace, console: Console) -> int:
@@ -140,7 +111,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
         "observations": features.n_obs,
     }
     save_metrics(metrics, args.metrics, console)
-    
+
     # save result
     console.print(f"[bold blue]{'Saving':>12}[/] trained model to {str(args.output)!r}")
     if args.output.parent:

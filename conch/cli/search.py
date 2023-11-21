@@ -12,49 +12,23 @@ from scipy.spatial.distance import cdist
 
 from ._common import load_model
 from ..predictor import ChemicalOntologyPredictor
-
+from ._parser import (
+    configure_group_search_input,
+    configure_group_search_parameters,
+    configure_group_search_output,
+)
 
 def configure_parser(parser: argparse.ArgumentParser):
-    parser.add_argument(
-        "-i",
-        "--input",
-        required=True,
-        type=pathlib.Path,
-        help="The chemical class probabilities predicted for BGCs."
-    )
-    parser.add_argument(
+    params_input = configure_group_search_input(parser)
+    params_input.add_argument(
         "-c",
         "--catalog",
         required=True,
         type=pathlib.Path,
         help="The path to the compound class catalog to compare predictions to."
     )
-    parser.add_argument(
-        "-o",
-        "--output",
-        type=pathlib.Path,
-        help="The path where to write the catalog search results in TSV format."
-    )
-    parser.add_argument(
-        "-m",
-        "--model",
-        default=None,
-        type=pathlib.Path,
-        help="The path to an alternative model for predicting classes."
-    )
-    parser.add_argument(
-        "-d",
-        "--distance",
-        default="hamming",
-        help="The metric to use for comparing classes fingerprints.",
-        choices={"hamming", "jaccard", "cosine", "gogo"},
-    )
-    parser.add_argument(
-        "--rank",
-        default=10,
-        type=int,
-        help="The maximum search rank to record in the table output.",
-    )
+    configure_group_search_parameters(parser)
+    configure_group_search_output(parser)
     parser.set_defaults(run=run)
 
 
@@ -136,5 +110,6 @@ def run(args: argparse.Namespace, console: Console) -> int:
         results.to_csv(args.output, sep="\t", index=False)
 
     # display output
-    table = build_table(results)
-    console.print(table)
+    if args.render:
+        table = build_table(results)
+        console.print(table)

@@ -14,87 +14,47 @@ from ..predictor import ChemicalOntologyPredictor
 from ..predictor.information import information_accretion, information_theoric_curve, semantic_distance_score
 from ..ontology import Ontology
 from ._common import record_metadata, save_metrics
+from ._parser import (
+    configure_group_preprocessing,
+    configure_group_training_input,
+    configure_group_hyperparameters,
+    configure_group_cross_validation,
+)
 
 
 def configure_parser(parser: argparse.ArgumentParser):
-    parser.add_argument(
-        "-f",
-        "--features",
-        required=True,
-        type=pathlib.Path,
-        help="The feature table in HDF5 format to use for training the predictor."
+    configure_group_training_input(parser)
+    configure_group_preprocessing(parser)
+    configure_group_hyperparameters(parser)
+    configure_group_cross_validation(parser)
+
+    params_output = parser.add_argument_group(
+        'Output', 
+        'Mandatory and optional outputs.'
     )
-    parser.add_argument(
-        "-c",
-        "--classes",
-        required=True,
-        type=pathlib.Path,
-        help="The classes table in HDF5 format to use for training the predictor."
-    )
-    parser.add_argument(
-        "-s",
-        "--similarity",
-        type=pathlib.Path,
-        help="Pairwise nucleotide similarities for deduplication the observations."
-    )
-    parser.add_argument(
+    params_output.add_argument(
         "-o",
         "--output",
         required=True,
         type=pathlib.Path,
         help="The path where to write the probabilities for each test fold."
     )
-    parser.add_argument(
+    params_output.add_argument(
         "--metrics",
         type=pathlib.Path,
         help="The path to an optional metrics file to write in DVC/JSON format."
     )
-    parser.add_argument(
-        "-k",
-        "--kfolds",
-        type=int,
-        default=10,
-        help="The number of cross-validation folds to run.",
-    )
-    parser.add_argument(
-        "--sampling",
-        choices={"random", "group", "kennard-stone"},
-        default="group",
-        help="The algorithm to use for partitioning folds.",
-    )
-    parser.add_argument(
-        "--min-class-occurrences",
-        type=int,
-        default=10,
-        help="The minimum of occurences for a class to be retained."
-    )
-    parser.add_argument(
-        "--model",
-        choices=ChemicalOntologyPredictor._MODELS,
-        default="logistic",
-        help="The kind of model to train."
-    )
-    parser.add_argument(
-        "--alpha",
-        type=float,
-        default=1.0,
-        help="The strength of the parameters regularization.",
-    )
-    parser.add_argument(
-        "--variance",
-        type=float,
-        help="The variance threshold for filtering features.",
-    )
-    parser.add_argument(
+    params_output.add_argument(
         "--report",
         type=pathlib.Path,
         help="An optional file where to generate a label-wise evaluation report."
     )
-    parser.add_argument(
+    params_output.add_argument(
         "--best-model",
         type=pathlib.Path,
         help="An optional file where to write the model with highest macro-average-precision."
     )
+
     parser.set_defaults(run=run)
 
 

@@ -31,48 +31,41 @@ from ._common import (
     annotate_nrpys,
     record_metadata,
 )
+from ._parser import (
+    configure_group_predict_input,
+    configure_group_gene_finding,
+)
 
 
 def configure_parser(parser: argparse.ArgumentParser):
-    parser.add_argument(
-        "-i",
-        "--input",
-        required=True,
-        type=pathlib.Path,
-        action="append",
-        help="The input BGC sequences to process."
-    )
-    parser.add_argument(
+    group_input = configure_group_predict_input(parser)
+    group_input.add_argument(
         "-m",
         "--model",
         default=None,
         type=pathlib.Path,
         help="The path to an alternative model for predicting classes."
     )
-    parser.add_argument(
-        "-H",
-        "--hmm",
-        default=None,
-        type=pathlib.Path,
-        help="The path to the HMM file containing protein domains for annotation."
+
+    configure_group_gene_finding(parser)
+    
+    params_output = parser.add_argument_group(
+        'Output', 
+        'Mandatory and optional outputs.'
     )
-    parser.add_argument(
+    params_output.add_argument(
         "-o",
         "--output",
         required=True,
         type=pathlib.Path,
         help="The path where to write the predicted class probabilities in HDF5 format."
     )
-    parser.add_argument(
+    params_output.add_argument(
         "--render",
         action="store_true",
         help="Display prediction results in tree format for each input BGC.",
     )
-    parser.add_argument(
-        "--cds",
-        action="store_true",
-        help="Use CDS features in the GenBank input as genes instead of running Pyrodigal.",
-    )
+    
     parser.set_defaults(run=run)
 
 

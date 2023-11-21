@@ -14,71 +14,43 @@ from ._common import load_model
 from .._meta import requires
 from ..predictor import ChemicalOntologyPredictor
 from ..ontology import Ontology
+from ._parser import (
+    configure_group_preprocessing,
+    configure_group_training_input,
+    configure_group_hyperparameters,
+    configure_group_cross_validation,
+)
 
 
 def configure_parser(parser: argparse.ArgumentParser):
-    parser.add_argument(
-        "-f",
-        "--features",
-        required=True,
-        type=pathlib.Path,
-        help="The feature table in HDF5 format to use for training the predictor."
-    )
-    parser.add_argument(
-        "-c",
-        "--classes",
-        required=True,
-        type=pathlib.Path,
-        help="The classes table in HDF5 format to use for training the predictor."
-    )
-    parser.add_argument(
-        "--model",
-        choices={"logistic", "ridge"},
-        default="logistic",
-        help="The kind of model to train."
-    )
-    parser.add_argument(
+    params_input = configure_group_training_input(parser)
+    params_input.add_argument(
         "--catalog",
         required=True,
         type=pathlib.Path,
         help="The path to the compound class catalog to compare predictions to."
     )
-    parser.add_argument(
+
+    configure_group_preprocessing(parser)
+    configure_group_hyperparameters(parser)
+    configure_group_cross_validation(parser)
+    
+    params_output = parser.add_argument_group(
+        'Output', 
+        'Mandatory and optional outputs.'
+    )
+    params_output.add_argument(
         "-o",
         "--output",
         type=pathlib.Path,
         help="The path where to write the catalog search results in TSV format."
     )
-    parser.add_argument(
-        "-k",
-        "--kfolds",
-        type=int,
-        default=10,
-        help="The number of cross-validation folds to run.",
-    )
-    parser.add_argument(
-        "--sampling",
-        choices={"random", "group", "kennard-stone"},
-        default="kennard-stone",
-        help="The algorithm to use for partitioning folds.",
-    )
-    parser.add_argument(
-        "--alpha",
-        type=float,
-        default=1.0,
-        help="The strength of the parameters regularization.",
-    )
-    parser.add_argument(
-        "--variance",
-        type=float,
-        help="The variance threshold for filtering features.",
-    )
-    # parser.add_argument(
+    # params_output.add_argument(
     #     "--report",
     #     type=pathlib.Path,
     #     help="An optional file where to generate a label-wise evaluation report."
     # )
-    # parser.add_argument(
+    # params_output.add_argument(
     #     "--rank",
     #     default=10,
     #     type=int,
