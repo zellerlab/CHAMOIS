@@ -90,6 +90,11 @@ def configure_parser(parser: argparse.ArgumentParser):
         type=pathlib.Path,
         help="An optional file where to generate a label-wise evaluation report."
     )
+    parser.add_argument(
+        "--best-model",
+        type=pathlib.Path,
+        help="An optional file where to write the model with highest macro-average-precision."
+    )
     parser.set_defaults(run=run)
 
 
@@ -136,6 +141,8 @@ def run(args: argparse.Namespace, console: Console) -> int:
     splits = list(kfold.split(features.X.toarray(), ground_truth, groups))
 
     console.print(f"[bold blue]{'Running':>12}[/] cross-validation evaluation")
+    best_model = None
+    best_avgpr = 0.0
     probas = numpy.zeros(classes.X.shape, dtype=float)
     for i, (train_indices, test_indices) in enumerate(splits):
         # extract fold observations
@@ -168,6 +175,9 @@ def run(args: argparse.Namespace, console: Console) -> int:
             f"[bold magenta]Avg.Precision(M)=[/][bold cyan]{macro_avgpr:05.1%}[/]",
         ]
         console.print(f"[bold green]{'Finished':>12}[/] fold {i+1:2}:", *stats)
+        if best_model is None or macro_avgpr > best_avgpr:
+            best_model = model
+            best_avgpr = macro_avgpr
 
     # compute AUROC for the entire classification
     ia = information_accretion(ground_truth, ontology.incidence_matrix)
@@ -176,7 +186,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
     macro_auroc = sklearn.metrics.roc_auc_score(ground_truth, probas_prop, average="macro")
     micro_avgpr = sklearn.metrics.average_precision_score(ground_truth, probas_prop, average="micro")
     macro_avgpr = sklearn.metrics.average_precision_score(ground_truth, probas_prop, average="macro")
-    semdist = semantic_distance_score(ground_truth, probas_prop, ia)    
+    semdist = semantic_distance_score(ground_truth, probas_prop.round(3), ia)    
     stats = [
         f"[bold magenta]AUROC(µ)=[/][bold cyan]{micro_auroc:05.1%}[/]",
         f"[bold magenta]AUROC(M)=[/][bold cyan]{macro_auroc:05.1%}[/]",
@@ -238,3 +248,11 @@ def run(args: argparse.Namespace, console: Console) -> int:
             args.report.parent.mkdir(parents=True, exist_ok=True)
         console.print(f"[bold blue]{'Saving':>12}[/] class-specific report to {str(args.report)!r}")
         report.to_csv(args.report, sep="\t", index=False)
+
+    # save best model
+    if args.best_model:
+        console.print(f"[bold blue]{'Saving':>12}[/] best model to {str(args.best_model)!r}")
+        if args.best_model.parent:
+            args.best_model.parent.mkdir(parents=True, exist_ok=True)
+        with args.best_model.open("w") as dst:
+            best_model.save(dst)

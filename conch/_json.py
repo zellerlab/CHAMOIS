@@ -15,6 +15,8 @@ class JSONEncoder(json.JSONEncoder):
             return float(o)
         elif isinstance(o, numpy.ndarray):
             return list(o)
+        elif isinstance(o, numpy.bool_):
+            return bool(o)
         elif isinstance(o, pandas.DataFrame):
             return dict(__type__="DataFrame", **o.to_dict(orient="split"))
         elif isinstance(o, scipy.sparse.csr_matrix):
