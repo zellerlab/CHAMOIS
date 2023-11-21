@@ -12,7 +12,7 @@ import multiprocessing.pool
 import pathlib
 import shlex
 import sys
-from typing import List, Iterable, Set, Optional, Container, Dict, Any
+from typing import List, Iterable, Set, Optional, Container, Dict, Any, Tuple
 
 import anndata
 import gb_io
@@ -32,6 +32,51 @@ from ..compositions import build_compositions, build_observations, build_variabl
 from ..orf import ORFFinder, PyrodigalFinder, CDSFinder
 from ..model import ClusterSequence, Protein, Domain, PfamDomain, AMPBindingDomain
 from ..predictor import ChemicalOntologyPredictor
+
+
+def filter_dataset(
+    features: anndata.AnnData,
+    classes: anndata.AnnData,
+    console: Console,
+    similarity: Optional[anndata.AnnData] = None,
+    remove_unknown_structure: bool = True,
+    min_class_occurrences: int = 1,
+    min_feature_occurrences: int = 1,
+    min_length: int = 1000,
+    min_genes: int = 2,
+) -> Tuple[anndata.AnnData, anndata.AnnData]:
+
+    obs = features.obs[features.obs.length >= min_length]
+    features = features[obs.index]
+    classes = classes[obs.index]
+    console.print(f"[bold blue]{'Using':>12}[/] {features.n_obs} observations at least {min_length}nt long")
+
+    obs = features.obs[features.obs.genes >= min_genes]
+    features = features[obs.index]
+    classes = classes[obs.index]
+    console.print(f"[bold blue]{'Using':>12}[/] {features.n_obs} observations with at least {min_genes} genes")
+
+    if remove_unknown_structure:
+        features = features[~classes.obs.unknown_structure]
+        classes = classes[~classes.obs.unknown_structure]
+        console.print(f"[bold blue]{'Using':>12}[/] {features.n_obs} observations with known compounds")
+
+    if similarity is not None:
+        unique = similarity.obs.loc[classes.obs_names].drop_duplicates("groups")
+        classes = classes[unique.index]
+        features = features[unique.index]
+        console.print(f"[bold blue]{'Using':>12}[/] {features.n_obs} unique observations")
+
+    class_support = classes.X.sum(axis=0).A1
+    features_support = features.X.sum(axis=0).A1
+    if min_class_occurrences > 0:
+        classes = classes[:, (class_support >= min_class_occurrences) & (class_support <= classes.n_obs - min_class_occurrences)]
+        console.print(f"[bold blue]{'Using':>12}[/] {classes.n_vars} classes with at least {min_class_occurrences} observations")
+    if min_feature_occurrences > 0:
+        features = features[:, (features_support >= min_feature_occurrences) & (features_support <= features.n_obs - min_feature_occurrences)]
+        console.print(f"[bold blue]{'Using':>12}[/] {features.n_vars} features with at least {min_feature_occurrences} observations")
+
+    return features, classes
 
 
 def load_model(path: Optional[pathlib.Path], console: Console) -> ChemicalOntologyPredictor:
@@ -122,6 +167,7 @@ def record_metadata(predictor: Optional[ChemicalOntologyPredictor] = None) -> Di
     if predictor is not None:
         metadata["predictor"] = predictor.checksum()
     return {"conch": metadata}
+
 
 def save_metrics(
     metrics: Dict[str, float],

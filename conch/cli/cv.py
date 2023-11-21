@@ -68,21 +68,19 @@ def run(args: argparse.Namespace, console: Console) -> int:
     features = anndata.read(args.features)
     classes = anndata.read(args.classes)
     console.print(f"[bold green]{'Loaded':>12}[/] {features.n_obs} observations, {features.n_vars} features and {classes.n_vars} classes")
-    # remove compounds with unknown structure
-    features = features[~classes.obs.unknown_structure]
-    classes = classes[~classes.obs.unknown_structure]
-    console.print(f"[bold blue]{'Using':>12}[/] {features.n_obs} observations with known compounds")
-    # remove similar BGCs based on nucleotide similarity
-    if args.similarity is not None:
-        ani = anndata.read(args.similarity).obs
-        ani = ani.loc[classes.obs_names].drop_duplicates("groups")
-        classes = classes[ani.index]
-        features = features[ani.index]
-        console.print(f"[bold blue]{'Using':>12}[/] {features.n_obs} unique observations based on nucleotide similarity")
-    # remove classes absent from training set
-    support = classes.X.sum(axis=0).A1
-    classes = classes[:, (support >= args.min_class_occurrences) & (support <= classes.n_obs - args.min_class_occurrences)]
-    console.print(f"[bold blue]{'Using':>12}[/] {classes.n_vars} classes with at least {args.min_class_occurrences} members")
+    
+    # preprocess data
+    similarity = None if args.similarity is None else anndata.read(args.similarity)
+    features, classes = filter_dataset(
+        features,
+        classes,
+        console,
+        similarity=similarity,
+        remove_unknown_structure=True,
+        min_class_occurrences=args.min_class_occurrences,
+        min_feature_occurrences=args.min_feature_occurrences,
+    )
+    
     # prepare ontology and groups
     ontology = Ontology(classes.varp["parents"])
     groups = classes.obs["compound"].cat.codes

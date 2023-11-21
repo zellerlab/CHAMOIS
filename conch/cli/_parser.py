@@ -116,7 +116,7 @@ def configure_group_preprocessing(parser: argparse.ArgumentParser) -> "argparse.
         help="The minimum of occurences for a class to be retained."
     )
     group.add_argument(
-        "--min-features-occurrences",
+        "--min-feature-occurrences",
         type=int,
         default=0,
         help="The minimum of occurences for a feature to be retained."
