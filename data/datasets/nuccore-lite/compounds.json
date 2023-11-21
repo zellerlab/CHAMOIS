@@ -57,15 +57,6 @@
             ]
         }
     ],
-    "BJUR01000001.1_cluster1": [
-        {
-            "chem_struct": "C1=CC=C2C(=C1)C(=C(N2)C3=CC(=C(C4=NC(=N)C(=C34)CCC(=O)O)O)O)CC(C(=O)O)N",
-            "compound": "tryptophan tryptophylquinone",
-            "database_id": [
-                "pubchem:3035424"
-            ]
-        }
-    ],
     "BK059219.1_cluster1": [
         {
             "chem_struct": "CC(C)[C@]\\1([C@H](C(=O)O/C1=C\\C2=CC=C(C=C2)OC)CC3=CC4=C(C(=C3)Cl)OCO4)O",
@@ -129,15 +120,6 @@
             "compound": "phenazine-1-carboxylic acid",
             "database_id": [
                 "pubchem:95069"
-            ]
-        }
-    ],
-    "JN602207.1_cluster1": [
-        {
-            "chem_struct": "CC1=C(SC=[N+]1CC2=CN=C(N=C2N)C)CCO",
-            "compound": "thiamine",
-            "database_id": [
-                "pubchem:1130"
             ]
         }
     ],
@@ -249,15 +231,6 @@
             ]
         }
     ],
-    "KP026916.1_cluster1": [
-        {
-            "chem_struct": "C[C@@H](C(=O)N[C@@H](C)C(=O)O)NC(=O)[C@H](CCP(=O)(C)O)N",
-            "compound": "bialaphos",
-            "database_id": [
-                "pubchem:5462314"
-            ]
-        }
-    ],
     "KP761740.1_cluster1": [
         {
             "chem_struct": "CC/C=C/C=C/CC/C=C/C=C/C=C/CC1C(C(=O)NC2CC(=O)OC2C(C(=O)NCC(=O)NCC(=O)N1)O)O",
@@ -364,15 +337,6 @@
             "database_id": []
         }
     ],
-    "MT017918.1_cluster1": [
-        {
-            "chem_struct": "CC(C)(CCCCCCC([C@@H]1[C@@H](COC1=O)CO)O)O",
-            "compound": "gamma-butyrolactone",
-            "database_id": [
-                "npatlas:NPA013757"
-            ]
-        }
-    ],
     "MZ209415.1_cluster1": [
         {
             "chem_struct": "C/C=C/[C@H](O)[C@H](O)C1=CC=CC=C1/C=C/C(=O)N[C@@H]1C(=O)N[C@@H](CO)C(=O)N[C@H](CC(C)C)C(=O)N[C@@H]([C@H](O)C2=CC=CC=C2)C(=O)N[C@@H](CO)C(=O)N[C@H]([C@@H](C)O)C(=O)N[C@H](CO)C(=O)N[C@H](C2=CC=C(O)C=C2)C(=O)N[C@@H](C(C)C)C(=O)N[C@H](CC(C)C)C(=O)O[C@H]1C",
@@ -393,11 +357,9 @@
     ],
     "OM622254.1_cluster1": [
         {
-            "chem_struct": "COC1=CC(=C2C(=C1)OC(=C)C(=O)N2)C(=O)O",
-            "compound": "benzoxazolinate",
-            "database_id": [
-                "pubchem:5281925"
-            ]
+            "chem_struct": "C12NC(=O)C(=C)OC1=CC=CC=2C(=O)OCC(N)(CO)C(=O)NC(C(=O)O)(CO)CO",
+            "compound": "benzobactin A",
+            "database_id": []
         }
     ],
     "OM802155.1_cluster1": [
