@@ -1,19 +1,32 @@
+import collections
 from typing import Any, List, Mapping, Optional
 
 import anndata
 import pandas
 import scipy.sparse
 
-from .model import ClusterSequence, Domain
+from .model import ClusterSequence, Protein, Domain
 
 
-def build_observations(clusters: List[ClusterSequence]) -> pandas.DataFrame:
+def build_observations(
+    clusters: List[ClusterSequence],
+    proteins: Optional[List[Protein]] = None,
+) -> pandas.DataFrame:
+    # build columns
+    data = {
+        "source": [cluster.source for cluster in clusters],
+        "length": [len(cluster.record.sequence) for cluster in clusters],
+    }
+    # count proteins per cluster if given
+    if proteins is not None:
+        counter = collections.Counter()
+        for protein in proteins:
+            counter[protein.cluster.id] += 1
+        data["genes"] = [ counter[cluster.id] for cluster in clusters ]
+    # build dataframe
     return pandas.DataFrame(
         index=[cluster.id for cluster in clusters],
-        data=dict(
-            source=[cluster.source for cluster in clusters],
-            length=[len(cluster.record.sequence) for cluster in clusters],
-        )
+        data=data,
     )
 
 

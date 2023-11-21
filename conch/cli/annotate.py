@@ -70,7 +70,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
 
     domains = annotate_hmmer(args.hmm, proteins, args.jobs, console)
 
-    obs = build_observations(clusters)
+    obs = build_observations(clusters, proteins)
     var = build_variables(domains)
     compositions = build_compositions(domains, obs, var, uns=uns)
     save_compositions(compositions, args.output, console)
