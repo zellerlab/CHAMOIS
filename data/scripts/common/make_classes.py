@@ -219,6 +219,7 @@ data = anndata.AnnData(
         index=list(chemont_indices),
         data=dict(
             name=[chemont[id_].name for id_ in chemont_indices],
+            description=[chemon[id_].definition for id_ in chemont_indices],
             n_positives=classes.sum(axis=0)
         )
     ),

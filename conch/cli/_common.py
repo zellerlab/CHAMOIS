@@ -46,20 +46,22 @@ def filter_dataset(
     min_genes: int = 2,
 ) -> Tuple[anndata.AnnData, anndata.AnnData]:
 
-    obs = features.obs[features.obs.length >= min_length]
-    features = features[obs.index]
-    classes = classes[obs.index]
-    console.print(f"[bold blue]{'Using':>12}[/] {features.n_obs} observations at least {min_length}nt long")
-
-    obs = features.obs[features.obs.genes >= min_genes]
-    features = features[obs.index]
-    classes = classes[obs.index]
-    console.print(f"[bold blue]{'Using':>12}[/] {features.n_obs} observations with at least {min_genes} genes")
-
     if remove_unknown_structure:
         features = features[~classes.obs.unknown_structure]
         classes = classes[~classes.obs.unknown_structure]
         console.print(f"[bold blue]{'Using':>12}[/] {features.n_obs} observations with known compounds")
+
+    if min_length > 0:
+        obs = features.obs[features.obs.length >= min_length]
+        features = features[obs.index]
+        classes = classes[obs.index]
+        console.print(f"[bold blue]{'Using':>12}[/] {features.n_obs} observations at least {min_length} nucleotides long")
+
+    if min_genes > 0:
+        obs = features.obs[features.obs.genes >= min_genes]
+        features = features[obs.index]
+        classes = classes[obs.index]
+        console.print(f"[bold blue]{'Using':>12}[/] {features.n_obs} observations with at least {min_genes} genes")
 
     if similarity is not None:
         unique = similarity.obs.loc[classes.obs_names].drop_duplicates("groups")

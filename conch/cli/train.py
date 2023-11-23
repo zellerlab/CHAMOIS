@@ -62,6 +62,8 @@ def run(args: argparse.Namespace, console: Console) -> int:
         remove_unknown_structure=True,
         min_class_occurrences=args.min_class_occurrences,
         min_feature_occurrences=args.min_feature_occurrences,
+        min_length=args.min_cluster_length,
+        min_genes=args.min_genes,
     )
     # prepare class hierarchy
     ontology = Ontology(classes.varp["parents"].toarray())

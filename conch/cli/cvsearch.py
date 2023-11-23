@@ -10,7 +10,7 @@ import scipy.stats
 from rich.console import Console
 from scipy.spatial.distance import cdist, hamming, cosine
 
-from ._common import load_model
+from ._common import load_model, filter_dataset
 from .._meta import requires
 from ..predictor import ChemicalOntologyPredictor
 from ..ontology import Ontology
@@ -34,9 +34,9 @@ def configure_parser(parser: argparse.ArgumentParser):
     configure_group_preprocessing(parser)
     configure_group_hyperparameters(parser)
     configure_group_cross_validation(parser)
-    
+
     params_output = parser.add_argument_group(
-        'Output', 
+        'Output',
         'Mandatory and optional outputs.'
     )
     params_output.add_argument(
@@ -119,7 +119,7 @@ def load_catalog(path: pathlib.Path, console: Console) -> anndata.AnnData:
 @requires("sklearn.metrics.pairwise")
 def run(args: argparse.Namespace, console: Console) -> int:
     # disable rdkit logging
-    rdkit.RDLogger.DisableLog('rdApp.warning')  
+    rdkit.RDLogger.DisableLog('rdApp.warning')
     mhfp_encoder = rdkit.Chem.rdMHFPFingerprint.MHFPEncoder(2048, args.seed)
 
     # load data
@@ -127,20 +127,20 @@ def run(args: argparse.Namespace, console: Console) -> int:
     features = anndata.read(args.features)
     classes = anndata.read(args.classes)
     console.print(f"[bold green]{'Loaded':>12}[/] {features.n_obs} observations, {features.n_vars} features and {classes.n_vars} classes")
-    # remove compounds with unknown structure
-    features = features[~classes.obs.unknown_structure]
-    classes = classes[~classes.obs.unknown_structure]
-    console.print(f"[bold blue]{'Using':>12}[/] {features.n_obs} observations with known compounds")
-    # remove similar BGCs based on nucleotide similarity
-    # if args.similarity is not None:
-    #     ani = anndata.read(args.similarity).obs
-    #     ani = ani.loc[classes.obs_names].drop_duplicates("groups")
-    #     classes = classes[ani.index]
-    #     features = features[ani.index]
-    #     console.print(f"[bold blue]{'Using':>12}[/] {features.n_obs} unique observations based on nucleotide similarity")
-    # remove classes absent from training set
-    classes = classes[:, (classes.X.sum(axis=0).A1 >= 5) & (classes.X.sum(axis=0).A1 <= classes.n_obs - 5)]
-    console.print(f"[bold blue]{'Using':>12}[/] {classes.n_vars} nontautological classes")
+
+    # preprocess data
+    similarity = None if args.similarity is None else anndata.read(args.similarity)
+    features, classes = filter_dataset(
+        features,
+        classes,
+        console,
+        similarity=similarity,
+        remove_unknown_structure=True,
+        min_class_occurrences=args.min_class_occurrences,
+        min_feature_occurrences=args.min_feature_occurrences,
+        min_length=args.min_cluster_length,
+        min_genes=args.min_genes,
+    )
     # prepare ontology and groups
     ontology = Ontology(classes.varp["parents"])
     groups = classes.obs["compound"].cat.codes
