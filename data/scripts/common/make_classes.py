@@ -32,6 +32,7 @@ parser.add_argument("--chemont", required=True)
 parser.add_argument("-o", "--output", required=True)
 parser.add_argument("-D", "--distance", type=float, default=0.5)
 parser.add_argument("--cache")
+parser.add_argument("--wishart", action="store_true", default=False)
 args = parser.parse_args()
 
 # create persistent cache
@@ -70,11 +71,15 @@ chemont_indices = { term.id:i for i, term in enumerate(sorted(chemont.terms()))}
 # --- Get ClassyFire annotations for all compounds ----------------------------
 
 cache = {}
+if args.wishart:
+    CLASSYFIRE_URL = "http://classyfire.wishartlab.com/entities/"
+else:
+    CLASSYFIRE_URL = "https://cfb.fiehnlab.ucdavis.edu/entities/"
 
 @memory.cache
 def get_classyfire_inchikey(inchikey):
     # otherwise use the ClassyFire website API
-    with urllib.request.urlopen(f"http://classyfire.wishartlab.com/entities/{inchikey}.json") as res:
+    with urllib.request.urlopen(f"{CLASSYFIRE_URL}{inchikey}") as res:
         data = json.load(res)
         time.sleep(10.0)
         if "class" not in data:
@@ -219,7 +224,7 @@ data = anndata.AnnData(
         index=list(chemont_indices),
         data=dict(
             name=[chemont[id_].name for id_ in chemont_indices],
-            description=[chemon[id_].definition for id_ in chemont_indices],
+            description=[chemont[id_].definition for id_ in chemont_indices],
             n_positives=classes.sum(axis=0)
         )
     ),

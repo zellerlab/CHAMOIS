@@ -73,6 +73,29 @@
             "database_id": []
         }
     ],
+    "CP007699.2_cluster1": [
+        {
+            "chem_struct": "C1=CC(=CC=C1C=CC=CC(=O)NC(CCC(=O)N)C(=O)O)N=[N+](C2=CC=C(C=C2)C=CC=CC(=O)NC(CCC(=O)N)C(=O)O)[O-]",
+            "compound": "azoxymycin A",
+            "database_id": [
+                "pubchem:139588705"
+            ]
+        },
+        {
+            "chem_struct": "C1=CC(=CC=C1C=CC=CC(=O)O)N=[N+](C2=CC=C(C=C2)C=CC=CC(=O)NC(CCC(=O)N)C(=O)O)[O-]",
+            "compound": "azoxymycin B",
+            "database_id": [
+                "pubchem:139588706"
+            ]
+        },
+        {
+            "chem_struct": "C1=CC(=CC=C1C=CC=CC(=O)O)N=[N+](C2=CC=C(C=C2)C=CC=CC(=O)O)[O-]",
+            "compound": "azoxymycin C",
+            "database_id": [
+                "pubchem:139587019"
+            ]
+        }
+    ],
     "CP048397.1_cluster1": [
         {
             "chem_struct": "CC[C@H](C)[C@@H](C(=O)N[C@H](CC1=CC=CC=C1)C(=O)N[C@H](CS(=O)(=O)O)C(=O)N[C@@H](CC(=O)O)C(=O)N[C@H]2[C@H](OC(=O)[C@@H]3CCCN3C(=O)[C@@H](NC(=O)[C@H](NC(=O)CNC(=O)CNC(=O)[C@H](N(C2=O)C)C(C)C)CCC(=O)O)C)C)NC(=O)[C@H](CC(=O)N)NC(=O)/C=C\\C=C\\CCC(C)C",
@@ -135,7 +158,7 @@
     "JX174443.1_cluster1": [
         {
             "chem_struct": "C1[C@@H]([C@H]([C@@H]([C@H](N1)CO)O)O)O",
-            "compound": "1-deoxyjirimycin",
+            "compound": "1-deoxynojirimycin",
             "database_id": [
                 "pubchem:29435"
             ]
@@ -144,10 +167,17 @@
     "KC188778.1_cluster1": [
         {
             "chem_struct": "CC(C(C(=O)N/C=C/1\\C[C@H]([C@@H](O1)N2C=CC(=O)NC2=O)O)NC(=O)C(CCSC)NC(=O)NC(CC3=CNC4=CC=CC=C43)C(=O)O)N(C)C(=O)C(CC5=CC(=CC=C5)O)N",
-            "compound": "sansanmycin",
+            "compound": "sansanmycin A",
             "database_id": [
                 "npatlas:NPA001954",
                 "pubchem:57395472"
+            ]
+        },
+        {
+            "chem_struct": "C[C@@H]([C@@H](C(=O)N/C=C\\1/C[C@H]([C@@H](O1)N2C=CC(=O)NC2=O)O)NC(=O)[C@H](CCSC)NC(=O)N[C@@H](CC3=CC=C(C=C3)O)C(=O)O)N(C)C(=O)[C@H](CC4=CC(=CC=C4)O)N",
+            "compound": "sansanmycin H",
+            "database_id": [
+                "pubchem:118707788"
             ]
         }
     ],
@@ -276,29 +306,6 @@
             ]
         }
     ],
-    "LGKG01000136.1_cluster1": [
-        {
-            "chem_struct": "C1=CC(=CC=C1C=CC=CC(=O)NC(CCC(=O)N)C(=O)O)N=[N+](C2=CC=C(C=C2)C=CC=CC(=O)NC(CCC(=O)N)C(=O)O)[O-]",
-            "compound": "azoxymycin A",
-            "database_id": [
-                "pubchem:139588705"
-            ]
-        },
-        {
-            "chem_struct": "C1=CC(=CC=C1C=CC=CC(=O)O)N=[N+](C2=CC=C(C=C2)C=CC=CC(=O)NC(CCC(=O)N)C(=O)O)[O-]",
-            "compound": "azoxymycin B",
-            "database_id": [
-                "pubchem:139588706"
-            ]
-        },
-        {
-            "chem_struct": "C1=CC(=CC=C1C=CC=CC(=O)O)N=[N+](C2=CC=C(C=C2)C=CC=CC(=O)O)[O-]",
-            "compound": "azoxymycin C",
-            "database_id": [
-                "pubchem:139587019"
-            ]
-        }
-    ],
     "MF055656.1_cluster1": [
         {
             "chem_struct": "CC(C(C1=NC=C(C=C1)O)O)C(C(=O)NC(C2C(C(C(O2)N3C=CC(=O)NC3=O)O)O)C(=O)O)N",
@@ -378,6 +385,13 @@
             "database_id": [
                 "npatlas:NPA010916"
             ]
+        },
+        {
+            "chem_struct": "CC1=C(C2=C(C(=C3C(=C2)CC4C5=C3C(=C6C(=C5OCO4)OC7=C(C6=O)C(CCC7OC)O)O)O)C(=O)N1N)Cl",
+            "compound": "chloroalbofungin",
+            "database_id": [
+                "pubchem:5748379"
+            ]
         }
     ],
     "ON960037.1_cluster1": [
@@ -415,11 +429,9 @@
     ],
     "OR074026.1_cluster1": [
         {
-            "chem_struct": "CCC(C)C(C(=O)NC1C(OC(=O)C2CCCNN2C(=O)C(NC(=O)C3CCCNN3C(=O)C(NC(=O)C(NC1=O)CC(C)C)C(C)C)CC(C)C)C)NC=O",
-            "compound": "depsidomycin",
-            "database_id": [
-                "npatlas:NPA020689"
-            ]
+            "chem_struct": "[C@]12C(=O)N[C@](C(N3[C@](C(=O)O[C@@]([C@](NC(=O)[C@@](NC([H])=O)[C@](C)CC)C(=O)N[C@](CC(C)C)C(=O)N[C@](C(C)C)C(=O)N1N=CCC2)C)CCC=N3)=O)CC(C)C",
+            "compound": "depsidomycin D",
+            "database_id": []
         }
     ],
     "OR335751.1_cluster1": [
