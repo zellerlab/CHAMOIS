@@ -13,7 +13,7 @@ from .._meta import requires
 from ..predictor import ChemicalOntologyPredictor
 from ..predictor.information import information_accretion, information_theoric_curve, semantic_distance_score
 from ..ontology import Ontology
-from ._common import record_metadata, save_metrics
+from ._common import record_metadata, save_metrics, filter_dataset
 from ._parser import (
     configure_group_preprocessing,
     configure_group_training_input,

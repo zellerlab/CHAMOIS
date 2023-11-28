@@ -94,8 +94,8 @@ class ChemicalOntologyPredictor:
             if len(parents) == 1:
                 pos = _Y[_Y[:, parents[0]], i].sum()
                 tot = _Y[:, parents[0]].sum()
-                freq = pos / tot
-                if freq > 0.0:
+                if tot > 0.0 and pos > 0.0:
+                    freq = pos / tot
                     ia[i] = - math.log2(freq)
         self.classes_["information_accretion"] = ia
 

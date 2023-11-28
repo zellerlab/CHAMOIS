@@ -24,7 +24,7 @@ def information_accretion(
     """Compute the information accretion using frequencies from the given labels.
     """
     _Y = y_true.toarray() if isinstance(y_true, scipy.sparse.spmatrix) else y_true
-    ia = numpy.zeros(_Y.shape[1], dtype=numpy.float32)
+    freq = numpy.zeros(_Y.shape[1], dtype=numpy.float32)
     for i in hierarchy:
         parents = hierarchy.parents(i)
         if parents.shape[0] > 0:
@@ -34,10 +34,9 @@ def information_accretion(
         else:
             pos = _Y[:, i].sum()
             tot = _Y.shape[0]
-            freq = pos / tot
-        freq = pos / tot
-        ia[i] = -math.log2(freq)
-    return ia
+        if tot > 0 and pos > 0:
+            freq[i] = pos / tot
+    return -numpy.log2(freq)
 
 
 def remaining_uncertainty_score(y_true, y_pred, information_accretion):
