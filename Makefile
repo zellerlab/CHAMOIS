@@ -109,7 +109,7 @@ $(DATA)/datasets/%/maccs.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(CHEM
 	$(PYTHON) $(SCRIPTS)/common/make_maccs.py -i $< -o $@
 
 $(DATA)/datasets/%/ani.hdf5: $(DATA)/datasets/%/clusters.gbk $(CHEMONT)
-	$(PYTHON) $(SCRIPTS)/common/make_ani.py -i $< -o $@ -s 0.3
+	$(PYTHON) $(SCRIPTS)/common/make_ani.py -q $< -r $< -o $@ -s 0.3
 
 $(DATA)/datasets/%/aci.mibig3.hdf5: $(DATA)/datasets/%/clusters.gbk $(DATA)/datasets/mibig3.1/clusters.gbk
 	$(PYTHON) $(SCRIPTS)/common/make_aci.py --query $(word 1,$^) --target $(word 2,$^) -o $@
