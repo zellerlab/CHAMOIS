@@ -129,6 +129,16 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, gene="nbrT3").location.start
                 end = get_cds(record, gene="nbrU").location.end
 
+            # MIBiG entry of BGC0001590 contains the whole antiSMASH prediction;
+            # authors propose more stringent boundaries:
+            # > Further bioinformatics analysis and consideration of the biosynthetic
+            # > pathway leads us to propose that forQ and forCC represent the boundaries
+            # > of BGC30
+            # (see https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5414599/)
+            elif record.id == "BGC0001590":
+                start = get_cds(record, locus_tag="forQ").location.start
+                end = get_cds(record, locus_tag="forCC").location.end
+
             # Heterologous expression of BGC0001917 shows that only `stmA` to `stmI`
             # are required for synthesis (see doi:10.1039/c8ob02846j, Fig.3)
             elif record.id == "BGC00001917":
