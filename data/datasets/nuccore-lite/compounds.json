@@ -66,6 +66,15 @@
             ]
         }
     ],
+    "AH012624.2_cluster1": [
+        {
+            "chem_struct": "COC1=CC=CC2=C1C(=O)C3=C(C2=O)C4=C(C=C(C=C4O)CO)[C@H]([C@@H]3O)O",
+            "compound": "PD116740",
+            "database_id": [
+                "pubchem:443809"
+            ]
+        }
+    ],
     "AJ269505.1_cluster1": [
         {
             "chem_struct": "CCC(C)C1C(=O)OC(C(C(=O)NC(C(=O)NC2CCC(N(C2=O)C(C(=O)N(C(C(=O)N1)CC3=CC=C(C=C3)OC)C)C(C)O)O)CCC4=CC=C(C=C4)O)NC(=O)C(CCC(=O)N)NC=O)C",
@@ -75,12 +84,19 @@
             ]
         }
     ],
-    "AH012624.2_cluster1": [
+    "AP018448.1_cluster1": [
         {
-            "chem_struct": "COC1=CC=CC2=C1C(=O)C3=C(C2=O)C4=C(C=C(C=C4O)CO)[C@H]([C@@H]3O)O",
-            "compound": "PD116740",
+            "chem_struct": "CC[C@H]1[C@H]([C@@H](C/C(=C/C=C/[C@@H]([C@H](OC(=O)/C(=C\\C(=C\\[C@H]([C@H]1O)C)\\C)/OC)[C@@H](C)[C@H]([C@H](C)[C@]2(C[C@H]([C@@H]([C@H](O2)/C=C/C)C)O)O)O)OC)/C)C)O",
+            "compound": "concanamycin F",
             "database_id": [
-                "pubchem:443809"
+                "pubchem:6450148"
+            ]
+        },
+        {
+            "chem_struct": "CC[C@H]1[C@H]([C@@H](C/C(=C/C=C/[C@@H]([C@H](OC(=O)/C(=C/C(=C/[C@H]([C@H]1O)C)/C)/OC)[C@@H](C)[C@H]([C@H](C)[C@]2(C[C@H]([C@@H]([C@H](O2)/C=C/C)C)OC(=O)/C=C/C(=O)O)O)O)OC)/C)C)O",
+            "compound": "TAN-1323D",
+            "database_id": [
+                "npatlas:NPA005849"
             ]
         }
     ],
@@ -106,6 +122,29 @@
             "compound": "cyanobacterin",
             "database_id": [
                 "pubchem:6437843"
+            ]
+        }
+    ],
+    "CABVGP010000001.1_cluster1": [
+        {
+            "chem_struct": "CC1=C(C(=CC2=CC3=C(C(=C12)O)C(=O)C4=C(C3)C=C(C=C4O)O)O)C(=O)O",
+            "compound": "tetracenomycin F1",
+            "database_id": [
+                "pubchem:127693"
+            ]
+        },
+        {
+            "chem_struct": "CC1=C(C(=CC2=CC3=C(C(=C12)O)C(=O)C4=C(C3=O)C=C(C=C4O)O)O)C(=O)O",
+            "compound": "tetracenomycin D3",
+            "database_id": [
+                "pubchem:196730"
+            ]
+        },
+        {
+            "chem_struct": "CC1=C(C(=CC2=CC3=C(C(=C12)O)C(=O)[C@@]4(C(=O)C=C([C@H]([C@@]4(C3=O)O)O)OC)OC)OC)C(=O)OC",
+            "compound": "tetracenomycin X",
+            "database_id": [
+                "pubchem:129395"
             ]
         }
     ],
@@ -148,6 +187,20 @@
             ]
         }
     ],
+    "CP022438.1_cluster1": [
+        {
+            "chem_struct": "C1/C(O)C(O)C2OC(=CC(=O)C=2/C=C/C(O)C)CC(=O)OC/C(=C\\C(=C\\CC)\\CC)/C=1",
+            "compound": "25-hydroxy peucemycin",
+            "database_id": []
+        }
+    ],
+    "CP026305.1_cluster1": [
+        {
+            "chem_struct": "C(=O)1N2NCCCC2C(=O)NC(CC2=CC=CC=C2)C(=O)N(O)C(C(CC)C)C(=O)N2NCCCC2C(=O)N2NCCCC2C(=O)N2NCCCC21",
+            "compound": "lunaemycin A",
+            "database_id": []
+        }
+    ],
     "CP048397.1_cluster1": [
         {
             "chem_struct": "CC[C@H](C)[C@@H](C(=O)N[C@H](CC1=CC=CC=C1)C(=O)N[C@H](CS(=O)(=O)O)C(=O)N[C@@H](CC(=O)O)C(=O)N[C@H]2[C@H](OC(=O)[C@@H]3CCCN3C(=O)[C@@H](NC(=O)[C@H](NC(=O)CNC(=O)CNC(=O)[C@H](N(C2=O)C)C(C)C)CCC(=O)O)C)C)NC(=O)[C@H](CC(=O)N)NC(=O)/C=C\\C=C\\CCC(C)C",
@@ -171,6 +224,20 @@
             "database_id": [
                 "pubchem:139590171"
             ]
+        }
+    ],
+    "CP092644.1_cluster1": [
+        {
+            "chem_struct": "C/C=C(/[C@@](O)[C@](/C=C(/C=C/C[C@](C)/C=C/C1OC(=O)C(CC)=C(O)C=1C)\\C)C)\\C",
+            "compound": "actinopyrone G",
+            "database_id": []
+        }
+    ],
+    "HE648167.1_cluster1": [
+        {
+            "chem_struct": "C(C)1/C=C(/C)\\C=C(/C)\\C(O)OC(C(C)C(C(C)C(O)2OC(CC)C(C)C(OC(=O)/C=C/C(=O)NC3=C(O)CCC3=O)C2)O)C(OC)/C=C/C=C(\\C)/CC(C)C1O.O",
+            "compound": "L-155,175",
+            "database_id": []
         }
     ],
     "HM037272.1_cluster1": [
@@ -198,6 +265,15 @@
             ]
         }
     ],
+    "JAPQLO010000012.1_cluster1": [
+        {
+            "chem_struct": "C1=CC2=C(C=C1Br)NC(=C2O)C3=NC4=C(C3=O)C=CC(=C4)Br",
+            "compound": "6,6-dibromoindigo",
+            "database_id": [
+                "pubchem:177057"
+            ]
+        }
+    ],
     "JN411915.1_cluster1": [
         {
             "chem_struct": "CC[C@@H](C)[C@@H]1C(=O)N[C@H](C(=O)NCC2=NC(=CO2)C3=NC(=CO3)C4=NC(=CO4)C5=NC(=CS5)C6=NC(=C(O6)C7=CC=CC=C7)C(=O)N1)C(C)C",
@@ -214,6 +290,15 @@
             "compound": "molybdopterin",
             "database_id": [
                 "npatlas:NPA015518"
+            ]
+        }
+    ],
+    "JQ269659.1_cluster1": [
+        {
+            "chem_struct": "CC1=CC=CC=CC=CC2=C(C(=CC=C2)O)C(=O)OC(CC(CC(CC(CC(CC(=CC=CC=CC=CC3=C(C(=CC=C3)O)C(=O)OC(CC(CC(CC(CC(C1)O)O)O)O)CC(C(C)O)O)C)O)O)O)O)CC(C(C)O)O",
+            "compound": "SIA7248",
+            "database_id": [
+                "pubchem:102335934"
             ]
         }
     ],
