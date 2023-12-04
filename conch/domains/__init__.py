@@ -155,6 +155,24 @@ class PfamAnnotator(DomainAnnotator):
                             protein=proteins[target_index],
                         )
 
+    def disentangle_domains(
+        self,
+        domains: List[PfamDomain]
+    ) -> Iterable[PfamDomain]:
+        domains.sort(key=lambda domain: (domain.protein.id, domain.start))
+        for protein_id, protein_domains in itertools.groupby(domains, lambda domain: domain.protein):
+            protein_domains = list(protein_domains)
+            while protein_domains:
+                candidate_domain = protein_domains.pop()
+                for other_domain in filter(candidate_domain.overlaps, protein_domains.copy()):
+                    if other_domain.score < candidate_domain.score:
+                        protein_domains.remove(other_domain)
+                    else:
+                        break
+                else:
+                    yield candidate_domain
+
+
 
 class NRPySAnnotator(DomainAnnotator):
     """An annotator using NRPSpredictor2 to predict AMP-binding specificity.
