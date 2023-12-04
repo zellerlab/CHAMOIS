@@ -79,7 +79,7 @@ else:
 @memory.cache
 def get_classyfire_inchikey(inchikey):
     # otherwise use the ClassyFire website API
-    with urllib.request.urlopen(f"{CLASSYFIRE_URL}{inchikey}") as res:
+    with urllib.request.urlopen(f"{CLASSYFIRE_URL}{inchikey}.json") as res:
         data = json.load(res)
         time.sleep(10.0)
         if "class" not in data:
@@ -109,7 +109,7 @@ for bgc_id, bgc_compounds in rich.progress.track(compounds.items(), description=
         rich.print(f"[bold blue]{'Querying':>12}[/] ClassyFire for compound {compound['compound']!r} of [purple]{bgc_id}[/]")
         try:
             classyfire = get_classyfire_inchikey(inchikey)
-        except (RuntimeError, HTTPError):
+        except (RuntimeError, HTTPError) as err:
             rich.print(f"[bold red]{'Failed':>12}[/] to get ClassyFire annotations for {compound['compound']!r} compound of [purple]{bgc_id}[/]")
             annotations[bgc_id].append(None)
         else:
