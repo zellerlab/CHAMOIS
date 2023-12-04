@@ -35,9 +35,9 @@ def configure_parser(parser: argparse.ArgumentParser):
 def load_predictions(path: pathlib.Path, predictor: ChemicalOntologyPredictor, console: Console) -> anndata.AnnData:
     console.print(f"[bold blue]{'Loading':>12}[/] probability predictions from {str(path)!r}")
     probas = anndata.read(path)
-    probas = probas[:, predictor.classes_.index]
-    classes = predictor.propagate(probas.X > 0.5)
-    return anndata.AnnData(X=classes, obs=probas.obs, var=probas.var, dtype=bool)
+    # probas = probas[:, predictor.classes_.index]
+    # classes = predictor.propagate(probas.X > 0.5)
+    return probas[:, predictor.classes_.index]
 
 
 def load_catalog(path: pathlib.Path, console: Console) -> anndata.AnnData:
@@ -97,9 +97,13 @@ def run(args: argparse.Namespace, console: Console) -> int:
         j = numpy.where(y)[0]
         return 1.0 - predictor.ontology.similarity(i, j)
 
+    def probjaccard(x: numpy.ndarray, y: numpy.ndarray) -> float:
+        tt = (x @ y).item()
+        return 1.0 - tt / ( x.sum() + y.sum() - tt )
+
     # compute distance
     console.print(f"[bold blue]{'Computing':>12}[/] pairwise distances and ranks")
-    distances = cdist(classes.X, catalog.X.toarray(), metric=gogo if args.distance == "gogo" else args.distance)
+    distances = cdist(classes.X, catalog.X.toarray(), metric=probjaccard)
     distances = numpy.nan_to_num(distances, copy=False, nan=1.0)
     ranks = scipy.stats.rankdata(distances, method="dense", axis=1)
 
