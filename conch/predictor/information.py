@@ -36,7 +36,7 @@ def information_accretion(
             tot = _Y.shape[0]
         if tot > 0 and pos > 0:
             freq[i] = pos / tot
-    return -numpy.log2(freq)
+    return -numpy.log2(freq, where=freq != 0.0)
 
 
 def remaining_uncertainty_score(y_true, y_pred, information_accretion):

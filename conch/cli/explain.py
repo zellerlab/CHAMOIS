@@ -1,4 +1,5 @@
 import argparse
+import math
 import pathlib
 from typing import List, Iterable, Set, Optional
 
@@ -117,8 +118,8 @@ def run_class(args: argparse.Namespace, console: Console) -> int:
     for row in selected_classes.sort_values("weight", ascending=False).itertuples():
         table.add_row(
             rich.text.Text(row.Index, style="repr.tag_name"),
-            row.kind,
-            row.name,
+            getattr(row, "kind", "N/A"),
+            getattr(row, "name", "N/A"),
             rich.text.Text(format(row.weight, ".5f"), style="repr.number"),
         )
     console.print(table)
