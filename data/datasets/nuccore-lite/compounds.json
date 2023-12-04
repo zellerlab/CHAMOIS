@@ -219,7 +219,7 @@
     ],
     "HE648167.1_cluster1": [
         {
-            "chem_struct": "C(C)1/C=C(/C)\\C=C(/C)\\C(O)OC(C(C)C(C(C)C(O)2OC(CC)C(C)C(OC(=O)/C=C/C(=O)NC3=C(O)CCC3=O)C2)O)C(OC)/C=C/C=C(\\C)/CC(C)C1O.O",
+            "chem_struct": "C(C)1/C=C(/C)\\C=C(/C)\\C(O)OC(C(C)C(C(C)C(O)2OC(CC)C(C)C(OC(=O)/C=C/C(=O)NC3=C(O)CCC3=O)C2)O)C(OC)/C=C/C=C(\\C)/CC(C)C1O",
             "compound": "L-155,175",
             "database_id": []
         }
