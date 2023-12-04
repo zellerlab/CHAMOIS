@@ -13,6 +13,7 @@ def configure_group_training_input(parser: argparse.ArgumentParser) -> "argparse
         "-f",
         "--features",
         required=True,
+        action="append",
         type=pathlib.Path,
         help="The feature table in HDF5 format to use for training the predictor."
     )

@@ -65,7 +65,8 @@ def configure_parser(parser: argparse.ArgumentParser):
 def run(args: argparse.Namespace, console: Console) -> int:
     # load data
     console.print(f"[bold blue]{'Loading':>12}[/] training data")
-    features = anndata.read(args.features)
+    features = anndata.concat([anndata.read(file) for file in args.features], axis=1, merge="same")
+    rich.print(features.obs)
     classes = anndata.read(args.classes)
     console.print(f"[bold green]{'Loaded':>12}[/] {features.n_obs} observations, {features.n_vars} features and {classes.n_vars} classes")
     
