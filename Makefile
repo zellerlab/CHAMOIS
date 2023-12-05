@@ -29,6 +29,9 @@ TAXONOMY_VERSION=2023-06-01
 PYTHON=python -Wignore
 WGET=wget --no-check-certificate
 
+# use http://classyfire.wishartlab.com/ to get ClassyFire annotations
+WISHART=--wishart
+
 .PHONY: datasets
 datasets: features classes compounds clusters maccs
 
@@ -88,7 +91,7 @@ $(ATLAS):
 	$(WGET) https://www.npatlas.org/static/downloads/NPAtlas_download.json -O- | gzip -c > $@
 
 $(DATA)/npatlas/classes.hdf5: $(CHEMONT) $(ATLAS) 
-	$(PYTHON) $(SCRIPTS)/npatlas/make_classes.py --atlas $(ATLAS) --chemont $(CHEMONT) -o $@
+	$(PYTHON) $(SCRIPTS)/npatlas/make_classes.py --atlas $(ATLAS) --chemont $(CHEMONT) -o $@ $(WISHART)
 
 $(DATA)/npatlas/maccs.hdf5: $(ATLAS) 
 	$(PYTHON) $(SCRIPTS)/npatlas/make_maccs.py --atlas $(ATLAS) -o $@
@@ -103,7 +106,7 @@ $(DATA)/datasets/%/features.hdf5: $(DATA)/datasets/%/clusters.gbk $(PFAM_HMM)
 	$(PYTHON) -m conch.cli annotate --i $< --hmm $(PFAM_HMM) -o $@
 
 $(DATA)/datasets/%/classes.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(CHEMONT)
-	$(PYTHON) $(SCRIPTS)/common/make_classes.py -i $< -o $@ --atlas $(ATLAS) --chemont $(CHEMONT) --cache $(BUILD)
+	$(PYTHON) $(SCRIPTS)/common/make_classes.py -i $< -o $@ --atlas $(ATLAS) --chemont $(CHEMONT) --cache $(BUILD) $(WISHART)
 
 $(DATA)/datasets/%/maccs.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(CHEMONT)
 	$(PYTHON) $(SCRIPTS)/common/make_maccs.py -i $< -o $@

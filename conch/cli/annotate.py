@@ -24,13 +24,7 @@ from ._parser import (
 
 
 def configure_parser(parser: argparse.ArgumentParser):
-    params_input = configure_group_predict_input(parser)
-    params_input.add_argument(
-        "--disentangle",
-        action="store_true",
-        help="Keep only the highest scoring domain on overlaps"
-    )
-
+    configure_group_predict_input(parser)
     configure_group_gene_finding(parser)
 
     params_output = parser.add_argument_group(
@@ -66,18 +60,9 @@ def run(args: argparse.Namespace, console: Console) -> int:
         console.print(f"[bold blue]{'Finding':>12}[/] genes with Pyrodigal")
         orf_finder = PyrodigalFinder(cpus=args.jobs) 
     proteins = find_proteins(clusters, orf_finder, console)
-
     domains = annotate_hmmer(args.hmm, proteins, args.jobs, console)
-    if args.disentangle:
-        pf = PfamAnnotator()
-        domains = list(pf.disentangle_domains(domains))
-        console.print(f"[bold green]{'Extracted':>12}[/] {len(domains)} non-overlapping domains")
 
     obs = build_observations(clusters, proteins)
     var = build_variables(domains)
     compositions = build_compositions(domains, obs, var, uns=uns)
     save_compositions(compositions, args.output, console)
-
-
-
-

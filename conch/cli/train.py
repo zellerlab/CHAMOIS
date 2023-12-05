@@ -87,7 +87,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
     micro_auroc = sklearn.metrics.roc_auc_score(truth, probas, average="micro")
     macro_auroc = sklearn.metrics.roc_auc_score(truth, probas, average="macro")
     micro_avgpr = sklearn.metrics.average_precision_score(truth, probas, average="micro")
-    macro_avgpr = sklearn.metrics.average_precision_score(truth, probas, average="macro")
+    macro_avgpr = sklearn.metrics.average_precision_score(truth, probas.round(3), average="macro")
     stats = [
         f"[bold magenta]AUROC(µ)=[/][bold cyan]{micro_auroc:05.1%}[/]",
         f"[bold magenta]AUROC(M)=[/][bold cyan]{macro_auroc:05.1%}[/]",
