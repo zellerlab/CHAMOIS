@@ -11,7 +11,7 @@ import anndata
 import numpy
 import pandas
 import scipy.sparse
-from scipy.special import expit
+from scipy.special import logit, expit
 
 from .. import _json
 from .._meta import requires
@@ -59,7 +59,7 @@ class ChemicalOntologyPredictor:
             "features_": self.features_,
             "intercept_": list(self.intercept_),
             "ontology": self.ontology.__getstate__(),
-            "coef_": scipy.sparse.csr_matrix(self.coef_),
+            "coef_": self.coef_,
             "model": self.model,
             "alpha": self.alpha,
             "variance": self.variance
@@ -69,7 +69,7 @@ class ChemicalOntologyPredictor:
         self.classes_ = state["classes_"]
         self.features_ = state["features_"]
         self.intercept_ = numpy.asarray(state["intercept_"])
-        self.coef_ = state["coef_"].toarray()
+        self.coef_ = state["coef_"]
         self.ontology.__setstate__(state["ontology"])
         self.model = state["model"]
         self.alpha = state.get("alpha", 1.0)
@@ -129,6 +129,9 @@ class ChemicalOntologyPredictor:
         nonzero_weights = numpy.abs(self.coef_).sum(axis=1) > 0
         self.coef_ = self.coef_[nonzero_weights]
         self.features_ = self.features_[nonzero_weights]
+    
+        # store weights in sparse matrix
+        self.coef_ = scipy.sparse.csr_matrix(self.coef_)
 
     @requires("sklearn.linear_model")
     def _fit_ridge(self, X, Y):
@@ -145,13 +148,17 @@ class ChemicalOntologyPredictor:
         self.coef_ = self.coef_[nonzero_weights]
         self.features_ = self.features_[nonzero_weights]
 
+        # store weights in sparse matrix
+        self.coef_ = scipy.sparse.csr_matrix(self.coef_)
+
     def _fit_dummy(self, X, Y):
         self.intercept_ = numpy.zeros(Y.shape[1])
         self.coef_ = numpy.zeros((0, Y.shape[1]))
-        for i in range(Y.shape[1]):
+        for i in range(Y.shape[1]):           
             n_pos = Y[:, i].sum()
-            n_neg = Y.shape[0] - n_pos
-            self.intercept_[i] = -10 if n_pos < n_neg else +10
+            odds = logit(n_pos / Y.shape[0])
+            self.intercept_[i] = numpy.clip(odds, -10, 10)
+        self.coef_ = scipy.sparse.csr_matrix(self.coef_)
 
     def fit(
         self: _T,
@@ -218,7 +225,7 @@ class ChemicalOntologyPredictor:
         propagate: bool = True,
     ) -> numpy.ndarray:
         if isinstance(X, anndata.AnnData):
-            _X = X.X.toarray()
+            _X = X.X
         else:
             _X = numpy.asarray(X)
         if self.model == "logistic":
@@ -299,6 +306,6 @@ class ChemicalOntologyPredictor:
     def checksum(self, hasher: Optional[Any] = None) -> str:
         if hasher is None:
             hasher = hashlib.sha256()
-        hasher.update(self.coef_)
+        hasher.update(self.coef_.toarray())
         hasher.update(self.intercept_)
         return hasher.hexdigest()
