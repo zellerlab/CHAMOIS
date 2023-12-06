@@ -5,7 +5,7 @@ from rich.console import Console
 from rich_argparse import RichHelpFormatter
 
 from .. import __version__, __package__ as _module
-from . import train, predict, render, cv, cvsearch, annotate, search, screen, explain
+from . import train, predict, render, cv, cvsearch, annotate, search, screen, explain, validate
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -102,7 +102,14 @@ def build_parser() -> argparse.ArgumentParser:
         commands.add_parser(
             "explain",
             formatter_class=RichHelpFormatter,
-            help="Explain "
+            help="Explain the model weights between query classes and features."
+        )
+    )
+    validate.configure_parser(
+        commands.add_parser(
+            "validate",
+            formatter_class=RichHelpFormatter,
+            help="Evaluate model on a validation dataset."
         )
     )
 
