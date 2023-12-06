@@ -45,10 +45,16 @@ def filter_dataset(
     min_length: int = 1000,
     min_genes: int = 2,
 ) -> Tuple[anndata.AnnData, anndata.AnnData]:
+    if sorted(features.obs.index) != sorted(classes.obs.index):
+        raise ValueError("Index mismatch: {!r} != {!r}".format(
+            sorted(features.obs.index),
+            sorted(classes.obs.index)
+        ))
 
     if remove_unknown_structure:
-        features = features[~classes.obs.unknown_structure]
-        classes = classes[~classes.obs.unknown_structure]
+        obs = classes.obs[~classes.obs.unknown_structure]
+        features = features[obs.index]
+        classes = classes[obs.index]
         console.print(f"[bold blue]{'Using':>12}[/] {features.n_obs} observations with known compounds")
 
     if min_length > 0:
@@ -152,7 +158,7 @@ def annotate_hmmer(path: pathlib.Path, proteins: List[Protein], cpus: Optional[i
     domains = annotate_domains(domain_annotator, proteins, console, total=total)
     console.print(f"[bold green]{'Found':>12}[/] {len(domains)} domains under inclusion threshold in {len(proteins)} proteins")
     return domains
-    
+
 
 def annotate_nrpys(proteins: List[Protein], cpus: Optional[int], console: Console) -> List[AMPBindingDomain]:
     console.print(f"[bold blue]{'Predicting':>12}[/] adenylation domain specificity with NRPyS")
@@ -173,7 +179,7 @@ def record_metadata(predictor: Optional[ChemicalOntologyPredictor] = None) -> Di
 
 def save_metrics(
     metrics: Dict[str, float],
-    path: Optional[pathlib.Path], 
+    path: Optional[pathlib.Path],
     console: Console,
 ):
     if path is not None:
