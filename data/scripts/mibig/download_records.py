@@ -101,6 +101,13 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, gene="fom3").location.start
                 end = get_cds(record, gene="fomC").location.end
 
+            # BGC0000966 has some flanking genes in the cluster that are not
+            # counted as part of the BGC by the authors
+            # (see https://pubmed.ncbi.nlm.nih.gov/22591508/, Figure 1)
+            elif record.id == "BGC0000966":
+                start = get_cds(record, protein_id="AFD30965.1").location.start
+                end = get_cds(record, protein_id="AFD30946.1").location.end
+
             # MIBIG entry of BGC0001196 contains ORF-2 to ORF+3
             elif record.id == "BGC0001196":
                 start = get_cds(record, protein_id="AJW76703.1").location.start
