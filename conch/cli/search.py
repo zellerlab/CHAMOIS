@@ -87,10 +87,10 @@ def build_table(results: pandas.DataFrame) -> rich.table.Table:
 
 def run(args: argparse.Namespace, console: Console) -> int:
     predictor = load_model(args.model, console)
-    classes = load_predictions(args.input, predictor, console)
+    probas = load_predictions(args.input, predictor, console)
 
     # load catalog
-    catalog = load_catalog(args.catalog, console)[:, classes.var.index]
+    catalog = load_catalog(args.catalog, console)[:, probas.var.index]
 
     def gogo(x: numpy.ndarray, y: numpy.ndarray) -> float:
         i = numpy.where(x)[0]
@@ -101,14 +101,18 @@ def run(args: argparse.Namespace, console: Console) -> int:
         tt = (x @ y).item()
         return 1.0 - tt / ( x.sum() + y.sum() - tt )
 
+    def probjaccard_cdist(X: numpy.ndarray, Y: numpy.ndarray) -> numpy.ndarray:
+        tt = (X @ Y.T)
+        return 1.0 - tt / (X.sum(axis=1).reshape(-1, 1) - tt + Y.sum(axis=1).reshape(1, -1))
+
     # compute distance
     console.print(f"[bold blue]{'Computing':>12}[/] pairwise distances and ranks")
-    distances = cdist(classes.X, catalog.X.toarray(), metric=probjaccard)
+    distances = probjaccard_cdist(probas.X, catalog.X) #cdist(classes.X, catalog.X.toarray(), metric=probjaccard)
     distances = numpy.nan_to_num(distances, copy=False, nan=1.0)
     ranks = scipy.stats.rankdata(distances, method="dense", axis=1)
 
     # save results
-    results = build_results(classes, catalog, distances, ranks, max_rank=args.rank)
+    results = build_results(probas, catalog, distances, ranks, max_rank=args.rank)
     if args.output:
         console.print(f"[bold blue]{'Saving':>12}[/] search results to {str(args.output)!r}")
         results.to_csv(args.output, sep="\t", index=False)
