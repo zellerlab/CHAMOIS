@@ -4,6 +4,7 @@ import itertools
 import json
 import gzip
 import os
+import sys
 import urllib.request
 import time
 from urllib.error import HTTPError
@@ -11,7 +12,6 @@ from typing import Dict, List
 
 import anndata
 import disjoint_set
-import joblib
 import pandas
 import pronto
 import numpy
@@ -20,6 +20,9 @@ import rich.progress
 import scipy.sparse
 from rdkit import RDLogger
 from rdkit.Chem.rdMHFPFingerprint import MHFPEncoder
+
+sys.path.insert(0, os.path.abspath(os.path.join(__file__, "..", "..", "..", "..")))
+import conch.classyfire
 
 # disable logging
 RDLogger.DisableLog('rdApp.warning')
@@ -39,7 +42,6 @@ args = parser.parse_args()
 if args.cache:
     rich.print(f"[bold green]{'Using':>12}[/] joblib cache folder {args.cache!r}")
     os.makedirs(args.cache, exist_ok=True)
-memory = joblib.Memory(location=args.cache, verbose=False)
 
 # --- Load MIBiG -------------------------------------------------------------
 
@@ -66,6 +68,29 @@ inchikey_index = {entry["inchikey"]: entry for entry in data}
 chemont = pronto.Ontology(args.chemont)
 rich.print(f"[bold green]{'Loaded':>12}[/] {len(chemont)} terms from ChemOnt")
 chemont_indices = { term.id:i for i, term in enumerate(sorted(chemont.terms()))}
+
+
+# --- Make adjacency matrix for the class graph ------------------------------
+
+parents = scipy.sparse.dok_matrix((len(chemont_indices), len(chemont_indices)), dtype=numpy.bool_)
+superclasses = scipy.sparse.dok_matrix((len(chemont_indices), len(chemont_indices)), dtype=numpy.bool_)
+for term_id, i in chemont_indices.items():
+    for superclass in chemont[term_id].superclasses():
+        j = chemont_indices[superclass.id]
+        superclasses[i, j] = True
+    for superclass in chemont[term_id].superclasses(with_self=False, distance=1):
+        j = chemont_indices[superclass.id]
+        parents[i, j] = True   
+
+children = scipy.sparse.dok_matrix((len(chemont_indices), len(chemont_indices)), dtype=numpy.bool_)
+subclasses = scipy.sparse.dok_matrix((len(chemont_indices), len(chemont_indices)), dtype=numpy.bool_)
+for term_id, i in chemont_indices.items():
+    for subclass in chemont[term_id].subclasses():
+        j = chemont_indices[subclass.id]
+        subclasses[i, j] = True
+    for subclass in chemont[term_id].subclasses(with_self=False, distance=1):
+        j = chemont_indices[subclass.id]
+        children[i, j] = True
 
 
 # --- Get ClassyFire annotations for all compounds ----------------------------
@@ -103,12 +128,12 @@ for bgc_id, bgc_compounds in rich.progress.track(compounds.items(), description=
             compound.setdefault("database_id", []).append(f"npatlas:{npaid}")
             if np_atlas[npaid]["classyfire"] is not None:
                 rich.print(f"[bold green]{'Found':>12}[/] NPAtlas classification ([bold cyan]{npaid}[/]) for compound {compound['compound']!r} of [purple]{bgc_id}[/]")
-                annotations[bgc_id].append(np_atlas[npaid]["classyfire"])
+                annotations[bgc_id].append(conch.classyfire.Classification.from_dict(np_atlas[npaid]["classyfire"]))
                 continue
         # try to use classyfire by InChi key othewrise
         rich.print(f"[bold blue]{'Querying':>12}[/] ClassyFire for compound {compound['compound']!r} of [purple]{bgc_id}[/]")
         try:
-            classyfire = get_classyfire_inchikey(inchikey)
+            classyfire = conch.classyfire.get_classification(inchikey) #get_classyfire_inchikey(inchikey)
         except (RuntimeError, HTTPError) as err:
             rich.print(f"[bold red]{'Failed':>12}[/] to get ClassyFire annotations for {compound['compound']!r} compound of [purple]{bgc_id}[/]")
             annotations[bgc_id].append(None)
@@ -120,16 +145,8 @@ for bgc_id, bgc_compounds in rich.progress.track(compounds.items(), description=
 
 # --- Binarize classes -------------------------------------------------------
 
-def full_classification(annotation):
-    return pronto.TermSet({
-        chemont[direct_parent["chemont_id"]] # type: ignore
-        for direct_parent in itertools.chain(
-            [annotation["kingdom"], annotation["superclass"], annotation["class"], annotation["subclass"], annotation["direct_parent"]],
-            annotation["intermediate_nodes"],
-            annotation["alternative_parents"],
-        )
-        if direct_parent is not None
-    }).superclasses().to_set()
+def full_classification(classification):
+    return pronto.TermSet({chemont[t.id] for t in classification.terms}).superclasses().to_set()
 
 unknown_structure = numpy.zeros(len(bgc_ids), dtype=numpy.bool_)
 classes = numpy.zeros((len(compounds), len(chemont_indices)), dtype=numpy.bool_)
@@ -154,35 +171,13 @@ for bgc_id in rich.progress.track(annotations, description=f"[bold blue]{'Binari
     # record compount structure
     bgc_compound = compounds[bgc_id][best_index]
     bgc_annotation = annotations[bgc_id][best_index]
-    smiles[bgc_index] = bgc_annotation["smiles"]
+    smiles[bgc_index] = bgc_annotation.smiles
     names[bgc_index] = bgc_compound["compound"]
-    inchikey[bgc_index] = rdkit.Chem.MolToInchiKey(rdkit.Chem.MolFromSmiles(bgc_annotation["smiles"]))
+    inchikey[bgc_index] = bgc_annotation.inchikey.split("=", 1)[1]
     # record classification and metadata for compound
     for parent in full_classification(bgc_annotation):
         classes[bgc_index, chemont_indices[parent.id]] = True
 
-
-# --- Make adjacency matrix for the class graph ------------------------------
-
-parents = scipy.sparse.dok_matrix((len(chemont_indices), len(chemont_indices)), dtype=numpy.bool_)
-superclasses = scipy.sparse.dok_matrix((len(chemont_indices), len(chemont_indices)), dtype=numpy.bool_)
-for term_id, i in chemont_indices.items():
-    for superclass in chemont[term_id].superclasses():
-        j = chemont_indices[superclass.id]
-        superclasses[i, j] = True
-    for superclass in chemont[term_id].superclasses(with_self=False, distance=1):
-        j = chemont_indices[superclass.id]
-        parents[i, j] = True   
-
-children = scipy.sparse.dok_matrix((len(chemont_indices), len(chemont_indices)), dtype=numpy.bool_)
-subclasses = scipy.sparse.dok_matrix((len(chemont_indices), len(chemont_indices)), dtype=numpy.bool_)
-for term_id, i in chemont_indices.items():
-    for subclass in chemont[term_id].subclasses():
-        j = chemont_indices[subclass.id]
-        subclasses[i, j] = True
-    for subclass in chemont[term_id].subclasses(with_self=False, distance=1):
-        j = chemont_indices[subclass.id]
-        children[i, j] = True
 
 # --- Build groups using MHFP6 distances -------------------------------------
 
