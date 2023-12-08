@@ -185,6 +185,13 @@
             "database_id": []
         }
     ],
+    "CP047318.1_cluster1": [
+        {
+            "chem_struct": "[C@H]1(O)[C@H](C)[C@@H](O)[C@H](O)[C@@H](O)[C@](C)(O)CCCC=C[C@]2([H])C[C@H](C)CO[C@@]2(O)C[C@]2([H])O[C@]3(CCC[C@H](C[C@H](O)CC)O3)C[C@]([H])(OC(=O)C=C[C@@]1(C)O)C2C",
+            "compound": "HM190 macrolide 1",
+            "database_id": []
+        }
+    ],
     "CP048397.1_cluster1": [
         {
             "chem_struct": "CC[C@H](C)[C@@H](C(=O)N[C@H](CC1=CC=CC=C1)C(=O)N[C@H](CS(=O)(=O)O)C(=O)N[C@@H](CC(=O)O)C(=O)N[C@H]2[C@H](OC(=O)[C@@H]3CCCN3C(=O)[C@@H](NC(=O)[C@H](NC(=O)CNC(=O)CNC(=O)[C@H](N(C2=O)C)C(C)C)CCC(=O)O)C)C)NC(=O)[C@H](CC(=O)N)NC(=O)/C=C\\C=C\\CCC(C)C",
@@ -215,6 +222,29 @@
             "chem_struct": "C/C=C(/[C@@](O)[C@](/C=C(/C=C/C[C@](C)/C=C/C1OC(=O)C(CC)=C(O)C=1C)\\C)C)\\C",
             "compound": "actinopyrone G",
             "database_id": []
+        }
+    ],
+    "DS999645.1_cluster1": [
+        {
+            "chem_struct": "CNC1=CC(=O)C2=C(C1=O)C=NC=C2",
+            "compound": "7-(methylamino)isoquinoline-5,8-dione",
+            "database_id": [
+                "pubchem:2595"
+            ]
+        },
+        {
+            "chem_struct": "CC1=C2C(=O)C=C(C(=O)C2=CN=C1C)NC",
+            "compound": "3,4-dimethyl-7-(methylamino)isoquinoline-5,8-dione",
+            "database_id": [
+                "pubchem:44614384"
+            ]
+        },
+        {
+            "chem_struct": "CC1=CC2=C(C=N1)C(=O)C(=CC2=O)NC",
+            "compound": "3-methyl-7-(methylamino)isoquinoline-5,8-dione",
+            "database_id": [
+                "pubchem:21818908"
+            ]
         }
     ],
     "HE648167.1_cluster1": [
@@ -465,6 +495,22 @@
             ]
         }
     ],
+    "LC596414.1_cluster1": [
+        {
+            "chem_struct": "C=1[C@H]([C@H](OC([C@@H]([C@H]([C@H](C[C@H](C(C1)=O)C)C)OC2O[C@@H](C[C@@H]([C@H]2O)N(C)C)C)C)=O)C(C)=O)C",
+            "compound": "12-ketomethymycin",
+            "database_id": [
+                "chebi:188461"
+            ]
+        },
+        {
+            "chem_struct": "C=1[C@H]([C@H](OC([C@@H]([C@H]([C@H](C[C@H](C(C1)=O)C)C)OC2O[C@@H](C[C@@H]([C@H]2O)[N+](C)(C)[O-])C)C)=O)C(C)=O)C",
+            "compound": "12-ketomethymycin N-oxyde",
+            "database_id": [
+                "chebi:188462"
+            ]
+        }
+    ],
     "LC659998.1_cluster1": [
         {
             "chem_struct": "CC1=C(CCC(C1)(C)C)CC2=CC3=C(C=C2)NC4=C3C(=O)C(=O)C(=C4C[C@@H](C)O)C",
@@ -510,6 +556,24 @@
             "chem_struct": "CC(C1OC(=O)C(C(O)C(OC(=O)C(OC(=O)C(NC(=O)C2=CC(O)=CC=C2)C(OC1=O)C)C(C)C)CC1C=CC=CC=1)(C)C)C",
             "compound": "unantimycin E",
             "database_id": []
+        }
+    ],
+    "MT269816.1_cluster1": [
+        {
+            "chem_struct": "CCCCCC(=O)OCC1C(C(C(C(O1)OC2CC3C(C4(C2)C(C(N3C(=O)C(C(C)CC)NC(=O)C(COS(=O)(=O)O)OC)C(=O)NCCC5=CCN(C5)C(=N)N)NC(=O)O4)O)OC(=O)CCCCC)O)O",
+            "compound": "suomilide A",
+            "database_id": [
+                "pubchem:102505416"
+            ]
+        },
+        {
+            "compound": "suomilide B"
+        },
+        {
+            "compound": "suomilide C"
+        },
+        {
+            "compound": "suomilide D"
         }
     ],
     "MZ209415.1_cluster1": [
@@ -593,6 +657,18 @@
             "compound": "jejucarboside A"
         }
     ],
+    "OP009365.1_cluster1": [
+        {
+            "compound": "spirocyclione A",
+            "chem_struct": "C1=CC(O)=C2C(=O)C3CC[C@@]4(CC(C)=CC(=O)[C@@H]4C)OC=3C(=O)C2=C1",
+            "database_id": []
+        },
+        {
+            "compound": "spirocyclione B",
+            "chem_struct": "C1=CC(O)=C2C(=O)C3CC[C@](C/C(/C)=C\\C(=O)O)(C(=O)O)OC=3C(=O)C2=C1",
+            "database_id": []
+        }
+    ],
     "OP297967.1_cluster1": [
         {
             "chem_struct": "C[C@@]1(CC[C@H]2C(=C1)CC[C@@H]3[C@@]2(CCCC3(C)C)C)C=C",
@@ -600,6 +676,28 @@
             "database_id": [
                 "pubchem:443469"
             ]
+        }
+    ],
+    "OP494098.1_cluster1": [
+        {
+            "compound": "thiamyxin A",
+            "chem_struct": "C1SC2[C@H](C(C)C)N(C)C(=O)[C@@H](NC(=O)C(NC(=O)[C@@]3(C)N=C(C4N=C([C@@]5(C)N=C([C@H]([C@H](CC)C)NC(=O)[C@@H](C)NC(=O)/C(=C\\C(C)C)/COC(=O)C=1N=2)SC5)SC=4)SC3)=C)COC",
+            "database_id": []
+        },
+        {
+            "compound": "thiamyxin B",
+            "chem_struct": "C1SC2[C@H](C(C)C)N(C)C(=O)[C@@H](NC(=O)C(NC(=O)[C@@]3(C)N=C(C4N=C([C@@]5(C)N=C([C@@H]([C@H](CC)C)NC(=O)[C@@H](C)NC(=O)/C(=C\\C(C)C)/COC(=O)C=1N=2)SC5)SC=4)SC3)=C)COC",
+            "database_id": []
+        },
+        {
+            "compound": "thiamyxin C",
+            "chem_struct": "C1SC([C@H](C(C)C)N(C)C(=O)[C@@H](NC(=O)C(NC(=O)[C@@]2(C)N=C(C3N=C([C@@]4(C)N=C([C@@H]([C@H](CC)C)NC(=O)[C@@H](C)NC(=O)/C(=C\\C(C)C)/CO)SC4)SC=3)SC2)=C)COC)=NC=1C(O)=O",
+            "database_id": []
+        },
+        {
+            "compound": "thiamyxin D",
+            "chem_struct": "C1(C(OCC(O)CO)=O)N=C([C@H](C(C)C)N(C)C(=O)[C@@H](NC(=O)C(NC(=O)[C@@]2(C)N=C(C3N=C([C@@]4(C)N=C([C@@H]([C@H](CC)C)NC(=O)[C@@H](C)NC(=O)/C(=C\\C(C)C)/CO)SC4)SC=3)SC2)=C)COC)SC=1",
+            "database_id": []
         }
     ],
     "OR074026.1_cluster1": [
