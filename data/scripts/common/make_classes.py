@@ -102,6 +102,7 @@ else:
     CLASSYFIRE_URL = "https://cfb.fiehnlab.ucdavis.edu/entities/"
 
 annotations = {}
+classyfire_client = conch.classyfire.Client()
 for bgc_id, bgc_compounds in rich.progress.track(compounds.items(), description=f"[bold blue]{'Classifying':>12}[/]"):
     # get annotations for every compound of the BGC
     annotations[bgc_id] = []
@@ -118,12 +119,13 @@ for bgc_id, bgc_compounds in rich.progress.track(compounds.items(), description=
             compound.setdefault("database_id", []).append(f"npatlas:{npaid}")
             if np_atlas[npaid]["classyfire"] is not None:
                 rich.print(f"[bold green]{'Found':>12}[/] NPAtlas classification ([bold cyan]{npaid}[/]) for compound {compound['compound']!r} of [purple]{bgc_id}[/]")
+                classyfire_client.cache[inchikey] = np_atlas[npaid]["classyfire"]
                 annotations[bgc_id].append(conch.classyfire.Classification.from_dict(np_atlas[npaid]["classyfire"]))
                 continue
         # try to use classyfire by InChi key othewrise
         rich.print(f"[bold blue]{'Querying':>12}[/] ClassyFire for compound {compound['compound']!r} of [purple]{bgc_id}[/]")
         try:
-            classyfire = conch.classyfire.get_classification(inchikey)
+            classyfire = classyfire_client.fetch(inchikey)
         except (RuntimeError, HTTPError) as err:
             rich.print(f"[bold red]{'Failed':>12}[/] to get ClassyFire annotations for {compound['compound']!r} compound of [purple]{bgc_id}[/]")
             annotations[bgc_id].append(None)

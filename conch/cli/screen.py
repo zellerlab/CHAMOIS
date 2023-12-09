@@ -19,7 +19,7 @@ from scipy.spatial.distance import cdist
 
 from .._meta import requires
 from ..predictor import ChemicalOntologyPredictor
-from ..classyfire import query_classyfire, get_classification, get_results, extract_classification, binarize_classification
+from ..classyfire import Client, binarize_classification
 from ._common import load_model
 from .render import build_tree
 from ._parser import (
@@ -125,10 +125,11 @@ def run(args: argparse.Namespace, console: Console) -> int:
     probas, classes = load_predictions(args.input, predictor, console)
 
     classifications = {}
-    inchikeys = [rdkit.Chem.inchi.MolToInchiKey(mol) for mol in args.queries]
+    classyfire = Client()
+    inchikeys = (rdkit.Chem.inchi.MolToInchiKey(mol) for mol in args.queries)
     for inchikey in inchikeys:
         console.print(f"[bold blue]{'Retrieving':>12}[/] {len(args.queries)} ClassyFire results for [bold cyan]{inchikey}[/]")
-        classifications[inchikey] = get_classification(inchikey)
+        classifications[inchikey] = classyfire.fetch(inchikey)
 
         # with urllib.request.urlopen(f"https://cfb.fiehnlab.ucdavis.edu/entities/{inchikey}.json") as res:
         #     result = json.load(res)

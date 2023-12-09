@@ -3,12 +3,14 @@ import itertools
 import json
 import gzip
 import time
+import os
 import pathlib
 import shutil
 import uuid
 import urllib.request
 import urllib.parse
-from typing import Dict, Set, List
+import typing
+from typing import Dict, Set, List, Iterable, Optional
 
 import platformdirs
 import numpy
@@ -97,56 +99,116 @@ class Classification:
         )))
 
 
-def get_classification(inchikey: str) -> Classification:
-    cache = pathlib.Path(platformdirs.user_cache_dir('CONCH', 'ZellerLab'))
-    entry = cache.joinpath(inchikey).with_suffix(".json.gz") 
-    if not entry.exists():
-        cache.mkdir(parents=True, exist_ok=True)
-        url = f"https://cfb.fiehnlab.ucdavis.edu/entities/{inchikey}.json"
-        with urllib.request.urlopen(url) as res:
-            response = json.load(res)
-        if "error" in response:
-            raise RuntimeError(f"Failed to get classification: {response['error']}")
+class Cache(typing.MutableMapping[str, Dict[str, object]]):
+
+    def __init__(self, folder: "Optional[os.PathLike[str]]" = None):
+        if folder is None:
+            self.folder = pathlib.Path(platformdirs.user_cache_dir('CONCH', 'ZellerLab'))
+        else:
+            self.folder = pathlib.Path(folder)
+        self.folder.mkdir(parents=True, exist_ok=True)
+
+    def __repr__(self):
+        return f"{type(self).__name__}({self.folder!r})"
+
+    def __getitem__(self, item: str) -> Dict[str, object]:
+        entry = self.folder.joinpath(item).with_suffix(".json.gz")
+        try:
+            with gzip.open(entry, "rt") as src:
+                return json.load(src)
+        except FileNotFoundError as err:
+            raise KeyError(item) from None
+
+    def __setitem__(self, item: str, value: Dict[str, object]) -> None:
+        entry = self.folder.joinpath(item).with_suffix(".json.gz")
         with gzip.open(entry, "wt") as dst:
-            json.dump(response, dst)
-    with gzip.open(entry, "rt") as f:
-        return Classification.from_dict(json.load(f))
+            json.dump(item, dst)
+
+    def __delitem__(self, item: str) -> None:
+        entry = self.folder.joinpath(item).with_suffix(".json.gz")
+        if not entry.exists():
+            raise KeyError(item)
+        os.remove(entry)
+
+    def __iter__(self, item: str) -> Iterable[str]:
+        return (path.stem for path in self.folder.glob("*.json.gz"))
+
+    def __len__(self) -> int:
+        return sum(1 for _ in self.folder.glob("*.json.gz"))
+
+    def __contains__(self, item: str):
+        entry = self.folder.joinpath(item).with_suffix(".json.gz")
+        return entry.exists()
 
 
-def query_classyfire(structures: List[str]) -> Dict[str, object]:
-    form = {
-        "label": f"conch-{uuid.uuid4()}",
-        "query_input": "\n".join(structures),
-        "query_type": "STRUCTURE",
-    }
-    request = urllib.request.Request(
-        f"{_BASE_URL}/queries.json",
-        data=json.dumps(form).encode(),
-        headers={"Content-Type": "application/json"}
-    )
-    with urllib.request.urlopen(request) as res:
-        return json.load(res)
+class Query:
+    def __init__(self, client: "Client", id: str):
+        self.id = id
+        self.client = client
 
-
-def get_results(query_id: int, page: int = 1) -> Dict[str, object]:
-    request = urllib.request.Request(
-        f"{_BASE_URL}/queries/{query_id}.json?page={page}",
-        headers={"Content-Type": "application/json"},
-    )
-    with urllib.request.urlopen(request) as res:
-        return json.load(res)
-
-
-def extract_classification(data: Dict[str, object]) -> Set[str]:
-    return {
-        direct_parent["chemont_id"]
-        for direct_parent in itertools.chain(
-            [data[x] for x in ["kingdom", "superclass", "class", "subclass", "direct_parent"]],
-            data["intermediate_nodes"],
-            data["alternative_parents"],
+    @property
+    def status(self) -> str:
+        request = urllib.request.Request(
+            f"{self.client.base_url}/queries/{self.id}.json",
+            headers={"Content-Type": "application/json"},
         )
-        if direct_parent is not None
-    }
+        with urllib.request.urlopen(request) as res:
+            data = json.load(res)
+        return data['classification_status']
+
+
+class Client:
+
+    def __init__(
+        self,
+        base_url: str = "http://classyfire.wishartlab.com",
+        entities_url: str = "https://cfb.fiehnlab.ucdavis.edu/entities/",
+        cache: Optional[Cache] = None,
+    ):
+        self.base_url = base_url
+        self.entities_url = entities_url
+        self.cache = Cache() if cache is None else cache
+
+    def fetch(self, inchikey: str) -> Classification:
+        """Fetch the pre-computed classification for a single compound.
+        """
+        if inchikey not in self.cache:
+            url = f"{self.entities_url}{inchikey}.json"
+            with urllib.request.urlopen(url) as res:
+                response = json.load(res)
+            if 'error' in response:
+                raise RuntimeError(f"Failed to get classification: {response['error']}")
+            self.cache[inchikey] = response
+        return Classification.from_dict(self.cache[inchikey])
+
+    def query(self, structures: Iterable[str]) -> Query:
+        form = {
+            "label": f"conch-{uuid.uuid4()}",
+            "query_input": "\n".join(structures),
+            "query_type": "STRUCTURE",
+        }
+        request = urllib.request.Request(
+            f"{self.url}/queries.json",
+            data=json.dumps(form).encode(),
+            headers={"Content-Type": "application/json"}
+        )
+        with urllib.request.urlopen(request) as res:
+            query = json.load(res)
+        if "id" not in query:
+            raise RuntimeError("Failed to submit queries to ClassyFire")
+        return Query(self, query["id"])
+
+    def retrieve(self, query: Query, page: int = 1) -> Iterable[Classification]:
+        request = urllib.request.Request(
+            f"{self.base_url}/queries/{query.id}.json?page={page}",
+            headers={"Content-Type": "application/json"},
+        )
+        with urllib.request.urlopen(request) as res:
+            result = json.load(res)
+        for entity in result.get('entities', []):
+            inchikey = entity["inchikey"].split("=")[-1]
+            self.cache[inchikey] = entity
+        return result
 
 
 def binarize_classification(
