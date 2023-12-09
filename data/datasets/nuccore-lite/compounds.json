@@ -741,6 +741,28 @@
             "database_id": []
         }
     ],
+    "OQ368584.1_cluster1": [
+        {
+            "chem_struct": "C1C=CC=C(C2OC=C(C3SCC(C4NC(C(=O)NC5C(=O)SCC5)CS4)N3C)N=2)C=1O",
+            "compound": "sorangibactin A1",
+            "database_id": []
+        },
+        {
+            "chem_struct": "C1C=CC=C(C2OC=C(C3SCC(C4NC(C(=O)NC5C(=O)SCC5)CS4)N3C)N=2)C=1O",
+            "compound": "sorangibactin A2",
+            "database_id": []
+        },
+        {
+            "chem_struct": "C1C=CC=C(C2OC=C(C3SCC(C4NC(C(=O)NC(C(O)=O)CCS)CS4)N3C)N=2)C=1O",
+            "compound": "sorangibactin B",
+            "database_id": []
+        },
+        {
+            "chem_struct": "C1C=CC=C(C2OCC(C3SCC(C4NC(C(=O)NC(C(O)=O)CCS)CS4)N3C)N=2)C=1O",
+            "compound": "sorangibactin C",
+            "database_id": []
+        }
+    ],
     "OR074026.1_cluster1": [
         {
             "chem_struct": "[C@]12C(=O)N[C@](C(N3[C@](C(=O)O[C@@]([C@](NC(=O)[C@@](NC([H])=O)[C@](C)CC)C(=O)N[C@](CC(C)C)C(=O)N[C@](C(C)C)C(=O)N1N=CCC2)C)CCC=N3)=O)CC(C)C",
@@ -786,6 +808,11 @@
             "database_id": [
                 "pubchem:155289491"
             ]
+        }
+    ],
+    "UFVQ01000003.1_cluster1": [
+        {
+            "compound": "carnazolamide"
         }
     ],
     "VILE02000015.1_cluster1": [
