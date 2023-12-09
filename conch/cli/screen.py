@@ -39,7 +39,7 @@ def _parse_molecule(text: str) -> "Mol":
         mol = parse(text)
         if mol is not None:
             return mol
-    raise ValueError(f"Could not parse {molecule!r} molecule")
+    raise ValueError(f"Could not parse {text!r} molecule")
 
 
 def configure_parser(parser: argparse.ArgumentParser):
