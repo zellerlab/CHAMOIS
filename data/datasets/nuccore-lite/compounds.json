@@ -559,6 +559,15 @@
             ]
         }
     ],
+    "MH534949.1_cluster2": [
+        {
+            "chem_struct": "C1C[C@H]([C@H](C1)N)C(=O)O",
+            "compound": "cispentacin",
+            "database_id": [
+                "pubchem:73305"
+            ]
+        }
+    ],
     "MN158725.1_cluster1": [
         {
             "chem_struct": "CCC(C1OC(=O)C(C(=O)C(OC(=O)C(OC(=O)C(NC(=O)C2=CC(O)=CC=C2)C(OC1=O)C)C(C)C)CC1C=CC=CC=1)(C)C)C",
