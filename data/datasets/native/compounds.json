@@ -1,0 +1,330 @@
+{
+    "AP018448.1_cluster1": [
+        {
+            "chem_struct": "CC[C@H]1[C@H]([C@@H](C/C(=C/C=C/[C@@H]([C@H](OC(=O)/C(=C\\C(=C\\[C@H]([C@H]1O)C)\\C)/OC)[C@@H](C)[C@H]([C@H](C)[C@]2(C[C@H]([C@@H]([C@H](O2)/C=C/C)C)O)O)O)OC)/C)C)O",
+            "compound": "concanamycin F",
+            "database_id": [
+                "pubchem:6450148"
+            ]
+        },
+        {
+            "chem_struct": "CC[C@H]1[C@H]([C@@H](C/C(=C/C=C/[C@@H]([C@H](OC(=O)/C(=C/C(=C/[C@H]([C@H]1O)C)/C)/OC)[C@@H](C)[C@H]([C@H](C)[C@]2(C[C@H]([C@@H]([C@H](O2)/C=C/C)C)OC(=O)/C=C/C(=O)O)O)O)OC)/C)C)O",
+            "compound": "TAN-1323D",
+            "database_id": [
+                "npatlas:NPA005849"
+            ]
+        }
+    ],
+    "BJNH01000015.1_cluster1": [
+        {
+            "chem_struct": "C(N)CC(NCCC(=O)O[C@@](/C=C\\[C@](O)[C@@](C(=O)C1=C(O)C(=O)OC1=O)O)CCCCCCCC(C)C)=O",
+            "compound": "kongjuemycin C2",
+            "database_id": []
+        }
+    ],
+    "CABVGP010000001.1_cluster1": [
+        {
+            "chem_struct": "CC1=C(C(=CC2=CC3=C(C(=C12)O)C(=O)C4=C(C3)C=C(C=C4O)O)O)C(=O)O",
+            "compound": "tetracenomycin F1",
+            "database_id": [
+                "pubchem:127693"
+            ]
+        },
+        {
+            "chem_struct": "CC1=C(C(=CC2=CC3=C(C(=C12)O)C(=O)C4=C(C3=O)C=C(C=C4O)O)O)C(=O)O",
+            "compound": "tetracenomycin D3",
+            "database_id": [
+                "pubchem:196730"
+            ]
+        },
+        {
+            "chem_struct": "CC1=C(C(=CC2=CC3=C(C(=C12)O)C(=O)[C@@]4(C(=O)C=C([C@H]([C@@]4(C3=O)O)O)OC)OC)OC)C(=O)OC",
+            "compound": "tetracenomycin X",
+            "database_id": [
+                "pubchem:129395"
+            ]
+        }
+    ],
+    "CP001510.1_cluster1": [
+        {
+            "chem_struct": "C(CN(C(=O)C)CCCNC(=O)C1=CC=C(O)C=C1)CCNC(=O)CC(O)(C(O)=O)CC(=O)NCCCCN(C(=O)C)CCCNC(=O)C1=CC=C(O)C=C1",
+            "compound": "methylolanthanin",
+            "database_id": []
+        }
+    ],
+    "CP003284.1_cluster1": [
+        {
+            "chem_struct": "CCC(C)C1C(=O)OC(C(C(=O)NC(C(=O)NC2CCC(N(C2=O)C(C(=O)N(C(C(=O)N1)CC3=CC=C(C=C3)OC)C)C(C)O)O)CCC4=CC=C(C=C4)O)NC(=O)C(CCC(=O)N)NC=O)C",
+            "compound": "anabaenopeptilide 90A",
+            "database_id": [
+                "pubchem:23724540"
+            ]
+        }
+    ],
+    "CP012672.1_cluster1": [
+        {
+            "chem_struct": "CC[C@H](C)CC1=C(C2=C(C[C@H](OC2=O)C[C@H](/C=C\\C=C/C=C/C3=COC(=N3)C[C@@H]([C@H](C)[C@@H](CC)O)O)OC)C=C1)O",
+            "compound": "icumazole A",
+            "database_id": [
+                "pubchem:101557675"
+            ]
+        },
+        {
+            "chem_struct": "CC[C@H](C)CC1=C(C2=C(C[C@H](OC2=O)C[C@H](/C=C\\C=C/C=C/C3=COC(=N3)C[C@@H]([C@H](C)[C@@H](CC)O)O[C@@H]4[C@H]([C@@H]([C@H](O4)CO)O)O)OC)C=C1)O",
+            "compound": "icumazole B1",
+            "database_id": [
+                "pubchem:101557676"
+            ]
+        },
+        {
+            "chem_struct": "CC[C@H](C)CC1=C(C2=C(C=C1)[C@H]([C@H](OC2=O)C[C@H](/C=C\\C=C/C=C/C3=COC(=N3)C[C@@H]([C@H](C)[C@@H](CC)O)O)OC)O[C@@H]4[C@H]([C@@H]([C@H](O4)CO)O)O)O",
+            "compound": "icumazole B2",
+            "database_id": [
+                "pubchem:101557677"
+            ]
+        }
+    ],
+    "CP016174.1_cluster1": [
+        {
+            "chem_struct": "C[C@H]1[C@H]([C@@](C[C@@H](O1)O[C@@H]2[C@H]([C@@H]([C@H](O[C@H]2OC3=C4C=C5C=C3OC6=C(C=C(C=C6)[C@H]([C@H](C(=O)N[C@H](C(=O)N[C@H]5C(=O)N[C@@H]7C8=CC(=C(C=C8)O)C9=C(C=C(C=C9O)O)[C@H](NC(=O)[C@H]([C@@H](C1=CC(=C(O4)C=C1)Cl)O)NC7=O)C(=O)O)CC(=O)N)NC(=O)[C@@H](CC(C)C)N)O)Cl)CO)O)O)(C)N)O",
+            "compound": "norvancomyin",
+            "database_id": [
+                "pubchem:10419027"
+            ]
+        }
+    ],
+    "CP022438.1_cluster1": [
+        {
+            "chem_struct": "C1/C(O)C(O)C2OC(=CC(=O)C=2/C=C/C(O)C)CC(=O)OC/C(=C\\C(=C\\CC)\\CC)/C=1",
+            "compound": "25-hydroxy peucemycin",
+            "database_id": []
+        }
+    ],
+    "CP047318.1_cluster1": [
+        {
+            "chem_struct": "[C@H]1(O)[C@H](C)[C@@H](O)[C@H](O)[C@@H](O)[C@](C)(O)CCCC=C[C@]2([H])C[C@H](C)CO[C@@]2(O)C[C@]2([H])O[C@]3(CCC[C@H](C[C@H](O)CC)O3)C[C@]([H])(OC(=O)C=C[C@@]1(C)O)C2C",
+            "compound": "HM190 macrolide 1",
+            "database_id": []
+        }
+    ],
+    "CP048397.1_cluster1": [
+        {
+            "chem_struct": "CC[C@H](C)[C@@H](C(=O)N[C@H](CC1=CC=CC=C1)C(=O)N[C@H](CS(=O)(=O)O)C(=O)N[C@@H](CC(=O)O)C(=O)N[C@H]2[C@H](OC(=O)[C@@H]3CCCN3C(=O)[C@@H](NC(=O)[C@H](NC(=O)CNC(=O)CNC(=O)[C@H](N(C2=O)C)C(C)C)CCC(=O)O)C)C)NC(=O)[C@H](CC(=O)N)NC(=O)/C=C\\C=C\\CCC(C)C",
+            "compound": "viennamycin A",
+            "database_id": [
+                "pubchem:156580802"
+            ]
+        },
+        {
+            "chem_struct": "CC[C@H](C)[C@@H](C(=O)N[C@H](CC1=CC=CC=C1)C(=O)N[C@H](CC(=O)O)C(=O)N[C@@H](CC(=O)O)C(=O)N[C@H]2[C@H](OC(=O)[C@@H]3CCCN3C(=O)[C@@H](NC(=O)[C@H](NC(=O)CNC(=O)CNC(=O)[C@H](N(C2=O)C)C(C)C)CCC(=O)O)C)C)NC(=O)[C@H](CC(=O)N)NC(=O)/C=C\\C=C\\CCC(C)C",
+            "compound": "viennamycin B",
+            "database_id": [
+                "pubchem:156580803"
+            ]
+        }
+    ],
+    "CP050504.1_cluster1": [
+        {
+            "chem_struct": "C[C@H]1C[C@H](C(=O)[C@@H]([C@H]([C@H]([C@H](OC(=O)[C@@H]([C@H]([C@@H]([C@H]1O)C)O)C)C)C)O)C)C",
+            "compound": "8,8a-deoxyoleandolide",
+            "database_id": [
+                "pubchem:193898"
+            ]
+        }
+    ],
+    "CP053109.1_cluster1": [
+        {
+            "chem_struct": "COC1=CC=CC2=C1C(=O)C3=C(C2=O)C4=C(C=C(C=C4O)CO)[C@H]([C@@H]3O)O",
+            "compound": "PD116740",
+            "database_id": [
+                "pubchem:443809"
+            ]
+        }
+    ],
+    "CP059991.1_cluster1": [
+        {
+            "chem_struct": "C=1[C@H]([C@H](OC([C@@H]([C@H]([C@H](C[C@H](C(C1)=O)C)C)OC2O[C@@H](C[C@@H]([C@H]2O)N(C)C)C)C)=O)C(C)=O)C",
+            "compound": "12-ketomethymycin",
+            "database_id": [
+                "chebi:188461"
+            ]
+        },
+        {
+            "chem_struct": "C=1[C@H]([C@H](OC([C@@H]([C@H]([C@H](C[C@H](C(C1)=O)C)C)OC2O[C@@H](C[C@@H]([C@H]2O)[N+](C)(C)[O-])C)C)=O)C(C)=O)C",
+            "compound": "12-ketomethymycin N-oxyde",
+            "database_id": [
+                "chebi:188462"
+            ]
+        }
+    ],
+    "CP065050.1_cluster1": [
+        {
+            "chem_struct": "C(C)1/C=C(/C)\\C=C(/C)\\C(O)OC(C(C)C(C(C)C(O)2OC(CC)C(C)C(OC(=O)/C=C/C(=O)NC3=C(O)CCC3=O)C2)O)C(OC)/C=C/C=C(\\C)/CC(C)C1O",
+            "compound": "L-155,175",
+            "database_id": []
+        }
+    ],
+    "CP065050.1_cluster2": [
+        {
+            "chem_struct": "C[C@@H]([C@@H]([C@H](CC1=CC=CC=C1)NC(=O)[C@@H]2CCCNN2C(=O)[C@@H]([C@@H](C(C)C)O)NC(=O)COC)O)C(=O)N[C@H]3CCN(C3=O)C(=O)N",
+            "compound": "actinoramide A",
+            "database_id": [
+                "npatlas:NPA013312"
+            ]
+        },
+        {
+            "chem_struct": "C[C@@H]([C@@H]([C@H](CC1=CC=CC=C1)NC(=O)[C@@H]2CCCNN2C(=O)[C@@H]([C@@H](C(C)C)O)NC(=O)COC)O)C(=O)N[C@H]3CCN(C3=O)C(=O)C",
+            "compound": "actinoramide B",
+            "database_id": [
+                "npatlas:NPA000585"
+            ]
+        },
+        {
+            "chem_struct": "CC[C@@H]([C@H](CC1=CC=CC=C1)NC(=O)[C@@H]2CCCNN2C(=O)[C@@H]([C@@H](C(C)C)O)NC(=O)COC)O",
+            "compound": "actinoramide C",
+            "database_id": [
+                "npatlas:NPA010410"
+            ]
+        },
+        {
+            "chem_struct": "C[C@@H]([C@@H]([C@H](CC1=CC=CC=C1)NC(=O)[C@@H]2CCCNN2C(=O)[C@@H]([C@@H](C(C)C)O)NC(=O)COC)O)C(=O)N[C@H]3CCC(=O)NC3=O",
+            "compound": "padanamide B",
+            "database_id": [
+                "npatlas:NPA020068"
+            ]
+        }
+    ],
+    "CP065050.1_cluster3": [
+        {
+            "chem_struct": "C/C(=C\\C1CCCC2=C1OC3=C2C=C(C=C3)O)/C=C(/C=C/C(=O)O)\\OC",
+            "compound": "cuevaene A",
+            "database_id": [
+                "npatlas:NPA003655"
+            ]
+        }
+    ],
+    "CP072000.1_cluster1": [
+        {
+            "chem_struct": "CC(C(C1=NC=C(C=C1)O)O)C(C(=O)NC(C2C(C(C(O2)N3C=CC(=O)NC3=O)O)O)C(=O)O)N",
+            "compound": "nikkomycin Z",
+            "database_id": [
+                "pubchem:456557"
+            ]
+        },
+        {
+            "chem_struct": "CC(C(C1=NC=C(C=C1)O)O)C(C(=O)NC(C2C(C(C(O2)N3C=C(NC3=O)C=O)O)O)C(=O)O)N",
+            "compound": "nikkomycin X",
+            "database_id": [
+                "pubchem:194647"
+            ]
+        }
+    ],
+    "CP092644.1_cluster1": [
+        {
+            "chem_struct": "C/C=C(/[C@@](O)[C@](/C=C(/C=C/C[C@](C)/C=C/C1OC(=O)C(CC)=C(O)C=1C)\\C)C)\\C",
+            "compound": "actinopyrone G",
+            "database_id": []
+        }
+    ],
+    "CP095376.1_cluster1": [
+        {
+            "chem_struct": "C(C1C(=C(C2C(O1)NC3=C(N2)C(=O)NC(=N3)N)S)S)OP(=O)(O)O",
+            "compound": "molybdopterin",
+            "database_id": [
+                "pubchem:135402014"
+            ]
+        }
+    ],
+    "CP103866.1_cluster1": [
+        {
+            "chem_struct": "COC1=C2C(=CC3=CC(=C(C(=C31)OC)C(=O)/C=C(/C4=CC=CC=C4O)\\O)CC(=O)O)C=C5C=C(OC(=O)C5=C2O)C(=O)OC",
+            "compound": "thermorubin",
+            "database_id": [
+                "pubchem:5458199"
+            ]
+        }
+    ],
+    "CP123780.1_cluster1": [
+        {
+            "chem_struct": "CC1=CC=CC=CC=CC2=C(C(=CC=C2)O)C(=O)OC(CC(CC(CC(CC(CC(=CC=CC=CC=CC3=C(C(=CC=C3)O)C(=O)OC(CC(CC(CC(CC(C1)O)O)O)O)CC(C(C)O)O)C)O)O)O)O)CC(C(C)O)O",
+            "compound": "SIA7248",
+            "database_id": [
+                "pubchem:102335934"
+            ]
+        }
+    ],
+    "DS999645.1_cluster1": [
+        {
+            "chem_struct": "CNC1=CC(=O)C2=C(C1=O)C=NC=C2",
+            "compound": "caulibugulone A",
+            "database_id": [
+                "pubchem:2595"
+            ]
+        },
+        {
+            "chem_struct": "CC1=C2C(=O)C=C(C(=O)C2=CN=C1C)NC",
+            "compound": "mansouramycin A",
+            "database_id": [
+                "pubchem:44614384"
+            ]
+        },
+        {
+            "chem_struct": "CC1=CC2=C(C=N1)C(=O)C(=CC2=O)NC",
+            "compound": "3-methyl-7-(methylamino)isoquinoline-5,8-dione",
+            "database_id": [
+                "pubchem:21818908"
+            ]
+        }
+    ],
+    "JAFETE010000011.1_cluster1": [
+        {
+            "chem_struct": "C[C@H]1CC[C@H]([C@H]2[C@@H]1CC/C(=C/C[C@@H](C(=C2)C(=O)O)O)/C)C(=C)C",
+            "compound": "benditerpenoic acid",
+            "database_id": [
+                "pubchem:156582153"
+            ]
+        }
+    ],
+    "PKLC01000016.1_cluster1": [
+        {
+            "chem_struct": "CO/N=CC=C/C(=O)NC/C=C/[C@H]1[C@H]([C@H]2[C@H](O2)/C=CC=CC3=C(C(=CC=C3)O)C(=O)O1)O",
+            "compound": "oximidine I",
+            "database_id": [
+                "npatlas:NPA004585"
+            ]
+        },
+        {
+            "chem_struct": "CO/N=C/C=C/C(NC/C=C/[C@@]1OC(=O)C2C(O)=CC=CC=2/C=C\\C=C/[C@]2O[C@]2C1)=O",
+            "compound": "17Z-oximidine III",
+            "database_id": []
+        },
+        {
+            "chem_struct": "CO/N=C/C=C/C(NC/C=C/[C@@]1OC(=O)C2C(O)=CC=CC=2/C=C\\[C@@]2O[C@@]2[C@]2O[C@]2C1)=O",
+            "compound": "oximidine IV",
+            "database_id": []
+        },
+        {
+            "chem_struct": "CO/N=C/C=C/C(NC/C=C/[C@@]1OC(=O)C2C(O)=CC=CC=2/C=C\\C=C/[C@@](O)/C=C/1)=O",
+            "compound": "oximidine V",
+            "database_id": []
+        }
+    ],
+    "SSBQ01000002.1_cluster1": [
+        {
+            "chem_struct": "CC(C)C[C@@H](CO)NC(=O)[C@@H](CNC(=O)[C@H](CO)N1C(=O)C2=C(S1)C(=O)C(=C(N2)C3=COC(=N3)C4=CC=CC=C4N)OC)O",
+            "compound": "levesquamide",
+            "database_id": [
+                "pubchem:155289491"
+            ]
+        }
+    ],
+    "VILE02000015.1_cluster1": [
+        {
+            "chem_struct": "CC(=O)NC1CCC(=C[C@@H](C(=O)O)NC(=O)[C@H](/C=C/2\\CC[C@H](C=C2)N)NC(=O)C)CC1",
+            "compound": "radiosumin",
+            "database_id": [
+                "pubchem:10812638"
+            ]
+        }
+    ]
+}

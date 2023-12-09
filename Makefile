@@ -164,3 +164,6 @@ $(DATA)/datasets/nuccore/clusters.gbk: $(DATA)/datasets/nuccore/compounds.json
 
 $(DATA)/datasets/nuccore-lite/clusters.gbk: $(DATA)/datasets/nuccore-lite/compounds.json $(DATA)/datasets/nuccore-lite/coordinates.tsv
 	$(PYTHON) $(SCRIPTS)/nuccore/download_clusters.py --compounds $< --clusters $@ --coordinates $(word 2,$^)
+
+$(DATA)/datasets/native/clusters.gbk: $(DATA)/datasets/native/compounds.json $(DATA)/datasets/native/coordinates.tsv
+	$(PYTHON) $(SCRIPTS)/nuccore/download_clusters.py --compounds $< --clusters $@ --coordinates $(word 2,$^)
