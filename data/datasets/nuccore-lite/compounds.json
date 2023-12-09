@@ -162,6 +162,29 @@
             ]
         }
     ],
+    "CP012672.1_cluster1": [
+        {
+            "chem_struct": "CC[C@H](C)CC1=C(C2=C(C[C@H](OC2=O)C[C@H](/C=C\\C=C/C=C/C3=COC(=N3)C[C@@H]([C@H](C)[C@@H](CC)O)O)OC)C=C1)O",
+            "compound": "icumazole A",
+            "database_id": [
+                "pubchem:101557675"
+            ]
+        },
+        {
+            "chem_struct": "CC[C@H](C)CC1=C(C2=C(C[C@H](OC2=O)C[C@H](/C=C\\C=C/C=C/C3=COC(=N3)C[C@@H]([C@H](C)[C@@H](CC)O)O[C@@H]4[C@H]([C@@H]([C@H](O4)CO)O)O)OC)C=C1)O",
+            "compound": "icumazole B1",
+            "database_id": [
+                "pubchem:101557676"
+            ]
+        },
+        {
+            "chem_struct": "CC[C@H](C)CC1=C(C2=C(C=C1)[C@H]([C@H](OC2=O)C[C@H](/C=C\\C=C/C=C/C3=COC(=N3)C[C@@H]([C@H](C)[C@@H](CC)O)O)OC)O[C@@H]4[C@H]([C@@H]([C@H](O4)CO)O)O)O",
+            "compound": "icumazole B2",
+            "database_id": [
+                "pubchem:101557677"
+            ]
+        }
+    ],
     "CP016174.1_cluster1": [
         {
             "chem_struct": "C[C@H]1[C@H]([C@@](C[C@@H](O1)O[C@@H]2[C@H]([C@@H]([C@H](O[C@H]2OC3=C4C=C5C=C3OC6=C(C=C(C=C6)[C@H]([C@H](C(=O)N[C@H](C(=O)N[C@H]5C(=O)N[C@@H]7C8=CC(=C(C=C8)O)C9=C(C=C(C=C9O)O)[C@H](NC(=O)[C@H]([C@@H](C1=CC(=C(O4)C=C1)Cl)O)NC7=O)C(=O)O)CC(=O)N)NC(=O)[C@@H](CC(C)C)N)O)Cl)CO)O)O)(C)N)O",
