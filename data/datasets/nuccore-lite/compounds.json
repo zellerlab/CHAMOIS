@@ -302,6 +302,15 @@
             ]
         }
     ],
+    "JAFETE010000011.1_cluster1": [
+        {
+            "chem_struct": "C[C@H]1CC[C@H]([C@H]2[C@@H]1CC/C(=C/C[C@@H](C(=C2)C(=O)O)O)/C)C(=C)C",
+            "compound": "benditerpenoic acid",
+            "database_id": [
+                "pubchem:156582153"
+            ]
+        }
+    ],
     "JAPQLO010000012.1_cluster1": [
         {
             "chem_struct": "C1=CC2=C(C=C1Br)NC(=C2O)C3=NC4=C(C3=O)C=CC(=C4)Br",
