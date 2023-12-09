@@ -227,14 +227,14 @@
     "DS999645.1_cluster1": [
         {
             "chem_struct": "CNC1=CC(=O)C2=C(C1=O)C=NC=C2",
-            "compound": "7-(methylamino)isoquinoline-5,8-dione",
+            "compound": "caulibugulone A",
             "database_id": [
                 "pubchem:2595"
             ]
         },
         {
             "chem_struct": "CC1=C2C(=O)C=C(C(=O)C2=CN=C1C)NC",
-            "compound": "3,4-dimethyl-7-(methylamino)isoquinoline-5,8-dione",
+            "compound": "mansouramycin A",
             "database_id": [
                 "pubchem:44614384"
             ]
