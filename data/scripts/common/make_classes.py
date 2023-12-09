@@ -101,16 +101,6 @@ if args.wishart:
 else:
     CLASSYFIRE_URL = "https://cfb.fiehnlab.ucdavis.edu/entities/"
 
-@memory.cache
-def get_classyfire_inchikey(inchikey):
-    # otherwise use the ClassyFire website API
-    with urllib.request.urlopen(f"{CLASSYFIRE_URL}{inchikey}.json") as res:
-        data = json.load(res)
-        time.sleep(10.0)
-        if "class" not in data:
-            raise RuntimeError("classification not found")
-        return data if "class" in data else None
-
 annotations = {}
 for bgc_id, bgc_compounds in rich.progress.track(compounds.items(), description=f"[bold blue]{'Classifying':>12}[/]"):
     # get annotations for every compound of the BGC
@@ -133,7 +123,7 @@ for bgc_id, bgc_compounds in rich.progress.track(compounds.items(), description=
         # try to use classyfire by InChi key othewrise
         rich.print(f"[bold blue]{'Querying':>12}[/] ClassyFire for compound {compound['compound']!r} of [purple]{bgc_id}[/]")
         try:
-            classyfire = conch.classyfire.get_classification(inchikey) #get_classyfire_inchikey(inchikey)
+            classyfire = conch.classyfire.get_classification(inchikey)
         except (RuntimeError, HTTPError) as err:
             rich.print(f"[bold red]{'Failed':>12}[/] to get ClassyFire annotations for {compound['compound']!r} compound of [purple]{bgc_id}[/]")
             annotations[bgc_id].append(None)
