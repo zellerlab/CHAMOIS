@@ -656,6 +656,15 @@
             ]
         }
     ],
+    "ON840103.1_cluster1": [
+        {
+            "chem_struct": "CCC(C)C(C(CC(=O)N1CCCC1C(C(C)C(=O)NC(CC2=CC=CC=C2)C(C)OC)OC)OC)N(C)C(=O)C(C(C)C)NC(=O)C(C(C)CC)[NH+](C)C",
+            "compound": "aetokthonostatin",
+            "database_id": [
+                "pubchem:168010241"
+            ]
+        }
+    ],
     "ON960037.1_cluster1": [
         {
             "chem_struct": "CCCCC/C=C/C=C/C(=O)O[C@@H]1[C@H](O[C@H](C[C@H]1O)C2=C(C3=C(C=C2)C(=O)C4=C(C3=O)C(=CC5=CC(=CC(=C54)O)C)O)O)C",
