@@ -189,7 +189,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
 
     # compute distance
     console.print(f"[bold blue]{'Computing':>12}[/] distances to predictions")
-    distances = probjaccard_cdist(compounds, classes.X) #cdist(compounds, classes.X, metric=probjaccard)
+    distances = probjaccard_cdist(compounds, probas.X) #cdist(compounds, classes.X, metric=probjaccard)
     ranks = scipy.stats.rankdata(distances, method="dense", axis=1)
 
     # show most likely BGC for input compound
