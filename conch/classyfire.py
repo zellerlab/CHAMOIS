@@ -122,7 +122,7 @@ class Cache(typing.MutableMapping[str, Dict[str, object]]):
     def __setitem__(self, item: str, value: Dict[str, object]) -> None:
         entry = self.folder.joinpath(item).with_suffix(".json.gz")
         with gzip.open(entry, "wt") as dst:
-            json.dump(item, dst)
+            json.dump(value, dst)
 
     def __delitem__(self, item: str) -> None:
         entry = self.folder.joinpath(item).with_suffix(".json.gz")
@@ -174,10 +174,13 @@ class Client:
         """
         if inchikey not in self.cache:
             url = f"{self.entities_url}{inchikey}.json"
-            with urllib.request.urlopen(url) as res:
-                response = json.load(res)
-            if 'error' in response:
-                raise RuntimeError(f"Failed to get classification: {response['error']}")
+            try:
+                with urllib.request.urlopen(url) as res:
+                    response = json.load(res)
+                if 'error' in response:
+                    raise RuntimeError(f"Failed to get classification: {response['error']}")
+            except urllib.error.HTTPError as err:
+                raise RuntimeError(f"Failed to get classification: ClassyFire server down")
             self.cache[inchikey] = response
         return Classification.from_dict(self.cache[inchikey])
 
