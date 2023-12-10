@@ -22,29 +22,6 @@
             "database_id": []
         }
     ],
-    "CABVGP010000001.1_cluster1": [
-        {
-            "chem_struct": "CC1=C(C(=CC2=CC3=C(C(=C12)O)C(=O)C4=C(C3)C=C(C=C4O)O)O)C(=O)O",
-            "compound": "tetracenomycin F1",
-            "database_id": [
-                "pubchem:127693"
-            ]
-        },
-        {
-            "chem_struct": "CC1=C(C(=CC2=CC3=C(C(=C12)O)C(=O)C4=C(C3=O)C=C(C=C4O)O)O)C(=O)O",
-            "compound": "tetracenomycin D3",
-            "database_id": [
-                "pubchem:196730"
-            ]
-        },
-        {
-            "chem_struct": "CC1=C(C(=CC2=CC3=C(C(=C12)O)C(=O)[C@@]4(C(=O)C=C([C@H]([C@@]4(C3=O)O)O)OC)OC)OC)C(=O)OC",
-            "compound": "tetracenomycin X",
-            "database_id": [
-                "pubchem:129395"
-            ]
-        }
-    ],
     "CP001510.1_cluster1": [
         {
             "chem_struct": "C(CN(C(=O)C)CCCNC(=O)C1=CC=C(O)C=C1)CCNC(=O)CC(O)(C(O)=O)CC(=O)NCCCCN(C(=O)C)CCCNC(=O)C1=CC=C(O)C=C1",
@@ -282,6 +259,29 @@
             "compound": "benditerpenoic acid",
             "database_id": [
                 "pubchem:156582153"
+            ]
+        }
+    ],
+    "NZ_CABVGP010000001.1_cluster1": [
+        {
+            "chem_struct": "CC1=C(C(=CC2=CC3=C(C(=C12)O)C(=O)C4=C(C3)C=C(C=C4O)O)O)C(=O)O",
+            "compound": "tetracenomycin F1",
+            "database_id": [
+                "pubchem:127693"
+            ]
+        },
+        {
+            "chem_struct": "CC1=C(C(=CC2=CC3=C(C(=C12)O)C(=O)C4=C(C3=O)C=C(C=C4O)O)O)C(=O)O",
+            "compound": "tetracenomycin D3",
+            "database_id": [
+                "pubchem:196730"
+            ]
+        },
+        {
+            "chem_struct": "CC1=C(C(=CC2=CC3=C(C(=C12)O)C(=O)[C@@]4(C(=O)C=C([C@H]([C@@]4(C3=O)O)O)OC)OC)OC)C(=O)OC",
+            "compound": "tetracenomycin X",
+            "database_id": [
+                "pubchem:129395"
             ]
         }
     ],
