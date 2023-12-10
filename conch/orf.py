@@ -1,9 +1,6 @@
 """Generic protocol for ORF detection in DNA sequences.
 """
 
-"""Generic protocol for ORF detection in DNA sequences.
-"""
-
 import abc
 import io
 import itertools

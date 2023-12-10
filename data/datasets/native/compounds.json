@@ -38,6 +38,29 @@
             ]
         }
     ],
+    "CP007699.2_cluster1": [
+        {
+            "chem_struct": "C1=CC(=CC=C1C=CC=CC(=O)NC(CCC(=O)N)C(=O)O)N=[N+](C2=CC=C(C=C2)C=CC=CC(=O)NC(CCC(=O)N)C(=O)O)[O-]",
+            "compound": "azoxymycin A",
+            "database_id": [
+                "pubchem:139588705"
+            ]
+        },
+        {
+            "chem_struct": "C1=CC(=CC=C1C=CC=CC(=O)O)N=[N+](C2=CC=C(C=C2)C=CC=CC(=O)NC(CCC(=O)N)C(=O)O)[O-]",
+            "compound": "azoxymycin B",
+            "database_id": [
+                "pubchem:139588706"
+            ]
+        },
+        {
+            "chem_struct": "C1=CC(=CC=C1C=CC=CC(=O)O)N=[N+](C2=CC=C(C=C2)C=CC=CC(=O)O)[O-]",
+            "compound": "azoxymycin C",
+            "database_id": [
+                "pubchem:139587019"
+            ]
+        }
+    ],
     "CP012672.1_cluster1": [
         {
             "chem_struct": "CC[C@H](C)CC1=C(C2=C(C[C@H](OC2=O)C[C@H](/C=C\\C=C/C=C/C3=COC(=N3)C[C@@H]([C@H](C)[C@@H](CC)O)O)OC)C=C1)O",
