@@ -17,7 +17,7 @@
     ],
     "BJNH01000015.1_cluster1": [
         {
-            "chem_struct": "C(N)CC(NCCC(=O)O[C@@](/C=C\\[C@](O)[C@@](C(=O)C1=C(O)C(=O)OC1=O)O)CCCCCCCC(C)C)=O",
+            "chem_struct": "C(CC(=O)NCCC(O[C@H](CCCCCCCC(C)C)/C=C\\[C@@H]([C@H](O)C(C1C(=O)OC(=O)C=1O)=O)O)=O)N",
             "compound": "kongjuemycin C2",
             "database_id": []
         }
@@ -221,7 +221,7 @@
     ],
     "CP092644.1_cluster1": [
         {
-            "chem_struct": "C/C=C(/[C@@](O)[C@](/C=C(/C=C/C[C@](C)/C=C/C1OC(=O)C(CC)=C(O)C=1C)\\C)C)\\C",
+            "chem_struct": "C1(/C=C/[C@@H](C)C/C=C/C(/C)=C\\[C@H](C)[C@@H](/C(=C/C)/C)O)OC(OC)=C(C)C(=O)C=1C",
             "compound": "actinopyrone G",
             "database_id": []
         }

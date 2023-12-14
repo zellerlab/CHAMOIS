@@ -102,7 +102,7 @@ else:
     CLASSYFIRE_URL = "https://cfb.fiehnlab.ucdavis.edu/entities/"
 
 annotations = {}
-classyfire_client = conch.classyfire.Client()
+classyfire_client = conch.classyfire.Client(entities_url=CLASSYFIRE_URL)
 for bgc_id, bgc_compounds in rich.progress.track(compounds.items(), description=f"[bold blue]{'Classifying':>12}[/]"):
     # get annotations for every compound of the BGC
     annotations[bgc_id] = []
