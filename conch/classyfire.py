@@ -10,7 +10,8 @@ import uuid
 import urllib.request
 import urllib.parse
 import typing
-from typing import Dict, Set, List, Iterable, Optional
+from urllib.request import Request
+from typing import Dict, Set, List, Iterable, Optional, Union
 
 import platformdirs
 import numpy
@@ -148,12 +149,11 @@ class Query:
 
     @property
     def status(self) -> str:
-        request = urllib.request.Request(
+        request = Request(
             f"{self.client.base_url}/queries/{self.id}.json",
             headers={"Content-Type": "application/json"},
         )
-        with urllib.request.urlopen(request) as res:
-            data = json.load(res)
+        data = self.client._get(request)
         return data['classification_status']
 
 
@@ -164,10 +164,23 @@ class Client:
         base_url: str = "http://classyfire.wishartlab.com",
         entities_url: str = "https://cfb.fiehnlab.ucdavis.edu/entities/",
         cache: Optional[Cache] = None,
+        delay: float = 10.0,
     ):
         self.base_url = base_url
         self.entities_url = entities_url
         self.cache = Cache() if cache is None else cache
+        self.delay = delay
+        self._last_query = 0.0
+
+    def _get(self, request: Union[str, Request]) -> Dict[str, object]:
+        t = time.time()
+        dt = t - self._last_query
+        if dt < self.delay:
+            time.sleep(self.delay - dt)
+        self._last_query = t
+        with urllib.request.urlopen(request) as res:
+            response = json.load(res)
+        return response
 
     def fetch(self, inchikey: str) -> Classification:
         """Fetch the pre-computed classification for a single compound.
@@ -175,12 +188,13 @@ class Client:
         if inchikey not in self.cache:
             url = f"{self.entities_url}{inchikey}.json"
             try:
-                with urllib.request.urlopen(url) as res:
-                    response = json.load(res)
+                response = self._get(url)
                 if 'error' in response:
                     raise RuntimeError(f"Failed to get classification: {response['error']}")
+                elif 'report' in response:
+                    raise RuntimeError(f"Failed to get classification: {' '.join(response['report'])}")
             except urllib.error.HTTPError as err:
-                raise RuntimeError(f"Failed to get classification: ClassyFire server down")
+                raise RuntimeError(f"Failed to get classification: ClassyFire server down") from err
             self.cache[inchikey] = response
         return Classification.from_dict(self.cache[inchikey])
 
@@ -190,24 +204,22 @@ class Client:
             "query_input": "\n".join(structures),
             "query_type": "STRUCTURE",
         }
-        request = urllib.request.Request(
-            f"{self.url}/queries.json",
+        request = Request(
+            f"{self.base_url}/queries.json",
             data=json.dumps(form).encode(),
             headers={"Content-Type": "application/json"}
         )
-        with urllib.request.urlopen(request) as res:
-            query = json.load(res)
+        query = self._get(request)
         if "id" not in query:
             raise RuntimeError("Failed to submit queries to ClassyFire")
         return Query(self, query["id"])
 
     def retrieve(self, query: Query, page: int = 1) -> Iterable[Classification]:
-        request = urllib.request.Request(
+        request = Request(
             f"{self.base_url}/queries/{query.id}.json?page={page}",
             headers={"Content-Type": "application/json"},
         )
-        with urllib.request.urlopen(request) as res:
-            result = json.load(res)
+        result = self._get(request)
         for entity in result.get('entities', []):
             inchikey = entity["inchikey"].split("=")[-1]
             self.cache[inchikey] = entity
