@@ -70,8 +70,8 @@ def run_feature(args: argparse.Namespace, console: Console) -> int:
         return 1
 
     # Extract positive weights
-    weights = predictor.coef_[feature_index, :]
-    indices = numpy.where(weights != 0.0 if args.nonzero else weights > 0)[0]
+    weights = predictor.coef_[feature_index, :].A[0]
+    indices = numpy.where((weights != 0.0) if args.nonzero else (weights > 0))[0]
     selected_classes = predictor.classes_.iloc[indices].copy()
     selected_classes["weight"] = weights[indices]
 
