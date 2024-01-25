@@ -1,5 +1,5 @@
 import argparse
-from typing import Optional
+from typing import Optional, List
 
 from rich.console import Console
 from rich_argparse import RichHelpFormatter
@@ -115,12 +115,12 @@ def build_parser() -> argparse.ArgumentParser:
 
     return parser
 
-def run(console: Optional[Console] = None) -> int:
+def run(argv: Optional[List[str]] = None, console: Optional[Console] = None) -> int:
     if console is None:
         console = Console()
 
     parser = build_parser()
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
     try:
         args.run(args, console)
