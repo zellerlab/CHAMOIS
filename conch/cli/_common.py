@@ -27,10 +27,10 @@ from rich.console import Console
 
 from .. import __version__
 from .._meta import zopen
-from ..domains import PfamAnnotator, NRPySAnnotator
+from ..domains import PfamAnnotator
 from ..compositions import build_compositions, build_observations, build_variables
 from ..orf import ORFFinder, PyrodigalFinder, CDSFinder
-from ..model import ClusterSequence, Protein, Domain, PfamDomain, AMPBindingDomain
+from ..model import ClusterSequence, Protein, Domain, PfamDomain
 from ..predictor import ChemicalOntologyPredictor
 
 
@@ -158,12 +158,6 @@ def annotate_hmmer(path: pathlib.Path, proteins: List[Protein], cpus: Optional[i
     domains = annotate_domains(domain_annotator, proteins, console, total=total)
     console.print(f"[bold green]{'Found':>12}[/] {len(domains)} domains under inclusion threshold in {len(proteins)} proteins")
     return domains
-
-
-def annotate_nrpys(proteins: List[Protein], cpus: Optional[int], console: Console) -> List[AMPBindingDomain]:
-    console.print(f"[bold blue]{'Predicting':>12}[/] adenylation domain specificity with NRPyS")
-    domain_annotator = NRPySAnnotator(cpus=cpus)
-    return annotate_domains(domain_annotator, proteins, console, total=len(proteins))
 
 
 def record_metadata(predictor: Optional[ChemicalOntologyPredictor] = None) -> Dict[str, Any]:

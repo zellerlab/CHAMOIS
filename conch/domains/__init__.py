@@ -6,13 +6,12 @@ import itertools
 import pathlib
 from typing import Iterable, Optional, Callable, Container, List, Set
 
-import nrpys
 import pyhmmer
 from pyhmmer.plan7 import HMM, HMMFile
 from pyhmmer.easel import Alphabet, DigitalSequenceBlock, TextSequenceBlock, TextSequence
 
 from .._meta import zopen
-from ..model import Protein, Domain, PfamDomain, AMPBindingDomain
+from ..model import Protein, Domain, PfamDomain
 
 try:
     from importlib.resources import files, as_file
@@ -171,153 +170,3 @@ class PfamAnnotator(DomainAnnotator):
                         break
                 else:
                     yield candidate_domain
-
-
-
-class NRPySAnnotator(DomainAnnotator):
-    """An annotator using NRPSpredictor2 to predict AMP-binding specificity.
-
-    References:
-        - `Marc Röttig, Marnix H. Medema, Kai Blin, Tilmann Weber,
-          Christian Rausch, and Oliver Kohlbacher. "NRPSpredictor2 — a web
-          server for predicting NRPS adenylation domain specificity",
-          Nucleic Acids Res. 2011 Jul 1; 39(Web Server issue): W362–W367.
-          <https://doi.org/10.1093%2Fnar%2Fgkr323>`_.
-
-    """
-
-
-    _POSITIONS = [
-        12, 15, 16, 40, 45, 46, 47, 48, 49, 50, 51, 54, 92, 93, 124, 125, 126, 127,
-        128, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165,
-    ]
-
-    def __init__(
-        self,
-        cpus: Optional[int] = None,
-        threshold: float = 0.80,
-        category: nrpys.PredictionCategory = nrpys.PredictionCategory.LargeClusterV2
-    ) -> None:
-        super().__init__()
-        self.cpus = cpus
-        self.threshold = threshold
-        self.category = category
-
-    @classmethod
-    def _make_signature(cls, alignment: pyhmmer.plan7.Alignment) -> Optional[str]:
-        # adjust position of interest to account for gaps in the ref sequence alignment
-        positions = []
-        position_skipping_gaps = 0
-        for i, amino in enumerate(alignment.hmm_sequence):
-            if amino == "-" or amino == ".":
-                continue
-            if position_skipping_gaps in cls._POSITIONS:
-                positions.append(i)
-            position_skipping_gaps += 1
-        if len(positions) != len(cls._POSITIONS):
-            return None
-        # extract positions from alignment
-        return "".join([alignment.target_sequence[i] for i in positions])
-
-    @classmethod
-    def _get_name(cls, specificity: Set[str]):
-        if specificity == {"Asp", "Asn", "Glu", "Gln", "Aad"}:
-            return "Aliphatic chain with H-bond donor"
-        elif specificity == {"Cys"}:
-            return "Polar, uncharged (aliphatic with -SH)"
-        elif specificity == {"Dhb", "Sal"}:
-            return "Hydroxy-benzoic acid derivates"
-        elif specificity == {"Gly", "Ala", "Val", "Leu", "Ile", "Abu", "Iva"}:
-            return "Apolar, aliphatic"
-        elif specificity == {"Orn", "Lys", "Arg"}:
-            return "Long positively charged side chain"
-        elif specificity == {"Phe", "Trp", "Phg", "Tyr", "Bht"}:
-            return "Aromatic side chain"
-        elif specificity == {"Pro", "Pip"}:
-            return "Cyclic aliphatic chain (polar NH2 group)"
-        elif specificity == {"Ser", "Thr", "Dhpg", "Hpg"}:
-            return "Aliphatic chain or phenyl group with -OH"
-        elif specificity == {"Dhpg", "Hpg"}:
-            return "Polar, uncharged (hydroxy-phenyl)"
-        elif specificity == {"Gly", "Ala"}:
-            return "Tiny, hydrophilic, transition to aliphatic"
-        elif specificity == {"Orn", "Horn"}:
-            return "Orn and hydroxy-Orn specific"
-        elif specificity == {"Phe", "Trp"}:
-            return "Unpolar aromatic ring"
-        elif specificity == {"Tyr", "Bht"}:
-            return "Polar aromatic ring"
-        elif specificity == {"Val", "Leu", "Ile", "Abu", "Iva"}:
-            return "Aliphatic, branched hydrophobic"
-        return ",".join(specificity)
-
-    def _load_hmm(self) -> HMM:
-        with files(__name__).joinpath("aa-activating-core.hmm").open("rb") as f:
-            with pyhmmer.plan7.HMMFile(f) as hmm_file:
-                return hmm_file.read()
-
-    def annotate_domains(
-        self,
-        proteins: List[Protein],
-        progress: Optional[Callable[[HMM, int], None]] = None,
-    ) -> Iterable[AMPBindingDomain]:
-        # convert proteins to Easel sequences, naming them after
-        # their location in the original input to ignore any duplicate
-        # protein identifiers
-        esl_abc = Alphabet.amino()
-        esl_sqs = TextSequenceBlock([
-            TextSequence(name=str(i).encode(), sequence=str(protein.sequence))
-            for i, protein in enumerate(proteins)
-        ])
-
-        # find adenylation domains
-        with contextlib.ExitStack() as ctx:
-            # load AMP-binding specific HMM
-            hmm = self._load_hmm()
-            # Run search pipeline using the filtered HMMs
-            cpus = 0 if self.cpus is None else self.cpus
-            hmms_hits = pyhmmer.hmmer.hmmscan(
-                esl_sqs.digitize(esl_abc),
-                [hmm],
-                cpus=cpus,
-                callback=progress, # type: ignore
-                T=20.0,
-                domT=20.0,
-            )
-            # extract subsequences with a match
-            signatures = []
-            names = []
-            for hits in hmms_hits:
-                target_index = int(hits.query_name)
-                for hit in hits:
-                    for domain in hit.domains:
-                        signature = self._make_signature(domain.alignment)
-                        if signature is not None:
-                            names.append(hits.query_name.decode())
-                            signatures.append(signature)
-
-            # run NRPyS
-            config = nrpys.Config()
-            config.model_dir = ctx.enter_context(as_file(files(__package__).joinpath("models")))
-            config.skip_v1 = True
-            config.skip_v3 = True
-            config.skip_stachelhaus = True
-            results = nrpys.run(config, signatures=signatures, names=names)
-
-            # extract results, using large cluster since it has the best
-            # resolution / accuracy tradeoff
-            for result in results:
-                pred = next(iter(result.get_best(self.category)), None)
-                if pred is None or pred.score < self.threshold:
-                    continue
-                target_index = int(result.name)
-                specificity = set(map(str.capitalize, pred.name.split(",")))
-                yield AMPBindingDomain(
-                    accession=f"NRPyS:{'|'.join(sorted(specificity))}",
-                    name=self._get_name(specificity),
-                    description=None,
-                    kind="NRPyS",
-                    specificity=specificity,
-                    protein=proteins[target_index],
-                    score=pred.score,
-                )

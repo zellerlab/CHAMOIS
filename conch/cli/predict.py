@@ -28,7 +28,6 @@ from ._common import (
     load_sequences,
     find_proteins,
     annotate_hmmer,
-    annotate_nrpys,
     record_metadata,
 )
 from ._parser import (

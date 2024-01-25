@@ -211,93 +211,6 @@ class download_pfam(setuptools.Command):
         self.info(f"downloaded {nwritten} HMMs out of {nsource} in the source file")
 
 
-class download_nrps2(setuptools.Command):
-    """A custom `setuptools` command to download NRPSPredictor2 data.
-    """
-
-    description = "download the NRPSPredictor2 model required by NRPyS"
-    user_options = [
-        ("force", "f", "force downloading the files even if they exist"),
-        ("inplace", "i", "ignore build-lib and put data alongside your Python code"),
-    ]
-
-    def initialize_options(self):
-        self.force = False
-        self.inplace = False
-
-    def finalize_options(self):
-        _build_py = self.get_finalized_command("build_py")
-        self.build_lib = _build_py.build_lib
-
-    def info(self, msg):
-        self.announce(msg, level=2)
-
-    def run(self):
-        # make sure the build/lib/ folder exists
-        self.mkpath(self.build_lib)
-
-        # Check `rich` and `pyhmmer` are installed
-        if isinstance(rich, ImportError):
-            raise RuntimeError("`rich` is required to run the `download_pfam` command") from rich
-
-        local = os.path.join(self.build_lib, "conch", "domains", "models")
-        self.mkpath(os.path.dirname(local))
-        self.make_file([], local, self.download_nrps2_models, (local,))
-        if self.inplace:
-            copy = os.path.relpath(local, self.build_lib)
-            self.copy_tree(local, copy)
-
-        local = os.path.join(self.build_lib, "conch", "domains", "aa-activating-core.hmm")
-        self.make_file([], local, self.download_hmm, (local,))
-        if self.inplace:
-            copy = os.path.relpath(local, self.build_lib)
-            self.make_file([local], copy, shutil.copy, (local, copy))
-
-    def download_nrps2_models(self, output):
-        # download from the Medema webserver
-        url = "https://dl.secondarymetabolites.org/releases/nrps_svm/2.0/models.tar.xz"
-        self.info(f"fetching {url}")
-        response = urllib.request.urlopen(url)
-
-        # use `rich` to make a progress bar
-        pbar = rich.progress.wrap_file(
-            response,
-            total=int(response.headers["Content-Length"]),
-            description=os.path.basename(output),
-        )
-
-        # download to buffer
-        with contextlib.ExitStack() as ctx:
-            dl = ctx.enter_context(pbar)
-            buffer = io.BytesIO(dl.read())
-
-        # extract
-        with tarfile.open(fileobj=buffer) as tar:
-            for entry in tar.getmembers():
-                if "NRPS2_LARGE_CLUSTER" in entry.name:
-                    tar.extract(entry, output)
-
-    def download_hmm(self, output):
-        # download from git
-        url = "https://github.com/antismash/antismash/raw/master/antismash/modules/nrps_pks/data/aa-activating.aroundLys.hmm"
-        self.info(f"fetching {url}")
-        self.info(f"fetching {url}")
-        response = urllib.request.urlopen(url)
-
-        # use `rich` to make a progress bar
-        pbar = rich.progress.wrap_file(
-            response,
-            total=int(response.headers["Content-Length"]),
-            description=os.path.basename(output),
-        )
-
-        # download to buffer
-        with contextlib.ExitStack() as ctx:
-            dl = ctx.enter_context(pbar)
-            out = ctx.enter_context(open(output, "wb"))
-            shutil.copyfileobj(dl, out)
-
-
 class build(_build):
     """A hacked `build` command that will also download required data.
     """
@@ -311,13 +224,12 @@ class build(_build):
         self.inplace = False
 
     def run(self):
-        for command_name in ["download_pfam", "download_nrps2"]:
-            # build data if needed
-            if not self.distribution.have_run.get(command_name, False):
-                command = self.get_finalized_command(command_name)
-                command.force = self.force
-                command.inplace = self.inplace
-                command.run()
+        # build data if needed
+        if not self.distribution.have_run.get("download_pfam", False):
+            command = self.get_finalized_command("download_pfam")
+            command.force = self.force
+            command.inplace = self.inplace
+            command.run()
         # build rest as normal
         _build.run(self)
 
@@ -327,7 +239,6 @@ if __name__ == "__main__":
         cmdclass={
             "build": build,
             "download_pfam": download_pfam,
-            "download_nrps2": download_nrps2,
             "list_requirements": list_requirements,
             "sdist": sdist,
         },

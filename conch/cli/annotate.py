@@ -12,7 +12,6 @@ from ..domains import PfamAnnotator
 from ..compositions import build_observations, build_variables, build_compositions
 from ._common import (
     annotate_hmmer,
-    annotate_nrpys,
     find_proteins,
     load_sequences,
     record_metadata,

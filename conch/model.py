@@ -39,11 +39,11 @@ class Domain(object):
 
 @dataclasses.dataclass(frozen=True)
 class PfamDomain(Domain):
-    """A protein domain that was found with a Hidden Markov Model.
+    """A protein domain that was found with a Pfam HMM.
 
     See Also:
         `~conch.domains.PfamAnnotator`: The domain annotator used for 
-        searching HMM domains with HMMER.
+        searching Pfam domains with HMMER.
 
     """
     start: int
@@ -58,16 +58,3 @@ class PfamDomain(Domain):
             and self.start <= other.end
             and other.start <= self.end
         )
-
-
-@dataclasses.dataclass(frozen=True)
-class AMPBindingDomain(Domain):
-    """An AMP-binding domain with specificity for a certain subtrate.
-
-    See Also:
-        `~conch.domains.NRPySAnnotator`: The domain annotator used 
-        for finding adenylation domains with NRPyS.
-
-    """
-    specificity: List[str]
-    score: float
