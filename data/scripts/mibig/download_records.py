@@ -204,6 +204,14 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, locus_tag="KZO11_19415").location.start
                 end = get_cds(record, locus_tag="KZO11_19670").location.end
 
+            # MIBiG entry of BGC0002715 contains unrelated flanking genes, which
+            # were not part of the cluster that was validated through heterologous
+            # expression
+            # (see https://pubmed.ncbi.nlm.nih.gov/18722414/, Table 1 and Figure 2)
+            elif record.id == "BGC0002715":
+                start = get_cds(record, locus_tag="PluTT01m_11950").location.start
+                end = get_cds(record, locus_tag="PluTT01m_11995").location.end
+
             # clamp the BGC boundaries to the left- and rightmost genes
             else:
                 start = min( f.location.start for f in record.features if f.type == "CDS" )
