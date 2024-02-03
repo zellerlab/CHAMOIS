@@ -93,6 +93,20 @@
             ]
         }
     ],
+    "CP017708.2_cluster1": [
+        {
+            "chem_struct": "c1(ccc(cc1)C[C@@H](C(=O)N([C@@H](C(C)C)C(=O)N(C)[C@H](C(=O)N)C(C)C)C)O)OC",
+            "compound": "hectoramide A",
+            "database_id": [
+                "pubchem:156581233"
+            ]
+        },
+        {
+            "chem_struct": "c1(ccc(cc1)C[C@@H](C(=O)N([C@@H](C(C)C)C(=O)N(C)[C@H](C(=O)N)C(C)C)C)OC(=O)[C@@H](N(C)C)Cc1ccc(cc1)OC)OC",
+            "compound": "hectoramide B",
+            "database_id": []
+        }
+    ],
     "CP022438.1_cluster1": [
         {
             "chem_struct": "C1/C(O)C(O)C2OC(=CC(=O)C=2/C=C/C(O)C)CC(=O)OC/C(=C\\C(=C\\CC)\\CC)/C=1",
