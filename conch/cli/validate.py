@@ -152,7 +152,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
         uns=record_metadata()
     )
     data.write(args.output)
-    console.print(f"[bold green]{'Finished':>12}[/] cross-validating model")
+    console.print(f"[bold green]{'Finished':>12}[/] validating model")
 
     # generate report
     if args.report is not None:
