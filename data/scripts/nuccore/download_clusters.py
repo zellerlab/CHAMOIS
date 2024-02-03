@@ -74,10 +74,5 @@ with open(args.clusters, "w") as dst:
                 else:
                     bgc_record = record
                     bgc_record.id = bgc_record.name = f"{record.id}_cluster1"
+                bgc_record.annotations["topology"] = "linear"
                 Bio.SeqIO.write(bgc_record, dst, "genbank")
-
-
-
-
-    
-    
