@@ -1,8 +1,15 @@
+# PYTHON_ARGCOMPLETE_OK
+
 import argparse
 from typing import Optional, List
 
 from rich.console import Console
 from rich_argparse import RichHelpFormatter
+
+try:
+    import argcomplete
+except ImportError:
+    argcomplete = None
 
 from .. import __version__, __package__ as _module
 from . import train, predict, render, cv, cvsearch, annotate, search, screen, explain, validate
@@ -120,6 +127,8 @@ def run(argv: Optional[List[str]] = None, console: Optional[Console] = None) -> 
         console = Console()
 
     parser = build_parser()
+    if argcomplete is not None:
+        argcomplete.autocomplete(parser)
     args = parser.parse_args(argv)
 
     try:
