@@ -308,6 +308,12 @@
             ]
         }
     ],
+    "NZ_CM003601.1_cluster1": [
+        {
+            "chem_struct": "n1(cccc1C1=N[C@@H](CO1)C(=O)N1C(=O)C=C([C@@H]1CCCN(N=O)O)OC)O",
+            "compound": "chalkophomycin"
+        }
+    ],
     "PKLC01000016.1_cluster1": [
         {
             "chem_struct": "CO/N=CC=C/C(=O)NC/C=C/[C@H]1[C@H]([C@H]2[C@H](O2)/C=CC=CC3=C(C(=CC=C3)O)C(=O)O1)O",
