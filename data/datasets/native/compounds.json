@@ -22,6 +22,13 @@
             "database_id": []
         }
     ],
+    "CP000085.1_cluster1": [
+        {
+            "chem_struct": "c1c(c2-c3c(ccc(c3)[C@H]([C@H](NC(=O)[C@@H](NC(=O)[C@H](Cc(c2)c1)NC(=O)CN)CC(C)C)C(=O)N[C@H](C(=O)C(=O)O)C)C)O)O",
+            "compound": "aminopyruvatide A",
+            "database_id": []
+        }
+    ],
     "CP001510.1_cluster1": [
         {
             "chem_struct": "C(CN(C(=O)C)CCCNC(=O)C1=CC=C(O)C=C1)CCNC(=O)CC(O)(C(O)=O)CC(=O)NCCCCN(C(=O)C)CCCNC(=O)C1=CC=C(O)C=C1",
