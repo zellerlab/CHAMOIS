@@ -114,6 +114,13 @@
             "database_id": []
         }
     ],
+    "CP001778.1_cluster1": [
+        {
+            "chem_struct": "C=CC(=O)[C@@H](NC(=O)N[C@H](C(=O)N[C@H](C(=O)O)[C@@H](C)O)CCCNC(=N)N)CCCNC(=N)N",
+            "compound": "threopeptin",
+            "database_id": []
+        }
+    ],
     "CP022438.1_cluster1": [
         {
             "chem_struct": "C1/C(O)C(O)C2OC(=CC(=O)C=2/C=C/C(O)C)CC(=O)OC/C(=C\\C(=C\\CC)\\CC)/C=1",
