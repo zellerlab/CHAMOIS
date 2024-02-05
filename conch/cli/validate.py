@@ -123,7 +123,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
         f"[bold magenta]Avg.Precision(M)=[/][bold cyan]{macro_avgpr:05.1%}[/]",
         f"[bold magenta]SemanticDistance=[/][bold cyan]{semdist:.2f}[/]",
     ]
-    console.print(f"[bold green]{'Finished':>12}[/] cross-validation", *stats)
+    console.print(f"[bold green]{'Finished':>12}[/] validation", *stats)
 
     # save metrics
     metrics = {
