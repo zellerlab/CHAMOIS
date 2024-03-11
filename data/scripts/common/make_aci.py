@@ -21,9 +21,9 @@ import pyrodigal
 import Bio.SeqIO
 
 sys.path.insert(0, os.path.abspath(os.path.join(__file__, "..", "..", "..", "..")))
-import conch.orf
-from conch.model import ClusterSequence
-from conch.cli._common import find_proteins
+import chamois.orf
+from chamois.model import ClusterSequence
+from chamois.cli._common import find_proteins
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-q", "--query", required=True)
@@ -55,7 +55,7 @@ with tempfile.TemporaryDirectory() as dst:
 
     # find genes
     progress.console.print(f"[bold blue]{'Finding':>12}[/] genes in input records")
-    orf_finder = conch.orf.PyrodigalFinder(cpus=args.jobs)
+    orf_finder = chamois.orf.PyrodigalFinder(cpus=args.jobs)
     query_genes = find_proteins(list(query_records.values()), orf_finder, progress.console)
     target_genes = find_proteins(list(target_records.values()), orf_finder, progress.console)
 

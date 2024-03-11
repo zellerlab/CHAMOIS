@@ -42,7 +42,7 @@ class PfamDomain(Domain):
     """A protein domain that was found with a Pfam HMM.
 
     See Also:
-        `~conch.domains.PfamAnnotator`: The domain annotator used for 
+        `~chamois.domains.PfamAnnotator`: The domain annotator used for 
         searching Pfam domains with HMMER.
 
     """

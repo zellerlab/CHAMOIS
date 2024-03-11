@@ -103,7 +103,7 @@ $(DATA)/npatlas/maccs.hdf5: $(ATLAS)
 #	$(PYTHON) $(SCRIPTS)/common/make_ani.py --query $< --target $(DATA)/datasets/mibig3.1/clusters.gbk -o $@
 
 $(DATA)/datasets/%/features.hdf5: $(DATA)/datasets/%/clusters.gbk $(PFAM_HMM)
-	$(PYTHON) -m conch.cli annotate --i $< --hmm $(PFAM_HMM) -o $@
+	$(PYTHON) -m chamois.cli annotate --i $< --hmm $(PFAM_HMM) -o $@
 
 $(DATA)/datasets/%/classes.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(CHEMONT)
 	$(PYTHON) $(SCRIPTS)/common/make_classes.py -i $< -o $@ --atlas $(ATLAS) --chemont $(CHEMONT) --cache $(BUILD) $(WISHART)

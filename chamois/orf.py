@@ -108,8 +108,8 @@ class PyrodigalFinder(ORFFinder):
                 `multiprocessing.pool.Pool` is also supported.
 
         Yields:
-            `~conch.model.Protein`: An iterator over all the genes found in
-            the given records.
+            `Protein`: An iterator over all the genes found in the given 
+            records.
 
         """
         # detect the number of CPUs

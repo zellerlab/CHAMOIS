@@ -104,7 +104,7 @@ class Cache(typing.MutableMapping[str, Dict[str, object]]):
 
     def __init__(self, folder: "Optional[os.PathLike[str]]" = None):
         if folder is None:
-            self.folder = pathlib.Path(platformdirs.user_cache_dir('CONCH', 'ZellerLab'))
+            self.folder = pathlib.Path(platformdirs.user_cache_dir('CHAMOIS', 'ZellerLab'))
         else:
             self.folder = pathlib.Path(folder)
         self.folder.mkdir(parents=True, exist_ok=True)
@@ -200,7 +200,7 @@ class Client:
 
     def query(self, structures: Iterable[str]) -> Query:
         form = {
-            "label": f"conch-{uuid.uuid4()}",
+            "label": f"chamois-{uuid.uuid4()}",
             "query_input": "\n".join(structures),
             "query_type": "STRUCTURE",
         }

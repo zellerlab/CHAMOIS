@@ -43,7 +43,7 @@ class DomainAnnotator(metaclass=abc.ABCMeta):
         """Run annotation on proteins of ``genes`` and update their domains.
 
         Arguments:
-            genes (iterable of `~conch.model.Protein`): An iterable that
+            genes (iterable of `~chamois.model.Protein`): An iterable that
                 yields proteins to annotate.
 
         """

@@ -168,7 +168,7 @@ def record_metadata(predictor: Optional[ChemicalOntologyPredictor] = None) -> Di
     }
     if predictor is not None:
         metadata["predictor"] = predictor.checksum()
-    return {"conch": metadata}
+    return {"chamois": metadata}
 
 
 def save_metrics(

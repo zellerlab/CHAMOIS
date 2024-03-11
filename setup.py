@@ -102,7 +102,7 @@ class download_pfam(setuptools.Command):
     """A custom `setuptools` command to download data before wheel creation.
     """
 
-    description = "download the Pfam HMMs required by CONCH to annotate domains"
+    description = "download the Pfam HMMs required by CHAMOIS to annotate domains"
     user_options = [
         ("force", "f", "force downloading the files even if they exist"),
         ("inplace", "i", "ignore build-lib and put data alongside your Python code"),
@@ -139,7 +139,7 @@ class download_pfam(setuptools.Command):
             raise RuntimeError("`lz4` is required to run the `download_pfam` command") from rich
 
         # Load domain whitelist from the predictor
-        predictor_file = os.path.join("conch", "predictor", "predictor.json")
+        predictor_file = os.path.join("chamois", "predictor", "predictor.json")
         self.info(f"loading domain accesssions from {predictor_file}")
         with open(predictor_file, "rb") as f:
             data = json.load(f)
@@ -152,7 +152,7 @@ class download_pfam(setuptools.Command):
         ]
 
         # Download and binarize required HMMs
-        local = os.path.join(self.build_lib, "conch", "domains", f"Pfam{self.version}.hmm.lz4")
+        local = os.path.join(self.build_lib, "chamois", "domains", f"Pfam{self.version}.hmm.lz4")
         self.mkpath(os.path.dirname(local))
         self.download_pfam(local, domains)
         if self.inplace:

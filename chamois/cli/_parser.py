@@ -65,7 +65,7 @@ def configure_group_search_input(parser: argparse.ArgumentParser) -> "argparse.A
         "--input",
         required=True,
         type=pathlib.Path,
-        help="The chemical classes predicted by CONCH for BGCs."
+        help="The chemical classes predicted by CHAMOIS for BGCs."
     )
     parser.add_argument(
         "-m",

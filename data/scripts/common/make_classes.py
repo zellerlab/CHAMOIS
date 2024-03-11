@@ -22,7 +22,7 @@ from rdkit import RDLogger
 from rdkit.Chem.rdMHFPFingerprint import MHFPEncoder
 
 sys.path.insert(0, os.path.abspath(os.path.join(__file__, "..", "..", "..", "..")))
-import conch.classyfire
+import chamois.classyfire
 
 # disable logging
 RDLogger.DisableLog('rdApp.warning')
@@ -102,7 +102,7 @@ else:
     CLASSYFIRE_URL = "https://cfb.fiehnlab.ucdavis.edu/entities/"
 
 annotations = {}
-classyfire_client = conch.classyfire.Client(entities_url=CLASSYFIRE_URL)
+classyfire_client = chamois.classyfire.Client(entities_url=CLASSYFIRE_URL)
 for bgc_id, bgc_compounds in rich.progress.track(compounds.items(), description=f"[bold blue]{'Classifying':>12}[/]"):
     # get annotations for every compound of the BGC
     annotations[bgc_id] = []
@@ -120,7 +120,7 @@ for bgc_id, bgc_compounds in rich.progress.track(compounds.items(), description=
             if np_atlas[npaid]["classyfire"] is not None:
                 rich.print(f"[bold green]{'Found':>12}[/] NPAtlas classification ([bold cyan]{npaid}[/]) for compound {compound['compound']!r} of [purple]{bgc_id}[/]")
                 classyfire_client.cache[inchikey] = np_atlas[npaid]["classyfire"]
-                annotations[bgc_id].append(conch.classyfire.Classification.from_dict(np_atlas[npaid]["classyfire"]))
+                annotations[bgc_id].append(chamois.classyfire.Classification.from_dict(np_atlas[npaid]["classyfire"]))
                 continue
         # try to use classyfire by InChi key othewrise
         rich.print(f"[bold blue]{'Querying':>12}[/] ClassyFire for compound {compound['compound']!r} of [purple]{bgc_id}[/]")

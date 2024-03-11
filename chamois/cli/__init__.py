@@ -54,7 +54,7 @@ def build_parser() -> argparse.ArgumentParser:
         commands.add_parser(
             "annotate", 
             formatter_class=RichHelpFormatter,
-            help="Annotate BGC records with CONCH features."
+            help="Annotate BGC records with CHAMOIS features."
         ))
     cv.configure_parser(
         commands.add_parser(
@@ -88,7 +88,7 @@ def build_parser() -> argparse.ArgumentParser:
         commands.add_parser(
             "train", 
             formatter_class=RichHelpFormatter,
-            help="Train the CONCH predictor on a training dataset."
+            help="Train the CHAMOIS predictor on a training dataset."
         )
     )
     search.configure_parser(
