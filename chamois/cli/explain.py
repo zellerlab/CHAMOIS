@@ -24,6 +24,12 @@ def configure_parser(parser: argparse.ArgumentParser):
         type=pathlib.Path,
         help="The path to an alternative model to extract weights from."
     )
+    parser.add_argument(
+        "-o",
+        "--output",
+        type=pathlib.Path,
+        help="The path where to write the table in TSV format."
+    )
 
     subparser = parser.add_mutually_exclusive_group()
     subparser.add_argument(
@@ -43,7 +49,7 @@ def configure_parser(parser: argparse.ArgumentParser):
     parser_class = commands.add_parser(
         "class",
         formatter_class=RichHelpFormatter,
-        help="Explain a class prediction",
+        help="Explain a class prediction.",
     )
     parser_class.add_argument(
         "class_id",
@@ -55,7 +61,7 @@ def configure_parser(parser: argparse.ArgumentParser):
     parser_feature = commands.add_parser(
         "feature",
         formatter_class=RichHelpFormatter,
-        help="Explain a feature importance",
+        help="Explain a feature importance.",
     )
     parser_feature.add_argument(
         "feature_id",
@@ -63,6 +69,12 @@ def configure_parser(parser: argparse.ArgumentParser):
         help="The feature to explain"
     )
     parser_feature.set_defaults(run=run_feature)
+
+
+def write_table(table: pandas.DataFrame, output: pathlib.Path):
+    if output.parent:
+        output.parent.mkdir(parents=True, exist_ok=True)
+    table.reset_index().to_csv(output, index=False, sep="\t")
 
 
 def get_feature_index(feature: str, predictor: ChemicalOntologyPredictor) -> int:
@@ -103,16 +115,21 @@ def run_feature(args: argparse.Namespace, console: Console) -> int:
     indices = numpy.where((weights != 0.0) if args.nonzero else (weights > args.min_weight))[0]
     selected_classes = predictor.classes_.iloc[indices].copy()
     selected_classes["weight"] = weights[indices]
+    selected_classes.sort_values("weight", ascending=False, inplace=True)
 
     # Render the table
     table = rich.table.Table("ID", "Name", "Weight")
-    for row in selected_classes.sort_values("weight", ascending=False).itertuples():
+    for row in selected_classes.itertuples():
         table.add_row(
             rich.text.Text(row.Index, style="repr.tag_name"),
             row.name,
             rich.text.Text(format(row.weight, ".5f"), style="repr.number"),
         )
     console.print(table)
+
+    # Write the table
+    if args.output is not None:
+        write_table(selected_classes, args.output)
 
     return 0
 
@@ -150,6 +167,7 @@ def run_class(args: argparse.Namespace, console: Console) -> int:
     indices = numpy.where(weights != 0.0 if args.nonzero else weights > args.min_weight)[0]
     selected_classes = predictor.features_.iloc[indices].copy()
     selected_classes["weight"] = weights[indices]
+    selected_classes.sort_values("weight", ascending=False, inplace=True)
 
     # Render the table
     table = rich.table.Table("Feature", "Kind", "Name", "Description", "Weight")
@@ -161,7 +179,7 @@ def run_class(args: argparse.Namespace, console: Console) -> int:
         rich.text.Text(format(predictor.intercept_[class_index], ".5f"), style="repr.number"),
         end_section=True,
     )
-    for row in selected_classes.sort_values("weight", ascending=False).itertuples():
+    for row in selected_classes.itertuples():
         table.add_row(
             rich.text.Text(row.Index, style="repr.tag_name"),
             getattr(row, "kind", "N/A"),
@@ -170,5 +188,9 @@ def run_class(args: argparse.Namespace, console: Console) -> int:
             rich.text.Text(format(row.weight, ".5f"), style="repr.number"),
         )
     console.print(table)
+
+    # Write the table
+    if args.output is not None:
+        write_table(selected_classes, args.output)
 
     return 0
