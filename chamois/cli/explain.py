@@ -57,16 +57,37 @@ def configure_parser(parser: argparse.ArgumentParser):
     parser_feature.set_defaults(run=run_feature)
 
 
+def get_feature_index(feature: str, predictor: ChemicalOntologyPredictor) -> int:
+    # get by feature index (full Pfam accession, e.g PF13304.10)
+    try:
+        return predictor.features_.index.get_loc(feature)
+    except KeyError:
+        pass
+    # get by feature accession (partial accession, e.g. PF13304)
+    accessions = predictor.features_.index.str.rsplit(".", n=1).str[0]
+    indices = numpy.where(accessions == feature)[0]
+    if len(indices) == 1:
+        return indices[0]
+    # get by feature name (Pfam name, e.g. SBBP)
+    names = predictor.features_["name"]
+    indices = numpy.where(names == feature)[0]
+    if len(indices) == 1:
+        return indices[0]
+    # failed to find feature
+    raise KeyError(feature)
+
+
 def run_feature(args: argparse.Namespace, console: Console) -> int:
     predictor = load_model(args.model, console)
 
     # Extract requested class index
     try:
-        feature_index = predictor.features_.index.get_loc(args.feature_id)
+        feature_index = get_feature_index(args.feature_id, predictor)
         name = predictor.features_["name"][feature_index]
-        console.print(f"[bold blue]{'Extracting':>12}[/] weights for class [bold blue]{args.feature_id}[/] ([green]{name}[/])")
+        accession = predictor.features_.index[feature_index]
+        console.print(f"[bold blue]{'Extracting':>12}[/] weights for feature [bold blue]{accession}[/] ([green]{name}[/])")
     except KeyError:
-        console.print(f"[bold red]{'Failed':>12}[/] to find class [bold blue]{args.feature_id}[/] in model")
+        console.print(f"[bold red]{'Failed':>12}[/] to find class [bold blue]{accession}[/] in model")
         return 1
 
     # Extract positive weights
@@ -88,13 +109,29 @@ def run_feature(args: argparse.Namespace, console: Console) -> int:
     return 0
 
 
+def get_class_index(class_: str, predictor: ChemicalOntologyPredictor) -> int:
+    # get by feature index (full Pfam accession, e.g PF13304.10)
+    try:
+        return predictor.classes_.index.get_loc(class_)
+    except KeyError:
+        pass
+    # get by feature name (Pfam name, e.g. SBBP)
+    names = predictor.classes_["name"]
+    indices = numpy.where(names == class_)[0]
+    if len(indices) == 1:
+        return indices[0]
+    # failed to find feature
+    raise KeyError(feature)
+
+
 def run_class(args: argparse.Namespace, console: Console) -> int:
     predictor = load_model(args.model, console)
 
     # Extract requested class index
     try:
-        class_index = predictor.classes_.index.get_loc(args.class_id)
+        class_index = get_class_index(args.class_id, predictor)
         name = predictor.classes_["name"][class_index]
+        accession = predictor.classes_.index[class_index]
         console.print(f"[bold blue]{'Extracting':>12}[/] weights for class [bold blue]{args.class_id}[/] ([green]{name}[/])")
     except KeyError:
         console.print(f"[bold red]{'Failed':>12}[/] to find class [bold blue]{args.class_id}[/] in model")
