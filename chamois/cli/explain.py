@@ -22,13 +22,21 @@ def configure_parser(parser: argparse.ArgumentParser):
         "--model",
         default=None,
         type=pathlib.Path,
-        help="The path to an alternative model for predicting classes."
+        help="The path to an alternative model to extract weights from."
     )
-    parser.add_argument(
+
+    subparser = parser.add_mutually_exclusive_group()
+    subparser.add_argument(
         "--nonzero",
         default=False,
         action="store_true",
         help="Display non-zero weights instead of only positive weights."
+    )
+    subparser.add_argument(
+        "--min-weight",
+        default=0.0,
+        type=float,
+        help="The minimum weight to filter the table with."
     )
 
     commands = parser.add_subparsers(required=True)
@@ -92,7 +100,7 @@ def run_feature(args: argparse.Namespace, console: Console) -> int:
 
     # Extract positive weights
     weights = predictor.coef_[feature_index, :].A[0]
-    indices = numpy.where((weights != 0.0) if args.nonzero else (weights > 0))[0]
+    indices = numpy.where((weights != 0.0) if args.nonzero else (weights > args.min_weight))[0]
     selected_classes = predictor.classes_.iloc[indices].copy()
     selected_classes["weight"] = weights[indices]
 
@@ -139,7 +147,7 @@ def run_class(args: argparse.Namespace, console: Console) -> int:
 
     # Extract positive weights
     weights = predictor.coef_[:, class_index].A.T[0]
-    indices = numpy.where(weights != 0.0 if args.nonzero else weights > 0)[0]
+    indices = numpy.where(weights != 0.0 if args.nonzero else weights > args.min_weight)[0]
     selected_classes = predictor.features_.iloc[indices].copy()
     selected_classes["weight"] = weights[indices]
 
