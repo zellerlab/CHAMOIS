@@ -107,9 +107,10 @@ def run_class(args: argparse.Namespace, console: Console) -> int:
     selected_classes["weight"] = weights[indices]
 
     # Render the table
-    table = rich.table.Table("Feature", "Kind", "Name", "Weight")
+    table = rich.table.Table("Feature", "Kind", "Name", "Description", "Weight")
     table.add_row(
         rich.text.Text("Intercept", style="b i"),
+        "",
         "",
         "",
         rich.text.Text(format(predictor.intercept_[class_index], ".5f"), style="repr.number"),
@@ -120,6 +121,7 @@ def run_class(args: argparse.Namespace, console: Console) -> int:
             rich.text.Text(row.Index, style="repr.tag_name"),
             getattr(row, "kind", "N/A"),
             getattr(row, "name", "N/A"),
+            getattr(row, "description", "N/A"),
             rich.text.Text(format(row.weight, ".5f"), style="repr.number"),
         )
     console.print(table)

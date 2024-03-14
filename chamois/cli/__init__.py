@@ -132,7 +132,7 @@ def run(argv: Optional[List[str]] = None, console: Optional[Console] = None) -> 
     args = parser.parse_args(argv)
 
     try:
-        args.run(args, console)
+        return args.run(args, console)
     except Exception as err:
         console.print_exception()
         return getattr(err, "code", 1)
