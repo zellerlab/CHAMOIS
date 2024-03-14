@@ -141,6 +141,23 @@ $(DATA)/datasets/mibig3.1/taxonomy.tsv: $(DATA)/mibig/blocklist.tsv $(TAXONOMY)/
 	$(PYTHON) $(SCRIPTS)/mibig/download_taxonomy.py --blocklist $< --mibig-version 3.1 -o $@ --taxonomy $(TAXONOMY)
 
 
+# --- Download PRISM data ----------------------------------------------------
+
+$(DATA)/prism4/BGCs.tar:
+	mkdir -p $(DATA)/datasets/prism4
+	$(WGET) https://zenodo.org/records/3985982/files/BGCs.tar?download=1 -O $@
+
+$(DATA)/prism4/predictions.xlsx:
+	mkdir -p $(DATA)/datasets/prism4
+	$(WGET) https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-020-19986-1/MediaObjects/41467_2020_19986_MOESM5_ESM.xlsx -O $@
+
+$(DATA)/datasets/prism4/clusters.gbk: $(DATA)/prism4/BGCs.tar $(DATA)/prism4/predictions.xlsx
+	$(PYTHON) $(SCRIPTS)/prism4/extract_records.py -i $< -o $@ --table $(word 2,$^)
+
+$(DATA)/datasets/prism4/compounds.json: $(DATA)/prism4/predictions.xlsx $(ATLAS) $(DATA)/prism4/BGCs.tar
+	$(PYTHON) $(SCRIPTS)/prism4/extract_compounds.py -i $< -o $@ --atlas $(word 2,$^) --cache $(BUILD) --archive $(word 3,$^)
+
+
 # --- Download JGI data ------------------------------------------------------
 
 $(BUILD)/abc/genomes.json:
