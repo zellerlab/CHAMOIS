@@ -53,7 +53,7 @@ def configure_parser(parser: argparse.ArgumentParser):
         type=_parse_molecule,
         help="The compounds to search in the predictions.",
     )
-    configure_group_search_parameters(parser)
+    # configure_group_search_parameters(parser)
     configure_group_search_output(parser)
     parser.set_defaults(run=run)
 
@@ -189,7 +189,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
 
     # compute distance
     console.print(f"[bold blue]{'Computing':>12}[/] distances to predictions")
-    distances = probjaccard_cdist(compounds, probas.X) #cdist(compounds, classes.X, metric=probjaccard)
+    distances = probjaccard_cdist(compounds, probas.X)
     ranks = scipy.stats.rankdata(distances, method="dense", axis=1)
 
     # show most likely BGC for input compound

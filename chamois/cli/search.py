@@ -27,7 +27,7 @@ def configure_parser(parser: argparse.ArgumentParser):
         type=pathlib.Path,
         help="The path to the compound class catalog to compare predictions to."
     )
-    configure_group_search_parameters(parser)
+    # configure_group_search_parameters(parser)
     configure_group_search_output(parser)
     parser.set_defaults(run=run)
 
@@ -107,7 +107,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
 
     # compute distance
     console.print(f"[bold blue]{'Computing':>12}[/] pairwise distances and ranks")
-    distances = probjaccard_cdist(probas.X, catalog.X) #cdist(classes.X, catalog.X.toarray(), metric=probjaccard)
+    distances = probjaccard_cdist(probas.X, catalog.X)
     distances = numpy.nan_to_num(distances, copy=False, nan=1.0)
     ranks = scipy.stats.rankdata(distances, method="dense", axis=1)
 
