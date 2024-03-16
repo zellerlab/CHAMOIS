@@ -154,8 +154,8 @@ $(DATA)/prism4/predictions.xlsx:
 $(DATA)/datasets/prism4/clusters.gbk: $(DATA)/prism4/BGCs.tar $(DATA)/prism4/predictions.xlsx
 	$(PYTHON) $(SCRIPTS)/prism4/extract_records.py -i $< -o $@ --table $(word 2,$^)
 
-$(DATA)/datasets/prism4/compounds.json: $(DATA)/prism4/predictions.xlsx $(ATLAS) $(DATA)/prism4/BGCs.tar
-	$(PYTHON) $(SCRIPTS)/prism4/extract_compounds.py -i $< -o $@ --atlas $(word 2,$^) --cache $(BUILD) --archive $(word 3,$^)
+$(DATA)/datasets/prism4/compounds.json: $(DATA)/prism4/predictions.xlsx $(ATLAS) $(DATA)/datasets/prism4/clusters.gbk
+	$(PYTHON) $(SCRIPTS)/prism4/extract_compounds.py -i $< -o $@ --atlas $(word 2,$^) --cache $(BUILD) --clusters $(word 3,$^)
 
 
 # --- Download JGI data ------------------------------------------------------

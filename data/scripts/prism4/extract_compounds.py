@@ -6,7 +6,6 @@ import os
 import io
 import gzip
 import json
-import tarfile
 import posixpath
 from itertools import islice
 
@@ -15,6 +14,7 @@ import rich.progress
 import rdkit.Chem
 import pubchempy
 import pandas
+import Bio.SeqIO
 from rdkit import RDLogger
 
 # disable logging
@@ -23,7 +23,7 @@ RDLogger.DisableLog('rdApp.warning')
 # get paths from command line
 parser = argparse.ArgumentParser()
 parser.add_argument("-i", "--input", required=True)
-parser.add_argument("--archive", required=True)
+parser.add_argument("--clusters", required=True)
 parser.add_argument("--atlas", required=True)
 parser.add_argument("--cache")
 parser.add_argument("-o", "--output", required=True)
@@ -40,20 +40,19 @@ memory = joblib.Memory(location=args.cache, verbose=False)
 with contextlib.ExitStack() as ctx:
 
     progress = ctx.enter_context(rich.progress.Progress())
-    reader = ctx.enter_context(progress.open(args.archive, "rb", description=f"[bold blue]{'Reading':>12}[/]"))
-    tar = ctx.enter_context(tarfile.open(fileobj=reader, mode="r"))
     output = ctx.enter_context(open(args.output, "w"))
+    reader = ctx.enter_context(progress.open(args.clusters, "r", description=f"[bold blue]{'Reading':>12}[/]"))
 
     clusters = set()
-    for entry in tar:
-        if entry.name.startswith("./sequences"):
-            clusters.add(posixpath.basename(entry.name)) 
+    for record in Bio.SeqIO.parse(reader, "genbank"):
+        clusters.add(record.id)
 
 
 # --- Load compound structures -----------------------------------------------
 
 rich.print(f"[bold blue]{'Loading':>12}[/] compounds from {args.input!r}")
 data = pandas.read_excel(args.input, usecols=["Cluster", "True SMILES"]).drop_duplicates()
+data["Cluster"] = data["Cluster"].str.replace("-", "_").str.split(".").str[0]
 data = data[ data["Cluster"].isin(clusters) ]
 rich.print(f"[bold green]{'Loaded':>12}[/] {data['Cluster'].nunique()} BGCs with known compounds")
 
@@ -95,7 +94,7 @@ def get_compounds(cids):
 compounds = collections.defaultdict(list)
 for row in rich.progress.track(data.itertuples(), total=len(data), description=f"[bold blue]{'Working':>12}[/]"):
     _, cluster, smiles, inchi, inchikey = row
-    name, _ = os.path.splitext(cluster)
+    name = cluster.replace("-", "_").split(".")[0]
     mol = rdkit.Chem.MolFromSmiles(smiles)
 
     # create compound for BGC
