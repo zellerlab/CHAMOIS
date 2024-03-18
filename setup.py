@@ -163,17 +163,19 @@ class download_pfam(setuptools.Command):
         # download the HMM to `local`, and delete the file if any error
         # or interruption happens during the download
         if not os.path.exists(local):
+            error = None
             # streaming the HMMs may not work on all platforms (e.g. MacOS)
             # so we fall back to a buffered implementation if needed.
             for stream in (True, False):
                 try:
                     self.download_hmms(local, domains, stream=stream)
-                except Exception:
+                except Exception as exc:
+                    error = exc
                     if os.path.exists(local):
                         os.remove(local)
                 else:
                     return
-            raise RuntimeError("Failed to download Pfam HMMs")
+            raise RuntimeError("Failed to download Pfam HMMs") from error
 
     def download_hmms(self, output, domains, stream=True):
         # get URL for the requested Pfam version
@@ -181,17 +183,20 @@ class download_pfam(setuptools.Command):
         self.info(f"fetching {url}")
         response = urllib.request.urlopen(url)
 
-        # use `rich` to make a progress bar
-        pbar = rich.progress.wrap_file(
-            response,
-            total=int(response.headers["Content-Length"]),
-            description=os.path.basename(output),
-        )
-
         # download to `output`
         nsource = nwritten = 0
         with contextlib.ExitStack() as ctx:
-            dl = ctx.enter_context(pbar)
+            # use `rich` to make a progress bar if available
+            if rich is not None:
+                pbar = rich.progress.wrap_file(
+                    response,
+                    total=int(response.headers["Content-Length"]),
+                    description=os.path.basename(output),
+                )
+                dl = ctx.enter_context(pbar)
+            else:
+                dl = ctx.enter_context(response)
+
             src = ctx.enter_context(gzip.open(dl))
             dst = ctx.enter_context(lz4.frame.open(output, "wb"))
             if stream:
