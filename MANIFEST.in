@@ -1,4 +1,6 @@
 include README.md
 include COPYING
+include CITATION.cff
 
 include conch/predictor.json
+prune   data/
