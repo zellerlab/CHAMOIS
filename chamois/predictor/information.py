@@ -12,7 +12,6 @@ from typing import Union
 import numpy
 import numpy.ma
 import scipy.sparse
-from sklearn.metrics import roc_curve
 
 from ..ontology import IncidenceMatrix
 
@@ -85,7 +84,7 @@ def semantic_distance_score(y_true, y_scores, information_accretion, *, k=2):
 def information_theoric_curve(y_true, y_scores, information_accretion):
     """Return the information theoric curve for the predictions.
     """
-    _, _, thresholds = roc_curve(y_true.ravel(), y_scores.ravel(), drop_intermediate=True)
+    thresholds = numpy.unique(y_scores.round(3).ravel())
 
     mi = numpy.zeros_like(thresholds)
     ru = numpy.zeros_like(thresholds)
