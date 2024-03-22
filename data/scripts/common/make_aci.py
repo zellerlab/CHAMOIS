@@ -164,7 +164,8 @@ for i, query_id in enumerate(query_ids):
         for protein in query_genes 
         if protein.cluster.id == query_id
     )
-    identity[i] /= query_length
+    if query_length > 0:
+        identity[i] /= query_length
 
 # make distances symmetric
 identity = numpy.clip(identity, 0, 1)
