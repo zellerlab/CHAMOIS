@@ -22,6 +22,7 @@ from ..predictor import ChemicalOntologyPredictor
 from ..classyfire import Client, binarize_classification
 from ._common import load_model
 from .render import build_tree
+from .search import probjaccard, probjaccard_cdist
 from ._parser import (
     configure_group_search_input,
     configure_group_search_parameters,
@@ -124,49 +125,13 @@ def run(args: argparse.Namespace, console: Console) -> int:
     predictor = load_model(args.model, console)
     probas, classes = load_predictions(args.input, predictor, console)
 
+    # get query classification from Classyfire
     classifications = {}
     classyfire = Client()
     inchikeys = (rdkit.Chem.inchi.MolToInchiKey(mol) for mol in args.queries)
     for inchikey in inchikeys:
         console.print(f"[bold blue]{'Retrieving':>12}[/] {len(args.queries)} ClassyFire results for [bold cyan]{inchikey}[/]")
         classifications[inchikey] = classyfire.fetch(inchikey)
-
-        # with urllib.request.urlopen(f"https://cfb.fiehnlab.ucdavis.edu/entities/{inchikey}.json") as res:
-        #     result = json.load(res)
-        #     classifications[inchikey] = extract_classification(result)
-
-    # # send classification job to classyfire
-    # console.print(f"[bold blue]{'Sending':>12}[/] {len(args.queries)} queries to ClassyFire for classification")
-    # queries = [rdkit.Chem.inchi.MolToInchi(mol) for mol in args.queries]
-    # response = query_classyfire(queries)
-    # if "id" in response:
-    #     query_id = response["id"]
-    # else:
-    #     raise RuntimeError("Failed to submit queries to ClassyFire: ")
-
-    # # retrieve classification results
-    # console.print(f"[bold blue]{'Waiting':>12}[/] for ClassyFire to process query {query_id}")
-    # while True:
-    #     time.sleep(15.0)
-    #     results = get_results(query_id)
-    #     if results['classification_status'] == 'Done':
-    #         break
-    #     elif results['classification_status'] not in {"In progress", "In Queue"}:
-    #         console.print(f"[bold red]{'Failed':>12}[/] to get classification ({results['classification_status']!r})")
-    #         return 1
-
-    # # Report failed classification
-    # for entity in results["invalid_entities"]:
-    #     console.print(f"[bold red]{'Failed':>12}[/] to classify {entity['structure']!r}")
-
-    # # retrieve classification results
-    # classifications = {}
-    # for i in range(results['number_of_pages']):
-    #     for entity in results['entities']:
-    #         inchikey = entity["inchikey"].split("=")[-1]
-    #         classifications[inchikey] = extract_classification(entity)
-    #     if i+1 < results['number_of_pages']:
-    #         results = get_results(query_id, page=i+1)
 
     # binarize classifications
     compounds = numpy.zeros((len(args.queries), len(predictor.classes_)))
@@ -179,15 +144,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
             leaves
         )
     
-    def probjaccard(x: numpy.ndarray, y: numpy.ndarray) -> float:
-        tt = (x @ y).item()
-        return 1.0 - tt / ( x.sum() + y.sum() - tt )
-
-    def probjaccard_cdist(X: numpy.ndarray, Y: numpy.ndarray) -> numpy.ndarray:
-        tt = (X @ Y.T)
-        return 1.0 - tt / (X.sum(axis=1).reshape(-1, 1) - tt + Y.sum(axis=1).reshape(1, -1))
-
-    # compute distance
+    # compute distances
     console.print(f"[bold blue]{'Computing':>12}[/] distances to predictions")
     distances = probjaccard_cdist(compounds, probas.X)
     ranks = scipy.stats.rankdata(distances, method="dense", axis=1)

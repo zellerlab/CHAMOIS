@@ -32,12 +32,10 @@ def configure_parser(parser: argparse.ArgumentParser):
     parser.set_defaults(run=run)
 
 
-def load_predictions(path: pathlib.Path, predictor: ChemicalOntologyPredictor, console: Console) -> anndata.AnnData:
+def load_predictions(path: pathlib.Path, console: Console) -> anndata.AnnData:
     console.print(f"[bold blue]{'Loading':>12}[/] probability predictions from {str(path)!r}")
     probas = anndata.read(path)
-    # probas = probas[:, predictor.classes_.index]
-    # classes = predictor.propagate(probas.X > 0.5)
-    return probas[:, predictor.classes_.index]
+    return probas[:, :]
 
 
 def load_catalog(path: pathlib.Path, console: Console) -> anndata.AnnData:
@@ -85,25 +83,22 @@ def build_table(results: pandas.DataFrame) -> rich.table.Table:
     return table
 
 
+def probjaccard(x: numpy.ndarray, y: numpy.ndarray) -> float:
+    tt = (x @ y).item()
+    return 1.0 - tt / ( x.sum() + y.sum() - tt )
+
+
+def probjaccard_cdist(X: numpy.ndarray, Y: numpy.ndarray) -> numpy.ndarray:
+    tt = (X @ Y.T)
+    return 1.0 - tt / (X.sum(axis=1).reshape(-1, 1) - tt + Y.sum(axis=1).reshape(1, -1))
+
+
 def run(args: argparse.Namespace, console: Console) -> int:
-    predictor = load_model(args.model, console)
-    probas = load_predictions(args.input, predictor, console)
+    # predictor = load_model(args.model, console)
+    probas = load_predictions(args.input, console)
 
     # load catalog
     catalog = load_catalog(args.catalog, console)[:, probas.var.index]
-
-    def gogo(x: numpy.ndarray, y: numpy.ndarray) -> float:
-        i = numpy.where(x)[0]
-        j = numpy.where(y)[0]
-        return 1.0 - predictor.ontology.similarity(i, j)
-
-    def probjaccard(x: numpy.ndarray, y: numpy.ndarray) -> float:
-        tt = (x @ y).item()
-        return 1.0 - tt / ( x.sum() + y.sum() - tt )
-
-    def probjaccard_cdist(X: numpy.ndarray, Y: numpy.ndarray) -> numpy.ndarray:
-        tt = (X @ Y.T)
-        return 1.0 - tt / (X.sum(axis=1).reshape(-1, 1) - tt + Y.sum(axis=1).reshape(1, -1))
 
     # compute distance
     console.print(f"[bold blue]{'Computing':>12}[/] pairwise distances and ranks")
