@@ -28,7 +28,13 @@ import pyrodigal
 from .model import ClusterSequence, Protein
 
 
-__all__ = ["ORFFinder", "PyrodigalFinder", "CDSFinder"]
+__all__ = ["ORFFinder", "PyrodigalFinder", "CDSFinder", "NoGeneFoundWarning"]
+
+
+class NoGeneFoundWarning(UserWarning):
+    """A warning for when no genes were found in a record.
+    """
+    pass
 
 
 class ORFFinder(metaclass=abc.ABCMeta):
@@ -127,6 +133,12 @@ class PyrodigalFinder(ORFFinder):
                         orf.translate(), 
                         cluster
                     )
+                if not orfs:
+                    warnings.warn(
+                        f"no gene found in cluster {cluster.id!r}", 
+                        NoGeneFoundWarning,
+                        stacklevel=2,
+                    )
 
 
 class CDSFinder(ORFFinder):
@@ -176,4 +188,10 @@ class CDSFinder(ORFFinder):
                     cluster,
                 )
                 genes_found += 1
+            if not genes_found:
+                warnings.warn(
+                    f"no gene found in cluster {cluster.id!r}", 
+                    NoGeneFoundWarning, 
+                    stacklevel=2
+                )
             _progress(cluster, len(clusters))
