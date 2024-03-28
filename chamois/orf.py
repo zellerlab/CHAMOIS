@@ -8,6 +8,7 @@ import os
 import queue
 import tempfile
 import typing
+import warnings
 from multiprocessing.pool import Pool, ThreadPool
 from multiprocessing.sharedctypes import Value
 from typing import (
@@ -154,13 +155,13 @@ class CDSFinder(ORFFinder):
 
         for cluster in clusters:
             genes_found = 0
-            features = filter(lambda feat: feat.type == self.feature, cluster.record.features)
+            features = filter(lambda feat: feat.kind == self.feature, cluster.record.features)
             for i, feature in enumerate(features):
                 # get the gene translation
-                qualifiers = feature.qualifiers.to_dict()
-                tt = qualifiers.get("transl_table", [self.translation_table])[0]
+                qualifiers = { qualifier.key:qualifier.value for qualifier in feature.qualifiers }
+                tt = qualifiers.get("transl_table", self.translation_table)
                 if "translation" in qualifiers:
-                    prot_seq = qualifiers["translation"][0]
+                    prot_seq = qualifiers["translation"]
                 else:
                     prot_seq = feature.location.extract(record.sequence).translate(table=tt)
                 # get the gene name
