@@ -24,6 +24,7 @@ from typing import (
 )
 
 import pyrodigal
+import pyhmmer.easel
 
 from .model import ClusterSequence, Protein
 
@@ -34,7 +35,11 @@ __all__ = ["ORFFinder", "PyrodigalFinder", "CDSFinder", "NoGeneFoundWarning"]
 class NoGeneFoundWarning(UserWarning):
     """A warning for when no genes were found in a record.
     """
-    pass
+
+
+class IncompleteGeneWarning(UserWarning):
+    """A warning for when a gene was found with incomplete sequence.
+    """
 
 
 class ORFFinder(metaclass=abc.ABCMeta):
@@ -155,6 +160,20 @@ class CDSFinder(ORFFinder):
         self.translation_table = translation_table
         self.locus_tag = locus_tag
 
+    def _translate(
+        self,
+        sequence: str,
+        table: int,
+        reverse_complement: bool = False
+    ) -> str:
+        abc = pyhmmer.easel.Alphabet.dna()
+        code = pyhmmer.easel.GeneticCode(table)
+        seq = pyhmmer.easel.TextSequence(sequence=sequence).digitize(abc)
+        if reverse_complement:
+            seq.reverse_complement(inplace=True)
+        prot = seq.translate(code)
+        return prot.textize().sequence
+
     def find_genes(
         self,
         clusters: Sequence[ClusterSequence],
@@ -169,18 +188,41 @@ class CDSFinder(ORFFinder):
             genes_found = 0
             features = filter(lambda feat: feat.kind == self.feature, cluster.record.features)
             for i, feature in enumerate(features):
-                # get the gene translation
+                # extract qualifiers from feature
                 qualifiers = { qualifier.key:qualifier.value for qualifier in feature.qualifiers }
+                # get the gene name
+                if self.locus_tag in qualifiers:
+                    prot_id = qualifiers[self.locus_tag]
+                else:
+                    prot_id = f"{cluster.record.name}_{i+1}"
+                # get the gene translation
                 tt = qualifiers.get("transl_table", self.translation_table)
                 if "translation" in qualifiers:
                     prot_seq = qualifiers["translation"]
                 else:
-                    prot_seq = feature.location.extract(record.sequence).translate(table=tt)
-                # get the gene name
-                if self.locus_tag in qualifiers:
-                    prot_id = qualifiers[self.locus_tag][0]
-                else:
-                    prot_id = f"{cluster.record.name}_{i+1}"
+                    # get gene sequence
+                    start = feature.location.start
+                    end = feature.location.end
+                    if feature.location.strand == "-":
+                        start, end = end, start
+                        reverse_complement = True
+                    else:
+                        reverse_complement = False
+                    gene_seq = cluster.record.sequence[start - 1:end]
+                    if len(gene_seq) % 3:
+                        gene_seq = gene_seq[: (len(gene_seq)//3)*3  ]
+                        warnings.warn(
+                            f"incomplete protein sequence found for {prot_id!r}",
+                            IncompleteGeneWarning,
+                            stacklevel=2
+                        )
+                    # translate using PyHMMER translation
+                    prot_seq = self._translate(
+                        gene_seq.decode(), 
+                        table=int(tt), 
+                        reverse_complement=reverse_complement
+                    )
+
                 # wrap the gene into a Gene
                 yield Protein(
                     prot_id,
