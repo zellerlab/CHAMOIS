@@ -1,7 +1,8 @@
 # PYTHON_ARGCOMPLETE_OK
 
 import argparse
-from typing import Optional, List
+import functools
+from typing import Optional, List, TextIO, Type
 
 from rich.console import Console
 from rich_argparse import RichHelpFormatter
@@ -13,7 +14,21 @@ except ImportError:
 
 from .. import __version__, __package__ as _module
 from . import train, predict, render, cv, cvsearch, annotate, search, screen, explain, validate
+from ._utils import patch_showwarnings
 
+
+def _showwarnings(
+    console: Console,
+    message: str,
+    category: Type[Warning],
+    filename: str,
+    lineno: int,
+    file: Optional[TextIO] = None,
+    line: Optional[str] = None,
+) -> None:
+    for line in filter(str.strip, str(message).splitlines()):
+        verb, *rest = line.strip()
+        console.print(f"[bold yellow]{'Warning':>12}[/]", line)
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
@@ -126,15 +141,17 @@ def run(argv: Optional[List[str]] = None, console: Optional[Console] = None) -> 
     if console is None:
         console = Console()
 
-    parser = build_parser()
-    if argcomplete is not None:
-        argcomplete.autocomplete(parser)
-    args = parser.parse_args(argv)
+    with patch_showwarnings(functools.partial(_showwarnings, console)):
 
-    try:
-        return args.run(args, console)
-    except Exception as err:
-        console.print_exception()
-        return getattr(err, "code", 1)
-    else:
-        return 0
+        parser = build_parser()
+        if argcomplete is not None:
+            argcomplete.autocomplete(parser)
+        args = parser.parse_args(argv)
+
+        try:
+            return args.run(args, console)
+        except Exception as err:
+            console.print_exception()
+            return getattr(err, "code", 1)
+        else:
+            return 0
