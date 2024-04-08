@@ -2,7 +2,7 @@ Bootstrap: docker
 From: alpine:3.19.1
 
 %setup
-    python setup.py sdist
+    python3 setup.py sdist
 
 %files
     dist/chamois-0.1.0.tar.gz /usr/src/chamois-0.1.0.tar.gz
@@ -15,7 +15,7 @@ From: alpine:3.19.1
     apk del --no-cache build-dependencies
 
 %runscript
-    exec python -I -B -m chamois.cli $@
+    exec python3 -I -B -m chamois.cli $@
 
 %test
     chamois --version
