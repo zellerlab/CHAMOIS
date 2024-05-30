@@ -61,7 +61,7 @@ def configure_parser(parser: argparse.ArgumentParser):
 
 # def load_predictions(path: pathlib.Path, predictor: ChemicalOntologyPredictor, console: Console) -> anndata.AnnData:
 #     console.print(f"[bold blue]{'Loading':>12}[/] probability predictions from {str(path)!r}")
-#     probas = anndata.read(path)
+#     probas = anndata.read_h5ad(path)
 #     probas = probas[:, predictor.classes_.index]
 #     classes = predictor.propagate(probas.X > 0.5)
 #     return anndata.AnnData(X=classes, obs=probas.obs, var=probas.var, dtype=bool)
@@ -69,7 +69,7 @@ def configure_parser(parser: argparse.ArgumentParser):
 
 def load_catalog(path: pathlib.Path, console: Console) -> anndata.AnnData:
     console.print(f"[bold blue]{'Loading':>12}[/] compound catalog from {str(path)!r}")
-    catalog = anndata.read(path)
+    catalog = anndata.read_h5ad(path)
     return catalog
 
 
@@ -124,12 +124,12 @@ def run(args: argparse.Namespace, console: Console) -> int:
 
     # load data
     console.print(f"[bold blue]{'Loading':>12}[/] training data")
-    features = anndata.read(args.features)
-    classes = anndata.read(args.classes)
+    features = anndata.read_h5ad(args.features)
+    classes = anndata.read_h5ad(args.classes)
     console.print(f"[bold green]{'Loaded':>12}[/] {features.n_obs} observations, {features.n_vars} features and {classes.n_vars} classes")
 
     # preprocess data
-    similarity = None if args.similarity is None else anndata.read(args.similarity)
+    similarity = None if args.similarity is None else anndata.read_h5ad(args.similarity)
     features, classes = filter_dataset(
         features,
         classes,

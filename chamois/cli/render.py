@@ -91,7 +91,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
 
     # load predictions
     console.print(f"[bold blue]{'Loading':>12}[/] probability predictions from {str(args.input)!r}")
-    predictions = anndata.read(args.input)
+    predictions = anndata.read_h5ad(args.input)
 
     # build table with all tree to have output with consistent width
     table = Table.grid()

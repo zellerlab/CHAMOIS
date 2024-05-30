@@ -34,13 +34,13 @@ def configure_parser(parser: argparse.ArgumentParser):
 
 def load_predictions(path: pathlib.Path, console: Console) -> anndata.AnnData:
     console.print(f"[bold blue]{'Loading':>12}[/] probability predictions from {str(path)!r}")
-    probas = anndata.read(path)
+    probas = anndata.read_h5ad(path)
     return probas[:, :]
 
 
 def load_catalog(path: pathlib.Path, console: Console) -> anndata.AnnData:
     console.print(f"[bold blue]{'Loading':>12}[/] compound catalog from {str(path)!r}")
-    catalog = anndata.read(path)
+    catalog = anndata.read_h5ad(path)
     return catalog
 
 

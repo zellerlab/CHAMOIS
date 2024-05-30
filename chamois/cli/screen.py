@@ -61,7 +61,7 @@ def configure_parser(parser: argparse.ArgumentParser):
 
 def load_predictions(path: pathlib.Path, predictor: ChemicalOntologyPredictor, console: Console) -> anndata.AnnData:
     console.print(f"[bold blue]{'Loading':>12}[/] probability predictions from {str(path)!r}")
-    probas = anndata.read(path)
+    probas = anndata.read_h5ad(path)
     probas = probas[:, predictor.classes_.index]
     classes = predictor.propagate(probas.X > 0.5)
     return probas, anndata.AnnData(X=classes, obs=probas.obs, var=probas.var, dtype=bool)
