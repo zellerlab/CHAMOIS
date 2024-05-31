@@ -111,6 +111,7 @@
             ]
         }
     ],
+
     "CP011032.1_cluster1": [
         {
             "chem_struct": "COC1=CC(=N/C/1=C\\NCC/C=C\\CCCCCCCC)C1NC=CC=1",
@@ -410,6 +411,15 @@
             ]
         }
     ],
+    "CP108341.1_cluster1": [
+        {
+            "chem_struct": "C=C(NC(=O)C(C(C)C)N(C)C(=O)CCCCCCCCCCCCC(C)C)C(=O)N1CCCC1C(=O)NC(C)C(=O)NC(CCC(=O)O)C(=O)N1CCCC1CO",
+            "compound": "prolinolexin",
+            "database_id": [
+                "npatlas:NPA036418"
+            ]
+        }
+    ],
     "CP114200.1_cluster1": [
         {
             "chem_struct": "CC(C)CC1NC(=O)C(CO)NC(=O)C(C(C)O)NC(=O)CNC(=O)CNC(=O)C2=CC=C(C3=C(CC(C(=O)NC(C(=O)NC(CCC(N)=O)C(=O)NC(CCCN(O)C=O)C(=O)NCC(=O)NC(CO)C(=O)NC4CCCN(O)C4=O)C(C)C)NC(=O)C(C(C)O)NC1=O)N=CN3)C(O)=C2O",
@@ -616,43 +626,6 @@
         {
             "chem_struct": "C#CC#CC#CC#CC=CCCCCCCCC(=O)O",
             "compound": "protegencin",
-            "database_id": []
-        }
-    ],
-    "LTAN01000004.1_cluster1": [
-        {
-            "chem_struct": "CC1=C(C(=C(C(=C1Cl)O)C/C=C(\\C)/CC[C@H](C(C)(C)O)O)O)C=O",
-            "compound": "colletochlorin A",
-            "database_id": []
-        },
-        {
-            "chem_struct": "CC1=C(C(=C(C(=C1Cl)O)C/C=C(\\C)/CCC=C(C)C)O)C=O",
-            "compound": "colletochlorin B",
-            "database_id": []
-        },
-        {
-            "chem_struct": "CC1=C(C(=C(C(=C1Cl)O)CC=C(C)C)O)C=O",
-            "compound": "colletochlorin D",
-            "database_id": []
-        },
-        {
-            "chem_struct": "CC1=CC(=C(C(=C1C=O)O)C/C=C(\\C)/CCC(C(C)(C)O)O)O",
-            "compound": "colletorin A",
-            "database_id": []
-        },
-        {
-            "chem_struct": "CC1=CC(=C(C(=C1C=O)O)C/C=C(\\C)/CCC=C(C)C)O",
-            "compound": "colletorin B",
-            "database_id": []
-        },
-        {
-            "chem_struct": "CC1=CC(=C(C(=C1C=O)O)CC=C(C)C)O",
-            "compound": "colletorin D",
-            "database_id": []
-        },
-        {
-            "chem_struct": "CC1=CC(=CC(=C1C(=O)O)O)O",
-            "compound": "orsellinic acid",
             "database_id": []
         }
     ],

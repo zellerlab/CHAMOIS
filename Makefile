@@ -91,7 +91,7 @@ $(ATLAS):
 	$(WGET) https://www.npatlas.org/static/downloads/NPAtlas_download.json -O- | gzip -c > $@
 
 $(DATA)/npatlas/classes.hdf5: $(CHEMONT) $(ATLAS) 
-	$(PYTHON) $(SCRIPTS)/npatlas/make_classes.py --atlas $(ATLAS) --chemont $(CHEMONT) -o $@ $(WISHART)
+	$(PYTHON) $(SCRIPTS)/npatlas/make_classes.py --atlas $(ATLAS) --chemont $(CHEMONT) -o $@
 
 $(DATA)/npatlas/maccs.hdf5: $(ATLAS) 
 	$(PYTHON) $(SCRIPTS)/npatlas/make_maccs.py --atlas $(ATLAS) -o $@
