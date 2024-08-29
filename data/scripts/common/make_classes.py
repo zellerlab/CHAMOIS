@@ -123,14 +123,30 @@ for bgc_id, bgc_compounds in rich.progress.track(compounds.items(), description=
                 annotations[bgc_id].append(chamois.classyfire.Classification.from_dict(np_atlas[npaid]["classyfire"]))
                 continue
         # try to use classyfire by InChi key othewrise
-        rich.print(f"[bold blue]{'Querying':>12}[/] ClassyFire for compound {compound['compound']!r} of [purple]{bgc_id}[/]")
+        rich.print(f"[bold blue]{'Fetching':>12}[/] ClassyFire annotations for compound {compound['compound']!r} of [purple]{bgc_id}[/]")
         try:
             classyfire = classyfire_client.fetch(inchikey)
         except (RuntimeError, HTTPError) as err:
             rich.print(f"[bold red]{'Failed':>12}[/] to get ClassyFire annotations for {compound['compound']!r} compound of [purple]{bgc_id}[/]")
+        else:
+            rich.print(f"[bold green]{'Retrieved':>12}[/] ClassyFire annotations for {compound['compound']!r} compound of {bgc_id}")
+            annotations[bgc_id].append(classyfire)
+            continue
+        try:
+            rich.print(f"[bold blue]{'Sending':>12}[/] ClassyFire query {compound['compound']!r} compound of {bgc_id}")
+            query = classyfire_client.query([ compound['chem_struct'].strip() ])
+            status = "In Queue"
+            while status == "In Queue" or status == "Processing":
+                time.sleep(10)
+                status = query.status
+            if status != "Done":
+                raise RuntimeError("Classyfire failed")
+        except (RuntimeError, HTTPError) as err:
+            rich.print(f"[bold red]{'Failed':>12}[/] ClassyFire annotation of {compound['compound']!r} compound of [purple]{bgc_id}[/]")
             annotations[bgc_id].append(None)
         else:
-            rich.print(f"[bold green]{'Downloaded':>12}[/] ClassyFire annotations for {compound['compound']!r} compound of {bgc_id}")
+            rich.print(f"[bold green]{'Finished':>12}[/] ClassyFire annotation of {compound['compound']!r} compound of {bgc_id}")
+            classyfire = chamois.classyfire.Classification.from_dict(classyfire_client.retrieve(query)['entities'][0])
             annotations[bgc_id].append(classyfire)
             continue
 
