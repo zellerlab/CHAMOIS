@@ -216,8 +216,9 @@ class ChemicalOntologyPredictor:
         probas = (result + 1.0) / 2.0
         return numpy.clip(probas, 0.0, 1.0)
 
-    def _predict_dummy(self) -> numpy.ndarray:
-        return expit(self.intercept_)
+    def _predict_dummy(self, X: numpy.ndarray) -> numpy.ndarray:
+        y = expit(self.intercept_)
+        return numpy.tile(y, (X.shape[0], 1))
 
     def predict_probas(
         self,
@@ -233,7 +234,7 @@ class ChemicalOntologyPredictor:
         elif self.model == "ridge":
             probas = self._predict_ridge(_X)
         elif self.model == "dummy":
-            probas = self._predict_dummy()
+            probas = self._predict_dummy(_X)
         else:
             raise RuntimeError(f"invalid model architecture: {self.model!r}")
         if propagate:
