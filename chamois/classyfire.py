@@ -193,6 +193,8 @@ class Client:
                     raise RuntimeError(f"Failed to get classification: {response['error']}")
                 elif 'report' in response:
                     raise RuntimeError(f"Failed to get classification: {' '.join(response['report'])}")
+                elif not response:
+                    raise RuntimeError(f"Failed to get classification")
             except urllib.error.HTTPError as err:
                 raise RuntimeError(f"Failed to get classification: ClassyFire server down") from err
             self.cache[inchikey] = response

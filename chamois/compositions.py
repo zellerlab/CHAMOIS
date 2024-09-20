@@ -17,6 +17,8 @@ def build_observations(
         "source": [cluster.source for cluster in clusters],
         "length": [len(cluster.record.sequence) for cluster in clusters],
     }
+    if not any(data["source"]):
+        del data["source"]
     # count proteins per cluster if given
     if proteins is not None:
         counter = collections.Counter()
