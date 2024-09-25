@@ -131,7 +131,7 @@ class Cache(typing.MutableMapping[str, Dict[str, object]]):
             raise KeyError(item)
         os.remove(entry)
 
-    def __iter__(self, item: str) -> Iterable[str]:
+    def __iter__(self) -> Iterable[str]:
         return (path.stem for path in self.folder.glob("*.json.gz"))
 
     def __len__(self) -> int:
