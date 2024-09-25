@@ -5578,11 +5578,7 @@
     ],
     "BGC0000401": [
         {
-            "chem_struct": "CC1C(C(=O)OC(C(C(=O)OC(C(C(=O)O1)NC(=O)C(C)NC(=O)C2=C(C(=CC=C2)O)O)C)NC(=O)C(C)NC(=O)C3=C(C(=CC=C3)O)O)C)NC(=O)C(C)NC(=O)C4=C(C(=CC=C4)O)O",
-            "compound": "paenibactin",
-            "database_id": [
-                "pubchem:152771936"
-            ]
+            "compound": "paenibactin"
         }
     ],
     "BGC0000402": [
@@ -7435,11 +7431,7 @@
     ],
     "BGC0000567": [
         {
-            "chem_struct": "CC[C@H](C)[C@@H](C(=O)NCC(=O)NCC(=O)N[C@@H](CO)C(=O)N[C@@H](CCCN=C(N)N)C(=O)NC([C])C(=O)NCC(=O)N[C@@H](CS)C(=O)N[C@@H](C(C)C)C(=O)N[C@@H](C)C(=O)O)NC(=O)[C@H](CC(=O)O)N",
-            "compound": "trifolitoxin",
-            "database_id": [
-                "pubchem:102121486"
-            ]
+            "compound": "trifolitoxin"
         }
     ],
     "BGC0000568": [
@@ -7704,11 +7696,7 @@
     ],
     "BGC0000600": [
         {
-            "chem_struct": "CC1C(=O)NC(SCC(C(=O)NC(C(=O)NC(C(=O)NC2CSC(C(=O)NCC(=O)N1)(NC(=O)C(NC(=O)C(NC(=O)C3(NC(=O)C(NC(=O)C(NC(=O)C4(NC(=O)C(NC(=O)C(NC(=O)C(NC(=O)C(NC(=O)C(NC(=O)C(CS4)NC(=O)C(NC(=O)C(NC(=O)C(CS3)NC(=O)C(NC(=O)C(NC2=O)CC(C)C)C(C)C)C)C)CO)C(C)C)CCC(=O)O)CC(C)C)CC(C)C)CC(=O)N)CC(C)C)C(C)C)C(C)O)C)C)C(C)O)CO)CC5=CNC6=CC=CC=C65)NC(=O)C(C(C)O)NC(=O)C(CC7=CNC8=CC=CC=C87)NC(=O)C(CC(=O)O)N)(CO)C(=O)NC(C(C)O)C(=O)NC(C)C(=O)NC(CO)C(=O)O",
-            "compound": "thurincin H",
-            "database_id": [
-                "pubchem:153274430"
-            ]
+            "compound": "thurincin H"
         }
     ],
     "BGC0000601": [
@@ -13839,11 +13827,7 @@
     ],
     "BGC0001128": [
         {
-            "chem_struct": "CC(C)CC1C(=O)NC(C(=O)NC(C(=O)NC(C(=O)NC(C(=O)N1)CC2=CC=CC=C2)CC(C)C)C(C)C)CC(C)C",
-            "compound": "luminmide A",
-            "database_id": [
-                "pubchem:72981718"
-            ]
+            "compound": "luminmide A"
         },
         {
             "chem_struct": "CC(C)C[C@@H]1C(=O)N[C@H](C(=O)N[C@@H](C(=O)N[C@H](C(=O)N[C@@H](C(=O)N1)CC(C)C)CC(C)C)C(C)C)CC(C)C",
@@ -15332,11 +15316,7 @@
     ],
     "BGC0001251": [
         {
-            "chem_struct": "C/C(=C\\C(=O)N(CCC[C@H]1C(=O)NCC(=O)NCC(=O)NCC(=O)NCC(=O)N[C@H](C(=O)N[C@H](C(=O)N[C@H](C(=O)N1)CCCN(C(=O)/C=C(\\C)/CCO)O)CCCN(C(=O)/C=C(\\C)/CCO)O)CCC(=O)N)O)/CCO",
-            "compound": "epichloenin A",
-            "database_id": [
-                "pubchem:101570776"
-            ]
+            "compound": "epichloenin A"
         }
     ],
     "BGC0001252": [
@@ -16073,11 +16053,7 @@
     ],
     "BGC0001306": [
         {
-            "chem_struct": "CC(C1C(=O)NCC(=O)NC(CC2CCC(C=C2)OC3C4CCC(C=C4)OC(C(C(=O)NC(C(=O)NC3C(=O)N1)CC5=CC=C(C=C5)O)O)C6=CC=CC=C6)C(=O)O)O",
-            "compound": "asperipin 2a",
-            "database_id": [
-                "pubchem:132569651"
-            ]
+            "compound": "asperipin 2a"
         }
     ],
     "BGC0001307": [
@@ -21709,11 +21685,7 @@
     ],
     "BGC0001756": [
         {
-            "chem_struct": "C[C@@H]1CC[C@]23[C@H]1CC[C@]2([C@H]4C[C@]5(CC[C@@H]([C@@H]5CC4=C3C)C(C)C)C)C",
-            "compound": "retigeranin",
-            "database_id": [
-                "pubchem:132491285"
-            ]
+            "compound": "retigeranin"
         },
         {
             "compound": "arathanatriene"
@@ -24126,7 +24098,11 @@
     ],
     "BGC0001999": [
         {
-            "compound": "gramibactin"
+            "chem_struct": "CCCCCCCC(=O)N[C@H]([C@H](C(=O)O)O)C(=O)N[C@H]1[C@H](OC(=O)[C@H](NC(=O)CNC(=O)[C@H](NC(=O)[C@H](NC1=O)[C@@H](C)O)CCC/[N+](=N/O)/[O-])CCC/[N+](=N/O)/[O-])C",
+            "compound": "gramibactin",
+            "database_id": [
+                "pubchem:137306480"
+            ]
         }
     ],
     "BGC0002000": [
@@ -24439,10 +24415,10 @@
     ],
     "BGC0002024": [
         {
-            "chem_struct": "C[C@@H]1/C=C(/[C@]23[C@@H](C[C@@H](C(=O)O[C@@H]1[C@@H](C)O)OC)C=C[C@@H]4[C@H]2[C@@H]([C@H]([C@H]([C@@H]4O3)OC(=O)C5=CC=CN5)C)O)\\C",
+            "chem_struct": "CC1C=C(C23C(CC(C(=O)OC1C(C)O)OC)C=CC4C2C(C(C(C4O3)OC(=O)C5=CC=CN5)C)O)C",
             "compound": "nargenicin",
             "database_id": [
-                "pubchem:6326334"
+                "pubchem:3706221"
             ]
         }
     ],
