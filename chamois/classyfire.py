@@ -132,7 +132,7 @@ class Cache(typing.MutableMapping[str, Dict[str, object]]):
         os.remove(entry)
 
     def __iter__(self) -> Iterable[str]:
-        return (path.stem for path in self.folder.glob("*.json.gz"))
+        return (path.stem[:-5] for path in self.folder.glob("*.json.gz"))
 
     def __len__(self) -> int:
         return sum(1 for _ in self.folder.glob("*.json.gz"))
