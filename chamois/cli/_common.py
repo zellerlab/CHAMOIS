@@ -44,12 +44,17 @@ def filter_dataset(
     min_feature_occurrences: int = 1,
     min_length: int = 1000,
     min_genes: int = 2,
+    fix_mismatch: bool = False,
 ) -> Tuple[anndata.AnnData, anndata.AnnData]:
     if sorted(features.obs.index) != sorted(classes.obs.index):
-        raise ValueError("Index mismatch: {!r} != {!r}".format(
-            sorted(features.obs.index),
-            sorted(classes.obs.index)
-        ))
+        if not fix_mismatch:
+            raise ValueError("Index mismatch: {!r} != {!r}".format(
+                sorted(features.obs.index),
+                sorted(classes.obs.index)
+            ))
+        obs_names = sorted(set(features.obs_names) & set(classes.obs_names))
+        features = features[obs_names]
+        classes = classes[obs_names]
 
     if remove_unknown_structure:
         obs = classes.obs[~classes.obs.unknown_structure]

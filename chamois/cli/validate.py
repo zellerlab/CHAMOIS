@@ -78,6 +78,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
         min_feature_occurrences=0,
         min_genes=args.min_genes,
         min_length=args.min_cluster_length,
+        fix_mismatch=args.mismatch,
     )
 
     # load model

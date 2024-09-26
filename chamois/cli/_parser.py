@@ -134,6 +134,12 @@ def configure_group_preprocessing(parser: argparse.ArgumentParser) -> "argparse.
         default=2,
         help="The gene count threshold for retaining a cluster."
     )
+    group.add_argument(
+        "--mismatch",
+        default=False,
+        action="store_true",
+        help="Whether to correct mismatching observations."
+    )
     return group
 
 

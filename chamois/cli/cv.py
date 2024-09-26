@@ -81,6 +81,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
         min_feature_occurrences=args.min_feature_occurrences,
         min_length=args.min_cluster_length,
         min_genes=args.min_genes,
+        fix_mismatch=args.mismatch,
     )
     
     # prepare ontology and groups
