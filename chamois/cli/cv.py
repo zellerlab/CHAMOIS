@@ -86,12 +86,13 @@ def run(args: argparse.Namespace, console: Console) -> int:
     
     # prepare ontology and groups
     ontology = Ontology(classes.varp["parents"])
-    groups = classes.obs["compound"].cat.codes
+    groups = None
 
     # start training
     ground_truth = classes.X.toarray()
     console.print(f"[bold blue]{'Splitting':>12}[/] data into {args.kfolds} folds")
     if args.sampling == "group":
+        groups = classes.obs["compound"].cat.codes
         kfold = sklearn.model_selection.GroupShuffleSplit(n_splits=args.kfolds, random_state=args.seed)
     elif args.sampling == "random":
         kfold = sklearn.model_selection.KFold(n_splits=args.kfolds, random_state=args.seed, shuffle=True)
