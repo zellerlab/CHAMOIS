@@ -5,7 +5,7 @@ import functools
 from typing import Optional, List, TextIO, Type
 
 from rich.console import Console
-from rich_argparse import RichHelpFormatter
+from rich_argparse import RichHelpFormatter, ArgumentDefaultsRichHelpFormatter
 
 try:
     import argcomplete
@@ -33,7 +33,7 @@ def _showwarnings(
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog=_module,
-        formatter_class=RichHelpFormatter,
+        formatter_class=ArgumentDefaultsRichHelpFormatter,
         add_help=False,
     )
 
@@ -68,69 +68,69 @@ def build_parser() -> argparse.ArgumentParser:
     annotate.configure_parser(
         commands.add_parser(
             "annotate", 
-            formatter_class=RichHelpFormatter,
+            formatter_class=ArgumentDefaultsRichHelpFormatter,
             help="Annotate BGC records with CHAMOIS features."
         ))
     cv.configure_parser(
         commands.add_parser(
             "cv", 
-            formatter_class=RichHelpFormatter,
+            formatter_class=ArgumentDefaultsRichHelpFormatter,
             help="Evaluate predictor performance on a training set with cross-validation."
         )
     )
     cvsearch.configure_parser(
         commands.add_parser(
             "cvsearch", 
-            formatter_class=RichHelpFormatter,
+            formatter_class=ArgumentDefaultsRichHelpFormatter,
             help="Evaluate compound search on a training set with cross-validation."
         )
     )
     predict.configure_parser(
         commands.add_parser(
             "predict", 
-            formatter_class=RichHelpFormatter,
+            formatter_class=ArgumentDefaultsRichHelpFormatter,
             help="Predict compound classes for BGC records."
         )
     )
     render.configure_parser(
         commands.add_parser(
             "render", 
-            formatter_class=RichHelpFormatter,
+            formatter_class=ArgumentDefaultsRichHelpFormatter,
             help="Render predicted class probabilities into a tree display."
         )
     )
     train.configure_parser(
         commands.add_parser(
             "train", 
-            formatter_class=RichHelpFormatter,
+            formatter_class=ArgumentDefaultsRichHelpFormatter,
             help="Train the CHAMOIS predictor on a training dataset."
         )
     )
     search.configure_parser(
         commands.add_parser(
             "search", 
-            formatter_class=RichHelpFormatter,
+            formatter_class=ArgumentDefaultsRichHelpFormatter,
             help="Search a catalog for compounds similar to predicted classes."
         )
     )
     screen.configure_parser(
         commands.add_parser(
             "screen", 
-            formatter_class=RichHelpFormatter,
+            formatter_class=ArgumentDefaultsRichHelpFormatter,
             help="Search predicted classes for a particular compound.",
         )
     )
     explain.configure_parser(
         commands.add_parser(
             "explain",
-            formatter_class=RichHelpFormatter,
+            formatter_class=ArgumentDefaultsRichHelpFormatter,
             help="Explain the model weights between query classes and features."
         )
     )
     validate.configure_parser(
         commands.add_parser(
             "validate",
-            formatter_class=RichHelpFormatter,
+            formatter_class=ArgumentDefaultsRichHelpFormatter,
             help="Evaluate model on a validation dataset."
         )
     )
@@ -142,7 +142,6 @@ def run(argv: Optional[List[str]] = None, console: Optional[Console] = None) -> 
         console = Console()
 
     with patch_showwarnings(functools.partial(_showwarnings, console)):
-
         parser = build_parser()
         if argcomplete is not None:
             argcomplete.autocomplete(parser)
