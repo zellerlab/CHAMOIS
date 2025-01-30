@@ -163,7 +163,7 @@ def run_class(args: argparse.Namespace, console: Console) -> int:
         return 1
 
     # Extract positive weights
-    weights = predictor.coef_[:, class_index].A.T[0]
+    weights = predictor.coef_[:, class_index].toarray().T[0]
     indices = numpy.where(weights != 0.0 if args.nonzero else weights > args.min_weight)[0]
     selected_classes = predictor.features_.iloc[indices].copy()
     selected_classes["weight"] = weights[indices]
