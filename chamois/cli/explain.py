@@ -106,12 +106,12 @@ def run_feature(args: argparse.Namespace, console: Console) -> int:
         name = predictor.features_["name"][feature_index]
         accession = predictor.features_.index[feature_index]
         console.print(f"[bold blue]{'Extracting':>12}[/] weights for feature [bold blue]{accession}[/] ([green]{name}[/])")
-    except KeyError:
-        console.print(f"[bold red]{'Failed':>12}[/] to find class [bold blue]{accession}[/] in model")
+    except KeyError as e:
+        console.print(f"[bold red]{'Failed':>12}[/] to find feature [bold blue]{args.feature_id}[/] in model")
         return 1
 
     # Extract positive weights
-    weights = predictor.coef_[feature_index, :].A[0]
+    weights = predictor.coef_[feature_index, :].toarray()[0]
     indices = numpy.where((weights != 0.0) if args.nonzero else (weights > args.min_weight))[0]
     selected_classes = predictor.classes_.iloc[indices].copy()
     selected_classes["weight"] = weights[indices]
