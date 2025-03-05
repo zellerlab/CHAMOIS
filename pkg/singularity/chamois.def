@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: alpine:3.19.1
+From: alpine:3.21.3
 
 %setup
     python3 setup.py sdist
