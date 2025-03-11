@@ -131,7 +131,7 @@ def configure_group_preprocessing(parser: argparse.ArgumentParser) -> "argparse.
     group.add_argument(
         "--min-genes",
         type=int,
-        default=2,
+        default=0,
         help="The gene count threshold for retaining a cluster."
     )
     group.add_argument(
