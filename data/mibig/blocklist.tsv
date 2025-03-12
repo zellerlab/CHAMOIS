@@ -127,8 +127,8 @@ BGC0001471	duplicate of a subsequence of BGC0002023	https://github.com/mibig-sec
 BGC0001485	exact duplicate of BGC0001546	https://github.com/mibig-secmet/mibig-json/issues/154
 BGC0001497	retired in MIBiG 3.1	
 BGC0001530	retired in MIBiG 3.1	
-BGC0001535  not a gene cluster (two clusters)   		
-BGC0001536  not a gene cluster (two clusters)   		
+BGC0001535	not a gene cluster (two clusters)   		
+BGC0001536	not a gene cluster (two clusters)   		
 BGC0001538	retired in MIBiG 3.1	
 BGC0001546	retired in MIBiG 3.1	
 BGC0001555	locus contains several unrelated clusters	https://github.com/mibig-secmet/mibig-json/issues/056
@@ -198,7 +198,7 @@ BGC0001993	retired in MIBiG 3.1
 BGC0002003	exact duplicate of BGC0001608	https://github.com/mibig-secmet/mibig-json/issues/084
 BGC0002023	retired in MIBiG 3.1	
 BGC0002027	retired in MIBiG 3.1	
-BGC0002027  duplicate of BGC0001486 		
+BGC0002027	duplicate of BGC0001486 		
 BGC0002029	retired in MIBiG 3.1	
 BGC0002030	duplicate of BGC0001866 with extra flanking regions	https://github.com/mibig-secmet/mibig-json/issues/164
 BGC0002041	retired in MIBiG 3.1	
