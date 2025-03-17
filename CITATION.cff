@@ -1,0 +1,63 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: CHAMOIS
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Martin
+    family-names: Larralde
+    email: martin.larralde@embl.de
+    affiliation: Leiden University Medical Center
+    orcid: 'https://orcid.org/0000-0002-3947-4444'
+  - given-names: Georg
+    family-names: Zeller
+    affiliation: Leiden University Medical Center
+    orcid: 'https://orcid.org/0000-0003-1429-7485'
+identifiers:
+  - type: doi
+    value: 10.1101/2025.03.13.642868
+    description: bioRxiv preprint
+repository-code: 'https://github.com/zellerlab/CHAMOIS'
+abstract: >-
+  With ever-increasing volumes of sequencing data for biosynthetic gene clusters (BGCs), 
+  computational methods to accurately predict which secondary metabolites result from 
+  these are critically lacking. Here, we present CHAMOIS, a machine learning-based tool 
+  for predicting chemical properties of secondary metabolites from protein domains 
+  annotated in the input BGCs. CHAMOIS infers 485 chemical properties from the ChemOnt 
+  ontology using logistic regression. It accurately predicts 111 such properties 
+  (AUPRC > 0.5) in cross-validation against known instances. Although CHAMOIS is not 
+  explicitly trained on biosynthetic knowledge, many of the inferred links between protein 
+  domains and metabolite properties are consistent with scientific literature, others 
+  suggest new biochemical functions of uncharacterized biosynthetic domains. Finally, 
+  CHAMOIS can pinpoint which BGC within a given genome produces a pre-specified metabolite 
+  (correct BGC in 69% of cases ranked among the top 5), which holds great potential for 
+  prioritising experimental BGC characterisation and discovery of novel biosynthetic 
+  enzymes.
+keywords:
+  - python
+  - biosynthetic gene cluster
+  - natural product
+  - chemical ontology
+license: GPL-3.0-or-later
+preferred-citation:
+  type: article
+  status: preprint
+  authors:
+  - given-names: Martin
+    family-names: Larralde
+    email: martin.larralde@embl.de
+    affiliation: Leiden University Medical Center
+    orcid: 'https://orcid.org/0000-0002-3947-4444'
+  - given-names: Georg
+    family-names: Zeller
+    affiliation: Leiden University Medical Center
+    orcid: 'https://orcid.org/0000-0003-1429-7485'
+  doi: "10.1101/2025.03.13.642868"
+  journal: "bioRxiv"
+  month: 3
+  title: "Machine learning inference of natural product chemistry across biosynthetic gene cluster types"
+  year: 2025
