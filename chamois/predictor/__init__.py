@@ -279,7 +279,7 @@ class ChemicalOntologyPredictor:
 
         .. math::
 
-            ia(T) = \sum_{i \in T}{ - log_2(P(i | \matcal{P}(i))) }
+            ia(T) = \sum_{i \in T}{ - log_2(P(i | \mathcal{P}(i))) }
 
         where :math:`\mathcal{P}(i)` is the parent of node :math:`i` in the
         ontology graph.
