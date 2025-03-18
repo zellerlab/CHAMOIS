@@ -135,7 +135,7 @@ class download_pfam(setuptools.Command):
             raise RuntimeError("pyhmmer is required to run the `download_pfam` command") from HMMFile
         if isinstance(rich, ImportError):
             raise RuntimeError("`rich` is required to run the `download_pfam` command") from rich
-        if isinstance(rich, ImportError):
+        if isinstance(lz4, ImportError):
             raise RuntimeError("`lz4` is required to run the `download_pfam` command") from rich
 
         # Load domain whitelist from the predictor
