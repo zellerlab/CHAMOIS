@@ -18,24 +18,20 @@ from typing import List, Iterable, Set, Optional, Container, Dict, Any, Tuple
 import anndata
 import gb_io
 import pandas
-import pyhmmer
-import pyrodigal
 import rich.progress
 import rich.tree
 import scipy.sparse
-from pyhmmer.plan7 import HMM
 from rich.console import Console
 
 from .. import __version__
 from .._meta import zopen
-from ..domains import PfamAnnotator
 from ..compositions import build_compositions, build_observations, build_variables
-from ..orf import ORFFinder, PyrodigalFinder, CDSFinder
 from ..model import ClusterSequence, Protein, Domain, PfamDomain
 from ..predictor import ChemicalOntologyPredictor
 
 if typing.TYPE_CHECKING:
     from ..orf import ORFFinder
+    from pyhmmer.plan7 import HMM
 
 
 def filter_dataset(
@@ -127,12 +123,14 @@ def load_sequences(input_files: List[pathlib.Path], console: Console) -> Iterabl
 
 
 def initialize_orf_finder(cds: bool, jobs: int, console: Console) -> "ORFFinder":
+    from ..orf import ORFFinder, PyrodigalFinder, CDSFinder
+
     if cds:
         console.print(f"[bold blue]{'Extracting':>12}[/] genes from [bold cyan]CDS[/] features")
         return CDSFinder()
     else:
         console.print(f"[bold blue]{'Finding':>12}[/] genes with Pyrodigal")
-        return PyrodigalFinder(cpus=jobs) 
+        return PyrodigalFinder(cpus=jobs)
 
 
 def find_proteins(clusters: List[ClusterSequence], orf_finder: "ORFFinder", console: Console) -> List[Protein]:
@@ -159,7 +157,7 @@ def annotate_domains(domain_annotator, proteins: List[Protein], console: Console
         transient=True
     ) as progress:
         task_id = progress.add_task(f"[bold blue]{'Working':>12}[/]", total=total)
-        def callback(hmm: HMM, total_: int):
+        def callback(hmm: "HMM", total_: int):
             if total is None:
                 progress.update(task_id, total=total_, advance=1)
             else:
@@ -170,6 +168,8 @@ def annotate_domains(domain_annotator, proteins: List[Protein], console: Console
 
 
 def annotate_hmmer(path: pathlib.Path, proteins: List[Protein], cpus: Optional[int], console: Console, whitelist: Optional[Container[str]] = None) -> List[PfamDomain]:
+    from ..domains import PfamAnnotator
+
     console.print(f"[bold blue]{'Searching':>12}[/] protein domains with HMMER")
     domain_annotator = PfamAnnotator(path, cpus=cpus, whitelist=whitelist)
     total = len(whitelist) if whitelist else None

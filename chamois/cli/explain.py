@@ -15,7 +15,6 @@ from rich_argparse import ArgumentDefaultsRichHelpFormatter
 from scipy.spatial.distance import cdist
 
 from ..model import ClusterSequence, Domain, Protein
-from ..orf import CDSFinder, PyrodigalFinder
 from ..predictor import ChemicalOntologyPredictor
 from ._common import (
     load_model,

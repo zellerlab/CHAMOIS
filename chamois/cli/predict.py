@@ -10,9 +10,6 @@ import sys
 from typing import List, Iterable, Set, Optional
 
 import anndata
-import pandas
-import pyhmmer
-import pyrodigal
 import rich.panel
 import rich.progress
 import rich.tree
