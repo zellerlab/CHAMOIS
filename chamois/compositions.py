@@ -61,7 +61,7 @@ def build_compositions(
     uns: Optional[Mapping[str, Any]] = None,
 ) -> "AnnData":
     use_accession = "name" in var.columns
-    compositions = scipy.sparse.dok_matrix((len(obs), len(var)), dtype=bool)
+    compositions = scipy.sparse.dok_matrix((len(obs), len(var)), dtype=int)
     for domain in domains:
         bgc_index = obs.index.get_loc(domain.protein.cluster.id)
         try:
@@ -73,6 +73,5 @@ def build_compositions(
         X=compositions.tocsr(),
         obs=obs,
         var=var,
-        dtype=int,
         uns=uns
     )

@@ -65,7 +65,7 @@ def build_tree(
     # render a tree structure with rich
     def render(i, tree, whitelist):
         term_id = model.classes_.index[i]
-        term_name = model.classes_.name[i]
+        term_name = model.classes_.name.iloc[i]
         color = "cyan" if bgc_probas[i] >= 0.5 else "yellow"
         label = f"[bold blue]{term_id}[/] ([green]{term_name}[/]): [bold {color}]{bgc_probas[i]:.3f}[/]"
         subtree = tree.add(label, highlight=False)
