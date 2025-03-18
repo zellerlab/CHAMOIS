@@ -4,6 +4,8 @@ import importlib
 import io
 import pathlib
 import sys
+import traceback
+import types
 import typing
 from typing import (
     BinaryIO,
@@ -44,6 +46,19 @@ _XZ_MAGIC = b"\xfd7zXZ"
 _LZ4_MAGIC = b"\x04\x22\x4d\x18"
 
 
+class RequiredModuleError(RuntimeError):
+    """A required module is missing.
+    """
+
+    def __init__(self, module, name, module_name):
+        self.module = module
+        self.name = name
+        self.module_name = module_name
+
+    def __str__(self):
+        return f"calling {self.module}.{self.name} requires {self.module_name} module"
+
+
 class requires:
     """A decorator for functions that require optional dependencies.
     """
@@ -52,27 +67,36 @@ class requires:
 
     def __init__(self, module_name: str) -> None:
         self.module_name = module_name
-
-        try:
-            self.module = importlib.import_module(module_name)
-        except ImportError as err:
-            self.module = err
+        self.module = None
 
     def __call__(self, func: "_F") -> "_F":
 
-        if isinstance(self.module, ImportError):
+        @functools.wraps(func)
+        def newfunc(*args, **kwargs):  # type: ignore
+            # attempt to import the required module
+            if self.module is None:
+                try:
+                    self.module = importlib.import_module(self.module_name)
+                except ImportError as err:
+                    self.module = err
 
-            @functools.wraps(func)
-            def newfunc(*args, **kwargs):  # type: ignore
-                msg = f"calling {func.__qualname__} requires module {self.module.name}"
-                raise RuntimeError(msg) from self.module
-        else:
+            # raise an error if module is missing
+            if isinstance(self.module, ImportError):
+                raise RequiredModuleError(func.__module__, func.__qualname__, self.module_name) from self.module
 
-            newfunc = func
+            # get back to the original function (traversing wrapper)
+            wrapped = func
+            while hasattr(wrapped, "__wrapped__"):
+                wrapped = wrapped.__wrapped__
+
+            # set the globals on the original function
             basename = self.module_name.split(".")[0]
-            newfunc.__globals__[basename] = sys.modules[basename]
+            wrapped.__globals__[basename] = sys.modules[basename]
 
-        return newfunc # type: ignore
+            # call the function with the given arguments
+            return func(*args, **kwargs)
+
+        return newfunc  # type: ignore
 
 
 @contextlib.contextmanager
