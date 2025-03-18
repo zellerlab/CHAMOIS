@@ -7,7 +7,6 @@ import typing
 import importlib.resources
 from typing import Any, Literal, List, Tuple, Dict, TextIO, Type, Union, Optional, Callable
 
-import anndata
 import numpy
 import pandas
 import scipy.sparse
@@ -22,6 +21,10 @@ try:
     from importlib.resources import files
 except ImportError:
     from importlib_resources import files
+
+if typing.TYPE_CHECKING:
+    from anndata import AnnData
+
 
 _T = typing.TypeVar("_T", bound="ChemicalOntologyPredictor")
 
@@ -162,9 +165,11 @@ class ChemicalOntologyPredictor:
 
     def fit(
         self: _T,
-        X: Union[numpy.ndarray, anndata.AnnData],
-        Y: Union[numpy.ndarray, anndata.AnnData],
+        X: Union[numpy.ndarray, "AnnData"],
+        Y: Union[numpy.ndarray, "AnnData"],
     ) -> _T:
+        import anndata
+
         if isinstance(X, anndata.AnnData):
             _X = X.X
             self.features_ = X.var.copy()
@@ -222,9 +227,11 @@ class ChemicalOntologyPredictor:
 
     def predict_probas(
         self,
-        X: Union[numpy.ndarray, anndata.AnnData],
+        X: Union[numpy.ndarray, "AnnData"],
         propagate: bool = True,
     ) -> numpy.ndarray:
+        import anndata
+
         if isinstance(X, anndata.AnnData):
             _X = X.X
         else:
@@ -243,7 +250,7 @@ class ChemicalOntologyPredictor:
 
     def predict(
         self,
-        X: Union[numpy.ndarray, anndata.AnnData],
+        X: Union[numpy.ndarray, "AnnData"],
         propagate: bool = True,
     ) -> numpy.ndarray:
         probas = self.predict_probas(X)

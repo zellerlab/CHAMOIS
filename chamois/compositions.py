@@ -1,11 +1,14 @@
 import collections
+import typing
 from typing import Any, List, Mapping, Optional
 
-import anndata
 import pandas
 import scipy.sparse
 
 from .model import ClusterSequence, Protein, Domain
+
+if typing.TYPE_CHECKING:
+    from anndata import AnnData
 
 
 def build_observations(
@@ -53,7 +56,9 @@ def build_compositions(
     obs: pandas.DataFrame, 
     var: pandas.DataFrame,
     uns: Optional[Mapping[str, Any]] = None,
-) -> anndata.AnnData:
+) -> "AnnData":
+    import anndata
+    
     use_accession = "name" in var.columns
     compositions = scipy.sparse.dok_matrix((len(obs), len(var)), dtype=bool)
     for domain in domains:

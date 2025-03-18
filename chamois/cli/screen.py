@@ -6,7 +6,6 @@ import urllib.request
 import typing
 from typing import List, Iterable, Set, Optional
 
-import anndata
 import numpy
 import pandas
 import rich.table
@@ -31,6 +30,7 @@ from ._parser import (
 
 if typing.TYPE_CHECKING:
     from rdkit.Chem import Mol
+    from anndata import AnnData
 
 @requires("rdkit.Chem")
 @requires("rdkit.RDLogger")
@@ -59,7 +59,9 @@ def configure_parser(parser: argparse.ArgumentParser):
     parser.set_defaults(run=run)
 
 
-def load_predictions(path: pathlib.Path, predictor: ChemicalOntologyPredictor, console: Console) -> anndata.AnnData:
+def load_predictions(path: pathlib.Path, predictor: ChemicalOntologyPredictor, console: Console) -> "AnnData":
+    import anndata
+
     console.print(f"[bold blue]{'Loading':>12}[/] probability predictions from {str(path)!r}")
     probas = anndata.read_h5ad(path)
     probas = probas[:, predictor.classes_.index]
@@ -70,7 +72,7 @@ def load_predictions(path: pathlib.Path, predictor: ChemicalOntologyPredictor, c
 @requires("rdkit.Chem")
 def build_results(
     queries: List["Mol"],
-    classes: anndata.AnnData,
+    classes: "AnnData",
     distances: numpy.ndarray,
     ranks: numpy.ndarray,
     max_rank: int,

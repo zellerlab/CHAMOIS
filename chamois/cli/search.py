@@ -1,8 +1,8 @@
 import argparse
 import pathlib
+import typing
 from typing import List, Iterable, Set, Optional
 
-import anndata
 import numpy
 import pandas
 import rich.table
@@ -18,6 +18,9 @@ from ._parser import (
     configure_group_search_output,
 )
 
+if typing.TYPE_CHECKING:
+    from anndata import AnnData
+
 def configure_parser(parser: argparse.ArgumentParser):
     params_input = configure_group_search_input(parser)
     params_input.add_argument(
@@ -32,21 +35,25 @@ def configure_parser(parser: argparse.ArgumentParser):
     parser.set_defaults(run=run)
 
 
-def load_predictions(path: pathlib.Path, console: Console) -> anndata.AnnData:
+def load_predictions(path: pathlib.Path, console: Console) -> "AnnData":
+    import anndata
+
     console.print(f"[bold blue]{'Loading':>12}[/] probability predictions from {str(path)!r}")
     probas = anndata.read_h5ad(path)
     return probas[:, :]
 
 
-def load_catalog(path: pathlib.Path, console: Console) -> anndata.AnnData:
+def load_catalog(path: pathlib.Path, console: Console) -> "AnnData":
+    import anndata
+
     console.print(f"[bold blue]{'Loading':>12}[/] compound catalog from {str(path)!r}")
     catalog = anndata.read_h5ad(path)
     return catalog
 
 
 def build_results(
-    classes: anndata.AnnData,
-    catalog: anndata.AnnData,
+    classes: "AnnData",
+    catalog: "AnnData",
     distances: numpy.ndarray,
     ranks: numpy.ndarray,
     max_rank: int,

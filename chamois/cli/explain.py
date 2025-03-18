@@ -5,7 +5,6 @@ import math
 import pathlib
 from typing import List, Iterable, Set, Optional
 
-import anndata
 import numpy
 import pandas
 import rich.table

@@ -3,7 +3,6 @@ import contextlib
 import pathlib
 from typing import List, Set, Iterable
 
-import anndata
 import numpy
 import rich.tree
 import rich.panel
@@ -87,6 +86,9 @@ def build_tree(
 
 
 def run(args: argparse.Namespace, console: Console) -> int:
+    import anndata
+
+    # load trained model
     model = load_model(args.model, console)
 
     # load predictions

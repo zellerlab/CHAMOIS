@@ -2,8 +2,8 @@ import argparse
 import datetime
 import pathlib
 import sys
+import typing
 
-import anndata
 from rich.console import Console
 
 from .. import __version__
@@ -19,6 +19,9 @@ from ._parser import (
     configure_group_predict_input,
     configure_group_gene_finding,
 )
+
+if typing.TYPE_CHECKING:
+    from anndata import AnnData
 
 
 def configure_parser(parser: argparse.ArgumentParser):
@@ -40,7 +43,7 @@ def configure_parser(parser: argparse.ArgumentParser):
     parser.set_defaults(run=run)
 
 
-def save_compositions(compositions: anndata.AnnData, path: pathlib.Path, console: Console) -> None:
+def save_compositions(compositions: "AnnData", path: pathlib.Path, console: Console) -> None:
     console.print(f"[bold blue]{'Saving':>12}[/] compositional matrix to {str(path)!r}")
     if path.parent:
         path.parent.mkdir(parents=True, exist_ok=True)

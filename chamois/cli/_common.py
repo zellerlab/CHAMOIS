@@ -15,7 +15,6 @@ import sys
 import typing
 from typing import List, Iterable, Set, Optional, Container, Dict, Any, Tuple
 
-import anndata
 import gb_io
 import pandas
 import rich.progress
@@ -32,20 +31,21 @@ from ..predictor import ChemicalOntologyPredictor
 if typing.TYPE_CHECKING:
     from ..orf import ORFFinder
     from pyhmmer.plan7 import HMM
+    from anndata import AnnData
 
 
 def filter_dataset(
-    features: anndata.AnnData,
-    classes: anndata.AnnData,
+    features: "AnnData",
+    classes: "AnnData",
     console: Console,
-    similarity: Optional[anndata.AnnData] = None,
+    similarity: Optional["AnnData"] = None,
     remove_unknown_structure: bool = True,
     min_class_occurrences: int = 1,
     min_feature_occurrences: int = 1,
     min_length: int = 1000,
     min_genes: int = 2,
     fix_mismatch: bool = False,
-) -> Tuple[anndata.AnnData, anndata.AnnData]:
+) -> Tuple["AnnData", "AnnData"]:
     if sorted(features.obs.index) != sorted(classes.obs.index):
         if not fix_mismatch:
             raise ValueError("Index mismatch: {!r} != {!r}".format(
