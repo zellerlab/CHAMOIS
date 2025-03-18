@@ -11,6 +11,7 @@ from ..compositions import build_observations, build_variables, build_compositio
 from ._common import (
     annotate_hmmer,
     find_proteins,
+    load_model,
     load_sequences,
     record_metadata,
     initialize_orf_finder,
@@ -50,13 +51,22 @@ def save_compositions(compositions: "AnnData", path: pathlib.Path, console: Cons
     compositions.write(path)
 
 
+def get_whitelist(hmm: Optional[pathlib.Path], console: Console) -> Set[str]:
+    if hmm is None:
+        model = load_model(None, console)
+        return set(model.features_.index)
+    else:
+        return None
+
+
 def run(args: argparse.Namespace, console: Console) -> int:
+    whitelist = get_whitelist(args.hmm, console)
     clusters = list(load_sequences(args.input, console))
     uns = record_metadata()    
 
     orf_finder = initialize_orf_finder(args.cds, args.jobs, console)
     proteins = find_proteins(clusters, orf_finder, console)
-    domains = annotate_hmmer(args.hmm, proteins, args.jobs, console)
+    domains = annotate_hmmer(args.hmm, proteins, args.jobs, console, whitelist=whitelist)
 
     obs = build_observations(clusters, proteins)
     var = build_variables(domains)

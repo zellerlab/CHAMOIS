@@ -17,6 +17,7 @@ from rich.console import Console
 
 from .. import __version__
 from ..compositions import build_compositions, build_observations
+from .._meta import requires
 from .render import build_tree
 from ._common import (
     load_model,
@@ -74,9 +75,8 @@ def save_predictions(predictions: "AnnData", path: pathlib.Path, console: Consol
     predictions.write(path)
 
 
+@requires("anndata")
 def run(args: argparse.Namespace, console: Console) -> int:
-    import anndata
-
     model = load_model(args.model, console)
     clusters = list(load_sequences(args.input, console))
     uns = record_metadata(model)

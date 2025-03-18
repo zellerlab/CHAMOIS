@@ -165,7 +165,7 @@ def annotate_domains(domain_annotator, proteins: List[Protein], console: Console
     return domains
 
 
-def annotate_hmmer(path: pathlib.Path, proteins: List[Protein], cpus: Optional[int], console: Console, whitelist: Optional[Container[str]] = None) -> List[PfamDomain]:
+def annotate_hmmer(path: Optional[pathlib.Path], proteins: List[Protein], cpus: Optional[int], console: Console, whitelist: Optional[Container[str]] = None) -> List[PfamDomain]:
     from ..domains import PfamAnnotator
 
     console.print(f"[bold blue]{'Searching':>12}[/] protein domains with HMMER")
