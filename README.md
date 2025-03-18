@@ -7,6 +7,7 @@
 [![Mirror](https://img.shields.io/badge/mirror-EMBL-009f4d?style=flat-square&maxAge=2678400)](https://git.embl.de/larralde/CHAMOIS)
 [![Changelog](https://img.shields.io/badge/keep%20a-changelog-8A0707.svg?maxAge=2678400&style=flat-square)](https://github.com/zellerlab/CHAMOIS/blob/master/CHANGELOG.md)
 [![Issues](https://img.shields.io/github/issues/zellerlab/CHAMOIS.svg?style=flat-square&maxAge=600)](https://github.com/zellerlab/CHAMOIS/issues)
+[![Preprint](https://img.shields.io/badge/preprint-bioRxiv-darkblue?style=flat-square&maxAge=2678400)](https://www.biorxiv.org/content/10.1101/2025.03.13.642868)
 
 ## 🗺️  ️Overview
 
@@ -42,7 +43,7 @@ it with one or more GenBank file the genomic records of the BGCs to analyze,
 and an output path where to write the results in HDF5 format:
 
 ```console
-chamois predict -i records.gbk -o probas.hdf5
+$ chamois predict -i records.gbk -o probas.hdf5
 ```
 
 ## 🔎 Results
@@ -54,7 +55,7 @@ ChemOnt classes.
 To get a summary for each predicted BGC, use the `render` command:
 
 ```console
-chamois render -i probas.hdf5
+$ chamois render -i probas.hdf5
 ```
 
 Predictions for each BGC will be shown as a tree with their computed 
@@ -84,6 +85,14 @@ probabilities:
 │ └── CHEMONTID:0003940 (Organic oxides): 0.979                                │
 ╰──────────────────────────────────────────────────────────────────────────────╯
 ```
+
+## 🔖 Reference
+
+CHAMOIS can be cited using the following preprint:
+
+> **Machine learning inference of natural product chemistry across biosynthetic gene cluster types**.
+> Martin Larralde, Georg Zeller.
+> bioRxiv 2025.03.13.642868; [doi:10.1101/2025.03.13.642868](https://doi.org/10.1101/2025.03.13.642868)
 
 
 ## 💭 Feedback
