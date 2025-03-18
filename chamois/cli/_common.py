@@ -12,6 +12,7 @@ import multiprocessing.pool
 import pathlib
 import shlex
 import sys
+import typing
 from typing import List, Iterable, Set, Optional, Container, Dict, Any, Tuple
 
 import anndata
@@ -32,6 +33,9 @@ from ..compositions import build_compositions, build_observations, build_variabl
 from ..orf import ORFFinder, PyrodigalFinder, CDSFinder
 from ..model import ClusterSequence, Protein, Domain, PfamDomain
 from ..predictor import ChemicalOntologyPredictor
+
+if typing.TYPE_CHECKING:
+    from ..orf import ORFFinder
 
 
 def filter_dataset(
@@ -122,7 +126,16 @@ def load_sequences(input_files: List[pathlib.Path], console: Console) -> Iterabl
         console.print(f"[bold green]{'Loaded':>12}[/] {n_sequences} BGCs from {str(input_file)!r}")
 
 
-def find_proteins(clusters: List[ClusterSequence], orf_finder: ORFFinder, console: Console) -> List[Protein]:
+def initialize_orf_finder(cds: bool, jobs: int, console: Console) -> "ORFFinder":
+    if cds:
+        console.print(f"[bold blue]{'Extracting':>12}[/] genes from [bold cyan]CDS[/] features")
+        return CDSFinder()
+    else:
+        console.print(f"[bold blue]{'Finding':>12}[/] genes with Pyrodigal")
+        return PyrodigalFinder(cpus=jobs) 
+
+
+def find_proteins(clusters: List[ClusterSequence], orf_finder: "ORFFinder", console: Console) -> List[Protein]:
     with rich.progress.Progress(
         *rich.progress.Progress.get_default_columns(),
         rich.progress.MofNCompleteColumn(),

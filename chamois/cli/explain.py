@@ -24,6 +24,7 @@ from ._common import (
     annotate_hmmer,
     build_observations,
     build_compositions,
+    initialize_orf_finder,
 )
 from ._parser import (
     configure_group_predict_input,
@@ -339,12 +340,7 @@ def run_cluster(args: argparse.Namespace, console: Console) -> int:
         return getattr(err, "errno", 1)
 
     # extract genes
-    if args.cds:
-        console.print(f"[bold blue]{'Extracting':>12}[/] genes from [bold cyan]CDS[/] features")
-        orf_finder = CDSFinder()
-    else:
-        console.print(f"[bold blue]{'Finding':>12}[/] genes with Pyrodigal")
-        orf_finder = PyrodigalFinder(cpus=args.jobs)
+    orf_finder = initialize_orf_finder(args.cds, args.jobs, console)
     proteins = find_proteins([cluster], orf_finder, console)
 
     # label domains

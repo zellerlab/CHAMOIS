@@ -7,14 +7,13 @@ import anndata
 from rich.console import Console
 
 from .. import __version__
-from ..orf import CDSFinder, PyrodigalFinder
-from ..domains import PfamAnnotator
 from ..compositions import build_observations, build_variables, build_compositions
 from ._common import (
     annotate_hmmer,
     find_proteins,
     load_sequences,
     record_metadata,
+    initialize_orf_finder,
 )
 from ._parser import (
     configure_group_predict_input,
@@ -52,12 +51,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
     clusters = list(load_sequences(args.input, console))
     uns = record_metadata()    
 
-    if args.cds:
-        console.print(f"[bold blue]{'Extracting':>12}[/] genes from [bold cyan]CDS[/] features")
-        orf_finder = CDSFinder()
-    else:
-        console.print(f"[bold blue]{'Finding':>12}[/] genes with Pyrodigal")
-        orf_finder = PyrodigalFinder(cpus=args.jobs) 
+    orf_finder = initialize_orf_finder(args.cds, args.jobs, console)
     proteins = find_proteins(clusters, orf_finder, console)
     domains = annotate_hmmer(args.hmm, proteins, args.jobs, console)
 

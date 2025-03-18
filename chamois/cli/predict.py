@@ -21,7 +21,6 @@ from rich.console import Console
 
 from .. import __version__
 from ..compositions import build_compositions, build_observations
-from ..orf import PyrodigalFinder, CDSFinder
 from .render import build_tree
 from ._common import (
     load_model,
@@ -29,6 +28,7 @@ from ._common import (
     find_proteins,
     annotate_hmmer,
     record_metadata,
+    initialize_orf_finder,
 )
 from ._parser import (
     configure_group_predict_input,
@@ -80,12 +80,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
     clusters = list(load_sequences(args.input, console))
     uns = record_metadata(model)
 
-    if args.cds:
-        console.print(f"[bold blue]{'Extracting':>12}[/] genes from [bold cyan]CDS[/] features")
-        orf_finder = CDSFinder()
-    else:
-        console.print(f"[bold blue]{'Finding':>12}[/] genes with Pyrodigal")
-        orf_finder = PyrodigalFinder(cpus=args.jobs) 
+    orf_finder = initialize_orf_finder(args.cds, args.jobs, console)
     proteins = find_proteins(clusters, orf_finder, console)
 
     featurelist = set(model.features_[model.features_.kind == "Pfam"].index)
