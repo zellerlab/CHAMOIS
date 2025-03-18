@@ -13,7 +13,6 @@ from typing import List, Iterable, Set, Optional
 import rich.panel
 import rich.progress
 import rich.tree
-import scipy.sparse
 from rich.console import Console
 
 from .. import __version__

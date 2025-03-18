@@ -4,7 +4,6 @@ import math
 import pathlib
 
 import numpy
-import pandas
 import rich.progress
 from rich.console import Console
 
@@ -61,6 +60,7 @@ def configure_parser(parser: argparse.ArgumentParser):
 @requires("sklearn.feature_selection")
 @requires("sklearn.metrics")
 @requires("kennard_stone")
+@requires("pandas")
 def run(args: argparse.Namespace, console: Console) -> int:
     import anndata
 
@@ -143,7 +143,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
             best_avgpr = macro_avgpr
 
     # compute AUROC for the entire classification
-    ia = information_accretion(ground_truth, ontology.incidence_matrix)
+    ia = information_accretion(ground_truth, ontology.adjacency_matrix)
     probas_prop = model.propagate(probas)
     micro_auroc = sklearn.metrics.roc_auc_score(ground_truth, probas_prop, average="micro")
     macro_auroc = sklearn.metrics.roc_auc_score(ground_truth, probas_prop, average="macro")

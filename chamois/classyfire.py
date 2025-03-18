@@ -15,10 +15,12 @@ from typing import Dict, Set, List, Iterable, Optional, Union
 
 import platformdirs
 import numpy
-import pandas
 
-from .ontology import IncidenceMatrix
+from .ontology import AdjacencyMatrix
 from .predictor import ChemicalOntologyPredictor
+
+if typing.TYPE_CHECKING:
+    from pandas import DataFrame
 
 _BASE_URL = "http://classyfire.wishartlab.com"
 
@@ -229,8 +231,8 @@ class Client:
 
 
 def binarize_classification(
-    classes: pandas.DataFrame, 
-    incidence_matrix: IncidenceMatrix, 
+    classes: "DataFrame", 
+    adjacency_matrix: AdjacencyMatrix, 
     leaves: Set[str]
 ) -> numpy.ndarray:
     out = numpy.zeros(len(classes), dtype=bool)
@@ -243,8 +245,8 @@ def binarize_classification(
         except KeyError:
             pass
 
-    for i in reversed(incidence_matrix):
+    for i in reversed(adjacency_matrix):
         if out[i]:
-            out[incidence_matrix.parents(i)] = True
+            out[adjacency_matrix.parents(i)] = True
 
     return out

@@ -7,14 +7,11 @@ import typing
 from typing import List, Iterable, Set, Optional
 
 import numpy
-import pandas
 import rich.table
-import scipy.stats
 from rich.console import Console
 from rich.columns import Columns
 from rich.panel import Panel
 from rich.table import Table
-from scipy.spatial.distance import cdist
 
 from .._meta import requires
 from ..predictor import ChemicalOntologyPredictor
@@ -31,6 +28,7 @@ from ._parser import (
 if typing.TYPE_CHECKING:
     from rdkit.Chem import Mol
     from anndata import AnnData
+    from pandas import DataFrame
 
 @requires("rdkit.Chem")
 @requires("rdkit.RDLogger")
@@ -69,6 +67,7 @@ def load_predictions(path: pathlib.Path, predictor: ChemicalOntologyPredictor, c
     return probas, anndata.AnnData(X=classes, obs=probas.obs, var=probas.var, dtype=bool)
 
 
+@requires("pandas")
 @requires("rdkit.Chem")
 def build_results(
     queries: List["Mol"],
@@ -76,7 +75,7 @@ def build_results(
     distances: numpy.ndarray,
     ranks: numpy.ndarray,
     max_rank: int,
-) -> pandas.DataFrame:
+) -> "DataFrame":
     rows = []
     for i, query in enumerate(queries):
         for j in ranks[i].argsort():
@@ -105,7 +104,7 @@ def build_results(
     )
 
 
-def build_table(results: pandas.DataFrame) -> rich.table.Table:
+def build_table(results: "DataFrame") -> rich.table.Table:
     table = rich.table.Table("Compound", "BGC", "Distance")
     for compound, rows in results[results["rank"] == 1].groupby("compound", sort=False):
         for i, row in enumerate(rows.itertuples()):
@@ -120,6 +119,7 @@ def build_table(results: pandas.DataFrame) -> rich.table.Table:
 
 @requires("rdkit.Chem")
 @requires("rdkit.RDLogger")
+@requires("scipy.stats")
 def run(args: argparse.Namespace, console: Console) -> int:
     rdkit.RDLogger.DisableLog('rdApp.warning')
     rdkit.RDLogger.DisableLog('rdApp.info')
@@ -142,7 +142,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
         leaves = [t.id for t in classifications[inchikey].terms]
         compounds[i] = binarize_classification(
             predictor.classes_,
-            predictor.ontology.incidence_matrix,
+            predictor.ontology.adjacency_matrix,
             leaves
         )
     

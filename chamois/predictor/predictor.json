@@ -109200,7 +109200,7 @@
  ],
  "model": "logistic",
  "ontology": {
-  "incidence_matrix": {
+  "adjacency_matrix": {
    "data": {
     "__type__": "csr_matrix",
     "data": [

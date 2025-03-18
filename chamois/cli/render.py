@@ -9,7 +9,7 @@ import rich.panel
 from rich.console import Console
 from rich.table import Table
 
-from ..ontology import IncidenceMatrix
+from ..ontology import AdjacencyMatrix
 from ..predictor import ChemicalOntologyPredictor
 from ._common import load_model
 
@@ -43,14 +43,14 @@ def configure_parser(parser: argparse.ArgumentParser):
     parser.set_defaults(run=run)
 
 
-def all_superclasses( classes: Iterable[int], incidence_matrix: IncidenceMatrix ) -> Set[int]:
+def all_superclasses( classes: Iterable[int], adjacency_matrix: AdjacencyMatrix ) -> Set[int]:
     superclasses = set()
     classes = set(classes)
     while classes:
         i = classes.pop()
         superclasses.add(i)
-        classes.update(j.item() for j in incidence_matrix.parents(i))
-        superclasses.update(j.item() for j in incidence_matrix.parents(i))
+        classes.update(j.item() for j in adjacency_matrix.parents(i))
+        superclasses.update(j.item() for j in adjacency_matrix.parents(i))
     return superclasses
 
 
@@ -61,7 +61,7 @@ def build_tree(
     # get probabilities and corresponding positive terms from ChemOnt
     bgc_labels = bgc_probas > 0.5
     terms = { j for j in range(len(model.classes_)) if bgc_probas[j] > 0.5 }
-    whitelist = all_superclasses(terms, model.ontology.incidence_matrix)
+    whitelist = all_superclasses(terms, model.ontology.adjacency_matrix)
     # render a tree structure with rich
     def render(i, tree, whitelist):
         term_id = model.classes_.index[i]
@@ -69,14 +69,14 @@ def build_tree(
         color = "cyan" if bgc_probas[i] >= 0.5 else "yellow"
         label = f"[bold blue]{term_id}[/] ([green]{term_name}[/]): [bold {color}]{bgc_probas[i]:.3f}[/]"
         subtree = tree.add(label, highlight=False)
-        for j in model.ontology.incidence_matrix.children(i):
+        for j in model.ontology.adjacency_matrix.children(i):
             j = j.item()
             if j in whitelist:
                 render(j, subtree, whitelist)
     roots = [
         i
         for i in range(len(model.classes_.index))
-        if not len(model.ontology.incidence_matrix.parents(i))
+        if not len(model.ontology.adjacency_matrix.parents(i))
         and bgc_probas[i] > 0.5
     ]
     tree = rich.tree.Tree(".", hide_root=True)

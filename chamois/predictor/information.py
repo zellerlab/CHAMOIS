@@ -7,21 +7,26 @@ References:
 
 """
 import math
+import typing
 from typing import Union
 
 import numpy
 import numpy.ma
-import scipy.sparse
 
-from ..ontology import IncidenceMatrix
+from ..ontology import AdjacencyMatrix
+
+if typing.TYPE_CHECKING:
+    from scipy.sparse import spmatrix
 
 
 def information_accretion(
-    y_true: Union[numpy.ndarray, scipy.sparse.spmatrix], 
-    hierarchy: IncidenceMatrix
+    y_true: Union[numpy.ndarray, "spmatrix"], 
+    hierarchy: AdjacencyMatrix
 ) -> numpy.ndarray:
     """Compute the information accretion using frequencies from the given labels.
     """
+    import scipy.sparse
+
     _Y = y_true.toarray() if isinstance(y_true, scipy.sparse.spmatrix) else y_true
     freq = numpy.zeros(_Y.shape[1], dtype=numpy.float32)
     for i in hierarchy:

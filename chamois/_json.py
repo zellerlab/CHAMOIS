@@ -1,13 +1,14 @@
 import json
 from typing import Any
 
-import numpy
-import pandas
-import scipy.sparse
+from ._meta import requires
 
 
 class JSONEncoder(json.JSONEncoder):
 
+    @requires("numpy")
+    @requires("pandas")
+    @requires("scipy.sparse")
     def default(self, o: Any) -> object:
         if isinstance(o, numpy.integer):
             return int(o)
@@ -36,6 +37,8 @@ class JSONDecoder(json.JSONDecoder):
         super().__init__(object_hook=self._hook)
 
     @staticmethod
+    @requires("pandas")
+    @requires("scipy.sparse")
     def _hook(obj):
         ty = obj.pop("__type__", None)
         if ty == "DataFrame":

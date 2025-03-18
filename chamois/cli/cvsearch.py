@@ -4,11 +4,8 @@ import typing
 from typing import List, Iterable, Set, Optional
 
 import numpy
-import pandas
 import rich.table
-import scipy.stats
 from rich.console import Console
-from scipy.spatial.distance import cdist, hamming, cosine
 
 from ._common import load_model, filter_dataset
 from .._meta import requires
@@ -121,6 +118,7 @@ def load_catalog(path: pathlib.Path, console: Console) -> "AnnData":
 @requires("rdkit.Chem.rdMHFPFingerprint")
 @requires("rdkit.DataStructs")
 @requires("rdkit.RDLogger")
+@requires("scipy.stats")
 @requires("sklearn.metrics.pairwise")
 def run(args: argparse.Namespace, console: Console) -> int:
     import anndata

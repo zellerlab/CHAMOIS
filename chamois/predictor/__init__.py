@@ -8,9 +8,6 @@ import importlib.resources
 from typing import Any, Literal, List, Tuple, Dict, TextIO, Type, Union, Optional, Callable
 
 import numpy
-import pandas
-import scipy.sparse
-from scipy.special import logit, expit
 
 from .. import _json
 from .._meta import requires
@@ -24,6 +21,8 @@ except ImportError:
 
 if typing.TYPE_CHECKING:
     from anndata import AnnData
+    from scipy.sparse import spmatrix
+    from pandas import DataFrame
 
 
 _T = typing.TypeVar("_T", bound="ChemicalOntologyPredictor")
@@ -47,8 +46,8 @@ class ChemicalOntologyPredictor:
             raise ValueError(f"invalid model architecture: {model!r}")
         self.n_jobs: Optional[int] = n_jobs
         self.max_iter: int = max_iter
-        self.classes_: Optional[pandas.DataFrame] = None
-        self.features_: Optional[pandas.DataFrame] = None
+        self.classes_: Optional["DataFrame"] = None
+        self.features_: Optional["DataFrame"] = None
         self.coef_: Optional[numpy.ndarray[float]] = None
         self.intercept_: Optional[numpy.ndarray[float]] = None
         self.ontology: Ontology = ontology
@@ -79,7 +78,9 @@ class ChemicalOntologyPredictor:
         self.variance = state.get("variance", None)
 
     @requires("sklearn.feature_selection")
-    def _select_features(self, X: Union[numpy.ndarray, scipy.sparse.spmatrix]):
+    def _select_features(self, X: Union[numpy.ndarray, "spmatrix"]):
+        import scipy.sparse
+
         _X = X.toarray() if isinstance(X, scipy.sparse.spmatrix) else X
         varfilt = sklearn.feature_selection.VarianceThreshold(self.variance)
         varfilt.fit(_X)
@@ -87,11 +88,13 @@ class ChemicalOntologyPredictor:
         self.features_ = self.features_.loc[support]
         return _X[:, support]
 
-    def _compute_information_accretion(self, Y: Union[numpy.ndarray, scipy.sparse.spmatrix]):
+    def _compute_information_accretion(self, Y: Union[numpy.ndarray, "spmatrix"]):
+        import scipy.sparse
+
         _Y = Y.toarray() if isinstance(Y, scipy.sparse.spmatrix) else Y
         ia = numpy.zeros(Y.shape[1])
-        for i in self.ontology.incidence_matrix:
-            parents = self.ontology.incidence_matrix.parents(i)
+        for i in self.ontology.adjacency_matrix:
+            parents = self.ontology.adjacency_matrix.parents(i)
             assert parents.shape[0] <= 1
 
             if len(parents) == 1:
@@ -105,6 +108,7 @@ class ChemicalOntologyPredictor:
     @requires("sklearn.multiclass")
     @requires("sklearn.linear_model")
     @requires("sklearn.preprocessing")
+    @requires("scipy.sparse")
     def _fit_logistic(self, X, Y):
         # train model using scikit-learn
         model = sklearn.multiclass.OneVsRestClassifier(
@@ -137,6 +141,7 @@ class ChemicalOntologyPredictor:
         self.coef_ = scipy.sparse.csr_matrix(self.coef_)
 
     @requires("sklearn.linear_model")
+    @requires("scipy.sparse")
     def _fit_ridge(self, X, Y):
         # train model using scikit-learn
         model = sklearn.linear_model.RidgeClassifier(alpha=self.alpha)
@@ -154,15 +159,18 @@ class ChemicalOntologyPredictor:
         # store weights in sparse matrix
         self.coef_ = scipy.sparse.csr_matrix(self.coef_)
 
+    @requires("scipy.sparse")
+    @requires("scipy.special")
     def _fit_dummy(self, X, Y):
         self.intercept_ = numpy.zeros(Y.shape[1])
         self.coef_ = numpy.zeros((0, Y.shape[1]))
         for i in range(Y.shape[1]):           
             n_pos = Y[:, i].sum()
-            odds = logit(n_pos / Y.shape[0])
+            odds = scipy.special.logit(n_pos / Y.shape[0])
             self.intercept_[i] = numpy.clip(odds, -10, 10)
         self.coef_ = scipy.sparse.csr_matrix(self.coef_)
 
+    @requires("pandas")
     def fit(
         self: _T,
         X: Union[numpy.ndarray, "AnnData"],
@@ -184,13 +192,13 @@ class ChemicalOntologyPredictor:
             self.classes_ = pandas.DataFrame(index=list(map(str, range(1, _Y.shape[1] + 1))))
 
         # check training data consistency
-        if _Y.shape[1] != len(self.ontology.incidence_matrix):
+        if _Y.shape[1] != len(self.ontology.adjacency_matrix):
             raise ValueError(
-                f"Ontology contains {len(self.ontology.incidence_matrix)} terms, "
+                f"Ontology contains {len(self.ontology.adjacency_matrix)} terms, "
                 f"{_Y.shape[1]} found in data"
             )
         # compute information accretion
-        self.classes_["information_accretion"] = information_accretion(_Y, self.ontology.incidence_matrix)
+        self.classes_["information_accretion"] = information_accretion(_Y, self.ontology.adjacency_matrix)
         self._compute_information_accretion(_Y)
         # run variance selection if requested
         if self.variance is not None:
@@ -206,23 +214,25 @@ class ChemicalOntologyPredictor:
         return self
 
     def propagate(self, Y: numpy.ndarray) -> numpy.ndarray:
-        assert Y.shape[1] == len(self.ontology.incidence_matrix)
+        assert Y.shape[1] == len(self.ontology.adjacency_matrix)
         _Y = numpy.array(Y, dtype=Y.dtype)
-        for i in reversed(self.ontology.incidence_matrix):
-            for j in self.ontology.incidence_matrix.parents(i):
+        for i in reversed(self.ontology.adjacency_matrix):
+            for j in self.ontology.adjacency_matrix.parents(i):
                 _Y[:, j] = numpy.maximum(_Y[:, j], _Y[:, i])
         return _Y
 
+    @requires("scipy.special")
     def _predict_logistic(self, X: numpy.ndarray) -> numpy.ndarray:
-        return expit(X @ self.coef_ + self.intercept_)
+        return scipy.special.expit(X @ self.coef_ + self.intercept_)
 
     def _predict_ridge(self, X: numpy.ndarray) -> numpy.ndarray:
         result = X @ self.coef_ + self.intercept_
         probas = (result + 1.0) / 2.0
         return numpy.clip(probas, 0.0, 1.0)
 
+    @requires("scipy.special")
     def _predict_dummy(self, X: numpy.ndarray) -> numpy.ndarray:
-        y = expit(self.intercept_)
+        y = scipy.special.expit(self.intercept_)
         return numpy.tile(y, (X.shape[0], 1))
 
     def predict_probas(

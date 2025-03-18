@@ -15,15 +15,12 @@ import sys
 import typing
 from typing import List, Iterable, Set, Optional, Container, Dict, Any, Tuple
 
-import gb_io
-import pandas
 import rich.progress
 import rich.tree
-import scipy.sparse
 from rich.console import Console
 
 from .. import __version__
-from .._meta import zopen
+from .._meta import zopen, requires
 from ..compositions import build_compositions, build_observations, build_variables
 from ..model import ClusterSequence, Protein, Domain, PfamDomain
 from ..predictor import ChemicalOntologyPredictor
@@ -102,6 +99,7 @@ def load_model(path: Optional[pathlib.Path], console: Console) -> ChemicalOntolo
         return ChemicalOntologyPredictor.trained()
 
 
+@requires("gb_io")
 def load_sequences(input_files: List[pathlib.Path], console: Console) -> Iterable[ClusterSequence]:
     sequences = []
     for input_file in input_files:

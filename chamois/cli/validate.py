@@ -4,7 +4,6 @@ import math
 import pathlib
 
 import numpy
-import pandas
 import rich.progress
 from rich.console import Console
 
@@ -57,6 +56,7 @@ def configure_parser(parser: argparse.ArgumentParser):
     parser.set_defaults(run=run)
 
 
+@requires("pandas")
 @requires("sklearn.model_selection")
 @requires("sklearn.feature_selection")
 @requires("sklearn.metrics")

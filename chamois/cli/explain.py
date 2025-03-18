@@ -3,16 +3,15 @@ import collections
 import errno
 import math
 import pathlib
+import typing
 from typing import List, Iterable, Set, Optional
 
 import numpy
-import pandas
 import rich.table
-import scipy.stats
 from rich.console import Console
 from rich_argparse import ArgumentDefaultsRichHelpFormatter
-from scipy.spatial.distance import cdist
 
+from .._meta import requires
 from ..model import ClusterSequence, Domain, Protein
 from ..predictor import ChemicalOntologyPredictor
 from ._common import (
@@ -28,6 +27,9 @@ from ._parser import (
     configure_group_predict_input,
     configure_group_gene_finding,
 )
+
+if typing.TYPE_CHECKING:
+    from pandas import DataFrame
 
 
 def configure_output(parser: argparse.ArgumentParser):
@@ -121,7 +123,7 @@ def configure_parser(parser: argparse.ArgumentParser):
     parser_cluster.set_defaults(run=run_cluster)
 
 
-def write_table(table: pandas.DataFrame, output: pathlib.Path):
+def write_table(table: "DataFrame", output: pathlib.Path):
     if output.parent:
         output.parent.mkdir(parents=True, exist_ok=True)
     table.reset_index().to_csv(output, index=False, sep="\t")
@@ -268,12 +270,13 @@ def load_cluster(args: argparse.Namespace, console: Console) -> ClusterSequence:
     return cluster
 
 
+@requires("pandas")
 def build_genetable(
     proteins: List[Protein],
     domains: List[Domain],
     model: ChemicalOntologyPredictor,
     probas: numpy.ndarray,
-) -> pandas.DataFrame:
+) -> "DataFrame":
     # group domains per proteins
     protein_domains = collections.defaultdict(list)
     for domain in domains:
@@ -314,7 +317,7 @@ def _format_weight(x: float) -> rich.text.Text:
     else:
         return rich.text.Text("0.0", style="dim")
 
-def format_genetable(table: pandas.DataFrame, proteins: List[Protein]) -> rich.table.Table:
+def format_genetable(table: "DataFrame", proteins: List[Protein]) -> rich.table.Table:
     # render the table
     console_table = rich.table.Table("Class", "Name", "Probability", *[prot.id for prot in proteins])
     for row in table.itertuples():

@@ -2,19 +2,19 @@ import collections
 import typing
 from typing import Any, List, Mapping, Optional
 
-import pandas
-import scipy.sparse
-
+from ._meta import requires
 from .model import ClusterSequence, Protein, Domain
 
 if typing.TYPE_CHECKING:
     from anndata import AnnData
+    from pandas import DataFrame
 
 
+@requires("pandas")
 def build_observations(
     clusters: List[ClusterSequence],
     proteins: Optional[List[Protein]] = None,
-) -> pandas.DataFrame:
+) -> "DataFrame":
     # build columns
     data = {
         "source": [cluster.source for cluster in clusters],
@@ -35,7 +35,8 @@ def build_observations(
     )
 
 
-def build_variables(domains: List[Domain]) -> pandas.DataFrame:
+@requires("pandas")
+def build_variables(domains: List[Domain]) -> "DataFrame":
     var = pandas.DataFrame([
         dict(
             name=domain.name, 
@@ -51,14 +52,14 @@ def build_variables(domains: List[Domain]) -> pandas.DataFrame:
     return var
 
 
+@requires("anndata")
+@requires("scipy.sparse")
 def build_compositions(
     domains: List[Domain], 
-    obs: pandas.DataFrame, 
-    var: pandas.DataFrame,
+    obs: "DataFrame", 
+    var: "DataFrame",
     uns: Optional[Mapping[str, Any]] = None,
 ) -> "AnnData":
-    import anndata
-    
     use_accession = "name" in var.columns
     compositions = scipy.sparse.dok_matrix((len(obs), len(var)), dtype=bool)
     for domain in domains:

@@ -4,14 +4,12 @@ import typing
 from typing import List, Iterable, Set, Optional
 
 import numpy
-import pandas
 import rich.table
-import scipy.stats
 from rich.console import Console
-from scipy.spatial.distance import cdist
 
-from ._common import load_model
+from .._meta import requires
 from ..predictor import ChemicalOntologyPredictor
+from ._common import load_model
 from ._parser import (
     configure_group_search_input,
     configure_group_search_parameters,
@@ -20,6 +18,7 @@ from ._parser import (
 
 if typing.TYPE_CHECKING:
     from anndata import AnnData
+    from pandas import DataFrame
 
 def configure_parser(parser: argparse.ArgumentParser):
     params_input = configure_group_search_input(parser)
@@ -35,29 +34,28 @@ def configure_parser(parser: argparse.ArgumentParser):
     parser.set_defaults(run=run)
 
 
+@requires("anndata")
 def load_predictions(path: pathlib.Path, console: Console) -> "AnnData":
-    import anndata
-
     console.print(f"[bold blue]{'Loading':>12}[/] probability predictions from {str(path)!r}")
     probas = anndata.read_h5ad(path)
     return probas[:, :]
 
 
+@requires("anndata")
 def load_catalog(path: pathlib.Path, console: Console) -> "AnnData":
-    import anndata
-
     console.print(f"[bold blue]{'Loading':>12}[/] compound catalog from {str(path)!r}")
     catalog = anndata.read_h5ad(path)
     return catalog
 
 
+@requires("pandas")
 def build_results(
     classes: "AnnData",
     catalog: "AnnData",
     distances: numpy.ndarray,
     ranks: numpy.ndarray,
     max_rank: int,
-) -> pandas.DataFrame:
+) -> "DataFrame":
     rows = []
     for i, name in enumerate(classes.obs_names):
         for j in ranks[i].argsort():
@@ -76,7 +74,7 @@ def build_results(
     )
 
 
-def build_table(results: pandas.DataFrame) -> rich.table.Table:
+def build_table(results: "DataFrame") -> rich.table.Table:
     table = rich.table.Table("BGC", "Index", "Compound", "Distance")
     for bgc_id, rows in results[results["rank"] == 1].groupby("bgc_id", sort=False):
         for i, row in enumerate(rows.itertuples()):
@@ -100,6 +98,7 @@ def probjaccard_cdist(X: numpy.ndarray, Y: numpy.ndarray) -> numpy.ndarray:
     return 1.0 - tt / (X.sum(axis=1).reshape(-1, 1) - tt + Y.sum(axis=1).reshape(1, -1))
 
 
+@requires("scipy.stats")
 def run(args: argparse.Namespace, console: Console) -> int:
     # predictor = load_model(args.model, console)
     probas = load_predictions(args.input, console)

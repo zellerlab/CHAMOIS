@@ -121,7 +121,7 @@ for class_index in rich.progress.track(range(classes.n_vars), console=console, d
         probas[test_indices, class_index] = result
 
 # compute AUROC for the entire classification
-ia = information_accretion(ground_truth, ontology.incidence_matrix)
+ia = information_accretion(ground_truth, ontology.adjacency_matrix)
 micro_auroc = sklearn.metrics.roc_auc_score(ground_truth, probas, average="micro")
 macro_auroc = sklearn.metrics.roc_auc_score(ground_truth, probas, average="macro")
 micro_avgpr = sklearn.metrics.average_precision_score(ground_truth, probas, average="micro")
