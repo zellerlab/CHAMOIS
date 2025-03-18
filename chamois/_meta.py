@@ -107,7 +107,7 @@ def zopen(path: Union[str, pathlib.Path]) -> Iterator[BinaryIO]:
         if isinstance(path, (str, pathlib.Path)):
             file = ctx.enter_context(open(path, "rb"))
         else:
-            file = io.BufferedReader(path)
+            file = ctx.enter_context(io.BufferedReader(path))
         peek = file.peek()
         if peek.startswith(_GZIP_MAGIC):
             file = ctx.enter_context(gzip.open(file, mode="rb"))

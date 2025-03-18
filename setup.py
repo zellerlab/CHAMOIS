@@ -200,7 +200,7 @@ class download_pfam(setuptools.Command):
             src = ctx.enter_context(gzip.open(dl))
             dst = ctx.enter_context(lz4.frame.open(output, "wb"))
             if stream:
-                hmm_file = HMMFile(src)
+                hmm_file = ctx.enter_context(HMMFile(src))
             else:
                 buffer = io.BytesIO()
                 shutil.copyfileobj(src, buffer)
