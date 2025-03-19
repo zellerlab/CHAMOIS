@@ -103,7 +103,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
 
     # compute AUROC for the entire classification
     ground_truth = classes.X.toarray()
-    ia = information_accretion(ground_truth, predictor.ontology.incidence_matrix)
+    ia = information_accretion(ground_truth, predictor.ontology.adjacency_matrix)
 
     testable = numpy.zeros(ground_truth.shape[1], dtype=bool)
     for j in range(classes.n_vars):

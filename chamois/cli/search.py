@@ -65,7 +65,7 @@ def build_results(
                 name,
                 ranks[i, j],
                 catalog.obs.index[j],
-                catalog.obs.compound[j],
+                catalog.obs.compound.iloc[j],
                 distances[i, j],
             ])
     return pandas.DataFrame(

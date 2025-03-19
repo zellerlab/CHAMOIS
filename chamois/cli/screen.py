@@ -64,7 +64,7 @@ def load_predictions(path: pathlib.Path, predictor: ChemicalOntologyPredictor, c
     probas = anndata.read_h5ad(path)
     probas = probas[:, predictor.classes_.index]
     classes = predictor.propagate(probas.X > 0.5)
-    return probas, anndata.AnnData(X=classes, obs=probas.obs, var=probas.var, dtype=bool)
+    return probas, anndata.AnnData(X=classes, obs=probas.obs, var=probas.var)
 
 
 @requires("pandas")
