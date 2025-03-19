@@ -40,17 +40,17 @@ CHAMOIS |Stars|
 Overview
 --------
 
-CHAMOIS is a fast method for predicting chemical features of natural products 
-produced by Biosynthetic Gene Clusters (BGCs) using only their genomic 
-sequence. It can be used to get chemical features from BGCs predicted in 
-silico with tools such as `GECCO <https://gecco.embl.de>`_ or 
+CHAMOIS is a fast method for predicting chemical features of natural products
+produced by Biosynthetic Gene Clusters (BGCs) using only their genomic
+sequence. It can be used to get chemical features from BGCs predicted in
+silico with tools such as `GECCO <https://gecco.embl.de>`_ or
 `antiSMASH <https://antismash.secondarymetabolites.org>`_.
 
 
 Setup
 -----
 
-Run ``pip install git+https://github.com/zellerlab/CHAMOIS`` in a shell to 
+Run ``pip install chamois-tool`` in a shell to
 download the development version from GitHub, or have a look at the
 :doc:`Installation page <guide/install>` to find other ways to install CHAMOIS.
 
@@ -102,7 +102,7 @@ License
 This library is provided under the `GNU General Public License 3.0 or later <https://choosealicense.com/licenses/gpl-3.0/>`_.
 See the :doc:`Copyright Notice <guide/copyright>` section for more information.
 
-*This project was developed by* `Martin Larralde <https://github.com/althonos>`_ 
+*This project was developed by* `Martin Larralde <https://github.com/althonos>`_
 *during his PhD project at the* `European Molecular Biology Laboratory <https://www.embl.de/>`_
 *and the* `Leiden University Medical Center <https://lumc.nl/en/>`_
 *in the* `Zeller team <https://zellerlab.org>`_.
