@@ -60,7 +60,6 @@ in `BioRxiv <https://www.biorxiv.org>`_. Check the
 :doc:`Publications page <guide/publications>` to see how to cite CHAMOIS.
 
 
-
 Library
 -------
 
@@ -69,6 +68,7 @@ Library
 
    User Guide <guide/index>
    Examples <examples/index>
+   CLI Reference <cli/index>
    API Reference <api/index>
 
 

@@ -13,6 +13,12 @@ import shutil
 import semantic_version
 import urllib.request
 
+# avoid using rich_argparse as it emits ANSI control codes that conflict
+# with `sphinx-argparse` rendering of the usage 
+import argparse
+import unittest.mock
+unittest.mock.patch("rich_argparse.ArgumentDefaultsRichHelpFormatter", new=argparse.ArgumentDefaultsHelpFormatter).__enter__()
+
 # -- Path setup --------------------------------------------------------------
 
 docssrc_dir = os.path.dirname(os.path.abspath(__file__))
@@ -67,6 +73,7 @@ extensions = [
     "nbsphinx",
     "recommonmark",
     "IPython.sphinxext.ipython_console_highlighting",
+    'sphinxarg.ext',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
