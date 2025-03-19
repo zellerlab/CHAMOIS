@@ -28,7 +28,8 @@ def configure_group_training_input(parser: argparse.ArgumentParser) -> "argparse
         "-s",
         "--similarity",
         type=pathlib.Path,
-        help="Pairwise nucleotide similarities for deduplicating the observations."
+        # help="Pairwise nucleotide similarities for deduplicating the observations.",
+        help=argparse.SUPPRESS,
     )
     return group
 

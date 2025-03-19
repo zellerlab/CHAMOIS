@@ -5,7 +5,7 @@ import functools
 from typing import Optional, List, TextIO, Type
 
 from rich.console import Console
-from rich_argparse import RichHelpFormatter, ArgumentDefaultsRichHelpFormatter
+from rich_argparse import ArgumentDefaultsRichHelpFormatter
 
 try:
     import argcomplete
@@ -82,7 +82,8 @@ def build_parser() -> argparse.ArgumentParser:
         commands.add_parser(
             "cvsearch", 
             formatter_class=ArgumentDefaultsRichHelpFormatter,
-            help="Evaluate compound search on a training set with cross-validation."
+            # help="Evaluate compound search on a training set with cross-validation."
+            help=argparse.SUPPRESS,
         )
     )
     predict.configure_parser(
