@@ -96,14 +96,13 @@ def build_parser() -> argparse.ArgumentParser:
             help="Evaluate predictor performance on a training set with cross-validation."
         )
     )
-    cvsearch.configure_parser(
-        commands.add_parser(
-            "cvsearch", 
-            formatter_class=ArgumentDefaultsRichHelpFormatter,
-            # help="Evaluate compound search on a training set with cross-validation."
-            help=argparse.SUPPRESS,
-        )
-    )
+    # cvsearch.configure_parser(
+    #     commands.add_parser(
+    #         "cvsearch", 
+    #         formatter_class=ArgumentDefaultsRichHelpFormatter,
+    #         help="Evaluate compound search on a training set with cross-validation."
+    #     )
+    # )
     predict.configure_parser(
         commands.add_parser(
             "predict", 

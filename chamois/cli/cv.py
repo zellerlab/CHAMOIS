@@ -2,6 +2,7 @@ import argparse
 import json
 import math
 import pathlib
+import typing
 
 import numpy
 import rich.progress
@@ -18,6 +19,9 @@ from ._parser import (
     configure_group_hyperparameters,
     configure_group_cross_validation,
 )
+
+if typing.TYPE_CHECKING:
+    import kennard_stone
 
 
 def configure_parser(parser: argparse.ArgumentParser):
@@ -56,14 +60,17 @@ def configure_parser(parser: argparse.ArgumentParser):
     parser.set_defaults(run=run)
 
 
+@requires("kennard_stone")
+def kennard_stone_kfold(n_splits: int, n_jobs: int, metric: str) -> "kennard_stone.KFold":
+    return kennard_stone.KFold(n_splits=n_splits, n_jobs=n_job, metric=metric)
+
+
+@requires("anndata")
+@requires("pandas")
 @requires("sklearn.model_selection")
 @requires("sklearn.feature_selection")
 @requires("sklearn.metrics")
-@requires("kennard_stone")
-@requires("pandas")
 def run(args: argparse.Namespace, console: Console) -> int:
-    import anndata
-
     # load data
     console.print(f"[bold blue]{'Loading':>12}[/] training data")
     features = anndata.concat([anndata.read_h5ad(file) for file in args.features], axis=1, merge="same")
@@ -98,7 +105,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
     elif args.sampling == "random":
         kfold = sklearn.model_selection.KFold(n_splits=args.kfolds, random_state=args.seed, shuffle=True)
     elif args.sampling == "kennard-stone":
-        kfold = kennard_stone.KFold(n_splits=args.kfolds, n_jobs=args.jobs, metric="cosine")
+        kfold = kennard_stone_kfold(n_splits=args.kfolds, n_jobs=args.jobs, metric="cosine")
     else:
         raise ValueError(f"Invalid value for `--sampling`: {args.sampling!r}")
     splits = list(kfold.split(features.X.toarray(), ground_truth, groups))
