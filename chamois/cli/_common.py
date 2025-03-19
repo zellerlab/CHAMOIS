@@ -177,10 +177,14 @@ def annotate_hmmer(path: Optional[pathlib.Path], proteins: List[Protein], cpus: 
 
 
 def record_metadata(predictor: Optional[ChemicalOntologyPredictor] = None) -> Dict[str, Any]:
+    if sys.version_info < (3, 8):
+        command = " ".join(map(shlex.quote, sys.argv))
+    else:
+        command = shlex.join(sys.argv)
     metadata = {
         "version": __version__,
         "datetime": datetime.datetime.now().isoformat(),
-        "command": shlex.join(sys.argv),
+        "command": command,
     }
     if predictor is not None:
         metadata["predictor"] = predictor.checksum()
