@@ -1,3 +1,6 @@
+"""Generic protocol for domain annotation in proteins.
+"""
+
 import abc
 import collections.abc
 import contextlib
@@ -66,7 +69,6 @@ class PfamAnnotator(DomainAnnotator):
         path: Optional[pathlib.Path] = None,
         cpus: Optional[int] = None,
         whitelist: Optional[Container[str]] = None,
-        use_name: bool = False,
     ) -> None:
         """Prepare a new HMMER annotation handler with the given ``hmms``.
 
@@ -75,15 +77,15 @@ class PfamAnnotator(DomainAnnotator):
                 Pfam HMMs.
             cpus (`int`, optional): The number of CPUs to allocate for the
                 ``hmmsearch`` command. Give ``None`` to use the default.
-            whitelist (container of `str`): If given, a container containing
-                the accessions of the individual HMMs to annotate with. If
-                `None` is given, annotate with the entire file.
+            whitelist (`~collections.abc.Container` of `str`): If given, a 
+                container containing the accessions of the individual 
+                HMMs to annotate with. If `None` is given, annotate with the 
+                entire file.
 
         """
         super().__init__()
         self.path = path
         self.cpus = cpus
-        self.use_name = False
         self.whitelist = _UniversalContainer() if whitelist is None else whitelist
 
     @property
@@ -158,6 +160,8 @@ class PfamAnnotator(DomainAnnotator):
         self,
         domains: List[PfamDomain]
     ) -> Iterable[PfamDomain]:
+        """Pick the best domain from overlapping domains in each protein.
+        """
         domains.sort(key=lambda domain: (domain.protein.id, domain.start))
         for protein_id, protein_domains in itertools.groupby(domains, lambda domain: domain.protein):
             protein_domains = list(protein_domains)

@@ -1,3 +1,6 @@
+"""Classes for working with ontological data.
+"""
+
 import collections
 import typing
 from typing import Optional, Iterator, Iterable, Union, Sequence, Dict

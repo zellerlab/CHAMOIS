@@ -1,3 +1,6 @@
+"""HTTP client for the REST API of ClassyFire.
+"""
+
 import dataclasses
 import itertools
 import json
@@ -27,6 +30,8 @@ _BASE_URL = "http://classyfire.wishartlab.com"
 
 @dataclasses.dataclass(frozen=True)
 class Term:
+    """A ChemOnt term.
+    """
     id: str
     name: str
     description: str
@@ -41,16 +46,22 @@ class Term:
 
     @classmethod
     def from_dict(cls, d: Dict[str, object]) -> "Term":
+        """Get a `Term` from a raw dictionary returned by ClassyFire.
+        """
         return cls(id=d["chemont_id"], name=d["name"], description=d["description"])
 
     @property
     def url(self):
+        """`str`: The URL for this term.
+        """
         prefix, local = self.id.split(":")
         return f"http://classyfire.wishartlab.com/tax_nodes/{local}"
 
 
 @dataclasses.dataclass(frozen=True)
 class Classification:
+    """A complete ClassyFire classification for a given molecule.
+    """
     alternative_parents: List[Term]
     ancestors: List[str]
     class_: Term
@@ -70,6 +81,8 @@ class Classification:
 
     @classmethod
     def from_dict(cls, d: Dict[str, object]) -> "Classification":
+        """Get a `Classification` from a raw dictionary returned by ClassyFire.
+        """
         return cls(
             alternative_parents=[Term.from_dict(x) for x in d.get('alternative_parents', [])],
             ancestors=d['ancestors'],
@@ -91,6 +104,8 @@ class Classification:
 
     @property
     def terms(self) -> Set[Term]:
+        """`set` of `Term`: The set of leaf terms in the classification.
+        """
         return set(filter(None, (
             *self.alternative_parents,
             self.kingdom,
@@ -103,6 +118,13 @@ class Classification:
 
 
 class Cache(typing.MutableMapping[str, Dict[str, object]]):
+    """A local, filesystem-backed cache for ClassyFire results.
+
+    Attributes:
+        folder (`~pathlib.Path`): The path to the folder where the cache
+            data is located.
+
+    """
 
     def __init__(self, folder: "Optional[os.PathLike[str]]" = None):
         if folder is None:
@@ -145,12 +167,23 @@ class Cache(typing.MutableMapping[str, Dict[str, object]]):
 
 
 class Query:
+    """A query sent to ClassyFire.
+
+    Attributes:
+        client (`~chamois.classyfire.Client`): The ClassyFire client
+            used to submit the query.
+        id (`str`): The identifier given to the query by ClassyFire.
+
+    """
+    
     def __init__(self, client: "Client", id: str):
         self.id = id
         self.client = client
 
     @property
     def status(self) -> str:
+        """`str`: The query status polled from the ClassyFire server.
+        """
         request = Request(
             f"{self.client.base_url}/queries/{self.id}.json",
             headers={"Content-Type": "application/json"},
@@ -203,6 +236,8 @@ class Client:
         return Classification.from_dict(self.cache[inchikey])
 
     def query(self, structures: Iterable[str]) -> Query:
+        """Query ClassyFire with the given molecules.
+        """
         form = {
             "label": f"chamois-{uuid.uuid4()}",
             "query_input": "\n".join(structures),
@@ -219,6 +254,8 @@ class Client:
         return Query(self, query["id"])
 
     def retrieve(self, query: Query, page: int = 1) -> Iterable[Classification]:
+        """Retrieve the ClassyFire results for a query.
+        """
         request = Request(
             f"{self.base_url}/queries/{query.id}.json?page={page}",
             headers={"Content-Type": "application/json"},
@@ -235,6 +272,8 @@ def binarize_classification(
     adjacency_matrix: AdjacencyMatrix, 
     leaves: Set[str]
 ) -> numpy.ndarray:
+    """Convert a set of class names into a binary indicator vector.
+    """
     out = numpy.zeros(len(classes), dtype=bool)
 
     indices = []

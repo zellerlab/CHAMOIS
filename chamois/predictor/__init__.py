@@ -1,3 +1,6 @@
+"""Predictor of chemical classes from genomic features.
+"""
+
 import contextlib
 import hashlib
 import json
@@ -42,6 +45,27 @@ class ChemicalOntologyPredictor:
         alpha: float = 1.0,
         variance: Optional[float] = None,
     ) -> None:
+        """Create a new, uninitialized model.
+
+        Arguments:
+            ontology (`~chamois.ontology.Ontology`): The ontology object
+                corresponding the classes to predict.
+            n_jobs (`int` or `None`): The number of jobs to use to train
+                in parallel.
+            max_iter (`int`): The maximum number of iterations to run
+                to converge the linear models.
+            mode (`str`): The model architecture to use, either ``ridge``
+                for L2-regularized linear regression, ``logistic`` for 
+                L1-regularized logistic regression, or ``dummy`` for 
+                dummy predictors using random guessing based on the 
+                support of each class.
+            alpha (`float`): The regularization strength (used for 
+                ``logistic`` and ``ridge`` models).
+            variance (`float` or `None`): If given, the variance threshold
+                to use to filter the features using the feature selection
+                procedure of `~sklearn.feature_selection.VarianceThreshold`.
+
+        """
         if model not in self._MODELS:
             raise ValueError(f"invalid model architecture: {model!r}")
         self.n_jobs: Optional[int] = n_jobs
@@ -170,14 +194,23 @@ class ChemicalOntologyPredictor:
             self.intercept_[i] = numpy.clip(odds, -10, 10)
         self.coef_ = scipy.sparse.csr_matrix(self.coef_)
 
+    @requires("anndata")
     @requires("pandas")
     def fit(
         self: _T,
         X: Union[numpy.ndarray, "AnnData"],
         Y: Union[numpy.ndarray, "AnnData"],
     ) -> _T:
-        import anndata
+        """Fit the model on the given data.
 
+        Arguments:
+            X (`~anndata.AnnData`): The feature matrix, either as a raw
+                `numpy.ndarray`, or as a compositional matrix built with
+                `chamois.compositions.build_compositions`.
+            Y (`~anndata.AnnData): The classes matrix, either as a raw
+                `numpy.ndarray`, or as a multi-label binary matrix.
+
+        """
         if isinstance(X, anndata.AnnData):
             _X = X.X
             self.features_ = X.var.copy()
@@ -214,6 +247,13 @@ class ChemicalOntologyPredictor:
         return self
 
     def propagate(self, Y: numpy.ndarray) -> numpy.ndarray:
+        """Propagate the probabilities from leaves to nodes.
+
+        This method ensures that the probabilities produced for the 
+        whole hierarchy are consistent by overriding the probabilities
+        of parent nodes with that of their child class if it is higher.
+
+        """
         assert Y.shape[1] == len(self.ontology.adjacency_matrix)
         _Y = numpy.array(Y, dtype=Y.dtype)
         for i in reversed(self.ontology.adjacency_matrix):
@@ -235,13 +275,22 @@ class ChemicalOntologyPredictor:
         y = scipy.special.expit(self.intercept_)
         return numpy.tile(y, (X.shape[0], 1))
 
+    @requires("anndata")
     def predict_probas(
         self,
         X: Union[numpy.ndarray, "AnnData"],
         propagate: bool = True,
     ) -> numpy.ndarray:
-        import anndata
+        """Predict class probabilities for the given features.
 
+        Arguments:
+            X (`~anndata.AnnData`): The feature matrix, either as a raw
+                `numpy.ndarray`, or as a compositional matrix built with
+                `chamois.compositions.build_compositions`.
+            propagate (`bool`): Whether to ensure consistency of the 
+                predicted probabilities with the `propagate` method.
+
+        """
         if isinstance(X, anndata.AnnData):
             _X = X.X
         else:
@@ -263,6 +312,16 @@ class ChemicalOntologyPredictor:
         X: Union[numpy.ndarray, "AnnData"],
         propagate: bool = True,
     ) -> numpy.ndarray:
+        """Predict the classes for the given features. 
+
+        Arguments:
+            X (`~anndata.AnnData`): The feature matrix, either as a raw
+                `numpy.ndarray`, or as a compositional matrix built with
+                `chamois.compositions.build_compositions`.
+            propagate (`bool`): Whether to ensure consistency of the 
+                predicted probabilities with the `propagate` method.
+
+        """
         probas = self.predict_probas(X)
         classes = probas > 0.5
         if propagate:
@@ -306,22 +365,30 @@ class ChemicalOntologyPredictor:
         return ic
 
     def save(self, file: TextIO) -> None:
+        """Save the trained predictor the a JSON file.
+        """
         state = self.__getstate__()
         json.dump(state, file, cls=_json.JSONEncoder, sort_keys=True, indent=1)
 
     @classmethod
     def trained(cls: Type[_T]) -> _T:
+        """Load the trained predictor embedded in CHAMOIS. 
+        """
         with files(__package__).joinpath("predictor.json").open() as f:
             return cls.load(f)
 
     @classmethod
     def load(cls: Type[_T], file: TextIO) -> _T:
+        """Load a trained predictor from a JSON file.
+        """
         state = json.load(file, cls=_json.JSONDecoder)
         predictor = cls(Ontology(None))
         predictor.__setstate__(state)
         return predictor
 
     def checksum(self, hasher: Optional[Any] = None) -> str:
+        """Compute a checksum from the values of the learnt parameters.
+        """
         if hasher is None:
             hasher = hashlib.sha256()
         hasher.update(self.coef_.toarray())
