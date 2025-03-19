@@ -18,7 +18,17 @@ sequence. It can be used to get chemical features from BGCs predicted in
 silico with tools such as [GECCO](https://gecco.embl.de) or 
 [antiSMASH](https://antismash.secondarymetabolites.org).
 
-## 🔧 Installing CHAMOIS
+## 💡 Usage
+
+This section shows only the basic commands for installing and running CHAMOIS. 
+The [online documentation](https://chamois.readthedocs.io) 
+contains a more detailed 
+[installation guide](https://chamois.readthedocs.io/en/latest/guide/install.html),
+[examples](https://chamois.readthedocs.io/en/latest/examples/index.html), 
+an [API reference](https://chamois.readthedocs.io/en/latest/api/index.html), 
+and a [CLI reference](https://chamois.readthedocs.io/en/latest/cli/index.html)
+
+### 🔧 Installing CHAMOIS
 
 CHAMOIS is implemented in [Python](https://www.python.org/), and supports 
 [all versions](https://endoflife.date/python) from Python 3.7 onwards. 
@@ -37,17 +47,18 @@ $ pip install git+https://github.com/zellerlab/CHAMOIS
 on PowerPC, x86-64 and Aarch64 machines running a POSIX operating system.
 Therefore, CHAMOIS **will work on Linux and OSX, but not on Windows.***
 
-## 🧬 Running CHAMOIS
+### 🧬 Running CHAMOIS
 
 Once CHAMOIS is installed, you can run it from the terminal by providing
 it with one or more GenBank file the genomic records of the BGCs to analyze,
-and an output path where to write the results in HDF5 format:
+and an output path where to write the results in HDF5 format. For instance to
+predict the classes for [BGC0000703](), a kanamycin-producing BGC from MIBiG:
 
 ```console
-$ chamois predict -i records.gbk -o probas.hdf5
+$ chamois predict -i tests/data/BGC0000703.4.gbk -o tests/data/BGC0000703.4.hdf5
 ```
 
-## 🔎 Results
+### 🔎 Viewing results
 
 The output file can be loaded with the `anndata` package, and corresponds
 to a probability matrix where rows are the input BGCs, and columns are the
@@ -56,35 +67,46 @@ ChemOnt classes.
 To get a summary for each predicted BGC, use the `render` command:
 
 ```console
-$ chamois render -i probas.hdf5
+$ chamois render -i tests/data/BGC0000703.4.hdf5
 ```
 
 Predictions for each BGC will be shown as a tree with their computed 
 probabilities:
 
-```console
-╭─────────────────────────── CP123780.1_cluster1 ──────────────────────────────╮
-│ CHEMONTID:0000002 (Organoheterocyclic compounds): 0.823                      │
-│ ├── CHEMONTID:0000050 (Lactones): 0.638                                      │
-│ └── CHEMONTID:0004140 (Oxacyclic compounds): 0.823                           │
-│ CHEMONTID:0000012 (Lipids and lipid-like molecules): 0.587                   │
-│ └── CHEMONTID:0003909 (Fatty Acyls): 0.587                                   │
-│     └── CHEMONTID:0000262 (Fatty acids and conjugates): 0.587                │
-│         └── CHEMONTID:0000339 (Unsaturated fatty acids): 0.587               │
-│ CHEMONTID:0000264 (Organic acids and derivatives): 0.940                     │
-│ └── CHEMONTID:0000265 (Carboxylic acids and derivatives): 0.833              │
-│     ├── CHEMONTID:0001093 (Carboxylic acid derivatives): 0.679               │
-│     ├── CHEMONTID:0001137 (Monocarboxylic acids and derivatives): 0.618      │
-│     └── CHEMONTID:0001205 (Carboxylic acids): 0.517                          │
-│ CHEMONTID:0004150 (Hydrocarbon derivatives): 0.997                           │
-│ CHEMONTID:0004603 (Organic oxygen compounds): 0.997                          │
-│ ├── CHEMONTID:0000323 (Organooxygen compounds): 0.994                        │
-│ │   ├── CHEMONTID:0000129 (Alcohols and polyols): 0.893                      │
-│ │   │   └── CHEMONTID:0001661 (Secondary alcohols): 0.893                    │
-│ │   ├── CHEMONTID:0000254 (Ethers): 0.538                                    │
-│ │   └── CHEMONTID:0001831 (Carbonyl compounds): 0.852                        │
-│ └── CHEMONTID:0003940 (Organic oxides): 0.979                                │
-╰──────────────────────────────────────────────────────────────────────────────╯
+```
+CHEMONTID:0000002 (Organoheterocyclic compounds): 0.996
+├── CHEMONTID:0002012 (Oxanes): 0.996│
+└── CHEMONTID:0004140 (Oxacyclic compounds): 0.976
+CHEMONTID:0004150 (Hydrocarbon derivatives): 0.999
+CHEMONTID:0004557 (Organopnictogen compounds): 0.948
+CHEMONTID:0004603 (Organic oxygen compounds): 1.000
+└── CHEMONTID:0000323 (Organooxygen compounds): 1.000
+    ├── CHEMONTID:0000011 (Carbohydrates and carbohydrate conjugates): 0.996
+    │   ├── CHEMONTID:0001540 (Monosaccharides): 0.996
+    │   ├── CHEMONTID:0002105 (Glycosyl compounds): 0.977
+    │   │   └── CHEMONTID:0002207 (O-glycosyl compounds): 0.977
+    │   └── CHEMONTID:0003305 (Aminosaccharides): 0.995
+    │       └── CHEMONTID:0000282 (Aminoglycosides): 0.995
+    │           └── CHEMONTID:0001675 (Aminocyclitol glycosides): 0.995
+    │               └── CHEMONTID:0003575 (2-deoxystreptamine aminoglycosides): 0.961
+    ├── CHEMONTID:0000129 (Alcohols and polyols): 1.000
+    │   ├── CHEMONTID:0000286 (Primary alcohols): 0.891
+    │   ├── CHEMONTID:0001292 (Cyclic alcohols and derivatives): 0.998
+    │   │   └── CHEMONTID:0002509 (Cyclitols and derivatives): 0.996
+    │   │       └── CHEMONTID:0002510 (Aminocyclitols and derivatives): 0.987
+    │   ├── CHEMONTID:0001661 (Secondary alcohols): 0.999
+    │   │   └── CHEMONTID:0002647 (Cyclohexanols): 0.995
+    │   └── CHEMONTID:0002286 (Polyols): 0.972
+    └── CHEMONTID:0000254 (Ethers): 0.959
+        └── CHEMONTID:0001656 (Acetals): 0.959
+CHEMONTID:0004707 (Organic nitrogen compounds): 0.999
+└── CHEMONTID:0000278 (Organonitrogen compounds): 0.999
+    ├── CHEMONTID:0002449 (Amines): 0.999
+    │   ├── CHEMONTID:0002450 (Primary amines): 0.989
+    │   │   └── CHEMONTID:0000469 (Monoalkylamines): 0.989
+    │   └── CHEMONTID:0002460 (Alkanolamines): 0.999
+    │       └── CHEMONTID:0001897 (1,2-aminoalcohols): 0.992
+    └── CHEMONTID:0002674 (Cyclohexylamines): 0.987
 ```
 
 ## 🔖 Reference
