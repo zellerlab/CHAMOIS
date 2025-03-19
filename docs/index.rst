@@ -12,7 +12,8 @@ CHAMOIS |Stars|
 
 *Chemical Hierarchy Approximation for secondary Metabolite clusters Obtained In Silico.*
 
-|License| |Source| |Mirror| |Changelog| |Issues| |Preprint|
+|License| |Source| |Mirror| |Changelog| |Issues| |Docs| |Preprint|
+
 
 .. |License| image:: https://img.shields.io/badge/license-GPLv3-blue.svg?style=flat-square&maxAge=2678400
    :target: https://choosealicense.com/licenses/gpl-3.0/
@@ -28,6 +29,9 @@ CHAMOIS |Stars|
 
 .. |Issues| image:: https://img.shields.io/github/issues/zellerlab/CHAMOIS.svg?style=flat-square&maxAge=600
    :target: https://github.com/zellerlab/CHAMOIS/issues
+
+.. |Docs| image:: https://img.shields.io/readthedocs/chamois/latest?style=flat-square&maxAge=600
+   :target: https://chamois.readthedocs.io
 
 .. |Preprint| image:: https://img.shields.io/badge/preprint-bioRxiv-darkblue?style=flat-square&maxAge=2678400
    :target: https://www.biorxiv.org/content/10.1101/2025.03.13.642868
