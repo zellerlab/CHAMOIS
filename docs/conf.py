@@ -196,6 +196,10 @@ intersphinx_mapping = {
     "numpy": ("https://numpy.org/doc/stable/", None),
     "pyrodigal": ("https://pyrodigal.readthedocs.io/en/stable/", None),
     "pyhmmer": ("https://pyhmmer.readthedocs.io/en/stable/", None),
+    "gb_io": ("https://gb-io.readthedocs.io/en/stable/", None),
+    "anndata": ("https://anndata.readthedocs.io/en/stable/", None),
+    "pandas": ("https://pandas.pydata.org/docs/", None),
+    "scipy": ("https://docs.scipy.org/doc/scipy/", None)
 }
 
 # -- Options for recommonmark extension --------------------------------------

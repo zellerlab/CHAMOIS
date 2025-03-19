@@ -7,6 +7,8 @@ from typing import Optional, Iterator, Iterable, Union, Sequence, Dict
 
 import numpy
 
+from ._meta import requires
+
 if typing.TYPE_CHECKING:
     from scipy.sparse import spmatrix
 
@@ -43,7 +45,7 @@ def _compute_semantic_similarity(adjacency_matrix: "AdjacencyMatrix", c=2.0, d=0
                 denominator = semantic_contribution[i, indices].sum() + semantic_contribution[j, indices].sum()
                 if denominator > 0:
                     semantic_similarity[i, j] = semantic_similarity[j, i] = denominator / (semantic_value[i] + semantic_value[j])
-    
+
     return semantic_similarity
 
 
@@ -74,9 +76,8 @@ class AdjacencyMatrix:
     """A tree encoded as an adjacency matrix.
     """
 
+    @requires("scipy.sparse")
     def __init__(self, data: Union[numpy.ndarray, "spmatrix", None] = None) -> None:
-        import scipy.sparse
-
         if data is None:
             _data = numpy.array([])
         elif isinstance(data, scipy.sparse.spmatrix):
@@ -182,15 +183,23 @@ class AdjacencyMatrix:
         return path
 
     def parents(self, i: int) -> numpy.ndarray:
+        """Get the parents of class ``i``.
+        """
         return self._parents[i]
 
     def children(self, i: int) -> numpy.ndarray:
+        """Get the children of class ``i``.
+        """
         return self._children[i]
 
     def neighbors(self, i: int) -> numpy.ndarray:
+        """Get the neighbors of class ``i``.
+        """
         return numpy.cat([ self.parents(i), self.children(i) ])
 
     def ancestors(self, i: int) -> numpy.ndarray:
+        """Get the entire tree of ancestors of class ``i``.
+        """
         ancestors = set()
         nodes = collections.deque()
         nodes.append(i)
@@ -202,6 +211,8 @@ class AdjacencyMatrix:
         return numpy.array(list(ancestors))
 
     def descendants(self, i: int) -> numpy.ndarray:
+        """Get the entire tree of descendants of class ``i``.
+        """
         descendants = set()
         nodes = collections.deque()
         nodes.append(i)
@@ -220,15 +231,23 @@ class Ontology:
     of subclasses. It supports computing the similarity between terms or
     term groups based on the GOGO algorithm by Zhao and Wang.
 
+    Attributes:
+        adjacency_matrix (`AdjacencyMatrix`): The adjacency matrix encoding
+            the class hierarchy in the ontology.
+        semantic_similarity (`numpy.ndarray`): The semantic similarity of
+            the ontology classes, which estimates the shared information
+            between a class and its direct subclasses based on the number
+            of total subclasses.
+
     References:
-        Zhao, C., Wang, Z. "GOGO: An improved algorithm to measure the 
-        semantic similarity between gene ontology terms". 
+        Zhao, C., Wang, Z. "GOGO: An improved algorithm to measure the
+        semantic similarity between gene ontology terms".
         Sci Rep 8, 15107 (2018). :doi:`10.1038/s41598-018-33219-y`
 
     """
-    
+
     def __init__(
-        self, 
+        self,
         adjacency_matrix: Union["AdjacencyMatrix", numpy.ndarray, "spmatrix"],
     ):
         # convert input to adjacency matrix if needed
@@ -240,8 +259,8 @@ class Ontology:
         else:
             self.semantic_similarity = numpy.eye(1)
 
+    @requires("scipy.sparse")
     def __getstate__(self) -> Dict[str, object]:
-        import scipy.sparse
         return {
             "adjacency_matrix": self.adjacency_matrix.__getstate__(),
             "semantic_similarity": scipy.sparse.csr_matrix(self.semantic_similarity),
@@ -249,7 +268,7 @@ class Ontology:
 
     def __setstate__(self, state: Dict[str, object]) -> None:
         self.semantic_similarity = state["semantic_similarity"].toarray()
-        self.adjacency_matrix = AdjacencyMatrix() 
+        self.adjacency_matrix = AdjacencyMatrix()
         self.adjacency_matrix.__setstate__(state["adjacency_matrix"])
 
     def similarity(self, x: Iterable[int], y: Iterable[int]) -> float:

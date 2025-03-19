@@ -46,15 +46,15 @@ class DomainAnnotator(metaclass=abc.ABCMeta):
         """Run annotation on proteins of ``genes`` and update their domains.
 
         Arguments:
-            genes (iterable of `~chamois.model.Protein`): An iterable that
-                yields proteins to annotate.
+            genes (`~collections.abc.Iterable` of `~chamois.model.Protein`): An 
+                iterable that yields proteins to annotate.
 
         """
         return NotImplemented
 
 
 class PfamAnnotator(DomainAnnotator):
-    """A domain annotator that uses PyHMMER to find Pfam domains in proteins.
+    """A domain annotator that uses `pyhmmer` to find Pfam domains in proteins.
 
     References:
         - `Martin Larralde and Georg Zeller. "PyHMMER: a Python library
