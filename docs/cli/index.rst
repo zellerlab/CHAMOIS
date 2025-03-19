@@ -8,8 +8,9 @@ This section documents the command line interface (CLI) of CHAMOIS.
 .. note::
 
     When installing CHAMOIS with ``pip``, an executable named ``chamois`` will 
-    be created in `/usr/bin` or `$HOME/.local/bin`. If the install path is
-    not in your ``$PATH``, you can also invoke the command line with:
+    be created in ``/usr/bin`` or ``$HOME/.local/bin``. If the install path is
+    not in your ``$PATH``, you can also invoke the command line as a 
+    Python module with:
 
     .. code:: console
 

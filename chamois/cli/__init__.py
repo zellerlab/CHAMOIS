@@ -63,6 +63,24 @@ def build_parser() -> argparse.ArgumentParser:
         type=int,
         help="The seed to use for initializing pseudo-random number generators."
     )
+    parser.add_argument(
+        "-q",
+        "--quiet",
+        action="store_true",
+        help="Disable the console output",
+    )
+    parser.add_argument(
+        "--no-color",
+        dest="color",
+        action="store_false",
+        help="Disable the console color",
+    )
+    parser.add_argument(
+        "--no-markup",
+        dest="markup",
+        action="store_false",
+        help="Disable the console markup",
+    )
 
     commands = parser.add_subparsers(required=True, metavar="COMMAND")
     annotate.configure_parser(
@@ -139,15 +157,20 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 def run(argv: Optional[List[str]] = None, console: Optional[Console] = None) -> int:
+    parser = build_parser()
+    if argcomplete is not None:
+        argcomplete.autocomplete(parser)
+    args = parser.parse_args(argv)
+
     if console is None:
-        console = Console()
+        console = Console(
+            legacy_windows=not args.markup, 
+            no_color=not args.color, 
+            quiet=args.quiet, 
+            safe_box=not args.markup
+        )
 
     with patch_showwarnings(functools.partial(_showwarnings, console)):
-        parser = build_parser()
-        if argcomplete is not None:
-            argcomplete.autocomplete(parser)
-        args = parser.parse_args(argv)
-
         try:
             return args.run(args, console)
         except Exception as err:
