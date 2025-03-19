@@ -11,30 +11,32 @@ ORF Finder
 ----------
 
 .. autosummary::
+    :nosignatures:
 
-   ORFFinder
-   PyrodigalFinder
-   CDSFinder
+    ORFFinder
+    PyrodigalFinder
+    CDSFinder
 
 .. toctree::
-   :caption: ORF Finder
-   :maxdepth: 1
-   :hidden:
+    :caption: ORF Finder
+    :maxdepth: 1
+    :hidden:
 
-   ORF Finder <orf_finder>
+    ORF Finder <orf_finder>
 
 
 Warnings
 --------
 
 .. autosummary::
+    :nosignatures:
 
     NoGeneFoundWarning
     IncompleteGeneWarning
 
 .. toctree::
-   :caption: Warnings
-   :maxdepth: 1
-   :hidden:
+    :caption: Warnings
+    :maxdepth: 1
+    :hidden:
 
-   Warnings <warnings>
+    Warnings <warnings>

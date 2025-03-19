@@ -11,14 +11,15 @@ Domain Annotator
 ----------------
 
 .. autosummary::
+    :nosignatures:
 
-   DomainAnnotator
-   PfamAnnotator
+    DomainAnnotator
+    PfamAnnotator
 
 .. toctree::
-   :caption: Domain Annotator
-   :maxdepth: 1
-   :hidden:
+    :caption: Domain Annotator
+    :maxdepth: 1
+    :hidden:
 
-   Domain Annotator <domain_annotator>
+    Domain Annotator <domain_annotator>
 

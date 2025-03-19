@@ -2,7 +2,6 @@ User Guide
 ==========
 
 This section contains guides and documents about CHAMOIS usage. 
-in `pyhmmer.hmmer`.
 
 .. toctree::
     :maxdepth: 1

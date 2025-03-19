@@ -9,15 +9,16 @@ Predictor
 ---------
 
 .. autosummary::
+    :nosignatures:
 
-   ChemicalOntologyPredictor
+    ChemicalOntologyPredictor
 
 .. toctree::
-   :caption: Chemical Ontology Predictor
-   :maxdepth: 1
-   :hidden:
+    :caption: Chemical Ontology Predictor
+    :maxdepth: 1
+    :hidden:
 
-   Chemical Ontology Predictor <predictor>
+    Chemical Ontology Predictor <predictor>
 
 
 
@@ -27,6 +28,7 @@ Information-theoric metrics
 .. currentmodule:: chamois.predictor.information
 
 .. autosummary::
+    :nosignatures:
 
     information_accretion
     remaining_uncertainty_score
@@ -38,8 +40,8 @@ Information-theoric metrics
 
 
 .. toctree::
-   :caption: Information-theoric Metrics
-   :maxdepth: 1
-   :hidden:
+    :caption: Information-theoric Metrics
+    :maxdepth: 1
+    :hidden:
 
-   Information-theoric Metrics <information>
+    Information-theoric Metrics <information>

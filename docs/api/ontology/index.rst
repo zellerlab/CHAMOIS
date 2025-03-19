@@ -9,27 +9,29 @@ Ontology
 --------
 
 .. autosummary::
+    :nosignatures:
 
-   Ontology
+    Ontology
 
 .. toctree::
-   :caption: Ontology
-   :maxdepth: 1
-   :hidden:
+    :caption: Ontology
+    :maxdepth: 1
+    :hidden:
 
-   Ontology <ontology>
+    Ontology <ontology>
 
 
 Adjacency Matrix
 ----------------
 
 .. autosummary::
+    :nosignatures:
 
-   AdjacencyMatrix
+    AdjacencyMatrix
 
 .. toctree::
-   :caption: Adjacency Matrix
-   :maxdepth: 1
-   :hidden:
+    :caption: Adjacency Matrix
+    :maxdepth: 1
+    :hidden:
 
-   Adjacency Matrix <adjacency>
+    Adjacency Matrix <adjacency>

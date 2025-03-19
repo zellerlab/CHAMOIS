@@ -9,43 +9,46 @@ Cluster Sequence
 ----------------
 
 .. autosummary::
+    :nosignatures:
 
-   ClusterSequence
+    ClusterSequence
 
 .. toctree::
-   :caption: Cluster Sequence
-   :maxdepth: 1
-   :hidden:
+    :caption: Cluster Sequence
+    :maxdepth: 1
+    :hidden:
 
-   Cluster Sequence <cluster_sequence>
+    Cluster Sequence <cluster_sequence>
 
 
 Protein
 -------
 
 .. autosummary::
+    :nosignatures:
 
-   Protein
+    Protein
 
 .. toctree::
-   :caption: Protein
-   :maxdepth: 1
-   :hidden:
+    :caption: Protein
+    :maxdepth: 1
+    :hidden:
 
-   Protein <protein>
+    Protein <protein>
 
 
 Domain
 ------
 
 .. autosummary::
+    :nosignatures:
 
-   Domain
-   PfamDomain
+    Domain
+    PfamDomain
 
 .. toctree::
-   :caption: Domain
-   :maxdepth: 1
-   :hidden:
+    :caption: Domain
+    :maxdepth: 1
+    :hidden:
 
-   Domain <domain>
+    Domain <domain>

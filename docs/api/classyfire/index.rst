@@ -8,75 +8,80 @@ Term
 ----
 
 .. autosummary::
+    :nosignatures:
 
-   Term
+    Term
  
 .. toctree::
-   :caption: Term
-   :maxdepth: 1
-   :hidden:
+    :caption: Term
+    :maxdepth: 1
+    :hidden:
 
-   Term <term>
+    Term <term>
   
 
 Classification
 --------------
 
 .. autosummary::
+    :nosignatures:
 
-   Classification
+    Classification
 
 .. toctree::
-   :caption: Classification
-   :maxdepth: 1
-   :hidden:
+    :caption: Classification
+    :maxdepth: 1
+    :hidden:
 
-   Classification <classification>
+    Classification <classification>
   
 
 Query
 -----
 
 .. autosummary::
+    :nosignatures:
 
-   Query
+    Query
 
 .. toctree::
-   :caption: Query
-   :maxdepth: 1
-   :hidden:
+    :caption: Query
+    :maxdepth: 1
+    :hidden:
 
-   Query <query>
+    Query <query>
 
 
 Cache
 -----
 
 .. autosummary::
+    :nosignatures:
 
-   Cache
+    Cache
 
 .. toctree::
-   :caption: Cache
-   :maxdepth: 1
-   :hidden:
+    :caption: Cache
+    :maxdepth: 1
+    :hidden:
 
-   Cache <cache>
+    Cache <cache>
 
 Client
 ------
 
 
 .. autosummary::
+    :nosignatures:
 
-   Client
+    Client
 
 .. toctree::
-   :caption: Client
-   :maxdepth: 1
-   :hidden:
+    :caption: Client
+    :maxdepth: 1
+    :hidden:
 
-   Client <client>
+    Client <client>
 
 
 
@@ -84,9 +89,9 @@ Utils
 -----
 
 .. autosummary::
+    :nosignatures:
 
     binarize_classification
-
 
 .. toctree::
    :caption: Utils
