@@ -8,7 +8,7 @@ import math
 import pickle
 import typing
 import importlib.resources
-from typing import Any, Literal, List, Tuple, Dict, TextIO, Type, Union, Optional, Callable
+from typing import Any, List, Tuple, Dict, TextIO, Type, Union, Optional, Callable
 
 import numpy
 
