@@ -112,7 +112,7 @@ html_css_files = ["custom.css"]
 html_theme_options = {
     "external_links": [
         {
-            "url": "https://doi.org/10.1101/2025.03.13.642868",
+            "url": "https://www.biorxiv.org/content/10.1101/2025.03.13.642868",
             "name": "Preprint",
         },
     ],

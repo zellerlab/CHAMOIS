@@ -207,7 +207,7 @@ class ChemicalOntologyPredictor:
             X (`~anndata.AnnData`): The feature matrix, either as a raw
                 `numpy.ndarray`, or as a compositional matrix built with
                 `chamois.compositions.build_compositions`.
-            Y (`~anndata.AnnData): The classes matrix, either as a raw
+            Y (`~anndata.AnnData`): The classes matrix, either as a raw
                 `numpy.ndarray`, or as a multi-label binary matrix.
 
         """
