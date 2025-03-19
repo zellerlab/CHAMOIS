@@ -15,3 +15,8 @@ sphinxcontrib-svgbob
 sphinx-design
 pydata-sphinx-theme
 sphinx-argparse
+
+# notebooks
+dna-features-viewer
+matplotlib
+palettable
