@@ -1,7 +1,12 @@
+import abc
 import argparse
+import contextlib
+import dataclasses
+import errno
 import pathlib
 import time
 import json
+import re
 import urllib.request
 import typing
 from typing import List, Iterable, Set, Optional
@@ -30,14 +35,69 @@ if typing.TYPE_CHECKING:
     from anndata import AnnData
     from pandas import DataFrame
 
-@requires("rdkit.Chem")
-@requires("rdkit.RDLogger")
-def _parse_molecule(text: str) -> "Mol":
-    rdkit.RDLogger.DisableLog('rdApp.error')
-    for parse in (rdkit.Chem.MolFromInchi, rdkit.Chem.MolFromSmiles):
-        mol = parse(text)
-        if mol is not None:
-            return mol
+
+@dataclasses.dataclass
+class Query(abc.ABC):
+    pass
+
+
+@dataclasses.dataclass
+class MolQuery(Query):
+    mol: "Mol"
+
+    @classmethod
+    @requires("rdkit.Chem")
+    @requires("rdkit.RDLogger")
+    def parse(cls, text: str) -> "MolQuery":
+        rdkit.RDLogger.DisableLog('rdApp.error')
+        for parse in (rdkit.Chem.MolFromInchi, rdkit.Chem.MolFromSmiles):
+            mol = parse(text)
+            if mol is not None:
+                return cls(mol)
+        raise ValueError(text)
+
+    @property
+    @requires("rdkit.Chem")
+    def inchikey(self):
+        return rdkit.Chem.MolToInchiKey(self.mol)
+
+    @property
+    @requires("rdkit.Chem")
+    def inchi(self):
+        return rdkit.Chem.MolToInchi(self.mol)
+
+    @property
+    @requires("rdkit.Chem")
+    def smiles(self):
+        return rdkit.Chem.MolToSmiles(self.mol)
+
+
+_INCHIKEY_RX = re.compile(r"[A-Z]{14}-[A-Z]{10}-[A-Z]")
+
+@dataclasses.dataclass
+class InchiKeyQuery(Query):
+    inchikey: str
+
+    @classmethod
+    def parse(cls, text: str) -> "InchiKeyQuery":
+        if not _INCHIKEY_RX.match(text):
+            raise ValueError(text)
+        return cls(text)
+
+    @property
+    def inchi(self):
+        return None
+
+    @property
+    def smiles(self):
+        return None
+
+
+def parse_query(text: str) -> Query:
+    with contextlib.suppress(ValueError):
+        return InchiKeyQuery.parse(text)
+    with contextlib.suppress(ValueError):
+        return MolQuery.parse(text)
     raise ValueError(f"Could not parse {text!r} molecule")
 
 
@@ -49,8 +109,7 @@ def configure_parser(parser: argparse.ArgumentParser):
         action="append",
         required=True,
         dest="queries",
-        type=_parse_molecule,
-        help="The compounds to search in the predictions.",
+        help="The compounds to search in the predictions, as a SMILES, InChi, or InChiKey.",
     )
     # configure_group_search_parameters(parser)
     configure_group_search_output(parser)
@@ -68,9 +127,8 @@ def load_predictions(path: pathlib.Path, predictor: ChemicalOntologyPredictor, c
 
 
 @requires("pandas")
-@requires("rdkit.Chem")
 def build_results(
-    queries: List["Mol"],
+    queries: List[Query],
     classes: "AnnData",
     distances: numpy.ndarray,
     ranks: numpy.ndarray,
@@ -82,9 +140,9 @@ def build_results(
             if ranks[i, j] > max_rank:
                 break
             rows.append([
-                rdkit.Chem.MolToInchiKey(query),
-                rdkit.Chem.MolToInchi(query),
-                rdkit.Chem.MolToSmiles(query),
+                query.inchikey,
+                query.inchi,
+                query.smiles,
                 ranks[i, j],
                 classes.obs_names[j],
                 *classes.obs.iloc[j],
@@ -117,28 +175,41 @@ def build_table(results: "DataFrame") -> rich.table.Table:
     return table
 
 
-@requires("rdkit.Chem")
-@requires("rdkit.RDLogger")
 @requires("scipy.stats")
 def run(args: argparse.Namespace, console: Console) -> int:
-    rdkit.RDLogger.DisableLog('rdApp.warning')
-    rdkit.RDLogger.DisableLog('rdApp.info')
+    # silence the RDKit logger if installed
+    try:
+        import rdkit.RDLogger
+        rdkit.RDLogger.DisableLog('rdApp.warning')
+        rdkit.RDLogger.DisableLog('rdApp.info')
+    except ImportError:
+        RDLogger = None
 
+    # parse queries
+    queries = []
+    for query in args.queries:
+        try:
+            queries.append(parse_query(query))
+        except ValueError:
+            console.print(f"[bold red]{'Failed':>12}[/] to parse query: {query!r}")
+            return errno.EINVAL
+
+    # load predictor
     predictor = load_model(args.model, console)
     probas, classes = load_predictions(args.input, predictor, console)
 
     # get query classification from Classyfire
     classifications = {}
     classyfire = Client()
-    inchikeys = (rdkit.Chem.inchi.MolToInchiKey(mol) for mol in args.queries)
-    for inchikey in inchikeys:
-        console.print(f"[bold blue]{'Retrieving':>12}[/] {len(args.queries)} ClassyFire results for [bold cyan]{inchikey}[/]")
+    for query in queries:
+        inchikey = query.inchikey
+        console.print(f"[bold blue]{'Retrieving':>12}[/] {len(queries)} ClassyFire results for [bold cyan]{inchikey}[/]")
         classifications[inchikey] = classyfire.fetch(inchikey)
 
     # binarize classifications
-    compounds = numpy.zeros((len(args.queries), len(predictor.classes_)))
-    for i, query in enumerate(args.queries):
-        inchikey = rdkit.Chem.inchi.MolToInchiKey(query)
+    compounds = numpy.zeros((len(queries), len(predictor.classes_)))
+    for i, query in enumerate(queries):
+        inchikey = query.inchikey
         leaves = [t.id for t in classifications[inchikey].terms]
         compounds[i] = binarize_classification(
             predictor.classes_,
@@ -156,11 +227,11 @@ def run(args: argparse.Namespace, console: Console) -> int:
         table = Table.grid()
         table.add_column(no_wrap=True)
         table.add_column(no_wrap=True)
-        for i, query in enumerate(args.queries):
+        for i, query in enumerate(queries):
             j = ranks[i].argmin()
             tree_bgc = build_tree(predictor, probas.X[j])
             tree_query = build_tree(predictor, compounds[i])
-            inchikey = rdkit.Chem.inchi.MolToInchiKey(query)
+            inchikey = query.inchikey
             table.add_row(
                 Panel(tree_query, title=f"[bold purple]{inchikey}[/]"),
                 Panel(tree_bgc, title=f"[bold purple]{probas.obs.index[j]}[/] (d=[bold cyan]{distances[i, j]:.5f}[/])"),
@@ -169,7 +240,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
 
     # save results
     if args.output:
-        results = build_results(args.queries, classes, distances, ranks, max_rank=args.rank)
+        results = build_results(queries, classes, distances, ranks, max_rank=args.rank)
         console.print(f"[bold blue]{'Saving':>12}[/] search results to {str(args.output)!r}")
         results.to_csv(args.output, sep="\t", index=False)
 
