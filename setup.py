@@ -106,12 +106,14 @@ class download_pfam(setuptools.Command):
     user_options = [
         ("force", "f", "force downloading the files even if they exist"),
         ("inplace", "i", "ignore build-lib and put data alongside your Python code"),
-        ("version=", "v", "the Pfam version to dowload")
+        ("rebuild", "r", "rebuild the CHAMOIS HMM from Pfam source"),
+        ("version=", "v", "the Pfam version to dowload"),
     ]
 
     def initialize_options(self):
         self.force = False
         self.inplace = False
+        self.rebuild = False
         self.version = None
 
     def finalize_options(self):
@@ -154,30 +156,60 @@ class download_pfam(setuptools.Command):
         # Download and binarize required HMMs
         local = os.path.join(self.build_lib, "chamois", "domains", f"Pfam{self.version}.hmm.lz4")
         self.mkpath(os.path.dirname(local))
-        self.download_pfam(local, domains)
+        
+        # Fall back to filtering the HMMs from the Pfam FTP server
+        self.make_file(predictor_file, local, self.download_pfam, (local, domains))
         if self.inplace:
             copy = os.path.relpath(local, self.build_lib)
             self.make_file([local], copy, shutil.copy, (local, copy))
 
     def download_pfam(self, local, domains):
+        # Try getting the GitHub artifacts first, unless asked to rebuild
+        if not self.rebuild:
+            try:
+                self._download_release_hmm(local)
+            except urllib.error.HTTPError:
+                pass
+            else:
+                return
         # download the HMM to `local`, and delete the file if any error
         # or interruption happens during the download
-        if not os.path.exists(local):
-            error = None
-            # streaming the HMMs may not work on all platforms (e.g. MacOS)
-            # so we fall back to a buffered implementation if needed.
-            for stream in (True, False):
-                try:
-                    self.download_hmms(local, domains, stream=stream)
-                except Exception as exc:
-                    error = exc
-                    if os.path.exists(local):
-                        os.remove(local)
-                else:
-                    return
-            raise RuntimeError("Failed to download Pfam HMMs") from error
+        # if not os.path.exists(local):
+        error = None
+        # streaming the HMMs may not work on all platforms (e.g. MacOS)
+        # so we fall back to a buffered implementation if needed.
+        for stream in (True, False):
+            try:
+                self._download_pfam_hmms(local, domains, stream=stream)
+            except Exception as exc:
+                error = exc
+                if os.path.exists(local):
+                    os.remove(local)
+            else:
+                return
+        raise RuntimeError("Failed to download Pfam HMMs") from error
 
-    def download_hmms(self, output, domains, stream=True):
+    def _download_release_hmm(self, output):
+        # build the GitHub releases URL
+        base = "https://github.com/zellerlab/CHAMOIS/releases/download/v{version}/Pfam{pfam_version}.hmm.lz4"
+        url = base.format(pfam_version=self.version, version=self.distribution.get_version())
+        # fetch the resource
+        self.info(f"fetching {url}")
+        response = urllib.request.urlopen(url)
+        # use `rich.progress` to make a progress bar
+        pbar = rich.progress.wrap_file(
+            response,
+            total=int(response.headers["Content-Length"]),
+            description=os.path.basename(output),
+        )
+        # download to `output`
+        with contextlib.ExitStack() as ctx:
+            dl = ctx.enter_context(pbar)
+            src = ctx.enter_context(gzip.open(dl))
+            dst = ctx.enter_context(open(output, "wb"))
+            shutil.copyfileobj(src, dst)
+
+    def _download_pfam_hmms(self, output, domains, stream=True):
         # get URL for the requested Pfam version
         url = self.get_url()
         self.info(f"fetching {url}")
