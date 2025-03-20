@@ -128,7 +128,7 @@ class Cache(typing.MutableMapping[str, Dict[str, object]]):
 
     def __init__(self, folder: "Optional[os.PathLike[str]]" = None):
         if folder is None:
-            self.folder = pathlib.Path(platformdirs.user_cache_dir('CHAMOIS', 'ZellerLab'))
+            self.folder = pathlib.Path(platformdirs.user_cache_dir('CHAMOIS', 'ZellerLab')).joinpath("classyfire")
         else:
             self.folder = pathlib.Path(folder)
         self.folder.mkdir(parents=True, exist_ok=True)
