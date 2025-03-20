@@ -368,3 +368,5 @@ def run_cluster(args: argparse.Namespace, console: Console) -> int:
     if args.render:
         console_table = format_genetable(table, proteins)
         rich.print(console_table)
+
+    return 0

@@ -172,3 +172,5 @@ def run(args: argparse.Namespace, console: Console) -> int:
         results = build_results(args.queries, classes, distances, ranks, max_rank=args.rank)
         console.print(f"[bold blue]{'Saving':>12}[/] search results to {str(args.output)!r}")
         results.to_csv(args.output, sep="\t", index=False)
+
+    return 0

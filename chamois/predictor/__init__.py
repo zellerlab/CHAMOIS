@@ -152,7 +152,7 @@ class ChemicalOntologyPredictor:
         for i, estimator in enumerate(model.estimators_):
             if isinstance(estimator, sklearn.linear_model.LogisticRegression):
                 self.coef_[:, i] = estimator.coef_
-                self.intercept_[i] = estimator.intercept_
+                self.intercept_[i:i+1] = estimator.intercept_
             else:
                 self.intercept_[i] = -1000 if estimator.y_[0] == 0 else 1000
 

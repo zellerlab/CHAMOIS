@@ -122,3 +122,5 @@ def run(args: argparse.Namespace, console: Console) -> int:
     if args.render:
         table = build_table(results)
         console.print(table)
+
+    return 0

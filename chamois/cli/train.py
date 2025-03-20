@@ -119,3 +119,5 @@ def run(args: argparse.Namespace, console: Console) -> int:
     with args.output.open("w") as dst:
         model.save(dst)
     console.print(f"[bold green]{'Finished':>12}[/] training model")
+
+    return 0

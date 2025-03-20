@@ -105,4 +105,4 @@ def run(args: argparse.Namespace, console: Console) -> int:
             panel = rich.panel.Panel(tree, title=f"{predictions.obs_names[bgc_index]} (ic={ic[bgc_index]:.1f})")
             console.print(panel)
 
-
+    return 0

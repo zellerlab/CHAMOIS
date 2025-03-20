@@ -73,3 +73,5 @@ def run(args: argparse.Namespace, console: Console) -> int:
     var = build_variables(domains)
     compositions = build_compositions(domains, obs, var, uns=uns)
     save_compositions(compositions, args.output, console)
+
+    return 0

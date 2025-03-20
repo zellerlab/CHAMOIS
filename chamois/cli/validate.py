@@ -179,3 +179,4 @@ def run(args: argparse.Namespace, console: Console) -> int:
         console.print(f"[bold blue]{'Saving':>12}[/] class-specific report to {str(args.report)!r}")
         report.to_csv(args.report, sep="\t", index=False)
 
+    return 0

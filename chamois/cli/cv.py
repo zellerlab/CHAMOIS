@@ -226,3 +226,5 @@ def run(args: argparse.Namespace, console: Console) -> int:
             args.best_model.parent.mkdir(parents=True, exist_ok=True)
         with args.best_model.open("w") as dst:
             best_model.save(dst)
+
+    return 0

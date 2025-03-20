@@ -105,3 +105,5 @@ def run(args: argparse.Namespace, console: Console) -> int:
     # render output
     with console.pager(styles=args.color) if args.pager else contextlib.nullcontext():
         console.print(table)
+
+    return 0
