@@ -2,12 +2,16 @@
 
 *Chemical Hierarchy Approximation for secondary Metabolism clusters Obtained In Silico.*
 
+[![Actions](https://img.shields.io/github/actions/workflow/status/zellerlab/CHAMOIS/test.yml?branch=master&logo=github&style=flat-square&maxAge=300)](https://github.com/zellerlab/CHAMOIS/actions)
+[![PyPI](https://img.shields.io/pypi/v/chamois-tool.svg?logo=pypi&style=flat-square&maxAge=3600)](https://pypi.org/project/chamois-tool)
+[![Wheel](https://img.shields.io/pypi/wheel/chamois-tool.svg?style=flat-square&maxAge=3600)](https://pypi.org/project/chamois-tool/#files)
+[![Python Versions](https://img.shields.io/pypi/pyversions/chamois-tool.svg?logo=python&style=flat-square&maxAge=3600)](https://pypi.org/project/chamois-tool/#files)
 [![License](https://img.shields.io/badge/license-GPLv3-blue.svg?style=flat-square&maxAge=2678400)](https://choosealicense.com/licenses/gpl-3.0/)
 [![Source](https://img.shields.io/badge/source-GitHub-303030.svg?maxAge=2678400&style=flat-square)](https://github.com/zellerlab/CHAMOIS/)
 [![Mirror](https://img.shields.io/badge/mirror-EMBL-009f4d?style=flat-square&maxAge=2678400)](https://git.embl.de/larralde/CHAMOIS)
-[![Changelog](https://img.shields.io/badge/keep%20a-changelog-8A0707.svg?maxAge=2678400&style=flat-square)](https://github.com/zellerlab/CHAMOIS/blob/master/CHANGELOG.md)
 [![Issues](https://img.shields.io/github/issues/zellerlab/CHAMOIS.svg?style=flat-square&maxAge=600)](https://github.com/zellerlab/CHAMOIS/issues)
 [![Docs](https://img.shields.io/readthedocs/chamois/latest?style=flat-square&maxAge=600)](https://chamois.readthedocs.io)
+[![Changelog](https://img.shields.io/badge/keep%20a-changelog-8A0707.svg?maxAge=2678400&style=flat-square)](https://github.com/zellerlab/CHAMOIS/blob/master/CHANGELOG.md)
 [![Preprint](https://img.shields.io/badge/preprint-bioRxiv-darkblue?style=flat-square&maxAge=2678400)](https://www.biorxiv.org/content/10.1101/2025.03.13.642868)
 
 ## 🗺️  ️Overview
@@ -40,7 +44,7 @@ a little bit of time, since it will download the Pfam HMMs used for annotation
 and install dependencies:
 
 ```console
-$ pip install git+https://github.com/zellerlab/CHAMOIS
+$ pip install chamois-tool
 ```
 
 *Note that CHAMOIS uses [HMMER3](http://hmmer.org/), which can only run
@@ -52,7 +56,8 @@ Therefore, CHAMOIS **will work on Linux and OSX, but not on Windows.***
 Once CHAMOIS is installed, you can run it from the terminal by providing
 it with one or more GenBank file the genomic records of the BGCs to analyze,
 and an output path where to write the results in HDF5 format. For instance to
-predict the classes for [BGC0000703](), a kanamycin-producing BGC from MIBiG:
+predict the classes for [BGC0000703](https://mibig.secondarymetabolites.org/repository/BGC0000703.4/index.html#r1c1), 
+a kanamycin-producing BGC from MIBiG:
 
 ```console
 $ chamois predict -i tests/data/BGC0000703.4.gbk -o tests/data/BGC0000703.4.hdf5

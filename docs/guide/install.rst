@@ -9,16 +9,16 @@ Installation
     `Windows Subsystem for Linux <https://learn.microsoft.com/en-us/windows/wsl/install>`_
     if you need CHAMOIS on a Windows computer.
 
-.. PyPi
-.. ^^^^
+PyPi
+^^^^
 
-.. CHAMOIS is hosted on GitHub, but the easiest way to install it is to download
-.. the latest release from its `PyPi repository <https://pypi.python.org/pypi/chamois>`_.
-.. It will install all dependencies, then install CHAMOIS and its required data:
+CHAMOIS is hosted on GitHub, but the easiest way to install it is to download
+the latest release from its `PyPi repository <https://pypi.python.org/pypi/chamois-tool>`_.
+It will install all dependencies, then install CHAMOIS and its required data:
 
-.. .. code:: console
+.. code:: console
 
-..     $ pip install --user chamois
+    $ pip install --user chamois-tool
 
 
 .. Conda
