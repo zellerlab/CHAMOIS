@@ -12,10 +12,10 @@ CHAMOIS |Stars|
 
 *Chemical Hierarchy Approximation for secondary Metabolite clusters Obtained In Silico.*
 
-|Actions| |PyPI| |Wheel| |Version| |License| |Source| |Mirror| |Issues| |Docs| |Changelog| |Preprint|
+|Actions| |PyPI| |Wheel| |Versions| |License| |Source| |Mirror| |Issues| |Docs| |Changelog| |Preprint|
 
 
-.. |Actions| image:: https://img.shields.io/github/actions/workflow/status/zellerlab/CHAMOIS/test.yml?branch=master&logo=github&style=flat-square&maxAge=300
+.. |Actions| image:: https://img.shields.io/github/actions/workflow/status/zellerlab/CHAMOIS/test.yml?branch=main&logo=github&style=flat-square&maxAge=300
    :target: https://github.com/zellerlab/CHAMOIS/actions
 
 .. |PyPI| image:: https://img.shields.io/pypi/v/chamois-tool.svg?logo=pypi&style=flat-square&maxAge=3600
@@ -24,7 +24,7 @@ CHAMOIS |Stars|
 .. |Wheel| image:: https://img.shields.io/pypi/wheel/chamois-tool.svg?style=flat-square&maxAge=3600
    :target: https://pypi.org/project/chamois-tool/#files
 
-.. |Python Versions| image:: https://img.shields.io/pypi/pyversions/chamois-tool.svg?logo=python&style=flat-square&maxAge=3600
+.. |Versions| image:: https://img.shields.io/pypi/pyversions/chamois-tool.svg?logo=python&style=flat-square&maxAge=3600
    :target: https://pypi.org/project/chamois-tool/#files
 
 .. |License| image:: https://img.shields.io/badge/license-GPLv3-blue.svg?style=flat-square&maxAge=2678400
@@ -37,7 +37,7 @@ CHAMOIS |Stars|
    :target: https://git.embl.de/larralde/CHAMOIS
 
 .. |Changelog| image:: https://img.shields.io/badge/keep%20a-changelog-8A0707.svg?maxAge=2678400&style=flat-square
-   :target: https://github.com/zellerlab/CHAMOIS/blob/master/CHANGELOG.md
+   :target: https://github.com/zellerlab/CHAMOIS/blob/main/CHANGELOG.md
 
 .. |Issues| image:: https://img.shields.io/github/issues/zellerlab/CHAMOIS.svg?style=flat-square&maxAge=600
    :target: https://github.com/zellerlab/CHAMOIS/issues
