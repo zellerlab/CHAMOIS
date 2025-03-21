@@ -116,7 +116,7 @@ is built for every release. To get the latest image, run:
 
 .. code:: console
 
-    $ docker pull ghcr.io/zellerlab/chamois:main
+    $ docker pull ghcr.io/zellerlab/chamois
 
 Then, to run the image and analyze files in the local directory, make sure
 to mount the currend working directory to the `/io` volume, enable terminal
@@ -125,7 +125,7 @@ line interface normally:
 
 .. code:: console
 
-    $ docker run -v $(pwd):/io -t ghcr.io/zellerlab/chamois:main predict -i tests/data/BGC0000703.4.gbk -o tests/data/BGC0000703.4.hdf5
+    $ docker run -v $(pwd):/io -t ghcr.io/zellerlab/chamois predict -i tests/data/BGC0000703.4.gbk -o tests/data/BGC0000703.4.hdf5
 
 
 Singularity / Apptainer
