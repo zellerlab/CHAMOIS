@@ -204,8 +204,7 @@ class download_pfam(setuptools.Command):
         )
         # download to `output`
         with contextlib.ExitStack() as ctx:
-            dl = ctx.enter_context(pbar)
-            src = ctx.enter_context(gzip.open(dl))
+            src = ctx.enter_context(pbar)
             dst = ctx.enter_context(open(output, "wb"))
             shutil.copyfileobj(src, dst)
 
