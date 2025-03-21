@@ -1,4 +1,4 @@
-"""Chemical Hierarchy Approximation for Metabolites Obtained In Silico.
+"""Chemical Hierarchy Approximation for secondary Metabolism clusters Obtained In Silico.
 """
 
 __version__ = "0.1.0"
