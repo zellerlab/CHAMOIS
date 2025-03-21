@@ -21,4 +21,3 @@ sphinx-argparse
 dna-features-viewer
 matplotlib
 palettable
-rdkit
