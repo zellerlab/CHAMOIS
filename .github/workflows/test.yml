@@ -164,12 +164,12 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.13
+    - name: Install build requirements
+      run: python -m pip install -U pip wheel setuptools
     - name: Install project dependencies
       run: python -m pip install -e .
     - name: Build new HMM artifacts
       run: python setup.py download_pfam -f -r
-    - name: Compress Pfam HMM
-      run: gzip -c build/lib/gecco/hmmer/Pfam.h3m > Pfam.h3m.gz
     - name: Upload HMM
       uses: softprops/action-gh-release@v2
       with:
