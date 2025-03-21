@@ -3,11 +3,14 @@ Installation
 
 .. caution::
 
-    Windows is not supported by HMMER, which is used by CHAMOIS to perform 
-    domain annotation. CHAMOIS therefore cannot be installed on Windows 
-    machines. Consider using a Python install inside the 
+    Windows is not supported by HMMER, which is used by CHAMOIS to perform
+    domain annotation. CHAMOIS therefore cannot be installed on Windows
+    machines. Consider using a Python install inside the
     `Windows Subsystem for Linux <https://learn.microsoft.com/en-us/windows/wsl/install>`_
     if you need CHAMOIS on a Windows computer.
+
+Local Setup
+-----------
 
 PyPi
 ^^^^
@@ -91,7 +94,7 @@ use ``build`` and ``installer`` manually:
 
 .. code:: console
 
-    $ git clone --recursive https://github.com/zellerlab/CHAMOIS
+    $ git clone https://github.com/zellerlab/CHAMOIS
     $ cd CHAMOIS
     $ python -m build .
     # python -m installer dist/*.whl
@@ -100,3 +103,45 @@ use ``build`` and ``installer`` manually:
 
     Installing packages without ``pip`` is strongly discouraged, as they can
     only be uninstalled manually, and may damage your system.
+
+
+Containers
+----------
+
+Docker
+^^^^^^
+
+CHAMOIS is also distributed in a Docker container for reproducibility. An image
+is built for every release. To get the latest image, run:
+
+.. code:: console
+
+    $ docker pull ghcr.io/zellerlab/chamois:main
+
+Then, to run the image and analyze files in the local directory, make sure
+to mount the currend working directory to the `/io` volume, enable terminal
+emulation with `-t` to get a nice output, and run the rest of the command
+line interface normally:
+
+.. code:: console
+
+    $ docker run -v $(pwd):/io -t ghcr.io/zellerlab/chamois:main predict -i tests/data/BGC0000703.4.gbk -o tests/data/BGC0000703.4.hdf5
+
+
+Singularity / Apptainer
+^^^^^^^^^^^^^^^^^^^^^^^
+
+A recipe for Singularity / Apptainer containers is available in the project
+repository. Clone the repository and then build the image with:
+
+.. code:: console
+
+    $ git clone https://github.com/zellerlab/CHAMOIS
+    $ cd CHAMOIS
+    $ singularity build --fakeroot chamois.sif pkg/singularity/chamois.def
+
+Then run the image and analyze the files in the local directory:
+
+.. code:: console
+
+    $ singularity run chamois.sif predict -i tests/data/BGC0000703.4.gbk -o tests/data/BGC0000703.4.hdf5
