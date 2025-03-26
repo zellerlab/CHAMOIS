@@ -88,6 +88,7 @@ def runcv(i, class_index, train_indices, test_indices):
                 solver="liblinear",
                 max_iter=100,
                 C=1.0,
+                random_state=args.seed,
             )
         elif args.model == "ridge":
             model = sklearn.linear_model.LogisticRegression(
@@ -95,6 +96,7 @@ def runcv(i, class_index, train_indices, test_indices):
                 solver="liblinear",
                 max_iter=100,
                 C=1.0,
+                random_state=args.seed,
             )
         elif args.model == "dummy":
             model = sklearn.dummy.DummyClassifier()

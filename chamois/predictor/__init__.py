@@ -44,6 +44,7 @@ class ChemicalOntologyPredictor:
         model: str = "logistic",
         alpha: float = 1.0,
         variance: Optional[float] = None,
+        seed: int = 0,
     ) -> None:
         """Create a new, uninitialized model.
 
@@ -78,6 +79,7 @@ class ChemicalOntologyPredictor:
         self.model: str = model
         self.alpha: float = 1.0
         self.variance = variance
+        self.seed = seed
 
     def __getstate__(self) -> Dict[str, object]:
         return {
@@ -140,7 +142,8 @@ class ChemicalOntologyPredictor:
                 "l1",
                 solver="liblinear",
                 max_iter=self.max_iter,
-                C=1.0/self.alpha
+                C=1.0/self.alpha,
+                random_state=self.seed,
             ),
             n_jobs=self.n_jobs,
         )
@@ -168,7 +171,7 @@ class ChemicalOntologyPredictor:
     @requires("scipy.sparse")
     def _fit_ridge(self, X, Y):
         # train model using scikit-learn
-        model = sklearn.linear_model.RidgeClassifier(alpha=self.alpha)
+        model = sklearn.linear_model.RidgeClassifier(alpha=self.alpha, random_state=self.seed)
         model.fit(X, Y)
 
         # copy coefficients & intercept to a single NumPy array

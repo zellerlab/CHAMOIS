@@ -77,6 +77,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
         model=args.model,
         alpha=args.alpha,
         variance=args.variance,
+        seed=args.seed,
     )
     model.fit(features, classes)
     console.print(f"[bold blue]{'Retaining':>12}[/] {len(model.features_)} features in final model")
@@ -118,6 +119,6 @@ def run(args: argparse.Namespace, console: Console) -> int:
         args.output.parent.mkdir(parents=True, exist_ok=True)
     with args.output.open("w") as dst:
         model.save(dst)
-    console.print(f"[bold green]{'Finished':>12}[/] training model")
+    console.print(f"[bold green]{'Finished':>12}[/] training model [purple]{model.checksum()}[/]")
 
     return 0

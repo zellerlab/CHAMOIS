@@ -125,6 +125,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
             model=args.model,
             alpha=args.alpha,
             variance=args.variance,
+            seed=args.seed,
         )
         model.fit(train_X, train_Y)
         # test fold
