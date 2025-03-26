@@ -5,7 +5,20 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-[Unreleased]: https://github.com/zellerlab/CHAMOIS/compare/v0.1.1...HEAD
+[Unreleased]: https://github.com/zellerlab/CHAMOIS/compare/v0.1.2...HEAD
+
+
+## [v0.1.2] - 2025-03-26
+[v0.1.2]: https://github.com/zellerlab/CHAMOIS/compare/v0.1.1...v0.1.2
+
+### Fixed
+- Make installation procedure not require extra packages in most cases.
+- Remove `universal` from `bdist_wheel` command in `setup.cfg`.
+- Seeds not being passed from the CLI to the actual `ChemicalOntologyPredictor` instances.
+
+### Documentation
+- Add missing Javascript files for PyPI icons.
+- Update installation instructions for Docker and Singularity.
 
 
 ## [v0.1.1] - 2025-03-21
