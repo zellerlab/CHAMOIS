@@ -16,36 +16,36 @@
 
 ## 🗺️  ️Overview
 
-CHAMOIS is a fast method for predicting chemical features of natural products 
-produced by Biosynthetic Gene Clusters (BGCs) using only their genomic 
-sequence. It can be used to get chemical features from BGCs predicted in 
-silico with tools such as [GECCO](https://gecco.embl.de) or 
+CHAMOIS is a fast method for predicting chemical features of natural products
+produced by Biosynthetic Gene Clusters (BGCs) using only their genomic
+sequence. It can be used to get chemical features from BGCs predicted in
+silico with tools such as [GECCO](https://gecco.embl.de) or
 [antiSMASH](https://antismash.secondarymetabolites.org).
 
 ## 💡 Usage
 
-This section shows only the basic commands for installing and running CHAMOIS. 
-The [online documentation](https://chamois.readthedocs.io) 
-contains a more detailed 
+This section shows only the basic commands for installing and running CHAMOIS.
+The [online documentation](https://chamois.readthedocs.io)
+contains a more detailed
 [installation guide](https://chamois.readthedocs.io/en/latest/guide/install.html),
-[examples](https://chamois.readthedocs.io/en/latest/examples/index.html), 
-an [API reference](https://chamois.readthedocs.io/en/latest/api/index.html), 
+[examples](https://chamois.readthedocs.io/en/latest/examples/index.html),
+an [API reference](https://chamois.readthedocs.io/en/latest/api/index.html),
 and a [CLI reference](https://chamois.readthedocs.io/en/latest/cli/index.html)
 
 ### 🔧 Installing CHAMOIS
 
-CHAMOIS is implemented in [Python](https://www.python.org/), and supports 
-[all versions](https://endoflife.date/python) from Python 3.7 onwards. 
+CHAMOIS is implemented in [Python](https://www.python.org/), and supports
+[all versions](https://endoflife.date/python) from Python 3.7 onwards.
 It requires additional libraries that can be installed directly from
 [PyPI](https://pypi.org), the Python Package Index.
-
-Clone the repository and install it from the local folder. This will take 
-a little bit of time, since it will download the Pfam HMMs used for annotation
-and install dependencies:
 
 ```console
 $ pip install chamois-tool
 ```
+
+Installing the package requires downloading an extra 44 MiB of data (profile HMMs)
+from GitHub, which will add to the install time depending on the speed of your
+Internet connection.
 
 *Note that CHAMOIS uses [HMMER3](http://hmmer.org/), which can only run
 on PowerPC, x86-64 and Aarch64 machines running a POSIX operating system.
@@ -56,12 +56,19 @@ Therefore, CHAMOIS **will work on Linux and OSX, but not on Windows.***
 Once CHAMOIS is installed, you can run it from the terminal by providing
 it with one or more GenBank file the genomic records of the BGCs to analyze,
 and an output path where to write the results in HDF5 format. For instance to
-predict the classes for [BGC0000703](https://mibig.secondarymetabolites.org/repository/BGC0000703.4/index.html#r1c1), 
+predict the classes for [BGC0000703](https://mibig.secondarymetabolites.org/repository/BGC0000703.4/index.html#r1c1),
 a kanamycin-producing BGC from MIBiG:
 
 ```console
 $ chamois predict -i tests/data/BGC0000703.4.gbk -o tests/data/BGC0000703.4.hdf5
 ```
+
+*This takes about 3 seconds and 600 MiB of RAM on a higher-end laptop
+(Linux 6.13.8, i7-1255U @ 4.70 GHz). The runtime and memory usage scales
+linearly with the number of BGCs to process.*
+
+Additional examples for running CHAMOIS can be found in the [online
+documentation](https://chamois.readthedocs.io/en/latest/examples/index.html).
 
 ### 🔎 Viewing results
 
@@ -75,7 +82,7 @@ To get a summary for each predicted BGC, use the `render` command:
 $ chamois render -i tests/data/BGC0000703.4.hdf5
 ```
 
-Predictions for each BGC will be shown as a tree with their computed 
+Predictions for each BGC will be shown as a tree with their computed
 probabilities:
 
 ```
@@ -114,6 +121,53 @@ CHEMONTID:0004707 (Organic nitrogen compounds): 0.999
     └── CHEMONTID:0002674 (Cyclohexylamines): 0.987
 ```
 
+### 🎛️ Training CHAMOIS
+
+Training CHAMOIS is also done with the CLI, provided you have training data
+available. You can use the [CHAMOIS datasets](https://zenodo.org/records/15009032)
+released on [Zenodo](https://zenodo.org/) to reproduce our results.
+
+For instance, to train on the MIBiG 3.1 BGCs, the dataset used to train
+the CHAMOIS classifier distributed with the code, run the following command:
+
+```console
+$ chamois train -f data/datasets/mibig3.1/features.hdf5 -c data/datasets/mibig3.1/classes.hdf5 -o model.json
+```
+
+*This takes about 12 seconds and 600 MiB of RAM on a higher-end laptop
+(Linux 6.13.8, i7-1255U @ 4.70 GHz).*
+
+## 📝 Requirements
+
+### 🖥️ System requirements
+
+CHAMOIS is a pure-python package but requires HMMER, which only runs on
+PowerPC, x86-64 and Aarch64 systems, and only on POSIX operating systems
+(Linux, MacOS, BSD). **Windows is not supported by HMMER**.
+
+CHAMOIS is tested on Linux (Ubuntu 22.04) using the GitHub Actions continuous
+integration platform.
+
+### 🐍 Software requirements
+
+CHAMOIS supports (and is tested) on all Python versions from Python 3.7 onwards.
+It requires the following Python packages:
+
+|                     | Minimum  | Tested | Latest                                                                                                                                                      |
+|---------------------|----------|--------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| anndata             | >=0.8    | 0.9.2  | ![PyPI](https://img.shields.io/pypi/v/anndata?style=flat-square&logo=pypi&cacheSeconds=3600&link=https%3A%2F%2Fpypi.org%2Fproject%2Fanndata%2F)             |
+| gb-io               | >=0.3.1  | 0.3.4  | ![PyPI](https://img.shields.io/pypi/v/gb-io?style=flat-square&logo=pypi&cacheSeconds=3600&link=https%3A%2F%2Fpypi.org%2Fproject%2Fgb-io%2F)                 |
+| lz4                 | >=4.0    | 4.3.3  | ![PyPI](https://img.shields.io/pypi/v/lz4?style=flat-square&logo=pypi&cacheSeconds=3600&link=https%3A%2F%2Fpypi.org%2Fproject%2Flz4%2F)                     |
+| numpy               | >=1.0    | 2.2.4  | ![PyPI](https://img.shields.io/pypi/v/numpy?style=flat-square&logo=pypi&cacheSeconds=3600&link=https%3A%2F%2Fpypi.org%2Fproject%2Fnumpy%2F)                 |
+| pandas              | >=1.3    | 2.2.3  | ![PyPI](https://img.shields.io/pypi/v/pandas?style=flat-square&logo=pypi&cacheSeconds=3600&link=https%3A%2F%2Fpypi.org%2Fproject%2Fpandas%2F)               |
+| platformdirs        | >=3.0    | 4.3.6  | ![PyPI](https://img.shields.io/pypi/v/platformdirs?style=flat-square&logo=pypi&cacheSeconds=3600&link=https%3A%2F%2Fpypi.org%2Fproject%2Fplatformdirs%2F)   |
+| pyhmmer             | >=0.11.0 | 0.11.0 | ![PyPI](https://img.shields.io/pypi/v/pyhmmer?style=flat-square&logo=pypi&cacheSeconds=3600&link=https%3A%2F%2Fpypi.org%2Fproject%2Fpyhmmer%2F)             |
+| pyrodigal           | >=3.0    | 3.6.3  | ![PyPI](https://img.shields.io/pypi/v/pyrodigal?style=flat-square&logo=pypi&cacheSeconds=3600&link=https%3A%2F%2Fpypi.org%2Fproject%2Fpyrodigal%2F)         |
+| rich                | >=12.4   | 13.9.4 | ![PyPI](https://img.shields.io/pypi/v/rich?style=flat-square&logo=pypi&cacheSeconds=3600&link=https%3A%2F%2Fpypi.org%2Fproject%2Frich%2F)                   |
+| rich-argparse       | >=1.1    | 1.6.0  | ![PyPI](https://img.shields.io/pypi/v/rich-argparse?style=flat-square&logo=pypi&cacheSeconds=3600&link=https%3A%2F%2Fpypi.org%2Fproject%2Frich-argparse%2F) |
+| scipy               | >=1.4    | 1.15.2 | ![PyPI](https://img.shields.io/pypi/v/scipy?style=flat-square&logo=pypi&cacheSeconds=3600&link=https%3A%2F%2Fpypi.org%2Fproject%2Fscipy%2F)                 |
+
+
 ## 🔖 Reference
 
 CHAMOIS can be cited using the following preprint:
@@ -140,7 +194,7 @@ for more details.
 
 ## ⚖️ License
 
-This software is provided under the [GNU General Public License v3.0 *or later*](https://choosealicense.com/licenses/gpl-3.0/). 
+This software is provided under the [GNU General Public License v3.0 *or later*](https://choosealicense.com/licenses/gpl-3.0/).
 CHAMOIS is developped by the [Zeller Lab](https://zellerlab.org)
-at the [European Molecular Biology Laboratory](https://www.embl.de/) in Heidelberg 
+at the [European Molecular Biology Laboratory](https://www.embl.de/) in Heidelberg
 and the [Leiden University Medical Center](https://lumc.nl/en/) in Leiden.
