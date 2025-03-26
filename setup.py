@@ -29,7 +29,7 @@ from setuptools.command.sdist import sdist as _sdist
 try:
     import rich.progress
 except ImportError as err:
-    rich = None
+    rich = err
 
 try:
     from pyhmmer.plan7 import HMMFile
@@ -132,14 +132,6 @@ class download_pfam(setuptools.Command):
         # make sure the build/lib/ folder exists
         self.mkpath(self.build_lib)
 
-        # Check `rich` and `pyhmmer` are installed
-        if isinstance(HMMFile, ImportError):
-            raise RuntimeError("pyhmmer is required to run the `download_pfam` command") from HMMFile
-        if isinstance(rich, ImportError):
-            raise RuntimeError("`rich` is required to run the `download_pfam` command") from rich
-        if isinstance(lz4, ImportError):
-            raise RuntimeError("`lz4` is required to run the `download_pfam` command") from rich
-
         # Load domain whitelist from the predictor
         predictor_file = os.path.join("chamois", "predictor", "predictor.json")
         self.info(f"loading domain accesssions from {predictor_file}")
@@ -156,7 +148,7 @@ class download_pfam(setuptools.Command):
         # Download and binarize required HMMs
         local = os.path.join(self.build_lib, "chamois", "domains", f"Pfam{self.version}.hmm.lz4")
         self.mkpath(os.path.dirname(local))
-        
+
         # Fall back to filtering the HMMs from the Pfam FTP server
         self.make_file(predictor_file, local, self.download_pfam, (local, domains))
         if self.inplace:
@@ -172,6 +164,11 @@ class download_pfam(setuptools.Command):
                 pass
             else:
                 return
+        # check `rich` and `pyhmmer` are installed if subsetting Pfam
+        if isinstance(HMMFile, ImportError):
+            raise RuntimeError("pyhmmer is required to run the `download_pfam` command") from HMMFile
+        if isinstance(lz4, ImportError):
+            raise RuntimeError("`lz4` is required to run the `download_pfam` command") from lz4
         # download the HMM to `local`, and delete the file if any error
         # or interruption happens during the download
         # if not os.path.exists(local):
@@ -196,15 +193,20 @@ class download_pfam(setuptools.Command):
         # fetch the resource
         self.info(f"fetching {url}")
         response = urllib.request.urlopen(url)
-        # use `rich.progress` to make a progress bar
-        pbar = rich.progress.wrap_file(
-            response,
-            total=int(response.headers["Content-Length"]),
-            description=os.path.basename(output),
-        )
-        # download to `output`
+
+        # download to output
         with contextlib.ExitStack() as ctx:
-            src = ctx.enter_context(pbar)
+            # use `rich.progress` to make a progress bar
+            if rich is not None:
+                pbar = rich.progress.wrap_file(
+                    response,
+                    total=int(response.headers["Content-Length"]),
+                    description=os.path.basename(output),
+                )
+                src = ctx.enter_context(pbar)
+            else:
+                src = ctx.enter_context(response)
+            # download to `output`
             dst = ctx.enter_context(open(output, "wb"))
             shutil.copyfileobj(src, dst)
 
@@ -227,7 +229,7 @@ class download_pfam(setuptools.Command):
                 dl = ctx.enter_context(pbar)
             else:
                 dl = ctx.enter_context(response)
-
+            # download to buffer or stream
             src = ctx.enter_context(gzip.open(dl))
             dst = ctx.enter_context(lz4.frame.open(output, "wb"))
             if stream:
@@ -236,7 +238,7 @@ class download_pfam(setuptools.Command):
                 buffer = io.BytesIO()
                 shutil.copyfileobj(src, buffer)
                 buffer.seek(0)
-                hmm_file = HMMFile(buffer)
+                hmm_file = ctx.enter_context(HMMFile(buffer))
             for hmm in hmm_file:
                 nsource += 1
                 if hmm.accession.decode() in domains:
