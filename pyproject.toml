@@ -1,4 +1,4 @@
 [build-system]
-requires = ['pyhmmer ~=0.11.0', 'lz4 ~=4.0', 'setuptools >=39.2', 'rich >=12.4.0', 'wheel >=0.30']
+requires = ['setuptools >=39.2', 'wheel >=0.30']
 build-backend = "setuptools.build_meta"
 
