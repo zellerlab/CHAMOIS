@@ -43,9 +43,9 @@ It requires additional libraries that can be installed directly from
 $ pip install chamois-tool
 ```
 
-Installing the package requires downloading an extra 44 MiB of data (profile HMMs)
-from GitHub, which will add to the install time depending on the speed of your
-Internet connection.
+Installing the package is instantaneous, but requires downloading an extra
+44 MiB of data (profile HMMs) from GitHub, which will add to the install
+time depending on the speed of your Internet connection.
 
 *Note that CHAMOIS uses [HMMER3](http://hmmer.org/), which can only run
 on PowerPC, x86-64 and Aarch64 machines running a POSIX operating system.
