@@ -36,6 +36,15 @@ memory = joblib.Memory(location=args.cache, verbose=False)
 
 url = f"https://dl.secondarymetabolites.org/mibig/mibig_json_{args.mibig_version}.tar.gz"
 
+def convert_mibig4_to_mibig3(entry):
+    entry["mibig_accession"] = entry.pop("accession")
+    for compound in entry["compounds"]:
+        if "name" in compound:
+            compound["compound"] = compound.pop("name")
+        if "structure" in compound:
+            compound["chem_struct"] = compound.pop("structure")
+    return entry
+
 with rich.progress.Progress() as progress:
     # load blocklist if any
     if args.blocklist is not None:
@@ -53,9 +62,13 @@ with rich.progress.Progress() as progress:
                 for entry in iter(tar.next, None):
                     if entry.name.endswith(".json"):
                         with tar.extractfile(entry) as f:
-                            record = json.load(f)["cluster"]
-                            if record["mibig_accession"] not in blocklist:
-                                mibig[record["mibig_accession"]] = record
+                            record = json.load(f)
+                            cluster = convert_mibig4_to_mibig3(record) if args.mibig_version == "4.0" else record["cluster"]
+                            if cluster["status"] == "retired":
+                                continue
+                            if cluster["mibig_accession"] in blocklist:
+                                continue
+                            mibig[cluster["mibig_accession"]] = cluster
 
 rich.print(f"[bold green]{'Downloaded':>12}[/] {len(mibig)} BGCs")
 

@@ -141,6 +141,18 @@ $(DATA)/datasets/mibig3.1/taxonomy.tsv: $(DATA)/mibig/blocklist.tsv $(TAXONOMY)/
 	$(PYTHON) $(SCRIPTS)/mibig/download_taxonomy.py --blocklist $< --mibig-version 3.1 -o $@ --taxonomy $(TAXONOMY)
 
 
+# --- Download MIBiG 4.0 data ------------------------------------------------
+
+$(DATA)/datasets/mibig4.0/clusters.gbk: $(DATA)/mibig/blocklist.tsv $(SCRIPTS)/mibig/download_records.py
+	$(PYTHON) $(SCRIPTS)/mibig/download_records.py --blocklist $< --mibig-version 4.0 -o $@
+
+$(DATA)/datasets/mibig4.0/compounds.json: $(DATA)/mibig/blocklist.tsv $(ATLAS) $(SCRIPTS)/mibig/download_compounds.py
+	$(PYTHON) $(SCRIPTS)/mibig/download_compounds.py --blocklist $< --mibig-version 4.0 -o $@ --atlas $(ATLAS) --cache $(BUILD)
+
+$(DATA)/datasets/mibig4.0/taxonomy.tsv: $(DATA)/mibig/blocklist.tsv $(TAXONOMY)/names.dmp $(TAXONOMY)/nodes.dmp $(TAXONOMY)/merged.dmp
+	$(PYTHON) $(SCRIPTS)/mibig/download_taxonomy.py --blocklist $< --mibig-version 4.0 -o $@ --taxonomy $(TAXONOMY)
+
+
 # --- Download PRISM data ----------------------------------------------------
 
 $(DATA)/prism4/BGCs.tar:

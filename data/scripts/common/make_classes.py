@@ -129,11 +129,11 @@ for bgc_id, bgc_compounds in rich.progress.track(compounds.items(), description=
         except (RuntimeError, HTTPError) as err:
             rich.print(f"[bold red]{'Failed':>12}[/] to get ClassyFire annotations for {compound['compound']!r} compound of [purple]{bgc_id}[/]")
         else:
-            rich.print(f"[bold green]{'Retrieved':>12}[/] ClassyFire annotations for {compound['compound']!r} compound of {bgc_id}")
+            rich.print(f"[bold green]{'Retrieved':>12}[/] ClassyFire annotations for {compound['compound']!r} compound of [purple]{bgc_id}[/]")
             annotations[bgc_id].append(classyfire)
             continue
         try:
-            rich.print(f"[bold blue]{'Sending':>12}[/] ClassyFire query {compound['compound']!r} compound of {bgc_id}")
+            rich.print(f"[bold blue]{'Sending':>12}[/] ClassyFire query {compound['compound']!r} compound of [purple]{bgc_id}[/]")
             query = classyfire_client.query([ compound['chem_struct'].strip() ])
             status = "In Queue"
             while status == "In Queue" or status == "Processing":
@@ -145,9 +145,13 @@ for bgc_id, bgc_compounds in rich.progress.track(compounds.items(), description=
             rich.print(f"[bold red]{'Failed':>12}[/] ClassyFire annotation of {compound['compound']!r} compound of [purple]{bgc_id}[/]")
             annotations[bgc_id].append(None)
         else:
-            rich.print(f"[bold green]{'Finished':>12}[/] ClassyFire annotation of {compound['compound']!r} compound of {bgc_id}")
-            classyfire = chamois.classyfire.Classification.from_dict(classyfire_client.retrieve(query)['entities'][0])
-            annotations[bgc_id].append(classyfire)
+            rich.print(f"[bold green]{'Finished':>12}[/] ClassyFire annotation of {compound['compound']!r} compound of [purple]{bgc_id}[/]")
+            out = classyfire_client.retrieve(query)
+            if out["invalid_entities"]:
+                rich.print(f"[bold red]{'Failed':>12}[/] to get ClassyFire annotations for {compound['compound']!r} compound of [purple]{bgc_id}[/]")
+            else:
+                classyfire = chamois.classyfire.Classification.from_dict(out['entities'][0])
+                annotations[bgc_id].append(classyfire)
             continue
 
 
