@@ -117,7 +117,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
     micro_avgpr = sklearn.metrics.average_precision_score(ground_truth, probas_prop, average="micro")
     macro_avgpr = sklearn.metrics.average_precision_score(ground_truth, probas_prop, average="macro")
     semdist = semantic_distance_score(ground_truth, probas_prop.round(3), ia[testable])
-    jaccard = sklearn.metrics.jaccard_score(ground_truth, probas >= 0.5, average="samples")
+    jaccard = sklearn.metrics.jaccard_score(ground_truth, probas_prop >= 0.5, average="samples")
     stats = [
         f"[bold magenta]AUROC(µ)=[/][bold cyan]{micro_auroc:05.1%}[/]",
         f"[bold magenta]AUROC(M)=[/][bold cyan]{macro_auroc:05.1%}[/]",
