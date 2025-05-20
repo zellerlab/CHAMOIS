@@ -198,7 +198,7 @@ def get_class_index(class_: str, predictor: ChemicalOntologyPredictor) -> int:
     if len(indices) == 1:
         return indices[0]
     # failed to find feature
-    raise KeyError(feature)
+    raise KeyError(class_)
 
 
 def run_class(args: argparse.Namespace, console: Console) -> int:
