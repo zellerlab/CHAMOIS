@@ -29,6 +29,13 @@
             "database_id": []
         }
     ],
+    "BOOW01000006.1_cluster1": [
+        {
+            "chem_struct": "CCC(C1NC(=O)/C(/NC(=O)C2(NC(=O)C(NC(=O)C(NC(=O)C(NC(CNC(C3N(C(=O)NCCCCC)CCC3)=O)=O)C2)CC(=O)N)CC(=O)N)CSC=CNC(/C(/NC1=O)=C/C)=O)=C/C)C",
+            "compound": "sinosporapeptin",
+            "database_id": []
+        }
+    ],
     "CABVGP010000001.1_cluster1": [
         {
             "chem_struct": "CC1=C(C(=CC2=CC3=C(C(=C12)O)C(=O)C4=C(C3)C=C(C=C4O)O)O)C(=O)O",
@@ -192,6 +199,36 @@
             "compound": "14-hydroxyisochainin",
             "database_id": [
                 "pubchem:139589269"
+            ]
+        }
+    ],
+    "CP043317.1_cluster1": [
+        {
+            "chem_struct": "C[C@H]1C(=O)C2=C(C=C3C(=C2)C=CC=C3O)[C@@]([C@]1(C(=O)O)O)(CCC(C)C)O",
+            "compound": "rishirilide B",
+            "database_id": [
+                "pubchem:9976530"
+            ]
+        },
+        {
+            "chem_struct": "C[C@H]1C(=O)C2=C(C=C3C(=C2O)C=CC=C3O)[C@@]([C@]1(C(=O)O)O)(CCC(C)C)O",
+            "compound": "rishirilide C",
+            "database_id": [
+                "pubchem:45359373"
+            ]
+        },
+        {
+            "chem_struct": "CC1=C(C(=C2C(=C1O)C(=O)C3=C(C2=O)C(=CC=C3)O)CCC(C)C)O",
+            "compound": "lupinacidin A",
+            "database_id": [
+                "pubchem:23628280"
+            ]
+        },
+        {
+            "chem_struct": "CC1=C(C(=C2C(=C1O)C(=O)C3=C(C2=O)C(=CC=C3)O)O)C(=O)CCC(C)C",
+            "compound": "galvaquinone B",
+            "database_id": [
+                "pubchem:71456588"
             ]
         }
     ],

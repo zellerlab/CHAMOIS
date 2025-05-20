@@ -20,7 +20,7 @@ PFAM_HMM=$(DATA)/pfam/Pfam$(PFAM_VERSION).hmm
 ATLAS=$(DATA)/npatlas/NPAtlas_download.json.gz
 CHEMONT=$(DATA)/ontologies/ChemOnt_2_1.obo
 
-DATASET_NAMES=mibig3.1 mibig2.0
+DATASET_NAMES=mibig3.1 mibig2.0 native
 DATASET_TABLES=features classes ani
 
 TAXONOMY=$(DATA)/taxonomy
