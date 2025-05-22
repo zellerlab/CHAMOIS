@@ -5,6 +5,8 @@ BGC0000016	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/is
 BGC0000025	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/097
 BGC0000049	retired in MIBiG 3.1	
 BGC0000061	retired in MIBiG 3.1	
+BGC0000067	partial cluster	https://www.ncbi.nlm.nih.gov/nuccore/DQ249341.1
+BGC0000068	partial cluster	https://pubmed.ncbi.nlm.nih.gov/18214443/
 BGC0000089	retired in MIBiG 3.1	
 BGC0000095	retired in MIBiG 3.1	
 BGC0000101	retired in MIBiG 3.1	
