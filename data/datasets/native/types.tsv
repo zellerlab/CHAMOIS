@@ -1,0 +1,59 @@
+genome	sequence_id	bgc_id	compound	reference	type
+AP018448.1	AP018448.1	AP018448.1_cluster1	TAN-1323D	pubmed:36602093	Polyketide
+BJNH01	BJNH01000015.1	BJNH01000015.1_cluster1	kongjuemycin C2	pubmed:37606755	NRP;Polyketide
+BN001302.1	BN001302.1	BN001302.1_cluster1	anhydrosepedonin	doi:10.3389/ffunb.2021.777474	Polyketide
+BOOW01	BOOW01000006.1	BOOW01000006.1_cluster1	sinosporapeptin	pubmed:37306831	RiPP
+CABVGP01	CABVGP010000001.1	CABVGP010000001.1_cluster1	tetracenomycin X	pubmed:36201117	Polyketide
+CM003601.1	CM003601.1	CM003601.1_cluster1	chalkophomycin	doi:10.1101/2024.01.24.577118	Other
+CP000085.1	CP000085.1	CP000085.1_cluster1	aminopyruvatide A	doi:10.1101/2023.10.30.564719	RiPP
+CP001510.1	CP001510.1	CP001510.1_cluster1	methylolanthanin	doi:10.1101/2022.01.19.476857	RiPP
+CP001778.1	CP001778.1	CP001778.1_cluster1	threopeptin	doi:10.1101/2023.12.23.573212 	NRP;Polyketide
+CP003284.1	CP003284.1	CP003284.1_cluster1	anabaenopeptilide 90A	pubmed:10931313	NRP
+CP007699.2	CP007699.2	CP007699.2_cluster1	azoxymycin B	pubmed:26623715	Polyketide
+CP011032.1	CP011032.1	CP011032.1_cluster1	tambjamine YP1	doi:10.1111/j.1462-2920.2006.01177.x	Alkaloid
+CP012672.1	CP012672.1	CP012672.1_cluster1	icumazole B1	doi:10.21203/rs.3.rs-2066606/v1	NRP;Polyketide
+CP013141.1	CP013141.1	CP013141.1_cluster1	thatisin	doi:10.1021/acschembio.1c00672	RiPP
+CP016174.1	CP016174.1	CP016174.1_cluster1	norvancomyin	pubmed:33531006	NRP;Saccharide
+CP017708.2	CP017708.2	CP017708.2_cluster1	hectoramide B	doi:10.1101/2023.07.06.547815	NRP
+CP022438.1	CP022438.1	CP022438.1_cluster1	25-hydroxypeucemycin	pubmed:36680588	Polyketide
+CP022438.1	CP022438.1	CP022438.1_cluster2	14-hydroxyisochainin	doi:10.7164/antibiotics.42.577	Polyketide
+CP023992.1	CP023992.1	CP023992.1_cluster1	elaiophylin	pubmed:15380647	Polyketide
+CP043317.1	CP043317.1	CP043317.1_cluster1	rishirilide B	pubmed:30015485	Polyketide
+CP046173.1	CP046173.1	CP046173.1_cluster1	terpenomycin	doi:10.1021/acschembio.3c00311	Polyketide
+CP047318.1	CP047318.1	CP047318.1_cluster1	HM190 macrolide 1	pubmed:32676068	Polyketide
+CP048397.1	CP048397.1	CP048397.1_cluster1	viennamycin A	pubmed:32786880	NRP
+CP049782.1	CP049782.1	CP049782.1_cluster1	pyridindolol	doi:10.1038/s41598-021-84833-2	Alkaloid
+CP050504.1	CP050504.1	CP050504.1_cluster1	8,8a-deoxyoleandolide	pubmed:10908114	Polyketide
+CP053109.1	CP053109.1	CP053109.1_cluster1	PD116740	pubmed:8990300	Polyketide
+CP058556.1	CP058556.1	CP058556.1_cluster1	tripmycin A	doi:10.1021/acs.jnatprod.3c00199	Polyketide
+CP059991.1	CP059991.1	CP059991.1_cluster1	12-ketomethymycin N-oxyde	pubmed:33590846	Polyketide;Saccharide
+CP065050.1	CP065050.1	CP065050.1_cluster1	L-155,175	pubmed:22669556	Polyketide
+CP065050.1	CP065050.1	CP065050.1_cluster2	actinoramide A	pubmed:23911586	Polyketide;NRP
+CP065050.1	CP065050.1	CP065050.1_cluster3	cuevaene A	pubmed:23824670	Polyketide
+CP072000.1	CP072000.1	CP072000.1_cluster1	nikkomycin X	pubmed:28840532	Other
+CP085498.1	CP085498.1	CP085498.1_cluster1	kurstakin 1	pubmed:38004689	NRP
+CP092644.1	CP092644.1	CP092644.1_cluster1	actinopyrone G	pubmed:36475912	Polyketide
+CP095376.1	CP095376.1	CP095376.1_cluster1	molybdopterin	pubmed:24814342	Other
+CP102509.1	CP102509.1	CP102509.1_cluster1	pyracrimycin A	pubmed:36040247	NRP
+CP103866.1	CP103866.1	CP103866.1_cluster1	thermorubin	pubmed:36255735	Polyketide
+CP108341.1	CP108341.1	CP108341.1_cluster1	prolinolexin	doi:10.1038/s41467-022-32858-0	NRP
+CP114200.1	CP114200.1	CP114200.1_cluster1	megalochelin	doi:10.1021/acschembio.2c00958	NRP
+CP117782.1	CP117782.1	CP117782.1_cluster1	selethramide	doi:10.1073/pnas.2304668120	NRP
+CP123780.1	CP123780.1	CP123780.1_cluster1	SIA7248	pubmed:23505159	Polyketide
+DS999645.1	DS999645.1	DS999645.1_cluster1	caulibugulone A	pubmed:33445110	Other
+FN554889.1	FN554889.1	FN554889.1_cluster1	coronafacoyl-L-isoleucine	doi:10.1094/MPMI-23-2-0161	Polyketide
+FOWW01	FOWW01000002.1	FOWW01000002.1_cluster1	aridacin C	doi:10.1002/anie.202312490	Terpene
+FQZB01	FQZB01000008.1	FQZB01000008.1_cluster1	closoxazole A	10.1002/anie.202205409	Other
+JABSUY02	JABSUY020000001.1	JABSUY020000001.1_cluster1	edeine B1	pubmed:23891151	NRP;Polyketide
+JABTVI01	JABTVI010000001.1	JABTVI010000001.1_cluster1	dendrubin E	doi:10.1002/chem.202001939	Polyketide
+JAFETE01	JAFETE010000011.1	JAFETE010000011.1_cluster1	benditerpenoic acid	pubmed:33780586	Terpene
+JAFREP01	JAFREP010000003.1	JAFREP010000003.1_cluster1	phorbactazole A	doi:20.500.11850/601688	Polyketide
+JAFREP01	JAFREP010000010.1	JAFREP010000010.1_cluster1	21-methoxy-calyculinamide	doi:20.500.11850/601688	NRP;Polyketide
+JAFREP01	JAFREP010000006.1	JAFREP010000006.1_cluster1	acidobactamide A	doi:20.500.11850/601688	NRP;Polyketide
+JARAKF01	JARAKF010000001.1	JARAKF010000001.1_cluster1	azodyrecin B	doi:10.1101/2023.10.13.562208	Other
+KJ396772.2	KJ396772.2	KJ396772.2_cluster1	auricin	doi:10.1016/S0378-1119(02)00889-2	Polyketide;Saccharide
+LS999205.1	LS999205.1	LS999205.1_cluster1	protegencin	doi:10.1073/pnas.2107695118	Other
+PKLC01	PKLC01000016.1	PKLC01000016.1_cluster1	oximidine I	pubmed:37218580	NRP;Polyketide
+SMSN01	SMSN01000006.1	SMSN01000006.1_cluster1	pentamycin	doi:10.1007/s00253-023-12672-4	Polyketide
+SSBQ01	SSBQ01000002.1	SSBQ01000002.1_cluster1	levesquamide	pubmed:32363877	NRP;Polyketide
+VILE02	VILE02000015.1	VILE02000015.1_cluster1	radiosumin	doi:10.5281/zenodo.8021780	NRP
