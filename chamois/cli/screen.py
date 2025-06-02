@@ -116,9 +116,8 @@ def configure_parser(parser: argparse.ArgumentParser):
     parser.set_defaults(run=run)
 
 
+@requires("anndata")
 def load_predictions(path: pathlib.Path, predictor: ChemicalOntologyPredictor, console: Console) -> "AnnData":
-    import anndata
-
     console.print(f"[bold blue]{'Loading':>12}[/] probability predictions from {str(path)!r}")
     probas = anndata.read_h5ad(path)
     probas = probas[:, predictor.classes_.index]
@@ -129,6 +128,7 @@ def load_predictions(path: pathlib.Path, predictor: ChemicalOntologyPredictor, c
 @requires("pandas")
 def build_results(
     queries: List[Query],
+    compounds: numpy.ndarray,
     classes: "AnnData",
     distances: numpy.ndarray,
     ranks: numpy.ndarray,
@@ -144,9 +144,11 @@ def build_results(
                 query.inchi,
                 query.smiles,
                 ranks[i, j],
-                classes.obs_names[j],
+                classes.obs.index[j],
                 *classes.obs.iloc[j],
                 distances[i, j],
+                ";".join(classes.var.index[compounds[i].astype(numpy.bool_)]),
+                ";".join(classes.var.index[classes.var_vector(classes.obs.index[j])]),
             ])
     return pandas.DataFrame(
         rows,
@@ -157,7 +159,9 @@ def build_results(
             "rank",
             "bgc_id",
             *classes.obs.columns,
-            "distance"
+            "distance",
+            "compound_classes",
+            "bgc_classes",
         ]
     )
 
@@ -229,7 +233,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
         table.add_column(no_wrap=True)
         for i, query in enumerate(queries):
             j = ranks[i].argmin()
-            tree_bgc = build_tree(predictor, probas.X[j])
+            tree_bgc = build_tree(predictor, probas.var_vector(probas.obs_names[j]))
             tree_query = build_tree(predictor, compounds[i])
             inchikey = query.inchikey
             table.add_row(
@@ -240,7 +244,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
 
     # save results
     if args.output:
-        results = build_results(queries, classes, distances, ranks, max_rank=args.rank)
+        results = build_results(queries, compounds, classes, distances, ranks, max_rank=args.rank)
         console.print(f"[bold blue]{'Saving':>12}[/] search results to {str(args.output)!r}")
         results.to_csv(args.output, sep="\t", index=False)
 

@@ -168,7 +168,6 @@ class ChemicalOntologyPredictor:
         self.coef_ = scipy.sparse.csr_matrix(self.coef_)
 
     @requires("sklearn.linear_model")
-    @requires("scipy.sparse")
     def _fit_ridge(self, X, Y):
         # train model using scikit-learn
         model = sklearn.linear_model.RidgeClassifier(alpha=self.alpha, random_state=self.seed)
@@ -249,6 +248,7 @@ class ChemicalOntologyPredictor:
 
         return self
 
+    @requires("scipy.sparse")
     def propagate(self, Y: numpy.ndarray) -> numpy.ndarray:
         """Propagate the probabilities from leaves to nodes.
 
@@ -258,7 +258,10 @@ class ChemicalOntologyPredictor:
 
         """
         assert Y.shape[1] == len(self.ontology.adjacency_matrix)
-        _Y = numpy.array(Y, dtype=Y.dtype)
+        if isinstance(Y, scipy.sparse.spmatrix):
+            _Y = Y.toarray()
+        else:
+            _Y = numpy.asarray(Y, dtype=Y.dtype)
         for i in reversed(self.ontology.adjacency_matrix):
             for j in self.ontology.adjacency_matrix.parents(i):
                 _Y[:, j] = numpy.maximum(_Y[:, j], _Y[:, i])

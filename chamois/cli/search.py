@@ -35,10 +35,12 @@ def configure_parser(parser: argparse.ArgumentParser):
 
 
 @requires("anndata")
-def load_predictions(path: pathlib.Path, console: Console) -> "AnnData":
+def load_predictions(path: pathlib.Path, predictor: ChemicalOntologyPredictor, console: Console) -> "AnnData":
     console.print(f"[bold blue]{'Loading':>12}[/] probability predictions from {str(path)!r}")
     probas = anndata.read_h5ad(path)
-    return probas[:, :]
+    probas = probas[:, predictor.classes_.index]
+    classes = predictor.propagate(probas.X > 0.5)
+    return probas, anndata.AnnData(X=classes, obs=probas.obs, var=probas.var)
 
 
 @requires("anndata")
@@ -67,10 +69,20 @@ def build_results(
                 catalog.obs.index[j],
                 catalog.obs.compound.iloc[j],
                 distances[i, j],
+                ";".join(catalog.var.index[catalog.var_vector(catalog.obs.index[j])]),
+                ";".join(classes.var.index[classes.var_vector(name)]),
             ])
     return pandas.DataFrame(
         rows,
-        columns=["bgc_id", "rank", "index", "compound", "distance"]
+        columns=[
+            "bgc_id", 
+            "rank", 
+            "index", 
+            "compound", 
+            "distance",
+            "compound_classes",
+            "bgc_classes",
+        ]
     )
 
 
@@ -100,8 +112,9 @@ def probjaccard_cdist(X: numpy.ndarray, Y: numpy.ndarray) -> numpy.ndarray:
 
 @requires("scipy.stats")
 def run(args: argparse.Namespace, console: Console) -> int:
-    # predictor = load_model(args.model, console)
-    probas = load_predictions(args.input, console)
+    # load predictor
+    predictor = load_model(args.model, console)
+    probas, classes = load_predictions(args.input, predictor, console)
 
     # load catalog
     catalog = load_catalog(args.catalog, console)[:, probas.var.index]
@@ -113,7 +126,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
     ranks = scipy.stats.rankdata(distances, method="dense", axis=1)
 
     # save results
-    results = build_results(probas, catalog, distances, ranks, max_rank=args.rank)
+    results = build_results(classes, catalog, distances, ranks, max_rank=args.rank)
     if args.output:
         console.print(f"[bold blue]{'Saving':>12}[/] search results to {str(args.output)!r}")
         results.to_csv(args.output, sep="\t", index=False)
