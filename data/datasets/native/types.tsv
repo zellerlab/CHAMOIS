@@ -1,16 +1,20 @@
 genome	sequence_id	bgc_id	compound	reference	type
 AP018448.1	AP018448.1	AP018448.1_cluster1	TAN-1323D	pubmed:36602093	Polyketide
+AP019620.1	AP019620.1	AP019620.1_cluster1	cinnamexin	doi:10.1039/d3sc02380j	NRP
+BDUB01	BDUB01000001.1	BDUB01000001.1_cluster1	maculalactone B	doi:10.1101/2025.02.26.640319	Other
 BJNH01	BJNH01000015.1	BJNH01000015.1_cluster1	kongjuemycin C2	pubmed:37606755	NRP;Polyketide
 BN001302.1	BN001302.1	BN001302.1_cluster1	anhydrosepedonin	doi:10.3389/ffunb.2021.777474	Polyketide
 BOOW01	BOOW01000006.1	BOOW01000006.1_cluster1	sinosporapeptin	pubmed:37306831	RiPP
 CABVGP01	CABVGP010000001.1	CABVGP010000001.1_cluster1	tetracenomycin X	pubmed:36201117	Polyketide
 CM003601.1	CM003601.1	CM003601.1_cluster1	chalkophomycin	doi:10.1101/2024.01.24.577118	Other
+CM007717.1	CM007717.1	CM007717.1_cluster1	actinomycin X1	pubmed:28435299	NRP
 CP000085.1	CP000085.1	CP000085.1_cluster1	aminopyruvatide A	doi:10.1101/2023.10.30.564719	RiPP
 CP001510.1	CP001510.1	CP001510.1_cluster1	methylolanthanin	doi:10.1101/2022.01.19.476857	RiPP
 CP001778.1	CP001778.1	CP001778.1_cluster1	threopeptin	doi:10.1101/2023.12.23.573212 	NRP;Polyketide
 CP003284.1	CP003284.1	CP003284.1_cluster1	anabaenopeptilide 90A	pubmed:10931313	NRP
 CP007699.2	CP007699.2	CP007699.2_cluster1	azoxymycin B	pubmed:26623715	Polyketide
 CP011032.1	CP011032.1	CP011032.1_cluster1	tambjamine YP1	doi:10.1111/j.1462-2920.2006.01177.x	Alkaloid
+CP012382.1	CP012382.1	CP012382.1_cluster1	congocidine	10.1016/j.chembiol.2009.03.010	NRP
 CP012672.1	CP012672.1	CP012672.1_cluster1	icumazole B1	doi:10.21203/rs.3.rs-2066606/v1	NRP;Polyketide
 CP013141.1	CP013141.1	CP013141.1_cluster1	thatisin	doi:10.1021/acschembio.1c00672	RiPP
 CP016174.1	CP016174.1	CP016174.1_cluster1	norvancomyin	pubmed:33531006	NRP;Saccharide

@@ -15,6 +15,29 @@
             ]
         }
     ],
+    "AP019620.1_cluster1": [
+        {
+            "chem_struct": "CC(C)CC1NC(=O)C2CCCN2C(=O)C(C(O)C(C)C)NC(=O)CNC(=O)C(C(C)O)NC(=O)C2NC(=O)C(NC(=O)/C=C/C3=CC(C(O)C(C)O)=CC=C3)C(C)OC(=O)C(CC(N)=O)NC(=O)C(NC(=O)C(O)NC1=O)C(O)C1=CC(=C(O)C=C1)OC1=CC=C2C=C1",
+            "compound": "cinnamexin",
+            "database_id": [
+                "npatlas:NPA036419"
+            ] 
+        }
+    ],
+    "BDUB01000001.1_cluster1": [
+        {
+            "chem_struct": "C1=CC=C(C=C1)CC\\2=C(C(=O)O/C2=C\\C3=CC=CC=C3)CC4=CC=CC=C4 ",
+            "compound": "maculalactone B",
+            "database_id": [
+                "npatlas:NPA012373"
+            ]
+        },
+        {
+            "chem_struct": "C1C=CC(CC2=C(CC3C=CC(O)=CC=3)C(O/C/2=C\\C2C=CC=CC=2)=O)=CC=1",
+            "compound": "maculalactone N",
+            "database_id": []
+        }
+    ],
     "BJNH01000015.1_cluster1": [
         {
             "chem_struct": "C(CC(=O)NCCC(O[C@H](CCCCCCCC(C)C)/C=C\\[C@@H]([C@H](O)C(C1C(=O)OC(=O)C=1O)=O)O)=O)N",
@@ -63,6 +86,23 @@
         {
             "chem_struct": "n1(cccc1C1=N[C@@H](CO1)C(=O)N1C(=O)C=C([C@@H]1CCCN(N=O)O)OC)O",
             "compound": "chalkophomycin"
+        }
+    ],
+    "CM007717.1_cluster1": [
+        {
+            "chem_struct": "C[C@@H]1[C@@H](C(=O)N[C@@H](C(=O)N2CCC[C@H]2C(=O)N(CC(=O)N([C@H](C(=O)O1)C(C)C)C)C)C(C)C)NC(=O)C3=C4C(=C(C=C3)C)OC5=C(C(=O)C(=C(C5=N4)C(=O)N[C@H]6[C@H](OC(=O)[C@@H](N(C(=O)CN(C(=O)[C@@H]7CCCN7C(=O)[C@H](NC6=O)C(C)C)C)C)C(C)C)C)N)C",
+            "compound": "actinomycin X1",
+            "database_id": [
+                "pubchem:457193"
+            ]
+        },
+        {
+            "chem_struct": "C[C@H]1OC(=O)[C@H](C(C)C)N(C)C(=O)CN(C)C(=O)[C@H]2N(CCC2)C(=O)[C@@H](C(C)C)NC(=O)[C@H]1NC(C1C=CC(C)=C2OC3C(=NC=12)C(C(N[C@@H]1C(=O)N[C@H](C(C)C)C(=O)N2[C@@H](C[C@@H](O)C2)C(=O)N(C)CC(=O)N(C)[C@@H](C(C)C)C(=O)O[C@@H]1C)=O)=C(N)C(=O)C=3C)=O",
+            "compound": "actinomycin X2"
+        },
+        {
+            "chem_struct": "C[C@H]1OC(=O)[C@H](C(C)C)N(C)C(=O)CN(C)C(=O)[C@H]2N(CCC2)C(=O)[C@@H](C(C)C)NC(=O)[C@H]1NC(C1C=CC(C)=C2OC3C(=NC=12)C(C(N[C@@H]1C(=O)N[C@H](C(C)C)C(=O)N2[C@@H](CC(=O)C2)C(=O)N(C)CC(=O)N(C)[C@@H](C(C)C)C(=O)O[C@@H]1C)=O)=C(N)C(=O)C=3C)=O",
+            "compound": "actinomycin X0"
         }
     ],
     "CP000085.1_cluster1": [
@@ -129,6 +169,15 @@
             "chem_struct": "COC1=C2C=NCC/C=C\\CCCCCCCCC3=CC=C(N3)C(=C1)N2",
             "compound": "tambjamine MYP1",
             "database_id": []
+        }
+    ],
+    "CP012382.1_cluster1": [
+        {
+            "chem_struct": "CN1C=C(C=C1C(=O)NC2=CN(C(=C2)C(=O)NCCC(=N)N)C)NC(=O)CN=C(N)N",
+            "compound": "congocidine",
+            "database_id": [
+                "pubchem:4461"
+            ]
         }
     ],
     "CP012672.1_cluster1": [
