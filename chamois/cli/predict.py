@@ -85,7 +85,14 @@ def run(args: argparse.Namespace, console: Console) -> int:
     proteins = find_proteins(clusters, orf_finder, console)
 
     featurelist = set(model.features_[model.features_.kind == "Pfam"].index)
-    domains = annotate_hmmer(args.hmm, proteins, args.jobs, console, featurelist)
+    domains = annotate_hmmer(
+        args.hmm, 
+        proteins, 
+        args.jobs, 
+        console, 
+        whitelist=featurelist,
+        disentangle=args.disentangle,
+    )
 
     # make compositional data
     obs = build_observations(clusters, proteins)

@@ -53,6 +53,11 @@ def configure_group_predict_input(parser: argparse.ArgumentParser) -> "argparse.
         type=pathlib.Path,
         help="The path to the HMM file containing protein domains for annotation."
     )
+    group.add_argument(
+        "--disentangle",
+        action="store_true",
+        help="Remove overlapping domains by best P-value.",
+    )
     return group
 
 

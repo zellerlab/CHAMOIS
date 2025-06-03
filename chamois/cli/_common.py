@@ -147,7 +147,13 @@ def find_proteins(clusters: List[ClusterSequence], orf_finder: "ORFFinder", cons
     return proteins
 
 
-def annotate_domains(domain_annotator, proteins: List[Protein], console: Console, total: Optional[int] = None) -> List[Domain]:
+def annotate_domains(
+    domain_annotator, 
+    proteins: List[Protein], 
+    console: Console, 
+    total: Optional[int] = None, 
+    disentangle: bool = False,
+) -> List[Domain]:
     with rich.progress.Progress(
         *rich.progress.Progress.get_default_columns(),
         rich.progress.MofNCompleteColumn(),
@@ -161,17 +167,25 @@ def annotate_domains(domain_annotator, proteins: List[Protein], console: Console
             else:
                 progress.update(task_id, advance=1)
         domains = list(domain_annotator.annotate_domains(proteins, progress=callback))
-
+        if disentangle:
+            domains = list(domain_annotator.disentangle_domains(domains))
     return domains
 
 
-def annotate_hmmer(path: Optional[pathlib.Path], proteins: List[Protein], cpus: Optional[int], console: Console, whitelist: Optional[Container[str]] = None) -> List[PfamDomain]:
+def annotate_hmmer(
+    path: Optional[pathlib.Path], 
+    proteins: List[Protein], 
+    cpus: Optional[int], 
+    console: Console, 
+    whitelist: Optional[Container[str]] = None,
+    disentangle: bool = False,
+) -> List[PfamDomain]:
     from ..domains import PfamAnnotator
 
     console.print(f"[bold blue]{'Searching':>12}[/] protein domains with HMMER")
     domain_annotator = PfamAnnotator(path, cpus=cpus, whitelist=whitelist)
     total = len(whitelist) if whitelist else None
-    domains = annotate_domains(domain_annotator, proteins, console, total=total)
+    domains = annotate_domains(domain_annotator, proteins, console, total=total, disentangle=disentangle)
     console.print(f"[bold green]{'Found':>12}[/] {len(domains)} domains under inclusion threshold in {len(proteins)} proteins")
     return domains
 

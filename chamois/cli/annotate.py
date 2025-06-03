@@ -67,7 +67,14 @@ def run(args: argparse.Namespace, console: Console) -> int:
 
     orf_finder = initialize_orf_finder(args.cds, args.jobs, console)
     proteins = find_proteins(clusters, orf_finder, console)
-    domains = annotate_hmmer(args.hmm, proteins, args.jobs, console, whitelist=whitelist)
+    domains = annotate_hmmer(
+        args.hmm, 
+        proteins, 
+        args.jobs, 
+        console, 
+        whitelist=whitelist,
+        disentangle=args.disentangle,
+    )
 
     obs = build_observations(clusters, proteins)
     var = build_variables(domains)
