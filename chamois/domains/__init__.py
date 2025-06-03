@@ -168,7 +168,7 @@ class PfamAnnotator(DomainAnnotator):
             while protein_domains:
                 candidate_domain = protein_domains.pop()
                 for other_domain in filter(candidate_domain.overlaps, protein_domains.copy()):
-                    if other_domain.score < candidate_domain.score:
+                    if other_domain.pvalue > candidate_domain.pvalue:
                         protein_domains.remove(other_domain)
                     else:
                         break
