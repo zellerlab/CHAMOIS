@@ -76,6 +76,8 @@ def run(args: argparse.Namespace, console: Console) -> int:
         console,
         min_class_occurrences=0,
         min_feature_occurrences=0,
+        min_class_groups=0,
+        min_feature_groups=0,
         min_genes=args.min_genes,
         min_length=args.min_cluster_length,
         fix_mismatch=args.mismatch,

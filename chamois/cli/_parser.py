@@ -128,6 +128,20 @@ def configure_group_preprocessing(parser: argparse.ArgumentParser) -> "argparse.
         default=0,
         help="The minimum of occurences for a feature to be retained."
     )
+
+    group.add_argument(
+        "--min-class-groups",
+        type=int,
+        default=0,
+        help="The minimum number of groups for a class to be retained."
+    )
+    group.add_argument(
+        "--min-feature-groups",
+        type=int,
+        default=0,
+        help="The minimum number of groups for a feature to be retained."
+    )
+
     group.add_argument(
         "--min-cluster-length",
         type=int,

@@ -15,6 +15,7 @@ import sys
 import typing
 from typing import List, Iterable, Set, Optional, Container, Dict, Any, Tuple
 
+import numpy
 import rich.progress
 import rich.tree
 from rich.console import Console
@@ -39,6 +40,8 @@ def filter_dataset(
     remove_unknown_structure: bool = True,
     min_class_occurrences: int = 1,
     min_feature_occurrences: int = 1,
+    min_class_groups: int = 0,
+    min_feature_groups: int = 0,
     min_length: int = 1000,
     min_genes: int = 2,
     fix_mismatch: bool = False,
@@ -85,6 +88,21 @@ def filter_dataset(
     if min_feature_occurrences > 0:
         features = features[:, (features_support >= min_feature_occurrences) & (features_support <= features.n_obs - min_feature_occurrences)]
         console.print(f"[bold blue]{'Using':>12}[/] {features.n_vars} features with at least {min_feature_occurrences} observations")
+
+    if min_class_groups > 0:
+        classes_by_group = numpy.zeros((classes.obs['groups'].nunique(), classes.n_vars), dtype=bool)
+        for i, (_, rows) in enumerate(classes.obs.groupby("groups")):
+            for x in rows.index:
+                classes_by_group[i] |= classes.var_vector(x).astype(bool)
+        classes = classes[:, classes_by_group.sum(axis=0) >= min_class_groups]
+        console.print(f"[bold blue]{'Using':>12}[/] {classes.n_vars} classes occuring in at least {min_class_groups} groups")
+    if min_feature_groups > 0:
+        features_by_group = numpy.zeros((classes.obs['groups'].nunique(), features.n_vars), dtype=bool)
+        for i, (_, rows) in enumerate(classes.obs.groupby("groups")):
+            for x in rows.index:
+                features_by_group[i] |= features.var_vector(x).astype(bool)
+        features = features[:, features_by_group.sum(axis=0) >= min_feature_groups]
+        console.print(f"[bold blue]{'Using':>12}[/] {features.n_vars} features occuring in at least {min_feature_groups} groups")
 
     return features, classes
 
