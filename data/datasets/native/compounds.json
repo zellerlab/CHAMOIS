@@ -724,6 +724,18 @@
             "database_id": []
         }
     ],
+    "MUBJ01000035.1_cluster1": [
+        {
+            "chem_struct": "C12OC(=C)C(=O)NC1=C(C(=O)OCC(N)(C(=O)NC(C(O)=O)(CO)CO)CO)C=CC=2",
+            "compound": "benzobactin A",
+            "database_id": []
+        },
+        {
+            "chem_struct": "C12OC(=C)C(=O)NC1=C(C(=O)OCC(N)(C(=O)NC(C(OC)=O)(CO)CO)CO)C=CC=2",
+            "compound": "benzobactin A methyl ester",
+            "database_id": []
+        }
+    ],
     "PKLC01000016.1_cluster1": [
         {
             "chem_struct": "CO/N=CC=C/C(=O)NC/C=C/[C@H]1[C@H]([C@H]2[C@H](O2)/C=CC=CC3=C(C(=CC=C3)O)C(=O)O1)O",
