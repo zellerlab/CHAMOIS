@@ -86,15 +86,18 @@ def build_variables(domains: Iterable[Domain]) -> "DataFrame":
     var = pandas.DataFrame([
         dict(
             name=domain.name,
-            accession=domain.accession,
-            description=domain.description,
+            accession=domain.accession or "",
+            description=domain.description or "",
             kind=domain.kind,
         )
         for domain in domains
     ])
     var.drop_duplicates(inplace=True)
-    var.set_index("accession" if var["accession"].all() else name, inplace=True)
+    var.set_index("accession" if var["accession"].all() else "name", inplace=True)
     var.sort_index(inplace=True)
+    for column in ("accession", "name", "description"):
+        if column in var.columns and not var[column].any():
+            var.drop(columns=column, inplace=True)
     return var
 
 
