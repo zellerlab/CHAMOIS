@@ -1,4 +1,5 @@
 genome	sequence_id	bgc_id	compound	reference	type
+AOPZ01	AOPZ01000109.1	AOPZ01000109.1_cluster1	aurantizolicin	pubmed:30516779	RiPP
 AP018448.1	AP018448.1	AP018448.1_cluster1	TAN-1323D	pubmed:36602093	Polyketide
 AP019620.1	AP019620.1	AP019620.1_cluster1	cinnamexin	doi:10.1039/d3sc02380j	NRP
 BDUB01	BDUB01000001.1	BDUB01000001.1_cluster1	maculalactone B	doi:10.1101/2025.02.26.640319	Other

@@ -1,4 +1,11 @@
 {
+    "AOPZ01000109.1_cluster1": [
+        {
+            "chem_struct": "O1C=C2C3=NC(=CO3)C3=NC(=CS3)C3=NC(=CS3)C3=NC(=C(O3)C3C=CC=CC=3)C(=O)N[C@H]([C@@H](C)CC)C(=O)N[C@@H]([C@@H](C)CC)C(=O)NCC1=N2",
+            "compound": "aurantizolicin",
+            "database_id": []
+        }
+    ],
     "AP018448.1_cluster1": [
         {
             "chem_struct": "CC[C@H]1[C@H]([C@@H](C/C(=C/C=C/[C@@H]([C@H](OC(=O)/C(=C\\C(=C\\[C@H]([C@H]1O)C)\\C)/OC)[C@@H](C)[C@H]([C@H](C)[C@]2(C[C@H]([C@@H]([C@H](O2)/C=C/C)C)O)O)O)OC)/C)C)O",
