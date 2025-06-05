@@ -13,7 +13,7 @@ except ImportError:
     argcomplete = None
 
 from .. import __version__, __package__ as _module
-from . import train, predict, render, cv, cvsearch, annotate, search, screen, explain, validate
+from . import train, predict, render, cv, cvi, cvsearch, annotate, search, screen, explain, validate
 from ._utils import patch_showwarnings
 
 
@@ -94,6 +94,13 @@ def build_parser() -> argparse.ArgumentParser:
             "cv", 
             formatter_class=ArgumentDefaultsRichHelpFormatter,
             help="Evaluate predictor performance on a training set with cross-validation."
+        )
+    )
+    cvi.configure_parser(
+        commands.add_parser(
+            "cvi",
+            formatter_class=ArgumentDefaultsRichHelpFormatter,
+            help="Evalute predictor performance on a training set with independent cross-validations."
         )
     )
     # cvsearch.configure_parser(
