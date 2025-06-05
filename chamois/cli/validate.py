@@ -167,7 +167,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
         for j in range(classes.n_vars):
             data.append({
                 "class": classes.var_names[j],
-                "average_precision": sklearn.metrics.average_precision_score(ground_truth[:, j], probas[:, j]),
+                "auprc": sklearn.metrics.average_precision_score(ground_truth[:, j], probas[:, j]),
                 "auroc": sklearn.metrics.roc_auc_score(ground_truth[:, j], probas[:, j]),
                 "f1_score": sklearn.metrics.f1_score(ground_truth[:, j], preds[:, j]),
                 "hamming_loss": sklearn.metrics.hamming_loss(ground_truth[:, j], preds[:, j]),
