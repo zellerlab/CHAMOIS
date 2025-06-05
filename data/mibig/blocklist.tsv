@@ -35,7 +35,17 @@ BGC0000456	retired in MIBiG 3.1
 BGC0000462	retired in MIBiG 3.1	
 BGC0000463	retired in MIBiG 3.1	
 BGC0000467	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/094
+BGC0000476	not a gene cluster (216nt)	
+BGC0000478	not a gene cluster (204nt)	
+BGC0000482	not a gene cluster (246nt)	
+BGC0000485	not a gene cluster (993nt)	
+BGC0000492	not a gene cluster (192nt)	
+BGC0000493	not a gene cluster (192nt)	
+BGC0000505	not a gene cluster (387nt)	
+BGC0000562	not a gene cluster (144nt)	
 BGC0000596	retired in MIBiG 4.0	
+BGC0000618	not a gene cluster (761nt)	
+BGC0000621	not a gene cluster (219nt)	
 BGC0000629	retired in MIBiG 3.1	
 BGC0000655	exact duplicate of BGC0000611	https://github.com/mibig-secmet/mibig-json/issues/078
 BGC0000656	cluster is missing 2 genes	doi:10.1007/s00203-002-0442-2
@@ -58,6 +68,7 @@ BGC0000823	retired in MIBiG 3.1
 BGC0000824	retired in MIBiG 3.1	
 BGC0000828	retired in MIBiG 3.1	
 BGC0000835	duplicate of a subsequence of BGC0000270	https://github.com/mibig-secmet/mibig-json/issues/120
+BGC0000848	not a gene cluster (945nt)	
 BGC0000849	duplicate of a subsequence of BGC0000038	https://github.com/mibig-secmet/mibig-json/issues/123
 BGC0000908	incorrect melanin chemical	
 BGC0000909	incorrect melanin chemical	
@@ -85,6 +96,7 @@ BGC0001121	retired in MIBiG 3.1
 BGC0001124	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/108
 BGC0001129	retired in MIBiG 3.1	
 BGC0001133	invalid flanking genes	https://github.com/mibig-secmet/mibig-json/issues/176
+BGC0001134	not a gene cluster (726nt)	
 BGC0001158	retired in MIBiG 3.1	
 BGC0001180	retired in MIBiG 3.1	
 BGC0001191	retired in MIBiG 4.0	
@@ -149,12 +161,14 @@ BGC0001555	locus contains several unrelated clusters	https://github.com/mibig-se
 BGC0001557	retired in MIBiG 3.1	
 BGC0001559	duplicate of BGC0000974 with wrong type	https://github.com/mibig-secmet/mibig-json/issues/170
 BGC0001581	retired in MIBiG 3.1	
+BGC0001601	not a gene cluster (725nt)	
 BGC0001613	retired in MIBiG 3.1	
 BGC0001619	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/161
 BGC0001643	retired in MIBiG 3.1	
 BGC0001662	duplicate of BGC0001932 with extra genes	https://github.com/mibig-secmet/mibig-json/issues/033
 BGC0001673	retired in MIBiG 3.1	
 BGC0001676	retired in MIBiG 3.1	
+BGC0001680	not a gene cluster (792nt)	
 BGC0001688	retired in MIBiG 3.1	
 BGC0001689	retired in MIBiG 3.1	
 BGC0001691	retired in MIBiG 3.1	
@@ -228,6 +242,8 @@ BGC0002105	retired in MIBiG 4.0
 BGC0002113	retired in MIBiG 3.1	
 BGC0002156	retired in MIBiG 3.1	
 BGC0002159	retired in MIBiG 3.1	
+BGC0002164	not a gene cluster	
+BGC0002166	not a gene cluster	
 BGC0002178	retired in MIBiG 4.0	
 BGC0002179	retired in MIBiG 3.1	
 BGC0002182	retired in MIBiG 3.1	
