@@ -119,7 +119,7 @@ def configure_group_preprocessing(parser: argparse.ArgumentParser) -> "argparse.
     group.add_argument(
         "--min-class-occurrences",
         type=int,
-        default=10,
+        default=0,
         help="The minimum of occurences for a class to be retained."
     )
     group.add_argument(
@@ -132,7 +132,7 @@ def configure_group_preprocessing(parser: argparse.ArgumentParser) -> "argparse.
     group.add_argument(
         "--min-class-groups",
         type=int,
-        default=0,
+        default=5,
         help="The minimum number of groups for a class to be retained."
     )
     group.add_argument(
@@ -145,7 +145,7 @@ def configure_group_preprocessing(parser: argparse.ArgumentParser) -> "argparse.
     group.add_argument(
         "--min-cluster-length",
         type=int,
-        default=1000,
+        default=0,
         help="The nucleotide length threshold for retaining a cluster."
     )
     group.add_argument(
@@ -198,7 +198,7 @@ def configure_group_cross_validation(parser: argparse.ArgumentParser) -> "argpar
         "-k",
         "--kfolds",
         type=int,
-        default=10,
+        default=5,
         help="The number of cross-validation folds to run.",
     )
     group.add_argument(

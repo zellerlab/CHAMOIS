@@ -158,7 +158,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
         probas = numpy.zeros(classes.X.shape, dtype=float)
         for class_index in rich.progress.track(range(classes.n_vars), console=console, description=f"[bold blue]{'Working':>12}[/]"):
             console.print(f"[bold blue]{'Evaluating':>12}[/] class [bold cyan]{classes.var_names[class_index]}[/] ({classes.var.name.iloc[class_index]!r})")
-            splits = list(kfold.split(features.X.toarray(), ground_truth[:, class_index], groups))
+            splits = list(kfold.split(features.X.toarray(), ground_truth[:, class_index], groups.values))
             results = pool.map(
                 lambda args: runcv(class_index, *args),
                 splits

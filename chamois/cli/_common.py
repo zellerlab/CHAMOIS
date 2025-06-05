@@ -38,12 +38,12 @@ def filter_dataset(
     console: Console,
     similarity: Optional["AnnData"] = None,
     remove_unknown_structure: bool = True,
-    min_class_occurrences: int = 1,
-    min_feature_occurrences: int = 1,
+    min_class_occurrences: int = 0,
+    min_feature_occurrences: int = 0,
     min_class_groups: int = 0,
     min_feature_groups: int = 0,
-    min_length: int = 1000,
-    min_genes: int = 2,
+    min_length: int = 0,
+    min_genes: int = 0,
     fix_mismatch: bool = False,
 ) -> Tuple["AnnData", "AnnData"]:
     if sorted(features.obs.index) != sorted(classes.obs.index):
