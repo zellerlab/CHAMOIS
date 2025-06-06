@@ -117,8 +117,6 @@ def run(args: argparse.Namespace, console: Console) -> int:
     def runcv(class_index, train_indices, test_indices):
         train_X = features[train_indices]
         train_Y = classes.X[train_indices].toarray()[:, class_index:class_index+1]
-        # test_X = features.X[test_indices].toarray()
-
         model = ChemicalOntologyPredictor(
             Ontology(numpy.zeros((1, 1))),
             n_jobs=args.jobs,
@@ -127,44 +125,17 @@ def run(args: argparse.Namespace, console: Console) -> int:
             variance=args.variance,
             seed=args.seed,
         )
-        if True:
-        # try:
-            # if args.model == "logistic":
-            #     model = sklearn.linear_model.LogisticRegression(
-            #         "l1",
-            #         solver="liblinear",
-            #         max_iter=100,
-            #         C=1.0/args.alpha,
-            #         random_state=args.seed,
-            #     )
-            # elif args.model == "ridge":
-            #     model = sklearn.linear_model.LogisticRegression(
-            #         "l2",
-            #         solver="liblinear",
-            #         max_iter=100,
-            #         C=1.0/args.alpha,
-            #         random_state=args.seed,
-            #     )
-            # elif args.model == "dummy":
-            #     model = sklearn.dummy.DummyClassifier()
-            model.fit(train_X, train_Y)
-            test_X = features[:, model.features_.index].X[test_indices].toarray()
-            p = model.predict_probas(test_X)
-            return p[:, 0]
-        # except (ValueError, IndexError) as err:
-        #     return numpy.array(train_Y[0]).repeat(test_indices.shape[0])
+        model.fit(train_X, train_Y)
+        test_X = features[:, model.features_.index].X[test_indices].toarray()
+        p = model.predict_probas(test_X)
+        return p[:, 0]
 
-    with ThreadPool(args.jobs or None) as pool:
-        probas = numpy.zeros(classes.X.shape, dtype=float)
-        for class_index in rich.progress.track(range(classes.n_vars), console=console, description=f"[bold blue]{'Working':>12}[/]"):
-            console.print(f"[bold blue]{'Evaluating':>12}[/] class [bold cyan]{classes.var_names[class_index]}[/] ({classes.var.name.iloc[class_index]!r})")
-            splits = list(kfold.split(features.X.toarray(), ground_truth[:, class_index], groups.values))
-            results = pool.map(
-                lambda args: runcv(class_index, *args),
-                splits
-            )
-            for (_, test_indices), result in zip(splits, results):
-                probas[test_indices, class_index] = result
+    probas = numpy.zeros(classes.X.shape, dtype=float)
+    for class_index in rich.progress.track(range(classes.n_vars), console=console, description=f"[bold blue]{'Working':>12}[/]"):
+        console.print(f"[bold blue]{'Evaluating':>12}[/] class [bold cyan]{classes.var_names[class_index]}[/] ({classes.var.name.iloc[class_index]!r})")
+        splits = list(kfold.split(features.X.toarray(), ground_truth[:, class_index], groups.values))
+        for train_indices, test_indices in splits:
+            probas[test_indices, class_index] = runcv(class_index, train_indices, test_indices)
 
     # compute AUROC for the entire classification
     model = ChemicalOntologyPredictor(ontology)

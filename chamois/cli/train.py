@@ -72,7 +72,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
     ontology = Ontology(classes.varp["parents"].toarray())
 
     # traing model
-    console.print(f"[bold blue]{'Training':>12}[/] logistic regression model")
+    console.print(f"[bold blue]{'Training':>12}[/] {args.model!r} model")
     model = ChemicalOntologyPredictor(
         ontology,
         n_jobs=args.jobs,
