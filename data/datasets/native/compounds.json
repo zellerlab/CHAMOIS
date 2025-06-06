@@ -707,13 +707,6 @@
             "database_id": []
         }
     ],
-    "KJ396772.2_cluster1": [
-        {
-            "chem_struct": "O=C(C1=C2[C@@](O[C@@H](C)CC3=O)([C@H]3O[C@@H]4CCC(N(C)C)C(C)O4)O[C@@]5([H])[C@]1([H])CC(C5)=O)C6=CC=CC(O)=C6C2=O",
-            "compound": "auricin",
-            "database_id": []
-        }
-    ],
     "LS999205.1_cluster1": [
         {
             "chem_struct": "C#CC#CC#CC#CC=CCCCCCCCC(=O)O",
