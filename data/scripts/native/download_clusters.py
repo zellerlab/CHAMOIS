@@ -41,8 +41,12 @@ os.makedirs(os.path.dirname(args.clusters), exist_ok=True)
 accessions = { bgc_id.rsplit("_", 1)[0] for bgc_id in compounds.keys() }
 with open(args.clusters, "w") as dst:
     for row in rich.progress.track(coordinates.itertuples(), total=len(coordinates), description=f"[bold blue]{'Downloading':>12}[/]"):
-        with Bio.Entrez.efetch(db="nucleotide", id=row.sequence_id, seq_start=row.start, seq_stop=row.end, rettype="gbwithparts", retmode="text") as handle:
-            bgc_record = Bio.SeqIO.read(handle, "genbank")
-            bgc_record.id = bgc_record.name = row.bgc_id
-            Bio.SeqIO.write(bgc_record, dst, "genbank")
-        
+        try:
+            rich.print(f"[bold blue]{'Downloading':>12}[/] [bold cyan]{row.bgc_id}[/] ([purple]{row.sequence_id}:{row.start}-{row.end}[/])")
+            with Bio.Entrez.efetch(db="nucleotide", id=row.sequence_id, seq_start=row.start, seq_stop=row.end, rettype="gbwithparts", retmode="text") as handle:
+                bgc_record = Bio.SeqIO.read(handle, "genbank")
+                bgc_record.id = bgc_record.name = row.bgc_id
+                Bio.SeqIO.write(bgc_record, dst, "genbank")
+        except Exception as err:
+            rich.print(f"[bold red]{'Failed':>12}[/] downloading [bold cyan]{row.bgc_id}[/]: {err}")
+
