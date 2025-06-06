@@ -34,7 +34,7 @@ class ChemicalOntologyPredictor:
     """A model for predicting chemical hierarchy from BGC compositions.
     """
 
-    _MODELS = ["ridge", "logistic", "dummy"]
+    _MODELS = ["ridge", "logistic", "dummy", "rf"]
 
     def __init__(
         self,
@@ -82,31 +82,42 @@ class ChemicalOntologyPredictor:
         self.seed = seed
 
     def __getstate__(self) -> Dict[str, object]:
-        return {
+        state = {
             "classes_": self.classes_,
             "features_": self.features_,
-            "intercept_": list(self.intercept_),
             "ontology": self.ontology.__getstate__(),
             "coef_": self.coef_,
             "model": self.model,
             "alpha": self.alpha,
             "variance": self.variance
         }
+        if self.model == "rf":
+            import pickle
+            import base64
+            state["_rf"] = base64.encodebytes(pickle.dumps(self._rf)).decode('ascii')
+        else:
+            state["coef_"] = self.coef_
+            state["intercept_"] = list(self.intercept_)
+        return state
 
     def __setstate__(self, state: Dict[str, object]) -> None:
         self.classes_ = state["classes_"]
         self.features_ = state["features_"]
-        self.intercept_ = numpy.asarray(state["intercept_"])
-        self.coef_ = state["coef_"]
         self.ontology.__setstate__(state["ontology"])
         self.model = state["model"]
         self.alpha = state.get("alpha", 1.0)
         self.variance = state.get("variance", None)
+        if self.model == "rf":
+            import pickle
+            import base64
+            self._rf = pickle.loads(base64.decodebytes(state["_rf"].encode('ascii')))
+        else:
+            self.intercept_ = numpy.asarray(state["intercept_"])
+            self.coef_ = state["coef_"]
 
     @requires("sklearn.feature_selection")
+    @requires("scipy.sparse")
     def _select_features(self, X: Union[numpy.ndarray, "spmatrix"]):
-        import scipy.sparse
-
         _X = X.toarray() if isinstance(X, scipy.sparse.spmatrix) else X
         varfilt = sklearn.feature_selection.VarianceThreshold(self.variance)
         varfilt.fit(_X)
@@ -114,9 +125,8 @@ class ChemicalOntologyPredictor:
         self.features_ = self.features_.loc[support]
         return _X[:, support]
 
+    @requires("scipy.sparse")
     def _compute_information_accretion(self, Y: Union[numpy.ndarray, "spmatrix"]):
-        import scipy.sparse
-
         _Y = Y.toarray() if isinstance(Y, scipy.sparse.spmatrix) else Y
         ia = numpy.zeros(Y.shape[1])
         for i in self.ontology.adjacency_matrix:
@@ -185,6 +195,21 @@ class ChemicalOntologyPredictor:
         # store weights in sparse matrix
         self.coef_ = scipy.sparse.csr_matrix(self.coef_)
 
+    @requires("sklearn.ensemble")
+    @requires("scipy.sparse")
+    def _fit_random_forest(self, X, Y):
+        if isinstance(Y, scipy.sparse.spmatrix):
+            Y = Y.toarray()
+        self._binary = Y.shape[1] == 1
+        if self._binary:
+            Y = Y[:, 0]
+        # train model using scikit-learn
+        self._rf = sklearn.multiclass.OneVsRestClassifier(
+            sklearn.ensemble.RandomForestClassifier(random_state=self.seed),
+            n_jobs=self.n_jobs,
+        )
+        self._rf.fit(X, Y)
+
     @requires("scipy.sparse")
     @requires("scipy.special")
     def _fit_dummy(self, X, Y):
@@ -245,7 +270,10 @@ class ChemicalOntologyPredictor:
             self._fit_ridge(_X, _Y)
         elif self.model == "dummy":
             self._fit_dummy(_X, _Y)
-
+        elif self.model == "rf":
+            self._fit_random_forest(_X, _Y)
+        else:
+            raise RuntimeError(f"invalid model architecture: {self.model!r}")
         return self
 
     @requires("scipy.sparse")
@@ -281,6 +309,14 @@ class ChemicalOntologyPredictor:
         y = scipy.special.expit(self.intercept_)
         return numpy.tile(y, (X.shape[0], 1))
 
+    def _predict_rf(self, X: numpy.ndarray) -> numpy.ndarray:
+        p = numpy.asarray(self._rf.predict_proba(X))
+        # if p.ndim == 3:
+        #     return p[:, :, 1].T
+        # else:
+        #     return p[:, 1:]
+        return p
+
     @requires("anndata")
     def predict_probas(
         self,
@@ -307,6 +343,8 @@ class ChemicalOntologyPredictor:
             probas = self._predict_ridge(_X)
         elif self.model == "dummy":
             probas = self._predict_dummy(_X)
+        elif self.model == "rf":
+            probas = self._predict_rf(_X)
         else:
             raise RuntimeError(f"invalid model architecture: {self.model!r}")
         if propagate:
@@ -397,6 +435,9 @@ class ChemicalOntologyPredictor:
         """
         if hasher is None:
             hasher = hashlib.sha256()
-        hasher.update(self.coef_.toarray())
-        hasher.update(self.intercept_)
+        if self.model == "rf":
+            pass
+        else:
+            hasher.update(self.coef_.toarray())
+            hasher.update(self.intercept_)
         return hasher.hexdigest()
