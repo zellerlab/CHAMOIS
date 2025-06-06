@@ -323,6 +323,7 @@ BGC0002722	not a gene cluster (plant, 337k nt)
 BGC0002727	retired in MIBiG 3.1	
 BGC0002728	retired in MIBiG 3.1	
 BGC0002730	retired in MIBiG 3.1	
+BGC0002750	not a gene cluster (single gene, 188nt)	
 BGC0002778	retired in MIBiG 4.0	
 BGC0002832	retired in MIBiG 4.0	
 BGC0002844	retired in MIBiG 4.0	
@@ -381,6 +382,7 @@ BGC0002972	retired in MIBiG 4.0
 BGC0002973	retired in MIBiG 4.0	
 BGC0002975	retired in MIBiG 4.0	
 BGC0002976	retired in MIBiG 4.0	
+BGC0002977	not a gene cluster (complete genome, 4.1 nt)	https://github.com/mibig-secmet/mibig-json/issues/386
 BGC0002979	retired in MIBiG 4.0	
 BGC0002980	retired in MIBiG 4.0	
 BGC0002984	retired in MIBiG 4.0	
