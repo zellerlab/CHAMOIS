@@ -31,6 +31,15 @@
             ] 
         }
     ],
+    "BA000030.4_cluster1": [
+        {
+            "chem_struct": "CC[C@H](C)[C@@H]1[C@H](C=C[C@@]2(O1)C[C@@H]3C[C@H](O2)C/C=C(/[C@H]([C@H](/C=C/C=C/4\\CO[C@H]5[C@@]4([C@@H](C=C([C@H]5OC)C)C(=O)O3)O)C)O[C@H]6C[C@@H]([C@H]([C@@H](O6)C)O[C@H]7C[C@@H]([C@H]([C@@H](O7)C)O)OC)OC)\\C)C",
+            "compound": "avermectin A1a",
+            "database_id": [
+                "npatlas:NPA005185"
+            ]
+        }
+    ],
     "BDUB01000001.1_cluster1": [
         {
             "chem_struct": "C1=CC=C(C=C1)CC\\2=C(C(=O)O/C2=C\\C3=CC=CC=C3)CC4=CC=CC=C4 ",
@@ -119,11 +128,30 @@
             "database_id": []
         }
     ],
+    "CP000489.1_cluster1": [
+        {
+            "chem_struct": "C1=C(C2=C(C(=O)C1=O)NC=C2C[C@@H](C(=O)O)N)SC[C@@H](C(=O)O)N",
+            "compound": "cystein tryptophylquinone",
+            "database_id": [
+                "chebi:73670",
+                "pubchem:71464600"
+            ]
+        }
+    ],
     "CP001510.1_cluster1": [
         {
             "chem_struct": "C(CN(C(=O)C)CCCNC(=O)C1=CC=C(O)C=C1)CCNC(=O)CC(O)(C(O)=O)CC(=O)NCCCCN(C(=O)C)CCCNC(=O)C1=CC=C(O)C=C1",
             "compound": "methylolanthanin",
             "database_id": []
+        }
+    ],
+    "CP001738.1_cluster1": [
+        {
+            "chem_struct": "CC1C(=O)NC(C(=O)NC(=C)C(=O)NC(C(=O)NC(C(=O)NC(CNC(CSCC(C(=O)N1)NC(=O)C(=O)C(CC2=CC=CC=C2)NC(=O)C(CCCCN)NC(=O)C(CC(=O)O)NC(=O)C3CSCC(C(=O)NC(=C)C(=O)NC(C(=O)NC(=C)C(=O)NC(C(=O)NC(C(=O)NC(C(=O)N3)CC(C)C)CC(C)C)CC(C)C)C)NC(=O)C(CC(C)C)NC(=O)C(CC(=O)O)N)C(=O)CC(CC(C)C)C(=O)O)CC(C)C)CC(C)C)C(C)O)CC4=CC=CC=C4",
+            "compound": "curvopeptin-2",
+            "database_id": [
+                "npatlas:NPA012792"
+            ]
         }
     ],
     "CP001778.1_cluster1": [
@@ -230,6 +258,15 @@
             "chem_struct": "c1(ccc(cc1)C[C@@H](C(=O)N([C@@H](C(C)C)C(=O)N(C)[C@H](C(=O)N)C(C)C)C)OC(=O)[C@@H](N(C)C)Cc1ccc(cc1)OC)OC",
             "compound": "hectoramide B",
             "database_id": []
+        }
+    ],
+    "CP108561.1_cluster1": [
+        {
+            "chem_struct": "CN(CC(=O)O)NC(=O)C[C@@H](C[C@H](CN)O)N",
+            "compound": "negamycin",
+            "database_id": [
+                "npatlas:NPA000890"
+            ]
         }
     ],
     "CP022438.1_cluster1": [
@@ -535,6 +572,15 @@
             ]
         }
     ],
+    "CP128474.1_cluster1": [
+        {
+            "chem_struct": "CN=C(NC)NCCCCCCCCCCCCCCC(=O)NC(C)C(=O)NC1CC2(CS/C=C\\NC(=O)C(CO)NC(=O)C(CCC(N)=O)NC2=O)NC(=O)CNC(=O)C(CC(C)C)NC1=O",
+            "compound": "microvionin",
+            "database_id": [
+                "npatlas:NPA028427"
+            ]
+        }
+    ],
     "DS999645.1_cluster1": [
         {
             "chem_struct": "CNC1=CC(=O)C2=C(C1=O)C=NC=C2",
@@ -776,6 +822,15 @@
             "chem_struct": "CCCCC[C@@H](O)[C@@H]1[C@@H](O)C[C@@H](O)C[C@@H](O)C[C@@H](O)C[C@@H](O)C[C@@H](O)C[C@H](O)\\C(C)=C\\C=C\\C=C\\C=C\\C=C\\[C@H](O)[C@@H](C)OC1=O",
             "compound": "filipin",
             "database_id": []
+        }
+    ],
+    "SRRZ01000034.1_cluster1": [
+        {
+            "chem_struct": "C[C@@H]1CCC[C@]2([C@]1(CCCC2)O)C",
+            "compound": "geosmin",
+            "database_id": [
+                "npatlas:NPA009715"
+            ]
         }
     ],
     "SSBQ01000002.1_cluster1": [
