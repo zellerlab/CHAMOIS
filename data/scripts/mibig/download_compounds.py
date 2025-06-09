@@ -622,6 +622,38 @@ for bgc_id, entry in mibig.items():
                 "chem_struct": r"C1=C(O)C(C(=O)/C=C/C)=C(O)C=C1",
             },
         ]
+    # pinensin A and B produced by cluster 
+    # (see https://pubmed.ncbi.nlm.nih.gov/26211520/)
+    elif bgc_id == "BGC0001392":
+        entry["compounds"] = [
+            {
+                "compound": "pinensin A",
+                "database_id": ["npatlas:NPA020235"]
+            },
+            {
+                "compound": "pinensin B",
+                "database_id": ["npatlas:NPA020236"]
+            },
+        ]
+    # BGC0001575 also produced PZN4 (tyrvalin) as shown by heterologous 
+    # expression (see doi:10.1016/j.cell.2016.12.021, Fig. 2)
+    elif bgc_id == "BGC0001575":
+        entry["compounds"].insert(
+            0, 
+            {
+                "compound": "PZN4",
+                "chem_struct": "C1=C(CC2=CC=C(O)C=C2)NC(=O)C(C(C)C)=N1",
+            }
+        )
+    # BGC0001774 produces septacidin, not spicamycin
+    # (see PMID:29483275)
+    elif bgc_id == "BGC0001774":
+        entry["compounds"] = [
+            {
+                "compound": "septacidin",
+                "database_id": ["pubchem:96278"],
+            }
+        ]
 
     for compound in entry["compounds"]:
         # mask formula of all capsular polysaccharide BGCs
