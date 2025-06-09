@@ -125,7 +125,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
             variance=args.variance,
             seed=args.seed,
         )
-        model.fit(train_X, train_Y)
+        model.fit(train_X, train_Y, groups=classes.obs["groups"].iloc[train_indices])
         test_X = features[:, model.features_.index].X[test_indices].toarray()
         p = model.predict_probas(test_X, propagate=False)
         return p[:, 0]
