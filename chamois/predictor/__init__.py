@@ -1,6 +1,7 @@
 """Predictor of chemical classes from genomic features.
 """
 
+import collections
 import contextlib
 import hashlib
 import json
@@ -56,11 +57,11 @@ class ChemicalOntologyPredictor:
             max_iter (`int`): The maximum number of iterations to run
                 to converge the linear models.
             mode (`str`): The model architecture to use, either ``ridge``
-                for L2-regularized linear regression, ``logistic`` for 
-                L1-regularized logistic regression, or ``dummy`` for 
-                dummy predictors using random guessing based on the 
+                for L2-regularized linear regression, ``logistic`` for
+                L1-regularized logistic regression, or ``dummy`` for
+                dummy predictors using random guessing based on the
                 support of each class.
-            alpha (`float`): The regularization strength (used for 
+            alpha (`float`): The regularization strength (used for
                 ``logistic`` and ``ridge`` models).
             variance (`float` or `None`): If given, the variance threshold
                 to use to filter the features using the feature selection
@@ -145,19 +146,28 @@ class ChemicalOntologyPredictor:
     @requires("sklearn.linear_model")
     @requires("sklearn.preprocessing")
     @requires("scipy.sparse")
-    def _fit_logistic(self, X, Y):
-        # train model using scikit-learn
-        model = sklearn.multiclass.OneVsRestClassifier(
-            sklearn.linear_model.LogisticRegression(
-                "l1",
-                solver="liblinear",
-                max_iter=self.max_iter,
-                C=1.0/self.alpha,
-                random_state=self.seed,
-            ),
-            n_jobs=self.n_jobs,
-        )
-        model.fit(X, Y)
+    def _fit_logistic(self, X, Y, groups=None):
+        # compute sample weights
+        if groups is None:
+            sample_weight = None
+        else:
+            c = collections.Counter(groups)
+            sample_weight = [ 1 / c[group] for group in groups ]
+
+        # train models with optional sample weights
+        with sklearn.config_context(enable_metadata_routing=True):
+            # train model using scikit-learn
+            model = sklearn.multiclass.OneVsRestClassifier(
+                sklearn.linear_model.LogisticRegression(
+                    "l1",
+                    solver="liblinear",
+                    max_iter=self.max_iter,
+                    C=1.0/self.alpha,
+                    random_state=self.seed,
+                ).set_fit_request(sample_weight=True),
+                n_jobs=self.n_jobs,
+            )
+            model.fit(X, Y, sample_weight=sample_weight)
 
         # copy coefficients & intercept to a single NumPy array
         self.coef_ = numpy.zeros((X.shape[1], Y.shape[1]), order="C")
@@ -173,7 +183,7 @@ class ChemicalOntologyPredictor:
         nonzero_weights = numpy.abs(self.coef_).sum(axis=1) > 0
         self.coef_ = self.coef_[nonzero_weights]
         self.features_ = self.features_[nonzero_weights]
-    
+
         # store weights in sparse matrix
         self.coef_ = scipy.sparse.csr_matrix(self.coef_)
 
@@ -215,7 +225,7 @@ class ChemicalOntologyPredictor:
     def _fit_dummy(self, X, Y):
         self.intercept_ = numpy.zeros(Y.shape[1])
         self.coef_ = numpy.zeros((0, Y.shape[1]))
-        for i in range(Y.shape[1]):           
+        for i in range(Y.shape[1]):
             n_pos = Y[:, i].sum()
             odds = scipy.special.logit(n_pos / Y.shape[0])
             self.intercept_[i] = numpy.clip(odds, -10, 10)
@@ -227,6 +237,7 @@ class ChemicalOntologyPredictor:
         self: _T,
         X: Union[numpy.ndarray, "AnnData"],
         Y: Union[numpy.ndarray, "AnnData"],
+        groups: Optional[numpy.ndarray] = None,
     ) -> _T:
         """Fit the model on the given data.
 
@@ -265,7 +276,7 @@ class ChemicalOntologyPredictor:
             _X = self._select_features(_X)
 
         if self.model == "logistic":
-            self._fit_logistic(_X, _Y)
+            self._fit_logistic(_X, _Y, groups)
         elif self.model == "ridge":
             self._fit_ridge(_X, _Y)
         elif self.model == "dummy":
@@ -280,7 +291,7 @@ class ChemicalOntologyPredictor:
     def propagate(self, Y: numpy.ndarray) -> numpy.ndarray:
         """Propagate the probabilities from leaves to nodes.
 
-        This method ensures that the probabilities produced for the 
+        This method ensures that the probabilities produced for the
         whole hierarchy are consistent by overriding the probabilities
         of parent nodes with that of their child class if it is higher.
 
@@ -311,10 +322,6 @@ class ChemicalOntologyPredictor:
 
     def _predict_rf(self, X: numpy.ndarray) -> numpy.ndarray:
         p = numpy.asarray(self._rf.predict_proba(X))
-        # if p.ndim == 3:
-        #     return p[:, :, 1].T
-        # else:
-        #     return p[:, 1:]
         return p
 
     @requires("anndata")
@@ -329,7 +336,7 @@ class ChemicalOntologyPredictor:
             X (`~anndata.AnnData`): The feature matrix, either as a raw
                 `numpy.ndarray`, or as a compositional matrix built with
                 `chamois.compositions.build_compositions`.
-            propagate (`bool`): Whether to ensure consistency of the 
+            propagate (`bool`): Whether to ensure consistency of the
                 predicted probabilities with the `propagate` method.
 
         """
@@ -356,13 +363,13 @@ class ChemicalOntologyPredictor:
         X: Union[numpy.ndarray, "AnnData"],
         propagate: bool = True,
     ) -> numpy.ndarray:
-        """Predict the classes for the given features. 
+        """Predict the classes for the given features.
 
         Arguments:
             X (`~anndata.AnnData`): The feature matrix, either as a raw
                 `numpy.ndarray`, or as a compositional matrix built with
                 `chamois.compositions.build_compositions`.
-            propagate (`bool`): Whether to ensure consistency of the 
+            propagate (`bool`): Whether to ensure consistency of the
                 predicted probabilities with the `propagate` method.
 
         """
@@ -416,7 +423,7 @@ class ChemicalOntologyPredictor:
 
     @classmethod
     def trained(cls: Type[_T]) -> _T:
-        """Load the trained predictor embedded in CHAMOIS. 
+        """Load the trained predictor embedded in CHAMOIS.
         """
         with files(__package__).joinpath("predictor.json").open() as f:
             return cls.load(f)
