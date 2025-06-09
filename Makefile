@@ -24,7 +24,7 @@ DATASET_NAMES=mibig3.1 mibig2.0 native
 DATASET_TABLES=features classes ani
 
 TAXONOMY=$(DATA)/taxonomy
-TAXONOMY_VERSION=2023-06-01
+TAXONOMY_VERSION=2025-06-01
 
 PYTHON=python -Wignore
 WGET=wget --no-check-certificate
