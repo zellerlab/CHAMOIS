@@ -129,7 +129,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
             variance=args.variance,
             seed=args.seed,
         )
-        model.fit(train_X, train_Y, groups=classes.obs["groups"])
+        model.fit(train_X, train_Y, groups=classes.obs["groups"].iloc[train_indices])
         # test fold
         test_X = features[test_indices, model.features_.index]
         test_Y = classes[test_indices, model.classes_.index].X.toarray()

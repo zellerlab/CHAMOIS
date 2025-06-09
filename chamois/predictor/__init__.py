@@ -207,18 +207,38 @@ class ChemicalOntologyPredictor:
 
     @requires("sklearn.ensemble")
     @requires("scipy.sparse")
-    def _fit_random_forest(self, X, Y):
+    def _fit_random_forest(self, X, Y, groups=None):
+        # compute sample weights
+        if groups is None:
+            sample_weight = None
+        else:
+            c = collections.Counter(groups)
+            sample_weight = [ 1 / c[group] for group in groups ]
+
+        # extract classes   
         if isinstance(Y, scipy.sparse.spmatrix):
             Y = Y.toarray()
-        self._binary = Y.shape[1] == 1
-        if self._binary:
-            Y = Y[:, 0]
+        # self._binary = Y.shape[1] == 1
+        # if self._binary:
+        #     Y = Y[:, 0]
+
+        # train models with optional sample weights
+        with sklearn.config_context(enable_metadata_routing=True):
+            # train model using scikit-learn
+            self._rf = sklearn.multiclass.OneVsRestClassifier(
+                sklearn.ensemble.RandomForestClassifier(
+                    random_state=self.seed
+                ).set_fit_request(sample_weight=True),
+                n_jobs=self.n_jobs,
+            )
+            self._rf.fit(X, Y, sample_weight=sample_weight)
+
         # train model using scikit-learn
-        self._rf = sklearn.multiclass.OneVsRestClassifier(
-            sklearn.ensemble.RandomForestClassifier(random_state=self.seed),
-            n_jobs=self.n_jobs,
-        )
-        self._rf.fit(X, Y)
+        # self._rf = sklearn.multiclass.OneVsRestClassifier(
+        #     sklearn.ensemble.RandomForestClassifier(random_state=self.seed),
+        #     n_jobs=self.n_jobs,
+        # )
+        # self._rf.fit(X, Y)
 
     @requires("scipy.sparse")
     @requires("scipy.special")
@@ -282,7 +302,7 @@ class ChemicalOntologyPredictor:
         elif self.model == "dummy":
             self._fit_dummy(_X, _Y)
         elif self.model == "rf":
-            self._fit_random_forest(_X, _Y)
+            self._fit_random_forest(_X, _Y, groups)
         else:
             raise RuntimeError(f"invalid model architecture: {self.model!r}")
         return self
