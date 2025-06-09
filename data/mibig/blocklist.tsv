@@ -8,6 +8,7 @@ BGC0000061	retired in MIBiG 3.1
 BGC0000067	partial cluster	https://www.ncbi.nlm.nih.gov/nuccore/DQ249341.1
 BGC0000068	partial cluster	https://pubmed.ncbi.nlm.nih.gov/18214443/
 BGC0000089	retired in MIBiG 3.1	
+BGC0000093	not a gene cluster (multiple fragments in entry)	
 BGC0000095	retired in MIBiG 3.1	
 BGC0000101	retired in MIBiG 3.1	
 BGC0000131	incomplete BGC (missing genes from BGC0000132)	
@@ -31,6 +32,7 @@ BGC0000370	retired in MIBiG 3.1
 BGC0000386	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/030
 BGC0000389	retired in MIBiG 3.1	
 BGC0000406	retired in MIBiG 4.0	
+BGC0000413	not a gene cluster (500knt unrelated region)	https://pubmed.ncbi.nlm.nih.gov/12781517/
 BGC0000456	retired in MIBiG 3.1	
 BGC0000462	retired in MIBiG 3.1	
 BGC0000463	retired in MIBiG 3.1	
@@ -49,6 +51,8 @@ BGC0000621	not a gene cluster (219nt)
 BGC0000629	retired in MIBiG 3.1	
 BGC0000655	exact duplicate of BGC0000611	https://github.com/mibig-secmet/mibig-json/issues/078
 BGC0000656	cluster is missing 2 genes	doi:10.1007/s00203-002-0442-2
+BGC0000669	not a gene cluster (plant)
+BGC0000670	not a gene cluster (plant)
 BGC0000671	not a gene cluster (plant)	https://mibig.secondarymetabolites.org/repository/BGC0000671/#r1c1
 BGC0000672	not a gene cluster (plant)	https://mibig.secondarymetabolites.org/repository/BGC0000672/#r1c1
 BGC0000680	retired in MIBiG 3.1	
@@ -60,6 +64,7 @@ BGC0000718	retired in MIBiG 3.1
 BGC0000726	retired in MIBiG 3.1	
 BGC0000750	retired in MIBiG 3.1	
 BGC0000771	retired in MIBiG 3.1	
+BGC0000798	not a gene cluster (plant)	
 BGC0000805	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/092
 BGC0000808	retired in MIBiG 3.1	
 BGC0000810	not a gene cluster (plant)	https://mibig.secondarymetabolites.org/repository/BGC0000810/#r1c1
@@ -124,8 +129,12 @@ BGC0001281	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/is
 BGC0001282	retired in MIBiG 3.1	
 BGC0001308	retired in MIBiG 3.1	
 BGC0001309	retired in MIBiG 3.1	
+BGC0001313	not a gene cluster (plant)	
+BGC0001314	not a gene cluster (plant)	https://mibig.secondarymetabolites.org/repository/BGC0001314.3/index.html#r1c1
+BGC0001315	not a gene cluster (plant)	
 BGC0001316	not a gene cluster (plant)	https://mibig.secondarymetabolites.org/repository/BGC0001316/#r1c1
 BGC0001317	not a gene cluster (plant)	https://mibig.secondarymetabolites.org/repository/BGC0001317/#r1c1
+BGC0001318	not a gene cluster (plant)	https://mibig.secondarymetabolites.org/repository/BGC0001318.4/index.html#r1c1
 BGC0001319	retired in MIBiG 3.1	
 BGC0001320	retired in MIBiG 3.1	
 BGC0001321	not a gene cluster (plant)  	
@@ -168,6 +177,7 @@ BGC0001643	retired in MIBiG 3.1
 BGC0001662	duplicate of BGC0001932 with extra genes	https://github.com/mibig-secmet/mibig-json/issues/033
 BGC0001673	retired in MIBiG 3.1	
 BGC0001676	retired in MIBiG 3.1	
+BGC0001678	not a gene cluster (plant)	
 BGC0001680	not a gene cluster (792nt)	
 BGC0001688	retired in MIBiG 3.1	
 BGC0001689	retired in MIBiG 3.1	
@@ -179,6 +189,7 @@ BGC0001714	retired in MIBiG 3.1
 BGC0001734	retired in MIBiG 3.1	
 BGC0001745	retired in MIBiG 4.0	
 BGC0001754	retired in MIBiG 3.1	
+BGC0001756	not a gene cluster (plant)	
 BGC0001766	retired in MIBiG 3.1	
 BGC0001767	retired in MIBiG 4.0	
 BGC0001784	duplicate of BGC0001939 with extra flanking regions	https://github.com/mibig-secmet/mibig-json/issues/062
@@ -219,15 +230,18 @@ BGC0001938	retired in MIBiG 4.0
 BGC0001939	retired in MIBiG 3.1	
 BGC0001943	retired in MIBiG 3.1	
 BGC0001946	retired in MIBiG 3.1	
+BGC0001949	not a gene cluster (plant)	
 BGC0001958	exact duplicate of BGC0001957	https://github.com/mibig-secmet/mibig-json/issues/075
 BGC0001961	retired in MIBiG 3.1	
 BGC0001973	retired in MIBiG 3.1	
+BGC0001974	not a gene cluster (plant)	
 BGC0001976	exact duplicate of BGC0001977 with missing annotations	https://github.com/mibig-secmet/mibig-json/issues/129
 BGC0001977	retired in MIBiG 3.1	
 BGC0001978	retired in MIBiG 3.1	
 BGC0001982	exact duplicate of BGC0001881	https://github.com/mibig-secmet/mibig-json/issues/053
 BGC0001992	wrong locus coordinates	https://github.com/mibig-secmet/mibig-json/issues/065
 BGC0001993	retired in MIBiG 3.1	
+BGC0001997	not a gene cluster (plant)	https://mibig.secondarymetabolites.org/repository/BGC0001997.3/index.html#r1c1
 BGC0002003	exact duplicate of BGC0001608	https://github.com/mibig-secmet/mibig-json/issues/084
 BGC0002016	retired in MIBiG 4.0	
 BGC0002023	retired in MIBiG 3.1	
@@ -235,9 +249,12 @@ BGC0002027	duplicate of BGC0001486
 BGC0002029	retired in MIBiG 3.1	
 BGC0002030	duplicate of BGC0001866 with extra flanking regions	https://github.com/mibig-secmet/mibig-json/issues/164
 BGC0002041	retired in MIBiG 3.1	
+BGC0002402	not a gene cluster (plant)	https://mibig.secondarymetabolites.org/repository/BGC0002402.2/index.html#r1c1
+BGC0002403	not a gene cluster (plant)	https://mibig.secondarymetabolites.org/repository/BGC0002403.2/index.html#r1c1
 BGC0002057	retired in MIBiG 3.1	
 BGC0002065	retired in MIBiG 3.1	
 BGC0002094	retired in MIBiG 3.1	
+BGC0002097	no reference, very likely wrong coordinates	
 BGC0002105	retired in MIBiG 4.0	
 BGC0002113	retired in MIBiG 3.1	
 BGC0002156	retired in MIBiG 3.1	
@@ -273,15 +290,29 @@ BGC0002310	retired in MIBiG 3.1
 BGC0002335	retired in MIBiG 3.1	
 BGC0002353	retired in MIBiG 4.0	
 BGC0002368	retired in MIBiG 3.1	
+BGC0002370	no experimental characterization	https://pubmed.ncbi.nlm.nih.gov/34847153/
 BGC0002371	retired in MIBiG 3.1	
 BGC0002375	retired in MIBiG 3.1	
 BGC0002379	two gene cluster halves split by 70kbp	https://mibig.secondarymetabolites.org/repository/BGC0002379/
 BGC0002388	retired in MIBiG 3.1	
 BGC0002389	not a gene cluster (plant, 282k nt)	
 BGC0002390	not a gene cluster (plant, 643k nt)	https://mibig.secondarymetabolites.org/repository/BGC0002390/
+BGC0002391	not a gene cluster (plant)	
+BGC0002392	not a gene cluster (plant)	
+BGC0002393	not a gene cluster (plant)	
 BGC0002394	not a gene cluster (plant, 200k nt)
 BGC0002395	not a gene cluster (plant, 598k nt)
+BGC0002396	not a gene cluster (plant)	
+BGC0002397	not a gene cluster (plant)	
+BGC0002398	not a gene cluster (plant)	
+BGC0002399	not a gene cluster (plant)	
+BGC0002400	not a gene cluster (plant)	
+BGC0002401	not a gene cluster (plant)	
+BGC0002404	not a gene cluster (plant)	
+BGC0002405	not a gene cluster (plant)	
 BGC0002406	not a gene cluster (plant, 194k nt)	
+BGC0002409	fragment cluster (with BGC0002410)	https://pubs.acs.org/doi/10.1021/acs.jnatprod.0c01291
+BGC0002410	fragment cluster (with BGC0002409)	https://pubs.acs.org/doi/10.1021/acs.jnatprod.0c01291
 BGC0002428	retired in MIBiG 4.0	
 BGC0002459	retired in MIBiG 3.1	
 BGC0002463	retired in MIBiG 3.1	
@@ -293,6 +324,7 @@ BGC0002519	retired in MIBiG 3.1
 BGC0002534	retired in MIBiG 3.1	
 BGC0002549	retired in MIBiG 3.1	
 BGC0002562	retired in MIBiG 3.1	
+BGC0002571	probable invalid coordinates	https://pubmed.ncbi.nlm.nih.gov/12781517/
 BGC0002574	retired in MIBiG 3.1	
 BGC0002589	retired in MIBiG 3.1	
 BGC0002590	retired in MIBiG 3.1	
@@ -303,12 +335,15 @@ BGC0002600	retired in MIBiG 3.1
 BGC0002601	retired in MIBiG 3.1	
 BGC0002608	incomplete ochratoxin BGC	
 BGC0002618	retired in MIBiG 4.0	
+BGC0002622	not a gene cluster (plant)	
 BGC0002627	retired in MIBiG 4.0	
 BGC0002628	retired in MIBiG 3.1	
 BGC0002630	retired in MIBiG 4.0	
 BGC0002632	retired in MIBiG 4.0	
+BGC0002644	not a gene cluster (plant)	
 BGC0002650	retired in MIBiG 3.1	
 BGC0002655	retired in MIBiG 3.1	
+BGC0002657	probable invalid coordinates	https://pubmed.ncbi.nlm.nih.gov/35138108/
 BGC0002658	retired in MIBiG 3.1	
 BGC0002662	retired in MIBiG 4.0	
 BGC0002664	retired in MIBiG 3.1	
@@ -320,6 +355,8 @@ BGC0002717	retired in MIBiG 3.1
 BGC0002720	retired in MIBiG 3.1	
 BGC0002721	not a gene cluster (plant, 542k nt)	
 BGC0002722	not a gene cluster (plant, 337k nt)
+BGC0002723	not a gene cluster (plant)	
+BGC0002724	not a gene cluster (plant)	
 BGC0002727	retired in MIBiG 3.1	
 BGC0002728	retired in MIBiG 3.1	
 BGC0002730	retired in MIBiG 3.1	
