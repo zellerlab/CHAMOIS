@@ -104,7 +104,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
     ground_truth = classes.X.toarray()
     console.print(f"[bold blue]{'Splitting':>12}[/] data into {args.kfolds} folds")
     if args.sampling == "group":
-        groups = classes.obs["compound"].cat.codes
+        groups = classes.obs["groups"]
         kfold = sklearn.model_selection.StratifiedGroupKFold(n_splits=args.kfolds, shuffle=True, random_state=args.seed)
     elif args.sampling == "random":
         kfold = sklearn.model_selection.KFold(n_splits=args.kfolds, random_state=args.seed, shuffle=True)
@@ -127,7 +127,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
         )
         model.fit(train_X, train_Y)
         test_X = features[:, model.features_.index].X[test_indices].toarray()
-        p = model.predict_probas(test_X)
+        p = model.predict_probas(test_X, propagate=False)
         return p[:, 0]
 
     probas = numpy.zeros(classes.X.shape, dtype=float)
