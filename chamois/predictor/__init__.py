@@ -218,9 +218,9 @@ class ChemicalOntologyPredictor:
         # extract classes   
         if isinstance(Y, scipy.sparse.spmatrix):
             Y = Y.toarray()
-        # self._binary = Y.shape[1] == 1
-        # if self._binary:
-        #     Y = Y[:, 0]
+
+        # record whether this is a binary or multilabel classifer
+        self._binary = Y.shape[1] == 1
 
         # train models with optional sample weights
         with sklearn.config_context(enable_metadata_routing=True):
@@ -232,13 +232,6 @@ class ChemicalOntologyPredictor:
                 n_jobs=self.n_jobs,
             )
             self._rf.fit(X, Y, sample_weight=sample_weight)
-
-        # train model using scikit-learn
-        # self._rf = sklearn.multiclass.OneVsRestClassifier(
-        #     sklearn.ensemble.RandomForestClassifier(random_state=self.seed),
-        #     n_jobs=self.n_jobs,
-        # )
-        # self._rf.fit(X, Y)
 
     @requires("scipy.sparse")
     @requires("scipy.special")
@@ -342,6 +335,8 @@ class ChemicalOntologyPredictor:
 
     def _predict_rf(self, X: numpy.ndarray) -> numpy.ndarray:
         p = numpy.asarray(self._rf.predict_proba(X))
+        if self._binary:
+            return p[:, 1:]
         return p
 
     @requires("anndata")
