@@ -202,7 +202,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
                 "auroc": sklearn.metrics.roc_auc_score(ground_truth[:, j], probas[:, j]),
                 "f1_score": sklearn.metrics.f1_score(ground_truth[:, j], preds[:, j]),
                 "hamming_loss": sklearn.metrics.hamming_loss(ground_truth[:, j], preds[:, j]),
-                "accuracy_score": sklearn.metrics.hamming_loss(ground_truth[:, j], preds[:, j]),
+                "accuracy_score": sklearn.metrics.accuracy_score(ground_truth[:, j], preds[:, j]),
                 "precision": sklearn.metrics.precision_score(ground_truth[:, j], preds[:, j], zero_division=0.0),
                 "recall": sklearn.metrics.recall_score(ground_truth[:, j], preds[:, j]),
                 "balanced_accuracy": sklearn.metrics.balanced_accuracy_score(ground_truth[:, j], preds[:, j]),
