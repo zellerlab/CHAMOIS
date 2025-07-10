@@ -435,6 +435,13 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, product="Rmp36").location.start
                 end = get_cds(record, product="Rmp21").location.end
 
+            # BGC0001762 contains additional gene that are outside the cluster
+            # as shown by different cosmids
+            # (see https://www.nature.com/articles/ncomms13083, Fig. 3)
+            elif record.id == "BGC0001762":
+                start = get_cds(record, gene="rubS1").location.start
+                end = get_cds(record, gene="rubE9").location.end
+
             # BGC0001774 contains unrelated downstream genes, as shown by 
             # inactivation experiments on sepM-Q
             # (see https://pmc.ncbi.nlm.nih.gov/articles/PMC5856511/, Fig. 2)
@@ -454,6 +461,12 @@ with rich.progress.Progress() as progress:
             elif record.id == "BGC00001917":
                 start = get_cds(record, gene="stmA").location.start
                 end = get_cds(record, gene="stmI").location.end
+
+            # LC-MS shows that BGC0001945 produces chloromyxamide A-E
+            # (see https://pubmed.ncbi.nlm.nih.gov/30088846/, Fig.1)
+            elif record.id == "BGC0001945":
+                start = get_cds(record, gene="cmxA").location.start
+                end = get_cds(record, gene="cmxS").location.end
 
             # MIBiG entry of BGC0001967 contains unrelated genes on both sides
             # of the `ade` operon

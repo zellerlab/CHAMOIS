@@ -74,7 +74,6 @@ rich.print(f"[bold green]{'Downloaded':>12}[/] {len(mibig)} BGCs")
 
 # --- Manual mapping of some compounds ---------------------------------------
 for bgc_id, entry in mibig.items():
-
     if bgc_id in ("BGC0000243", "BGC0000244"):
         entry["compounds"] = [
             {"compound": name}
@@ -404,15 +403,15 @@ for bgc_id, entry in mibig.items():
         entry["compounds"] = [
             {
                 "compound": "nocuolactylate A",
-                "chem_struct": r"C([H])(Cl)CCCCCCC/C=C/CC(=O)O[C@@](C)C(OCCC(=O)N1O[C@](CCCCC)CC(CCCCC)=N1)=O",
+                "database_id": ["npatlas:NPA033255"],
             },
             {
                 "compound": "nocuolactylate B",
-                "chem_struct": r"C(Cl)(Cl)CCCCCCC/C=C/CC(=O)O[C@@](C)C(OCCC(=O)N1O[C@](CCCCC)CC(CCCCC)=N1)=O",
+                "database_id": ["npatlas:NPA033256"],
             },
             {
                 "compound": "nocuolactylate C",
-                "chem_struct": r"C([H])([H])CCCCCCC/C=C/CC(=O)O[C@@](C)C(OCCC(=O)N1O[C@](CCCCC)CC(CCCCC)=N1)=O",
+                "database_id": ["npatlas:NPA033257"],
             },
         ]
     elif bgc_id == "BGC0002402":
@@ -654,6 +653,221 @@ for bgc_id, entry in mibig.items():
                 "database_id": ["pubchem:96278"],
             }
         ]
+    # BGC0000898 is only the subcluster producing desosamine, not the complete
+    # pikromycin BGC (see https://github.com/mibig-secmet/mibig-json/issues/388),
+    # and the desosamine formula in MIBIG is wrong:
+    elif bgc_id == "BGC0000898":
+        entry["compounds"] = [
+            {
+                "compound": "desosamine",
+                "database_id": ["pubchem:168997"],
+            }
+        ]
+    # BGC0002522 only produces pseudodesmin not viscosinamide
+    # (see https://github.com/mibig-secmet/mibig-json/issues/377)
+    elif bgc_id == "BGC0002522":
+        entry["compounds"] = [
+            {
+                "compound": "pseudodesmin A",
+                "database_id": ["npatlas:NPA013302"],
+            }
+        ]
+    # BGC0000978 cylindrospermopsin has wrong cross-references to
+    # PubChem (see https://github.com/mibig-secmet/mibig-json/issues/370)
+    elif bgc_id == "BGC0000978":
+        assert entry["compounds"][0]["compound"] == "cylindrospermopsin"
+        entry["compounds"][0]["database_id"] = ["pubchem:42628600"]
+    # BGC0000650 has wrong carotenoid link but actually (likely) produces
+    # flexixanthin (see https://pubmed.ncbi.nlm.nih.gov/16625353/); since
+    # crtZ is missing from the cluster we just add the deoxy- variant
+    elif bgc_id == "BGC0000650":
+        entry["compounds"] = [
+            {
+                 "compound": "deoxyflexixanthin",
+                 "database_id": ["pubchem:6443734"],
+            }
+        ]
+    # BGC0002426 is the "supercluster" encoding both borregomycins and
+    # anthrabenzoxocinones, not the svetamycins as recorded in MIBiG
+    # (see 10.1039/D1OB00600B, Fig.1, and Table S22, and also
+    # https://github.com/mibig-secmet/mibig-json/issues/365)
+    elif bgc_id == "BGC0002426":
+        entry["compounds"] = [
+            {"compound": "borregomycin B", "database_id": []},
+            {"compound": "borregomycin C", "database_id": []},
+            {"compound": "borregomycin E", "database_id": ["npatlas:NPA033080"]},
+            {"compound": "borregomycin F", "database_id": ["npatlas:NPA033081"]},
+            {"compound": "(-)-anthrabenzoxocinone A", "database_id": []},
+            {"compound": "(-)-anthrabenzoxocinone B", "database_id": []},
+            {"compound": "(-)-anthrabenzoxocinone C", "database_id": []},
+            {"compound": "(-)-anthrabenzoxocinone D", "database_id": []},
+            {"compound": "(-)-anthrabenzoxocinone E", "database_id": []},
+            {"compound": "(+)-anthrabenzoxocinone G", "database_id": ["npatlas:NPA033082"]},
+            {"compound": "(-)-anthrabenzoxocinone K", "database_id": ["npatlas:NPA033178"]},
+            {"compound": "(-)-anthrabenzoxocinone X", "database_id": []},
+        ]
+    # BGC0000447 is only tolaasin F, not tolaasin I
+    # (see https://github.com/mibig-secmet/mibig-json/issues/337)
+    elif bgc_id == "BGC0000447":
+        tolaasin_i = next(e for e in entry["compounds"] if e["compound"] == "tolaasin I")
+        entry["compounds"].remove(tolaasin_i)
+    # BGC0002681 compound is rhizoferrin, not rhizobactin
+    # (see https://github.com/mibig-secmet/mibig-json/issues/290)
+    elif bgc_id == "BGC0002681":
+        assert len(entry["compounds"]) == 1
+        entry["compounds"][0]["compound"] = "rhizoferrin"
+    # BGC0001556 produces combamides A-E
+    elif bgc_id == "BGC0001556":
+        entry["compounds"] = [
+            {"compound": f"combamide {x}"}
+            for x in "ABCDE"
+        ]
+    # BGC0001452 produces sipanmycins A-B
+    elif bgc_id == "BGC0001452":
+        entry["compounds"] = [
+            {"compound": f"sipanmycin {x}"}
+            for x in "AB"
+        ]
+    # BGC0001824 produces xefoampeptides A-G
+    elif bgc_id == "BGC0001824":
+        entry["compounds"] = [
+            {"compound": f"xefoampeptide {x}"}
+            for x in "ABCDEFG"
+        ]
+    # BGC0001826 produces xeneprotides A-C
+    elif bgc_id == "BGC0001826":
+        entry["compounds"] = [
+            {"compound": f"xeneprotide {x}"}
+            for x in "ABC"
+        ]
+    # BGC0001650 produces Le-pyrrolopyrazines A-C
+    elif bgc_id == "BGC0001650":
+        entry["compounds"] = [
+            {"compound": f"Le-pyrrolopyrazine {x}"}
+            for x in "ABC"
+        ]
+    # BGC0001658 produces macrotermycins A-D
+    elif bgc_id == "BGC0001658":
+        entry["compounds"] = [
+            {"compound": f"macrotermycin {x}"}
+            for x in "ABCD"
+        ]
+    # BGC0001823 produces weishanmycins A1-3
+    elif bgc_id == "BGC0001823":
+        entry["compounds"] = [
+            {"compound": f"weishanmycin A{x}"}
+            for x in range(1, 4)
+        ]
+    # BGC0001627 produces isonitrile antibiotics described in the paper
+    # (see https://pubmed.ncbi.nlm.nih.gov/28634299/, Fig. 2)
+    elif bgc_id == "BGC0001627":
+        entry["compounds"] = [
+            {
+                "compound": "isonitrile lipopeptide 1",
+                "chem_struct": "C[C@@H]([N+]#[C-])CC(=O)NCCCC[C@@H](COC(C)=O)NC(=O)C[C@H]([N+]#[C-])C",
+                "database_id": ["pubchem:137333763"],
+            },
+            {
+                "compound": "isonitrile lipopeptide 2",
+                "chem_struct": "C[C@@H]([N+]#[C-])CC(=O)NCCCC[C@@H](CO)NC(=O)C[C@H]([N+]#[C-])C",
+                "database_id": ["pubchem:137333764"],
+            }
+        ]
+    # BGC0001564 produces cusperins A and B
+    # (see https://pubmed.ncbi.nlm.nih.gov/29570981/)
+    elif bgc_id == "BGC0001564":
+        entry["compounds"] = [
+            {
+                "compound": "cusperin A",
+                "database_id": ["npatlas:NPA027290"],
+            },
+            {
+                "compound": "cusperin B",
+                "database_id": ["npatlas:NPA027291"],
+            },
+        ]
+    # BGC0000261 produces R1128A-D compounds
+    # (see https://pubmed.ncbi.nlm.nih.gov/10931852/)
+    elif bgc_id == "BGC0000261":
+        entry["compounds"] = [
+            {"compound": "R1128A", "database_id": ["npatlas:NPA020125"]},
+            {"compound": "R1128B", "database_id": ["npatlas:NPA020126"]},
+            {"compound": "R1128C", "database_id": ["npatlas:NPA020127"]},
+            {"compound": "R1128D", "database_id": ["npatlas:NPA020128"]},
+        ]
+    # BGC0001752 produces qinichelins
+    # (see https://pmc.ncbi.nlm.nih.gov/articles/PMC5696649/)
+    elif bgc_id == "BGC0001752":
+        entry["compounds"] = [
+            {"compound": "qinichelin", "database_id": ["npatlas:NPA028371"]},
+            {"compound": "dehydroxy-qinichelin", "database_id": ["npatlas:NPA028374"]},
+            {"compound": "acetyl-qinichelin 1", "database_id": ["npatlas:NPA028373"]},
+            {"compound": "acetyl-qinichelin 2", "database_id": ["npatlas:NPA028372"]},
+        ]
+    # BGC0001762 produces rubrolone A-B
+    # (see https://www.nature.com/articles/ncomms13083)
+    elif bgc_id == "BGC0001762":
+        entry["compounds"] = [
+            {
+                "compound": "rubrolone A",
+                "chem_struct": "CCCC1=C2C(=CC(=N1)C)C3=C(C4=C(C(=O)C=C3C2=O)[C@@]5([C@@H]([C@@H]([C@H](O[C@@H]5O4)C)O)O)O)O",
+                "database_id": ["npatlas:NPA021088"],
+            },
+            {
+                "compound": "rubrolone B",
+                "chem_struct": "CCCC1=C2C(=C3C(=CC(=O)C4=C(C3=O)O[C@H]5[C@@]4([C@H]([C@H]([C@H](O5)C)O)O)O)C2=O)C=C(N1C6=CC=CC=C6C(=O)O)C",
+                "database_id": ["npatlas:NPA023798"],
+            }
+        ]
+    # BGC0002666 produces legonmycins A-B and legonindolizines A-B
+    # (see doi:10.1002/anie.201502902)
+    elif bgc_id == "BGC0002666":
+        entry["compounds"] = [
+            {
+                "compound": "legonmycin A",
+                "chem_struct": "CC1=C(N2CCCC2(C1=O)O)NC(=O)CC(C)C",
+                "database_id": ["npatlas:NPA007477"],
+            },
+            {
+                "compound": "legonmycin B",
+                "chem_struct": "CC1=C(NC(=O)CCC(C)C)N2CCCC2(O)C1=O",
+                "database_id": ["npatlas:NPA032572"],
+            },
+            {
+                "compound": "legonindolizine A",
+                "chem_struct": "CC1=C(NC(CC(C)C)=O)C(N2CCCC2=C1O)=O",
+                "database_id": [],
+            },
+            {
+                "compound": "legonindolizine B",
+                "chem_struct": "CC1=C(NC(CCC(C)C)=O)C(N2CCCC2=C1O)=O",
+                "database_id": [],
+            },
+        ]
+    # BGC0000431 produces stenothricin D
+    # (see PMID:24149839)
+    elif bgc_id == "BGC0000431":
+        entry["compounds"] = [
+            {
+                "compound": "stenothricin D",
+                "database_id": ["npatlas:NPA007735"],
+            }
+        ]
+    # BGC0000291 produces all A-54145 lipopeptide variants
+    elif bgc_id == "BGC0000291":
+        entry["compounds"] = [
+            {"compound": f"A-54145 {x}"}
+            for x in ["A", "A1", "B", "B1", "C", "D", "E", "F"]
+        ]
+    # BGC0001574 produces compound named SF2768
+    elif bgc_id == "BGC0001574":
+        entry["compound"] = [
+            {
+                "chem_struct": "[C-]#[N+]C(C)CC(=O)NCC1CCC(NC(=O)CC(C)[N+]#[C-])C(O)O1",
+                "compound": "SF2768",
+                "database_id": ["npatlas:NPA028494"],
+            }
+        ]
 
     for compound in entry["compounds"]:
         # mask formula of all capsular polysaccharide BGCs
@@ -766,12 +980,40 @@ for bgc_id, entry in mibig.items():
         # add aspcandine
         elif compound["compound"] == "aspcandine":
             compound["chem_struct"] = "C1[C@@]([H])2NC(=O)C=C2NC2=C(O)C=CC=C2C1=O"
+        # add 3-thiaglutamate formula
+        elif compound["compound"] == "3-thiaglutamate":
+            compound["chem_struct"] = "NC(C(=O)O)SCC(=O)O"
         # fix clipibicyclene annotation
         elif compound["compound"] == "clipibycyclene":
             compound["compound"] = "clipibicyclene"
             compound["chem_struct"] = r"C1=C(/NC(=O)/C=C/C(/C)=C/C=C/C(O)CC)\OC(=O)N2CC(O)/C/2=C/1.O.N"
         elif compound["compound"] == "thermochelin":
             compound["chem_struct"] = r"CC(N(CCCC(NC(=O)C)C(=O)NC(CCC(N)=O)C(N(O)CCCC1NC(=O)C(CCCN(O)C(C)=O)NC1=O)=O)O)=O"
+        # fix coronofacic acid
+        elif compound["compound"] == "oronofacic acid":
+            compound["compound"] = "coronofacic acid"
+        # assign propert variants
+        elif compound["compound"] == "guangnanmycin":
+            compound["compound"] = "guangnanmycin A"
+        elif compound["compound"] == "entolysin":
+            compound["compound"] = "entolysin A"
+        elif compound["compound"] == "kolossin":
+            compound["compound"] = "kolossin A"
+        elif compound["compound"] == "nenestatin":
+            compound["compound"] = "nenestatin A"
+        elif compound["compound"] == "ochrobactin":
+            compound["compound"] = "ochrobactin A"
+        elif compound["compound"] == "ulleungmycin":
+            compound["compound"] = "ulleungmycin A"
+        elif compound["compound"] == "rimosamide":
+            compound["compound"] = "rimosamide A"
+        elif compound["compound"] == "tridecaptin":
+            compound["compound"] = "tridecaptin A1"
+        elif compound["compound"] == "putisolvin":
+            compound["compound"] = "putisolvin I"
+        # exochelin has name exochelin MS in NPAtlas
+        elif compound["compound"] == "exochelin":
+            compound["compound"] = "exochelin MS"
 
 
 # --- Load NPAtlas -----------------------------------------------------------
@@ -785,27 +1027,29 @@ np_atlas = {
 del data
 
 # --- Replace compounds from MIBiG that have a NPAtlas annotation ------------
-mibig_entries = collections.defaultdict(list)
-for npaid, entry in rich.progress.track(np_atlas.items(), description="Patching MIBiG..."):
-    mibig_xrefs = [xref["external_db_code"] for xref in entry["external_ids"] if xref["external_db_name"] == "mibig"]
-    for xref in mibig_xrefs:
-        mibig_entries[xref].append(entry)
 
-for bgc_id, bgc in mibig.items():
-    if bgc_id in mibig_entries and len(bgc["compounds"]) == 1 and "chem_struct" not in bgc["compounds"][0]:
-        names = ", ".join(repr(compound["compound"]) for compound in bgc['compounds'])
-        npnames = ", ".join(repr(entry['original_name']) for entry in mibig_entries[bgc_id])
-        rich.print(f"[bold blue]{'Replacing':>12}[/] compounds of [purple]{bgc_id}[/] ({names} with {npnames})")
-        bgc['compounds'] = [
-            {
-                "compound": entry["original_name"],
-                "chem_struct": entry["smiles"],
-                "database_id": [f"npatlas:{entry['npaid']}"],
-            }
-            for entry in mibig_entries[bgc_id]
-        ]
+#mibig_entries = collections.defaultdict(list)
+#for npaid, entry in rich.progress.track(np_atlas.items(), description="Patching MIBiG..."):
+#    mibig_xrefs = [xref["external_db_code"] for xref in entry["external_ids"] if xref["external_db_name"] == "mibig"]
+#    for xref in mibig_xrefs:
+#        mibig_entries[xref].append(entry)
+
+#for bgc_id, bgc in mibig.items():
+#    if bgc_id in mibig_entries and len(bgc["compounds"]) == 1 and "chem_struct" not in bgc["compounds"][0]:
+#        names = ", ".join(repr(compound["compound"]) for compound in bgc['compounds'])
+#        npnames = ", ".join(repr(entry['original_name']) for entry in mibig_entries[bgc_id])
+#        rich.print(f"[bold blue]{'Replacing':>12}[/] compounds of [purple]{bgc_id}[/] ({names} with {npnames})")
+#        bgc['compounds'] = [
+#            {
+#                "compound": entry["original_name"],
+#                "chem_struct": entry["smiles"],
+#                "database_id": [f"npatlas:{entry['npaid']}"],
+#            }
+#            for entry in mibig_entries[bgc_id]
+#        ]
 
 # --- Fix broken NPAtlas cross-references ------------------------------------
+
 for bgc_id, bgc in mibig.items():
     for compound in bgc["compounds"]:
         npatlas_xref = next(
@@ -827,6 +1071,7 @@ for bgc_id, bgc in mibig.items():
 
 
 # --- Try to map unannotated compounds to NPAtlas ----------------------------
+
 np_atlas_inchikeys = {
     entry["inchikey"]: entry
     for entry in np_atlas.values()
@@ -882,7 +1127,8 @@ for entry in rich.progress.track(mibig.values(), description=f"[bold blue]{'Mapp
                 rich.print(f"[bold red]{'Failed':>12}[/] to map {compound['compound']!r} product of [purple]{entry['mibig_accession']}[/] to PubChem")
 
 # --- Retrieve SMILES for compound with a cross-reference --------------------
-for entry in rich.progress.track(mibig.values(), description=f"[bold blue]{'Downloading':>12}[/]"):
+
+for bgc_id, entry in rich.progress.track(mibig.items(), description=f"[bold blue]{'Downloading':>12}[/]"):
     for compound in entry["compounds"]:
         # use built-in structure if any
         if "chem_struct" in compound:

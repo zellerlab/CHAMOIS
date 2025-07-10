@@ -165,6 +165,7 @@ BGC0000915	retired in MIBiG 4.0
 BGC0000928	exact duplicate of BGC0000188 with missing annotations	https://github.com/mibig-secmet/mibig-json/issues/071
 BGC0000930	not a gene cluster (fungal)	
 BGC0000931	retired in MIBiG 3.1	
+BGC0000945	incomplete BGC	https://github.com/mibig-secmet/mibig-json/issues/353
 BGC0000952	retired in MIBiG 3.1	
 BGC0000959	not a gene cluster (fungal)	
 BGC0000965	duplicate of BGC0001397 with extra flanking regions	https://github.com/mibig-secmet/mibig-json/issues/166
@@ -646,6 +647,7 @@ BGC0002278	not a gene cluster (fungal)
 BGC0002279	retired in MIBiG 3.1	
 BGC0002280	retired in MIBiG 3.1	
 BGC0002281	retired in MIBiG 3.1	
+BGC0002282	duplicate of BGC0002040	https://github.com/mibig-secmet/mibig-json/issues/294
 BGC0002290	not a gene cluster (fungal)	
 BGC0002292	retired in MIBiG 3.1	
 BGC0002299	retired in MIBiG 3.1	
@@ -693,6 +695,7 @@ BGC0002459	retired in MIBiG 3.1
 BGC0002463	retired in MIBiG 3.1	
 BGC0002481	retired in MIBiG 3.1	
 BGC0002483	not a gene cluster (fungal)	
+BGC0002494	incomplete entry	https://github.com/mibig-secmet/mibig-json/issues/354
 BGC0002501	not a gene cluster (fungal)	
 BGC0002502	not a gene cluster (fungal)	
 BGC0002505	not a gene cluster (fungal)	
@@ -715,6 +718,7 @@ BGC0002557	not a gene cluster (fungal)
 BGC0002562	retired in MIBiG 3.1	
 BGC0002571	probable invalid coordinates	https://pubmed.ncbi.nlm.nih.gov/12781517/
 BGC0002574	retired in MIBiG 3.1	
+BGC0002588	missing experimental evidence	https://github.com/mibig-secmet/mibig-json/issues/351
 BGC0002589	retired in MIBiG 3.1	
 BGC0002590	retired in MIBiG 3.1	
 BGC0002592	not a gene cluster (fungal)	
@@ -732,7 +736,7 @@ BGC0002604	not a gene cluster (fungal)
 BGC0002605	not a gene cluster (fungal)	
 BGC0002606	not a gene cluster (fungal)	
 BGC0002607	not a gene cluster (fungal)	
-BGC0002608	incomplete ochratoxin BGC	
+BGC0002608	incomplete ochratoxin BGC	https://github.com/mibig-secmet/mibig-json/issues/389
 BGC0002609	not a gene cluster (fungal)	
 BGC0002610	not a gene cluster (fungal)	
 BGC0002611	not a gene cluster (fungal)	
