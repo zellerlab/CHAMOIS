@@ -4,6 +4,7 @@
 
 [![Actions](https://img.shields.io/github/actions/workflow/status/zellerlab/CHAMOIS/test.yml?branch=main&logo=github&style=flat-square&maxAge=300)](https://github.com/zellerlab/CHAMOIS/actions)
 [![PyPI](https://img.shields.io/pypi/v/chamois-tool.svg?logo=pypi&style=flat-square&maxAge=3600)](https://pypi.org/project/chamois-tool)
+[![Bioconda](https://img.shields.io/conda/vn/bioconda/chamois?logo=anaconda&style=flat-square&maxAge=3600)](https://anaconda.org/bioconda/chamois)
 [![Wheel](https://img.shields.io/pypi/wheel/chamois-tool.svg?style=flat-square&maxAge=3600)](https://pypi.org/project/chamois-tool/#files)
 [![Python Versions](https://img.shields.io/pypi/pyversions/chamois-tool.svg?logo=python&style=flat-square&maxAge=3600)](https://pypi.org/project/chamois-tool/#files)
 [![License](https://img.shields.io/badge/license-GPLv3-blue.svg?style=flat-square&maxAge=2678400)](https://choosealicense.com/licenses/gpl-3.0/)

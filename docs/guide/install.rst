@@ -1,7 +1,7 @@
 Installation
 ============
 
-.. caution::
+.. important::
 
     Windows is not supported by HMMER, which is used by CHAMOIS to perform
     domain annotation. CHAMOIS therefore cannot be installed on Windows
@@ -24,16 +24,16 @@ It will install all dependencies, then install CHAMOIS and its required data:
     $ pip install --user chamois-tool
 
 
-.. Conda
-.. ^^^^^
+Conda
+^^^^^
 
-.. CHAMOIS is also available as a `recipe <https://anaconda.org/bioconda/chamois>`_
-.. in the `bioconda <https://bioconda.github.io/>`_ channel. To install, simply
-.. use the ``conda`` installer:
+CHAMOIS is also available as a `recipe <https://anaconda.org/bioconda/chamois>`_
+in the `bioconda <https://bioconda.github.io/>`_ channel. To install, simply
+use the ``conda`` installer:
 
-.. .. code:: console
+.. code:: console
 
-..      $ conda install -c bioconda chamois
+     $ conda install -c bioconda chamois
 
 
 .. Arch User Repository
