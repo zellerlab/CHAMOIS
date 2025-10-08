@@ -388,15 +388,18 @@ for bgc_id, entry in mibig.items():
         entry["compounds"] = [
             {
                 "compound": "fischerazole A",
-                "chem_struct": r"C(/Cl)(\Cl)=C/C[C@@](Cl)CCC[C@@](O)(C=C)CCCC[C@](CC1SC=C(C(=O)NC)N=1)Cl",
+                "chem_struct": r"CNC(=O)C1=CSC(=N1)C[C@@H](CCCC[C@@](CCC[C@@H](CC=C(Cl)Cl)Cl)(C=C)O)Cl",
+                "database_id": ["pubchem:171990265"],
             },
             {
                 "compound": "fischerazole B",
-                "chem_struct": r"C(/Cl)(\Cl)=C/CCCCC[C@@](O)(C=C)CCCC[C@](CC1SC=C(C(=O)NC)N=1)Cl",
+                "chem_struct": r"CNC(=O)C1=CSC(=N1)C[C@@H](CCCC[C@@](CCCCCC=C(Cl)Cl)(C=C)O)Cl",
+                "database_id": ["pubchem:171990239"],
             },
             {
                 "compound": "fischerazole C",
-                "chem_struct": r"C(/Cl)(\Cl)=C/C[C@@](Cl)CCC[C@@]([H])(C=C)CCCC[C@](CC1SC=C(C(=O)NC)N=1)Cl",
+                "chem_struct": r"CNC(=O)C1=CSC(=N1)C[C@@H](CCCCC(CCC[C@@H](CC=C(Cl)Cl)Cl)C=C)Cl",
+                "database_id": ["pubchem:171990344"],
             },
         ]
     elif bgc_id == "BGC0002597":

@@ -168,6 +168,12 @@ smiles = [""]*len(compounds)
 names = [""]*len(compounds)
 inchikey = [""] * len(compounds)
 
+total = 0
+for annotation_compounds in annotations.values():
+    total += sum(map(bool, annotation_compounds))
+rich.print(f"[bold blue]{'Retrieved':>12}[/] {total} compounds in {len(annotations)} BGCs")
+
+
 for bgc_id in rich.progress.track(annotations, description=f"[bold blue]{'Binarizing':>12}[/]"):
     bgc_index = bgc_indices[bgc_id]
     # record if this BGC has no chemical annotation available
