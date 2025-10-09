@@ -101,15 +101,16 @@ def run(args: argparse.Namespace, console: Console) -> int:
     # predict labels
     console.print(f"[bold blue]{'Predicting':>12}[/] chemical class probabilities")
     probas = model.predict_probas(compositions)
-    predictions = anndata.AnnData(X=probas, obs=compositions.obs, var=model.classes_, uns=uns)
+    console.print(f"[bold blue]{'Computing':>12}[/] information content of predictions")
+    ic = model.information_content(model.propagate(probas > 0.5))
+    predictions = anndata.AnnData(X=probas, obs=compositions.obs.assign(ic=ic), var=model.classes_, uns=uns)
     save_predictions(predictions, args.output, console)
 
     # render if required
     if args.render:
-        ic = model.information_content(predictions.X > 0.5)
-        for bgc_index in range(predictions.n_obs):
+        for bgc_index, bgc_id in enumerate(predictions.obs_names):
             tree = build_tree(model, predictions.X[bgc_index])
-            panel = rich.panel.Panel(tree, title=f"{predictions.obs_names[bgc_index]} (ic={ic[bgc_index]:.1f})")
+            panel = rich.panel.Panel(tree, title=f"{bgc_id} (ic={predictions.obs.loc[bgc_id, "ic"]:.1f})")
             console.print(panel)
 
     return 0
