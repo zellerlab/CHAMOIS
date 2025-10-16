@@ -10,6 +10,9 @@ GO_OBO=$(DATA)/ontologies/go$(GO_VERSION).obo
 MIBIG=$(DATA)/mibig
 MIBIG_VERSION=3.1
 
+MITE=$(DATA)/mite
+MITE_VERSION=1.18
+
 INTERPRO_VERSION=98.0
 INTERPRO_XML=$(DATA)/pfam/interpro$(INTERPRO_VERSION).xml.gz
 INTERPRO_JSON=$(DATA)/pfam/interpro$(INTERPRO_VERSION).json
@@ -196,3 +199,18 @@ $(DATA)/datasets/nuccore-lite/clusters.gbk: $(DATA)/datasets/nuccore-lite/compou
 
 $(DATA)/datasets/native/clusters.gbk: $(DATA)/datasets/native/compounds.json $(DATA)/datasets/native/coordinates.tsv
 	$(PYTHON) $(SCRIPTS)/native/download_clusters.py --compounds $< --clusters $@ --coordinates $(word 2,$^)
+
+# --- Download MITE data --------------------------------------------------------
+
+$(MITE)/entries.json:
+	mkdir -p $(DATA)/mite
+	$(PYTHON) $(SCRIPTS)/mite/download_entries.py -o $@
+
+$(MITE)/peptides.json: $(MITE)/entries.json
+	$(PYTHON) $(SCRIPTS)/mite/download_peptides.py -i $< -o $@ --email $(EMAIL)
+
+$(MITE)/features.hdf5: $(MITE)/peptides.json $(PFAM_HMM)
+	$(PYTHON) $(SCRIPTS)/mite/make_features.py -i $< -o $@ --hmm $(PFAM_HMM)
+
+$(MITE)/classes.hdf5: $(MITE)/entries.json $(CHEMONT) $(ATLAS)
+	$(PYTHON) $(SCRIPTS)/mite/make_classes.py -i $< -o $@ --chemont $(CHEMONT) --atlas $(ATLAS)
