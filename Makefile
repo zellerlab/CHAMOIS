@@ -8,7 +8,7 @@ GO_VERSION=2025-07-22
 GO_OBO=$(DATA)/ontologies/go$(GO_VERSION).obo
 
 MIBIG=$(DATA)/mibig
-MIBIG_VERSION=3.1
+MIBIG_VERSION=4.0
 
 MITE=$(DATA)/mite
 MITE_VERSION=1.18
@@ -23,7 +23,7 @@ PFAM_HMM=$(DATA)/pfam/Pfam$(PFAM_VERSION).hmm
 ATLAS=$(DATA)/npatlas/NPAtlas_download.json.gz
 CHEMONT=$(DATA)/ontologies/ChemOnt_2_1.obo
 
-DATASET_NAMES=mibig3.1 mibig2.0 native
+DATASET_NAMES=mibig4.0 mibig3.1 mibig2.0 native
 DATASET_TABLES=features classes ani
 
 TAXONOMY=$(DATA)/taxonomy
@@ -33,9 +33,6 @@ PAPER=misc/paper
 
 PYTHON=python -Wignore
 WGET=wget --no-check-certificate
-
-# path to the trained model
-WEIGHTS=chamois/predictor/predictor.json
 
 # use http://classyfire.wishartlab.com/ to get ClassyFire annotations
 WISHART=--wishart
@@ -125,7 +122,7 @@ $(DATA)/datasets/%/maccs.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(CHEM
 $(DATA)/datasets/%/ani.hdf5: $(DATA)/datasets/%/clusters.gbk $(CHEMONT)
 	$(PYTHON) $(SCRIPTS)/common/make_ani.py -q $< -r $< -o $@ -s 0.3
 
-$(DATA)/datasets/%/aci.mibig3.hdf5: $(DATA)/datasets/%/clusters.gbk $(DATA)/datasets/mibig3.1/clusters.gbk
+$(DATA)/datasets/%/aci.mibig3.hdf5: $(DATA)/datasets/%/clusters.gbk $(DATA)/datasets/mibig$(MIBIG_VERSION)/clusters.gbk
 	$(PYTHON) $(SCRIPTS)/common/make_aci.py --query $(word 1,$^) --target $(word 2,$^) -o $@
 
 $(DATA)/datasets/mibig%/types.tsv: $(DATA)/mibig/blocklist.tsv
@@ -227,7 +224,10 @@ $(MITE)/classes.hdf5: $(MITE)/entries.json $(CHEMONT) $(ATLAS)
 
 # --- Train model --------------------------------------------------------------
 
-$(WEIGHTS): $(DATA)/datasets/mibig4.0/classes.hdf5 $(DATA)/datasets/mibig4.0/features.hdf5
+# path to the trained model
+WEIGHTS=chamois/predictor/predictor.json
+
+$(WEIGHTS): $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5
 	$(PYTHON) -m chamois.cli train -f $(word 2,$^) -c $(word 1,$^) -o $@
 
 # --- Figures ------------------------------------------------------------------
@@ -278,5 +278,5 @@ $(STBL2)/weights.tsv: $(WEIGHTS)
 # Supplementary Table 3 - Unknown domains
 STBL3=$(PAPER)/sup_table3_domains
 
-$(STBL3)/table.tsv:
-	
+$(STBL3)/table.tsv: $(DATA)/ecdomainminer/EC-Pfam_calculated_associations_Extended.csv $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5 $(FIG2)/cv.report.tsv $(CHEMONT) $(INTERPRO_XML) $(PFAM_HMM)
+	$(PYTHON) $(STBL3)/table.py --chemont $(CHEMONT) --interpro $(INTERPRO_XML) --ec-domain $(word 1,$^) --pfam $(PFAM_HMM) --classes $(word 2,$^) --features $(word 3,$^) --cv-report $(word 4,$^) --output $@
