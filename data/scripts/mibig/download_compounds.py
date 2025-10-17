@@ -378,10 +378,12 @@ for bgc_id, entry in mibig.items():
             {
                 "compound": "N-acetyl-cysteinylated streptophenazine A",
                 "chem_struct": r"C1=CC=C(C(=O)OC)C2=NC3=CC=CC([C@@](SC[C@@](C(O)=O)NC(=O)C)[C@@](CCCC(C)C)C(=O)OC)=C3N=C12",
+                "database_id": ["pubchem:175663302"],
             },
             {
                 "compound": "N-acetyl-cysteinylated streptophenazine F",
                 "chem_struct": r"C1=CC=C(C(=O)OC)C2=NC3=CC=CC([C@@](SC[C@@](C(O)=O)NC(=O)C)[C@@](CCCCC(C)C)C(=O)OC)=C3N=C12",
+                "database_id": ["pubchem:175663328"],
             },
         ]
     elif bgc_id == "BGC0002624":
@@ -990,11 +992,17 @@ for bgc_id, entry in mibig.items():
         ]
     # BGC0000650 produces flexixanthin
     # (see https://pubmed.ncbi.nlm.nih.gov/16625353/)
+    elif bgc_id == "BGC0000650":
         entry["compounds"] = [
             {
                 "compound": "flexixanthin",
                 "database_id": ["pubchem:16061237"],
             },
+        ]
+    # BGC0001844 produces holrhizins A-D
+    elif bgc_id == "BGC0001844":
+        entry["compounds"] = [
+            {"compound": f"holrhizin {x}"} for x in "ABCD"
         ]
 
     for compound in entry["compounds"]:
@@ -1104,7 +1112,7 @@ for bgc_id, entry in mibig.items():
             compound["chem_struct"] = r"C[N+]1(C)CC2=C(C1)C1=C(NC3=C1C=CC=C3)C1=C2C2=C(N1)C=CC=C2"
         # add formula of bacillothiazole A
         elif compound["compound"] == "bacillothiazol A":
-            compound["chem_struct"] = "S1C(CCCCC(C)CC)=NC(C2=NC(C3SC=C(C(N[C@@](CO)C(=O)O)=O)N=3)=CS2)=C1"
+            compound["chem_struct"] = "s1c(CCCCC(C)CC)nc(c2nc(c3scc(C(=O)N[C@@H](CO)C(=O)O)n3)cs2)c1"
         # add aspcandine
         elif compound["compound"] == "aspcandine":
             compound["chem_struct"] = "C1[C@@]([H])2NC(=O)C=C2NC2=C(O)C=CC=C2C1=O"
@@ -1142,6 +1150,17 @@ for bgc_id, entry in mibig.items():
         # exochelin has name exochelin MS in NPAtlas
         elif compound["compound"] == "exochelin":
             compound["compound"] = "exochelin MS"
+        elif compound["compound"] == "vioprolide D":
+            compound["database_id"] = ["pubchem:10533574"]
+            compound["chem_struct"] = r"C/C=C/1\C(=O)N2CCC[C@H]2C(=O)N[C@H](C(=O)N([C@H](C(=O)OC[C@@H](C(=O)N[C@H](C(=O)N[C@@H](C(=O)N3CCC[C@H]3C4=N[C@@H](CS4)C(=O)N1)CC(C)C)C)O)C(C)C)C)[C@@H](C)O"
+        elif compound["compound"] == "lacticin Z":
+            compound.setdefault("database_id", []).append("pubchem:163191951")
+        
+        elif compound["compound"] == "orfamide A":
+            compound.setdefault("database_id", []).append("pubchem:139583545")
+        elif compound["compound"] == "orfamide B":
+            compound.setdefault("database_id", []).append("pubchem:137699707")
+
 
 
 # --- Load NPAtlas -----------------------------------------------------------
@@ -1239,15 +1258,15 @@ def get_compounds(cids):
 
 for entry in rich.progress.track(mibig.values(), description=f"[bold blue]{'Mapping':>12}[/]"):
     for compound in entry["compounds"]:
-        if "chem_struct" in compound:
-            continue
+        # if "chem_struct" in compound:
+        #     continue
         if not any(xref.startswith("pubchem") for xref in compound.get("database_id", ())):
             name = compound["compound"]
             cids = get_cids(name)
             if cids:
                 c = get_compounds(cids[:1])[0]
-                compound["database_id"] = [f"pubchem:{cids[0]}"]
-                compound["chem_struct"] = c.isomeric_smiles
+                compound.setdefault("database_id", []).append(f"pubchem:{cids[0]}")
+                compound.setdefault("chem_struct", c.isomeric_smiles)
                 rich.print(f"[bold green]{'Mapped':>12}[/] {compound['compound']!r} product of [purple]{entry['mibig_accession']}[/] to PubChem compound {c.cid}")
                 time.sleep(1)
             else:
