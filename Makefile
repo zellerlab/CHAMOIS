@@ -4,7 +4,7 @@ DATA=data
 BUILD=build
 SCRIPTS=$(DATA)/scripts
 
-GO_VERSION=2024-01-17
+GO_VERSION=2025-07-22
 GO_OBO=$(DATA)/ontologies/go$(GO_VERSION).obo
 
 MIBIG=$(DATA)/mibig
@@ -13,7 +13,7 @@ MIBIG_VERSION=3.1
 MITE=$(DATA)/mite
 MITE_VERSION=1.18
 
-INTERPRO_VERSION=98.0
+INTERPRO_VERSION=107.0
 INTERPRO_XML=$(DATA)/pfam/interpro$(INTERPRO_VERSION).xml.gz
 INTERPRO_JSON=$(DATA)/pfam/interpro$(INTERPRO_VERSION).json
 
@@ -29,8 +29,13 @@ DATASET_TABLES=features classes ani
 TAXONOMY=$(DATA)/taxonomy
 TAXONOMY_VERSION=2025-06-01
 
+PAPER=misc/paper
+
 PYTHON=python -Wignore
 WGET=wget --no-check-certificate
+
+# path to the trained model
+WEIGHTS=chamois/predictor/predictor.json
 
 # use http://classyfire.wishartlab.com/ to get ClassyFire annotations
 WISHART=--wishart
@@ -123,6 +128,9 @@ $(DATA)/datasets/%/ani.hdf5: $(DATA)/datasets/%/clusters.gbk $(CHEMONT)
 $(DATA)/datasets/%/aci.mibig3.hdf5: $(DATA)/datasets/%/clusters.gbk $(DATA)/datasets/mibig3.1/clusters.gbk
 	$(PYTHON) $(SCRIPTS)/common/make_aci.py --query $(word 1,$^) --target $(word 2,$^) -o $@
 
+$(DATA)/datasets/mibig%/types.tsv: $(DATA)/mibig/blocklist.tsv
+	$(PYTHON) $(SCRIPTS)/mibig/extract_types.py --mibig-version $* --blocklist data/mibig/blocklist.tsv -o $@
+
 # --- Download MIBiG 2.0 data ------------------------------------------------
 
 $(DATA)/datasets/mibig2.0/clusters.gbk: $(DATA)/mibig/blocklist.tsv $(SCRIPTS)/mibig/download_records.py
@@ -133,7 +141,6 @@ $(DATA)/datasets/mibig2.0/compounds.json: $(DATA)/mibig/blocklist.tsv $(ATLAS) $
 
 $(DATA)/datasets/mibig2.0/taxonomy.tsv: $(DATA)/mibig/blocklist.tsv $(TAXONOMY)/names.dmp $(TAXONOMY)/nodes.dmp $(TAXONOMY)/merged.dmp
 	$(PYTHON) $(SCRIPTS)/mibig/download_taxonomy.py --blocklist $< --mibig-version 2.0 -o $@ --taxonomy $(TAXONOMY)
-
 
 # --- Download MIBiG 3.1 data ------------------------------------------------
 
@@ -217,3 +224,59 @@ $(MITE)/features.hdf5: $(MITE)/peptides.json $(PFAM_HMM)
 
 $(MITE)/classes.hdf5: $(MITE)/entries.json $(CHEMONT) $(ATLAS)
 	$(PYTHON) $(SCRIPTS)/mite/make_classes.py -i $< -o $@ --chemont $(CHEMONT) --atlas $(ATLAS)
+
+# --- Train model --------------------------------------------------------------
+
+$(WEIGHTS): $(DATA)/datasets/mibig4.0/classes.hdf5 $(DATA)/datasets/mibig4.0/features.hdf5
+	$(PYTHON) -m chamois.cli train -f $(word 2,$^) -c $(word 1,$^) -o $@
+
+# --- Figures ------------------------------------------------------------------
+
+# Figure 2 - Independent CV
+FIG2=$(PAPER)/fig2_cross_validation
+
+$(FIG2)/cv.probas.hdf5: $(FIG2)/cv.report.tsv
+	touch $@
+
+$(FIG2)/cv.report.tsv: $(DATA)/datasets/mibig4.0/features.hdf5 $(DATA)/datasets/mibig4.0/classes.hdf5
+	$(PYTHON) -m chamois.cli cvi -f $(word 1,$^) -c $(word 2,$^) -o $$(FIG2)/cv.probas.hdf5 --report $@
+
+$(FIG2)/dummy.probas.hdf5: $(FIG2)/dummy.report.tsv
+	touch $@
+	
+$(FIG2)/dummy.report.tsv: $(DATA)/datasets/mibig4.0/features.hdf5 $(DATA)/datasets/mibig4.0/classes.hdf5
+	$(PYTHON) -m chamois.cli cvi -f $(word 1,$^) -c $(word 2,$^) -o $(FIG2)/dummy.probas.hdf5 --report $@ --model dummy
+
+$(FIG2)/rf.probas.hdf5: $(FIG2)/rf.report.tsv
+	touch $@
+	
+$(FIG2)/rf.report.tsv: $(DATA)/datasets/mibig4.0/features.hdf5 $(DATA)/datasets/mibig4.0/classes.hdf5
+	$(PYTHON) -m chamois.cli cvi -f $(word 1,$^) -c $(word 2,$^) -o $(FIG2)/rf.probas.hdf5 --report $@ --model rf
+
+$(FIG2)/cvtree_auprc.html: $(FIG2)/cv.report.tsv
+	$(PYTHON) $(FIG2)/tree.py --report $< --output $@
+
+$(FIG2)/pr/CHEMONTID\:0000002.svg: $(FIG2)/cv.probas.hdf5 $(DATA)/datasets/mibig4.0/classes.hdf5
+	$(PYTHON) $(FIG2)/prcurves.py --classes $(word 2,$^) --probas $(word 1,$^) -o $(@D)
+
+$(FIG2)/barplot.png: $(DATA)/datasets/mibig4.0/classes.hdf5 $(DATA)/datasets/mibig4.0/types.tsv $(FIG2)/cv.probas.hdf5
+	$(PYTHON) $(FIG2)/barplot_topk.py --classes $(word 1,$^) --types $(word 2,$^) --probas $(word 3,$^) --output $@
+
+$(FIG2)/barplot.svg: $(DATA)/datasets/mibig4.0/classes.hdf5 $(DATA)/datasets/mibig4.0/types.tsv $(FIG2)/cv.probas.hdf5
+	$(PYTHON) $(FIG2)/barplot_topk.py --classes $(word 1,$^) --types $(word 2,$^) --probas $(word 3,$^) --output $@
+
+.PHONY: figure2
+figure2: $(FIG2)/barplot.svg $(FIG2)/pr/CHEMONTID\:0000002.svg $(FIG2)/cvtree_auprc.html
+
+
+# Supplementary Table 2 - Weights
+STBL2=$(PAPER)/sup_table2_weights
+
+$(STBL2)/weights.tsv: $(WEIGHTS)
+	$(PYTHON) $(STBL2)/extract.py --output $@
+
+# Supplementary Table 3 - Unknown domains
+STBL3=$(PAPER)/sup_table3_domains
+
+$(STBL3)/table.tsv:
+	
