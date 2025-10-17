@@ -17,7 +17,7 @@ INTERPRO_VERSION=98.0
 INTERPRO_XML=$(DATA)/pfam/interpro$(INTERPRO_VERSION).xml.gz
 INTERPRO_JSON=$(DATA)/pfam/interpro$(INTERPRO_VERSION).json
 
-PFAM_VERSION=36.0
+PFAM_VERSION=38.0
 PFAM_HMM=$(DATA)/pfam/Pfam$(PFAM_VERSION).hmm
 
 ATLAS=$(DATA)/npatlas/NPAtlas_download.json.gz
@@ -108,8 +108,11 @@ $(DATA)/npatlas/maccs.hdf5: $(ATLAS)
 $(DATA)/datasets/%/features.hdf5: $(DATA)/datasets/%/clusters.gbk $(PFAM_HMM)
 	$(PYTHON) -m chamois.cli annotate --i $< --hmm $(PFAM_HMM) -o $@
 
+$(DATA)/datasets/%/classification.json: $(DATA)/datasets/%/classes.hdf5
+	touch $@
+
 $(DATA)/datasets/%/classes.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(CHEMONT)
-	$(PYTHON) $(SCRIPTS)/common/make_classes.py -i $< -o $@ --atlas $(ATLAS) --chemont $(CHEMONT) --cache $(BUILD) $(WISHART)
+	$(PYTHON) $(SCRIPTS)/common/make_classes.py -i $< -o $@ --atlas $(ATLAS) --chemont $(CHEMONT) --cache $(BUILD) $(WISHART) --output-json $(DATA)/datasets/$*/classification.json
 
 $(DATA)/datasets/%/maccs.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(CHEMONT)
 	$(PYTHON) $(SCRIPTS)/common/make_maccs.py -i $< -o $@
