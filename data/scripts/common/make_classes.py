@@ -1,5 +1,6 @@
 import argparse
 import collections
+import dataclasses
 import itertools
 import json
 import gzip
@@ -14,6 +15,7 @@ import anndata
 import disjoint_set
 import pandas
 import pronto
+import pubchempy
 import numpy
 import rdkit.Chem
 import rich.progress
@@ -33,6 +35,7 @@ parser.add_argument("-i", "--input", required=True)
 parser.add_argument("--atlas", required=True)
 parser.add_argument("--chemont", required=True)
 parser.add_argument("-o", "--output", required=True)
+parser.add_argument("--output-json")
 parser.add_argument("-D", "--distance", type=float, default=0.5)
 parser.add_argument("--cache")
 parser.add_argument("--wishart", action="store_true", default=False)
@@ -127,11 +130,24 @@ for bgc_id, bgc_compounds in rich.progress.track(compounds.items(), description=
         try:
             classyfire = classyfire_client.fetch(inchikey)
         except (RuntimeError, HTTPError) as err:
-            rich.print(f"[bold red]{'Failed':>12}[/] to get ClassyFire annotations for {compound['compound']!r} compound of [purple]{bgc_id}[/]")
+            rich.print(f"[bold red]{'Failed':>12}[/] to get ClassyFire annotations for {compound['compound']!r} compound of [purple]{bgc_id}[/]: {err}")
         else:
             rich.print(f"[bold green]{'Retrieved':>12}[/] ClassyFire annotations for {compound['compound']!r} compound of [purple]{bgc_id}[/]")
             annotations[bgc_id].append(classyfire)
             continue
+        #
+        pubchem_id = next((db_id.split(":")[1] for db_id in compound.get("database_id", []) if db_id.startswith("pubchem")), None)
+        if pubchem_id is not None:
+            c = pubchempy.get_compounds([pubchem_id])[0]
+            try:
+                classyfire = classyfire_client.fetch(c.inchikey)
+            except (RuntimeError, HTTPError) as err:
+                rich.print(f"[bold red]{'Failed':>12}[/] to get ClassyFire annotations for {compound['compound']!r} compound of [purple]{bgc_id}[/]: {err}")
+            else:
+                rich.print(f"[bold green]{'Retrieved':>12}[/] ClassyFire annotations for {compound['compound']!r} compound of [purple]{bgc_id}[/]")
+                annotations[bgc_id].append(classyfire)
+                continue
+
         #try:
         #    rich.print(f"[bold blue]{'Sending':>12}[/] ClassyFire query {compound['compound']!r} compound of [purple]{bgc_id}[/]")
         #    query = classyfire_client.query([ compound['chem_struct'].strip() ])
@@ -155,6 +171,26 @@ for bgc_id, bgc_compounds in rich.progress.track(compounds.items(), description=
         #        classyfire = chamois.classyfire.Classification.from_dict(out['entities'][0])
         #        annotations[bgc_id].append(classyfire)
         #    continue
+        annotations[bgc_id].append(None)
+
+# --- Export classification to JSON if requiested ---------------------------
+
+if args.output_json:
+    class Encoder(json.JSONEncoder):
+        def default(self, o):
+            if isinstance(o, chamois.classyfire.Classification):
+                return dataclasses.asdict(o)
+            return super().default(o)
+
+    annotations_with_info = {
+        bgc_id: [
+            {"annotations": annotations[bgc_id][i], "compound": compounds[bgc_id][i]}
+            for i in range(len(compounds[bgc_id]))
+        ]
+        for bgc_id in annotations
+    }
+    with open(args.output_json, "w") as f:
+        json.dump(annotations_with_info, f, cls=Encoder, sort_keys=True, indent=4)
 
 
 # --- Binarize classes -------------------------------------------------------
