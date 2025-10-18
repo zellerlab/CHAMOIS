@@ -122,7 +122,7 @@ $(DATA)/datasets/%/maccs.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(CHEM
 $(DATA)/datasets/%/ani.hdf5: $(DATA)/datasets/%/clusters.gbk $(CHEMONT)
 	$(PYTHON) $(SCRIPTS)/common/make_ani.py -q $< -r $< -o $@ -s 0.3
 
-$(DATA)/datasets/%/aci.mibig3.hdf5: $(DATA)/datasets/%/clusters.gbk $(DATA)/datasets/mibig$(MIBIG_VERSION)/clusters.gbk
+$(DATA)/datasets/%/aci.mibig$(MIBIG_VERSION).hdf5: $(DATA)/datasets/%/clusters.gbk $(DATA)/datasets/mibig$(MIBIG_VERSION)/clusters.gbk
 	$(PYTHON) $(SCRIPTS)/common/make_aci.py --query $(word 1,$^) --target $(word 2,$^) -o $@
 
 $(DATA)/datasets/mibig%/types.tsv: $(DATA)/mibig/blocklist.tsv
@@ -256,8 +256,9 @@ $(FIG2)/rf.report.tsv: $(DATA)/datasets/mibig4.0/features.hdf5 $(DATA)/datasets/
 $(FIG2)/cvtree_auprc.html: $(FIG2)/cv.report.tsv
 	$(PYTHON) $(FIG2)/tree.py --report $< --output $@
 
-$(FIG2)/pr/CHEMONTID\:0000002.svg: $(FIG2)/cv.probas.hdf5 $(DATA)/datasets/mibig4.0/classes.hdf5
+$(FIG2)/pr/.files: $(FIG2)/cv.probas.hdf5 $(DATA)/datasets/mibig4.0/classes.hdf5
 	$(PYTHON) $(FIG2)/prcurves.py --classes $(word 2,$^) --probas $(word 1,$^) -o $(@D)
+	touch $@
 
 $(FIG2)/barplot.png: $(DATA)/datasets/mibig4.0/classes.hdf5 $(DATA)/datasets/mibig4.0/types.tsv $(FIG2)/cv.probas.hdf5
 	$(PYTHON) $(FIG2)/barplot_topk.py --classes $(word 1,$^) --types $(word 2,$^) --probas $(word 3,$^) --output $@
@@ -266,8 +267,13 @@ $(FIG2)/barplot.svg: $(DATA)/datasets/mibig4.0/classes.hdf5 $(DATA)/datasets/mib
 	$(PYTHON) $(FIG2)/barplot_topk.py --classes $(word 1,$^) --types $(word 2,$^) --probas $(word 3,$^) --output $@
 
 .PHONY: figure2
-figure2: $(FIG2)/barplot.svg $(FIG2)/pr/CHEMONTID\:0000002.svg $(FIG2)/cvtree_auprc.html
+figure2: $(FIG2)/barplot.svg $(FIG2)/pr/.files $(FIG2)/cvtree_auprc.html
 
+# Figure 4 - Screen Evaluation
+FIG4=$(PAPER)/fig4_screen_evaluation
+
+$(FIG4)/merged.hdf5:
+	$(PYTHON) $(FIG4)/merge_predictions.py
 
 # Supplementary Table 2 - Weights
 STBL2=$(PAPER)/sup_table2_weights
