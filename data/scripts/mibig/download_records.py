@@ -12,7 +12,7 @@ import joblib
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--blocklist")
-parser.add_argument("--mibig-version", default="3.1")
+parser.add_argument("--mibig-version", default="3.1", choices={"1.3", "2.0", "3.1", "4.0"})
 parser.add_argument("--cache")
 parser.add_argument("--email", default="martin.larralde@embl.de")
 parser.add_argument("-o", "--output", required=True)
@@ -203,7 +203,7 @@ with rich.progress.Progress() as progress:
             # (https://github.com/mibig-secmet/mibig-json/issues/030)
             elif record.id == "BGC0000386":
                 record = get_genbank_record("CP000086.1")
-                record.id = "BGC0000386"
+                record.id = record.name = "BGC0000386"
                 start = get_cds(record, locus_tag="BTH_I2414").location.start
                 end = get_cds(record, locus_tag="BTH_I2427").location.end
 
@@ -241,7 +241,7 @@ with rich.progress.Progress() as progress:
                 record = features[0]
                 for f in features[1:]:
                     record += FULLSTOP + f
-                record.id = "BGC0000413"
+                record.id = record.name = "BGC0000413"
 
             # BGC0000422 goes from sfmR1 to sfmO6, orf(-1) and orf(+1) outside
             # of cluster as shown by knock-out (see doi:10.1128/JB.00826-07)
@@ -317,13 +317,15 @@ with rich.progress.Progress() as progress:
             # (NB: retired in MIBiG 4.0 anyway)
             elif record.id == "BGC0000805":
                 cluster1 = get_genbank_record("DQ988994.1")
-                cluster2 = get_genbank_record("DQ988994.1")
-                start1 = get_cds(record, gene="moeB5").location.start
-                end1 = get_cds(record, gene="moeS5").location.end
-                start2 = get_cds(record, gene="moeA4").location.start
-                end2 = get_cds(record, gene="moeC4").location.end
+                cluster2 = get_genbank_record("DQ988993.1")
+                start1 = get_cds(cluster1, gene="moeB5").location.start
+                end1 = get_cds(cluster1, gene="moeS5").location.end
+                start2 = get_cds(cluster2, gene="moeA4").location.start
+                end2 = get_cds(cluster2, gene="moeC4").location.end
+                assert start1 < end1
+                assert start2 < end2
                 record = cluster1[start1:end1] + FULLSTOP + cluster2[start2:end2]
-                record.id = "BGC0000805"
+                record.id = record.name = "BGC0000805"
 
             # BGC0000809 postulated by authors to go from atmA to atmI
             # based on GC% (see PMID:16873021)
@@ -407,7 +409,7 @@ with rich.progress.Progress() as progress:
             # (https://github.com/mibig-secmet/mibig-json/issues/400)
             elif record.id == "BGC0001184":
                 record = get_genbank_record("CP000560.1")
-                record.id = "BGC0001184"
+                record.id = record.name = "BGC0001184"
                 start = get_cds(record, gene="ywfI").location.start
                 end = get_cds(record, gene="ywfA").location.end
 
@@ -509,7 +511,7 @@ with rich.progress.Progress() as progress:
             # (https://github.com/mibig-secmet/mibig-json/issues/161)
             elif record.id == "BGC0001619":
                 record = get_genbank_record("KJ159185.1")
-                record.id = "BGC0001619"
+                record.id = record.name = "BGC0001619"
                 start = get_cds(record, protein_id="AKA59073.1").location.start
                 end = get_cds(record, protein_id="AKA59111.1").location.end
 
@@ -578,13 +580,13 @@ with rich.progress.Progress() as progress:
                 record = features[0]
                 for f in features[1:]:
                     record += FULLSTOP + f
-                record.id = "BGC0001817"
+                record.id = record.name = "BGC0001817"
 
             # BGC0001891 has wrong locus coordinates prior to MIBiG 4.0
             # (https://github.com/mibig-secmet/mibig-json/issues/037)
             elif record.id == "BGC0001891":
                 record = get_genbank_record("CP001348.1")
-                record.id = "BGC0001891"
+                record.id = record.name = "BGC0001891"
                 start = get_cds(record, locus_tag="Ccel_3250").location.start
                 end = get_cds(record, locus_tag="Ccel_3260").location.end
 
@@ -610,7 +612,7 @@ with rich.progress.Progress() as progress:
             # (https://github.com/mibig-secmet/mibig-json/issues/065)
             elif record.id == "BGC0001992":
                 record = get_genbank_record("FN666575.1")
-                record.id = "BGC0001992"
+                record.id = record.name = "BGC0001992"
                 start = get_cds(record, locus_tag="EAM_1028").location.start
                 end = get_cds(record, locus_tag="EAM_1033").location.end
 
@@ -682,10 +684,10 @@ with rich.progress.Progress() as progress:
             # (https://pubmed.ncbi.nlm.nih.gov/10.1002/anie.202015193/, Fig. 4)
             elif record.id == "BGC0002379":
                 record = get_genbank_record("AP023348.2")
-                start1 = get_cds(record, protein_id="BCJ07527.1").location.start
-                end1 = get_cds(record, protein_id="BDU09799.1").location.end
-                start2 = get_cds(record, protein_id="BDU09794.1").location.start
-                end2 = get_cds(record, protein_id="BCJ07604.1").location.end
+                start1 = get_cds(record, protein_id="BDU09799.1").location.start
+                end1 = get_cds(record, protein_id="BCJ07527.1").location.end
+                start2 = get_cds(record, protein_id="BCJ07604.1").location.start
+                end2 = get_cds(record, protein_id="BDU09794.1").location.end
                 assert start1 < end1
                 assert start2 < end2
                 record = record[start1:end1] + FULLSTOP + record[start2:end2]
@@ -725,8 +727,10 @@ with rich.progress.Progress() as progress:
                 end1 = get_cds(record, locus_tag="IHE48_05595").location.end
                 start2 = get_cds(record, locus_tag="IHE48_18560").location.start
                 end2 = get_cds(record, locus_tag="IHE48_18615").location.end
+                assert start1 < end1
+                assert start2 < end2
                 record = record[start1:end1] + FULLSTOP + record[start2:end2]
-                record.id = "BGC0002409"
+                record.id = record.name = "BGC0002409"
 
             # BGC0002426 spans from babR1 to babR8
             # (see doi:10.1039/D1OB00600B, Table S22)
@@ -801,6 +805,7 @@ with rich.progress.Progress() as progress:
             # (see https://github.com/mibig-secmet/mibig-json/issues/403)
             elif record.id == "BGC0002859":
                 record = get_genbank_record("UZVX01000002.1")
+                record.id = record.name = "BGC0002859" 
                 start = 413250  # determined by BLASTn
                 end = 484630  # determined by BLASTn
 
@@ -816,7 +821,7 @@ with rich.progress.Progress() as progress:
             # (https://www.mdpi.com/1420-3049/26/7/1892, Table S2-S4)
             elif record.id == "BGC0002977":
                 record = get_genbank_record("LYMC01000002.1")
-                record.id = "BGC0002977"
+                record.id = record.name = "BGC0002977"
                 start = 610900
                 end = 655972
 

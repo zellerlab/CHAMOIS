@@ -128,40 +128,16 @@ $(DATA)/datasets/%/aci.mibig$(MIBIG_VERSION).hdf5: $(DATA)/datasets/%/clusters.g
 $(DATA)/datasets/mibig%/types.tsv: $(DATA)/mibig/blocklist.tsv
 	$(PYTHON) $(SCRIPTS)/mibig/extract_types.py --mibig-version $* --blocklist data/mibig/blocklist.tsv -o $@
 
-# --- Download MIBiG 2.0 data ------------------------------------------------
+# --- Download MIBiG data ------------------------------------------------------
 
-$(DATA)/datasets/mibig2.0/clusters.gbk: $(DATA)/mibig/blocklist.tsv $(SCRIPTS)/mibig/download_records.py
-	$(PYTHON) $(SCRIPTS)/mibig/download_records.py --blocklist $< --mibig-version 2.0 -o $@
+$(DATA)/datasets/mibig%/clusters.gbk: $(DATA)/mibig/blocklist.tsv $(SCRIPTS)/mibig/download_records.py
+	$(PYTHON) $(SCRIPTS)/mibig/download_records.py --blocklist $< --mibig-version $* -o $@ --cache $(BUILD) --email $(EMAIL)
 
-$(DATA)/datasets/mibig2.0/compounds.json: $(DATA)/mibig/blocklist.tsv $(ATLAS) $(SCRIPTS)/mibig/download_compounds.py
-	$(PYTHON) $(SCRIPTS)/mibig/download_compounds.py --blocklist $< --mibig-version 2.0 -o $@ --atlas $(ATLAS) --cache $(BUILD)
+$(DATA)/datasets/mibig%/compounds.json: $(DATA)/mibig/blocklist.tsv $(ATLAS) $(SCRIPTS)/mibig/download_compounds.py
+	$(PYTHON) $(SCRIPTS)/mibig/download_compounds.py --blocklist $< --mibig-version $* -o $@ --atlas $(ATLAS) --cache $(BUILD)
 
-$(DATA)/datasets/mibig2.0/taxonomy.tsv: $(DATA)/mibig/blocklist.tsv $(TAXONOMY)/names.dmp $(TAXONOMY)/nodes.dmp $(TAXONOMY)/merged.dmp
-	$(PYTHON) $(SCRIPTS)/mibig/download_taxonomy.py --blocklist $< --mibig-version 2.0 -o $@ --taxonomy $(TAXONOMY)
-
-# --- Download MIBiG 3.1 data ------------------------------------------------
-
-$(DATA)/datasets/mibig3.1/clusters.gbk: $(DATA)/mibig/blocklist.tsv $(SCRIPTS)/mibig/download_records.py
-	$(PYTHON) $(SCRIPTS)/mibig/download_records.py --blocklist $< --mibig-version 3.1 -o $@
-
-$(DATA)/datasets/mibig3.1/compounds.json: $(DATA)/mibig/blocklist.tsv $(ATLAS) $(SCRIPTS)/mibig/download_compounds.py
-	$(PYTHON) $(SCRIPTS)/mibig/download_compounds.py --blocklist $< --mibig-version 3.1 -o $@ --atlas $(ATLAS) --cache $(BUILD)
-
-$(DATA)/datasets/mibig3.1/taxonomy.tsv: $(DATA)/mibig/blocklist.tsv $(TAXONOMY)/names.dmp $(TAXONOMY)/nodes.dmp $(TAXONOMY)/merged.dmp
-	$(PYTHON) $(SCRIPTS)/mibig/download_taxonomy.py --blocklist $< --mibig-version 3.1 -o $@ --taxonomy $(TAXONOMY)
-
-
-# --- Download MIBiG 4.0 data ------------------------------------------------
-
-$(DATA)/datasets/mibig4.0/clusters.gbk: $(DATA)/mibig/blocklist.tsv $(SCRIPTS)/mibig/download_records.py
-	$(PYTHON) $(SCRIPTS)/mibig/download_records.py --blocklist $< --mibig-version 4.0 -o $@
-
-$(DATA)/datasets/mibig4.0/compounds.json: $(DATA)/mibig/blocklist.tsv $(ATLAS) $(SCRIPTS)/mibig/download_compounds.py
-	$(PYTHON) $(SCRIPTS)/mibig/download_compounds.py --blocklist $< --mibig-version 4.0 -o $@ --atlas $(ATLAS) --cache $(BUILD)
-
-$(DATA)/datasets/mibig4.0/taxonomy.tsv: $(DATA)/mibig/blocklist.tsv $(TAXONOMY)/names.dmp $(TAXONOMY)/nodes.dmp $(TAXONOMY)/merged.dmp
-	$(PYTHON) $(SCRIPTS)/mibig/download_taxonomy.py --blocklist $< --mibig-version 4.0 -o $@ --taxonomy $(TAXONOMY)
-
+$(DATA)/datasets/mibig%/taxonomy.tsv: $(DATA)/mibig/blocklist.tsv $(TAXONOMY)/names.dmp $(TAXONOMY)/nodes.dmp $(TAXONOMY)/merged.dmp
+	$(PYTHON) $(SCRIPTS)/mibig/download_taxonomy.py --blocklist $< --mibig-version $* -o $@ --taxonomy $(TAXONOMY)
 
 # --- Download PRISM data ----------------------------------------------------
 

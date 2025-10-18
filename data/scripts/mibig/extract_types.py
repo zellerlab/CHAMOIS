@@ -14,7 +14,7 @@ import pandas
 
 # get paths from command line
 parser = argparse.ArgumentParser()
-parser.add_argument("--mibig-version", default="4.0")
+parser.add_argument("--mibig-version", default="4.0", choices={"1.3", "2.0", "3.1", "4.0"})
 parser.add_argument("--blocklist")
 parser.add_argument("-o", "--output", required=True)
 args = parser.parse_args()
