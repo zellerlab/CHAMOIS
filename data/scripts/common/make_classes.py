@@ -13,6 +13,7 @@ from typing import Dict, List
 
 import anndata
 import disjoint_set
+import joblib
 import pandas
 import pronto
 import pubchempy
@@ -45,6 +46,7 @@ args = parser.parse_args()
 if args.cache:
     rich.print(f"[bold green]{'Using':>12}[/] joblib cache folder {args.cache!r}")
     os.makedirs(args.cache, exist_ok=True)
+memory = joblib.Memory(location=args.cache, verbose=False)
 
 # --- Load MIBiG -------------------------------------------------------------
 
@@ -98,6 +100,10 @@ for term_id, i in chemont_indices.items():
 
 # --- Get ClassyFire annotations for all compounds ----------------------------
 
+@memory.cache
+def get_compounds(cids):
+    return pubchempy.get_compounds(cids)
+
 cache = {}
 if args.wishart:
     CLASSYFIRE_URL = "http://classyfire.wishartlab.com/entities/"
@@ -138,7 +144,7 @@ for bgc_id, bgc_compounds in rich.progress.track(compounds.items(), description=
         #
         pubchem_id = next((db_id.split(":")[1] for db_id in compound.get("database_id", []) if db_id.startswith("pubchem")), None)
         if pubchem_id is not None:
-            c = pubchempy.get_compounds([pubchem_id])[0]
+            c = get_compounds([pubchem_id])[0]
             try:
                 classyfire = classyfire_client.fetch(c.inchikey)
             except (RuntimeError, HTTPError) as err:
