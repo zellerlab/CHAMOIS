@@ -7,16 +7,27 @@ import tarfile
 import rich.progress
 import pandas
 import Bio.SeqIO
-
+import Bio.Entrez
+import joblib
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--blocklist")
 parser.add_argument("--mibig-version", default="3.1")
+parser.add_argument("--cache")
+parser.add_argument("--email", default="martin.larralde@embl.de")
 parser.add_argument("-o", "--output", required=True)
 args = parser.parse_args()
 
-url = f"https://dl.secondarymetabolites.org/mibig/mibig_gbk_{args.mibig_version}.tar.gz"
+Bio.Entrez.email = args.email
 
+# create persistent cache
+if args.cache:
+    rich.print(f"[bold green]{'Using':>12}[/] joblib cache folder {args.cache!r}")
+    os.makedirs(args.cache, exist_ok=True)
+memory = joblib.Memory(location=args.cache, verbose=False)
+
+# download MIBiG requested version
+url = f"https://dl.secondarymetabolites.org/mibig/mibig_gbk_{args.mibig_version}.tar.gz"
 
 def extract_records(response):
     total = int(response.headers["Content-Length"])
@@ -40,6 +51,15 @@ def get_cds(record, **kwargs):
     )
 
 
+@memory.cache
+def get_genbank_record(genbank_id):
+    with Bio.Entrez.efetch(db="nucleotide", id=genbank_id, rettype="gb", retmode="text") as f:
+        return Bio.SeqIO.read(f, "genbank")
+
+
+# a short sequence that ensures a STOP codon on all 6 frames
+FULLSTOP = "TTAATTAATTAA"
+
 with rich.progress.Progress() as progress:
 
     # load blocklist if any
@@ -58,9 +78,21 @@ with rich.progress.Progress() as progress:
             if record.id in blocklist:
                 continue
 
+            # BGC0000016 as found in MIBiG is only a fragment of the BGC
+            # (https://github.com/mibig-secmet/mibig-json/issues/115) --
+            # we recover the two parts and glue them to have a single record
+            # with the whole cluster
+            elif record.id == "BGC0000016":
+                subcluster_1 = get_genbank_record("AY636001.1")
+                subcluster_2 = get_genbank_record("AF357202.1")
+                record = subcluster_1 + FULLSTOP + subcluster_2
+                start = 0
+                end = len(record)
+                record.id = "BGC0000016"
+
             # BGC0000017 has unneeded downstream genes, only keep until `anaH`
             # (genes are characterized in doi:10.1016/j.toxicon.2014.07.016)
-            if record.id == "BGC0000017":
+            elif record.id == "BGC0000017":
                 start = 0
                 end = get_cds(record, gene="anaH").location.end
 
@@ -100,12 +132,18 @@ with rich.progress.Progress() as progress:
                 end = get_cds(record, gene="phn1").location.end
 
             # BGC0000136 has unrelated upstream and downstream genes, authors
-            # show by heterologous expression and inactivation studies the AHBA 
+            # show by heterologous expression and inactivation studies the AHBA
             # core is rifA-J (see PMID:11278540)
             elif record.id == "BGC0000136":
                 start = get_cds(record, gene="rifA").location.start
                 end = get_cds(record, gene="rifJ").location.end
- 
+
+            # BGC0000163 has unrelated genes, the deposited record contains
+            # the core biosynthetic gene cluster as a feature
+            elif record.id == "BGC0000163":
+                start = get_cds(record, gene="tsn1").location.start
+                end = get_cds(record, gene="tsn25").location.end
+
             # BGC0000187 has additional genes, the core BGC is only composed
             # of the 36 asu genes, shown by heterologous expression
             # (see PMID:20522559)
@@ -124,6 +162,12 @@ with rich.progress.Progress() as progress:
             elif record.id == "BGC0000236":
                 start = get_cds(record, gene="kinR").location.start
                 end = get_cds(record, gene="kinX2").location.end
+
+            # BGC0000268 has extra downstream genes
+            # (https://www.sciencedirect.com/science/article/pii/S1016847823174048, Table 1)
+            elif record.id == "BGC0000268":
+                start = get_cds(record, gene="schA1").location.start
+                end = get_cds(record, protein_id="CAH10129.1").location.end
 
             # BGC0000283 has extra flanking genes predicted to be unrelated
             # (see PMID:19101977)
@@ -155,11 +199,49 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, protein_id="AEG64684.1").location.start
                 end = get_cds(record, protein_id="AEF16032.1").location.end
 
+            # BGC0000386 has incorrect locus prior to MIBiG 3.1
+            # (https://github.com/mibig-secmet/mibig-json/issues/030)
+            elif record.id == "BGC0000386":
+                record = get_genbank_record("CP000086.1")
+                record.id = "BGC0000386"
+                start = get_cds(record, locus_tag="BTH_I2414").location.start
+                end = get_cds(record, locus_tag="BTH_I2427").location.end
+
             # BGC0000409 has two unrelated genes on each end
             # (see PMID:25128200)
             elif record.id == "BGC0000409":
                 start = get_cds(record, protein_id="AEA29624.1").location.start
                 end = get_cds(record, protein_id="AEA29650.1").location.end
+
+            # BGC0000413 contains many unrelated genes, so we can build the
+            # minimum cluster using the reference paper
+            # (https://pmc.ncbi.nlm.nih.gov/articles/PMC3562110/, Figure 2)
+            elif record.id == "BGC0000413":
+                record = get_genbank_record("CP000076.1")
+                locus_tags = [
+                    "PFL_4191", # pvdY
+                    "PFL_4190", # pvdS
+                    "PFL_4189", # pvdL
+                    "PFL_4179", # pvdH
+                    "PFL_4095", # pvdI
+                    "PFL_4094", # pvdJ
+                    "PFL_4093", # pvdD
+                    "PFL_4091", # pvdE
+                    "PFL_4090", # pvdF
+                    "PFL_4089", # pvdO
+                    "PFL_4088", # pvdN
+                    "PFL_4087", # pvdM
+                    "PFL_4086", # pvdP
+                    "PFL_4082", # pvdT
+                    "PFL_4081", # pvdR
+                    "PFL_4079", # pvdA
+                    "PFL_2902", # pvdQ
+                ]
+                features = [ get_cds(record, locus_tag=t).location.extract(record) for t in locus_tags ]
+                record = features[0]
+                for f in features[1:]:
+                    record += FULLSTOP + f
+                record.id = "BGC0000413"
 
             # BGC0000422 goes from sfmR1 to sfmO6, orf(-1) and orf(+1) outside
             # of cluster as shown by knock-out (see doi:10.1128/JB.00826-07)
@@ -173,7 +255,7 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, gene="tioA").location.start
                 end = get_cds(record, gene="tioZ").location.end
 
-            # BGC0000495 contains additional genes unrelated to actagardine 
+            # BGC0000495 contains additional genes unrelated to actagardine
             # biosynthesis (see PMID:19400806)
             elif record.id == "BGC0000495":
                 start = get_cds(record, gene="garA").location.start
@@ -228,28 +310,43 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, gene="valN").location.start
                 end = get_cds(record, gene="valQ").location.end
 
+            # BGC0000805 has a main cluster that produces the 
+            # moenomycin phosphoglycolipid, and a subcluster that 
+            # produces the C5N chromophore
+            # (https://github.com/mibig-secmet/mibig-json/issues/092)
+            # (NB: retired in MIBiG 4.0 anyway)
+            elif record.id == "BGC0000805":
+                cluster1 = get_genbank_record("DQ988994.1")
+                cluster2 = get_genbank_record("DQ988994.1")
+                start1 = get_cds(record, gene="moeB5").location.start
+                end1 = get_cds(record, gene="moeS5").location.end
+                start2 = get_cds(record, gene="moeA4").location.start
+                end2 = get_cds(record, gene="moeC4").location.end
+                record = cluster1[start1:end1] + FULLSTOP + cluster2[start2:end2]
+                record.id = "BGC0000805"
+
             # BGC0000809 postulated by authors to go from atmA to atmI
             # based on GC% (see PMID:16873021)
             elif record.id == "BGC0000809":
                 start = get_cds(record, gene="atA").location.start
                 end = get_cds(record, gene="atI").location.end
 
-            # BGC0000814 contains unrelated genes, authors show nokABCD is 
-            # sufficient for the carbazole core, nokP and additional for the 
-            # final compound, but many other genes are regulatory 
+            # BGC0000814 contains unrelated genes, authors show nokABCD is
+            # sufficient for the carbazole core, nokP and additional for the
+            # final compound, but many other genes are regulatory
             # (see PMID:19756308, Fig. 3)
             elif record.id == "BGC0000814":
                 start = get_cds(record, protein_id="ACN29705.1").location.start  # nokX
                 end = get_cds(record, protein_id="ACN29728.1").location.end # nokW
 
-            # BGC0000874 contains unrelated genes at the beginning of the 
+            # BGC0000874 contains unrelated genes at the beginning of the
             # record, which were shown to be unrelated to the biosynthesis
             # by restriction analysis (see PMID:12964155, Fig. 1)
             elif record.id == "BGC0000874":
                 start = get_cds(record, gene="blsS").location.start
                 end = get_cds(record, gene="blsN").location.end
 
-            # BGC0000877 was shown to go from polB to polR by deletion 
+            # BGC0000877 was shown to go from polB to polR by deletion
             # experiments (see PMID:19233844)
             elif record.id == "BGC0000877":
                 start = get_cds(record, gene="polB").location.start
@@ -263,7 +360,7 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, gene="fom3").location.start
                 end = get_cds(record, gene="fomC").location.end
 
-            # BGC0000953 has some flanking genes 
+            # BGC0000953 has some flanking genes
             # (see PMID:22267658, Fig. 3)
             elif record.id == "BGC0000953":
                 start = get_cds(record, gene="amiA").location.start
@@ -306,6 +403,14 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, protein_id="AGC09475.1").location.start
                 end = get_cds(record, protein_id="AGC09510.1").location.end
 
+            # MIBiG entry misses genes `ywfH` and `ywfI`
+            # (https://github.com/mibig-secmet/mibig-json/issues/400)
+            elif record.id == "BGC0001184":
+                record = get_genbank_record("CP000560.1")
+                record.id = "BGC0001184"
+                start = get_cds(record, gene="ywfI").location.start
+                end = get_cds(record, gene="ywfA").location.end
+
             # MIBIG entry of BGC0001196 contains ORF-2 to ORF+3
             elif record.id == "BGC0001196":
                 start = get_cds(record, protein_id="AJW76703.1").location.start
@@ -317,7 +422,7 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, protein_id="AKA59430.1").location.start
                 end = get_cds(record, protein_id="AKA59442.1").location.end
 
-            # BGC0001300 spans from atcC to atcI, whole biosynthesis 
+            # BGC0001300 spans from atcC to atcI, whole biosynthesis
             # described without additional genes (see PMID:26348978, Fig. 3)
             elif record.id == "BGC0001300":
                 start = get_cds(record, gene="atcC").location.start
@@ -337,8 +442,8 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, locus_tag="Hoch_0798").location.start
                 end = get_cds(record, locus_tag="Hoch_0799").location.end
 
-            # BGC0001379 has two flanking genes that are not part of the 
-            # cluster, as shown by heterologous expression 
+            # BGC0001379 has two flanking genes that are not part of the
+            # cluster, as shown by heterologous expression
             # (see PMID:27084005, Fig. 2)
             elif record.id == "BGC0001379":
                 start = get_cds(record, protein_id="BAU50925.1").location.start
@@ -353,9 +458,9 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, gene="nbrT3").location.start
                 end = get_cds(record, gene="nbrU").location.end
 
-            # BGC0001440 and BGC0001441 are homologous, BGC0001440 spans 
+            # BGC0001440 and BGC0001441 are homologous, BGC0001440 spans
             # cysA to cysH as confirmed by inactivation studies, BGC0001441
-            # likely spans belA to belV based on homology 
+            # likely spans belA to belV based on homology
             # (see https://pubmed.ncbi.nlm.nih.gov/28452105/, Fig. 3)
             elif record.id == "BGC0001440":
                 start = get_cds(record, gene="cysA").location.start
@@ -365,7 +470,7 @@ with rich.progress.Progress() as progress:
                 end = get_cds(record, gene="belV").location.end
 
             # BGC0001457 coordinates spanning at most orf8 to orf24, confirmed
-            # by heterologous expression 
+            # by heterologous expression
             # (see https://pubmed.ncbi.nlm.nih.gov/30065171/, Fig. 1)
             elif record.id == "BGC0001457":
                 start = get_cds(record, locus_tag="ctg1_orf8").location.start
@@ -383,8 +488,8 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, gene="c10R1").location.start
                 end = get_cds(record, gene="c10R6").location.end
 
-            # BGC0001575 was characterized by heterologous expression of 
-            # the 4 terminal genes only 
+            # BGC0001575 was characterized by heterologous expression of
+            # the 4 terminal genes only
             # (see doi:10.1016/j.cell.2016.12.021, Fig. S1, Fig. 2)
             elif record.id == "BGC0001575":
                 start = get_cds(record, locus_tag="RSAG_RS12300").location.start
@@ -400,9 +505,17 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, locus_tag="forQ").location.start
                 end = get_cds(record, locus_tag="forCC").location.end
 
+            # MIBiG entry of BGC0001619 has incorrect locus prior to MIBiG 4.0
+            # (https://github.com/mibig-secmet/mibig-json/issues/161)
+            elif record.id == "BGC0001619":
+                record = get_genbank_record("KJ159185.1")
+                record.id = "BGC0001619"
+                start = get_cds(record, protein_id="AKA59073.1").location.start
+                end = get_cds(record, protein_id="AKA59111.1").location.end
+
             # MIBiG entry contains additional flanking genes not part of the
             # cluster according to sequence homology
-            # (see https://pmc.ncbi.nlm.nih.gov/articles/PMC11959601/, Fig. 1) 
+            # (see https://pmc.ncbi.nlm.nih.gov/articles/PMC11959601/, Fig. 1)
             elif record.id == "BGC0001728":
                 start = get_cds(record, locus_tag="PPE_RS11465").location.start
                 end = get_cds(record, locus_tag="PPE_RS11500").location.end
@@ -422,7 +535,7 @@ with rich.progress.Progress() as progress:
                 end = get_cds(record, protein_id="AOE46836.1").location.end
 
             # BGC0001751 contains extra upstream transposases and downstream
-            # sugar-processing enzymes not part of the cluster as per the 
+            # sugar-processing enzymes not part of the cluster as per the
             # authors (see https://pubmed.ncbi.nlm.nih.gov/28590072/, Fig. 3)
             elif record.id == "BGC0001751":
                 start = get_cds(record, gene="pyxD").location.start
@@ -442,7 +555,7 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, gene="rubS1").location.start
                 end = get_cds(record, gene="rubE9").location.end
 
-            # BGC0001774 contains unrelated downstream genes, as shown by 
+            # BGC0001774 contains unrelated downstream genes, as shown by
             # inactivation experiments on sepM-Q
             # (see https://pmc.ncbi.nlm.nih.gov/articles/PMC5856511/, Fig. 2)
             elif record.id == "BGC0001774":
@@ -455,6 +568,25 @@ with rich.progress.Progress() as progress:
             elif record.id == "BGC0001885":
                 start = get_cds(record, gene="ozeA").location.start
                 end = get_cds(record, gene="ozeN").location.end
+
+            # BGC0001817 describes 5 genes that are apart in a contig, but
+            # all relate to the same pathway, we create a composite cluster
+            # merging all genes in a single record
+            elif record.id == "BGC0001817":
+                proteins = ["AKA59112.1", "AKA59113.1", "AKA59114.1", "AKA59115.1", "AKA59116.1"]
+                features = [ get_cds(record, protein_id=p).location.extract(record) for p in proteins ]
+                record = features[0]
+                for f in features[1:]:
+                    record += FULLSTOP + f
+                record.id = "BGC0001817"
+
+            # BGC0001891 has wrong locus coordinates prior to MIBiG 4.0
+            # (https://github.com/mibig-secmet/mibig-json/issues/037)
+            elif record.id == "BGC0001891":
+                record = get_genbank_record("CP001348.1")
+                record.id = "BGC0001891"
+                start = get_cds(record, locus_tag="Ccel_3250").location.start
+                end = get_cds(record, locus_tag="Ccel_3260").location.end
 
             # Heterologous expression of BGC0001917 shows that only `stmA` to `stmI`
             # are required for synthesis (see doi:10.1039/c8ob02846j, Fig.3)
@@ -474,6 +606,14 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, gene="adeA").location.start
                 end = get_cds(record, gene="adeI").location.end
 
+            # MIBiG entry of BGC0001992 is using the wrong GenBank locus
+            # (https://github.com/mibig-secmet/mibig-json/issues/065)
+            elif record.id == "BGC0001992":
+                record = get_genbank_record("FN666575.1")
+                record.id = "BGC0001992"
+                start = get_cds(record, locus_tag="EAM_1028").location.start
+                end = get_cds(record, locus_tag="EAM_1033").location.end
+
             # MIBiG entry has the whole cluster, but authors through inactivation
             # experiments show that the biosynthetic core is atoA-F
             # (see https://pmc.ncbi.nlm.nih.gov/articles/PMC6547381/, Fig. 3)
@@ -481,13 +621,19 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, locus_tag="BLW76_RS36800").location.start # atoA
                 end = get_cds(record, locus_tag="BLW76_RS36825").location.end # atoF
 
+            # MIBiG entry contains unrelated flanking genes
+            # (see https://dx.doi.org/10.1021/acs.orglett.9b01891, Fig. 1)
+            elif record.id == "BGC0002011":
+                start = get_cds(record, locus_tag="AMYAL_RS47350").location.start
+                end = get_cds(record, locus_tag="AMYAL_RS0139605").location.end
+
             # MIBiG entry contains two additional flanking genes
             # (see https://journals.asm.org/doi/10.1128/aem.01971-19, Fig. 2)
             elif record.id == "BGC0002039":
                 start = get_cds(record, gene="focS").location.start
                 end = get_cds(record, gene="focP").location.end
 
-            # MIBiG entry contains larger region than determined by the 
+            # MIBiG entry contains larger region than determined by the
             # authors (although experimental validation does not show
             # cluster completeness, see https://www.mdpi.com/1660-3397/19/4/209)
             elif record.id == "BGC0002044":
@@ -511,14 +657,14 @@ with rich.progress.Progress() as progress:
 
             # MIBiG entry has the whole contig expressed heterologously, but
             # sequence homology with BGC0002199 suggests that only two
-            # genes homologous to `nanA` and `nanC` are involved 
+            # genes homologous to `nanA` and `nanC` are involved
             # (see https://pubmed.ncbi.nlm.nih.gov/10.1021/jacs.0c01605/, Fig. 7)
             elif record.id == "BGC0002198":
                 start = get_cds(record, gene="FAC38_35").location.start
                 end = get_cds(record, gene="FAC38_37").location.start-1 # to account for introns
 
             # BGC0002359 entry has an entire fragment but authors confirmed
-            # by deletion experiments and heterologous expression that genes 
+            # by deletion experiments and heterologous expression that genes
             # orf1-orf21 and orf25-26 are not involved in biosynthesis
             # (see https://www.mdpi.com/2076-2607/8/11/1800, Fig. 4)
             elif record.id == "BGC0002359":
@@ -530,6 +676,20 @@ with rich.progress.Progress() as progress:
             elif record.id == "BGC0002373":
                 start = get_cds(record, gene="bnvO").location.start
                 end = get_cds(record, gene="bnvA").location.end
+
+            # BGC0002379 contains two BGC halves separated by 70kb; we merge
+            # the two halves to obtain the minimum BGC reported by the authors
+            # (https://pubmed.ncbi.nlm.nih.gov/10.1002/anie.202015193/, Fig. 4)
+            elif record.id == "BGC0002379":
+                record = get_genbank_record("AP023348.2")
+                start1 = get_cds(record, protein_id="BCJ07527.1").location.start
+                end1 = get_cds(record, protein_id="BDU09799.1").location.end
+                start2 = get_cds(record, protein_id="BDU09794.1").location.start
+                end2 = get_cds(record, protein_id="BCJ07604.1").location.end
+                assert start1 < end1
+                assert start2 < end2
+                record = record[start1:end1] + FULLSTOP + record[start2:end2]
+                record.id = record.name = "BGC0002379"
 
             # BGC0002384 is actually only formed of 4 genes
             # (see doi:10.1021/acssynbio.0c00067, Supplementary Table 2)
@@ -552,6 +712,21 @@ with rich.progress.Progress() as progress:
             elif record.id == "BGC0002387":
                 start = get_cds(record, locus_tag="GA0070617_3550").location.start
                 end = get_cds(record, locus_tag="GA0070617_3572").location.end
+
+            # BGC0002409 and BGC0002410 are two halves of the frankobactin
+            # cluster (while a complete cluster can be found in Frankia sp. DC12
+            # but has not been validated) -- we merge the two halves inside
+            # BGC0002409 and add BGC0002410 to the blocklist to create a single
+            # composite BGC
+            # (see https://pubs.acs.org/doi/10.1021/acs.jnatprod.0c01291, Fig. S18-S19)
+            elif record.id == "BGC0002409":
+                record = get_genbank_record("JADBID010000001.1")
+                start1 = get_cds(record, locus_tag="IHE48_05525").location.start
+                end1 = get_cds(record, locus_tag="IHE48_05595").location.end
+                start2 = get_cds(record, locus_tag="IHE48_18560").location.start
+                end2 = get_cds(record, locus_tag="IHE48_18615").location.end
+                record = record[start1:end1] + FULLSTOP + record[start2:end2]
+                record.id = "BGC0002409"
 
             # BGC0002426 spans from babR1 to babR8
             # (see doi:10.1039/D1OB00600B, Table S22)
@@ -581,6 +756,18 @@ with rich.progress.Progress() as progress:
                 end = get_cds(record, gene="dstG").location.end
 
             # MIBiG entry contains extra flanking genes
+            # (see https://pubmed.ncbi.nlm.nih.gov/31756295/, Figure 4)
+            elif record.id == "BGC0002558":
+                start = get_cds(record, gene="sprD").location.start
+                end = get_cds(record, protein_id="BBM95968.1").location.end
+
+            # MIBiG entry contains extra flanking genes
+            # (see https://pmc.ncbi.nlm.nih.gov/articles/PMC9136965/, Figure 2)
+            elif record.id == "BGC0002637":
+                start = get_cds(record, locus_tag="DMH18_08025").location.start
+                end = get_cds(record, locus_tag="DMH18_08120").location.end
+
+            # MIBiG entry contains extra flanking genes
             # (see https://www.mdpi.com/1660-3397/19/12/673, Fig. 1)
             elif record.id == "BGC0002671":
                 start = get_cds(record, gene="kmy1").location.start
@@ -595,7 +782,7 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, locus_tag="KZO11_19415").location.start
                 end = get_cds(record, locus_tag="KZO11_19670").location.end
 
-            # BGC0002713 consists only in the core NRPs as shown by the 
+            # BGC0002713 consists only in the core NRPs as shown by the
             # gene activation experiments
             # (see https://pubmed.ncbi.nlm.nih.gov/31611640/, Fig. 2)
             elif record.id == "BGC0002713":
@@ -610,6 +797,35 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, locus_tag="PluTT01m_11950").location.start
                 end = get_cds(record, locus_tag="PluTT01m_11995").location.end
 
+            # MIBiG entry of BGC0002859 has the wrong locus
+            # (see https://github.com/mibig-secmet/mibig-json/issues/403)
+            elif record.id == "BGC0002859":
+                record = get_genbank_record("UZVX01000002.1")
+                start = 413250  # determined by BLASTn
+                end = 484630  # determined by BLASTn
+
+            # BGC0002873 contains unrelated flanking genes not recognized by
+            # the authors as part of the BGC
+            elif record.id == "BGC0002873":
+                start = get_cds(record, locus_tag="H9D14_RS04840").location.start # gbnR
+                end = get_cds(record, locus_tag="H9D14_RS04960").location.end # gbnD6
+
+            # MIBiG entry of BGC0002977 contains the entire contig, but the
+            # heterologously cloned cluster coordinates can be recovered from
+            # the paper
+            # (https://www.mdpi.com/1420-3049/26/7/1892, Table S2-S4)
+            elif record.id == "BGC0002977":
+                record = get_genbank_record("LYMC01000002.1")
+                record.id = "BGC0002977"
+                start = 610900
+                end = 655972
+
+            # MIBiG entry of BGC0002919 contains unrelated flanking genes
+            # (see https://doi.org/10.1002/chem.202400271 Figure 1)
+            elif record.id == "BGC0002919":
+                start = get_cds(record, gene="cirB").location.start
+                end = get_cds(record, gene="cirA12").location.end
+
             # clamp the BGC boundaries to the left- and rightmost genes
             else:
                 start = min( f.location.start for f in record.features if f.type == "CDS" )
@@ -622,6 +838,8 @@ with rich.progress.Progress() as progress:
             bgc_record.id = record.id
             bgc_record.name = record.name
             bgc_record.description = record.description
+            if not "molecule_type" in bgc_record.annotations:
+                bgc_record.annotations["molecule_type"] = "DNA"
             records.append(bgc_record)
 
     # sort records by MIBiG accession

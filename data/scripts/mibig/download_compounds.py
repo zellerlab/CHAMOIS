@@ -664,8 +664,8 @@ for bgc_id, entry in mibig.items():
     elif bgc_id == "BGC0000898":
         entry["compounds"] = [
             {
-                "compound": "desosamine",
-                "database_id": ["pubchem:168997"],
+                "compound": "beta-D-Desosamine",
+                "database_id": ["pubchem:9989742"],
             }
         ]
     # BGC0002522 only produces pseudodesmin not viscosinamide
@@ -1004,6 +1004,49 @@ for bgc_id, entry in mibig.items():
         entry["compounds"] = [
             {"compound": f"holrhizin {x}"} for x in "ABCD"
         ]
+    # BGC0002810 compound formulas in MIBiG are incorrect, but can be found 
+    # in PubChem (see https://www.nature.com/articles/ja201629)
+    elif bgc_id == "BGC0002810":
+        entry["compounds"] = [
+            {"compound": "hangtaimycin", "database_id": ["pubchem:139589388"]},
+            {"compound": "deoxyhangtaimycin"},
+        ]
+    # BGC0002677 and BGC0002711 have swapped compounds
+    # (https://github.com/mibig-secmet/mibig-json/issues/280)
+    elif bgc_id == "BGC0002677":
+        entry["compounds"] = [
+            {"compound": "nostovalerolactone", "database_id": ["pubchem:168010381"]},
+            {"compound": "9-dehydronostovalerolactone", "database_id": ["pubchem:168010402"]},
+        ]
+    elif bgc_id == "BGC0002711":
+        entry["compounds"] = [
+            {"compound": "nostoclide N1", "database_id": ["pubchem:168010247"]},
+            {"compound": "nostoclide N2", "database_id": ["pubchem:168010278"]},
+        ]
+    # BGC0002977 was validated to produce only amicoumacin A and amicoumacin C
+    # when expressed heterologously, 
+    # (https://www.mdpi.com/1420-3049/26/7/1892, Figure 3)
+    elif bgc_id == "BGC0002977":
+        entry["compounds"] = [
+            {"compound": "amicoumacin A", "database_id": ["npatlas:NPA012992"]},
+            {"compound": "amicoumacin C", "database_id": ["npatlas:NPA013344"]},
+        ]
+    # BGC0000326 produces complestatin not isocomplestatin
+    # (see https://github.com/mibig-secmet/mibig-json/issues/402)
+    elif bgc_id == "BGC0000326":
+        entry["compounds"] = [
+            {"compound": "complestatin", "database_id": ["npatlas:NPA020747"]}
+        ]
+    # BGC0001619 is missing the genes for rhamnose and vancosamide production
+    # therefore the cluster described in MIBiG only encodes the ibomycin 
+    # aglycone (https://github.com/mibig-secmet/mibig-json/issues/161)
+    elif bgc_id == "BGC0001619":
+        entry["compounds"] = [
+            {
+                "compound": "ibomycin aglycone",
+                "chem_struct": r"CCC(C(C)C(C(C)C(C(C)C1C(/C=C/C=C/C(CC(CC(CC(C(C2CC(C(C(O2)(C(C(CCC(CC(C/C=C/C=C\C(=O)O1)O)O)C)O)O)O)O)C)O)O)O)O)C)O)O)O",
+            }
+        ]
 
     for compound in entry["compounds"]:
         # mask formula of all capsular polysaccharide BGCs
@@ -1155,12 +1198,15 @@ for bgc_id, entry in mibig.items():
             compound["chem_struct"] = r"C/C=C/1\C(=O)N2CCC[C@H]2C(=O)N[C@H](C(=O)N([C@H](C(=O)OC[C@@H](C(=O)N[C@H](C(=O)N[C@@H](C(=O)N3CCC[C@H]3C4=N[C@@H](CS4)C(=O)N1)CC(C)C)C)O)C(C)C)C)[C@@H](C)O"
         elif compound["compound"] == "lacticin Z":
             compound.setdefault("database_id", []).append("pubchem:163191951")
-        
+        # link orfamide to pubchem
         elif compound["compound"] == "orfamide A":
             compound.setdefault("database_id", []).append("pubchem:139583545")
         elif compound["compound"] == "orfamide B":
             compound.setdefault("database_id", []).append("pubchem:137699707")
-
+        # vancosamine in pyranose form
+        elif compound["compound"] == "vancosamine":
+            compound["compound"] = "L-vancosamine"
+            compound["database_id"] = ["pubchem:23250394"]
 
 
 # --- Load NPAtlas -----------------------------------------------------------
