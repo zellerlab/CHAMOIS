@@ -8,7 +8,7 @@ GO_VERSION=2025-07-22
 GO_OBO=$(DATA)/ontologies/go$(GO_VERSION).obo
 
 MIBIG=$(DATA)/mibig
-MIBIG_VERSION=4.0
+MIBIG_VERSION=3.1
 
 MITE=$(DATA)/mite
 MITE_VERSION=1.18
@@ -248,8 +248,17 @@ figure2: $(FIG2)/barplot.svg $(FIG2)/pr/.files $(FIG2)/cvtree_auprc.html
 # Figure 4 - Screen Evaluation
 FIG4=$(PAPER)/fig4_screen_evaluation
 
-$(FIG4)/merged.hdf5:
+$(FIG4)/predictor.mibig$(MIBIG_VERSION).json: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5
+	$(PYTHON) -m chamois.cli train -c $(word 1,$^) -f $(word 2,$^) -o $@
+
+$(FIG4)/merged.hdf5: $(FIG4)/predictor.mibig$(MIBIG_VERSION).json
 	$(PYTHON) $(FIG4)/merge_predictions.py
+
+$(FIG4)/dotplot_merged.svg: $(FIG4)/merged.hdf5
+	$(PYTHON) $(FIG4)/dotplot_merged.py
+
+.PHONY: figure4
+figure4: $(FIG4)/dotplot_merged.svg
 
 # Supplementary Table 2 - Weights
 STBL2=$(PAPER)/sup_table2_weights
