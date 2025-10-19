@@ -64,7 +64,7 @@ with rich.progress.Progress() as progress:
                         with tar.extractfile(entry) as f:
                             record = json.load(f)
                             cluster = convert_mibig4_to_mibig3(record) if args.mibig_version == "4.0" else record["cluster"]
-                            if cluster.get("status") == "retired":
+                            if cluster["status"] in ("pending", "retired"):
                                 continue
                             if cluster["mibig_accession"] in blocklist:
                                 continue
@@ -1049,10 +1049,12 @@ for bgc_id, entry in mibig.items():
         ]
 
     for compound in entry["compounds"]:
-        # mask formula of all capsular polysaccharide BGCs
-        if compound["compound"] == "capsular polysaccharide":
-            compound.pop("chem_struct", None)
-            break
+        # remove formula and cross-references of all capsular polysaccharide 
+        # and lipopolysaccharide BGCs as the compound formula is likely incorrect
+        if compound["compound"].endswith(("capsular polysaccharide", "lipopolysaccharide")):
+            name = compound["compound"]
+            compound.clear()
+            compound["compound"] = name
         # β-D-galactosylvalidoxylamine-A is actually validamycin
         if compound["compound"] == "β-D-galactosylvalidoxylamine-A":
             compound["compound"] = "validamycin A"
@@ -1304,8 +1306,8 @@ def get_compounds(cids):
 
 for entry in rich.progress.track(mibig.values(), description=f"[bold blue]{'Mapping':>12}[/]"):
     for compound in entry["compounds"]:
-        # if "chem_struct" in compound:
-        #     continue
+        if "chem_struct" in compound:
+            continue
         if not any(xref.startswith("pubchem") for xref in compound.get("database_id", ())):
             name = compound["compound"]
             cids = get_cids(name)
