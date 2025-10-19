@@ -35,7 +35,7 @@ import chamois.classyfire
 from chamois.predictor import ChemicalOntologyPredictor
 
 random.seed(0)
-MIBIG_VERSION = "4.0"
+MIBIG_VERSION = "3.1"
 
 # disable logging
 RDLogger.DisableLog('rdApp.warning')
