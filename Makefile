@@ -214,32 +214,32 @@ FIG2=$(PAPER)/fig2_cross_validation
 $(FIG2)/cv.probas.hdf5: $(FIG2)/cv.report.tsv
 	touch $@
 
-$(FIG2)/cv.report.tsv: $(DATA)/datasets/mibig4.0/features.hdf5 $(DATA)/datasets/mibig4.0/classes.hdf5
-	$(PYTHON) -m chamois.cli cvi -f $(word 1,$^) -c $(word 2,$^) -o $$(FIG2)/cv.probas.hdf5 --report $@
+$(FIG2)/cv.report.tsv: $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5
+	$(PYTHON) -m chamois.cli cvi -f $(word 1,$^) -c $(word 2,$^) -o $(FIG2)/cv.probas.hdf5 --report $@
 
 $(FIG2)/dummy.probas.hdf5: $(FIG2)/dummy.report.tsv
 	touch $@
 	
-$(FIG2)/dummy.report.tsv: $(DATA)/datasets/mibig4.0/features.hdf5 $(DATA)/datasets/mibig4.0/classes.hdf5
+$(FIG2)/dummy.report.tsv: $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5
 	$(PYTHON) -m chamois.cli cvi -f $(word 1,$^) -c $(word 2,$^) -o $(FIG2)/dummy.probas.hdf5 --report $@ --model dummy
 
 $(FIG2)/rf.probas.hdf5: $(FIG2)/rf.report.tsv
 	touch $@
 	
-$(FIG2)/rf.report.tsv: $(DATA)/datasets/mibig4.0/features.hdf5 $(DATA)/datasets/mibig4.0/classes.hdf5
+$(FIG2)/rf.report.tsv: $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5
 	$(PYTHON) -m chamois.cli cvi -f $(word 1,$^) -c $(word 2,$^) -o $(FIG2)/rf.probas.hdf5 --report $@ --model rf
 
 $(FIG2)/cvtree_auprc.html: $(FIG2)/cv.report.tsv
 	$(PYTHON) $(FIG2)/tree.py --report $< --output $@
 
-$(FIG2)/pr/.files: $(FIG2)/cv.probas.hdf5 $(DATA)/datasets/mibig4.0/classes.hdf5
+$(FIG2)/pr/.files: $(FIG2)/cv.probas.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5
 	$(PYTHON) $(FIG2)/prcurves.py --classes $(word 2,$^) --probas $(word 1,$^) -o $(@D)
 	touch $@
 
-$(FIG2)/barplot.png: $(DATA)/datasets/mibig4.0/classes.hdf5 $(DATA)/datasets/mibig4.0/types.tsv $(FIG2)/cv.probas.hdf5
+$(FIG2)/barplot.png: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/types.tsv $(FIG2)/cv.probas.hdf5
 	$(PYTHON) $(FIG2)/barplot_topk.py --classes $(word 1,$^) --types $(word 2,$^) --probas $(word 3,$^) --output $@
 
-$(FIG2)/barplot.svg: $(DATA)/datasets/mibig4.0/classes.hdf5 $(DATA)/datasets/mibig4.0/types.tsv $(FIG2)/cv.probas.hdf5
+$(FIG2)/barplot.svg: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/types.tsv $(FIG2)/cv.probas.hdf5
 	$(PYTHON) $(FIG2)/barplot_topk.py --classes $(word 1,$^) --types $(word 2,$^) --probas $(word 3,$^) --output $@
 
 .PHONY: figure2
