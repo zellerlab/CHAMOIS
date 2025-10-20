@@ -261,9 +261,14 @@ for bgc_id, entry in mibig.items():
                 "database_id": ["pubchem:121477750"],
             }
         ]
-    # the SMILES in MIBiG is wrong, but the PubChem xref is correct
+    # the SMILES in MIBiG and the PubChem xref are wrong
     elif bgc_id == "BGC0000657":
-        del entry["compounds"][0]["chem_struct"]
+        entry["compounds"] = [
+            {
+                "compound": "2-methylisoborneol",
+                "database_id": ["pubchem:16913"]
+            }
+        ]
     # BGC0000282 produces several alkylresorcinol and alkylcoprinin derivatives
     # (see https://www.jbc.org/article/S0021-9258(20)71631-5/fulltext#gr5);
     # compound 15 which has the highest peak in the heterologous expression profile
@@ -1047,6 +1052,431 @@ for bgc_id, entry in mibig.items():
                 "chem_struct": r"CCC(C(C)C(C(C)C(C(C)C1C(/C=C/C=C/C(CC(CC(CC(C(C2CC(C(C(O2)(C(C(CCC(CC(C/C=C/C=C\C(=O)O1)O)O)C)O)O)O)O)C)O)O)O)O)C)O)O)O",
             }
         ]
+    # BGC0001611 produces guangnanmycin A and B, both the NPAtlas and the PubChem formula are wrong
+    # (see https://www.nature.com/articles/s41467-021-25798-8, Fig. 1)
+    elif bgc_id == "BGC0001611":
+        entry["compounds"] = [
+            {
+                "compound": "guangnanmycin A",
+                "chem_struct": "CC(/C=C/C(C/C=C(C)/CC[C@](CC(O)=O)(SSC)CC1=O)=C)=C/C2=CSC(C3(CC3)N1)=N2",
+            },
+            {
+                "compound": "guangnanmycin B",
+                "chem_struct": "C=C1/C=C/C(C)=C\\C2=CSC(=N2)C2(CC2)NC(=O)C[C@](S)(CC(=O)O)CC/C(C)=C/[C@H]1O",
+            }
+        ]
+    # BGC0001683 produces multiple N-acyl serinols, the following two were isolate by
+    # heterologous expression experiments (https://www.nature.com/articles/nature23874)
+    elif bgc_id == "BGC0001683":
+        entry["compounds"] = [
+            {
+                "compound": "N-palmitoyl serinol",
+                "chem_struct": "OCC(CO)NC(CCCCCCCCCCCCCCC)=O",
+                "database_id": ["pubchem:9862307"]
+            },
+            {
+                "compound": "N-oleoyl serinol",
+                "chem_struct": "CCCCCCCC/C=C\\CCCCCCCC(=O)NC(CO)CO",
+                "database_id": ["pubchem:44183838"]
+            }
+        ]
+    # BGC0001834 produces multiple argyrins, not just argyrin B; argyrin A and B are
+    # majority classes when the full cluster is expressed
+    elif bgc_id == "BGC0001834":
+        entry["compounds"] = [
+            {"compound": "argyrin A", "database_id": ["pubchem:11104823"]},
+            {"compound": "argyrin B", "database_id": ["pubchem:9940787"]},
+        ]
+    # BGC0001853 produces largymicins A1-A3 (see doi:10.1021/acschembio.0c00160)
+    elif bgc_id == "BGC0001853":
+        entry["compounds"] = [
+            {"compound": "largimycin A1", "database_id": ["pubchem:169491930"]},
+            {"compound": "largimycin A2", "database_id": ["pubchem:169491931"]},
+            {"compound": "largimycin A3", "database_id": ["pubchem:169491931"]},
+        ]
+    # BGC0001904 produces multiple fluostatins and congeners
+    # (see doi:10.1021/acs.orglett.5b02683, Fig. 1)
+    elif bgc_id == "BGC0001904":
+        entry["compounds"] = [
+            {"compound": "fluostatin F", "database_id": ["pubchem:46938889", "npatlas:NPA005841"]},
+            {"compound": "fluostatin D", "database_id": ["pubchem:11710937", "npatlas:NPA015522"]},
+            {"compound": "fluostatin J", "database_id": ["pubchem:71455117", "npatlas:NPA007171"]},
+            {"compound": "fluostatin G/H", "database_id": ["pubchem:139588795", "npatlas:NPA020332"]},
+            {"compound": "fluostatin L", "database_id": ["pubchem:122367507", "npatlas:NPA016757"]},
+            {"compound": "difluostatin A", "database_id": ["pubchem:122367508", "npatlas:NPA013198"]},
+            {"compound": "fluostatin C", "database_id": ["pubchem:11631193", "npatlas:NPA010700"]},
+            {"compound": "fluostatin K", "database_id": ["pubchem:71458783", "npatlas:NPA007725"]},
+            {"compound": "rabelomycin", "database_id": ["pubchem:443810", "npatlas:NPA019619"]}, 
+        ]
+    # BGC0001917 produces multiple 5-alkyltetrahydroquinolines 5aTHQ-9i, 5aTHQ-9N, 5aTHQ-10A,
+    # STAM-9i and STAM-9n are the species found with heterologous expression
+    elif bgc_id == "BGC0001917":
+        entry["compounds"] = [
+            {"compound": "5-(7-methyloctyl)-1,2,3,4-tetrahydroquinoline", "chem_struct": "CC(C)CCCCCCC1=CC=CC2=C1CCCN2"},
+            {"compound": "5-nonyl-1,2,3,4-tetrahydroquinoline", "chem_struct": "CCCCCCCCCC1=C2CCCNC2=CC=C1"},
+            {"compound": "5-(7-methylnonyl)-1,2,3,4-tetrahydroquinoline", "chem_struct": "CC[C@H](C)CCCCCCC1=C2CCCNC2=CC=C1"},
+            {"compound": "streptoaminal-9i", "chem_struct": "O[C@H]1C[C@]2(O[C@H](CCCCCCC(C)C)C1)NCCCC2"},
+            {"compound": "streptoaminal-9n", "chem_struct": "O[C@H]1C[C@]2(O[C@H](CCCCCCCCC)C1)NCCCC2"},
+        ]
+    # BGC0001073 produces more than one compound
+    elif bgc_id == "BGC0001073":
+        entry["compounds"] = [
+            {"compound": "kosinostatin", "database_id": ["pubchem:101163404"]},
+            {"compound": "isoquinocycline B", "database_id": ["pubchem:139588571"]},
+        ]
+    # BGC0001202 produces landepoxcins A and B
+    # (see https://pmc.ncbi.nlm.nih.gov/articles/PMC4394318/)
+    elif bgc_id == "BGC0001202":
+        entry["compounds"] = [
+            {"compound": "landepoxcin A", "chem_struct": "CC(C)CC(=O)N[C@H]([C@@H](C)O)C(=O)N[C@@H](CC(C)=C)C(=O)C1CO1"},
+            {"compound": "landepoxcin B", "chem_struct": "CCC(C)CC(=O)N[C@H]([C@@H](C)O)C(=O)N[C@@H](CC(C)=C)C(=O)C1CO1"},
+        ]
+    # BGC0001297 produces multiple compounds
+    elif bgc_id == "BGC0001297":
+        entry["compounds"] = [
+            {"compound": "WS9326A", "chem_struct": r"CCC/C=C\C1=CC=CC=C1/C=C/C(=O)N[C@H]2[C@H](OC(=O)[C@@H](NC(=O)[C@@H](NC(=O)[C@@H](NC(=O)[C@H](NC(=O)[C@@H](NC(=O)/C(=C\C3=CC=C(C=C3)O)/N(C2=O)C)CC(C)C)CC4=CC=CC=C4)[C@H](C)O)CC(=O)N)CO)C"},
+            {"compound": "WS9326C", "chem_struct": r"CCC/C=C\C1=CC=CC=C1/C=C/C(N[C@H]2COC([C@H](CO)NC([C@H](CC(N)=O)NC([C@H]([C@@H](O)C)NC([C@@H](CC3=CC=CC=C3)NC([C@H](CC(C)C)NC(/C(N(C)C2=O)=C\C4=CC=C(O)C=C4)=O)=O)=O)=O)=O)=O)=O"},
+            {"compound": "WS9326D"},  # the MIBiG formula looks wrong
+        ]
+    # BGC0001298 produces both enantiomers of annimycin
+    elif bgc_id == "BGC0001298":
+        entry["compounds"] = [
+            {"compound": "4-Z-annimycin", "database_id": ["pubchem:139585542", "npatlas:NPA008749"], "chem_struct": r"CC/C=C/C=C(\C)/C=C/C=C\C(CC(=O)NC1=C(CCC1=O)O)O"},
+            {"compound": "4-E-annimycin", "chem_struct": "O=C(NC1=C(O)CCC1=O)CC(O)/C=C/C=C/C(C)=C/C=C/CC"},
+        ]
+    # BGC0002385 produces dumulmycin as the majority compound but also the 
+    # epoxides shuangdaolides A-D (doi:10.1021/acs.orglett.1c02589/)
+    elif bgc_id == "BGC0002385":
+        entry["compounds"] = [
+            {"compound": "dumulmycin", "database_id": ["npatlas:NPA032535"]},
+            {"compound": "shuangdaolide A", "database_id": ["pubchem:170988207"]},
+            {"compound": "shuangdaolide B", "database_id": ["pubchem:169492366"]},
+            {"compound": "shuangdaolide C", "database_id": ["pubchem:169492367"]},
+            {"compound": "shuangdaolide D", "database_id": ["pubchem:169492368"]},
+        ]
+    
+    # Miscellaneous MIBiG 4.0 changes
+    elif bgc_id == "BGC0000075":
+        entry["compounds"] = [
+            {
+                "compound": "hygrocin A",
+                "database_id": ["npatlas:NPA04945", "pubchem:5326374"],
+            },
+            {
+                "compound": "hygrocin B",
+                "database_id": ["npatlas:NPA011351", "pubchem:5326384"],
+            }
+        ]
+    elif bgc_id == "BGC0000257":
+        entry["compounds"] = [
+            {
+                "compound": "roseophilin",
+                "database_id": ["npatlas:NPA002965"],
+            },
+            {
+                "compound": "prodigiosin R1",
+                "database_id": ["npatlas:NPA005906"],
+            },
+            {
+                "compound": "prodigiosin R2",
+                "database_id": ["npatlas:NPA021728"],
+            },
+            {
+                "compound": "prodigiosin R3",
+            }
+        ]
+    elif bgc_id == "BGC0000331":
+        entry["compounds"] = [
+            {
+                "compound": "cyanopeptolin 1138",
+                "database_id": ["npatlas:NPA027404", "pubchem:85238480"],
+            }
+        ]
+    elif bgc_id == "BGC0000397":
+        entry["compounds"] = [
+            {
+                "compound": "nostocyclopeptide A2",
+                "database_id": ["npatlas:NPA04801"],
+            }
+        ]
+    elif bgc_id == "BGC0000432":
+        entry["compounds"] = [
+            {"compound": f"streptothricin {x}"}
+            for x in "CDEF"
+        ]
+    elif bgc_id == "BGC0000435":
+        entry["compounds"] = [
+            {"compound": f"syringafactin {x}"}
+            for x in "ABCDEF"
+        ]
+    elif bgc_id == "BGC0000440":
+        entry["compounds"] = [
+            {"compound": f"teicoplanin A2-{x}"}
+            for x in range(1, 6)
+        ]
+    elif bgc_id == "BGC0000473":
+        entry["compounds"] = [
+            {"compound": f"aerucyclamide {x}"}
+            for x in "ABCD"
+        ]
+    elif bgc_id == "BGC0000608":
+        entry["compounds"] = [
+            {
+                "compound": "nocathiacin I",
+                "database_id": ["npatlas:NPA016398"],
+            }
+        ]
+    elif bgc_id == "BGC0000665":
+        entry["compounds"] = [
+            {
+                "compound": "xiamycin",
+                "database_id": ["npatlas:NPA012008"],
+            },
+            {
+                "compound": "indosespene",
+                "database_id": ["pubchem:53468951"],
+            },
+            {
+                "compound": "sespenine",
+                "database_id": ["pubchem:129822920"],
+            },
+            {
+                "compound": "dixiamycin A",
+            },
+            {
+                "compound": "dixiamycin B",
+            },
+            {
+                "compound": "sulfadixiamycin A",
+                "database_id": ["pubchem:156580494"],
+            },
+            {
+                "compound": "sulfadixiamycin B",
+                "database_id": ["pubchem:132821180"],
+                
+            },
+            {
+                "compound": "sulfadixiamycin C",
+                "database_id": ["pubchem:148126797"],
+            }
+        ]
+    elif bgc_id == "BGC0000922":
+        entry["compounds"] = [
+            {
+                "compound": "2-heptyl-3-hydroxy-4-quinolone",
+                "database_id": ["npatlas:NPA019649"],
+            },
+            {
+                "compound": "2,4-quinolinediol",
+                "database_id": ["pubchem:54680871"],
+            },
+            {
+                "compound": "2-heptylquinolin-4(1H)-one",
+                "database_id": ["npatlas:NPA026460"],
+            }
+        ]
+    elif bgc_id == "BGC0000957":
+        entry["compounds"] = [
+            {
+                "compound": "mycotrienin I",
+                "database_id": ["pubchem:139585484", "npatlas:NPA008547"],
+            }
+        ]
+    elif bgc_id == "BGC0000975":
+        entry["compounds"] = [
+            {
+                "compound": "cryptophycin A",
+                "database_id": ["npatlas:NPA013071"],
+            }
+        ]
+    elif bgc_id == "BGC0001006":
+        entry["compounds"] = [
+            {
+                "compound": "lymphostin",
+                "database_id": ["npatlas:NPA09688"],
+            },
+            {
+                "compound": "neolymphostinol B",
+                "database_id": ["npatlas:NPA015444"],
+            },
+            {
+                "compound": "lymphostinol",
+                "database_id": ["npatlas:NPA0884"],
+            },
+            {
+                "compound": "neolymphostin B",
+                "database_id": ["npatlas:NPA018570"],
+            }
+        ]
+    elif bgc_id == "BGC0001017":
+        entry["compounds"] = [
+            {
+                "compound": "microcystin LR",
+                "database_id": ["pubchem:445434", "npatlas:NPA0593"]
+            }
+        ]
+    elif bgc_id == "BGC0001061":
+        entry["compounds"] = [
+            {
+                "compound": "polyketomycin",
+                "database_id": ["npatlas:NPA001096"],
+                "chem_struct": r"C[C@@H]1[C@H](CC[C@@H](O1)OC2C(=O)C(=C(C3(C2(CC4=C(C5=C(C(=O)C=C(C5=O)OC)C(=C4C3=O)O)C)O)O)O)C(=O)C)O[C@H]6C[C@@]([C@@H]([C@@H](O6)C)OC(=O)C7=C(C=CC(=C7O)C)C)(C)O",
+            }
+        ]
+    elif bgc_id == "BGC0001070":
+        entry["compounds"] = [
+            {
+                "compound": "kirromycin",
+                "database_id": ["pubchem:135484176"]
+            }
+        ]
+    elif bgc_id == "BGC0001102":
+        entry["compounds"] = [
+            {"compound": "malleilactone", "chem_struct": r"CCCCCCC\C=C(/C)\C(\O)=C1/C=C(OC1=O)C(=O)CC"},
+            {"compound": "bis-malleicyprol", "chem_struct": r"CCCCCCC/C=C(\C)C(=O)C1=CC(C2C(C(=O)/C(C)=C/CCCCCCC)C(=O)OC2C2(O)CC2)(C2(O)CC2)OC1=O"},
+            {"compound": "malleicyprol", "chem_struct": r"CCCCCCC/C=C(\C)C(=O)C1=CC(C2(O)CC2)OC1=O"},
+        ]
+    elif bgc_id == "BGC0001168":
+        entry["compounds"] = [
+            {"compound": "livipeptin", "chem_struct": "CC(NC(C(NC(CCCNC(N)=N)C=O)=O)CC1=CC=CC=C1)=O"},
+        ]
+    elif bgc_id == "BGC0001211":
+        entry["compounds"] = [
+            {"compound": "albachelin", "chem_struct": "[H]C(N(CCCC(C(NC(C(N(CCC[C@@H](C(NC(C(NC(C(NC1C(N(O)CCC1)=O)=O)CO)=O)CO)=O)NC)O)=O)CO)=O)NC(C)=O)O)=O"},
+        ]
+    elif bgc_id == "BGC0001467":
+        entry["compounds"] = [
+            {"compound": f"hapalosin {x}"}
+            for x in "ACDEFG"
+        ]
+    elif bgc_id == "BGC0001490":
+        entry["compounds"] = [
+            {
+                "compound": "3,5-dibromo-2-(2,4-dibromophenoxy)phenol",
+                "chem_struct": "BrC1=CC=C(OC=2C(Br)=CC(Br)=CC2O)C(Br)=C1",
+            },
+            {
+                "compound": "2,4-dibromo-6-(2,4-dibromophenoxy)phenol",
+                "chem_struct": "BrC1=CC(Br)=CC(OC2=CC=C(Br)C=C2Br)=C1O",
+            }
+        ]
+    elif bgc_id == "BGC0001500":
+        entry["compounds"] = [
+            {"compound": f"allocyclinone {x}", "database_id": [f"npatlas:NPA{i:06}"]}
+            for i, x in enumerate("ABCD", 21547)
+        ]
+    elif bgc_id == "BGC0001064" or bgc_id == "BGC0001566":
+        entry["compounds"] = [
+            {"compound": "cylindrocyclophane D", "database_id": ["pubchem:10258912"]},
+            {"compound": "cylindrocyclophane E", "database_id": ["pubchem:102306484"]},
+            {"compound": "cylindrocyclophane F", "database_id": ["pubchem:11757351"]},
+        ]
+    elif bgc_id == "BGC0001575":
+        entry["compounds"] = [
+            {"compound": "lumizinone A", "database_id": ["pubchem:132599737", "npatlas:NPA021513"]},
+            {"compound": "3-[(2R)-butan-2-yl]-6-[(4-hydroxyphenyl)methyl]-1H-pyrazin-2-one", "database_id": ["pubchem:153449251"]},
+            {"compound": "6-(1H-indol-3-ylmethyl)-3-propan-2-yl-1H-pyrazin-2-one", "database_id": ["pubchem:146367979"]},
+            {"compound": "6-(1H-indol-3-ylmethyl)-3-(2-methylpropyl)-1H-pyrazin-2-one", "database_id": ["pubchem:57295269"]},
+            {"compound": "6-benzyl-3-isobutylpyrazin-2(1H)-one", "database_id": ["pubchem:129520970"]},
+            {"compound": "6-benzyl-3-[(2R)-butan-2-yl]-1H-pyrazin-2-one", "database_id": ["pubchem:153449252"]},
+        ]
+    elif bgc_id == "BGC0001694":
+        entry["compounds"] = [
+            {"compound": "neoabyssomicin B", "database_id": ["npatlas:NPA022907"]},
+            {"compound": "abyssomicin 2", "database_id": ["npatlas:NPA028394"]},
+            {"compound": "abyssomicin 4", "database_id": ["npatlas:https://www.npatlas.org/explore/compounds/NPA028395"]},
+        ]
+    elif bgc_id == "BGC0001792":
+        entry["compounds"] = [
+            {"compound": "surugamide A", "database_id": ["npatlas:NPA05450"]},
+            {"compound": "surugamide D", "database_id": ["npatlas:NPA04501"]},
+        ]
+    elif bgc_id == "BGC0001928":
+        entry["compounds"] = [
+            {
+                "compound": "(2R,3S,4S)-5-fluoro-2,3,4-trihydroxypentanoic acid", 
+                "chem_struct": "FC[C@@H](O)[C@@H](O)[C@@H](O)C(O)=O",
+                "database_id": ["pubchem:122225563"],
+            }
+        ]
+    # elif bgc_id == "BGC0001985":
+    elif bgc_id == "BGC0001999":
+        entry["compounds"] = [
+            {
+                "compound": "gramibactin",
+                "chem_struct": r"O=C(N[C@H]([C@H](C(O)=O)O[H])C(N[C@@H]([C@@H](C)OC([C@H](NC(CN1)=O)CCC/[N+]([O-])=N/O)=O)C(N[C@H]([C@H](O)C)C(N[C@H](CCC/[N+]([O-])=N/O)C1=O)=O)=O)=O)CCCCCCC",
+            }
+        ]
+    elif bgc_id == "BGC0002017":
+        entry["compounds"] = [
+            {
+                "compound": "potensibactin",
+                "chem_struct": r"O=C(NCC(NCC(NC(CO)C(NC(CO)C(NC(CCCN(O)C(C)=O)C(NC(CCCN1O)C1=O)=O)=O)=O)=O)=O)C2=CC=CC(O)=C2O",
+            }
+        ]
+    # elif bgc_id == "BGC0002020":
+    elif bgc_id == "BGC0002024":
+        entry["compounds"] = [
+            {
+                "compound": "nargenicin A1",
+                "chem_struct": r"O=C2O[C@H]([C@H](O)C)[C@@H](\C=C(/C)[C@]51O[C@H]4[C@H](\C=C/[C@@H]1C[C@@H]2OC)[C@H]5[C@H](O)[C@H]([C@H]4OC(=O)c3ccc[nH]3)C)C",
+                "database_id": ["pubchem:6326334"],
+            }
+        ]
+    # elif bgc_id == "BGC0002295":
+    elif bgc_id == "BGC0002332":
+        entry["compounds"] = [
+            {"compound": "4-hydroxy-6-pentadecylpyran-2-one", "chem_struct": "O=C1C=C(O)C=C(CCCCCCCCCCCCCCC)O1"},
+            {"compound": "4-hydroxy-6-(2-oxoheptadecyl)pyran-2-one", "chem_struct": "O=C1C=C(O)C=C(CC(CCCCCCCCCCCCCCC)=O)O1"},
+            {"compound": "adipostatin A", "chem_struct": "CCCCCCCCCCCCCCCC1=CC(=CC(=C1)O)O"},
+        ]
+    elif bgc_id == "BGC0002441":
+        entry["compounds"] = [
+            {
+                "compound": "(2E,4E,6E,8E)-N-(2-hydroxy-5-oxocyclopent-1-en-1-yl)-9-(o-tolyl)nona-2,4,6,8-tetraenamide",
+                "chem_struct": "CC1=C(/C=C/C=C/C=C/C=C/C(NC2=C(O)CCC2=O)=O)C=CC=C1",
+            },
+            {
+                "compound": "(E)-N-(2-hydroxy-5-oxocyclopent-1-en-1-yl)-5-(o-tolyl)pent-4-enamide",
+                "chem_struct": "CC1=C(/C=C/CCC(NC2=C(O)CCC2=O)=O)C=CC=C1",
+            }
+        ]
+    elif bgc_id == "BGC0002448":
+        entry["compounds"] = [
+            {"compound": "Q6402A", "database_id": ["pubchem:153274358"]}
+        ]
+    elif bgc_id == "BGC0002465":
+        entry["compounds"] = [
+            {"compound": "amphibactin E", "chem_struct": r"O=C(NC(C(NC(C(NC(C(NC(C(O)=O)CCCN(O)C(C)=O)=O)CO)=O)CCCN(O)C(C)=O)=O)CCCN(O)C(C)=O)CCCCCCC/C=C\CCCCCC"},
+            {"compound": "amphibactin H", "chem_struct": r"O=C(NC(C(NC(C(NC(C(NC(C(O)=O)CCCN(O)C(C)=O)=O)CO)=O)CCCN(O)C(C)=O)=O)CCCN(O)C(C)=O)CCCCCCCCCCCCCCC"},
+            {"compound": "amphibactin I", "chem_struct": r"O=C(NC(C(NC(C(NC(C(NC(C(O)=O)CCCN(O)C(C)=O)=O)CO)=O)CCCN(O)C(C)=O)=O)CCCN(O)C(C)=O)CCCCCCC/C=C\CCCCCCCC"},
+        ]
+    # elif bgc_id == "BGC0002471":
+    elif bgc_id == "BGC0002559":
+        entry["compounds"] = [
+            {
+                "compound": "lenoremycin", 
+                "chem_struct": r"OC([C@@H](C)C[C@H](C(/C(C)=C/[C@H](C)[C@H]1O[C@]2(O[C@](C)([C@@H]3O[C@]4(O[C@@H]([C@H]5O[C@](CO)(O)[C@H](C)C[C@@H]5C)C[C@@H]4C)[C@H](C)CC3)CC2)[C@H](C)[C@H](O[C@@H]6O[C@H](C)[C@@H](OC)CC6)C1)=O)C)=O",
+                "database_id": ["pubchem:6441669"],
+            }
+        ]
+    elif bgc_id == "BGC0002567" or bgc_id == "BGC0002568" or "BGC0001587":
+        entry["compounds"] = [
+            {
+                "compound": "ethylenediaminesuccinic acid hydroxyarginine",
+                "chem_struct": "N=C(N)NCC(O)CC(C(O)=O)NCCNC(CC(O)=O)C(O)=O",
+                "database_id": ["pubchem:124628"],
+            }
+        ]
+    elif bgc_id == "BGC0002623":
+        entry["compounds"] = [
+            {"compound": f"microginin {x}"}
+            for x in [755, 721, 773, 739, 705, 803, 769, 735, 626, 592, 558, 789],
+        ]
+    # elif bgc_id == "BGC0002625":
+    # elif bgc_id == "BGC0002626":
+    elif bgc_id == "BGC0002675":
+        entry["compounds"] = {"compound": "prodigiosin"}
 
     for compound in entry["compounds"]:
         # remove formula and cross-references of all capsular polysaccharide 
@@ -1209,7 +1639,58 @@ for bgc_id, entry in mibig.items():
         elif compound["compound"] == "vancosamine":
             compound["compound"] = "L-vancosamine"
             compound["database_id"] = ["pubchem:23250394"]
-
+        # myxovalargin A stereochemistry is wrong, but the pubchem one is correct
+        elif compound["compound"] == "myxovalargin A":
+            compound.pop("chem_struct")
+            compound["database_id"] = ["pubchem:137628402"]
+        # bottromycin D is in PubChem under the IUPAC name
+        elif compound["compound"] == "bottromycin D":
+            compound["database_id"] = ["pubchem:71470785"]
+        # viridisamide A is in PubChem under the IUPAC name
+        elif compound["compound"] == "viridisamide A":
+            compound["database_id"] = ["pubchem:155801651"]
+        # some indigoidine BGCs are inconsistent
+        elif compound["compound"] == "indigoidine":
+            compound["chem_struct"] = "C1=C(C(=O)NC(=O)C1=N)C2=C(NC(=O)C(=C2)N)O"
+            compound["database_id"] = ["npatlas:NPA020291", "pubchem:193349"]
+        # tetrabromopyrrole misses a formula
+        elif compound["compound"] == "2,3,4,5-tetrabromopyrrole":
+            compound["chem_struct"] = "C1(=C(NC(=C1Br)Br)Br)Br"
+        # ensure the correct stereochemistry is used for ficellomycin
+        elif compound["compound"].lower() == "ficellomycin":
+            compound["compound"] = "ficellomycin"
+            compound["chem_struct"] = "CC(C)C(N)C(=O)N[C@H](C(=O)O)[C@@H]1C[C@H](N=C(N)N)[C@H]2CN12"
+            compound["database_id"] = ["pubchem:146684611", "npatlas:NPA028481"]
+        # ensure the correct stereochemistry is used for sceliphrolactam
+        elif compound["compound"] == "sceliphrolactam":
+            compound["chem_struct"] = r"CC1CNC(=O)/C=C(/C=C/C(=C/C=C/C(C(C(C(=O)/C=C\C=C\C(=C\C=C\C=C1)\C)O)O)O)/C)\O"
+            compound["database_id"] = ["npatlas:NPA001145", "pubchem:139583411"]
+        # ensure the correct formula of amphi-anterobactins
+        elif compound["compound"].lower() == "amphi-enterobactin 1":
+            compound["chem_struct"] = r"CCCCCCCCCC(O)CC(=O)NC1COC(=O)C(COC(=O)C(COC(=O)C(COC1=O)NC(=O)C1=CC=CC(O)=C1O)NC(=O)C1=CC=CC(O)=C1O)NC(=O)C1=CC=CC(O)=C1O"
+            compound["database_id"] = ["npatlas:NPA029837"]
+        elif compound["compound"].lower() == "amphi-enterobactin 2":
+            compound["chem_struct"] = r"CCCCCCCCCC(=O)NC1COC(=O)C(COC(=O)C(COC(=O)C(COC1=O)NC(=O)C1=CC=CC(O)=C1O)NC(=O)C1=CC=CC(O)=C1O)NC(=O)C1=CC=CC(O)=C1O"
+        elif compound["compound"].lower() == "amphi-enterobactin 3":
+            compound["chem_struct"] = r"CCCCCCCCCCCCCC(=O)NC1COC(=O)C(COC(=O)C(COC(=O)C(COC1=O)NC(=O)C1=CC=CC(O)=C1O)NC(=O)C1=CC=CC(O)=C1O)NC(=O)C1=CC=CC(O)=C1O"
+        elif compound["compound"].lower() == "amphi-enterobactin 4":
+            compound["chem_struct"] = r"CCCCCCCCCCCC(=O)NC1COC(=O)C(COC(=O)C(COC(=O)C(COC1=O)NC(=O)C1=CC=CC(O)=C1O)NC(=O)C1=CC=CC(O)=C1O)NC(=O)C1=CC=CC(O)=C1O"
+        # fix wrong dutomycin formula
+        elif compound["compound"] == "dutomycin":
+            compound.pop("chem_struct")
+            compound["database_id"] = ["npatlas:NPA0072340", "pubchem:139585126"]
+        # fix wrong ikarugamycin formula
+        elif compound["compound"] == "ikarugamycin":
+            compound.pop("chem_struct")
+            compound["database_id"] = ["pubchem:54680304", "npatlas:NPA003249"]
+        # fix synonyms of actinoidin B
+        elif compound["compound"].lower() in {"actinoidin B", "nogabecin"}:
+            compound.pop("chem_struct")
+            compound["compound"] = "actinoidin B"
+            compound["database_id"] = ["pubchem:101589792"]
+        # add cross-references to prodigiosin
+        elif compound["compound"].lower() == "prodigiosin":
+            compound["database_id"] = ["pubchem:5351169", "npatlas:NPA029056"]
 
 # --- Load NPAtlas -----------------------------------------------------------
 with rich.progress.open(args.atlas, "rb", description=f"[bold blue]{'Loading':>12}[/] NPAtlas") as handle:
@@ -1306,8 +1787,8 @@ def get_compounds(cids):
 
 for entry in rich.progress.track(mibig.values(), description=f"[bold blue]{'Mapping':>12}[/]"):
     for compound in entry["compounds"]:
-        if "chem_struct" in compound:
-            continue
+        # if "chem_struct" in compound:
+        #     continue
         if not any(xref.startswith("pubchem") for xref in compound.get("database_id", ())):
             name = compound["compound"]
             cids = get_cids(name)

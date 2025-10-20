@@ -131,7 +131,7 @@ for bgc_id, bgc_compounds in rich.progress.track(compounds.items(), description=
                 classyfire_client.cache[inchikey] = np_atlas[npaid]["classyfire"]
                 annotations[bgc_id].append(chamois.classyfire.Classification.from_dict(np_atlas[npaid]["classyfire"]))
                 continue
-        # try to use classyfire by InChi key othewrise
+        # try to use classyfire by InChi key otherwise
         rich.print(f"[bold blue]{'Fetching':>12}[/] ClassyFire annotations for compound {compound['compound']!r} of [purple]{bgc_id}[/]")
         try:
             classyfire = classyfire_client.fetch(inchikey)
@@ -296,5 +296,3 @@ data = anndata.AnnData(
 # save annotated data
 os.makedirs(os.path.dirname(args.output), exist_ok=True)
 data.write(args.output)
-
-
