@@ -1158,7 +1158,7 @@ for bgc_id, bgc in mibig.items():
     for bgc_compound in bgc["compounds"]:
         compound = { "compound": bgc_compound["compound"] }
         for key in ("chem_struct", "database_id", "mol_mass", "molecular_formula"):
-            if key in bgc_compound:
+            if key in bgc_compound and bgc_compound[key] is not None:
                 compound[key] = bgc_compound[key]
         compounds[bgc_id].append(compound)
 

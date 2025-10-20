@@ -132,27 +132,29 @@ for bgc_id, bgc_compounds in rich.progress.track(compounds.items(), description=
             rich.print(f"[bold green]{'Retrieved':>12}[/] ClassyFire annotations for {compound['compound']!r} compound of [purple]{bgc_id}[/]")
             annotations[bgc_id].append(classyfire)
             continue
-        try:
-            rich.print(f"[bold blue]{'Sending':>12}[/] ClassyFire query {compound['compound']!r} compound of [purple]{bgc_id}[/]")
-            query = classyfire_client.query([ compound['chem_struct'].strip() ])
-            status = "In Queue"
-            while status == "In Queue" or status == "Processing":
-                time.sleep(10)
-                status = query.status
-            if status != "Done":
-                raise RuntimeError("Classyfire failed")
-        except (RuntimeError, HTTPError) as err:
-            rich.print(f"[bold red]{'Failed':>12}[/] ClassyFire annotation of {compound['compound']!r} compound of [purple]{bgc_id}[/]")
-            annotations[bgc_id].append(None)
-        else:
-            rich.print(f"[bold green]{'Finished':>12}[/] ClassyFire annotation of {compound['compound']!r} compound of [purple]{bgc_id}[/]")
-            out = classyfire_client.retrieve(query)
-            if out["invalid_entities"]:
-                rich.print(f"[bold red]{'Failed':>12}[/] to get ClassyFire annotations for {compound['compound']!r} compound of [purple]{bgc_id}[/]")
-            else:
-                classyfire = chamois.classyfire.Classification.from_dict(out['entities'][0])
-                annotations[bgc_id].append(classyfire)
-            continue
+        #try:
+        #    rich.print(f"[bold blue]{'Sending':>12}[/] ClassyFire query {compound['compound']!r} compound of [purple]{bgc_id}[/]")
+        #    query = classyfire_client.query([ compound['chem_struct'].strip() ])
+        #    status = "In Queue"
+        #    while status == "In Queue" or status == "Processing":
+        #        time.sleep(10)
+        #        status = query.status
+        #        rich.print(f"[bold blue]{'Waiting':>12}[/] for ClassyFire to finish (query {query.id!r})")
+        #        break
+        #    if status != "Done":
+        #        raise RuntimeError("Classyfire failed")
+        #except (RuntimeError, HTTPError) as err:
+        #    rich.print(f"[bold red]{'Failed':>12}[/] ClassyFire annotation of {compound['compound']!r} compound of [purple]{bgc_id}[/]")
+        #    annotations[bgc_id].append(None)
+        #else:
+        #    rich.print(f"[bold green]{'Finished':>12}[/] ClassyFire annotation of {compound['compound']!r} compound of [purple]{bgc_id}[/]")
+        #    out = classyfire_client.retrieve(query)
+        #    if out["invalid_entities"]:
+        #        rich.print(f"[bold red]{'Failed':>12}[/] to get ClassyFire annotations for {compound['compound']!r} compound of [purple]{bgc_id}[/]")
+        #    else:
+        #        classyfire = chamois.classyfire.Classification.from_dict(out['entities'][0])
+        #        annotations[bgc_id].append(classyfire)
+        #    continue
 
 
 # --- Binarize classes -------------------------------------------------------
