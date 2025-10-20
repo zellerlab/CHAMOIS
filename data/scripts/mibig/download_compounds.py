@@ -864,12 +864,137 @@ for bgc_id, entry in mibig.items():
         ]
     # BGC0001574 produces compound named SF2768
     elif bgc_id == "BGC0001574":
-        entry["compound"] = [
+        entry["compounds"] = [
             {
                 "chem_struct": "[C-]#[N+]C(C)CC(=O)NCC1CCC(NC(=O)CC(C)[N+]#[C-])C(O)O1",
                 "compound": "SF2768",
                 "database_id": ["npatlas:NPA028494"],
             }
+        ]
+    # BGC0000634 produces specific carotenoids
+    # (see https://pubmed.ncbi.nlm.nih.gov/16085816/, Fig. 3)
+    elif bgc_id == "BGC0000634":
+        entry["compounds"] = [
+            {
+                "compound": "2,3,2',3'-tetrahydroxy-beta,beta-caroten-4-one",
+                "database_id": ["pubchem:91820101"],
+            },
+            {
+                "compound": "2,3,2',3'-tetrahydroxy-beta,beta-carotene-4,4'-dione",
+                "database_id": ["pubchem:91820484"],
+            },
+        ]
+    # BGC0000635 produces astaxanthin
+    # (see https://pmc.ncbi.nlm.nih.gov/articles/PMC177511/)
+    elif bgc_id == "BGC0000635":
+        entry["compounds"] = [
+            {
+                "compound": "astaxanthin",
+                "database_id": ["pubchem:5281224"],
+            }
+        ]
+    # BGC0000636 produces isorenieratene
+    # (see https://pubmed.ncbi.nlm.nih.gov/10821176/)
+    elif bgc_id == "BGC0000636":
+        entry["compounds"] = [
+            {
+                "compound": "isorenieratene",
+                "database_id": ["pubchem:9984420"],
+            }
+        ]
+    # BGC0000637 produces decaprenoxanthin via nonaflavuxanthin and flavuxanthin
+    # (see https://pubmed.ncbi.nlm.nih.gov/11432736/, Fig. 5)
+    elif bgc_id == "BGC0000637":
+        entry["compounds"] = [
+            {
+                "compound": "decaprenoxanthin",
+                "database_id": ["pubchem:15613507"],
+            },
+            {
+                "compound": "nonaflavuxanthin",
+                "database_id": ["pubchem:102303871"],
+            },
+            {
+                "compound": "isorenieratene",
+                "database_id": ["pubchem:122706041"],
+            }
+        ]
+    # BGC0000638 to BGC0000642 produce beta-carotene, zeaxanthins, and
+    # zeaxanthin diglucosides (except BGC0000640 missing the glycosyltransferase)
+    # (see https://pubmed.ncbi.nlm.nih.gov/2254247/ for BGC0000638,
+    # and https://pubmed.ncbi.nlm.nih.gov/16332796/ for BGC0000639 to BGC0000642)
+    elif bgc_id in {"BGC0000638", "BGC0000639", "BGC0000640", "BGC0000641", "BGC0000642"}:
+        entry["compounds"] = [
+            {
+                "compound": "beta-carotene",
+                "database_id": ["pubchem:5280489"],
+            },
+            {
+                "compound": "zeaxanthin",
+                "database_id": ["pubchem:5280899"],
+            }
+        ]
+        if bgc_id != "BGC0000640":
+            entry["compounds"].append(
+                {
+                    "compound": "zeaxanthin diglucoside",
+                    "database_id": ["pubchem:16186343"],
+                }
+            )
+    # BGC0000643 produces astaxanthin and 2,2'-dihydroxyastaxanthin
+    # (see https://pubmed.ncbi.nlm.nih.gov/16781830/, Fig. 1)
+    elif bgc_id == "BGC0000643":
+        entry["compounds"] = [
+            {
+                "compound": "astaxanthin",
+                "database_id": ["pubchem:5281224"],
+            },
+            {
+                "compound": "2,2'-dihydroxyastaxanthin",
+                "database_id": ["pubchem:91820484"],
+            },
+        ]
+    # BGC0000644 produces C.p.450 monoglucoside
+    # (see https://pubmed.ncbi.nlm.nih.gov/17008032/)
+    elif bgc_id == "BGC0000644":
+        entry["compounds"] = [
+            {
+                "compound": "C.p.450 monoglucoside",
+                "database_id": ["pubchem:131841533"],
+            },
+            {
+                "compound": "C.p.450",
+                "database_id": ["pubchem:87443475"],
+            },
+        ]
+    # BGC0000645 (likely) produces staphyloxanthin
+    # (see https://pubmed.ncbi.nlm.nih.gov/18820900/)
+    elif bgc_id == "BGC0000645":
+        entry["compounds"] = [
+            {
+                "compound": "staphyloxanthin",
+                "database_id": ["pubchem:56928085"],
+            },
+        ]
+    # BGC0000648 is proposed to produce 4-ketotorulene and myxobacton ester
+    # (see https://pubmed.ncbi.nlm.nih.gov/7588751/)
+    elif bgc_id == "BGC0000648":
+        entry["compounds"] = [
+            {
+                "compound": "4-ketotorulene",
+                "database_id": ["pubchem:87442439"],
+            },
+            {
+                "compound": "myxobacton ester",
+            },
+        ]
+    # BGC0000650 produces flexixanthin
+    # (see https://pubmed.ncbi.nlm.nih.gov/16625353/)
+        entry["compounds"] = [
+            {
+                "compound": "flexixanthin",
+                "database_id": ["pubchem:16061237"],
+            },
         ]
 
     for compound in entry["compounds"]:
@@ -1072,7 +1197,6 @@ for bgc_id, bgc in mibig.items():
                     rich.print(f"[bold blue]{'Removing':>12}[/] broken NPAtlas cross-reference ({npaid!r}) compound {compound['compound']} of [purple]{bgc_id}[/]")
                     compound["database_id"].remove(npatlas_xref)
 
-
 # --- Try to map unannotated compounds to NPAtlas ----------------------------
 
 np_atlas_inchikeys = {
@@ -1146,7 +1270,10 @@ for bgc_id, entry in rich.progress.track(mibig.items(), description=f"[bold blue
         pubchem_xref = next((int(xref.split(":")[1]) for xref in compound.get("database_id", ()) if xref.startswith("pubchem")), None)
         if pubchem_xref is not None:
             pubchem_entry = get_compounds([pubchem_xref])[0]
-            compound["chem_struct"] = pubchem_entry.isomeric_smiles
+            smiles = pubchem_entry.isomeric_smiles or pubchem_entry.canonical_smiles
+            if not smiles:
+                smiles = rdkit.Chem.MolToSmiles(rdkit.Chem.MolFromInchi(pubchem_entry.inchi))
+            compound["chem_struct"] = smiles
             continue
         # failed to get the structure...
         rich.print(f"[bold red]{'Failed':>12}[/] to get structure of {compound['compound']!r} product of [purple]{bgc_id}[/]")
