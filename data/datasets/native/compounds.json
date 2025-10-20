@@ -651,6 +651,23 @@
             "database_id": []
         }
     ],
+    "JAAXPG010000004.1_cluster1": [
+        {
+            "chem_struct": "CC(C)C1=CC(=O)C2=C3C(=C(C=C2C1=O)O)C(=O)C4=C(C3=O)C=CC(=C4O)Br",
+            "compound": "nocardiopsistin D",
+            "database_id": ["pubchem:156581648"]
+        },
+        {
+            "chem_struct": "CC(C)C1=C(C(=O)C2=C3C(=C(C=C2C1=O)O)C(=O)C4=C(C3=O)C=CC=C4O)SC",
+            "compound": "nocardiopsistin E",
+            "database_id": ["pubchem:170989439"]
+        },
+        {
+            "chem_struct": "CC(C)C1=C(C(=O)C2=C3C(=C(C=C2C1=O)O)C(=O)C4=C(C3=O)C=CC=C4O)SCC(C(=O)O)NC(=O)C",
+            "compound": "nocardiopsistin F",
+            "database_id": ["pubchem:170989440"]
+        }
+    ],
     "JABSUY020000001.1_cluster1": [
         {
             "chem_struct": "C1=CC(=CC=C1C(CC(=O)NCC(C(=O)NC(CN)C(=O)NC(CCCC(C(CC(=O)NCC(=O)NCCCNCCCCN)O)N)C(=O)O)O)N)O",
