@@ -4,10 +4,11 @@ import pathlib
 from ..predictor import ChemicalOntologyPredictor
 
 
-def configure_group_training_input(parser: argparse.ArgumentParser) -> "argparse.ArgumentGroup":
+def configure_group_training_input(
+    parser: argparse.ArgumentParser,
+) -> "argparse.ArgumentGroup":
     group = parser.add_argument_group(
-        'Input',
-        'Mandatory input files required by the command.'
+        "Input", "Mandatory input files required by the command."
     )
     group.add_argument(
         "-f",
@@ -15,14 +16,14 @@ def configure_group_training_input(parser: argparse.ArgumentParser) -> "argparse
         required=True,
         action="append",
         type=pathlib.Path,
-        help="The feature table in HDF5 format to use for training the predictor."
+        help="The feature table in HDF5 format to use for training the predictor.",
     )
     group.add_argument(
         "-c",
         "--classes",
         required=True,
         type=pathlib.Path,
-        help="The classes table in HDF5 format to use for training the predictor."
+        help="The classes table in HDF5 format to use for training the predictor.",
     )
     group.add_argument(
         "-s",
@@ -34,10 +35,11 @@ def configure_group_training_input(parser: argparse.ArgumentParser) -> "argparse
     return group
 
 
-def configure_group_predict_input(parser: argparse.ArgumentParser) -> "argparse.ArgumentGroup":
+def configure_group_predict_input(
+    parser: argparse.ArgumentParser,
+) -> "argparse.ArgumentGroup":
     group = parser.add_argument_group(
-        'Input',
-        'Mandatory input files required by the command.'
+        "Input", "Mandatory input files required by the command."
     )
     group.add_argument(
         "-i",
@@ -45,13 +47,13 @@ def configure_group_predict_input(parser: argparse.ArgumentParser) -> "argparse.
         required=True,
         type=pathlib.Path,
         action="append",
-        help="The input BGC sequences to process."
+        help="The input BGC sequences to process.",
     )
     group.add_argument(
         "-H",
         "--hmm",
         type=pathlib.Path,
-        help="The path to the HMM file containing protein domains for annotation."
+        help="The path to the HMM file containing protein domains for annotation.",
     )
     group.add_argument(
         "--disentangle",
@@ -61,32 +63,34 @@ def configure_group_predict_input(parser: argparse.ArgumentParser) -> "argparse.
     return group
 
 
-def configure_group_search_input(parser: argparse.ArgumentParser) -> "argparse.ArgumentGroup":
+def configure_group_search_input(
+    parser: argparse.ArgumentParser,
+) -> "argparse.ArgumentGroup":
     group = parser.add_argument_group(
-        'Input',
-        'Mandatory input files required by the command.'
+        "Input", "Mandatory input files required by the command."
     )
     group.add_argument(
         "-i",
         "--input",
         required=True,
         type=pathlib.Path,
-        help="The chemical classes predicted by CHAMOIS for BGCs."
+        help="The chemical classes predicted by CHAMOIS for BGCs.",
     )
     parser.add_argument(
         "-m",
         "--model",
         default=None,
         type=pathlib.Path,
-        help="The path to an alternative model used for predicting classes."
+        help="The path to an alternative model used for predicting classes.",
     )
     return group
 
 
-def configure_group_search_parameters(parser: argparse.ArgumentParser) -> "argparse.ArgumentGroup":
+def configure_group_search_parameters(
+    parser: argparse.ArgumentParser,
+) -> "argparse.ArgumentGroup":
     group = parser.add_argument_group(
-        "Search",
-        "Parameters for controling the search procedure and result filtering."
+        "Search", "Parameters for controling the search procedure and result filtering."
     )
     group.add_argument(
         "-d",
@@ -98,10 +102,11 @@ def configure_group_search_parameters(parser: argparse.ArgumentParser) -> "argpa
     return group
 
 
-def configure_group_gene_finding(parser: argparse.ArgumentParser) -> "argparse.ArgumentGroup":
+def configure_group_gene_finding(
+    parser: argparse.ArgumentParser,
+) -> "argparse.ArgumentGroup":
     group = parser.add_argument_group(
-        "Gene Finding",
-        "Parameters for controlling gene extraction from clusters."
+        "Gene Finding", "Parameters for controlling gene extraction from clusters."
     )
     group.add_argument(
         "--cds",
@@ -111,68 +116,71 @@ def configure_group_gene_finding(parser: argparse.ArgumentParser) -> "argparse.A
     return group
 
 
-def configure_group_preprocessing(parser: argparse.ArgumentParser) -> "argparse.ArgumentGroup":
+def configure_group_preprocessing(
+    parser: argparse.ArgumentParser,
+) -> "argparse.ArgumentGroup":
     group = parser.add_argument_group(
-        'Preprocessing',
-        'Parameters controling data preprocessing, including features and labels filtering.'
+        "Preprocessing",
+        "Parameters controling data preprocessing, including features and labels filtering.",
     )
     group.add_argument(
         "--min-class-occurrences",
         type=int,
         default=0,
-        help="The minimum of occurences for a class to be retained."
+        help="The minimum of occurences for a class to be retained.",
     )
     group.add_argument(
         "--min-feature-occurrences",
         type=int,
         default=0,
-        help="The minimum of occurences for a feature to be retained."
+        help="The minimum of occurences for a feature to be retained.",
     )
 
     group.add_argument(
         "--min-class-groups",
         type=int,
         default=5,
-        help="The minimum number of groups for a class to be retained."
+        help="The minimum number of groups for a class to be retained.",
     )
     group.add_argument(
         "--min-feature-groups",
         type=int,
-        default=0,
-        help="The minimum number of groups for a feature to be retained."
+        default=5,
+        help="The minimum number of groups for a feature to be retained.",
     )
 
     group.add_argument(
         "--min-cluster-length",
         type=int,
         default=0,
-        help="The nucleotide length threshold for retaining a cluster."
+        help="The nucleotide length threshold for retaining a cluster.",
     )
     group.add_argument(
         "--min-genes",
         type=int,
         default=0,
-        help="The gene count threshold for retaining a cluster."
+        help="The gene count threshold for retaining a cluster.",
     )
     group.add_argument(
         "--mismatch",
         default=False,
         action="store_true",
-        help="Whether to correct mismatching observations."
+        help="Whether to correct mismatching observations.",
     )
     return group
 
 
-def configure_group_hyperparameters(parser: argparse.ArgumentParser) -> "argparse.ArgumentGroup":
+def configure_group_hyperparameters(
+    parser: argparse.ArgumentParser,
+) -> "argparse.ArgumentGroup":
     group = parser.add_argument_group(
-        'Training',
-        'Hyperparameters to use for training the model.'
+        "Training", "Hyperparameters to use for training the model."
     )
     group.add_argument(
         "--model",
         choices=ChemicalOntologyPredictor._MODELS,
         default="logistic",
-        help="The kind of model to train."
+        help="The kind of model to train.",
     )
     group.add_argument(
         "--alpha",
@@ -189,10 +197,11 @@ def configure_group_hyperparameters(parser: argparse.ArgumentParser) -> "argpars
     return group
 
 
-def configure_group_cross_validation(parser: argparse.ArgumentParser) -> "argparse.ArgumentGroup":
+def configure_group_cross_validation(
+    parser: argparse.ArgumentParser,
+) -> "argparse.ArgumentGroup":
     group = parser.add_argument_group(
-        'Cross-validation',
-        'Parameters controlling the cross-validation.'
+        "Cross-validation", "Parameters controlling the cross-validation."
     )
     group.add_argument(
         "-k",
@@ -210,16 +219,17 @@ def configure_group_cross_validation(parser: argparse.ArgumentParser) -> "argpar
     return group
 
 
-def configure_group_search_output(parser: argparse.ArgumentParser) -> "argparse.ArgumentGroup":
+def configure_group_search_output(
+    parser: argparse.ArgumentParser,
+) -> "argparse.ArgumentGroup":
     group = parser.add_argument_group(
-        "Output",
-        "Parameters for controlling command output."
+        "Output", "Parameters for controlling command output."
     )
     group.add_argument(
         "-o",
         "--output",
         type=pathlib.Path,
-        help="The path where to write the catalog search results in TSV format."
+        help="The path where to write the catalog search results in TSV format.",
     )
     group.add_argument(
         "--rank",
