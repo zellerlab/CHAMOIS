@@ -64,7 +64,7 @@ with rich.progress.Progress() as progress:
                         with tar.extractfile(entry) as f:
                             record = json.load(f)
                             cluster = convert_mibig4_to_mibig3(record) if args.mibig_version == "4.0" else record["cluster"]
-                            if cluster["status"] == "retired":
+                            if cluster.get("status") == "retired":
                                 continue
                             if cluster["mibig_accession"] in blocklist:
                                 continue
