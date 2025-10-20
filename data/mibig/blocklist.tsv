@@ -55,8 +55,8 @@ BGC0000160	not a gene cluster (fungal)
 BGC0000161	not a gene cluster (fungal)	
 BGC0000168	not a gene cluster (fungal)	
 BGC0000170	not a gene cluster (fungal)	
-BGC0000183	retired in MIBiG 3.1	
-BGC0000206	retired in MIBiG 3.1	
+BGC0000183	retired in MIBiG 2.0	
+BGC0000206	retired in MIBiG 2.0	
 BGC0000214	duplicate of a subsequence of BGC0001074	https://github.com/mibig-secmet/mibig-json/issues/122
 BGC0000228	retired in MIBiG 3.1	
 BGC0000246	retired in MIBiG 3.1	
@@ -102,6 +102,7 @@ BGC0000492	not a gene cluster (192nt)
 BGC0000493	not a gene cluster (192nt)	
 BGC0000505	not a gene cluster (387nt)	
 BGC0000562	not a gene cluster (144nt)	
+BGC0000596	retired in MIBiG 4.0	
 BGC0000618	not a gene cluster (761nt)	
 BGC0000621	not a gene cluster (219nt)	
 BGC0000627	not a gene cluster (fungal)	
@@ -156,6 +157,7 @@ BGC0000909	incorrect melanin chemical
 BGC0000910	incorrect melanin chemical	
 BGC0000911	incorrect melanin chemical	
 BGC0000912	incorrect melanin chemical	
+BGC0000915	retired in MIBiG 4.0	
 BGC0000928	exact duplicate of BGC0000188 with missing annotations	https://github.com/mibig-secmet/mibig-json/issues/071
 BGC0000930	not a gene cluster (fungal)	
 BGC0000931	retired in MIBiG 3.1	
@@ -178,6 +180,7 @@ BGC0001044	not a gene cluster (fungal)
 BGC0001049	not a gene cluster (fungal)	
 BGC0001057	not a gene cluster (fungal)	
 BGC0001067	not a gene cluster (fungal)	
+BGC0001068	retired in MIBiG 4.0	
 BGC0001081	retired in MIBiG 3.1	
 BGC0001082	not a gene cluster (fungal)	
 BGC0001084	not a gene cluster (fungal)	
@@ -207,6 +210,7 @@ BGC0001180	retired in MIBiG 3.1
 BGC0001182	not a gene cluster (fungal)	
 BGC0001187	not a gene cluster (fungal)	
 BGC0001190	not a gene cluster (fungal)	
+BGC0001191	retired in MIBiG 4.0	
 BGC0001205	not a gene cluster (fungal)	
 BGC0001208	retired in MIBiG 3.1	
 BGC0001218	not a gene cluster (fungal)	
@@ -285,6 +289,7 @@ BGC0001338	not a gene cluster (fungal)
 BGC0001339	not a gene cluster (fungal)	
 BGC0001340	not a gene cluster (fungal)	
 BGC0001347	retired in MIBiG 3.1	
+BGC0001350	retired in MIBiG 4.0	
 BGC0001352	retired in MIBiG 3.1	
 BGC0001353	retired in MIBiG 3.1	
 BGC0001354	retired in MIBiG 3.1	
@@ -322,6 +327,7 @@ BGC0001475	not a gene cluster (fungal)
 BGC0001481	not a gene cluster (fungal)	
 BGC0001485	exact duplicate of BGC0001546	https://github.com/mibig-secmet/mibig-json/issues/154
 BGC0001489	not a gene cluster (fungal)	
+BGC0001494	retired in MIBiG 4.0	
 BGC0001497	retired in MIBiG 3.1	
 BGC0001508	not a gene cluster (fungal)	
 BGC0001515	not a gene cluster (fungal)	
@@ -347,6 +353,7 @@ BGC0001563	not a gene cluster (fungal)
 BGC0001565	not a gene cluster (fungal)	
 BGC0001571	not a gene cluster (fungal)	
 BGC0001573	not a gene cluster (fungal)	
+BGC0001577	retired in MIBiG 4.0	
 BGC0001578	not a gene cluster (fungal)	
 BGC0001581	retired in MIBiG 3.1	
 BGC0001583	not a gene cluster (fungal)	
@@ -394,10 +401,12 @@ BGC0001729	not a gene cluster (fungal)
 BGC0001734	retired in MIBiG 3.1	
 BGC0001738	not a gene cluster (fungal)	
 BGC0001741	not a gene cluster (fungal)	
+BGC0001745	retired in MIBiG 4.0	
 BGC0001749	not a gene cluster (fungal)	
 BGC0001754	retired in MIBiG 3.1	
 BGC0001756	not a gene cluster (plant)	
 BGC0001766	retired in MIBiG 3.1	
+BGC0001767	retired in MIBiG 4.0	
 BGC0001768	not a gene cluster (fungal)	
 BGC0001775	not a gene cluster (fungal)	
 BGC0001776	not a gene cluster (fungal)	
@@ -416,6 +425,7 @@ BGC0001820	not a gene cluster (fungal)
 BGC0001821	retired in MIBiG 3.1	
 BGC0001827	not a gene cluster (fungal)	
 BGC0001832	retired in MIBiG 3.1	
+BGC0001837	retired in MIBiG 4.0	
 BGC0001839	not a gene cluster (fungal)	
 BGC0001854	duplicate of a subsequence of BGC0001901	https://github.com/mibig-secmet/mibig-json/issues/163
 BGC0001855	retired in MIBiG 3.1	
@@ -432,6 +442,7 @@ BGC0001883	retired in MIBiG 3.1
 BGC0001886	not a gene cluster (fungal)	
 BGC0001888	not a gene cluster (fungal)	
 BGC0001892	not a gene cluster (fungal)	
+BGC0001893	retired in MIBiG 4.0	
 BGC0001898	retired in MIBiG 3.1	
 BGC0001899	not a gene cluster (fungal)	
 BGC0001900	retired in MIBiG 3.1	
@@ -455,6 +466,7 @@ BGC0001932	retired in MIBiG 3.1
 BGC0001933	retired in MIBiG 3.1	
 BGC0001935	retired in MIBiG 3.1	
 BGC0001936	retired in MIBiG 3.1	
+BGC0001938	retired in MIBiG 4.0	
 BGC0001939	retired in MIBiG 3.1	
 BGC0001943	retired in MIBiG 3.1	
 BGC0001946	retired in MIBiG 3.1	
@@ -479,6 +491,7 @@ BGC0001996	not a gene cluster (fungal)
 BGC0001997	not a gene cluster (plant)	https://mibig.secondarymetabolites.org/repository/BGC0001997.3/index.html#r1c1
 BGC0001998	not a gene cluster (fungal)	
 BGC0002003	exact duplicate of BGC0001608	https://github.com/mibig-secmet/mibig-json/issues/084
+BGC0002016	retired in MIBiG 4.0	
 BGC0002023	retired in MIBiG 3.1	
 BGC0002027	duplicate of BGC0001486 	
 BGC0002029	retired in MIBiG 3.1	
@@ -494,6 +507,7 @@ BGC0002067	not a gene cluster (fungal)
 BGC0002093	not a gene cluster (fungal)	
 BGC0002094	retired in MIBiG 3.1	
 BGC0002097	no reference, very likely wrong coordinates	
+BGC0002105	retired in MIBiG 4.0	
 BGC0002113	retired in MIBiG 3.1	
 BGC0002139	not a gene cluster (fungal)	
 BGC0002146	not a gene cluster (fungal)	
@@ -522,6 +536,7 @@ BGC0002174	not a gene cluster (fungal)
 BGC0002175	not a gene cluster (fungal)	
 BGC0002176	not a gene cluster (fungal, two different loci)	https://github.com/mibig-secmet/mibig-json/issues/378
 BGC0002177	not a gene cluster (fungal)	
+BGC0002178	retired in MIBiG 4.0	
 BGC0002179	retired in MIBiG 3.1	
 BGC0002180	not a gene cluster (fungal)	
 BGC0002181	not a gene cluster (fungal)	
@@ -566,6 +581,8 @@ BGC0002219	not a gene cluster (fungal)
 BGC0002220	not a gene cluster (fungal)	
 BGC0002221	not a gene cluster (fungal)	
 BGC0002222	not a gene cluster (fungal)	
+BGC0002223	retired in MIBiG 4.0	
+BGC0002224	retired in MIBiG 4.0	
 BGC0002225	not a gene cluster (fungal)	
 BGC0002226	not a gene cluster (fungal)	
 BGC0002227	not a gene cluster (fungal)	
@@ -634,6 +651,7 @@ BGC0002320	not a gene cluster (fungal)
 BGC0002321	not a gene cluster (fungal)	
 BGC0002335	retired in MIBiG 3.1	
 BGC0002348	not a gene cluster (fungal)	
+BGC0002353	retired in MIBiG 4.0	
 BGC0002368	retired in MIBiG 3.1	
 BGC0002370	no experimental characterization	https://pubmed.ncbi.nlm.nih.gov/34847153/
 BGC0002371	retired in MIBiG 3.1	
@@ -659,6 +677,7 @@ BGC0002405	not a gene cluster (plant)
 BGC0002406	not a gene cluster (plant, 194k nt)	
 BGC0002410	fragment cluster (with BGC0002409)	https://pubs.acs.org/doi/10.1021/acs.jnatprod.0c01291
 BGC0002427	not a gene cluster (fungal)	
+BGC0002428	retired in MIBiG 4.0	
 BGC0002429	not a gene cluster (fungal)	
 BGC0002438	not a gene cluster (fungal)	
 BGC0002444	not a gene cluster (fungal)	
@@ -717,9 +736,13 @@ BGC0002614	not a gene cluster (fungal)
 BGC0002615	not a gene cluster (fungal)	
 BGC0002616	not a gene cluster (fungal)	
 BGC0002617	not a gene cluster (fungal)	
+BGC0002618	retired in MIBiG 4.0	
 BGC0002619	not a gene cluster (fungal)	
 BGC0002622	not a gene cluster (plant)	
+BGC0002627	retired in MIBiG 4.0	
 BGC0002628	retired in MIBiG 3.1	
+BGC0002630	retired in MIBiG 4.0	
+BGC0002632	retired in MIBiG 4.0	
 BGC0002644	not a gene cluster (plant)	
 BGC0002646	not a gene cluster (fungal)	
 BGC0002650	retired in MIBiG 3.1	
@@ -727,6 +750,7 @@ BGC0002651	not a gene cluster (fungal)
 BGC0002655	retired in MIBiG 3.1	
 BGC0002657	probable invalid coordinates	https://pubmed.ncbi.nlm.nih.gov/35138108/
 BGC0002658	retired in MIBiG 3.1	
+BGC0002662	retired in MIBiG 4.0	
 BGC0002664	retired in MIBiG 3.1	
 BGC0002670	not a gene cluster (fungal)	
 BGC0002684	retired in MIBiG 3.1	
