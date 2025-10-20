@@ -64,7 +64,7 @@ with rich.progress.Progress() as progress:
                         with tar.extractfile(entry) as f:
                             record = json.load(f)
                             cluster = convert_mibig4_to_mibig3(record) if args.mibig_version == "4.0" else record["cluster"]
-                            if cluster["status"] in ("pending", "retired"):
+                            if cluster.get("status") in ("pending", "retired"):
                                 continue
                             if cluster["mibig_accession"] in blocklist:
                                 continue
@@ -1384,7 +1384,7 @@ for bgc_id, entry in mibig.items():
         entry["compounds"] = [
             {"compound": "neoabyssomicin B", "database_id": ["npatlas:NPA022907"]},
             {"compound": "abyssomicin 2", "database_id": ["npatlas:NPA028394"]},
-            {"compound": "abyssomicin 4", "database_id": ["npatlas:https://www.npatlas.org/explore/compounds/NPA028395"]},
+            {"compound": "abyssomicin 4", "database_id": ["npatlas:NPA028395"]},
         ]
     elif bgc_id == "BGC0001792":
         entry["compounds"] = [
@@ -1460,7 +1460,7 @@ for bgc_id, entry in mibig.items():
                 "database_id": ["pubchem:6441669"],
             }
         ]
-    elif bgc_id == "BGC0002567" or bgc_id == "BGC0002568" or "BGC0001587":
+    elif bgc_id in {"BGC0002567", "BGC0002568", "BGC0001587"}:
         entry["compounds"] = [
             {
                 "compound": "ethylenediaminesuccinic acid hydroxyarginine",
@@ -1471,12 +1471,14 @@ for bgc_id, entry in mibig.items():
     elif bgc_id == "BGC0002623":
         entry["compounds"] = [
             {"compound": f"microginin {x}"}
-            for x in [755, 721, 773, 739, 705, 803, 769, 735, 626, 592, 558, 789],
+            for x in [755, 721, 773, 739, 705, 803, 769, 735, 626, 592, 558, 789]
         ]
     # elif bgc_id == "BGC0002625":
     # elif bgc_id == "BGC0002626":
     elif bgc_id == "BGC0002675":
-        entry["compounds"] = {"compound": "prodigiosin"}
+        entry["compounds"] = [
+            {"compound": "prodigiosin"}
+        ]
 
     for compound in entry["compounds"]:
         # remove formula and cross-references of all capsular polysaccharide 
@@ -1677,15 +1679,15 @@ for bgc_id, entry in mibig.items():
             compound["chem_struct"] = r"CCCCCCCCCCCC(=O)NC1COC(=O)C(COC(=O)C(COC(=O)C(COC1=O)NC(=O)C1=CC=CC(O)=C1O)NC(=O)C1=CC=CC(O)=C1O)NC(=O)C1=CC=CC(O)=C1O"
         # fix wrong dutomycin formula
         elif compound["compound"] == "dutomycin":
-            compound.pop("chem_struct")
+            compound.pop("chem_struct", None)
             compound["database_id"] = ["npatlas:NPA0072340", "pubchem:139585126"]
         # fix wrong ikarugamycin formula
         elif compound["compound"] == "ikarugamycin":
-            compound.pop("chem_struct")
+            compound.pop("chem_struct", None)
             compound["database_id"] = ["pubchem:54680304", "npatlas:NPA003249"]
         # fix synonyms of actinoidin B
         elif compound["compound"].lower() in {"actinoidin B", "nogabecin"}:
-            compound.pop("chem_struct")
+            compound.pop("chem_struct", None)
             compound["compound"] = "actinoidin B"
             compound["database_id"] = ["pubchem:101589792"]
         # add cross-references to prodigiosin
@@ -1735,7 +1737,10 @@ for bgc_id, bgc in mibig.items():
         if npatlas_xref is not None:
             npaid = npatlas_xref.split(":")[1]
             if len(npaid) > 3 and npaid not in np_atlas:
-                npaid_fixed = "NPA{:06}".format(int(npaid[3:]))
+                try:
+                    npaid_fixed = "NPA{:06}".format(int(npaid[3:]))
+                except ValueError as err:
+                    raise ValueError(f"invalid NPAtlas ID: {npaid!r}") from err
                 if npaid_fixed in np_atlas:
                     rich.print(f"[bold blue]{'Replacing':>12}[/] broken NPAtlas cross-reference ({npaid!r}) with correct one ({npaid_fixed!r})")
                     xref_index = compound["database_id"].index(npatlas_xref)
@@ -1779,10 +1784,12 @@ for bgc_id, bgc in mibig.items():
 # cache PubChem queries
 @memory.cache
 def get_cids(name):
+    time.sleep(1)
     return pubchempy.get_cids(name)
 
 @memory.cache
 def get_compounds(cids):
+    time.sleep(1)
     return pubchempy.get_compounds(cids)
 
 for entry in rich.progress.track(mibig.values(), description=f"[bold blue]{'Mapping':>12}[/]"):
@@ -1797,7 +1804,6 @@ for entry in rich.progress.track(mibig.values(), description=f"[bold blue]{'Mapp
                 compound.setdefault("database_id", []).append(f"pubchem:{cids[0]}")
                 compound.setdefault("chem_struct", c.isomeric_smiles)
                 rich.print(f"[bold green]{'Mapped':>12}[/] {compound['compound']!r} product of [purple]{entry['mibig_accession']}[/] to PubChem compound {c.cid}")
-                time.sleep(1)
             else:
                 rich.print(f"[bold red]{'Failed':>12}[/] to map {compound['compound']!r} product of [purple]{entry['mibig_accession']}[/] to PubChem")
 
