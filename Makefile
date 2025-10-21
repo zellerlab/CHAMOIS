@@ -269,8 +269,15 @@ STBL2=$(PAPER)/sup_table2_weights
 $(STBL2)/weights.tsv: $(WEIGHTS)
 	$(PYTHON) $(STBL2)/extract.py --output $@
 
+.PHONY: suptable2
+suptable2:  $(STBL2)/weights.tsv
+
+
 # Supplementary Table 3 - Unknown domains
 STBL3=$(PAPER)/sup_table3_domains
 
 $(STBL3)/table.tsv: $(DATA)/ecdomainminer/EC-Pfam_calculated_associations_Extended.csv $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5 $(FIG2)/cv.report.tsv $(CHEMONT) $(INTERPRO_XML) $(PFAM_HMM)
 	$(PYTHON) $(STBL3)/table.py --chemont $(CHEMONT) --interpro $(INTERPRO_XML) --ec-domain $(word 1,$^) --pfam $(PFAM_HMM) --classes $(word 2,$^) --features $(word 3,$^) --cv-report $(word 4,$^) --output $@
+
+.PHONY: suptable3
+suptable3: $(STBL3)/table.tsv
