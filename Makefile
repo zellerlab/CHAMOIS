@@ -38,7 +38,7 @@ WGET=wget --no-check-certificate
 WISHART=--wishart
 
 .PHONY: datasets
-datasets: features classes compounds clusters maccs
+datasets: features classes compounds clusters
 
 .PHONY: features
 features: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/features.hdf5)
@@ -48,6 +48,9 @@ classes: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/classes.
 
 .PHONY: maccs
 maccs: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/maccs.hdf5)
+
+.PHONY: taxonomy
+taxonomy: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/taxonomy.tsv)
 
 .PHONY: compounds
 compounds: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/compounds.json)
@@ -251,10 +254,10 @@ FIG4=$(PAPER)/fig4_screen_evaluation
 $(FIG4)/predictor.mibig$(MIBIG_VERSION).json: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5
 	$(PYTHON) -m chamois.cli train -c $(word 1,$^) -f $(word 2,$^) -o $@
 
-$(FIG4)/merged.hdf5: $(FIG4)/predictor.mibig$(MIBIG_VERSION).json
+$(FIG4)/merged.hdf5: $(FIG4)/predictor.mibig$(MIBIG_VERSION).json 
 	$(PYTHON) $(FIG4)/merge_predictions.py
 
-$(FIG4)/dotplot_merged.svg: $(FIG4)/merged.hdf5
+$(FIG4)/dotplot_merged.svg: $(FIG4)/merged.hdf5 $(DATA)/datasets/native/features.hdf5 $(DATA)/datasets/native/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5
 	$(PYTHON) $(FIG4)/dotplot_merged.py
 
 .PHONY: figure4
