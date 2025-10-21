@@ -13,6 +13,7 @@ import numpy
 import pandas
 import pyhmmer
 import rich.progress
+import scipy.stats
 from rich.console import Console
 
 folder = pathlib.Path(__file__)
@@ -132,6 +133,9 @@ cv = pandas.read_table(args.cv_report, index_col="class")
 classes = anndata.read_h5ad(args.classes)
 features = anndata.read_h5ad(args.features)
 
+classes = classes[~classes.obs.unknown_structure]
+features = features[classes.obs_names]
+
 predictor = chamois.predictor.ChemicalOntologyPredictor.trained()
 coef_ = predictor.coef_.toarray()
 
@@ -172,16 +176,23 @@ for i, feature in enumerate(rich.progress.track(predictor.features_.itertuples()
         # get the rank of the DUF among weights
         ranks = numpy.argsort(-coef_[:, j])
         rank = numpy.argwhere(ranks == i)[0, 0] + 1
+
+        # compute fisher pvalue
+        has_class = classes.obs_vector(class_.Index).astype(bool)
+        has_domain = features.obs_vector(feature.Index).astype(bool)
+        pvalue = scipy.stats.fisher_exact(
+            [[ (has_class & has_domain).sum(),  (has_class & ~has_domain).sum()  ], 
+             [ (~has_class & has_domain).sum(), (~has_class & ~has_domain).sum() ]]
+        ).pvalue
+
         # record results
         results.append(
             [
                 feature.Index,
                 feature.name,
                 occurrences,
-
                 rank,
                 domain_lengths[pfam_accession],
-
                 # ";".join(sorted(bgcs)),
                 class_.Index,
                 class_.name,
@@ -195,6 +206,7 @@ for i, feature in enumerate(rich.progress.track(predictor.features_.itertuples()
                 interpro_entry.get("uniprot_protein_count"),
                 uniprot,
                 pdb,
+                pvalue,
             ]
         )
 
@@ -218,6 +230,7 @@ out = pandas.DataFrame(
         "uniprot_occurences",
         "uniprot_accession",
         "pdb_structure",
+        "pvalue"
     ],
 )
 out.sort_values(["domain_accession", "weight"], inplace=True)
