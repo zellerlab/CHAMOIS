@@ -68,13 +68,6 @@
             "database_id": []
         }
     ],
-    "BOOW01000006.1_cluster1": [
-        {
-            "chem_struct": "CCC(C1NC(=O)/C(/NC(=O)C2(NC(=O)C(NC(=O)C(NC(=O)C(NC(CNC(C3N(C(=O)NCCCCC)CCC3)=O)=O)C2)CC(=O)N)CC(=O)N)CSC=CNC(/C(/NC1=O)=C/C)=O)=C/C)C",
-            "compound": "sinosporapeptin",
-            "database_id": []
-        }
-    ],
     "CABVGP010000001.1_cluster1": [
         {
             "chem_struct": "CC1=C(C(=CC2=CC3=C(C(=C12)O)C(=O)C4=C(C3)C=C(C=C4O)O)O)C(=O)O",
@@ -119,13 +112,6 @@
         {
             "chem_struct": "C[C@H]1OC(=O)[C@H](C(C)C)N(C)C(=O)CN(C)C(=O)[C@H]2N(CCC2)C(=O)[C@@H](C(C)C)NC(=O)[C@H]1NC(C1C=CC(C)=C2OC3C(=NC=12)C(C(N[C@@H]1C(=O)N[C@H](C(C)C)C(=O)N2[C@@H](CC(=O)C2)C(=O)N(C)CC(=O)N(C)[C@@H](C(C)C)C(=O)O[C@@H]1C)=O)=C(N)C(=O)C=3C)=O",
             "compound": "actinomycin X0"
-        }
-    ],
-    "CP000085.1_cluster1": [
-        {
-            "chem_struct": "c1c(c2-c3c(ccc(c3)[C@H]([C@H](NC(=O)[C@@H](NC(=O)[C@H](Cc(c2)c1)NC(=O)CN)CC(C)C)C(=O)N[C@H](C(=O)C(=O)O)C)C)O)O",
-            "compound": "aminopyruvatide A",
-            "database_id": []
         }
     ],
     "CP000489.1_cluster1": [
