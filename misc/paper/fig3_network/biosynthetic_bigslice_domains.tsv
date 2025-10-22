@@ -1,0 +1,2028 @@
+names	accessions	source	normalized	description
+1-cysPrx_C	PF10417.8	Pfam	PF10417	C-terminal domain of 1-Cys peroxiredoxin
+2-Hacid_dh	PF00389.29	Pfam	PF00389	D-isomer specific 2-hydroxyacid dehydrogenase, catalytic domain
+2-Hacid_dh_C	PF02826.18	Pfam	PF02826	D-isomer specific 2-hydroxyacid dehydrogenase, NAD binding domain
+2-oxoacid_dh	PF00198.22	Pfam	PF00198	2-oxoacid dehydrogenases acyltransferase (catalytic domain)
+2-ph_phosp	PF04029.13	Pfam	PF04029	2-phosphosulpholactate phosphatase
+2Fe-2S_thioredx	PF01257.18	Pfam	PF01257	Thioredoxin-like [2Fe-2S] ferredoxin
+2OG-FeII_Oxy_2	PF13532.5	Pfam	PF13532	2OG-Fe(II) oxygenase superfamily
+2OG-FeII_Oxy_3	PF13640.5	Pfam	PF13640	2OG-Fe(II) oxygenase superfamily
+2OG-Fe_Oxy_2	PF10014.8	Pfam	PF10014	2OG-Fe dioxygenase
+3-HAO	PF06052.11	Pfam	PF06052	3-hydroxyanthranilic acid dioxygenase
+3Beta_HSD	PF01073.18	Pfam	PF01073	3-beta hydroxysteroid dehydrogenase/isomerase family
+3HBOH	PF10605.8	Pfam	PF10605	3HB-oligomer hydrolase (3HBOH)
+3HCDH	PF00725.21	Pfam	PF00725	3-hydroxyacyl-CoA dehydrogenase, C-terminal domain
+3HCDH_N	PF02737.17	Pfam	PF02737	3-hydroxyacyl-CoA dehydrogenase, NAD binding domain
+4HBT	PF03061.21	Pfam	PF03061	Thioesterase superfamily
+4HBT_2	PF13279.5	Pfam	PF13279	Thioesterase-like superfamily
+5-FTHF_cyc-lig	PF01812.19	Pfam	PF01812	5-formyltetrahydrofolate cyclo-ligase family
+5-nucleotidase	PF06189.11	Pfam	PF06189	5'-nucleotidase
+5_nucleotid_C	PF02872.17	Pfam	PF02872	5'-nucleotidase, C-terminal domain
+6PF2K	PF01591.17	Pfam	PF01591	6-phosphofructo-2-kinase
+6PGD	PF00393.18	Pfam	PF00393	6-phosphogluconate dehydrogenase, C-terminal domain
+AAL_decarboxy	PF03306.12	Pfam	PF03306	Alpha-acetolactate decarboxylase
+AAT	PF03417.15	Pfam	PF03417	Acyl-coenzyme A:6-aminopenicillanic acid acyl-transferase
+AATase	PF07247.11	Pfam	PF07247	Alcohol acetyltransferase
+AA_kinase	PF00696.27	Pfam	PF00696	Amino acid kinase family
+AbfB	PF05270.12	Pfam	PF05270	Alpha-L-arabinofuranosidase B (ABFB) domain
+Abhydrolase_2	PF02230.15	Pfam	PF02230	Phospholipase/Carboxylesterase
+Abhydrolase_3	PF07859.12	Pfam	PF07859	alpha/beta hydrolase fold
+Abhydrolase_4	PF08386.9	Pfam	PF08386	TAP-like protein
+Abhydrolase_5	PF12695.6	Pfam	PF12695	Alpha/beta hydrolase family
+Abhydrolase_8	PF06259.11	Pfam	PF06259	Alpha/beta hydrolase
+Abhydro_lipase	PF04083.15	Pfam	PF04083	Partial alpha/beta-hydrolase lipase region
+ABM	PF03992.15	Pfam	PF03992	Antibiotic biosynthesis monooxygenase
+ACBP	PF00887.18	Pfam	PF00887	Acyl CoA binding protein
+ACCA	PF03255.13	Pfam	PF03255	Acetyl co-enzyme A carboxylase carboxyltransferase alpha subunit
+ACC_central	PF08326.11	Pfam	PF08326	Acetyl-CoA carboxylase, central region
+AceK	PF06315.10	Pfam	PF06315	Isocitrate dehydrogenase kinase/phosphatase (AceK)
+Acetate_kinase	PF00871.16	Pfam	PF00871	Acetokinase family
+AcetDehyd-dimer	PF09290.10	Pfam	PF09290	Prokaryotic acetaldehyde dehydrogenase, dimerisation
+Acetone_carb_G	PF08882.10	Pfam	PF08882	Acetone carboxylase gamma subunit
+AcetylCoA_hyd_C	PF13336.5	Pfam	PF13336	Acetyl-CoA hydrolase/transferase C-terminal domain
+Acetyltransf_1	PF00583.24	Pfam	PF00583	Acetyltransferase (GNAT) family
+Acetyltransf_10	PF13673.6	Pfam	PF13673	Acetyltransferase (GNAT) domain
+Acetyltransf_11	PF13720.5	Pfam	PF13720	Udp N-acetylglucosamine O-acyltransferase; Domain 2
+Acetyltransf_2	PF00797.16	Pfam	PF00797	N-acetyltransferase
+Acetyltransf_3	PF13302.6	Pfam	PF13302	Acetyltransferase (GNAT) domain
+Acetyltransf_4	PF13420.6	Pfam	PF13420	Acetyltransferase (GNAT) domain
+Acetyltransf_5	PF13444.5	Pfam	PF13444	Acetyltransferase (GNAT) domain
+Acetyltransf_6	PF13480.6	Pfam	PF13480	Acetyltransferase (GNAT) domain
+Acetyltransf_7	PF13508.6	Pfam	PF13508	Acetyltransferase (GNAT) domain
+Acetyltransf_8	PF13523.5	Pfam	PF13523	Acetyltransferase (GNAT) domain
+Acetyltransf_9	PF13527.6	Pfam	PF13527	Acetyltransferase (GNAT) domain
+Acetyltransf_CG	PF14542.5	Pfam	PF14542	GCN5-related N-acetyl-transferase
+Acid_phosphat_B	PF03767.13	Pfam	PF03767	HAD superfamily, subfamily IIIB (Acid phosphatase)
+Acid_PPase	PF12689.6	Pfam	PF12689	Acid Phosphatase
+Aconitase	PF00330.19	Pfam	PF00330	Aconitase family (aconitate hydratase)
+Aconitase_2_N	PF06434.12	Pfam	PF06434	Aconitate hydratase 2 N-terminus
+Aconitase_B_N	PF11791.7	Pfam	PF11791	Aconitate B N-terminal domain
+Aconitase_C	PF00694.18	Pfam	PF00694	Aconitase C-terminal domain
+ACOX	PF01756.18	Pfam	PF01756	Acyl-CoA oxidase
+ACPS	PF01648.19	Pfam	PF01648	4'-phosphopantetheinyl transferase superfamily
+ACP_PD	PF04336.11	Pfam	PF04336	Acyl carrier protein phosphodiesterase
+ACP_syn_III	PF08545.9	Pfam	PF08545	3-Oxoacyl-[acyl-carrier-protein (ACP)] synthase III
+ACP_syn_III_C	PF08541.9	Pfam	PF08541	3-Oxoacyl-[acyl-carrier-protein (ACP)] synthase III C terminal
+ACT	PF01842.24	Pfam	PF01842	ACT domain
+Actino_peptide	PF14408.5	Pfam	PF14408	Ribosomally synthesised peptide in actinomycetes
+ACT_7	PF13840.5	Pfam	PF13840	ACT domain
+Acyl-ACP_TE	PF01643.16	Pfam	PF01643	Acyl-ACP thioesterase
+Acyl-CoA_dh_2	PF08028.10	Pfam	PF08028	Acyl-CoA dehydrogenase, C-terminal domain
+Acyl-CoA_dh_C	PF12806.6	Pfam	PF12806	Acetyl-CoA dehydrogenase C-terminal like
+Acyl-CoA_ox_N	PF14749.5	Pfam	PF14749	Acyl-coenzyme A oxidase N-terminal
+Acylphosphatase	PF00708.17	Pfam	PF00708	Acylphosphatase
+Acyltransferase	PF01553.20	Pfam	PF01553	Acyltransferase
+Acyl_CoA_thio	PF02551.14	Pfam	PF02551	Acyl-CoA thioesterase
+Acyl_transf_1	PF00698.20	Pfam	PF00698	Acyl transferase domain
+Acyl_transf_3	PF01757.21	Pfam	PF01757	Acyltransferase family
+ADC	PF06314.10	Pfam	PF06314	Acetoacetate decarboxylase (ADC)
+Adenine_deam_C	PF13382.5	Pfam	PF13382	Adenine deaminase C-terminal domain
+Adenine_glyco	PF03352.12	Pfam	PF03352	Methyladenine glycosylase
+Adenylate_cycl	PF01295.17	Pfam	PF01295	Adenylate cyclase, class-I
+Adenylsucc_synt	PF00709.20	Pfam	PF00709	Adenylosuccinate synthetase
+ADH_N	PF08240.11	Pfam	PF08240	Alcohol dehydrogenase GroES-like domain
+ADH_N_2	PF16884.4	Pfam	PF16884	N-terminal domain of oxidoreductase
+ADH_N_assoc	PF13823.5	Pfam	PF13823	Alcohol dehydrogenase GroES-associated
+ADH_zinc_N	PF00107.25	Pfam	PF00107	Zinc-binding dehydrogenase
+ADH_zinc_N_2	PF13602.5	Pfam	PF13602	Zinc-binding dehydrogenase
+ADK	PF00406.21	Pfam	PF00406	Adenylate kinase
+ADK_lid	PF05191.13	Pfam	PF05191	Adenylate kinase, active site lid
+AdoHcyase	PF05221.16	Pfam	PF05221	S-adenosyl-L-homocysteine hydrolase
+AdoHcyase_NAD	PF00670.20	Pfam	PF00670	S-adenosyl-L-homocysteine hydrolase, NAD binding domain
+AdoMet_dc	PF02675.14	Pfam	PF02675	S-adenosylmethionine decarboxylase
+AdoMet_MTase	PF07757.12	Pfam	PF07757	Predicted AdoMet-dependent methyltransferase
+AdoMet_Synthase	PF01941.18	Pfam	PF01941	S-adenosylmethionine synthetase (AdoMet synthetase)
+ADPrib_exo_Tox	PF03496.13	Pfam	PF03496	ADP-ribosyltransferase exoenzyme
+ADP_PFK_GK	PF04587.14	Pfam	PF04587	ADP-specific Phosphofructokinase/Glucokinase conserved region
+ADP_ribosyl_GH	PF03747.13	Pfam	PF03747	ADP-ribosylglycohydrolase
+ADSL_C	PF10397.8	Pfam	PF10397	Adenylosuccinate lyase C-terminus
+Ad_cyc_g-alpha	PF08509.10	Pfam	PF08509	Adenylate cyclase G-alpha binding domain
+AFOR_C	PF01314.17	Pfam	PF01314	Aldehyde ferredoxin oxidoreductase, domains 2 & 3
+AftA_C	PF12249.7	Pfam	PF12249	Arabinofuranosyltransferase A C terminal
+AftA_N	PF12250.7	Pfam	PF12250	Arabinofuranosyltransferase N terminal
+AhpC-TSA	PF00578.20	Pfam	PF00578	AhpC/TSA family
+AICARFT_IMPCHas	PF01808.17	Pfam	PF01808	AICARFT/IMPCHase bienzyme
+AIG2_2	PF13772.5	Pfam	PF13772	AIG2-like family
+AIRC	PF00731.19	Pfam	PF00731	AIR carboxylase
+AIRS	PF00586.23	Pfam	PF00586	AIR synthase related protein, N-terminal domain
+AIRS_C	PF02769.21	Pfam	PF02769	AIR synthase related protein, C-terminal domain
+ALAD	PF00490.20	Pfam	PF00490	Delta-aminolevulinic acid dehydratase
+AlaDh_PNT_C	PF01262.20	Pfam	PF01262	Alanine dehydrogenase/PNT, C-terminal domain
+AlaDh_PNT_N	PF05222.14	Pfam	PF05222	Alanine dehydrogenase/PNT, N-terminal domain
+Ala_racemase_C	PF00842.20	Pfam	PF00842	Alanine racemase, C-terminal domain
+Ala_racemase_N	PF01168.19	Pfam	PF01168	Alanine racemase, N-terminal domain
+Aldedh	PF00171.21	Pfam	PF00171	Aldehyde dehydrogenase family
+Aldolase	PF01081.18	Pfam	PF01081	KDPG and KHG aldolase
+Aldolase_II	PF00596.20	Pfam	PF00596	Class II Aldolase and Adducin N-terminal domain
+Aldose_epim	PF01263.19	Pfam	PF01263	Aldose 1-epimerase
+Aldo_ket_red	PF00248.20	Pfam	PF00248	Aldo/keto reductase family
+Ald_deCOase	PF11266.7	Pfam	PF11266	Long-chain fatty aldehyde decarbonylase
+Ald_Xan_dh_C	PF01315.21	Pfam	PF01315	Aldehyde oxidase and xanthine dehydrogenase, a/b hammerhead domain
+Ald_Xan_dh_C2	PF02738.17	Pfam	PF02738	Molybdopterin-binding domain of aldehyde dehydrogenase
+ALG3	PF05208.12	Pfam	PF05208	ALG3 protein
+Alg6_Alg8	PF03155.14	Pfam	PF03155	ALG6, ALG8 glycosyltransferase family
+Alginate_lyase	PF05426.11	Pfam	PF05426	Alginate lyase
+Alginate_lyase2	PF08787.10	Pfam	PF08787	Alginate lyase
+ALIX_LYPXL_bnd	PF13949.5	Pfam	PF13949	ALIX V-shaped domain binding to HIV
+AlkA_N	PF06029.10	Pfam	PF06029	AlkA N-terminal domain
+Alkyl_sulf_C	PF14864.5	Pfam	PF14864	Alkyl sulfatase C-terminal
+Alk_phosphatase	PF00245.19	Pfam	PF00245	Alkaline phosphatase
+Allantoicase	PF03561.14	Pfam	PF03561	Allantoicase repeat
+Alliinase_C	PF04864.12	Pfam	PF04864	Allinase
+ALO	PF04030.13	Pfam	PF04030	D-arabinono-1,4-lactone oxidase
+Alpha-amyl_C2	PF07821.11	Pfam	PF07821	Alpha-amylase C-terminal beta-sheet domain
+Alpha-L-AF_C	PF06964.11	Pfam	PF06964	Alpha-L-arabinofuranosidase C-terminal domain
+Alpha-mann_mid	PF09261.10	Pfam	PF09261	Alpha mannosidase middle domain
+Alpha_kinase	PF02816.17	Pfam	PF02816	Alpha-kinase family
+Alpha_L_fucos	PF01120.16	Pfam	PF01120	Alpha-L-fucosidase
+ALS_ss_C	PF10369.8	Pfam	PF10369	Small subunit of acetolactate synthase
+Amidase	PF01425.20	Pfam	PF01425	Amidase
+Amidase02_C	PF12123.7	Pfam	PF12123	N-acetylmuramoyl-l-alanine amidase
+Amidase_2	PF01510.24	Pfam	PF01510	N-acetylmuramoyl-L-alanine amidase
+Amidase_3	PF01520.17	Pfam	PF01520	N-acetylmuramoyl-L-alanine amidase
+Amidinotransf	PF02274.16	Pfam	PF02274	Amidinotransferase
+Amidohydro_1	PF01979.19	Pfam	PF01979	Amidohydrolase family
+Amidohydro_2	PF04909.13	Pfam	PF04909	Amidohydrolase
+Amidohydro_3	PF07969.10	Pfam	PF07969	Amidohydrolase family
+Amido_AtzD_TrzD	PF09663.9	Pfam	PF09663	Amidohydrolase ring-opening protein (Amido_AtzD_TrzD)
+AMIN	PF11741.7	Pfam	PF11741	AMIN domain
+Aminotran_1_2	PF00155.20	Pfam	PF00155	Aminotransferase class I and II
+Aminotran_3	PF00202.20	Pfam	PF00202	Aminotransferase class-III
+Aminotran_4	PF01063.18	Pfam	PF01063	Amino-transferase class IV
+Aminotran_5	PF00266.18	Pfam	PF00266	Aminotransferase class-V
+Amino_oxidase	PF01593.23	Pfam	PF01593	Flavin containing amine oxidoreductase
+AMNp_N	PF10423.8	Pfam	PF10423	Bacterial AMP nucleoside phosphorylase N-terminus
+AMP-binding_C	PF13193.5	Pfam	PF13193	AMP-binding enzyme C-terminal domain
+AMP-binding_C_2	PF14535.5	Pfam	PF14535	AMP-binding enzyme C-terminal domain
+AMP_N	PF05195.15	Pfam	PF05195	Aminopeptidase P, N-terminal domain
+AnfG_VnfG	PF03139.14	Pfam	PF03139	Vanadium/alternative nitrogenase delta subunit
+ANF_receptor	PF01094.27	Pfam	PF01094	Receptor family ligand binding region
+AnmK	PF03702.13	Pfam	PF03702	Anhydro-N-acetylmuramic acid kinase
+Anth_synt_I_N	PF04715.12	Pfam	PF04715	Anthranilate synthase component I, N terminal region
+Antibiotic_NAT	PF02522.13	Pfam	PF02522	Aminoglycoside 3-N-acetyltransferase
+An_peroxidase	PF03098.14	Pfam	PF03098	Animal haem peroxidase
+AOX	PF01786.16	Pfam	PF01786	Alternative oxidase
+ApbA	PF02558.15	Pfam	PF02558	Ketopantoate reductase PanE/ApbA
+ApbA_C	PF08546.10	Pfam	PF08546	Ketopantoate reductase PanE/ApbA C terminal
+ApbE	PF02424.14	Pfam	PF02424	ApbE family
+APH	PF01636.22	Pfam	PF01636	Phosphotransferase enzyme family
+APH_6_hur	PF04655.13	Pfam	PF04655	Aminoglycoside/hydroxyurea antibiotic resistance kinase
+APS_kinase	PF01583.19	Pfam	PF01583	Adenylylsulphate kinase
+AP_endonuc_2	PF01261.23	Pfam	PF01261	Xylose isomerase-like TIM barrel
+ArabFuran-catal	PF09206.10	Pfam	PF09206	Alpha-L-arabinofuranosidase B, catalytic
+Arabinose_Isome	PF02610.14	Pfam	PF02610	L-arabinose isomerase
+Arabinose_Iso_C	PF11762.7	Pfam	PF11762	L-arabinose isomerase C-terminal domain
+Arabinose_trans	PF04602.11	Pfam	PF04602	Mycobacterial cell wall arabinan synthesis protein
+ARD	PF03079.13	Pfam	PF03079	ARD/ARD' family
+Arginase	PF00491.20	Pfam	PF00491	Arginase family
+Arginosuc_synth	PF00764.18	Pfam	PF00764	Arginosuccinate synthase
+ArgJ	PF01960.17	Pfam	PF01960	ArgJ family
+Aromatic_hydrox	PF11723.7	Pfam	PF11723	Homotrimeric ring hydroxylase
+ArsC	PF03960.14	Pfam	PF03960	ArsC family
+ART	PF01129.17	Pfam	PF01129	NAD:arginine ADP-ribosyltransferase
+Arylesterase	PF01731.19	Pfam	PF01731	Arylesterase
+Arylsulfotrans	PF05935.10	Pfam	PF05935	Arylsulfotransferase (ASST)
+Arylsulfotran_2	PF14269.5	Pfam	PF14269	Arylsulfotransferase (ASST)
+ASL_C	PF08328.10	Pfam	PF08328	Adenylosuccinate lyase C-terminal
+ASL_C2	PF14698.5	Pfam	PF14698	Argininosuccinate lyase C-terminal
+AsnA	PF03590.14	Pfam	PF03590	Aspartate-ammonia ligase
+Asp	PF00026.22	Pfam	PF00026	Eukaryotic aspartyl protease
+Asparaginase	PF00710.19	Pfam	PF00710	Asparaginase, N-terminal
+Asparaginase_2	PF01112.17	Pfam	PF01112	Asparaginase
+Asparaginase_II	PF06089.11	Pfam	PF06089	L-asparaginase II
+Aspzincin_M35	PF14521.5	Pfam	PF14521	Lysine-specific metallo-endopeptidase
+Asp_Arg_Hydrox	PF05118.14	Pfam	PF05118	Aspartyl/Asparaginyl beta-hydroxylase
+Asp_decarbox	PF02261.15	Pfam	PF02261	Aspartate decarboxylase
+Asp_Glu_race	PF01177.21	Pfam	PF01177	Asp/Glu/Hydantoin racemase
+Astacin	PF01400.23	Pfam	PF01400	Astacin (Peptidase family M12A)
+AstB	PF04996.11	Pfam	PF04996	Succinylarginine dihydrolase
+AstE_AspA	PF04952.13	Pfam	PF04952	Succinylglutamate desuccinylase / Aspartoacylase family
+ATP-grasp_2	PF08442.9	Pfam	PF08442	ATP-grasp domain
+ATP-grasp_3	PF02655.13	Pfam	PF02655	ATP-grasp domain
+ATP-grasp_4	PF13535.5	Pfam	PF13535	ATP-grasp domain
+ATP-grasp_5	PF13549.5	Pfam	PF13549	ATP-grasp domain
+ATP-gua_Ptrans	PF00217.18	Pfam	PF00217	ATP:guanido phosphotransferase, C-terminal catalytic domain
+ATP-sulfurylase	PF01747.16	Pfam	PF01747	ATP-sulfurylase
+ATP-synt_ab	PF00006.24	Pfam	PF00006	ATP synthase alpha/beta family, nucleotide-binding domain
+ATPase	PF06745.12	Pfam	PF06745	KaiC
+ATPgrasp_Ter	PF15632.5	Pfam	PF15632	ATP-grasp in the biosynthetic pathway with Ter operon
+ATP_bind_3	PF01171.19	Pfam	PF01171	PP-loop family
+ATP_transf	PF09830.8	Pfam	PF09830	ATP adenylyltransferase
+AXE1	PF05448.11	Pfam	PF05448	Acetyl xylan esterase (AXE1)
+A_deamin	PF02137.17	Pfam	PF02137	Adenosine-deaminase (editase) domain
+A_deaminase	PF00962.21	Pfam	PF00962	Adenosine/AMP deaminase
+B12-binding	PF02310.18	Pfam	PF02310	B12 binding domain
+B12-binding_2	PF02607.16	Pfam	PF02607	B12 binding domain
+BAAT_C	PF08840.10	Pfam	PF08840	BAAT / Acyl-CoA thioester hydrolase C terminal
+BacA	PF02673.17	Pfam	PF02673	Bacitracin resistance protein BacA
+bact-PGI_C	PF10432.8	Pfam	PF10432	Bacterial phospho-glucose isomerase C-terminal SIS domain
+Bac_GDH	PF05088.11	Pfam	PF05088	Bacterial NAD-glutamate dehydrogenase
+Bac_luciferase	PF00296.19	Pfam	PF00296	Luciferase-like monooxygenase
+Bac_rhamnosid	PF05592.10	Pfam	PF05592	Bacterial alpha-L-rhamnosidase concanavalin-like domain
+Bac_rhamnosid_N	PF08531.9	Pfam	PF08531	Alpha-L-rhamnosidase N-terminal domain
+BAH	PF01426.17	Pfam	PF01426	BAH domain
+BATS	PF06968.12	Pfam	PF06968	Biotin and Thiamin Synthesis associated domain
+BBE	PF08031.11	Pfam	PF08031	Berberine and berberine like
+BCD	PF15461.5	Pfam	PF15461	Beta-carotene 15,15'-dioxygenase
+BCDHK_Adom3	PF10436.8	Pfam	PF10436	Mitochondrial branched-chain alpha-ketoacid dehydrogenase kinase
+BcrAD_BadFG	PF01869.19	Pfam	PF01869	BadF/BadG/BcrA/BcrD ATPase family
+BcsB	PF03170.12	Pfam	PF03170	Bacterial cellulose synthase subunit
+Beta-lactamase	PF00144.23	Pfam	PF00144	Beta-lactamase
+BetaGal_dom2	PF10435.8	Pfam	PF10435	Beta-galactosidase, domain 2
+BetaGal_dom3	PF13363.5	Pfam	PF13363	Beta-galactosidase, domain 3
+BetaGal_dom4_5	PF13364.5	Pfam	PF13364	Beta-galactosidase jelly roll domain
+Beta_elim_lyase	PF01212.20	Pfam	PF01212	Beta-eliminating lyase
+Bet_v_1	PF00407.18	Pfam	PF00407	Pathogenesis-related protein Bet v I family
+Bgal_small_N	PF02929.16	Pfam	PF02929	Beta galactosidase small chain
+Bile_Hydr_Trans	PF04775.13	Pfam	PF04775	Acyl-CoA thioester hydrolase/BAAT N-terminal region
+Biopterin_H	PF00351.20	Pfam	PF00351	Biopterin-dependent aromatic amino acid hydroxylase
+Biotin_carb_C	PF02785.18	Pfam	PF02785	Biotin carboxylase C-terminal domain
+Biotin_carb_N	PF00289.21	Pfam	PF00289	Biotin carboxylase, N-terminal domain
+Biotin_lipoyl	PF00364.21	Pfam	PF00364	Biotin-requiring enzyme
+BioW	PF03744.12	Pfam	PF03744	6-carboxyhexanoate--CoA ligase
+BLUF	PF04940.11	Pfam	PF04940	Sensors of blue-light using FAD
+BPL_C	PF02237.16	Pfam	PF02237	Biotin protein ligase C terminal domain
+BPL_LplA_LipB	PF03099.18	Pfam	PF03099	Biotin/lipoate A/B protein ligase family
+BPL_N	PF09825.8	Pfam	PF09825	Biotin-protein ligase, N terminal
+Branch	PF02485.20	Pfam	PF02485	Core-2/I-Branching enzyme
+BRO1	PF03097.17	Pfam	PF03097	BRO1-like domain
+BtrH_N	PF14399.5	Pfam	PF14399	Butirosin biosynthesis protein H, N-terminal
+B_lectin	PF01453.23	Pfam	PF01453	D-mannose binding lectin
+C1q	PF00386.20	Pfam	PF00386	C1q domain
+C1_1	PF00130.21	Pfam	PF00130	Phorbol esters/diacylglycerol binding domain (C1 domain)
+C1_2	PF03107.15	Pfam	PF03107	C1 domain
+Cadherin-like	PF12733.6	Pfam	PF12733	Cadherin-like beta sandwich domain
+Caleosin	PF05042.12	Pfam	PF05042	Caleosin related protein
+Calpain_III	PF01067.21	Pfam	PF01067	Calpain large subunit, domain III
+Carbam_trans_N	PF02543.14	Pfam	PF02543	Carbamoyltransferase N-terminus
+Carboxyl_trans	PF01039.21	Pfam	PF01039	Carboxyl transferase domain
+Carb_anhydrase	PF00194.20	Pfam	PF00194	Eukaryotic-type carbonic anhydrase
+Carb_bind	PF10645.8	Pfam	PF10645	Carbohydrate binding
+Carb_kinase	PF01256.16	Pfam	PF01256	Carbohydrate kinase
+CARDB	PF07705.10	Pfam	PF07705	CARDB
+Carn_acyltransf	PF00755.19	Pfam	PF00755	Choline/Carnitine o-acyltransferase
+CarS-like	PF01864.16	Pfam	PF01864	CDP-archaeol synthase
+CAT	PF00302.17	Pfam	PF00302	Chloramphenicol acetyltransferase
+Catalase	PF00199.18	Pfam	PF00199	Catalase
+Catalase-rel	PF06628.11	Pfam	PF06628	Catalase-related immune-responsive
+CBAH	PF02275.17	Pfam	PF02275	Linear amide C-N hydrolases, choloylglycine hydrolase family
+CbiA	PF01656.22	Pfam	PF01656	CobQ/CobB/MinD/ParA nucleotide binding domain
+CbiC	PF02570.14	Pfam	PF02570	Precorrin-8X methylmutase
+CbiD	PF01888.16	Pfam	PF01888	CbiD
+CbiG_C	PF01890.15	Pfam	PF01890	Cobalamin synthesis G C-terminus
+CbiG_mid	PF11761.7	Pfam	PF11761	Cobalamin biosynthesis central region
+CbiG_N	PF11760.7	Pfam	PF11760	Cobalamin synthesis G N-terminal
+CbiJ	PF02571.13	Pfam	PF02571	Precorrin-6x reductase CbiJ/CobK
+CbiK	PF06180.10	Pfam	PF06180	Cobalt chelatase (CbiK)
+CbiX	PF01903.16	Pfam	PF01903	CbiX
+CbiZ	PF01955.17	Pfam	PF01955	Adenosylcobinamide amidohydrolase
+CBM-like	PF14683.5	Pfam	PF14683	Polysaccharide lyase family 4, domain III
+CBM9_1	PF06452.10	Pfam	PF06452	Carbohydrate family 9 binding domain-like
+CBM_1	PF00734.17	Pfam	PF00734	Fungal cellulose binding domain
+CBM_10	PF02013.15	Pfam	PF02013	Cellulose or protein binding domain
+CBM_14	PF01607.23	Pfam	PF01607	Chitin binding Peritrophin-A domain
+CBM_19	PF03427.12	Pfam	PF03427	Carbohydrate binding domain (family 19)
+CBM_2	PF00553.18	Pfam	PF00553	Cellulose binding domain
+CBM_21	PF03370.12	Pfam	PF03370	Carbohydrate/starch-binding module (family 21)
+CBM_3	PF00942.17	Pfam	PF00942	Cellulose binding domain
+CBM_4_9	PF02018.16	Pfam	PF02018	Carbohydrate binding domain
+CBM_5_12	PF02839.13	Pfam	PF02839	Carbohydrate binding domain
+CBM_6	PF03422.14	Pfam	PF03422	Carbohydrate binding module (family 6)
+CBM_X2	PF03442.13	Pfam	PF03442	Carbohydrate binding domain X2
+CBS	PF00571.27	Pfam	PF00571	CBS domain
+CCG	PF02754.15	Pfam	PF02754	Cysteine-rich domain
+CcmE	PF03100.14	Pfam	PF03100	CcmE
+CCP_MauG	PF03150.13	Pfam	PF03150	Di-haem cytochrome c peroxidase
+CDH	PF02611.14	Pfam	PF02611	CDP-diacylglycerol pyrophosphatase
+CDO_I	PF05995.11	Pfam	PF05995	Cysteine dioxygenase type I
+CDP-OH_P_transf	PF01066.20	Pfam	PF01066	CDP-alcohol phosphatidyltransferase
+Cellulase	PF00150.17	Pfam	PF00150	Cellulase (glycosyl hydrolase family 5)
+Cellulose_synt	PF03552.13	Pfam	PF03552	Cellulose synthase
+Ceramidase	PF05875.11	Pfam	PF05875	Ceramidase
+Ceramidase_alk	PF04734.12	Pfam	PF04734	Neutral/alkaline non-lysosomal ceramidase, N-terminal
+Chalcone	PF02431.14	Pfam	PF02431	Chalcone-flavanone isomerase
+CHAP	PF05257.15	Pfam	PF05257	CHAP domain
+CHB_HEX_C	PF03174.12	Pfam	PF03174	Chitobiase/beta-hexosaminidase C-terminal domain
+CheB_methylest	PF01339.16	Pfam	PF01339	CheB methylesterase
+CheD	PF03975.12	Pfam	PF03975	CheD chemotactic sensory transduction
+CheR	PF01739.17	Pfam	PF01739	CheR methyltransferase, SAM binding domain
+CheR_N	PF03705.14	Pfam	PF03705	CheR methyltransferase, all-alpha domain
+ChiC	PF06483.10	Pfam	PF06483	Chitinase C
+ChitinaseA_N	PF08329.9	Pfam	PF08329	Chitinase A, N-terminal domain
+Chitin_bind_1	PF00187.18	Pfam	PF00187	Chitin recognition protein
+Chitin_synth_1	PF01644.16	Pfam	PF01644	Chitin synthase
+Chitin_synth_1N	PF08407.10	Pfam	PF08407	Chitin synthase N-terminal
+Chloroa_b-bind	PF00504.20	Pfam	PF00504	Chlorophyll A-B binding protein
+Chlorophyllase	PF07224.10	Pfam	PF07224	Chlorophyllase
+Chlorophyllase2	PF12740.6	Pfam	PF12740	Chlorophyllase enzyme
+Chlor_dismutase	PF06778.11	Pfam	PF06778	Chlorite dismutase
+CHMI	PF02962.14	Pfam	PF02962	5-carboxymethyl-2-hydroxymuconate isomerase
+Choline_kinase	PF01633.19	Pfam	PF01633	Choline/ethanolamine kinase
+Choline_sulf_C	PF12411.7	Pfam	PF12411	Choline sulfatase enzyme C terminal
+Chondroitinas_B	PF14592.5	Pfam	PF14592	Chondroitinase B
+Chorismate_bind	PF00425.17	Pfam	PF00425	chorismate binding enzyme
+Chorismate_synt	PF01264.20	Pfam	PF01264	Chorismate synthase
+CHU_C	PF13585.5	Pfam	PF13585	C-terminal domain of CHU protein family
+CinA	PF02464.16	Pfam	PF02464	Competence-damaged protein
+CitF	PF04223.11	Pfam	PF04223	Citrate lyase, alpha subunit (CitF)
+CitG	PF01874.15	Pfam	PF01874	ATP:dephospho-CoA triphosphoribosyl transferase
+Citrate_ly_lig	PF08218.10	Pfam	PF08218	Citrate lyase ligase C-terminal domain
+Citrate_synt	PF00285.20	Pfam	PF00285	Citrate synthase, C-terminal domain
+CitX	PF03802.13	Pfam	PF03802	Apo-citrate lyase phosphoribosyl-dephospho-CoA transferase
+ClpB_D2-small	PF10431.8	Pfam	PF10431	C-terminal, D2-small domain, of ClpB protein
+CLP_protease	PF00574.22	Pfam	PF00574	Clp protease
+CMAS	PF02353.19	Pfam	PF02353	Mycolic acid cyclopropane synthetase
+CMD	PF02627.19	Pfam	PF02627	Carboxymuconolactone decarboxylase family
+CM_1	PF07736.10	Pfam	PF07736	Chorismate mutase type I
+CM_2	PF01817.20	Pfam	PF01817	Chorismate mutase type II
+CNH	PF00780.21	Pfam	PF00780	CNH domain
+CN_hydrolase	PF00795.21	Pfam	PF00795	Carbon-nitrogen hydrolase
+CoaE	PF01121.19	Pfam	PF01121	Dephospho-CoA kinase
+CoA_binding	PF02629.18	Pfam	PF02629	CoA binding domain
+CoA_binding_2	PF13380.5	Pfam	PF13380	CoA binding domain
+CoA_trans	PF01144.22	Pfam	PF01144	Coenzyme A transferase
+CoA_transf_3	PF02515.16	Pfam	PF02515	CoA-transferase family III
+CobA_CobO_BtuR	PF02572.14	Pfam	PF02572	ATP:corrinoid adenosyltransferase BtuR/CobO/CobP
+CobD_Cbib	PF03186.12	Pfam	PF03186	CobD/Cbib protein
+CobN-Mg_chel	PF02514.15	Pfam	PF02514	CobN/Magnesium Chelatase
+CobS	PF02654.14	Pfam	PF02654	Cobalamin-5-phosphate synthase
+CobT_C	PF11775.7	Pfam	PF11775	Cobalamin biosynthesis protein CobT VWA domain
+CobU	PF02283.15	Pfam	PF02283	Cobinamide kinase / cobinamide phosphate guanyltransferase
+Cob_adeno_trans	PF01923.17	Pfam	PF01923	Cobalamin adenosyltransferase
+COesterase	PF00135.27	Pfam	PF00135	Carboxylesterase family
+CofC	PF01983.15	Pfam	PF01983	Guanylyl transferase CofC like
+ComA	PF02679.14	Pfam	PF02679	(2R)-phospho-3-sulfolactate synthase (ComA)
+Complex1_30kDa	PF00329.18	Pfam	PF00329	Respiratory-chain NADH dehydrogenase, 30 Kd subunit
+Complex1_49kDa	PF00346.18	Pfam	PF00346	Respiratory-chain NADH dehydrogenase, 49 Kd subunit
+Complex1_51K	PF01512.16	Pfam	PF01512	Respiratory-chain NADH dehydrogenase 51 Kd subunit
+Cons_hypoth95	PF03602.14	Pfam	PF03602	Conserved hypothetical protein 95
+Coprogen_oxidas	PF01218.17	Pfam	PF01218	Coproporphyrinogen III oxidase
+COX1	PF00115.19	Pfam	PF00115	Cytochrome C and Quinol oxidase polypeptide I
+COX2	PF00116.19	Pfam	PF00116	Cytochrome C oxidase subunit II, periplasmic domain
+COX2_TM	PF02790.14	Pfam	PF02790	Cytochrome C oxidase subunit II, transmembrane domain
+COX3	PF00510.17	Pfam	PF00510	Cytochrome c oxidase subunit III
+COX4	PF02936.13	Pfam	PF02936	Cytochrome c oxidase subunit IV
+COX4_pro	PF03626.13	Pfam	PF03626	Prokaryotic Cytochrome C oxidase subunit IV
+COX7C	PF02935.15	Pfam	PF02935	Cytochrome c oxidase subunit VIIc
+CO_deh_flav_C	PF03450.16	Pfam	PF03450	CO dehydrogenase flavoprotein C-terminal domain
+CP12	PF02672.14	Pfam	PF02672	CP12 domain
+CpcD	PF01383.20	Pfam	PF01383	CpcD/allophycocyanin linker domain
+Cpn10	PF00166.20	Pfam	PF00166	Chaperonin 10 Kd subunit
+Cpn60_TCP1	PF00118.23	Pfam	PF00118	TCP-1/cpn60 chaperonin family
+CPSase_L_D2	PF02786.16	Pfam	PF02786	Carbamoyl-phosphate synthase L chain, ATP binding domain
+CPSase_L_D3	PF02787.18	Pfam	PF02787	Carbamoyl-phosphate synthetase large chain, oligomerisation domain
+CPSase_sm_chain	PF00988.21	Pfam	PF00988	Carbamoyl-phosphate synthase small chain, CPSase domain
+CP_ATPgrasp_1	PF04174.12	Pfam	PF04174	A circularly permuted ATPgrasp
+CRAL_TRIO	PF00650.19	Pfam	PF00650	CRAL/TRIO domain
+Creatinase_N	PF01321.17	Pfam	PF01321	Creatinase/Prolidase N-terminal domain
+Creatininase	PF02633.13	Pfam	PF02633	Creatinine amidohydrolase
+CrtC	PF07143.10	Pfam	PF07143	CrtC N-terminal lipocalin domain
+CS	PF04969.15	Pfam	PF04969	CS domain
+CSS-motif	PF12792.6	Pfam	PF12792	CSS motif domain associated with EAL
+CTP_synth_N	PF06418.13	Pfam	PF06418	CTP synthase N-terminus
+CTP_transf_1	PF01148.19	Pfam	PF01148	Cytidylyltransferase family
+CTP_transf_3	PF02348.18	Pfam	PF02348	Cytidylyltransferase
+CTP_transf_like	PF01467.25	Pfam	PF01467	Cytidylyltransferase-like
+CT_A_B	PF02626.14	Pfam	PF02626	Carboxyltransferase domain, subdomain A and B
+CT_C_D	PF02682.15	Pfam	PF02682	Carboxyltransferase domain, subdomain C and D
+Cu-oxidase	PF00394.21	Pfam	PF00394	Multicopper oxidase
+Cu-oxidase_2	PF07731.13	Pfam	PF07731	Multicopper oxidase
+Cu-oxidase_3	PF07732.14	Pfam	PF07732	Multicopper oxidase
+Cu2_monoox_C	PF03712.14	Pfam	PF03712	Copper type II ascorbate-dependent monooxygenase, C-terminal domain
+Cutinase	PF01083.21	Pfam	PF01083	Cutinase
+Cu_amine_oxid	PF01179.19	Pfam	PF01179	Copper amine oxidase, enzyme domain
+Cu_amine_oxidN1	PF07833.10	Pfam	PF07833	Copper amine oxidase N-terminal domain
+Cu_amine_oxidN2	PF02727.15	Pfam	PF02727	Copper amine oxidase, N2 domain
+Cu_amine_oxidN3	PF02728.15	Pfam	PF02728	Copper amine oxidase, N3 domain
+Cyanate_lyase	PF02560.13	Pfam	PF02560	Cyanate lyase C-terminal domain
+Cyc-maltodext_C	PF10438.8	Pfam	PF10438	Cyclo-malto-dextrinase C-terminal domain
+Cyclase	PF04199.12	Pfam	PF04199	Putative cyclase
+Cyclase_polyket	PF04673.11	Pfam	PF04673	Polyketide synthesis cyclase
+CysG_dimeriser	PF10414.8	Pfam	PF10414	Sirohaem synthase dimerisation region
+Cys_Met_Meta_PP	PF01053.19	Pfam	PF01053	Cys/Met metabolism PLP-dependent enzyme
+Cyt-b5	PF00173.27	Pfam	PF00173	Cytochrome b5-like Heme/Steroid binding domain
+CYTH	PF01928.20	Pfam	PF01928	CYTH domain
+Cytidylate_kin	PF02224.17	Pfam	PF02224	Cytidylate kinase
+Cytochrome_C7	PF14522.5	Pfam	PF14522	Cytochrome c7 and related cytochrome c
+Cytochrome_CBB3	PF13442.5	Pfam	PF13442	Cytochrome C oxidase, cbb3-type, subunit III
+Cytochrom_B561	PF03188.15	Pfam	PF03188	Eukaryotic cytochrome b561
+Cytochrom_C	PF00034.20	Pfam	PF00034	Cytochrome c
+Cytochrom_C552	PF02335.14	Pfam	PF02335	Cytochrome c552
+Cytochrom_D1	PF02239.15	Pfam	PF02239	Cytochrome D1 heme domain
+Cytokin-bind	PF09265.9	Pfam	PF09265	Cytokinin dehydrogenase 1, FAD and cytokinin binding
+Cyto_heme_lyase	PF01265.16	Pfam	PF01265	Cytochrome c/c1 heme lyase
+Cyt_c_ox_IV	PF12270.7	Pfam	PF12270	Cytochrome c oxidase subunit IV
+D-ser_dehydrat	PF14031.5	Pfam	PF14031	Putative serine dehydratase domain
+Dabb	PF07876.11	Pfam	PF07876	Stress responsive A/B Barrel Domain
+DAD	PF02109.15	Pfam	PF02109	DAD family
+DAGAT	PF03982.12	Pfam	PF03982	Diacylglycerol acyltransferase
+DAGK_acc	PF00609.18	Pfam	PF00609	Diacylglycerol kinase accessory domain
+DAGK_cat	PF00781.23	Pfam	PF00781	Diacylglycerol kinase catalytic domain
+DAGK_prokar	PF01219.18	Pfam	PF01219	Prokaryotic diacylglycerol kinase
+DAHP_synth_1	PF00793.19	Pfam	PF00793	DAHP synthetase I family
+DAHP_synth_2	PF01474.15	Pfam	PF01474	Class-II DAHP synthetase family
+Dak1	PF02733.16	Pfam	PF02733	Dak1 domain
+Dak2	PF02734.16	Pfam	PF02734	DAK2 domain
+Dala_Dala_lig_C	PF07478.12	Pfam	PF07478	D-ala D-ala ligase C-terminus
+Dala_Dala_lig_N	PF01820.20	Pfam	PF01820	D-ala D-ala ligase N-terminus
+DAO	PF01266.23	Pfam	PF01266	FAD dependent oxidoreductase
+DapB_C	PF05173.13	Pfam	PF05173	Dihydrodipicolinate reductase, C-terminus
+DapB_N	PF01113.19	Pfam	PF01113	Dihydrodipicolinate reductase, N-terminus
+DAP_B	PF07930.11	Pfam	PF07930	D-aminopeptidase, domain B
+DAP_epimerase	PF01678.18	Pfam	PF01678	Diaminopimelate epimerase
+DBI_PRT	PF02277.16	Pfam	PF02277	Phosphoribosyltransferase
+DCD	PF06559.10	Pfam	PF06559	2'-deoxycytidine 5'-triphosphate deaminase (DCD)
+dCMP_cyt_deam_1	PF00383.22	Pfam	PF00383	Cytidine and deoxycytidylate deaminase zinc-binding region
+dCMP_cyt_deam_2	PF08211.11	Pfam	PF08211	Cytidine and deoxycytidylate deaminase zinc-binding region
+DDOST_48kD	PF03345.13	Pfam	PF03345	Oligosaccharyltransferase 48 kDa subunit beta
+DehI	PF10778.8	Pfam	PF10778	Halocarboxylic acid dehydrogenase DehI
+Dehydratase_hem	PF13816.5	Pfam	PF13816	Haem-containing dehydratase
+Dehydratase_MU	PF02288.14	Pfam	PF02288	Dehydratase medium subunit
+Dehydratase_SU	PF02287.14	Pfam	PF02287	Dehydratase small subunit
+DEK_C	PF08766.10	Pfam	PF08766	DEK C terminal domain
+DeoC	PF01791.8	Pfam	PF01791	DeoC/LacD family aldolase
+Desulfoferrodox	PF01880.17	Pfam	PF01880	Desulfoferrodoxin
+DFP	PF04127.14	Pfam	PF04127	DNA / pantothenate metabolism flavoprotein
+DGOK	PF05035.11	Pfam	PF05035	2-keto-3-deoxy-galactonokinase
+DHBP_synthase	PF00926.18	Pfam	PF00926	3,4-dihydroxy-2-butanone 4-phosphate synthase
+DHDPS	PF00701.21	Pfam	PF00701	Dihydrodipicolinate synthetase family
+DHFR_1	PF00186.18	Pfam	PF00186	Dihydrofolate reductase
+DHH	PF01368.19	Pfam	PF01368	DHH family
+DHHA2	PF02833.13	Pfam	PF02833	DHHA2 domain
+DHHC	PF01529.19	Pfam	PF01529	DHHC palmitoyltransferase
+DHODB_Fe-S_bind	PF10418.8	Pfam	PF10418	Iron-sulfur cluster binding domain of dihydroorotate dehydrogenase B
+DHO_dh	PF01180.20	Pfam	PF01180	Dihydroorotate dehydrogenase
+DHQS	PF01959.15	Pfam	PF01959	3-dehydroquinate synthase (EC 4.6.1.3)
+DHquinase_I	PF01487.14	Pfam	PF01487	Type I 3-dehydroquinase
+DHquinase_II	PF01220.18	Pfam	PF01220	Dehydroquinase class II
+DHQ_synthase	PF01761.19	Pfam	PF01761	3-dehydroquinate synthase
+DIE2_ALG10	PF04922.11	Pfam	PF04922	DIE2/ALG10 family
+Dimerisation	PF08100.10	Pfam	PF08100	Dimerisation domain
+Dioxygenase_C	PF00775.20	Pfam	PF00775	Dioxygenase
+Dioxygenase_N	PF04444.13	Pfam	PF04444	Catechol dioxygenase N terminus
+DIOX_N	PF14226.5	Pfam	PF14226	non-haem dioxygenase in morphine synthesis N-terminal
+Diphthamide_syn	PF01866.16	Pfam	PF01866	Putative diphthamide synthesis protein
+Diphthami_syn_2	PF01902.16	Pfam	PF01902	Diphthamide synthase
+Disintegrin	PF00200.22	Pfam	PF00200	Disintegrin
+DiS_P_DiS	PF06750.12	Pfam	PF06750	Bacterial Peptidase A24 N-terminal domain
+DJ-1_PfpI	PF01965.23	Pfam	PF01965	DJ-1/PfpI family
+DKCLD	PF08068.11	Pfam	PF08068	DKCLD (NUC011) domain
+DLH	PF01738.17	Pfam	PF01738	Dienelactone hydrolase family
+DmpG_comm	PF07836.10	Pfam	PF07836	DmpG-like communication domain
+DMRL_synthase	PF00885.18	Pfam	PF00885	6,7-dimethyl-8-ribityllumazine synthase
+dNK	PF01712.18	Pfam	PF01712	Deoxynucleoside kinase
+Dockerin_1	PF00404.17	Pfam	PF00404	Dockerin type I repeat
+Docking	PF08990.10	Pfam	PF08990	Erythronolide synthase docking
+DOMON	PF03351.16	Pfam	PF03351	DOMON domain
+DoxA	PF07680.10	Pfam	PF07680	TQO small subunit DoxA
+DoxD	PF04173.12	Pfam	PF04173	TQO small subunit DoxD
+DPPIV_N	PF00930.20	Pfam	PF00930	Dipeptidyl peptidase IV (DPP IV) N-terminal region
+DPRP	PF04244.12	Pfam	PF04244	Deoxyribodipyrimidine photo-lyase-related protein
+DRAT	PF07357.10	Pfam	PF07357	Dinitrogenase reductase ADP-ribosyltransferase (DRAT)
+DS	PF01916.16	Pfam	PF01916	Deoxyhypusine synthase
+DSBA	PF01323.19	Pfam	PF01323	DSBA-like thioredoxin domain
+DsbC	PF11412.7	Pfam	PF11412	Disulphide bond corrector protein DsbC
+DsbC_N	PF10411.8	Pfam	PF10411	Disulfide bond isomerase protein N-terminus
+DsbD	PF02683.14	Pfam	PF02683	Cytochrome C biogenesis protein transmembrane region
+DSPc	PF00782.19	Pfam	PF00782	Dual specificity phosphatase, catalytic domain
+DSPn	PF14671.5	Pfam	PF14671	Dual specificity protein phosphatase, N-terminal half
+DsrC	PF04358.12	Pfam	PF04358	DsrC like protein
+DUF1045	PF06299.11	Pfam	PF06299	Protein of unknown function (DUF1045)
+DUF108	PF01958.17	Pfam	PF01958	Domain of unknown function DUF108
+DUF1100	PF06500.10	Pfam	PF06500	Alpha/beta hydrolase of unknown function (DUF1100)
+DUF123	PF01986.15	Pfam	PF01986	Domain of unknown function DUF123
+DUF1279	PF06916.12	Pfam	PF06916	Protein of unknown function (DUF1279)
+DUF1298	PF06974.12	Pfam	PF06974	Protein of unknown function (DUF1298)
+DUF1349	PF07081.10	Pfam	PF07081	Protein of unknown function (DUF1349)
+DUF1624	PF07786.11	Pfam	PF07786	Protein of unknown function (DUF1624)
+DUF1702	PF08012.10	Pfam	PF08012	Protein of unknown function (DUF1702)
+DUF1729	PF08354.9	Pfam	PF08354	Domain of unknown function (DUF1729)
+DUF1730	PF08331.9	Pfam	PF08331	Domain of unknown function (DUF1730)
+DUF1731	PF08338.10	Pfam	PF08338	Domain of unknown function (DUF1731)
+DUF1768	PF08719.10	Pfam	PF08719	Domain of unknown function (DUF1768)
+DUF1772	PF08592.10	Pfam	PF08592	Domain of unknown function (DUF1772)
+DUF1926	PF09095.10	Pfam	PF09095	Domain of unknown function (DUF1926)
+DUF1929	PF09118.10	Pfam	PF09118	Domain of unknown function (DUF1929)
+DUF1933	PF09147.9	Pfam	PF09147	Domain of unknown function (DUF1933)
+DUF1939	PF09154.9	Pfam	PF09154	Domain of unknown function (DUF1939)
+DUF1957	PF09210.10	Pfam	PF09210	Domain of unknown function (DUF1957)
+DUF1965	PF09248.9	Pfam	PF09248	Domain of unknown function (DUF1965)
+DUF1966	PF09260.10	Pfam	PF09260	Domain of unknown function (DUF1966)
+DUF1995	PF09353.9	Pfam	PF09353	Domain of unknown function (DUF1995)
+DUF2156	PF09924.8	Pfam	PF09924	Uncharacterised conserved protein (DUF2156)
+DUF2183	PF09949.8	Pfam	PF09949	Uncharacterized conserved protein (DUF2183)
+DUF2384	PF09722.9	Pfam	PF09722	Protein of unknown function (DUF2384)
+DUF2431	PF10354.8	Pfam	PF10354	Domain of unknown function (DUF2431)
+DUF294	PF03445.12	Pfam	PF03445	Putative nucleotidyltransferase DUF294
+DUF3291	PF11695.7	Pfam	PF11695	Domain of unknown function (DUF3291)
+DUF3336	PF11815.7	Pfam	PF11815	Domain of unknown function (DUF3336)
+DUF3340	PF11818.7	Pfam	PF11818	C-terminal domain of tail specific protease (DUF3340)
+DUF3367	PF11847.7	Pfam	PF11847	Domain of unknown function (DUF3367)
+DUF3372	PF11852.7	Pfam	PF11852	Domain of unknown function (DUF3372)
+DUF3381	PF11861.7	Pfam	PF11861	Domain of unknown function (DUF3381)
+DUF3385	PF11865.7	Pfam	PF11865	Domain of unknown function (DUF3385)
+DUF3403	PF11883.7	Pfam	PF11883	Domain of unknown function (DUF3403)
+DUF3410	PF11890.7	Pfam	PF11890	Domain of unknown function (DUF3410)
+DUF3417	PF11897.7	Pfam	PF11897	Protein of unknown function (DUF3417)
+DUF3458	PF11940.7	Pfam	PF11940	Domain of unknown function (DUF3458) Ig-like fold
+DUF3459	PF11941.7	Pfam	PF11941	Domain of unknown function (DUF3459)
+DUF3479	PF11965.7	Pfam	PF11965	Domain of unknown function (DUF3479)
+DUF3488	PF11992.7	Pfam	PF11992	Domain of unknown function (DUF3488)
+DUF3543	PF12063.7	Pfam	PF12063	Domain of unknown function (DUF3543)
+DUF4033	PF13225.5	Pfam	PF13225	Domain of unknown function (DUF4033)
+DUF4057	PF13266.5	Pfam	PF13266	Protein of unknown function (DUF4057)
+DUF4111	PF13427.5	Pfam	PF13427	Domain of unknown function (DUF4111)
+DUF4118	PF13493.5	Pfam	PF13493	Domain of unknown function (DUF4118)
+DUF4129	PF13559.5	Pfam	PF13559	Domain of unknown function (DUF4129)
+DUF43	PF01861.15	Pfam	PF01861	Protein of unknown function DUF43
+DUF4332	PF14229.5	Pfam	PF14229	Domain of unknown function (DUF4332)
+DUF4440	PF14534.5	Pfam	PF14534	Domain of unknown function (DUF4440)
+DUF452	PF04301.12	Pfam	PF04301	Protein of unknown function (DUF452)
+DUF563	PF04577.13	Pfam	PF04577	Protein of unknown function (DUF563)
+DUF608	PF04685.12	Pfam	PF04685	Glycosyl-hydrolase family 116, catalytic region
+DUF756	PF05506.11	Pfam	PF05506	Domain of unknown function (DUF756)
+DUF89	PF01937.18	Pfam	PF01937	Protein of unknown function DUF89
+DUF953	PF06110.10	Pfam	PF06110	Eukaryotic protein of unknown function (DUF953)
+DUF971	PF06155.11	Pfam	PF06155	Protein of unknown function (DUF971)
+Dus	PF01207.16	Pfam	PF01207	Dihydrouridine synthase (Dus)
+DUSP	PF06337.11	Pfam	PF06337	DUSP domain
+dUTPase	PF00692.18	Pfam	PF00692	dUTPase
+dUTPase_2	PF08761.10	Pfam	PF08761	dUTPase
+DXPR_C	PF13288.5	Pfam	PF13288	DXP reductoisomerase C-terminal domain
+DXP_reductoisom	PF02670.15	Pfam	PF02670	1-deoxy-D-xylulose 5-phosphate reductoisomerase
+DXP_synthase_N	PF13292.5	Pfam	PF13292	1-deoxy-D-xylulose-5-phosphate synthase
+Dynamin_M	PF01031.19	Pfam	PF01031	Dynamin central region
+Dynamin_N	PF00350.22	Pfam	PF00350	Dynamin family
+Dyp_perox	PF04261.11	Pfam	PF04261	Dyp-type peroxidase family
+E1_dh	PF00676.19	Pfam	PF00676	Dehydrogenase E1 component
+E3_binding	PF02817.16	Pfam	PF02817	e3 binding domain
+EAL	PF00563.19	Pfam	PF00563	EAL domain
+EBP	PF05241.11	Pfam	PF05241	Emopamil binding protein
+EB_dh	PF09459.9	Pfam	PF09459	Ethylbenzene dehydrogenase
+ECH_1	PF00378.19	Pfam	PF00378	Enoyl-CoA hydratase/isomerase
+Ectoine_synth	PF06339.11	Pfam	PF06339	Ectoine synthase
+EF-hand_like	PF09279.10	Pfam	PF09279	Phosphoinositide-specific phospholipase C, efhand-like
+EGF_CA	PF07645.14	Pfam	PF07645	Calcium-binding EGF domain
+EHN	PF06441.11	Pfam	PF06441	Epoxide hydrolase N terminus
+EIIBC-GUT_C	PF07663.10	Pfam	PF07663	Sorbitol phosphotransferase enzyme II C-terminus
+ELFV_dehydrog	PF00208.20	Pfam	PF00208	Glutamate/Leucine/Phenylalanine/Valine dehydrogenase
+ELFV_dehydrog_N	PF02812.17	Pfam	PF02812	Glu/Leu/Phe/Val dehydrogenase, dimerisation domain
+ELO	PF01151.17	Pfam	PF01151	GNS1/SUR4 family
+EMG1	PF03587.13	Pfam	PF03587	EMG1/NEP1 methyltransferase
+End_N_terminal	PF12218.7	Pfam	PF12218	N terminal extension of bacteriophage endosialidase
+Eno-Rase_FAD_bd	PF07055.11	Pfam	PF07055	Enoyl reductase FAD binding domain
+Enolase_C	PF00113.21	Pfam	PF00113	Enolase, C-terminal TIM barrel domain
+Enolase_N	PF03952.15	Pfam	PF03952	Enolase, N-terminal domain
+Enoyl_reductase	PF12241.7	Pfam	PF12241	Trans-2-enoyl-CoA reductase catalytic region
+Enterotoxin_a	PF01375.16	Pfam	PF01375	Heat-labile enterotoxin alpha chain
+Epimerase	PF01370.20	Pfam	PF01370	NAD dependent epimerase/dehydratase family
+EPSP_synthase	PF00275.19	Pfam	PF00275	EPSP synthase (3-phosphoshikimate 1-carboxyvinyltransferase)
+ERAP1_C	PF11838.7	Pfam	PF11838	ERAP1-like C-terminal domain
+ERG4_ERG24	PF01222.16	Pfam	PF01222	Ergosterol biosynthesis ERG4/ERG24 family
+ERp29	PF07749.11	Pfam	PF07749	Endoplasmic reticulum protein ERp29, C-terminal domain
+Erythro-docking	PF09277.10	Pfam	PF09277	Erythronolide synthase, docking
+Esterase	PF00756.19	Pfam	PF00756	Putative esterase
+Esterase_phd	PF10503.8	Pfam	PF10503	Esterase PHB depolymerase
+ETF_QO	PF05187.12	Pfam	PF05187	Electron transfer flavoprotein-ubiquinone oxidoreductase, 4Fe-4S
+EutB	PF06751.10	Pfam	PF06751	Ethanolamine ammonia lyase large subunit (EutB)
+EutC	PF05985.10	Pfam	PF05985	Ethanolamine ammonia-lyase light chain (EutC)
+Exostosin	PF03016.14	Pfam	PF03016	Exostosin family
+F-box	PF00646.32	Pfam	PF00646	F-box domain
+F-box-like	PF12937.6	Pfam	PF12937	F-box-like
+F420_ligase	PF01996.15	Pfam	PF01996	F420-0:Gamma-glutamyl ligase
+F420_oxidored	PF03807.16	Pfam	PF03807	NADP oxidoreductase coenzyme F420-dependent
+F5_F8_type_C	PF00754.24	Pfam	PF00754	F5/8 type C domain
+FAA_hydrolase	PF01557.17	Pfam	PF01557	Fumarylacetoacetate (FAA) hydrolase family
+FAA_hydrolase_N	PF09298.10	Pfam	PF09298	Fumarylacetoacetase N-terminal
+FabA	PF07977.12	Pfam	PF07977	FabA-like domain
+FAD-oxidase_C	PF02913.18	Pfam	PF02913	FAD linked oxidases, C-terminal domain
+FAD_binding_1	PF00667.19	Pfam	PF00667	FAD binding domain
+FAD_binding_2	PF00890.23	Pfam	PF00890	FAD binding domain
+FAD_binding_3	PF01494.18	Pfam	PF01494	FAD binding domain
+FAD_binding_4	PF01565.22	Pfam	PF01565	FAD binding domain
+FAD_binding_5	PF00941.20	Pfam	PF00941	FAD binding domain in molybdopterin dehydrogenase
+FAD_binding_6	PF00970.23	Pfam	PF00970	Oxidoreductase FAD-binding domain
+FAD_binding_8	PF08022.11	Pfam	PF08022	FAD-binding domain
+FAD_binding_9	PF08021.10	Pfam	PF08021	Siderophore-interacting FAD-binding domain
+FAD_oxidored	PF12831.6	Pfam	PF12831	FAD dependent oxidoreductase
+FAD_syn	PF06574.11	Pfam	PF06574	FAD synthetase
+Fae	PF08714.10	Pfam	PF08714	Formaldehyde-activating enzyme (Fae)
+FAE1_CUT1_RppA	PF08392.11	Pfam	PF08392	FAE1/Type III polyketide synthase-like protein
+Fasciclin	PF02469.21	Pfam	PF02469	Fasciclin domain
+FAT	PF02259.22	Pfam	PF02259	FAT domain
+FATC	PF02260.19	Pfam	PF02260	FATC domain
+FA_desaturase	PF00487.23	Pfam	PF00487	Fatty acid desaturase
+FA_desaturase_2	PF03405.13	Pfam	PF03405	Fatty acid desaturase
+FA_hydroxylase	PF04116.12	Pfam	PF04116	Fatty acid hydroxylase superfamily
+FA_synthesis	PF02504.14	Pfam	PF02504	Fatty acid synthesis protein
+FBPase	PF00316.19	Pfam	PF00316	Fructose-1-6-bisphosphatase, N-terminal domain
+FBPase_2	PF06874.10	Pfam	PF06874	Firmicute fructose-1,6-bisphosphatase
+FBPase_glpX	PF03320.12	Pfam	PF03320	Bacterial fructose-1,6-bisphosphatase, glpX-encoded
+FCH	PF00611.22	Pfam	PF00611	Fes/CIP4, and EFC/F-BAR homology domain
+FCSD-flav_bind	PF09242.10	Pfam	PF09242	Flavocytochrome c sulphide dehydrogenase, flavin-binding
+FdtA	PF05523.10	Pfam	PF05523	WxcM-like, C-terminal
+FDX-ACB	PF03147.13	Pfam	PF03147	Ferredoxin-fold anticodon binding domain
+Fe-ADH	PF00465.18	Pfam	PF00465	Iron-containing alcohol dehydrogenase
+FemAB	PF02388.15	Pfam	PF02388	FemAB family
+Fer2	PF00111.26	Pfam	PF00111	2Fe-2S iron-sulfur cluster binding domain
+Fer2_2	PF01799.19	Pfam	PF01799	[2Fe-2S] binding domain
+Fer2_3	PF13085.5	Pfam	PF13085	2Fe-2S iron-sulfur cluster binding domain
+Fer2_BFD	PF04324.14	Pfam	PF04324	BFD-like [2Fe-2S] binding domain
+Fer4	PF00037.26	Pfam	PF00037	4Fe-4S binding domain
+Fer4_10	PF13237.5	Pfam	PF13237	4Fe-4S dicluster domain
+Fer4_11	PF13247.5	Pfam	PF13247	4Fe-4S dicluster domain
+Fer4_14	PF13394.5	Pfam	PF13394	4Fe-4S single cluster domain
+Fer4_18	PF13746.5	Pfam	PF13746	4Fe-4S dicluster domain
+Fer4_2	PF12797.6	Pfam	PF12797	4Fe-4S binding domain
+Fer4_20	PF14691.5	Pfam	PF14691	Dihydroprymidine dehydrogenase domain II, 4Fe-4S cluster
+Fer4_21	PF14697.5	Pfam	PF14697	4Fe-4S dicluster domain
+Fer4_6	PF12837.6	Pfam	PF12837	4Fe-4S binding domain
+Fer4_7	PF12838.6	Pfam	PF12838	4Fe-4S dicluster domain
+Fer4_8	PF13183.5	Pfam	PF13183	4Fe-4S dicluster domain
+Fer4_9	PF13187.5	Pfam	PF13187	4Fe-4S dicluster domain
+FERM_M	PF00373.17	Pfam	PF00373	FERM central domain
+Ferric_reduct	PF01794.18	Pfam	PF01794	Ferric reductase like transmembrane component
+Ferritin	PF00210.23	Pfam	PF00210	Ferritin-like domain
+Ferrochelatase	PF00762.18	Pfam	PF00762	Ferrochelatase
+FeS	PF04060.12	Pfam	PF04060	Putative Fe-S cluster
+FeThRed_B	PF02943.14	Pfam	PF02943	Ferredoxin thioredoxin reductase catalytic beta chain
+Fe_bilin_red	PF05996.11	Pfam	PF05996	Ferredoxin-dependent bilin reductase
+Fe_hyd_lg_C	PF02906.13	Pfam	PF02906	Iron only hydrogenase large subunit, C-terminal domain
+Fe_hyd_SSU	PF02256.16	Pfam	PF02256	Iron hydrogenase small subunit
+FGase	PF05013.11	Pfam	PF05013	N-formylglutamate amidohydrolase
+FGGY_C	PF02782.15	Pfam	PF02782	FGGY family of carbohydrate kinases, C-terminal domain
+FGGY_N	PF00370.20	Pfam	PF00370	FGGY family of carbohydrate kinases, N-terminal domain
+FIST	PF08495.9	Pfam	PF08495	FIST N domain
+FKBP_C	PF00254.27	Pfam	PF00254	FKBP-type peptidyl-prolyl cis-trans isomerase
+FKBP_N	PF01346.17	Pfam	PF01346	Domain amino terminal to FKBP-type peptidyl-prolyl isomerase
+Flavin_Reduct	PF01613.17	Pfam	PF01613	Flavin reductase like domain
+Flavodoxin_1	PF00258.24	Pfam	PF00258	Flavodoxin
+Flavodoxin_2	PF02525.16	Pfam	PF02525	Flavodoxin-like fold
+Flavodoxin_5	PF12724.6	Pfam	PF12724	Flavodoxin domain
+Flavokinase	PF01687.16	Pfam	PF01687	Riboflavin kinase
+FlpD	PF02662.15	Pfam	PF02662	Methyl-viologen-reducing hydrogenase, delta subunit
+FmdA_AmdA	PF03069.14	Pfam	PF03069	Acetamidase/Formamidase family
+FMN_bind_2	PF04299.11	Pfam	PF04299	Putative FMN-binding domain
+FMN_dh	PF01070.17	Pfam	PF01070	FMN-dependent dehydrogenase
+FMN_red	PF03358.14	Pfam	PF03358	NADPH-dependent FMN reductase
+fn3_3	PF14686.5	Pfam	PF14686	Polysaccharide lyase family 4, domain II
+FolB	PF02152.17	Pfam	PF02152	Dihydroneopterin aldolase
+Formyl_trans_C	PF02911.17	Pfam	PF02911	Formyl transferase, C-terminal domain
+Formyl_trans_N	PF00551.18	Pfam	PF00551	Formyl transferase
+FR47	PF08445.9	Pfam	PF08445	FR47-like protein
+Frataxin_Cyay	PF01491.15	Pfam	PF01491	Frataxin-like domain
+FRB_dom	PF08771.10	Pfam	PF08771	FKBP12-rapamycin binding domain
+FrhB_FdhB_C	PF04432.12	Pfam	PF04432	Coenzyme F420 hydrogenase/dehydrogenase, beta subunit C terminus
+Fringe	PF02434.15	Pfam	PF02434	Fringe-like
+Fructosamin_kin	PF03881.13	Pfam	PF03881	Fructosamine kinase
+FSH1	PF03959.12	Pfam	PF03959	Serine hydrolase (FSH1)
+FTCD	PF02971.13	Pfam	PF02971	Formiminotransferase domain
+FTCD_C	PF04961.11	Pfam	PF04961	Formiminotransferase-cyclodeaminase
+FTHFS	PF01268.18	Pfam	PF01268	Formate--tetrahydrofolate ligase
+FtsJ	PF01728.18	Pfam	PF01728	FtsJ-like methyltransferase
+Fucose_iso_C	PF02952.16	Pfam	PF02952	L-fucose isomerase, C-terminal domain
+Fucose_iso_N1	PF07881.11	Pfam	PF07881	L-fucose isomerase, first N-terminal domain
+FumaraseC_C	PF10415.8	Pfam	PF10415	Fumarase C C-terminus
+Fumble	PF03630.13	Pfam	PF03630	Fumble
+Fumerase	PF05681.13	Pfam	PF05681	Fumarate hydratase (Fumerase)
+Fumerase_C	PF05683.11	Pfam	PF05683	Fumarase C-terminus
+F_bP_aldolase	PF01116.19	Pfam	PF01116	Fructose-bisphosphate aldolase class-II
+G3P_acyltransf	PF02660.14	Pfam	PF02660	Glycerol-3-phosphate acyltransferase
+G5	PF07501.11	Pfam	PF07501	G5 domain
+G6PD_C	PF02781.15	Pfam	PF02781	Glucose-6-phosphate dehydrogenase, C-terminal domain
+G6PD_N	PF00479.21	Pfam	PF00479	Glucose-6-phosphate dehydrogenase, NAD binding domain
+GAD	PF02938.13	Pfam	PF02938	GAD domain
+GAF	PF01590.25	Pfam	PF01590	GAF domain
+GAF_2	PF13185.5	Pfam	PF13185	GAF domain
+GAF_3	PF13492.5	Pfam	PF13492	GAF domain
+gag_pre-integrs	PF13976.5	Pfam	PF13976	GAG-pre-integrase domain
+Galactosyl_T	PF01762.20	Pfam	PF01762	Galactosyltransferase
+GalKase_gal_bdg	PF10509.8	Pfam	PF10509	Galactokinase galactose-binding signature
+GalP_UDP_transf	PF01087.21	Pfam	PF01087	Galactose-1-phosphate uridyl transferase, N-terminal domain
+GalP_UDP_tr_C	PF02744.16	Pfam	PF02744	Galactose-1-phosphate uridyl transferase, C-terminal domain
+Gal_Lectin	PF02140.17	Pfam	PF02140	Galactose binding lectin domain
+Gal_mutarotas_2	PF13802.5	Pfam	PF13802	Galactose mutarotase-like
+GARS_A	PF01071.18	Pfam	PF01071	Phosphoribosylglycinamide synthetase, ATP-grasp (A) domain
+GARS_C	PF02843.15	Pfam	PF02843	Phosphoribosylglycinamide synthetase, C domain
+GARS_N	PF02844.14	Pfam	PF02844	Phosphoribosylglycinamide synthetase, N domain
+GATase	PF00117.27	Pfam	PF00117	Glutamine amidotransferase class-I
+GATase_2	PF00310.20	Pfam	PF00310	Glutamine amidotransferases class-II
+GATase_3	PF07685.13	Pfam	PF07685	CobB/CobQ-like glutamine amidotransferase domain
+GatB_Yqey	PF02637.17	Pfam	PF02637	GatB domain
+GCHY-1	PF02649.13	Pfam	PF02649	Type I GTP cyclohydrolase folE2
+GcpE	PF04551.13	Pfam	PF04551	GcpE protein
+GCS	PF03074.15	Pfam	PF03074	Glutamate-cysteine ligase
+GCS2	PF04107.12	Pfam	PF04107	Glutamate-cysteine ligase family 2(GCS2)
+GCV_T	PF01571.20	Pfam	PF01571	Aminomethyltransferase folate-binding domain
+GCV_T_C	PF08669.10	Pfam	PF08669	Glycine cleavage T-protein C-terminal barrel domain
+GDA1_CD39	PF01150.16	Pfam	PF01150	GDA1/CD39 (nucleoside phosphatase) family
+GDC-P	PF02347.15	Pfam	PF02347	Glycine cleavage system P-protein
+GDE_C	PF06202.13	Pfam	PF06202	Amylo-alpha-1,6-glucosidase
+GDPD	PF03009.16	Pfam	PF03009	Glycerophosphoryl diester phosphodiesterase family
+GDP_Man_Dehyd	PF16363.4	Pfam	PF16363	GDP-mannose 4,6 dehydratase
+GD_AH_C	PF04295.12	Pfam	PF04295	D-galactarate dehydratase / Altronate hydrolase, C terminus
+GED	PF02212.17	Pfam	PF02212	Dynamin GTPase effector domain
+GFA	PF04828.13	Pfam	PF04828	Glutathione-dependent formaldehyde-activating enzyme
+GFO_IDH_MocA	PF01408.21	Pfam	PF01408	Oxidoreductase family, NAD-binding Rossmann fold
+GFO_IDH_MocA_C	PF02894.16	Pfam	PF02894	Oxidoreductase family, C-terminal alpha/beta domain
+GGACT	PF06094.11	Pfam	PF06094	Gamma-glutamyl cyclotransferase, AIG2-like
+GGDEF	PF00990.20	Pfam	PF00990	Diguanylate cyclase, GGDEF domain
+GH97_C	PF14509.5	Pfam	PF14509	Glycosyl-hydrolase 97 C-terminal, oligomerisation
+GHMP_kinases_C	PF08544.12	Pfam	PF08544	GHMP kinases C terminal
+GHMP_kinases_N	PF00288.25	Pfam	PF00288	GHMP kinases N terminal domain
+GIDA	PF01134.21	Pfam	PF01134	Glucose inhibited division protein A
+GlcNAc	PF11397.7	Pfam	PF11397	Glycosyltransferase (GlcNAc)
+GLF	PF03275.12	Pfam	PF03275	UDP-galactopyranose mutase
+Gln-synt_C	PF00120.23	Pfam	PF00120	Glutamine synthetase, catalytic domain
+Gln-synt_N	PF03951.18	Pfam	PF03951	Glutamine synthetase, beta-Grasp domain
+GlnD_UR_UTase	PF08335.10	Pfam	PF08335	GlnD PII-uridylyltransferase
+Globin	PF00042.21	Pfam	PF00042	Globin
+Glucan_synthase	PF02364.14	Pfam	PF02364	1,3-beta-glucan synthase component
+Glucokinase	PF02685.15	Pfam	PF02685	Glucokinase
+Gluconate_2-dh3	PF13618.5	Pfam	PF13618	Gluconate 2-dehydrogenase subunit 3
+Glucosamine_iso	PF01182.19	Pfam	PF01182	Glucosamine-6-phosphate isomerases/6-phosphogluconolactonase
+Glucosaminidase	PF01832.19	Pfam	PF01832	Mannosyl-glycoprotein endo-beta-N-acetylglucosaminidase
+Glug	PF07581.11	Pfam	PF07581	The GLUG motif
+Glutaminase	PF04960.14	Pfam	PF04960	Glutaminase
+Glutaredoxin	PF00462.23	Pfam	PF00462	Glutaredoxin
+Glu_cyclase_2	PF05096.11	Pfam	PF05096	Glutamine cyclotransferase
+Glu_cys_ligase	PF04262.13	Pfam	PF04262	Glutamate-cysteine ligase
+Glu_synthase	PF01645.16	Pfam	PF01645	Conserved region in glutamate synthase
+Glu_syn_central	PF04898.13	Pfam	PF04898	Glutamate synthase central domain
+Glycogen_syn	PF05693.12	Pfam	PF05693	Glycogen synthase
+Glycohydro_20b2	PF14845.5	Pfam	PF14845	beta-acetyl hexosaminidase like
+Glycolytic	PF00274.18	Pfam	PF00274	Fructose-bisphosphate aldolase class-I
+Glycos_transf_3	PF00591.20	Pfam	PF00591	Glycosyl transferase family, a/b domain
+Glycos_transf_N	PF04413.15	Pfam	PF04413	3-Deoxy-D-manno-octulosonic-acid transferase (kdotransferase)
+Glycos_trans_3N	PF02885.16	Pfam	PF02885	Glycosyl transferase family, helical bundle domain
+Glyco_hydro_1	PF00232.17	Pfam	PF00232	Glycosyl hydrolase family 1
+Glyco_hydro_10	PF00331.19	Pfam	PF00331	Glycosyl hydrolase family 10
+Glyco_hydro_100	PF12899.6	Pfam	PF12899	Alkaline and neutral invertase
+Glyco_hydro_11	PF00457.16	Pfam	PF00457	Glycosyl hydrolases family 11
+Glyco_hydro_12	PF01670.15	Pfam	PF01670	Glycosyl hydrolase family 12
+Glyco_hydro_127	PF07944.11	Pfam	PF07944	Beta-L-arabinofuranosidase, GH127
+Glyco_hydro_130	PF04041.12	Pfam	PF04041	beta-1,4-mannooligosaccharide phosphorylase
+Glyco_hydro_14	PF01373.16	Pfam	PF01373	Glycosyl hydrolase family 14
+Glyco_hydro_15	PF00723.20	Pfam	PF00723	Glycosyl hydrolases family 15
+Glyco_hydro_16	PF00722.20	Pfam	PF00722	Glycosyl hydrolases family 16
+Glyco_hydro_17	PF00332.17	Pfam	PF00332	Glycosyl hydrolases family 17
+Glyco_hydro_18	PF00704.27	Pfam	PF00704	Glycosyl hydrolases family 18
+Glyco_hydro_19	PF00182.18	Pfam	PF00182	Chitinase class I
+Glyco_hydro_2	PF00703.20	Pfam	PF00703	Glycosyl hydrolases family 2
+Glyco_hydro_20	PF00728.21	Pfam	PF00728	Glycosyl hydrolase family 20, catalytic domain
+Glyco_hydro_20b	PF02838.14	Pfam	PF02838	Glycosyl hydrolase family 20, domain 2
+Glyco_hydro_25	PF01183.19	Pfam	PF01183	Glycosyl hydrolases family 25
+Glyco_hydro_26	PF02156.14	Pfam	PF02156	Glycosyl hydrolase family 26
+Glyco_hydro_28	PF00295.16	Pfam	PF00295	Glycosyl hydrolases family 28
+Glyco_hydro_2_C	PF02836.16	Pfam	PF02836	Glycosyl hydrolases family 2, TIM barrel domain
+Glyco_hydro_2_N	PF02837.17	Pfam	PF02837	Glycosyl hydrolases family 2, sugar binding domain
+Glyco_hydro_3	PF00933.20	Pfam	PF00933	Glycosyl hydrolase family 3 N terminal domain
+Glyco_hydro_30	PF02055.15	Pfam	PF02055	Glycosyl hydrolase family 30 TIM-barrel domain
+Glyco_hydro_31	PF01055.25	Pfam	PF01055	Glycosyl hydrolases family 31
+Glyco_hydro_32C	PF08244.11	Pfam	PF08244	Glycosyl hydrolases family 32 C terminal
+Glyco_hydro_32N	PF00251.19	Pfam	PF00251	Glycosyl hydrolases family 32 N-terminal domain
+Glyco_hydro_35	PF01301.18	Pfam	PF01301	Glycosyl hydrolases family 35
+Glyco_hydro_38	PF01074.21	Pfam	PF01074	Glycosyl hydrolases family 38 N-terminal domain
+Glyco_hydro_38C	PF07748.12	Pfam	PF07748	Glycosyl hydrolases family 38 C-terminal domain
+Glyco_hydro_39	PF01229.16	Pfam	PF01229	Glycosyl hydrolases family 39
+Glyco_hydro_3_C	PF01915.21	Pfam	PF01915	Glycosyl hydrolase family 3 C-terminal domain
+Glyco_hydro_42	PF02449.14	Pfam	PF02449	Beta-galactosidase
+Glyco_hydro_42C	PF08533.9	Pfam	PF08533	Beta-galactosidase C-terminal domain
+Glyco_hydro_42M	PF08532.9	Pfam	PF08532	Beta-galactosidase trimerisation domain
+Glyco_hydro_43	PF04616.13	Pfam	PF04616	Glycosyl hydrolases family 43
+Glyco_hydro_44	PF12891.6	Pfam	PF12891	Glycoside hydrolase family 44
+Glyco_hydro_45	PF02015.15	Pfam	PF02015	Glycosyl hydrolase family 45
+Glyco_hydro_46	PF01374.17	Pfam	PF01374	Glycosyl hydrolase family 46
+Glyco_hydro_47	PF01532.19	Pfam	PF01532	Glycosyl hydrolase family 47
+Glyco_hydro_48	PF02011.14	Pfam	PF02011	Glycosyl hydrolase family 48
+Glyco_hydro_49	PF03718.12	Pfam	PF03718	Glycosyl hydrolase family 49
+Glyco_hydro_4C	PF11975.7	Pfam	PF11975	Family 4 glycosyl hydrolase C-terminal domain
+Glyco_hydro_52	PF03512.12	Pfam	PF03512	Glycosyl hydrolase family 52
+Glyco_hydro_53	PF07745.12	Pfam	PF07745	Glycosyl hydrolase family 53
+Glyco_hydro_56	PF01630.17	Pfam	PF01630	Hyaluronidase
+Glyco_hydro_57	PF03065.14	Pfam	PF03065	Glycosyl hydrolase family 57
+Glyco_hydro_59	PF02057.14	Pfam	PF02057	Glycosyl hydrolase family 59
+Glyco_hydro_6	PF01341.16	Pfam	PF01341	Glycosyl hydrolases family 6
+Glyco_hydro_61	PF03443.13	Pfam	PF03443	Glycosyl hydrolase family 61
+Glyco_hydro_62	PF03664.12	Pfam	PF03664	Glycosyl hydrolase family 62
+Glyco_hydro_63	PF03200.15	Pfam	PF03200	Glycosyl hydrolase family 63 C-terminal domain
+Glyco_hydro_65C	PF03633.14	Pfam	PF03633	Glycosyl hydrolase family 65, C-terminal domain
+Glyco_hydro_65m	PF03632.14	Pfam	PF03632	Glycosyl hydrolase family 65 central catalytic domain
+Glyco_hydro_65N	PF03636.14	Pfam	PF03636	Glycosyl hydrolase family 65, N-terminal domain
+Glyco_hydro_66	PF13199.5	Pfam	PF13199	Glycosyl hydrolase family 66
+Glyco_hydro_67C	PF07477.11	Pfam	PF07477	Glycosyl hydrolase family 67 C-terminus
+Glyco_hydro_68	PF02435.15	Pfam	PF02435	Levansucrase/Invertase
+Glyco_hydro_7	PF00840.19	Pfam	PF00840	Glycosyl hydrolase family 7
+Glyco_hydro_71	PF03659.13	Pfam	PF03659	Glycosyl hydrolase family 71
+Glyco_hydro_75	PF07335.10	Pfam	PF07335	Fungal chitosanase of glycosyl hydrolase group 75
+Glyco_hydro_76	PF03663.13	Pfam	PF03663	Glycosyl hydrolase family 76
+Glyco_hydro_77	PF02446.16	Pfam	PF02446	4-alpha-glucanotransferase
+Glyco_hydro_79n	PF03662.13	Pfam	PF03662	Glycosyl hydrolase family 79, N-terminal domain
+Glyco_hydro_8	PF01270.16	Pfam	PF01270	Glycosyl hydrolases family 8
+Glyco_hydro_81	PF03639.12	Pfam	PF03639	Glycosyl hydrolase family 81
+Glyco_hydro_85	PF03644.12	Pfam	PF03644	Glycosyl hydrolase family 85
+Glyco_hydro_88	PF07470.12	Pfam	PF07470	Glycosyl Hydrolase Family 88
+Glyco_hydro_9	PF00759.18	Pfam	PF00759	Glycosyl hydrolase family 9
+Glyco_hydro_97	PF10566.8	Pfam	PF10566	Glycoside hydrolase 97
+Glyco_hydr_116N	PF12215.7	Pfam	PF12215	beta-glucosidase 2, glycosyl-hydrolase family 116 N-term
+Glyco_hyd_65N_2	PF14498.5	Pfam	PF14498	Glycosyl hydrolase family 65, N-terminal domain
+Glyco_tranf_2_3	PF13641.5	Pfam	PF13641	Glycosyltransferase like family 2
+Glyco_tranf_2_5	PF13712.5	Pfam	PF13712	Glycosyltransferase like family
+Glyco_transf_15	PF01793.15	Pfam	PF01793	Glycolipid 2-alpha-mannosyltransferase
+Glyco_transf_17	PF04724.12	Pfam	PF04724	Glycosyltransferase family 17
+Glyco_transf_20	PF00982.20	Pfam	PF00982	Glycosyltransferase family 20
+Glyco_transf_21	PF13506.5	Pfam	PF13506	Glycosyl transferase family 21
+Glyco_transf_22	PF03901.16	Pfam	PF03901	Alg9-like mannosyltransferase family
+Glyco_transf_25	PF01755.16	Pfam	PF01755	Glycosyltransferase family 25 (LPS biosynthesis protein)
+Glyco_transf_29	PF00777.17	Pfam	PF00777	Glycosyltransferase family 29 (sialyltransferase)
+Glyco_transf_34	PF05637.11	Pfam	PF05637	galactosyl transferase GMA12/MNN10 family
+Glyco_transf_36	PF06165.10	Pfam	PF06165	Glycosyltransferase family 36
+Glyco_transf_4	PF13439.5	Pfam	PF13439	Glycosyltransferase Family 4
+Glyco_transf_41	PF13844.5	Pfam	PF13844	Glycosyl transferase family 41
+Glyco_transf_43	PF03360.15	Pfam	PF03360	Glycosyltransferase family 43
+Glyco_transf_5	PF08323.10	Pfam	PF08323	Starch synthase catalytic domain
+Glyco_transf_54	PF04666.12	Pfam	PF04666	N-Acetylglucosaminyltransferase-IV (GnT-IV) conserved region
+Glyco_transf_64	PF09258.9	Pfam	PF09258	Glycosyl transferase family 64 domain
+Glyco_transf_7C	PF02709.13	Pfam	PF02709	N-terminal domain of galactosyltransferase
+Glyco_transf_90	PF05686.11	Pfam	PF05686	Glycosyl transferase family 90
+Glyco_trans_1_4	PF13692.5	Pfam	PF13692	Glycosyl transferases group 1
+Glyco_trans_4_2	PF13477.5	Pfam	PF13477	Glycosyl transferase 4-like
+Glyco_trans_4_4	PF13579.5	Pfam	PF13579	Glycosyl transferase 4-like domain
+Glyco_trans_A_1	PF09318.9	Pfam	PF09318	Glycosyl transferase 1 domain A
+Glyco_tran_WecB	PF03808.12	Pfam	PF03808	Glycosyl transferase WecB/TagA/CpsF family
+Glyoxalase	PF00903.24	Pfam	PF00903	Glyoxalase/Bleomycin resistance protein/Dioxygenase superfamily
+Glyoxalase_2	PF12681.6	Pfam	PF12681	Glyoxalase-like domain
+Glyoxalase_4	PF13669.5	Pfam	PF13669	Glyoxalase/Bleomycin resistance protein/Dioxygenase superfamily
+Glyphos_transf	PF04464.13	Pfam	PF04464	CDP-Glycerol:Poly(glycerophosphate) glycerophosphotransferase
+Gly_kinase	PF02595.14	Pfam	PF02595	Glycerate kinase family
+Gly_radical	PF01228.20	Pfam	PF01228	Glycine radical
+Gly_transf_sug	PF04488.14	Pfam	PF04488	Glycosyltransferase sugar-binding region containing DXD motif
+GMC_oxred_C	PF05199.12	Pfam	PF05199	GMC oxidoreductase
+GMC_oxred_N	PF00732.18	Pfam	PF00732	GMC oxidoreductase
+GMP_synt_C	PF00958.21	Pfam	PF00958	GMP synthase C terminal domain
+GNAT_acetyltr_2	PF13718.5	Pfam	PF13718	GNAT acetyltransferase 2
+GNT-I	PF03071.14	Pfam	PF03071	GNT-I family
+GPAT_N	PF14829.5	Pfam	PF14829	Glycerol-3-phosphate acyltransferase N-terminal
+Gpi1	PF05024.14	Pfam	PF05024	N-acetylglucosaminyl transferase component (Gpi1)
+GPI2	PF06432.10	Pfam	PF06432	Phosphatidylinositol N-acetylglucosaminyltransferase
+Gp_dh_C	PF02800.19	Pfam	PF02800	Glyceraldehyde 3-phosphate dehydrogenase, C-terminal domain
+Gp_dh_N	PF00044.23	Pfam	PF00044	Glyceraldehyde 3-phosphate dehydrogenase, NAD binding domain
+GRAM	PF02893.19	Pfam	PF02893	GRAM domain
+GRDB	PF07355.11	Pfam	PF07355	Glycine/sarcosine/betaine reductase selenoprotein B (GRDB)
+GrpB	PF04229.13	Pfam	PF04229	GrpB protein
+GSDH	PF07995.10	Pfam	PF07995	Glucose / Sorbosone dehydrogenase
+GSH-S_ATP	PF02955.15	Pfam	PF02955	Prokaryotic glutathione synthetase, ATP-grasp domain
+GSHPx	PF00255.18	Pfam	PF00255	Glutathione peroxidase
+GSH_synthase	PF03199.14	Pfam	PF03199	Eukaryotic glutathione synthase
+GSH_synth_ATP	PF03917.16	Pfam	PF03917	Eukaryotic glutathione synthase, ATP binding domain
+GSP_synth	PF03738.13	Pfam	PF03738	Glutathionylspermidine synthase preATP-grasp
+GST_C_3	PF14497.5	Pfam	PF14497	Glutathione S-transferase, C-terminal domain
+GST_N	PF02798.19	Pfam	PF02798	Glutathione S-transferase, N-terminal domain
+GST_N_2	PF13409.5	Pfam	PF13409	Glutathione S-transferase, N-terminal domain
+GT87	PF09594.9	Pfam	PF09594	Glycosyltransferase family 87
+GTP_cyclohydro2	PF00925.19	Pfam	PF00925	GTP cyclohydrolase II
+GTP_cyclohydroI	PF01227.21	Pfam	PF01227	GTP cyclohydrolase I
+Guanylate_cyc	PF00211.19	Pfam	PF00211	Adenylate and Guanylate cyclase catalytic domain
+Guanylate_kin	PF00625.20	Pfam	PF00625	Guanylate kinase
+GXGXG	PF01493.18	Pfam	PF01493	GXGXG motif
+G_glu_transpept	PF01019.20	Pfam	PF01019	Gamma-glutamyltranspeptidase
+HAD_2	PF13419.5	Pfam	PF13419	Haloacid dehalogenase-like hydrolase
+Haem_bd	PF14376.5	Pfam	PF14376	Haem-binding domain
+Ham1p_like	PF01725.15	Pfam	PF01725	Ham1 family
+HD	PF01966.21	Pfam	PF01966	HD domain
+HD_3	PF13023.5	Pfam	PF13023	HD domain
+HD_assoc	PF13286.5	Pfam	PF13286	Phosphohydrolase-associated domain
+HEM4	PF02602.14	Pfam	PF02602	Uroporphyrinogen-III synthase HemD
+Heme_oxygenase	PF01126.19	Pfam	PF01126	Heme oxygenase
+HemN_C	PF06969.15	Pfam	PF06969	HemN C-terminal domain
+Hemocyanin_C	PF03723.13	Pfam	PF03723	Hemocyanin, ig-like domain
+HemX	PF04375.13	Pfam	PF04375	HemX, putative uroporphyrinogen-III C-methyltransferase
+Hepar_II_III	PF07940.12	Pfam	PF07940	Heparinase II/III-like protein
+Hexapep_2	PF14602.5	Pfam	PF14602	Hexapeptide repeat of succinyl-transferase
+Hexokinase_1	PF00349.20	Pfam	PF00349	Hexokinase
+Hexokinase_2	PF03727.15	Pfam	PF03727	Hexokinase
+Hexose_dehydrat	PF03559.13	Pfam	PF03559	NDP-hexose 2,3-dehydratase
+HGD-D	PF06050.12	Pfam	PF06050	2-hydroxyglutaryl-CoA dehydratase, D-component
+hGDE_N	PF14699.5	Pfam	PF14699	N-terminal domain from the human glycogen debranching enzyme
+HgmA	PF04209.12	Pfam	PF04209	homogentisate 1,2-dioxygenase
+HI0933_like	PF03486.13	Pfam	PF03486	HI0933-like protein
+HisG	PF01634.17	Pfam	PF01634	ATP phosphoribosyltransferase
+HisG_C	PF08029.10	Pfam	PF08029	HisG, C-terminal domain
+Histidinol_dh	PF00815.19	Pfam	PF00815	Histidinol dehydrogenase
+His_biosynth	PF00977.20	Pfam	PF00977	Histidine biosynthesis protein
+His_Phos_1	PF00300.21	Pfam	PF00300	Histidine phosphatase superfamily (branch 1)
+His_Phos_2	PF00328.21	Pfam	PF00328	Histidine phosphatase superfamily (branch 2)
+HIT	PF01230.22	Pfam	PF01230	HIT domain
+HK	PF02110.14	Pfam	PF02110	Hydroxyethylthiazole kinase family
+HMA	PF00403.25	Pfam	PF00403	Heavy-metal-associated domain
+HMG-CoA_red	PF00368.17	Pfam	PF00368	Hydroxymethylglutaryl-coenzyme A reductase
+HMG_CoA_synt_C	PF08540.9	Pfam	PF08540	Hydroxymethylglutaryl-coenzyme A synthase C terminal
+HMG_CoA_synt_N	PF01154.16	Pfam	PF01154	Hydroxymethylglutaryl-coenzyme A synthase N terminal
+HNOB	PF07700.14	Pfam	PF07700	Haem-NO-binding
+Homoserine_dh	PF00742.18	Pfam	PF00742	Homoserine dehydrogenase
+HpaB	PF03241.12	Pfam	PF03241	4-hydroxyphenylacetate 3-hydroxylase C terminal
+HpaB_N	PF11794.7	Pfam	PF11794	4-hydroxyphenylacetate 3-hydroxylase N terminal
+HpcH_HpaI	PF03328.13	Pfam	PF03328	HpcH/HpaI aldolase/citrate lyase family
+HPIH	PF13323.5	Pfam	PF13323	N-terminal domain with HPIH motif
+HPPK	PF01288.19	Pfam	PF01288	7,8-dihydro-6-hydroxymethylpterin-pyrophosphokinase (HPPK)
+Hpt	PF01627.22	Pfam	PF01627	Hpt domain
+HR1	PF02185.15	Pfam	PF02185	Hr1 repeat
+HsdM_N	PF12161.7	Pfam	PF12161	HsdM N-terminal domain
+HTS	PF04204.15	Pfam	PF04204	Homoserine O-succinyltransferase
+HycI	PF01750.17	Pfam	PF01750	Hydrogenase maturation protease
+Hydantoinase_A	PF01968.17	Pfam	PF01968	Hydantoinase/oxoprolinase
+Hydantoinase_B	PF02538.13	Pfam	PF02538	Hydantoinase B/oxoprolinase
+Hydant_A_N	PF05378.12	Pfam	PF05378	Hydantoinase/oxoprolinase N-terminal region
+Hydrolase	PF00702.25	Pfam	PF00702	haloacid dehalogenase-like hydrolase
+Hydrolase_3	PF08282.11	Pfam	PF08282	haloacid dehalogenase-like hydrolase
+Hydrolase_4	PF12146.7	Pfam	PF12146	Serine aminopeptidase, S33
+Hydrolase_6	PF13344.5	Pfam	PF13344	Haloacid dehalogenase-like hydrolase
+H_PPase	PF03030.15	Pfam	PF03030	Inorganic H+ pyrophosphatase
+ICL	PF00463.20	Pfam	PF00463	Isocitrate lyase family
+ICMT	PF04140.13	Pfam	PF04140	Isoprenylcysteine carboxyl methyltransferase (ICMT) family
+IDH	PF03971.13	Pfam	PF03971	Monomeric isocitrate dehydrogenase
+IDO	PF01231.17	Pfam	PF01231	Indoleamine 2,3-dioxygenase
+IF-2B	PF01008.16	Pfam	PF01008	Initiation factor 2 subunit family
+IGPD	PF00475.17	Pfam	PF00475	Imidazoleglycerol-phosphate dehydratase
+IGPS	PF00218.20	Pfam	PF00218	Indole-3-glycerol phosphate synthase
+IlvC	PF01450.18	Pfam	PF01450	Acetohydroxy acid isomeroreductase, catalytic domain
+ILVD_EDD	PF00920.20	Pfam	PF00920	Dehydratase family
+IlvN	PF07991.11	Pfam	PF07991	Acetohydroxy acid isomeroreductase, NADPH-binding domain
+IMPDH	PF00478.24	Pfam	PF00478	IMP dehydrogenase / GMP reductase domain
+IMP_cyclohyd	PF07826.10	Pfam	PF07826	IMP cyclohydrolase-like protein
+IMS	PF00817.19	Pfam	PF00817	impB/mucB/samB family
+Indigoidine_A	PF04227.11	Pfam	PF04227	Indigoidine synthase A like protein
+Inhibitor_I78	PF11720.7	Pfam	PF11720	Peptidase inhibitor I78 family
+Inhibitor_I9	PF05922.15	Pfam	PF05922	Peptidase inhibitor I9
+Inos-1-P_synth	PF01658.16	Pfam	PF01658	Myo-inositol-1-phosphate synthase
+Inositol_P	PF00459.24	Pfam	PF00459	Inositol monophosphatase family
+Ins134_P3_kin	PF05770.10	Pfam	PF05770	Inositol 1, 3, 4-trisphosphate 5/6-kinase
+Ins_P5_2-kin	PF06090.11	Pfam	PF06090	Inositol-pentakisphosphate 2-kinase
+Integrase_Zn	PF02022.18	Pfam	PF02022	Integrase Zinc binding domain
+Intron_maturas2	PF01348.20	Pfam	PF01348	Type II intron maturase
+iPGM_N	PF06415.12	Pfam	PF06415	BPG-independent PGAM N-terminus (iPGM_N)
+IPK	PF03770.15	Pfam	PF03770	Inositol polyphosphate kinase
+IPPT	PF01715.16	Pfam	PF01715	IPP transferase
+IPT	PF01745.15	Pfam	PF01745	Isopentenyl transferase
+Isochorismatase	PF00857.19	Pfam	PF00857	Isochorismatase family
+Iso_dh	PF00180.19	Pfam	PF00180	Isocitrate/isopropylmalate dehydrogenase
+IspD	PF01128.18	Pfam	PF01128	2-C-methyl-D-erythritol 4-phosphate cytidylyltransferase
+IU_nuc_hydro	PF01156.18	Pfam	PF01156	Inosine-uridine preferring nucleoside hydrolase
+JAB	PF01398.20	Pfam	PF01398	JAB1/Mov34/MPN/PAD-1 ubiquitin protease
+JmjC	PF02373.21	Pfam	PF02373	JmjC domain, hydroxylase
+Josephin	PF02099.16	Pfam	PF02099	Josephin
+KA1	PF02149.18	Pfam	PF02149	Kinase associated domain 1
+KAsynt_C_assoc	PF16197.4	Pfam	PF16197	Ketoacyl-synthetase C-terminal extension
+KDGP_aldolase	PF07071.10	Pfam	PF07071	KDGP aldolase
+Kdo	PF06293.13	Pfam	PF06293	Lipopolysaccharide kinase (Kdo/WaaP) family
+KduI	PF04962.11	Pfam	PF04962	KduI/IolB family
+ketoacyl-synt	PF00109.25	Pfam	PF00109	Beta-ketoacyl synthase, N-terminal domain
+Ketoacyl-synt_2	PF13723.5	Pfam	PF13723	Beta-ketoacyl synthase, N-terminal domain
+Ketoacyl-synt_C	PF02801.21	Pfam	PF02801	Beta-ketoacyl synthase, C-terminal domain
+Kinase-PPPase	PF03618.13	Pfam	PF03618	Kinase/pyrophosphorylase
+KIX	PF02172.15	Pfam	PF02172	KIX domain
+KR	PF08659.9	Pfam	PF08659	KR domain
+KTI12	PF08433.9	Pfam	PF08433	Chromatin associated protein KTI12
+Ku_N	PF03731.14	Pfam	PF03731	Ku70/Ku80 N-terminal alpha/beta domain
+K_oxygenase	PF13434.5	Pfam	PF13434	L-lysine 6-monooxygenase (NADPH-requiring)
+LAB_N	PF07578.10	Pfam	PF07578	Lipid A Biosynthesis N-terminal domain
+LacAB_rpiB	PF02502.17	Pfam	PF02502	Ribose/Galactose Isomerase
+Lact-deh-memb	PF09330.10	Pfam	PF09330	D-lactate dehydrogenase, membrane binding
+Lactamase_B	PF00753.26	Pfam	PF00753	Metallo-beta-lactamase superfamily
+Lactamase_B_3	PF13483.5	Pfam	PF13483	Beta-lactamase superfamily domain
+Lactonase	PF10282.8	Pfam	PF10282	Lactonase, 7-bladed beta-propeller
+Laminin_G_2	PF02210.23	Pfam	PF02210	Laminin G domain
+LAM_C	PF12544.7	Pfam	PF12544	Lysine-2,3-aminomutase
+LCAT	PF02450.14	Pfam	PF02450	Lecithin:cholesterol acyltransferase
+LCCL	PF03815.18	Pfam	PF03815	LCCL domain
+LCM	PF04072.13	Pfam	PF04072	Leucine carboxyl methyltransferase
+Ldh_1_C	PF02866.17	Pfam	PF02866	lactate/malate dehydrogenase, alpha/beta C-terminal domain
+Ldh_1_N	PF00056.22	Pfam	PF00056	lactate/malate dehydrogenase, NAD binding domain
+Ldh_2	PF02615.13	Pfam	PF02615	Malate/L-lactate dehydrogenase
+Lectin_legB	PF00139.18	Pfam	PF00139	Legume lectin domain
+LEH	PF07858.11	Pfam	PF07858	Limonene-1,2-epoxide hydrolase catalytic domain
+LeuA_dimer	PF08502.9	Pfam	PF08502	LeuA allosteric (dimerisation) domain
+Leuk-A4-hydro_C	PF09127.10	Pfam	PF09127	Leukotriene A4 hydrolase, C-terminal
+LigA	PF07746.10	Pfam	PF07746	Aromatic-ring-opening dioxygenase LigAB, LigA subunit
+Ligase_CoA	PF00549.18	Pfam	PF00549	CoA-ligase
+LigB	PF02900.17	Pfam	PF02900	Catalytic LigB subunit of aromatic ring-opening dioxygenase
+LIP	PF03583.13	Pfam	PF03583	Secretory lipase
+Lipase3_N	PF03893.15	Pfam	PF03893	Lipase 3 N-terminal region
+Lipase_2	PF01674.17	Pfam	PF01674	Lipase (class 2)
+Lipase_3	PF01764.24	Pfam	PF01764	Lipase (class 3)
+Lipase_GDSL	PF00657.21	Pfam	PF00657	GDSL-like Lipase/Acylhydrolase
+Lipin_N	PF04571.13	Pfam	PF04571	lipin, N-terminal conserved region
+Lipocalin	PF00061.22	Pfam	PF00061	Lipocalin / cytosolic fatty-acid binding protein family
+Lipoxygenase	PF00305.18	Pfam	PF00305	Lipoxygenase
+Lip_A_acyltrans	PF03279.12	Pfam	PF03279	Bacterial lipid A biosynthesis acyltransferase
+Lip_prot_lig_C	PF10437.8	Pfam	PF10437	Bacterial lipoate protein ligase C-terminus
+LMWPc	PF01451.20	Pfam	PF01451	Low molecular weight phosphotyrosine protein phosphatase
+LNS2	PF08235.12	Pfam	PF08235	LNS2 (Lipin/Ned1/Smp2)
+Lon_C	PF05362.12	Pfam	PF05362	Lon protease (S16) C-terminal proteolytic domain
+LON_substr_bdg	PF02190.15	Pfam	PF02190	ATP-dependent protease La (LON) substrate-binding domain
+LPG_synthase_TM	PF03706.12	Pfam	PF03706	Lysylphosphatidylglycerol synthase TM region
+LpxB	PF02684.14	Pfam	PF02684	Lipid-A-disaccharide synthetase
+LpxC	PF03331.12	Pfam	PF03331	UDP-3-O-acyl N-acetylglycosamine deacetylase
+LpxD	PF04613.13	Pfam	PF04613	UDP-3-O-[3-hydroxymyristoyl] glucosamine N-acyltransferase, LpxD
+LpxK	PF02606.13	Pfam	PF02606	Tetraacyldisaccharide-1-P 4'-kinase
+LRAT	PF04970.12	Pfam	PF04970	Lecithin retinol acyltransferase
+LRRNT_2	PF08263.11	Pfam	PF08263	Leucine rich repeat N-terminal domain
+Lum_binding	PF00677.16	Pfam	PF00677	Lumazine binding domain
+LuxC	PF05893.13	Pfam	PF05893	Acyl-CoA reductase (LuxC)
+LuxE	PF04443.11	Pfam	PF04443	Acyl-protein synthetase, LuxE
+LuxS	PF02664.14	Pfam	PF02664	S-Ribosylhomocysteinase (LuxS)
+Lyase_1	PF00206.19	Pfam	PF00206	Lyase
+Lyase_8	PF02278.17	Pfam	PF02278	Polysaccharide lyase family 8, super-sandwich domain
+Lyase_8_C	PF02884.16	Pfam	PF02884	Polysaccharide lyase family 8, C-terminal beta-sandwich domain
+Lyase_aromatic	PF00221.18	Pfam	PF00221	Aromatic amino acid lyase
+Lyase_catalyt	PF09093.10	Pfam	PF09093	Lyase, catalytic
+Lys-AminoMut_A	PF09043.10	Pfam	PF09043	D-Lysine 5,6-aminomutase TIM-barrel domain of alpha subunit
+Lysyl_oxidase	PF01186.16	Pfam	PF01186	Lysyl oxidase
+LYTB	PF02401.17	Pfam	PF02401	LytB protein
+M20_dimer	PF07687.13	Pfam	PF07687	Peptidase dimerisation domain
+MAAL_C	PF07476.10	Pfam	PF07476	Methylaspartate ammonia-lyase C-terminus
+Mac	PF12464.7	Pfam	PF12464	Maltose acetyltransferase
+Macro	PF01661.20	Pfam	PF01661	Macro domain
+Macro_2	PF14519.5	Pfam	PF14519	Macro-like domain
+MAF_flag10	PF01973.17	Pfam	PF01973	Protein of unknown function DUF115
+Malate_synthase	PF01274.21	Pfam	PF01274	Malate synthase
+Malectin_like	PF12819.6	Pfam	PF12819	Carbohydrate-binding protein of the ER
+malic	PF00390.18	Pfam	PF00390	Malic enzyme, N-terminal domain
+Malic_M	PF03949.14	Pfam	PF03949	Malic enzyme, NAD binding domain
+Mannitol_dh	PF01232.22	Pfam	PF01232	Mannitol dehydrogenase Rossmann domain
+Mannitol_dh_C	PF08125.12	Pfam	PF08125	Mannitol dehydrogenase C-terminal domain
+MaoC_dehydratas	PF01575.18	Pfam	PF01575	MaoC like domain
+MAPEG	PF01124.17	Pfam	PF01124	MAPEG family
+MASE1	PF05231.13	Pfam	PF05231	MASE1
+MASE2	PF05230.10	Pfam	PF05230	MASE2 domain
+MATH	PF00917.25	Pfam	PF00917	MATH domain
+MazG	PF03819.16	Pfam	PF03819	MazG nucleotide pyrophosphohydrolase domain
+MBOAT	PF03062.18	Pfam	PF03062	MBOAT, membrane-bound O-acyltransferase family
+MCD	PF05292.10	Pfam	PF05292	Malonyl-CoA decarboxylase C-terminal domain
+MCH	PF02289.15	Pfam	PF02289	Cyclohydrolase (MCH)
+MCRA	PF06100.10	Pfam	PF06100	MCRA family
+MdcE	PF06833.10	Pfam	PF06833	Malonate decarboxylase gamma subunit (MdcE)
+MdcG	PF10620.8	Pfam	PF10620	Phosphoribosyl-dephospho-CoA transferase MdcG
+MDH	PF02315.15	Pfam	PF02315	Methanol dehydrogenase beta subunit
+MDMPI_N	PF11716.7	Pfam	PF11716	Mycothiol maleylpyruvate isomerase N-terminal domain
+Me-amine-dh_H	PF06433.10	Pfam	PF06433	Methylamine dehydrogenase heavy chain (MADH)
+Me-amine-dh_L	PF02975.13	Pfam	PF02975	Methylamine dehydrogenase, L chain
+Melibiase	PF02065.17	Pfam	PF02065	Melibiase
+MeMO_Hyd_G	PF02964.15	Pfam	PF02964	Methane monooxygenase, hydrolase gamma chain
+MerB	PF03243.14	Pfam	PF03243	Alkylmercury lyase
+Metalloenzyme	PF01676.17	Pfam	PF01676	Metalloenzyme superfamily
+Metallophos	PF00149.27	Pfam	PF00149	Calcineurin-like phosphoesterase
+Metallophos_2	PF12850.6	Pfam	PF12850	Calcineurin-like phosphoesterase superfamily domain
+Metallophos_C	PF14008.5	Pfam	PF14008	Iron/zinc purple acid phosphatase-like protein C
+Methyltransf_10	PF05971.11	Pfam	PF05971	Protein of unknown function (DUF890)
+Methyltransf_11	PF08241.11	Pfam	PF08241	Methyltransferase domain
+Methyltransf_12	PF08242.11	Pfam	PF08242	Methyltransferase domain
+Methyltransf_13	PF08421.10	Pfam	PF08421	Putative zinc binding domain
+Methyltransf_14	PF08484.10	Pfam	PF08484	C-methyltransferase C-terminal domain
+Methyltransf_16	PF10294.8	Pfam	PF10294	Lysine methyltransferase
+Methyltransf_19	PF04672.11	Pfam	PF04672	S-adenosyl methyltransferase
+Methyltransf_2	PF00891.17	Pfam	PF00891	O-methyltransferase
+Methyltransf_21	PF05050.11	Pfam	PF05050	Methyltransferase FkbM domain
+Methyltransf_23	PF13489.5	Pfam	PF13489	Methyltransferase domain
+Methyltransf_24	PF13578.5	Pfam	PF13578	Methyltransferase domain
+Methyltransf_25	PF13649.5	Pfam	PF13649	Methyltransferase domain
+Methyltransf_3	PF01596.16	Pfam	PF01596	O-methyltransferase
+Methyltransf_30	PF05430.10	Pfam	PF05430	S-adenosyl-L-methionine-dependent methyltransferase
+Methyltransf_31	PF13847.5	Pfam	PF13847	Methyltransferase domain
+Methyltransf_33	PF10017.8	Pfam	PF10017	Histidine-specific methyltransferase, SAM-dependent
+Methyltransf_34	PF11312.7	Pfam	PF11312	Putative SAM-dependent methyltransferase
+Methyltransf_4	PF02390.16	Pfam	PF02390	Putative methyltransferase
+Methyltransf_5	PF01795.18	Pfam	PF01795	MraW methylase family
+Methyltransf_7	PF03492.14	Pfam	PF03492	SAM dependent carboxyl methyltransferase
+Methyltransf_8	PF05148.14	Pfam	PF05148	Hypothetical methyltransferase
+Methyltransf_PK	PF05891.11	Pfam	PF05891	AdoMet dependent proline di-methyltransferase
+Methyltrans_SAM	PF10672.8	Pfam	PF10672	S-adenosylmethionine-dependent methyltransferase
+Meth_synt_1	PF08267.11	Pfam	PF08267	Cobalamin-independent synthase, N-terminal domain
+Meth_synt_2	PF01717.17	Pfam	PF01717	Cobalamin-independent synthase, Catalytic domain
+Met_10	PF02475.15	Pfam	PF02475	Met-10+ like-protein
+Met_asp_mut_E	PF06368.10	Pfam	PF06368	Methylaspartate mutase E chain (MutE)
+Met_synt_B12	PF02965.16	Pfam	PF02965	Vitamin B12 dependent methionine synthase, activation domain
+Mg-por_mtran_C	PF07109.10	Pfam	PF07109	Magnesium-protoporphyrin IX methyltransferase C-terminus
+MGDG_synth	PF06925.10	Pfam	PF06925	Monogalactosyldiacylglycerol (MGDG) synthase
+MGS	PF02142.21	Pfam	PF02142	MGS-like domain
+MgtC	PF02308.15	Pfam	PF02308	MgtC family
+Mg_chelatase	PF01078.20	Pfam	PF01078	Magnesium chelatase, subunit ChlI
+MIase	PF02426.15	Pfam	PF02426	Muconolactone delta-isomerase
+MIOX	PF05153.14	Pfam	PF05153	Myo-inositol oxygenase
+MIR	PF02815.18	Pfam	PF02815	MIR domain
+MmgE_PrpD	PF03972.13	Pfam	PF03972	MmgE/PrpD family
+MmlI	PF09448.9	Pfam	PF09448	Methylmuconolactone methyl-isomerase
+MmoB_DmpM	PF02406.16	Pfam	PF02406	MmoB/DmpM family
+MM_CoA_mutase	PF01642.21	Pfam	PF01642	Methylmalonyl-CoA mutase
+Mo-co_dimer	PF03404.15	Pfam	PF03404	Mo-co oxidoreductase dimerisation domain
+MoaC	PF01967.20	Pfam	PF01967	MoaC family
+MoaE	PF02391.16	Pfam	PF02391	MoaE protein
+MobB	PF03205.13	Pfam	PF03205	Molybdopterin guanine dinucleotide synthesis protein B
+Mob_synth_C	PF06463.12	Pfam	PF06463	Molybdenum Cofactor Synthesis C
+MoCF_biosynth	PF00994.23	Pfam	PF00994	Probable molybdopterin binding domain
+MoeA_C	PF03454.14	Pfam	PF03454	MoeA C-terminal region (domain IV)
+MoeA_N	PF03453.16	Pfam	PF03453	MoeA N-terminal region (domain I and II)
+MOFRL	PF05161.12	Pfam	PF05161	MOFRL family
+Molybdopterin	PF00384.21	Pfam	PF00384	Molybdopterin oxidoreductase
+Molybdop_Fe4S4	PF04879.15	Pfam	PF04879	Molybdopterin oxidoreductase Fe4S4 domain
+Molydop_binding	PF01568.20	Pfam	PF01568	Molydopterin dinucleotide binding domain
+MOSC	PF03473.16	Pfam	PF03473	MOSC domain
+MOSC_N	PF03476.15	Pfam	PF03476	MOSC N-terminal beta barrel domain
+MOZ_SAS	PF01853.17	Pfam	PF01853	MOZ/SAS family
+Mqo	PF06039.14	Pfam	PF06039	Malate:quinone oxidoreductase (Mqo)
+MR_MLE_C	PF13378.5	Pfam	PF13378	Enolase C-terminal domain-like
+MR_MLE_N	PF02746.15	Pfam	PF02746	Mandelate racemase / muconate lactonizing enzyme, N-terminal domain
+MT-A70	PF05063.13	Pfam	PF05063	MT-A70
+MTHFR	PF02219.16	Pfam	PF02219	Methylenetetrahydrofolate reductase
+MTHFR_C	PF12225.7	Pfam	PF12225	Methylene-tetrahydrofolate reductase C terminal
+MTS	PF05175.13	Pfam	PF05175	Methyltransferase small domain
+MTTB	PF06253.10	Pfam	PF06253	Trimethylamine methyltransferase (MTTB)
+Multi-haem_cyto	PF13447.5	Pfam	PF13447	Seven times multi-haem cytochrome CxxCH
+Muraidase	PF11860.7	Pfam	PF11860	N-acetylmuramidase
+MurB_C	PF02873.15	Pfam	PF02873	UDP-N-acetylenolpyruvoylglucosamine reductase, C-terminal domain
+Mur_ligase	PF01225.24	Pfam	PF01225	Mur ligase family, catalytic domain
+Mur_ligase_C	PF02875.20	Pfam	PF02875	Mur ligase family, glutamate ligase domain
+Mur_ligase_M	PF08245.11	Pfam	PF08245	Mur ligase middle domain
+Myotub-related	PF06602.13	Pfam	PF06602	Myotubularin-like phosphatase domain
+N-glycanase_C	PF09113.9	Pfam	PF09113	Peptide-N-glycosidase F, C terminal
+NAAA-beta	PF15508.5	Pfam	PF15508	beta subunit of N-acylethanolamine-hydrolyzing acid amidase
+NAD-GH	PF10712.8	Pfam	PF10712	NAD-specific glutamate dehydrogenase
+NadA	PF02445.15	Pfam	PF02445	Quinolinate synthetase A protein
+NADH-u_ox-rdase	PF10785.8	Pfam	PF10785	NADH-ubiquinone oxidoreductase complex I, 21 kDa subunit
+NADH5_C	PF06455.10	Pfam	PF06455	NADH dehydrogenase subunit 5 C-terminus
+NADHdh	PF00146.20	Pfam	PF00146	NADH dehydrogenase
+NADH_4Fe-4S	PF10589.8	Pfam	PF10589	NADH-ubiquinone oxidoreductase-F iron-sulfur binding region
+NADH_dhqG_C	PF09326.10	Pfam	PF09326	NADH-ubiquinone oxidoreductase subunit G, C-terminal
+NADH_u_ox_C	PF12853.6	Pfam	PF12853	C-terminal of NADH-ubiquinone oxidoreductase 21 kDa subunit
+NAD_binding_1	PF00175.20	Pfam	PF00175	Oxidoreductase NAD-binding domain
+NAD_binding_10	PF13460.5	Pfam	PF13460	NAD(P)H-binding
+NAD_binding_11	PF14833.5	Pfam	PF14833	NAD-binding of NADP-dependent 3-hydroxyisobutyrate dehydrogenase
+NAD_binding_2	PF03446.14	Pfam	PF03446	NAD binding domain of 6-phosphogluconate dehydrogenase
+NAD_binding_3	PF03447.15	Pfam	PF03447	Homoserine dehydrogenase, NAD binding domain
+NAD_binding_5	PF07994.11	Pfam	PF07994	Myo-inositol-1-phosphate synthase
+NAD_binding_6	PF08030.11	Pfam	PF08030	Ferric reductase NAD binding domain
+NAD_binding_7	PF13241.5	Pfam	PF13241	Putative NAD(P)-binding
+NAD_binding_8	PF13450.5	Pfam	PF13450	NAD(P)-binding Rossmann-like domain
+NAD_binding_9	PF13454.5	Pfam	PF13454	FAD-NAD(P)-binding
+NAD_Gly3P_dh_C	PF07479.13	Pfam	PF07479	NAD-dependent glycerol-3-phosphate dehydrogenase C-terminus
+NAD_Gly3P_dh_N	PF01210.22	Pfam	PF01210	NAD-dependent glycerol-3-phosphate dehydrogenase N-terminus
+NAD_kinase	PF01513.20	Pfam	PF01513	ATP-NAD kinase
+NAD_synthase	PF02540.16	Pfam	PF02540	NAD synthase
+NAF	PF03822.13	Pfam	PF03822	NAF domain
+NAGidase	PF07555.12	Pfam	PF07555	beta-N-acetylglucosaminidase
+NAGLU_C	PF12972.6	Pfam	PF12972	Alpha-N-acetylglucosaminidase (NAGLU) C-terminal domain
+NAGLU_N	PF12971.6	Pfam	PF12971	Alpha-N-acetylglucosaminidase (NAGLU) N-terminal domain
+NAGPA	PF09992.8	Pfam	PF09992	Phosphodiester glycosidase
+NanE	PF04131.13	Pfam	PF04131	Putative N-acetylmannosamine-6-phosphate epimerase
+NAPRTase	PF04095.15	Pfam	PF04095	Nicotinate phosphoribosyltransferase (NAPRTase) family
+NAS	PF03059.15	Pfam	PF03059	Nicotianamine synthase protein
+NAT	PF04768.12	Pfam	PF04768	NAT, N-acetyltransferase, of N-acetylglutamate synthase
+NDK	PF00334.18	Pfam	PF00334	Nucleoside diphosphate kinase
+NeuB	PF03102.13	Pfam	PF03102	NeuB family
+NHase_alpha	PF02979.15	Pfam	PF02979	Nitrile hydratase, alpha chain
+NHase_beta	PF02211.14	Pfam	PF02211	Nitrile hydratase beta subunit
+NIF	PF03031.17	Pfam	PF03031	NLI interacting factor-like phosphatase
+NiFeSe_Hases	PF00374.18	Pfam	PF00374	Nickel-dependent hydrogenase
+NiFe_hyd_SSU_C	PF14720.5	Pfam	PF14720	NiFe/NiFeSe hydrogenase small subunit C-terminal
+Nitrate_red_del	PF02613.14	Pfam	PF02613	Nitrate reductase delta subunit
+Nitrate_red_gam	PF02665.13	Pfam	PF02665	Nitrate reductase gamma subunit
+Nitr_red_bet_C	PF14711.5	Pfam	PF14711	Respiratory nitrate reductase beta C-terminal
+NLPC_P60	PF00877.18	Pfam	PF00877	NlpC/P60 family
+NMO	PF03060.14	Pfam	PF03060	Nitronate monooxygenase
+NmrA	PF05368.12	Pfam	PF05368	NmrA-like family
+NMT	PF01233.18	Pfam	PF01233	Myristoyl-CoA:protein N-myristoyltransferase, N-terminal domain
+NMT_C	PF02799.14	Pfam	PF02799	Myristoyl-CoA:protein N-myristoyltransferase, C-terminal domain
+NnrU	PF07298.10	Pfam	PF07298	NnrU protein
+NosD	PF05048.12	Pfam	PF05048	Periplasmic copper-binding protein (NosD)
+NO_synthase	PF02898.14	Pfam	PF02898	Nitric oxide synthase, oxygenase domain
+NPCBM	PF08305.10	Pfam	PF08305	NPCBM/NEW2 domain
+NPCBM_assoc	PF10633.8	Pfam	PF10633	NPCBM-associated, NEW3 domain of alpha-galactosidase
+NQR2_RnfD_RnfE	PF03116.14	Pfam	PF03116	NQR2, RnfD, RnfE family
+NQRA_SLBB	PF11973.7	Pfam	PF11973	NQRA C-terminal domain
+NRDD	PF13597.5	Pfam	PF13597	Anaerobic ribonucleoside-triphosphate reductase
+Nsp1	PF11501.7	Pfam	PF11501	Non structural protein Nsp1
+NTPase_1	PF03266.14	Pfam	PF03266	NTPase
+NTP_transferase	PF00483.22	Pfam	PF00483	Nucleotidyl transferase
+NTP_transf_2	PF01909.22	Pfam	PF01909	Nucleotidyltransferase domain
+NTP_transf_3	PF12804.6	Pfam	PF12804	MobA-like NTP transferase domain
+NTP_transf_9	PF04248.11	Pfam	PF04248	Domain of unknown function (DUF427)
+Nucleotid_trans	PF03407.15	Pfam	PF03407	Nucleotide-diphospho-sugar transferase
+Nuc_deoxyrib_tr	PF05014.14	Pfam	PF05014	Nucleoside 2-deoxyribosyltransferase
+NUDIX	PF00293.27	Pfam	PF00293	NUDIX domain
+NUDIX-like	PF09296.10	Pfam	PF09296	NADH pyrophosphatase-like rudimentary NUDIX domain
+Nudix_N_2	PF14803.5	Pfam	PF14803	Nudix N-terminal
+NusB	PF01029.17	Pfam	PF01029	NusB family
+O-FucT	PF10250.8	Pfam	PF10250	GDP-fucose protein O-fucosyltransferase
+OAD_gamma	PF04277.12	Pfam	PF04277	Oxaloacetate decarboxylase, gamma chain
+OB_NTP_bind	PF07717.15	Pfam	PF07717	Oligonucleotide/oligosaccharide-binding (OB)-fold
+OCD_Mu_crystall	PF02423.14	Pfam	PF02423	Ornithine cyclodeaminase/mu-crystallin family
+Octopine_DH	PF02317.16	Pfam	PF02317	NAD/NADP octopine/nopaline dehydrogenase, alpha-helical domain
+OHCU_decarbox	PF09349.9	Pfam	PF09349	OHCU decarboxylase
+OKR_DC_1	PF01276.19	Pfam	PF01276	Orn/Lys/Arg decarboxylase, major domain
+OKR_DC_1_C	PF03711.14	Pfam	PF03711	Orn/Lys/Arg decarboxylase, C-terminal domain
+OMPdecase	PF00215.23	Pfam	PF00215	Orotidine 5'-phosphate decarboxylase / HUMPS family
+Omptin	PF01278.19	Pfam	PF01278	Omptin family
+OrfB_IS605	PF01385.18	Pfam	PF01385	Probable transposase
+Orn_Arg_deC_N	PF02784.15	Pfam	PF02784	Pyridoxal-dependent decarboxylase, pyridoxal binding domain
+Orn_DAP_Arg_deC	PF00278.21	Pfam	PF00278	Pyridoxal-dependent decarboxylase, C-terminal sheet domain
+OsmC	PF02566.18	Pfam	PF02566	OsmC-like protein
+Osmo_MPGsynth	PF09488.9	Pfam	PF09488	Mannosyl-3-phosphoglycerate synthase (osmo_MPGsynth)
+OSR1_C	PF12202.7	Pfam	PF12202	Oxidative-stress-responsive kinase 1 C-terminal domain
+Ost4	PF10215.8	Pfam	PF10215	Oligosaccaryltransferase
+OTCace	PF00185.23	Pfam	PF00185	Aspartate/ornithine carbamoyltransferase, Asp/Orn binding domain
+OTCace_N	PF02729.20	Pfam	PF02729	Aspartate/ornithine carbamoyltransferase, carbamoyl-P binding domain
+OTU	PF02338.18	Pfam	PF02338	OTU-like cysteine protease
+Oxidored-like	PF09791.8	Pfam	PF09791	Oxidoreductase-like protein, N-terminal
+Oxidored_FMN	PF00724.19	Pfam	PF00724	NADH:flavin oxidoreductase / NADH oxidase family
+Oxidored_molyb	PF00174.18	Pfam	PF00174	Oxidoreductase molybdopterin binding domain
+Oxidored_nitro	PF00148.18	Pfam	PF00148	Nitrogenase component 1 type Oxidoreductase
+Oxidored_q2	PF00420.23	Pfam	PF00420	NADH-ubiquinone/plastoquinone oxidoreductase chain 4L
+Oxidored_q3	PF00499.19	Pfam	PF00499	NADH-ubiquinone/plastoquinone oxidoreductase chain 6
+Oxidored_q4	PF00507.18	Pfam	PF00507	NADH-ubiquinone/plastoquinone oxidoreductase, chain 3
+Oxidored_q6	PF01058.21	Pfam	PF01058	NADH ubiquinone oxidoreductase, 20 Kd subunit
+P-mevalo_kinase	PF04275.13	Pfam	PF04275	Phosphomevalonate kinase
+P5CR_dimer	PF14748.5	Pfam	PF14748	Pyrroline-5-carboxylate reductase dimerisation
+PA	PF02225.21	Pfam	PF02225	PA domain
+PA14	PF07691.11	Pfam	PF07691	PA14 domain
+PaaA_PaaC	PF05138.11	Pfam	PF05138	Phenylacetic acid catabolic protein
+PAD	PF03068.14	Pfam	PF03068	Protein-arginine deiminase (PAD)
+PAD_porph	PF04371.14	Pfam	PF04371	Porphyromonas-type peptidyl-arginine deiminase
+PAF-AH_p_II	PF03403.12	Pfam	PF03403	Platelet-activating factor acetylhydrolase, isoform II
+PagL	PF09411.9	Pfam	PF09411	Lipid A 3-O-deacylase (PagL)
+Palm_thioest	PF02089.14	Pfam	PF02089	Palmitoyl protein thioesterase
+PALP	PF00291.24	Pfam	PF00291	Pyridoxal-phosphate dependent enzyme
+Pantoate_ligase	PF02569.14	Pfam	PF02569	Pantoate-beta-alanine ligase
+Pantoate_transf	PF02548.14	Pfam	PF02548	Ketopantoate hydroxymethyltransferase
+Pan_kinase	PF03309.13	Pfam	PF03309	Type III pantothenate kinase
+PaO	PF08417.11	Pfam	PF08417	Pheophorbide a oxygenase
+PAP2	PF01569.20	Pfam	PF01569	PAP2 superfamily
+PAPS_reduct	PF01507.18	Pfam	PF01507	Phosphoadenosine phosphosulfate reductase family
+PAP_assoc	PF03828.18	Pfam	PF03828	Cid1 family poly A polymerase
+PAP_central	PF04928.16	Pfam	PF04928	Poly(A) polymerase central domain
+PARG_cat	PF05028.13	Pfam	PF05028	Poly (ADP-ribose) glycohydrolase (PARG)
+Patatin	PF01734.21	Pfam	PF01734	Patatin-like phospholipase
+PB1	PF00564.23	Pfam	PF00564	PB1 domain
+PBD	PF00786.27	Pfam	PF00786	P21-Rho-binding domain
+PBP5_C	PF07943.12	Pfam	PF07943	Penicillin-binding protein 5, C-terminal domain
+PBP_dimer	PF03717.14	Pfam	PF03717	Penicillin-binding Protein dimerisation domain
+PCO_ADO	PF07847.11	Pfam	PF07847	PCO_ADO
+PCP_red	PF08369.9	Pfam	PF08369	Proto-chlorophyllide reductase 57 kD subunit
+PcrB	PF01884.16	Pfam	PF01884	PcrB family
+PDEase_I	PF00233.18	Pfam	PF00233	3'5'-cyclic nucleotide phosphodiesterase
+PDEase_II	PF02112.14	Pfam	PF02112	cAMP phosphodiesterases class-II
+PDH	PF02153.16	Pfam	PF02153	Prephenate dehydrogenase
+PDT	PF00800.17	Pfam	PF00800	Prephenate dehydratase
+PdxA	PF04166.11	Pfam	PF04166	Pyridoxal phosphate biosynthetic protein PdxA
+PdxJ	PF03740.12	Pfam	PF03740	Pyridoxal phosphate biosynthesis protein PdxJ
+Pectate_lyase	PF03211.12	Pfam	PF03211	Pectate lyase
+Pectinesterase	PF01095.18	Pfam	PF01095	Pectinesterase
+Pec_lyase	PF09492.9	Pfam	PF09492	Pectic acid lyase
+Pec_lyase_C	PF00544.18	Pfam	PF00544	Pectate lyase
+PEMT	PF04191.12	Pfam	PF04191	Phospholipid methyltransferase
+Penicil_amidase	PF01804.17	Pfam	PF01804	Penicillin amidase
+PEP-utilisers_N	PF05524.12	Pfam	PF05524	PEP-utilising enzyme, N-terminal
+PEP-utilizers	PF00391.22	Pfam	PF00391	PEP-utilising enzyme, mobile domain
+PEP-utilizers_C	PF02896.17	Pfam	PF02896	PEP-utilising enzyme, TIM barrel domain
+PEPcase	PF00311.16	Pfam	PF00311	Phosphoenolpyruvate carboxylase
+PEPCK_ATP	PF01293.19	Pfam	PF01293	Phosphoenolpyruvate carboxykinase
+PEPCK_C	PF00821.17	Pfam	PF00821	Phosphoenolpyruvate carboxykinase C-terminal P-loop domain
+PepSY	PF03413.18	Pfam	PF03413	Peptidase propeptide and YPEB domain
+Peptidase_A24	PF01478.17	Pfam	PF01478	Type IV leader peptidase family
+Peptidase_A4	PF01828.16	Pfam	PF01828	Peptidase A4 family
+Peptidase_A8	PF01252.17	Pfam	PF01252	Signal peptidase (SPase) II
+Peptidase_C1	PF00112.22	Pfam	PF00112	Papain family cysteine protease
+Peptidase_C11	PF03415.13	Pfam	PF03415	Clostripain family
+Peptidase_C12	PF01088.20	Pfam	PF01088	Ubiquitin carboxyl-terminal hydrolase, family 1
+Peptidase_C13	PF01650.17	Pfam	PF01650	Peptidase C13 family
+Peptidase_C14	PF00656.21	Pfam	PF00656	Caspase domain
+Peptidase_C15	PF01470.16	Pfam	PF01470	Pyroglutamyl peptidase
+Peptidase_C1_2	PF03051.14	Pfam	PF03051	Peptidase C1-like family
+Peptidase_C2	PF00648.20	Pfam	PF00648	Calpain family cysteine protease
+Peptidase_C25	PF01364.17	Pfam	PF01364	Peptidase family C25
+Peptidase_C26	PF07722.12	Pfam	PF07722	Peptidase C26
+Peptidase_C48	PF02902.18	Pfam	PF02902	Ulp1 protease family, C-terminal catalytic domain
+Peptidase_C50	PF03568.16	Pfam	PF03568	Peptidase family C50
+Peptidase_C65	PF10275.8	Pfam	PF10275	Peptidase C65 Otubain
+Peptidase_M1	PF01433.19	Pfam	PF01433	Peptidase family M1 domain
+Peptidase_M10	PF00413.23	Pfam	PF00413	Matrixin
+Peptidase_M10_C	PF08548.10	Pfam	PF08548	Peptidase M10 serralysin C terminal
+Peptidase_M13	PF01431.20	Pfam	PF01431	Peptidase family M13
+Peptidase_M13_N	PF05649.12	Pfam	PF05649	Peptidase family M13
+Peptidase_M14	PF00246.23	Pfam	PF00246	Zinc carboxypeptidase
+Peptidase_M15	PF01427.16	Pfam	PF01427	D-ala-D-ala dipeptidase
+Peptidase_M15_3	PF08291.10	Pfam	PF08291	Peptidase M15
+Peptidase_M17	PF00883.20	Pfam	PF00883	Cytosol aminopeptidase family, catalytic domain
+Peptidase_M17_N	PF02789.16	Pfam	PF02789	Cytosol aminopeptidase family, N-terminal domain
+Peptidase_M18	PF02127.14	Pfam	PF02127	Aminopeptidase I zinc metalloprotease (M18)
+Peptidase_M19	PF01244.20	Pfam	PF01244	Membrane dipeptidase (Peptidase family M19)
+Peptidase_M2	PF01401.17	Pfam	PF01401	Angiotensin-converting enzyme
+Peptidase_M20	PF01546.27	Pfam	PF01546	Peptidase family M20/M25/M40
+Peptidase_M22	PF00814.24	Pfam	PF00814	Glycoprotease family
+Peptidase_M23	PF01551.21	Pfam	PF01551	Peptidase family M23
+Peptidase_M24	PF00557.23	Pfam	PF00557	Metallopeptidase family M24
+Peptidase_M28	PF04389.16	Pfam	PF04389	Peptidase family M28
+Peptidase_M29	PF02073.14	Pfam	PF02073	Thermophilic metalloprotease (M29)
+Peptidase_M3	PF01432.19	Pfam	PF01432	Peptidase family M3
+Peptidase_M32	PF02074.14	Pfam	PF02074	Carboxypeptidase Taq (M32) metallopeptidase
+Peptidase_M35	PF02102.14	Pfam	PF02102	Deuterolysin metalloprotease (M35) family
+Peptidase_M4	PF01447.17	Pfam	PF01447	Thermolysin metallopeptidase, catalytic domain
+Peptidase_M43	PF05572.12	Pfam	PF05572	Pregnancy-associated plasma protein-A
+Peptidase_M48	PF01435.17	Pfam	PF01435	Peptidase family M48
+Peptidase_M49	PF03571.14	Pfam	PF03571	Peptidase family M49
+Peptidase_M4_C	PF02868.14	Pfam	PF02868	Thermolysin metallopeptidase, alpha-helical domain
+Peptidase_M7	PF02031.15	Pfam	PF02031	Streptomyces extracellular neutral proteinase (M7) family
+Peptidase_M8	PF01457.15	Pfam	PF01457	Leishmanolysin
+Peptidase_M9	PF01752.16	Pfam	PF01752	Collagenase
+Peptidase_S10	PF00450.21	Pfam	PF00450	Serine carboxypeptidase
+Peptidase_S11	PF00768.19	Pfam	PF00768	D-alanyl-D-alanine carboxypeptidase
+Peptidase_S13	PF02113.14	Pfam	PF02113	D-Ala-D-Ala carboxypeptidase 3 (S13) family
+Peptidase_S15	PF02129.17	Pfam	PF02129	X-Pro dipeptidyl-peptidase (S15 family)
+Peptidase_S24	PF00717.22	Pfam	PF00717	Peptidase S24-like
+Peptidase_S26	PF10502.8	Pfam	PF10502	Signal peptidase, peptidase S26
+Peptidase_S32	PF05579.12	Pfam	PF05579	Equine arteritis virus serine endopeptidase S32
+Peptidase_S51	PF03575.16	Pfam	PF03575	Peptidase family S51
+Peptidase_S55	PF05580.11	Pfam	PF05580	SpoIVB peptidase S55
+Peptidase_S58	PF03576.13	Pfam	PF03576	Peptidase family S58
+Peptidase_S6	PF02395.15	Pfam	PF02395	Immunoglobulin A1 protease
+Peptidase_S66	PF02016.14	Pfam	PF02016	LD-carboxypeptidase
+Peptidase_S7	PF00949.20	Pfam	PF00949	Peptidase S7, Flavivirus NS3 serine protease
+Peptidase_S9_N	PF02897.14	Pfam	PF02897	Prolyl oligopeptidase, N-terminal beta-propeller domain
+PepX_C	PF08530.9	Pfam	PF08530	X-Pro dipeptidyl-peptidase C-terminal non-catalytic domain
+Pep_deformylase	PF01327.20	Pfam	PF01327	Polypeptide deformylase
+Peripla_BP_6	PF13458.5	Pfam	PF13458	Periplasmic binding protein
+peroxidase	PF00141.22	Pfam	PF00141	Peroxidase
+Peroxidase_2	PF01328.16	Pfam	PF01328	Peroxidase, family 2
+Peroxidase_ext	PF11895.7	Pfam	PF11895	Fungal peroxidase extension region
+PFK	PF00365.19	Pfam	PF00365	Phosphofructokinase
+PfkB	PF00294.23	Pfam	PF00294	pfkB family carbohydrate kinase
+PFL-like	PF02901.14	Pfam	PF02901	Pyruvate formate lyase-like
+PGAP1	PF07819.12	Pfam	PF07819	PGAP1-like protein
+PGI	PF00342.18	Pfam	PF00342	Phosphoglucose isomerase
+PGK	PF00162.18	Pfam	PF00162	Phosphoglycerate kinase
+PGM_PMM_I	PF02878.15	Pfam	PF02878	Phosphoglucomutase/phosphomannomutase, alpha/beta/alpha domain I
+PGM_PMM_II	PF02879.15	Pfam	PF02879	Phosphoglucomutase/phosphomannomutase, alpha/beta/alpha domain II
+PGM_PMM_III	PF02880.15	Pfam	PF02880	Phosphoglucomutase/phosphomannomutase, alpha/beta/alpha domain III
+PGM_PMM_IV	PF00408.19	Pfam	PF00408	Phosphoglucomutase/phosphomannomutase, C-terminal domain
+PgpA	PF04608.12	Pfam	PF04608	Phosphatidylglycerophosphatase A
+PGP_phosphatase	PF09419.9	Pfam	PF09419	Mitochondrial PGP phosphatase
+PG_binding_1	PF01471.17	Pfam	PF01471	Putative peptidoglycan binding domain
+PH	PF00169.28	Pfam	PF00169	PH domain
+PHB_depo_C	PF06850.10	Pfam	PF06850	PHB de-polymerase C-terminus
+Phenol_Hydrox	PF02332.17	Pfam	PF02332	Methane/Phenol/Toluene Hydroxylase
+Phe_hydrox_dim	PF07976.11	Pfam	PF07976	Phenol hydroxylase, C-terminal dimerisation domain
+PhnG	PF06754.11	Pfam	PF06754	Phosphonate metabolism protein PhnG
+PhnH	PF05845.11	Pfam	PF05845	Bacterial phosphonate metabolism protein (PhnH)
+PhnI	PF05861.11	Pfam	PF05861	Bacterial phosphonate metabolism protein (PhnI)
+PhnJ	PF06007.10	Pfam	PF06007	Phosphonate metabolism protein PhnJ
+PhoD	PF09423.9	Pfam	PF09423	PhoD-like phosphatase
+Phosphodiest	PF01663.21	Pfam	PF01663	Type I phosphodiesterase / nucleotide pyrophosphatase
+Phosphoesterase	PF04185.13	Pfam	PF04185	Phosphoesterase family
+Phospholip_A2_1	PF00068.18	Pfam	PF00068	Phospholipase A2
+Phosphorylase	PF00343.19	Pfam	PF00343	Carbohydrate phosphorylase
+Phos_pyr_kin	PF08543.11	Pfam	PF08543	Phosphomethylpyrimidine kinase
+Photo_RC	PF00124.18	Pfam	PF00124	Photosynthetic reaction centre protein
+PHP	PF02811.18	Pfam	PF02811	PHP domain
+PhyH	PF05721.12	Pfam	PF05721	Phytanoyl-CoA dioxygenase (PhyH)
+Phytase	PF02333.14	Pfam	PF02333	Phytase
+Phytochelatin	PF05023.13	Pfam	PF05023	Phytochelatin synthase
+PhzC-PhzF	PF02567.15	Pfam	PF02567	Phenazine biosynthesis-like protein
+PI-PLC-X	PF00388.18	Pfam	PF00388	Phosphatidylinositol-specific phospholipase C, X domain
+PI-PLC-Y	PF00387.18	Pfam	PF00387	Phosphatidylinositol-specific phospholipase C, Y domain
+PI3_PI4_kinase	PF00454.26	Pfam	PF00454	Phosphatidylinositol 3- and 4-kinase
+PIG-H	PF10181.8	Pfam	PF10181	GPI-GlcNAc transferase complex, PIG-H component
+PIG-P	PF08510.11	Pfam	PF08510	PIG-P
+PIGA	PF08288.11	Pfam	PF08288	PIGA (GPI anchor biosynthesis)
+PilZ	PF07238.13	Pfam	PF07238	PilZ domain
+PIP5K	PF01504.17	Pfam	PF01504	Phosphatidylinositol-4-phosphate 5-Kinase
+PK	PF00224.20	Pfam	PF00224	Pyruvate kinase, barrel domain
+PKD	PF00801.19	Pfam	PF00801	PKD domain
+Pkinase_C	PF00433.23	Pfam	PF00433	Protein kinase C terminal domain
+PK_C	PF02887.15	Pfam	PF02887	Pyruvate kinase, alpha/beta domain
+PLA1	PF02253.14	Pfam	PF02253	Phospholipase A1
+PLA2G12	PF06951.10	Pfam	PF06951	Group XII secretory phospholipase A2 precursor (PLA2G12)
+PLA2_B	PF01735.17	Pfam	PF01735	Lysophospholipase catalytic domain
+PLAT	PF01477.22	Pfam	PF01477	PLAT/LH2 domain
+PLDc	PF00614.21	Pfam	PF00614	Phospholipase D Active site motif
+PLDc_2	PF13091.5	Pfam	PF13091	PLD-like domain
+PMEI	PF04043.14	Pfam	PF04043	Plant invertase/pectin methylesterase inhibitor
+PMI_typeI	PF01238.20	Pfam	PF01238	Phosphomannose isomerase type I
+PMM	PF03332.12	Pfam	PF03332	Eukaryotic phosphomannomutase
+PMSR	PF01625.20	Pfam	PF01625	Peptide methionine sulfoxide reductase
+PMT	PF02366.17	Pfam	PF02366	Dolichyl-phosphate-mannose-protein mannosyltransferase
+PNGaseA	PF12222.7	Pfam	PF12222	Peptide N-acetyl-beta-D-glucosaminyl asparaginase amidase A
+PNK3P	PF08645.10	Pfam	PF08645	Polynucleotide kinase 3 phosphatase
+PNPase_C	PF12111.7	Pfam	PF12111	Polyribonucleotide phosphorylase C terminal
+PNP_phzG_C	PF10590.8	Pfam	PF10590	Pyridoxine 5'-phosphate oxidase C-terminal dimerisation region
+PNP_UDP_1	PF01048.19	Pfam	PF01048	Phosphorylase superfamily
+PNTB	PF02233.15	Pfam	PF02233	NAD(P) transhydrogenase beta subunit
+PNTB_4TM	PF12769.6	Pfam	PF12769	4TM region of pyridine nucleotide transhydrogenase, mitoch
+PolyA_pol	PF01743.19	Pfam	PF01743	Poly A polymerase head domain
+PolyA_pol_arg_C	PF12626.6	Pfam	PF12626	Polymerase A arginine-rich C-terminus
+Polyketide_cyc	PF03364.19	Pfam	PF03364	Polyketide cyclase / dehydrase and lipid transport
+Polyketide_cyc2	PF10604.8	Pfam	PF10604	Polyketide cyclase / dehydrase and lipid transport
+polyprenyl_synt	PF00348.16	Pfam	PF00348	Polyprenyl synthetase
+Polysacc_deac_1	PF01522.20	Pfam	PF01522	Polysaccharide deacetylase
+Polysacc_lyase	PF14099.5	Pfam	PF14099	Polysaccharide lyase
+Polysacc_synt_4	PF04669.12	Pfam	PF04669	Polysaccharide biosynthesis
+Polysacc_syn_2C	PF08485.9	Pfam	PF08485	Polysaccharide biosynthesis protein C-terminal
+POR	PF01558.17	Pfam	PF01558	Pyruvate ferredoxin/flavodoxin oxidoreductase
+Porphobil_deam	PF01379.19	Pfam	PF01379	Porphobilinogen deaminase, dipyromethane cofactor binding domain
+Porphobil_deamC	PF03900.14	Pfam	PF03900	Porphobilinogen deaminase, C-terminal domain
+POR_N	PF01855.18	Pfam	PF01855	Pyruvate flavodoxin/ferredoxin oxidoreductase, thiamine diP-bdg
+Poty_PP	PF08440.9	Pfam	PF08440	Potyviridae polyprotein
+PP2C	PF00481.20	Pfam	PF00481	Protein phosphatase 2C
+PPC	PF04151.14	Pfam	PF04151	Bacterial pre-peptidase C-terminal domain
+PPDK_N	PF01326.18	Pfam	PF01326	Pyruvate phosphate dikinase, PEP/pyruvate binding domain
+PPK2	PF03976.13	Pfam	PF03976	Polyphosphate kinase 2 (PPK2)
+PPO1_DWL	PF12142.7	Pfam	PF12142	Polyphenol oxidase middle domain
+Ppx-GppA	PF02541.15	Pfam	PF02541	Ppx/GppA phosphatase family
+PP_kinase	PF02503.16	Pfam	PF02503	Polyphosphate kinase middle domain
+PP_kinase_C	PF13090.5	Pfam	PF13090	Polyphosphate kinase C-terminal domain
+PP_kinase_N	PF13089.5	Pfam	PF13089	Polyphosphate kinase N-terminal domain
+PRA-CH	PF01502.17	Pfam	PF01502	Phosphoribosyl-AMP cyclohydrolase
+PRA-PH	PF01503.16	Pfam	PF01503	Phosphoribosyl-ATP pyrophosphohydrolase
+PRAI	PF00697.21	Pfam	PF00697	N-(5'phosphoribosyl)anthranilate (PRA) isomerase
+Prenylcys_lyase	PF07156.13	Pfam	PF07156	Prenylcysteine lyase
+Prenyltrans	PF00432.20	Pfam	PF00432	Prenyltransferase and squalene oxidase repeat
+Prenyltransf	PF01255.18	Pfam	PF01255	Putative undecaprenyl diphosphate synthase
+Pribosyltran	PF00156.26	Pfam	PF00156	Phosphoribosyl transferase domain
+Pribosyltran_N	PF13793.5	Pfam	PF13793	N-terminal domain of ribose phosphate pyrophosphokinase
+Pribosyl_synth	PF14572.5	Pfam	PF14572	Phosphoribosyl synthetase-associated domain
+Prismane	PF03063.19	Pfam	PF03063	Prismane/CO dehydrogenase family
+PRK	PF00485.17	Pfam	PF00485	Phosphoribulokinase / Uridine kinase family
+PRMT5	PF05185.15	Pfam	PF05185	PRMT5 arginine-N-methyltransferase
+Pro-kuma_activ	PF09286.10	Pfam	PF09286	Pro-kumamolisin, activation domain
+Propep_M14	PF02244.15	Pfam	PF02244	Carboxypeptidase activation peptide
+Proteasome	PF00227.25	Pfam	PF00227	Proteasome subunit
+Proteasome_A_N	PF10584.8	Pfam	PF10584	Proteasome subunit A N-terminal signature
+Proton_antipo_N	PF00662.19	Pfam	PF00662	NADH-Ubiquinone oxidoreductase (complex I), chain 5 N-terminus
+Pro_3_hydrox_C	PF05373.10	Pfam	PF05373	L-proline 3-hydroxylase, C-terminal
+Pro_Al_protease	PF02983.13	Pfam	PF02983	Alpha-lytic protease prodomain
+Pro_CA	PF00484.18	Pfam	PF00484	Carbonic anhydrase
+Pro_dh	PF01619.17	Pfam	PF01619	Proline dehydrogenase
+Pro_isomerase	PF00160.20	Pfam	PF00160	Cyclophilin type peptidyl-prolyl cis-trans isomerase/CLD
+Pro_racemase	PF05544.10	Pfam	PF05544	Proline racemase
+PrpF	PF04303.12	Pfam	PF04303	PrpF protein
+PS-DH	PF14765.5	Pfam	PF14765	Polyketide synthase dehydratase
+PSS	PF03034.14	Pfam	PF03034	Phosphatidyl serine synthase
+PS_Dcarbxylase	PF02666.14	Pfam	PF02666	Phosphatidylserine decarboxylase
+PS_pyruv_trans	PF04230.12	Pfam	PF04230	Polysaccharide pyruvyl transferase
+PTAC	PF06130.11	Pfam	PF06130	Phosphate propanoyltransferase
+PTase_Orf2	PF11468.7	Pfam	PF11468	Aromatic prenyltransferase Orf2
+PTA_PTB	PF01515.18	Pfam	PF01515	Phosphate acetyl/butaryl transferase
+PTE	PF02126.17	Pfam	PF02126	Phosphotriesterase family
+PTEN_C2	PF10409.8	Pfam	PF10409	C2 domain of PTEN tumour-suppressor protein
+Pterin_4a	PF01329.18	Pfam	PF01329	Pterin 4 alpha carbinolamine dehydratase
+Pterin_bind	PF00809.21	Pfam	PF00809	Pterin binding enzyme
+PTPA	PF03095.14	Pfam	PF03095	Phosphotyrosyl phosphate activator (PTPA) protein
+PTPLA	PF04387.13	Pfam	PF04387	Protein tyrosine phosphatase-like protein, PTPLA
+PTPS	PF01242.18	Pfam	PF01242	6-pyruvoyl tetrahydropterin synthase
+PUA	PF01472.19	Pfam	PF01472	PUA domain
+PUB	PF09409.9	Pfam	PF09409	PUB domain
+PUD	PF03714.13	Pfam	PF03714	Bacterial pullanase-associated domain
+PurS	PF02700.13	Pfam	PF02700	Phosphoribosylformylglycinamidine (FGAM) synthase
+Putative_PNPOx	PF01243.19	Pfam	PF01243	Pyridoxamine 5'-phosphate oxidase
+Put_Phosphatase	PF06888.11	Pfam	PF06888	Putative Phosphatase
+PvlArgDC	PF01862.15	Pfam	PF01862	Pyruvoyl-dependent arginine decarboxylase (PvlArgDC)
+PYC_OADA	PF02436.17	Pfam	PF02436	Conserved carboxylase domain
+PYNP_C	PF07831.12	Pfam	PF07831	Pyrimidine nucleoside phosphorylase C-terminal domain
+Pyridoxal_deC	PF00282.18	Pfam	PF00282	Pyridoxal-dependent decarboxylase conserved domain
+Pyridox_oxase_2	PF12766.6	Pfam	PF12766	Pyridoxamine 5'-phosphate oxidase
+Pyridox_ox_2	PF12900.6	Pfam	PF12900	Pyridoxamine 5'-phosphate oxidase
+Pyrophosphatase	PF00719.18	Pfam	PF00719	Inorganic pyrophosphatase
+Pyr_redox	PF00070.26	Pfam	PF00070	Pyridine nucleotide-disulphide oxidoreductase
+Pyr_redox_2	PF07992.13	Pfam	PF07992	Pyridine nucleotide-disulphide oxidoreductase
+Pyr_redox_3	PF13738.5	Pfam	PF13738	Pyridine nucleotide-disulphide oxidoreductase
+Pyr_redox_dim	PF02852.21	Pfam	PF02852	Pyridine nucleotide-disulphide oxidoreductase, dimerisation domain
+P_proprotein	PF01483.19	Pfam	PF01483	Proprotein convertase P-domain
+QRPTase_C	PF01729.18	Pfam	PF01729	Quinolinate phosphoribosyl transferase, C-terminal domain
+QRPTase_N	PF02749.15	Pfam	PF02749	Quinolinate phosphoribosyl transferase, N-terminal domain
+QueC	PF06508.12	Pfam	PF06508	Queuosine biosynthesis protein QueC
+QueF	PF14489.5	Pfam	PF14489	QueF-like protein
+QueF_N	PF14819.5	Pfam	PF14819	Nitrile reductase, 7-cyano-7-deazaguanine-reductase N-term
+Queuosine_synth	PF02547.14	Pfam	PF02547	Queuosine biosynthesis protein
+Rad4	PF03835.14	Pfam	PF03835	Rad4 transglutaminase-like domain
+Rad60-SLD	PF11976.7	Pfam	PF11976	Ubiquitin-2 like Rad60 SUMO-like
+Radical_SAM	PF04055.20	Pfam	PF04055	Radical SAM superfamily
+Raffinose_syn	PF05691.11	Pfam	PF05691	Raffinose synthase or seed imbibition protein Sip1
+RAP	PF08373.9	Pfam	PF08373	RAP domain
+RasGEF	PF00617.18	Pfam	PF00617	RasGEF domain
+RCC_reductase	PF06405.10	Pfam	PF06405	Red chlorophyll catabolite reductase (RCC reductase)
+Redoxin	PF08534.9	Pfam	PF08534	Redoxin
+Reductase_C	PF14759.5	Pfam	PF14759	Reductase C-terminal
+RelA_SpoT	PF04607.16	Pfam	PF04607	Region found in RelA / SpoT proteins
+Reprolysin_3	PF13582.5	Pfam	PF13582	Metallo-peptidase family M12B Reprolysin-like
+Reprolysin_5	PF13688.5	Pfam	PF13688	Metallo-peptidase family M12
+Reticulon	PF02453.16	Pfam	PF02453	Reticulon
+RGP	PF03214.12	Pfam	PF03214	Reversibly glycosylated polypeptide
+rhaM	PF05336.12	Pfam	PF05336	L-rhamnose mutarotase
+RhgB_N	PF09284.9	Pfam	PF09284	Rhamnogalacturonan lyase B, N-terminal
+Rhodanese	PF00581.19	Pfam	PF00581	Rhodanese-like domain
+Rhomboid	PF01694.21	Pfam	PF01694	Rhomboid family
+Rhomboid_N	PF12122.7	Pfam	PF12122	Cytoplasmic N-terminal domain of rhomboid serine protease
+RibD_C	PF01872.16	Pfam	PF01872	RibD C-terminal domain
+Ribonuc_red_lgC	PF02867.14	Pfam	PF02867	Ribonucleotide reductase, barrel domain
+Ribonuc_red_lgN	PF00317.20	Pfam	PF00317	Ribonucleotide reductase, all-alpha domain
+Ribonuc_red_sm	PF00268.20	Pfam	PF00268	Ribonucleotide reductase, small chain
+Ribophorin_I	PF04597.13	Pfam	PF04597	Ribophorin I
+Ribophorin_II	PF05817.13	Pfam	PF05817	Oligosaccharyltransferase subunit Ribophorin II
+Ribul_P_3_epim	PF00834.18	Pfam	PF00834	Ribulose-phosphate 3 epimerase family
+Rib_5-P_isom_A	PF06026.13	Pfam	PF06026	Ribose 5-phosphate isomerase A (phosphoriboisomerase A)
+Rib_hydrolayse	PF02267.16	Pfam	PF02267	ADP-ribosyl cyclase
+Ricin_B_lectin	PF00652.21	Pfam	PF00652	Ricin-type beta-trefoil lectin domain
+Rieske	PF00355.25	Pfam	PF00355	Rieske [2Fe-2S] domain
+Ring_hydroxyl_A	PF00848.18	Pfam	PF00848	Ring hydroxylating alpha subunit (catalytic domain)
+Ring_hydroxyl_B	PF00866.17	Pfam	PF00866	Ring hydroxylating beta subunit
+Rnf-Nqr	PF02508.13	Pfam	PF02508	Rnf-Nqr subunit, membrane protein
+RNR_N	PF08343.9	Pfam	PF08343	Ribonucleotide reductase N-terminal
+ROK	PF00480.19	Pfam	PF00480	ROK family
+Rotamase	PF00639.20	Pfam	PF00639	PPIC-type PPIASE domain
+Rotamase_2	PF13145.5	Pfam	PF13145	PPIC-type PPIASE domain
+RPE65	PF03055.14	Pfam	PF03055	Retinal pigment epithelial membrane protein
+RraA-like	PF03737.14	Pfam	PF03737	Aldolase/RraA
+RuBisCO_large	PF00016.19	Pfam	PF00016	Ribulose bisphosphate carboxylase large chain, catalytic domain
+RuBisCO_small	PF00101.19	Pfam	PF00101	Ribulose bisphosphate carboxylase, small chain
+Rubredoxin	PF00301.19	Pfam	PF00301	Rubredoxin
+Rubrerythrin	PF02915.16	Pfam	PF02915	Rubrerythrin
+RVP	PF00077.19	Pfam	PF00077	Retroviral aspartyl protease
+RVT_thumb	PF06817.13	Pfam	PF06817	Reverse transcriptase thumb domain
+S-AdoMet_synt_C	PF02773.15	Pfam	PF02773	S-adenosylmethionine synthetase, C-terminal domain
+S-AdoMet_synt_M	PF02772.15	Pfam	PF02772	S-adenosylmethionine synthetase, central domain
+S-AdoMet_synt_N	PF00438.19	Pfam	PF00438	S-adenosylmethionine synthetase, N-terminal domain
+S-methyl_trans	PF02574.15	Pfam	PF02574	Homocysteine S-methyltransferase
+S6PP	PF05116.12	Pfam	PF05116	Sucrose-6F-phosphate phosphohydrolase
+Sacchrp_dh_C	PF16653.4	Pfam	PF16653	Saccharopine dehydrogenase C-terminal domain
+Sacchrp_dh_NADP	PF03435.17	Pfam	PF03435	Saccharopine dehydrogenase NADP binding domain
+SAICAR_synt	PF01259.17	Pfam	PF01259	SAICAR synthetase
+Salt_tol_Pase	PF09506.9	Pfam	PF09506	Glucosylglycerol-phosphate phosphatase (Salt_tol_Pase)
+SAM_adeno_trans	PF01887.15	Pfam	PF01887	S-adenosyl-l-methionine hydroxide adenosyltransferase
+SAM_decarbox	PF01536.15	Pfam	PF01536	Adenosylmethionine decarboxylase
+SAM_MT	PF04445.12	Pfam	PF04445	Putative SAM-dependent methyltransferase
+SapB_1	PF05184.14	Pfam	PF05184	Saposin-like type B, region 1
+SASA	PF03629.17	Pfam	PF03629	Carbohydrate esterase, sialic acid-specific acetylesterase
+SATase_N	PF06426.13	Pfam	PF06426	Serine acetyltransferase, N-terminal
+SBP_bac_1	PF01547.24	Pfam	PF01547	Bacterial extracellular solute-binding protein
+SCP2	PF02036.16	Pfam	PF02036	SCP-2 sterol transfer family
+Scytalone_dh	PF02982.13	Pfam	PF02982	Scytalone dehydratase
+SDH_alpha	PF03313.14	Pfam	PF03313	Serine dehydratase alpha chain
+SDH_beta	PF03315.14	Pfam	PF03315	Serine dehydratase beta chain
+SE	PF08491.9	Pfam	PF08491	Squalene epoxidase
+Se-cys_synth_N	PF12390.7	Pfam	PF12390	Selenocysteine synthase N terminal
+SelR	PF01641.17	Pfam	PF01641	SelR domain
+Semialdhyde_dh	PF01118.23	Pfam	PF01118	Semialdehyde dehydrogenase, NAD binding domain
+Semialdhyde_dhC	PF02774.17	Pfam	PF02774	Semialdehyde dehydrogenase, dimerisation domain
+SET	PF00856.27	Pfam	PF00856	SET domain
+SGL	PF08450.11	Pfam	PF08450	SMP-30/Gluconolaconase/LRE-like region
+SH2	PF00017.23	Pfam	PF00017	SH2 domain
+SH3_2	PF07653.16	Pfam	PF07653	Variant SH3 domain
+SH3_3	PF08239.10	Pfam	PF08239	Bacterial SH3 domain
+SH3_5	PF08460.9	Pfam	PF08460	Bacterial SH3 domain
+SH3_9	PF14604.5	Pfam	PF14604	Variant SH3 domain
+Shikimate_DH	PF01488.19	Pfam	PF01488	Shikimate / quinate 5-dehydrogenase
+Shikimate_dh_N	PF08501.10	Pfam	PF08501	Shikimate dehydrogenase substrate binding domain
+ShK	PF01549.23	Pfam	PF01549	ShK domain-like
+SHMT	PF00464.18	Pfam	PF00464	Serine hydroxymethyltransferase
+SicP-binding	PF09119.9	Pfam	PF09119	SicP binding
+SIP	PF04954.12	Pfam	PF04954	Siderophore-interacting protein
+Sirohm_synth_C	PF14823.5	Pfam	PF14823	Sirohaem biosynthesis protein C-terminal
+Sirohm_synth_M	PF14824.5	Pfam	PF14824	Sirohaem biosynthesis protein central
+SIS	PF01380.21	Pfam	PF01380	SIS domain
+SIS_2	PF13580.5	Pfam	PF13580	SIS domain
+SKI	PF01202.21	Pfam	PF01202	Shikimate kinase
+SLBB	PF10531.8	Pfam	PF10531	SLBB domain
+SLT	PF01464.19	Pfam	PF01464	Transglycosylase SLT domain
+SNO	PF01174.18	Pfam	PF01174	SNO glutamine amidotransferase family
+SnoaL	PF07366.11	Pfam	PF07366	SnoaL-like polyketide cyclase
+SnoaL_2	PF12680.6	Pfam	PF12680	SnoaL-like domain
+SnoaL_4	PF13577.5	Pfam	PF13577	SnoaL-like domain
+Sod_Cu	PF00080.19	Pfam	PF00080	Copper/zinc superoxide dismutase (SODC)
+Sod_Fe_C	PF02777.17	Pfam	PF02777	Iron/manganese superoxide dismutases, C-terminal domain
+Sod_Fe_N	PF00081.21	Pfam	PF00081	Iron/manganese superoxide dismutases, alpha-hairpin domain
+Sod_Ni	PF09055.10	Pfam	PF09055	Nickel-containing superoxide dismutase
+Sortase	PF04203.12	Pfam	PF04203	Sortase family
+SOR_SNZ	PF01680.16	Pfam	PF01680	SOR/SNZ family
+SoxD	PF04267.11	Pfam	PF04267	Sarcosine oxidase, delta subunit family
+SoxG	PF04268.11	Pfam	PF04268	Sarcosine oxidase, gamma subunit family
+Spb1_C	PF07780.11	Pfam	PF07780	Spb1 C-terminal domain
+Spermine_synth	PF01564.16	Pfam	PF01564	Spermine/spermidine synthase domain
+SpoIIE	PF07228.11	Pfam	PF07228	Stage II sporulation protein E (SpoIIE)
+SPOR	PF05036.12	Pfam	PF05036	Sporulation related domain
+SPOUT_MTase	PF02590.16	Pfam	PF02590	Predicted SPOUT methyltransferase
+SQHop_cyclase_C	PF13243.5	Pfam	PF13243	Squalene-hopene cyclase C-terminal domain
+SQHop_cyclase_N	PF13249.5	Pfam	PF13249	Squalene-hopene cyclase N-terminal domain
+SQS_PSY	PF00494.18	Pfam	PF00494	Squalene/phytoene synthase
+SRC-1	PF08832.9	Pfam	PF08832	Steroid receptor coactivator
+START	PF01852.18	Pfam	PF01852	START domain
+Stealth_CR2	PF11380.7	Pfam	PF11380	Stealth protein CR2, conserved region 2
+Sterile	PF03015.18	Pfam	PF03015	Male sterility protein
+Steroid_dh	PF02544.15	Pfam	PF02544	3-oxo-5-alpha-steroid 4-dehydrogenase
+Sterol_MT_C	PF08498.9	Pfam	PF08498	Sterol methyltransferase C-terminal
+Str_synth	PF03088.15	Pfam	PF03088	Strictosidine synthase
+STT3	PF02516.13	Pfam	PF02516	Oligosaccharyl transferase STT3 subunit
+SUA5	PF03481.12	Pfam	PF03481	Putative GTP-binding controlling metal-binding
+Succ_DH_flav_C	PF02910.19	Pfam	PF02910	Fumarate reductase flavoprotein C-term
+Sucrose_synth	PF00862.18	Pfam	PF00862	Sucrose synthase
+SufE	PF02657.14	Pfam	PF02657	Fe-S metabolism associated domain
+Sugar-bind	PF04198.12	Pfam	PF04198	Putative sugar-binding domain
+Sugar_tr	PF00083.23	Pfam	PF00083	Sugar (and other) transporter
+Sulfatase	PF00884.22	Pfam	PF00884	Sulfatase
+Sulfotransfer_1	PF00685.26	Pfam	PF00685	Sulfotransferase domain
+Sulfotransfer_2	PF03567.13	Pfam	PF03567	Sulfotransferase family
+Sulfotransfer_3	PF13469.5	Pfam	PF13469	Sulfotransferase family
+SurA_N	PF09312.10	Pfam	PF09312	SurA N-terminal domain
+SurE	PF01975.16	Pfam	PF01975	Survival protein SurE
+Syja_N	PF02383.17	Pfam	PF02383	SacI homology domain
+Synthase_beta	PF11421.7	Pfam	PF11421	ATP synthase F1 beta subunit
+S_locus_glycop	PF00954.19	Pfam	PF00954	S-locus glycoprotein domain
+Tagatose_6_P_K	PF08013.10	Pfam	PF08013	Tagatose 6 phosphate kinase
+TAL_FSA	PF00923.18	Pfam	PF00923	Transaldolase/Fructose-6-phosphate aldolase
+Tannase	PF07519.10	Pfam	PF07519	Tannase and feruloyl esterase
+TaqI_C	PF12950.6	Pfam	PF12950	TaqI-like C-terminal specificity domain
+TauD	PF02668.15	Pfam	PF02668	Taurine catabolism dioxygenase TauD, TfdA family
+Tautomerase	PF01361.20	Pfam	PF01361	Tautomerase enzyme
+TehB	PF03848.13	Pfam	PF03848	Tellurite resistance protein TehB
+TENA_THI-4	PF03070.15	Pfam	PF03070	TENA/THI-4/PQQC family
+TGS	PF02824.20	Pfam	PF02824	TGS domain
+Thaumatin	PF00314.16	Pfam	PF00314	Thaumatin family
+THDPS_N_2	PF14805.5	Pfam	PF14805	Tetrahydrodipicolinate N-succinyltransferase N-terminal
+THF_DHG_CYH	PF00763.22	Pfam	PF00763	Tetrahydrofolate dehydrogenase/cyclohydrolase, catalytic domain
+THF_DHG_CYH_C	PF02882.18	Pfam	PF02882	Tetrahydrofolate dehydrogenase/cyclohydrolase, NAD(P)-binding domain
+ThiC-associated	PF13667.5	Pfam	PF13667	ThiC-associated domain
+ThiC_Rad_SAM	PF01964.17	Pfam	PF01964	Radical SAM ThiC family
+ThiG	PF05690.13	Pfam	PF05690	Thiazole biosynthesis protein ThiG
+ThiI	PF02568.13	Pfam	PF02568	Thiamine biosynthesis protein (ThiI)
+Thioesterase	PF00975.19	Pfam	PF00975	Thioesterase domain
+Thiolase_C	PF02803.17	Pfam	PF02803	Thiolase, C-terminal domain
+Thiolase_N	PF00108.22	Pfam	PF00108	Thiolase, N-terminal domain
+Thioredoxin	PF00085.19	Pfam	PF00085	Thioredoxin
+Thioredoxin_2	PF13098.5	Pfam	PF13098	Thioredoxin-like domain
+Thioredoxin_3	PF13192.5	Pfam	PF13192	Thioredoxin domain
+Thioredoxin_8	PF13905.5	Pfam	PF13905	Thioredoxin-like
+ThiP_synth	PF10120.8	Pfam	PF10120	Thiamine-phosphate synthase
+ThiS	PF02597.19	Pfam	PF02597	ThiS family
+Thrombin_light	PF09396.9	Pfam	PF09396	Thrombin light chain
+Thr_synth_N	PF14821.5	Pfam	PF14821	Threonine synthase N terminus
+THUMP	PF02926.16	Pfam	PF02926	THUMP domain
+Thy1	PF02511.14	Pfam	PF02511	Thymidylate synthase complementing protein
+Thymidylate_kin	PF02223.16	Pfam	PF02223	Thymidylate kinase
+Thymidylat_synt	PF00303.18	Pfam	PF00303	Thymidylate synthase
+TilS_C	PF11734.7	Pfam	PF11734	TilS substrate C-terminal domain
+TIM	PF00121.17	Pfam	PF00121	Triosephosphate isomerase
+Tim17	PF02466.18	Pfam	PF02466	Tim17/Tim22/Tim23/Pmp24 family
+TK	PF00265.17	Pfam	PF00265	Thymidine kinase
+TMP-TENI	PF02581.16	Pfam	PF02581	Thiamine monophosphate synthase
+TOBE	PF03459.16	Pfam	PF03459	TOBE domain
+Tocopherol_cycl	PF14249.5	Pfam	PF14249	Tocopherol cyclase
+Topo-VIb_trans	PF09239.10	Pfam	PF09239	Topoisomerase VI B subunit, transducer
+Topo_C_assoc	PF14370.5	Pfam	PF14370	C-terminal topoisomerase domain
+Topo_Zn_Ribbon	PF08272.10	Pfam	PF08272	Topoisomerase I zinc-ribbon-like
+TPK_B1_binding	PF04265.13	Pfam	PF04265	Thiamin pyrophosphokinase, vitamin B1 binding domain
+TPK_catalytic	PF04263.15	Pfam	PF04263	Thiamin pyrophosphokinase, catalytic domain
+TPMT	PF05724.10	Pfam	PF05724	Thiopurine S-methyltransferase (TPMT)
+TPP_enzyme_C	PF02775.20	Pfam	PF02775	Thiamine pyrophosphate enzyme, C-terminal TPP binding domain
+TPP_enzyme_M	PF00205.21	Pfam	PF00205	Thiamine pyrophosphate enzyme, central domain
+TPP_enzyme_N	PF02776.17	Pfam	PF02776	Thiamine pyrophosphate enzyme, N-terminal TPP binding domain
+TRAM_LAG1_CLN8	PF03798.15	Pfam	PF03798	TLC domain
+Transferase	PF02458.14	Pfam	PF02458	Transferase family
+Transglut_core	PF01841.18	Pfam	PF01841	Transglutaminase-like superfamily
+Transglut_prok	PF09017.9	Pfam	PF09017	Microbial transglutaminase
+Transgly	PF00912.21	Pfam	PF00912	Transglycosylase
+Transketolase_C	PF02780.19	Pfam	PF02780	Transketolase, C-terminal domain
+Transketolase_N	PF00456.20	Pfam	PF00456	Transketolase, thiamine diphosphate binding domain
+Transket_pyr	PF02779.23	Pfam	PF02779	Transketolase, pyrimidine binding domain
+Transpeptidase	PF00905.21	Pfam	PF00905	Penicillin binding protein transpeptidase domain
+Transthyretin	PF00576.20	Pfam	PF00576	HIUase/Transthyretin family
+Trehalase	PF01204.17	Pfam	PF01204	Trehalase
+Trehalase_Ca-bi	PF07492.10	Pfam	PF07492	Neutral trehalase Ca2+ binding domain
+Trehalose_PPase	PF02358.15	Pfam	PF02358	Trehalose-phosphatase
+Trm112p	PF03966.15	Pfam	PF03966	Trm112p-like protein
+tRNA-synt_2	PF00152.19	Pfam	PF00152	tRNA synthetases class II (D, K and N)
+Trp_dioxygenase	PF03301.12	Pfam	PF03301	Tryptophan 2,3-dioxygenase
+Trp_DMAT	PF11991.7	Pfam	PF11991	Tryptophan dimethylallyltransferase
+Trp_syntA	PF00290.19	Pfam	PF00290	Tryptophan synthase alpha chain
+TruB-C_2	PF09157.10	Pfam	PF09157	Pseudouridine synthase II TruB, C-terminal
+TruB_N	PF01509.17	Pfam	PF01509	TruB family pseudouridylate synthase (N terminal domain)
+TrwC	PF08751.10	Pfam	PF08751	TrwC relaxase
+Trypsin	PF00089.25	Pfam	PF00089	Trypsin
+TSCPD	PF12637.6	Pfam	PF12637	TSCPD domain
+TTL	PF03133.14	Pfam	PF03133	Tubulin-tyrosine ligase family
+TylF	PF05711.10	Pfam	PF05711	Macrocin-O-methyltransferase (TylF)
+Tyrosinase	PF00264.19	Pfam	PF00264	Common central domain of tyrosinase
+UBA_3	PF09288.9	Pfam	PF09288	Fungal ubiquitin-associated domain
+UbiA	PF01040.17	Pfam	PF01040	UbiA prenyltransferase family
+UbiD	PF01977.15	Pfam	PF01977	3-octaprenyl-4-hydroxybenzoate carboxy-lyase
+Ubie_methyltran	PF01209.17	Pfam	PF01209	ubiE/COQ5 methyltransferase family
+Ubiquitin_3	PF14836.5	Pfam	PF14836	Ubiquitin-like domain
+UCH	PF00443.28	Pfam	PF00443	Ubiquitin carboxyl-terminal hydrolase
+UCH_1	PF13423.5	Pfam	PF13423	Ubiquitin carboxyl-terminal hydrolase
+UDPGP	PF01704.17	Pfam	PF01704	UTP--glucose-1-phosphate uridylyltransferase
+UDPGT	PF00201.17	Pfam	PF00201	UDP-glucoronosyl and UDP-glucosyl transferase
+UDPG_MGDP_dh	PF00984.18	Pfam	PF00984	UDP-glucose/GDP-mannose dehydrogenase family, central domain
+UDPG_MGDP_dh_C	PF03720.14	Pfam	PF03720	UDP-glucose/GDP-mannose dehydrogenase family, UDP binding domain
+UDPG_MGDP_dh_N	PF03721.13	Pfam	PF03721	UDP-glucose/GDP-mannose dehydrogenase family, NAD binding domain
+UME	PF08064.12	Pfam	PF08064	UME (NUC010) domain
+UnbV_ASPIC	PF07593.11	Pfam	PF07593	ASPIC and UnbV
+UPF0004	PF00919.19	Pfam	PF00919	Uncharacterized protein family UPF0004
+UPF0052	PF01933.17	Pfam	PF01933	Uncharacterised protein family UPF0052
+UPRTase	PF14681.5	Pfam	PF14681	Uracil phosphoribosyltransferase
+UQ_con	PF00179.25	Pfam	PF00179	Ubiquitin-conjugating enzyme
+Urease_alpha	PF00449.19	Pfam	PF00449	Urease alpha-subunit, N-terminal domain
+Urease_beta	PF00699.19	Pfam	PF00699	Urease beta subunit
+Urease_gamma	PF00547.17	Pfam	PF00547	Urease, gamma subunit
+Ureidogly_lyase	PF04115.11	Pfam	PF04115	Ureidoglycolate lyase
+Uricase	PF01014.17	Pfam	PF01014	Uricase
+URO-D	PF01208.16	Pfam	PF01208	Uroporphyrinogen decarboxylase (URO-D)
+Urocanase	PF01175.17	Pfam	PF01175	Urocanase Rossmann-like domain
+Usp	PF00582.25	Pfam	PF00582	Universal stress protein family
+USP7_C2	PF14533.5	Pfam	PF14533	Ubiquitin-specific protease C-terminal
+USP7_ICP0_bdg	PF12436.7	Pfam	PF12436	ICP0-binding domain of Ubiquitin-specific protease 7
+USP8_dimer	PF08969.10	Pfam	PF08969	USP8 dimerisation domain
+UxaC	PF02614.13	Pfam	PF02614	Glucuronate isomerase
+UxuA	PF03786.12	Pfam	PF03786	D-mannonate dehydratase (UxuA)
+VanY	PF02557.16	Pfam	PF02557	D-alanyl-D-alanine carboxypeptidase
+VCBS	PF13517.5	Pfam	PF13517	Repeat domain in Vibrio, Colwellia, Bradyrhizobium and Shewanella
+VDE	PF07137.10	Pfam	PF07137	VDE lipocalin domain
+VIT	PF08487.9	Pfam	PF08487	Vault protein inter-alpha-trypsin domain
+VitK2_biosynth	PF02621.13	Pfam	PF02621	Menaquinone biosynthesis
+VKG_Carbox	PF05090.13	Pfam	PF05090	Vitamin K-dependent gamma-carboxylase
+VKOR	PF07884.13	Pfam	PF07884	Vitamin K epoxide reductase family
+Vps4_C	PF09336.9	Pfam	PF09336	Vps4 C terminal oligomerisation domain
+WBS_methylT	PF12589.7	Pfam	PF12589	Methyltransferase involved in Williams-Beuren syndrome
+WES_acyltransf	PF03007.15	Pfam	PF03007	Wax ester synthase-like Acyl-CoA acyltransferase domain
+WSC	PF01822.18	Pfam	PF01822	WSC domain
+WW	PF00397.25	Pfam	PF00397	WW domain
+Wyosine_form	PF08608.11	Pfam	PF08608	Wyosine base formation
+X8	PF07983.12	Pfam	PF07983	X8 domain
+XdhC_C	PF13478.5	Pfam	PF13478	XdhC Rossmann domain
+XdhC_CoxI	PF02625.15	Pfam	PF02625	XdhC and CoxI family
+XET_C	PF06955.11	Pfam	PF06955	Xyloglucan endo-transglycosylase (XET) C-terminus
+XFP	PF03894.14	Pfam	PF03894	D-xylulose 5-phosphate/D-fructose 6-phosphate phosphoketolase
+XFP_C	PF09363.9	Pfam	PF09363	XFP C-terminal domain
+XFP_N	PF09364.9	Pfam	PF09364	XFP N-terminal domain
+XG_FTase	PF03254.12	Pfam	PF03254	Xyloglucan fucosyltransferase
+Yae1_N	PF09811.8	Pfam	PF09811	Essential protein Yae1, N terminal
+YbgT_YccB	PF08173.10	Pfam	PF08173	Membrane bound YbgT-like protein
+YdjC	PF04794.11	Pfam	PF04794	YdjC-like protein
+YgbB	PF02542.15	Pfam	PF02542	YgbB family
+YhhN	PF07947.13	Pfam	PF07947	YhhN family
+YHS	PF04945.12	Pfam	PF04945	YHS domain
+YjeF_N	PF03853.14	Pfam	PF03853	YjeF-related protein N-terminus
+YmdB	PF13277.5	Pfam	PF13277	YmdB-like protein
+YqaJ	PF09588.9	Pfam	PF09588	YqaJ-like viral recombinase domain
+Y_phosphatase	PF00102.26	Pfam	PF00102	Protein-tyrosine phosphatase
+Y_phosphatase2	PF03162.12	Pfam	PF03162	Tyrosine phosphatase family
+Y_phosphatase3	PF13350.5	Pfam	PF13350	Tyrosine phosphatase family
+Zeta_toxin	PF06414.11	Pfam	PF06414	Zeta toxin
+zf-CW	PF07496.14	Pfam	PF07496	CW-type Zinc Finger
+zf-UBP	PF02148.18	Pfam	PF02148	Zn-finger in ubiquitin-hydrolases and other protein
+Zn_dep_PLPC	PF00882.17	Pfam	PF00882	Zinc dependent phospholipase C
+AS-Condensation	AS-Condensation	Pfam	PF00668	Condensation domain
+AS-AMP-binding	AS-AMP-binding	Pfam	PF00501	Adenylation domain
+AS-A-OX	AS-A-OX	AntiSMASH		
+AS-PP-binding	AS-PP-binding	Pfam	PF00550	Thiolation domain
+AS-PKS_KS	AS-PKS_KS	SMART	SM00825	
+AS-PKS_AT	AS-PKS_AT	SMART	SM00827	
+AS-ATd	AS-ATd	AntiSMASH		
+AS-bt1fas	AS-bt1fas	AntiSMASH		
+AS-ft1fas	AS-ft1fas	AntiSMASH		
+AS-t2fas	AS-t2fas	AntiSMASH		
+AS-fabH	AS-fabH	AntiSMASH		
+AS-ene_KS	AS-ene_KS	AntiSMASH		
+AS-mod_KS	AS-mod_KS	AntiSMASH		
+AS-hyb_KS	AS-hyb_KS	AntiSMASH		
+AS-itr_KS	AS-itr_KS	AntiSMASH		
+AS-tra_KS	AS-tra_KS	AntiSMASH		
+AS-hglD	AS-hglD	AntiSMASH		
+AS-hglE	AS-hglE	AntiSMASH		
+AS-t2ks	AS-t2ks	AntiSMASH		
+AS-t2pks2	AS-t2pks2	AntiSMASH		
+AS-t2clf	AS-t2clf	AntiSMASH		
+AS-Chal_sti_synt_N	AS-Chal_sti_synt_N	Pfam	PF00195	Type III PKS N-terminal
+AS-Chal_sti_synt_C	AS-Chal_sti_synt_C	Pfam	PF02797	Type III PKS C-terminal
+AS-Terpene_synth_C	AS-Terpene_synth_C	Pfam	PF03936	Terpene synthase, C-terminus
+AS-Terpene_synth	AS-Terpene_synth	Pfam	PF01397	Terpene synthase
+AS-phytoene_synt	AS-phytoene_synt	AntiSMASH		
+AS-Lycopene_cycl	AS-Lycopene_cycl	Pfam	PF05834	Lycopene cyclase
+AS-terpene_cyclase	AS-terpene_cyclase	AntiSMASH		
+AS-NapT7	AS-NapT7	AntiSMASH		
+AS-fung_ggpps	AS-fung_ggpps	AntiSMASH		
+AS-fung_ggpps2	AS-fung_ggpps2	AntiSMASH		
+AS-dmat	AS-dmat	AntiSMASH		
+AS-trichodiene_synth	AS-trichodiene_synth	AntiSMASH		
+AS-LANC_like	AS-LANC_like	Pfam	PF05147	LanC-like lantibiotics biosynthesis protein
+AS-DUF4135	AS-DUF4135	Pfam	PF13575	Lantibiotic-associated domain
+AS-Lant_dehydr_N	AS-Lant_dehydr_N	Pfam	PF04738	Lantibiotic dehydratase, N-terminus
+AS-Lant_dehydr_C	AS-Lant_dehydr_C	Pfam	PF14028	Lantibiotic dehydratase, C-terminus
+AS-Flavoprotein	AS-Flavoprotein	Pfam	PF02441	Lantibiotic aminovinly flavoprotein
+AS-Trp_halogenase	AS-Trp_halogenase	Pfam	PF04820	Tryptophan halogenase
+AS-p450	AS-p450	Pfam	PF00067	P450 oxygenase
+AS-Pkinase	AS-Pkinase	Pfam	PF00069	Protein kinase domain
+AS-adh_short	AS-adh_short	Pfam	PF00106	Short-chain dehydrogenase
+AS-adh_short_C2	AS-adh_short_C2	Pfam	PF13561	Short-chain dehydrogenase, C-terminus
+AS-PCMT	AS-PCMT	Pfam	PF01135	Protein-L-isoaspartate(D-aspartate) O-methyltransferase (PCMT)
+AS-Antimicr18	AS-Antimicr18	Pfam	PF08130	Lantibiotic antimicrobial peptide 18
+AS-Gallidermin	AS-Gallidermin	Pfam	PF02052	Gallidermin
+AS-L_biotic_A	AS-L_biotic_A	Pfam	PF04604	Lantibiotic, type A
+AS-TIGR03731	AS-TIGR03731	Tigrfam	TIGR03731	
+AS-leader_d	AS-leader_d	AntiSMASH		
+AS-leader_eh	AS-leader_eh	AntiSMASH		
+AS-leader_abc	AS-leader_abc	AntiSMASH		
+AS-mature_d	AS-mature_d	AntiSMASH		
+AS-mature_ab	AS-mature_ab	AntiSMASH		
+AS-mature_a	AS-mature_a	AntiSMASH		
+AS-mature_b	AS-mature_b	AntiSMASH		
+AS-mature_ha	AS-mature_ha	AntiSMASH		
+AS-mature_h_beta	AS-mature_h_beta	AntiSMASH		
+AS-lacticin_l	AS-lacticin_l	AntiSMASH		
+AS-lacticin_mat	AS-lacticin_mat	AntiSMASH		
+AS-LD_lanti_pre	AS-LD_lanti_pre	Tigrfam	TIGR04363	FxLD family lantipeptide
+AS-strep_PEQAXS	AS-strep_PEQAXS	AntiSMASH		Streptomyces PEQAXS motif lantipeptide
+AS-strepbact	AS-strepbact	AntiSMASH		
+AS-Antimicrobial14	AS-Antimicrobial14	Pfam	PF08109	Antimicrobial peptide 14
+AS-Bacteriocin_IIc	AS-Bacteriocin_IIc	Pfam	PF10439	Bacteriocin_IIc domain
+AS-Bacteriocin_IId	AS-Bacteriocin_IId	Pfam	PF09221	Bacteriocin_IId domain
+AS-BacteriocIIc_cy	AS-BacteriocIIc_cy	Pfam	PF12173	Bacteriocin_IIdc_cydomain
+AS-Bacteriocin_II	AS-Bacteriocin_II	Pfam	PF01721	Bacteriocin_II domain
+AS-Bacteriocin_IIi	AS-Bacteriocin_IIi	Pfam	PF11758	Bacteriocin_IIi domain
+AS-Lactococcin	AS-Lactococcin	Pfam	PF04369	Lactococcin
+AS-Antimicrobial17	AS-Antimicrobial17	Pfam	PF08129	Antimicrobial peptide 17
+AS-Lactococcin_972	AS-Lactococcin_972	Pfam	PF09683	Lactococcin 972
+AS-LcnG-beta	AS-LcnG-beta	Pfam	PF11632	Lactococcin G-beta
+AS-Subtilosin_A	AS-Subtilosin_A	Pfam	PF11420	Subtilosin A
+AS-Cloacin	AS-Cloacin	Pfam	PF03515	Cloacin
+AS-Linocin_M18	AS-Linocin_M18	Pfam	PF04454	Linocin M18
+AS-TIGR03603	AS-TIGR03603	Tigrfam	TIGR03603	
+AS-TIGR03604	AS-TIGR03604	Tigrfam	TIGR03604	
+AS-TIGR03605	AS-TIGR03605	Tigrfam	TIGR03605	
+AS-TIGR03651	AS-TIGR03651	Tigrfam	TIGR03651	
+AS-TIGR03678	AS-TIGR03678	Tigrfam	TIGR03678	
+AS-TIGR03693	AS-TIGR03693	Tigrfam	TIGR03693	
+AS-TIGR03798	AS-TIGR03798	Tigrfam	TIGR03798	
+AS-TIGR03882	AS-TIGR03882	Tigrfam	TIGR03882	
+AS-TIGR03601	AS-TIGR03601	Tigrfam	TIGR03601	
+AS-TIGR03602	AS-TIGR03602	Tigrfam	TIGR03602	
+AS-TIGR03795	AS-TIGR03795	Tigrfam	TIGR03795	
+AS-TIGR03793	AS-TIGR03793	Tigrfam	TIGR03793	
+AS-TIGR03975	AS-TIGR03975	Tigrfam	TIGR03975	
+AS-TIGR01193	AS-TIGR01193	Tigrfam	TIGR01193	ABC-type bacteriocin transporter
+AS-mvnA	AS-mvnA	AntiSMASH		
+AS-thiostrepton	AS-thiostrepton	AntiSMASH		
+AS-BLS	AS-BLS	AntiSMASH		
+AS-CAS	AS-CAS	AntiSMASH		
+AS-tabtoxin	AS-tabtoxin	AntiSMASH		
+AS-DOIS	AS-DOIS	AntiSMASH		
+AS-NeoL	AS-NeoL	AntiSMASH		
+AS-SpcDK_glyc	AS-SpcDK_glyc	AntiSMASH		
+AS-SpcFG	AS-SpcFG	AntiSMASH		
+AS-strH	AS-strH	AntiSMASH		
+AS-strK1	AS-strK1	AntiSMASH		
+AS-strK2	AS-strK2	AntiSMASH		
+AS-ValA	AS-ValA	AntiSMASH		
+AS-salQ	AS-salQ	AntiSMASH		
+AS-novK	AS-novK	AntiSMASH		
+AS-novJ	AS-novJ	AntiSMASH		
+AS-novI	AS-novI	AntiSMASH		
+AS-novH	AS-novH	AntiSMASH		
+AS-SpcDK_cou	AS-SpcDK_cou	AntiSMASH		
+AS-IucA_IucC	AS-IucA_IucC	Pfam	PF04183	Siderophore synthase
+AS-ectoine_synt	AS-ectoine_synt	AntiSMASH		
+AS-AfsA	AS-AfsA	Pfam	PF03756	AfsA-like butyrolactone synthase
+AS-indsynth	AS-indsynth	AntiSMASH		
+AS-LipM	AS-LipM	AntiSMASH		
+AS-LipU	AS-LipU	AntiSMASH		
+AS-LipV	AS-LipV	AntiSMASH		
+AS-ToyB	AS-ToyB	AntiSMASH		
+AS-TunD	AS-TunD	AntiSMASH		
+AS-pur6	AS-pur6	AntiSMASH		
+AS-pur10	AS-pur10	AntiSMASH		
+AS-nikJ	AS-nikJ	AntiSMASH		
+AS-nikO	AS-nikO	AntiSMASH		
+AS-MoeO5	AS-MoeO5	AntiSMASH		
+AS-moeGT	AS-moeGT	AntiSMASH		
+AS-melC	AS-melC	AntiSMASH		
+AS-NAD_binding_4	AS-NAD_binding_4	Pfam	PF07993	NAD-binding domain 4
+AS-LmbU	AS-LmbU	AntiSMASH		
+AS-mmyO	AS-mmyO	AntiSMASH		
+AS-AvrD	AS-AvrD	Pfam	PF05655	Pseudomonas avriulence D protein
+AS-goadsporin_like	AS-goadsporin_like	AntiSMASH		
+AS-Neocarzinostat	AS-Neocarzinostat	Pfam	PF00960	Neocarzinostatin-like protein
+AS-cyanobactin_synth	AS-cyanobactin_synth	AntiSMASH		
+AS-cycdipepsynth	AS-cycdipepsynth	AntiSMASH		
+AS-fom1	AS-fom1	AntiSMASH		
+AS-bcpB	AS-bcpB	AntiSMASH		
+AS-frbD	AS-frbD	AntiSMASH		
+AS-mitE	AS-mitE	AntiSMASH		
+AS-vlmB	AS-vlmB	AntiSMASH		
+AS-prnB	AS-prnB	AntiSMASH		
+AS-CaiA	AS-CaiA	AntiSMASH		
+AS-MGT	AS-MGT	AntiSMASH		
+AS-Glycos_transf_1	AS-Glycos_transf_1	Pfam	PF00534	Secondary metabolite-related glycosyltransferase
+AS-Glycos_transf_2	AS-Glycos_transf_2	Pfam	PF00535	Secondary metabolite-related glycosyltransferase
+AS-Glyco_transf_28	AS-Glyco_transf_28	Pfam	PF03033	Secondary metabolite-related glycosyltransferase
+AS-DUF1205	AS-DUF1205	Pfam	PF06722	Secondary metabolite-related glycosyltransferase
+AS-Autoind_synth	AS-Autoind_synth	Pfam	PF00765	Autoinducer synthetase
+AS-YcaO	AS-YcaO	Pfam	PF02624	YcaO-like family
+AS-PF06968	AS-PF06968	Pfam	PF06968	BATS family
+AS-PF04055	AS-PF04055	Pfam	PF04055	radical SAM superfamily
+AS-PF07366	AS-PF07366	Pfam	PF07366	SnoaL family
+AS-thio_amide	AS-thio_amide	AntiSMASH		nosA tpdK nocA berI pbtH
+AS-phzB	AS-phzB	AntiSMASH		
+AS-phosphonates	AS-phosphonates	AntiSMASH		
+AS-bacilysin	AS-bacilysin	AntiSMASH		
+AS-subtilosin	AS-subtilosin	AntiSMASH		
+AS-sublancin	AS-sublancin	AntiSMASH		
+AS-thuricin	AS-thuricin	AntiSMASH		
+AS-skfc	AS-skfc	AntiSMASH		
+AS-botH	AS-botH	AntiSMASH		
+AS-glycocin	AS-glycocin	AntiSMASH		
+AS-mcjC	AS-mcjC	AntiSMASH		
+AS-micJ25	AS-micJ25	AntiSMASH		
+AS-DUF692	AS-DUF692	Pfam	PF05114	DUF692 domain of unknown function, associated with small prepeptides such as methanobactin
+AS-lasso	AS-lasso	AntiSMASH		
+AS-mvd	AS-mvd	AntiSMASH		
+AS-cypemycin	AS-cypemycin	AntiSMASH		
+AS-cypI	AS-cypI	AntiSMASH		
+AS-PoyD	AS-PoyD	AntiSMASH		
+AS-CBM_48	AS-CBM_48	Pfam	PF02922	Carbohydrate-binding module 48 (Isoamylase N-terminal domain)
+AS-DegT_DnrJ_EryC1	AS-DegT_DnrJ_EryC1	Pfam	PF01041	DegT/DnrJ/EryC1/StrS aminotransferase family
+AS-Alpha-amylase	AS-Alpha-amylase	Pfam	PF00128	Alpha amylase, catalytic domain
+AS-dTDP_sugar_isom	AS-dTDP_sugar_isom	Pfam	PF00908	dTDP-4-dehydrorhamnose 3,5-epimerase
+AS-Polysacc_synt_2	AS-Polysacc_synt_2	Pfam	PF02719	Polysaccharide biosynthesis protein
+AS-RmlD_sub_bind	AS-RmlD_sub_bind	Pfam	PF04321	RmlD substrate binding domain
+AS-Polysacc_synt	AS-Polysacc_synt	Pfam	PF01943	Polysaccharide biosynthesis protein
+AS-Alpha-amylase_C	AS-Alpha-amylase_C	Pfam	PF02806	Alpha amylase, C-terminal all-beta domain
+AS-Epimerase_2	AS-Epimerase_2	Pfam	PF02350	UDP-N-acetylglucosamine 2-epimerase
+AS-Bac_transf	AS-Bac_transf	Pfam	PF02397	Bacterial sugar transferase
+AS-Wzy_C	AS-Wzy_C	Pfam	PF04932	O-Antigen ligase
+AS-Glyco_transf_9	AS-Glyco_transf_9	Pfam	PF01075	Glycosyltransferase family 9 (heptosyltransferase)
+AS-Glycos_transf_4	AS-Glycos_transf_4	Pfam	PF00953	Glycosyl transferase family 4
+AS-MannoseP_isomer	AS-MannoseP_isomer	Pfam	PF01050	Mannose-6-phosphate isomerase
+AS-Glyco_transf_8	AS-Glyco_transf_8	Pfam	PF01501	Glycosyl transferase family 8
+AS-Capsule_synth	AS-Capsule_synth	Pfam	PF05159	Capsule polysaccharide biosynthesis protein
+AS-Glyco_tran_28_C	AS-Glyco_tran_28_C	Pfam	PF03033	Glycosyltransferase family 28 C-terminal domain
+AS-Poly_export	AS-Poly_export	Pfam	PF02563	Polysaccharide biosynthesis/export protein
+AS-Glyco_transf_8C	AS-Glyco_transf_8C	Pfam	PF08437	Glycosyl transferase family 8 C-terminal
+AS-PIG-L	AS-PIG-L	Pfam	PF02585	GlcNAc-PI de-N-acetylase
+AS-APE_KS1	AS-APE_KS1	AntiSMASH		
+AS-APE_KS2	AS-APE_KS2	AntiSMASH		
+AS-DarB	AS-DarB	AntiSMASH		
+AS-FabF	AS-FabF	AntiSMASH		
+AS-ksIII	AS-ksIII	AntiSMASH		
+AS-ladderane	AS-ladderane	AntiSMASH		
+AS-PUFA_KS	AS-PUFA_KS	AntiSMASH		
+AS-PF13471	AS-PF13471	Pfam	PF13471	Transglut_core3 domain
+AS-Asn_synthase	AS-Asn_synthase	Pfam	PF00733	Asparagine synthase
+AS-PF05402	AS-PF05402	Pfam	PF05402	PqqD / RRE protein
+AS-orf2_PTase	AS-orf2_PTase	AntiSMASH		
+AS-indole_PTase	AS-indole_PTase	AntiSMASH		
+AS-ubiA	AS-ubiA	AntiSMASH		
+AS-pgm1	AS-pgm1	AntiSMASH		
+AS-pgm_amidino	AS-pgm_amidino	AntiSMASH		
+AS-PF00881	AS-PF00881	Pfam	PF00881	TOMM dehydrogenase
+AS-Abhydrolase_6	AS-Abhydrolase_6	Pfam	PF12697	Alpha/beta hydrolase family
+AS-PF00561	AS-PF00561	Pfam	PF00561	Abhydrolase
+AS-PF13186	AS-PF13186	Pfam	PF13186	SPASM
+AS-TIGR04404	AS-TIGR04404	Tigrfam	TIGR04404	SCIFF
+AS-TIGR03973	AS-TIGR03973	Tigrfam	TIGR03973	SkfA
+AS-Peptidase_S8	AS-Peptidase_S8	Pfam	PF00082	Subtilase family
+AS-Peptidase_M16	AS-Peptidase_M16	Pfam	PF00675	Insulinase (Peptidase family M16)
+AS-Peptidase_S41	AS-Peptidase_S41	Pfam	PF03572	Peptidase family S41
+AS-Peptidase_M16_C	AS-Peptidase_M16_C	Pfam	PF05193	Peptidase M16 inactive domain
+AS-Peptidase_S28	AS-Peptidase_S28	Pfam	PF05577	Peptidase S28 serine carboxypeptiase
+AS-Fer4_12	AS-Fer4_12	Pfam	PF13353	4Fe-4S single cluster domain
+AS-Abi	AS-Abi	Pfam	PF02517	CAAX protease self-immunity
+AS-Peptidase_M50	AS-Peptidase_M50	Pfam	PF02163	Peptidase family M50
+AS-Peptidase_S9	AS-Peptidase_S9	Pfam	PF12173	Prolyl oligopeptidase family
+AS-Peptidase_C39	AS-Peptidase_C39	Pfam	PF03412	Peptidase C39 family
+AS-ThiF	AS-ThiF	Pfam	PF00899	ThiF family
+AS-TRI5	AS-TRI5	Pfam	PF06330	Trichodiene synthase
+AS-NasY	AS-NasY	AntiSMASH		
+AS-FMO-like	AS-FMO-like	Pfam	PF00743	Flavin-dependent monooxygenase
+AS-DUF98	AS-DUF98	Pfam	PF01947	p-hydroxybenzoic acid synthase
+AS-PpyS	AS-PpyS	AntiSMASH		
+AS-HMGL-like	AS-HMGL-like	Pfam	PF00682	HMGL-like Pyruvate carboxylase
+AS-RimK	AS-RimK	Pfam	PF08443	RimK-like ATP-grasp domain
+AS-TIGR04424	AS-TIGR04424	Tigrfam	TIGR04424	Microcin B17-processing protein McbB
+AS-TIGR01716	AS-TIGR01716	Tigrfam	TIGR01716	RGG quorum sensing regulator
+AS-TP_methylase	AS-TP_methylase	Pfam	PF00590	Tetrapyrrole (Corrin/Porphyrin) methylases
+AS-DUF3328	AS-DUF3328	Pfam	PF11807	UstYa/UstYb-like monooxygenase
+AS-pop	AS-pop	AntiSMASH		
+AS-ustH	AS-ustH	AntiSMASH		
+AS-truD	AS-truD	AntiSMASH		
+AS-micKC	AS-micKC	AntiSMASH		
+AS-GATase_7	AS-GATase_7	Pfam	PF13537	Glutamine amidotransferase domain
+AS-TIGR03103	AS-TIGR03103	Tigrfam	TIGR03103	GNAT-family acetyltransferase
+AS-TIGR03104	AS-TIGR03104	Tigrfam	TIGR03104	asparagine synthase family amidotransferase
+AS-TIGR03106	AS-TIGR03106	Tigrfam	TIGR03106	hydrolase, peptidase M42 family
+AS-Peptidase_M42	AS-Peptidase_M42	Pfam	PF05343	M42 glutamyl aminopeptidase
+AS-CDPS	AS-CDPS	Pfam	PF16715	Cyclodipeptide synthase
+AS-2OG-FeII_Oxy	AS-2OG-FeII_Oxy	Pfam	PF03171	2OG-Fe(II) oxygenase superfamily
+AS-ATP-grasp	AS-ATP-grasp	Pfam	PF02222	ATP-grasp domain
+AS-Chor_lyase	AS-Chor_lyase	Pfam	PF04345	Chorismate lyase
+AS-GST_N_3	AS-GST_N_3	Pfam	PF13417	Glutathione S-transferase, N-terminal domain
+AS-GST_C	AS-GST_C	Pfam	PF00043	Glutathione S-transferase, C-terminal domain
+AS-Acyl-CoA_dh_N	AS-Acyl-CoA_dh_N	Pfam	PF02771	Acyl-CoA dehydrogenase, N-terminal domain
+AS-Acyl-CoA_dh_M	AS-Acyl-CoA_dh_M	Pfam	PF02770	Acyl-CoA dehydrogenase, middle domain
+AS-Acyl-CoA_dh_1	AS-Acyl-CoA_dh_1	Pfam	PF00441	Acyl-CoA dehydrogenase, C-terminal domain
+AS-TIGR02278	AS-TIGR02278	Tigrfam	TIGR02278	PaaN-DH: phenylacetic acid degradation protein paaN
+AS-TfuA	AS-TfuA	Pfam	PF07812	TfuA-like protein

@@ -252,6 +252,16 @@ $(FIG2)/barplot.svg: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)
 .PHONY: figure2
 figure2: $(FIG2)/barplot.svg $(FIG2)/pr/.files $(FIG2)/cvtree_auprc.html
 
+# Figure 3 - Domain network
+
+FIG3=$(PAPER)/fig3_network
+
+$(FIG3)/graph.html: $(CHAMOIS_WEIGHTS) $(PFAM_HMM) $(CHEMONT) $(DATA)/ecdomainminer/EC-Pfam_calculated_associations_Extended.csv
+	$(PYTHON) $(FIG3)/plot.py --model $(word 1,$^) --pfam $(word 2,$^) --chemont $(word 3,$^) --ec-domain $(word 4,$^)
+
+.PHONY: figure3
+figure3: $(FIG3)/graph.html
+	
 # Figure 4 - Screen Evaluation
 FIG4=$(PAPER)/fig4_screen_evaluation
 
