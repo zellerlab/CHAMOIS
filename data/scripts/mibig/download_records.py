@@ -242,6 +242,8 @@ with rich.progress.Progress() as progress:
                 for f in features[1:]:
                     record += FULLSTOP + f
                 record.id = record.name = "BGC0000413"
+                start = 0
+                end = len(record)
 
             # BGC0000422 goes from sfmR1 to sfmO6, orf(-1) and orf(+1) outside
             # of cluster as shown by knock-out (see doi:10.1128/JB.00826-07)
@@ -326,6 +328,8 @@ with rich.progress.Progress() as progress:
                 assert start2 < end2
                 record = cluster1[start1:end1] + FULLSTOP + cluster2[start2:end2]
                 record.id = record.name = "BGC0000805"
+                start = 0
+                end = len(record)
 
             # BGC0000809 postulated by authors to go from atmA to atmI
             # based on GC% (see PMID:16873021)
@@ -581,6 +585,8 @@ with rich.progress.Progress() as progress:
                 for f in features[1:]:
                     record += FULLSTOP + f
                 record.id = record.name = "BGC0001817"
+                start = 0
+                end = len(record)
 
             # BGC0001891 has wrong locus coordinates prior to MIBiG 4.0
             # (https://github.com/mibig-secmet/mibig-json/issues/037)
@@ -703,6 +709,8 @@ with rich.progress.Progress() as progress:
                 assert start2 < end2
                 record = record[start1:end1] + FULLSTOP + record[start2:end2]
                 record.id = record.name = "BGC0002379"
+                start = 0
+                end = len(record)
 
             # BGC0002384 is actually only formed of 4 genes
             # (see doi:10.1021/acssynbio.0c00067, Supplementary Table 2)
@@ -742,6 +750,8 @@ with rich.progress.Progress() as progress:
                 assert start2 < end2
                 record = record[start1:end1] + FULLSTOP + record[start2:end2]
                 record.id = record.name = "BGC0002409"
+                start = 0
+                end = len(record)
 
             # BGC0002426 spans from babR1 to babR8
             # (see doi:10.1039/D1OB00600B, Table S22)
@@ -833,8 +843,8 @@ with rich.progress.Progress() as progress:
             elif record.id == "BGC0002977":
                 record = get_genbank_record("LYMC01000002.1")
                 record.id = record.name = "BGC0002977"
-                start = 610900
-                end = 655972
+                start = 610900 # determined by BLASTn
+                end = 655972 # determined by BLASTn
 
             # MIBiG entry of BGC0002919 contains unrelated flanking genes
             # (see https://doi.org/10.1002/chem.202400271 Figure 1)
@@ -844,8 +854,8 @@ with rich.progress.Progress() as progress:
 
             # clamp the BGC boundaries to the left- and rightmost genes
             else:
-                start = min( f.location.start for f in record.features if f.type == "CDS" )
-                end = max( f.location.end for f in record.features if f.type == "CDS" )
+                start = min(f.location.start for f in record.features if f.type == "CDS")
+                end = max(f.location.end for f in record.features if f.type == "CDS")
 
             # copy
             assert start < end, f"{record.id}: {start} < {end}"
