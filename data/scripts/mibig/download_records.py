@@ -665,6 +665,17 @@ with rich.progress.Progress() as progress:
                 start = get_cds(record, gene="FAC38_35").location.start
                 end = get_cds(record, gene="FAC38_37").location.start-1 # to account for introns
 
+            # Undabarrena *et al* report the discovery of a NRPS BGC divided in three
+            # regions, and hypothesize that the left-arm region is responsible for the
+            # production of corynecins. However, the MIBiG record contains the left-arm,
+            # not the right arm (see https://github.com/mibig-secmet/mibig-json/issues/405,
+            # and https://pubmed.ncbi.nlm.nih.gov/34241590/, Fig. 1 and Table 1)
+            elif record.id == "BGC0002284":
+                record = get_genbank_record("CP023720.1")
+                record.id = record.name = "BGC0002284" 
+                start = get_cds(record, locus_tag="CPI83_19930").location.start
+                end = get_cds(record, locus_tag="CPI83_19975").location.end
+
             # BGC0002359 entry has an entire fragment but authors confirmed
             # by deletion experiments and heterologous expression that genes
             # orf1-orf21 and orf25-26 are not involved in biosynthesis
