@@ -209,7 +209,7 @@ def run_class(args: argparse.Namespace, console: Console) -> int:
         class_index = get_class_index(args.class_id, predictor)
         name = predictor.classes_["name"].iloc[class_index]
         accession = predictor.classes_.index[class_index]
-        console.print(f"[bold blue]{'Extracting':>12}[/] weights for class [bold blue]{args.class_id}[/] ([green]{name}[/])")
+        console.print(f"[bold blue]{'Extracting':>12}[/] weights for class [bold blue]{accession}[/] ([green]{name}[/])")
     except KeyError:
         console.print(f"[bold red]{'Failed':>12}[/] to find class [bold blue]{args.class_id}[/] in model")
         return 1
