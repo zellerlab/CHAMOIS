@@ -1169,6 +1169,32 @@ for bgc_id, entry in mibig.items():
                 "chem_struct": "NC(Cc1ccc(O)c([N+](=O)[O-])c1)C(=O)O",
             }
         ]
+    # BGC0002364 is missing several compounds
+    # (see https://pubmed.ncbi.nlm.nih.gov/32355936/, Fig. 1, Fig. 3 and Fig. 4,
+    # and https://github.com/mibig-secmet/mibig-json/issues/408)
+    elif bgc_id == "BGC0002364":
+        entry["compounds"] = [
+            {
+                "compound": "trichostatin RK",
+                "chem_struct": r"CC(/C=C(\C)/C=C/C(=O)NC)C(=O)C1=CC=C(C=C1)N(C)C",
+                "database_id": ["npatlas:NPA001835"]
+            },
+            {
+                "compound": "JBIR-111",
+                "chem_struct": r"C[C@H](/C=C(\C)/C=C/C(=O)NC(C)(CO)C(=O)O)C(=O)C1=CC=C(C=C1)N(C)C",
+                "database_id": ["npatlas:NPA005562", "pubchem:139584646"],
+            },
+            {
+                "compound": "FL657C",
+                "chem_struct": r"CC(C(C1C=CC(N(C)C)=CC=1)=O)/C=C(/C=C/C(N)=O)\C",
+                "database_id": ["pubchem:10401752"]
+            },
+            {
+                "compound": "trichostatic acid",
+                "chem_struct": r"CC(/C=C(\C)/C=C/C(=O)O)C(=O)C1=CC=C(C=C1)N(C)C",
+                "database_id": ["pubchem:6439244"]
+            },
+        ]
     
     # Miscellaneous MIBiG 4.0 changes
     elif bgc_id == "BGC0000075":
