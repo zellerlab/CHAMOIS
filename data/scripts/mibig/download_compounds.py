@@ -1199,6 +1199,16 @@ for bgc_id, entry in mibig.items():
                 "database_id": ["pubchem:6439244"]
             },
         ]
+    # BGC0001739 produces O-phosphonoacetic acid serine, not just phosphonoacetic acid
+    # (see https://pmc.ncbi.nlm.nih.gov/articles/PMC10329809/)
+    elif bgc_id == "BGC0001739":
+        entry["compounds"] = [
+            {
+                "compound": "O-phosphonoacetic acid serine",
+                "chem_struct": "C(C(C(=O)O)N)OP(=O)(CC(=O)O)O",
+                "database_id": ["pubchem:163168552"],
+            }
+        ]
     
     # Miscellaneous MIBiG 4.0 changes
     elif bgc_id == "BGC0000075":
