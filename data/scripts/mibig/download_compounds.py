@@ -1708,6 +1708,9 @@ for bgc_id, entry in mibig.items():
         # add cross-references to prodigiosin
         elif compound["compound"].lower() == "prodigiosin":
             compound["database_id"] = ["pubchem:5351169", "npatlas:NPA029056"]
+        # fix wrong PubChem cross-references to matlystatin A
+        elif compound["compound"] == "matlystatin A":
+            compound["database_id"] = ["npatlas:NPA012386", "pubchem:9889471"]
 
 # --- Load NPAtlas -----------------------------------------------------------
 with rich.progress.open(args.atlas, "rb", description=f"[bold blue]{'Loading':>12}[/] NPAtlas") as handle:
