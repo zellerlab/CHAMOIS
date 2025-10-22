@@ -1154,6 +1154,21 @@ for bgc_id, entry in mibig.items():
             {"compound": "shuangdaolide C", "database_id": ["pubchem:169492367"]},
             {"compound": "shuangdaolide D", "database_id": ["pubchem:169492368"]},
         ]
+    # BGC0001763 has wrong formula for rufomycin 
+    # (https://github.com/mibig-secmet/mibig-json/issues/406)
+    elif bgc_id == "BGC0001763":
+        entry["compounds"] = [
+            {
+                "compound": "rufomycin A",
+                "database_id": ["pubchem:76871758"],
+                "chem_struct": "C/C=C/C[C@H]1C(=O)N[C@H](C(=O)N([C@H](C(=O)N[C@H](C(=O)N[C@H](C(=O)N([C@H](C(=O)NC(C(=O)N1)CC(C)C)CC(C)C=O)C)C)CC2=CC(=C(C=C2)O)[N+](=O)[O-])CC(C)C)C)CC3=CN(C4=CC=CC=C43)C(C)(C)C5CO5",
+            },
+            {
+                "compound": "3-nitrotyrosine",
+                "database_id": ["pubchem:235719", "chebi:86269"],
+                "chem_struct": "NC(Cc1ccc(O)c([N+](=O)[O-])c1)C(=O)O",
+            }
+        ]
     
     # Miscellaneous MIBiG 4.0 changes
     elif bgc_id == "BGC0000075":
