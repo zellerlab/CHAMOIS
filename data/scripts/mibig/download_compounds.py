@@ -447,15 +447,19 @@ for bgc_id, entry in mibig.items():
                 "chem_struct": r"C1[C@](O)[C@](O[C@@]2O[C@](C(=O)O)[C@@](O)[C@](O[C@]3[C@](O)[C@@](O)[C@](O)CO3)[C@]2O)[C@](C(=O)O)(C)C2CC[C@](C)3[C@@](C)4CC[C@](C(O[C@]5[C@](O[C@]6[C@](O)[C@](O)[C@@](O[C@@]7O[C@](CO)[C@@](O)[C@](O)[C@]7O)[C@](C)O6)[C@@](O)[C@@](OC(=O)C)[C@@](C)O5)=O)5CC[C@@](C)(C)CC5C4=CCC3[C@@]12C",
             },
         ]
+    # Fix compound names and formula of bolagladins
+    # (see https://doi.org/10.1101/2020.06.16.153940)
     elif bgc_id == "BGC0002336":
         entry["compounds"] = [
             {
-                "compound": "gladiochelin A",
-                "chem_struct": r"C(O)(=O)CC(CCCC/C=C\CCCCCCC/C=C\C(N/C=C/C(N[C@]1COC(=O)[C@](CO)NC(=O)[C@@](NC(=O)[C@@](C(C)C)NC1=O)CCO)=O)=O)(C(O)=O)OC",
+                "compound": "bolagladin A",
+                "chem_struct": r"CC(C)[C@@H]1C(=O)N[C@H](C(=O)N[C@H](C(=O)OC[C@@H](C(=O)N1)NC(=O)/C=C/NC(=O)/C=C\CCCCCCC/C=C\CCCCC(CC(=O)O)(C(=O)O)OC)CO)CCO",
+                "database_id": ["pubchem:163129488", "npatlas:NPA033055"],
             },
             {
-                "compound": "gladiochelin B",
-                "chem_struct": r"C(O)(=O)CC(CCCC/C=C\CCCCCCC/C=C\C(N/C=C/C(N[C@]1COC(=O)[C@](CO)NC(=O)[C@@](NC(=O)[C@@]([C@@](CC)C)NC1=O)CCO)=O)=O)(C(O)=O)OC",
+                "compound": "bolagladin B",
+                "chem_struct": r"CC[C@@H](C)[C@@H]1C(=O)N[C@H](C(=O)N[C@H](C(=O)OC[C@@H](C(=O)N1)NC(=O)/C=C/NC(=O)/C=C\CCCCCCC/C=C\CCCCC(CC(=O)O)(C(=O)O)OC)CO)CCO",
+                "database_id": ["pubchem:163121204", "npatlas:NPA033056"],
             }
         ]
     # Use the non-salt version of lasalocid
