@@ -204,10 +204,14 @@ $(MITE)/classes.hdf5: $(MITE)/entries.json $(CHEMONT) $(ATLAS)
 # --- Train model --------------------------------------------------------------
 
 # path to the trained model
-WEIGHTS=chamois/predictor/predictor.json
+CHAMOIS_WEIGHTS=chamois/predictor/predictor.json
+CHAMOIS_HMM=chamois/domains/Pfam$(PFAM_VERSION).hmm.lz4
 
-$(WEIGHTS): $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5
+$(CHAMOIS_WEIGHTS): $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5
 	$(PYTHON) -m chamois.cli train -f $(word 2,$^) -c $(word 1,$^) -o $@
+	
+$(CHAMOIS_HMM): $(CHAMOIS_WEIGHTS)
+	$(PYTHON) setup.py download_pfam -i -f -r
 
 # --- Figures ------------------------------------------------------------------
 
@@ -266,12 +270,11 @@ figure4: $(FIG4)/dotplot_merged.svg
 # Supplementary Table 2 - Weights
 STBL2=$(PAPER)/sup_table2_weights
 
-$(STBL2)/weights.tsv: $(WEIGHTS)
+$(STBL2)/weights.tsv: $(CHAMOIS_WEIGHTS)
 	$(PYTHON) $(STBL2)/extract.py --output $@
 
 .PHONY: suptable2
 suptable2:  $(STBL2)/weights.tsv
-
 
 # Supplementary Table 3 - Unknown domains
 STBL3=$(PAPER)/sup_table3_domains
@@ -281,3 +284,16 @@ $(STBL3)/table.tsv: $(DATA)/ecdomainminer/EC-Pfam_calculated_associations_Extend
 
 .PHONY: suptable3
 suptable3: $(STBL3)/table.tsv
+	
+# Supplementary Figure 2 - PRISM4 comparison
+
+SFIG2=$(PAPER)/sup_fig2_prism4
+
+$(SFIG2)/probas.hdf5: $(DATA)/datasets/prism4/clusters.gbk $(CHAMOIS_WEIGHTS) $(CHAMOIS_HMM)
+	$(PYTHON) -m chamois.cli predict --model $(CHAMOIS_WEIGHTS) -i $< -o $@ --hmm $(CHAMOIS_HMM)
+
+$(SFIG2)/search_results.tsv: $(SFIG2)/probas.hdf5 $(DATA)/npatlas/classes.hdf5 $(CHAMOIS_WEIGHTS)
+	$(PYTHON) -m chamois.cli search --model $(CHAMOIS_WEIGHTS) -i $< -c $(word 2,$^) -o $@
+
+$(SFIG2)/boxplot_by_mibig.median_comparison.png: $(SFIG2)/search_results.tsv
+	$(PYTHON) $(SFIG2)/plot.py
