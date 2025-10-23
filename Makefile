@@ -249,6 +249,9 @@ $(FIG2)/barplot.png: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)
 $(FIG2)/barplot.svg: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/types.tsv $(FIG2)/cv.probas.hdf5
 	$(PYTHON) $(FIG2)/barplot_topk.py --classes $(word 1,$^) --types $(word 2,$^) --probas $(word 3,$^) --output $@
 
+$(FIG2)/folds_statistics.svg: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5 $(FIG2)/cv.report.tsv
+	$(PYTHON) $(FIG2)/folds_statistics.py --classes $(word 1,$^) --features $(word 2,$^) --report $(word 3,$^) -o $@
+	
 .PHONY: figure2
 figure2: $(FIG2)/barplot.svg $(FIG2)/pr/.files $(FIG2)/cvtree_auprc.html
 

@@ -24,10 +24,11 @@ from rich.console import Console
 from matplotlib import rcParams
 from matplotlib import pyplot as plt
 
-project_folder = pathlib.Path(__file__).parent
-while not project_folder.joinpath("chamois").exists():
-    project_folder = project_folder.parent
-sys.path.insert(0, str(project_folder))
+folder = pathlib.Path(__file__).parent
+PROJECT_FOLDER = folder
+while not PROJECT_FOLDER.joinpath("chamois").exists():
+    PROJECT_FOLDER = PROJECT_FOLDER.parent
+sys.path.insert(0, str(PROJECT_FOLDER))
 
 from chamois._meta import requires
 from chamois.predictor import ChemicalOntologyPredictor
@@ -36,14 +37,14 @@ from chamois.predictor.information import information_accretion, information_the
 parser = argparse.ArgumentParser()
 parser.add_argument("-f", "--features", required=True)
 parser.add_argument("-c", "--classes", required=True)
-parser.add_argument("-s", "--similarity", required=True)
+parser.add_argument("--report", required=True)
+# parser.add_argument("-s", "--similarity", required=True)
 # parser.add_argument("--report", type=pathlib.Path)
 parser.add_argument("-o", "--output", required=True, type=pathlib.Path)
 parser.add_argument("-k", "--kfolds", type=int, default=5)
 parser.add_argument("-j", "--jobs", type=int, default=-1)
 parser.add_argument("--taxonomy", type=pathlib.Path, default=None)
 # parser.add_argument("--model", choices=ChemicalOntologyPredictor._MODELS, default="logistic")
-parser.add_argument("--min-class-occurrences", type=int, default=10)
 parser.add_argument("--seed", default=0, type=int)
 args = parser.parse_args()
 
@@ -56,8 +57,8 @@ RDLogger.DisableLog('rdApp.warning')
 
 console = Console()
 console.print(f"[bold blue]{'Loading':>12}[/] training data")
-features = anndata.read(args.features)
-classes = anndata.read(args.classes)
+features = anndata.read_h5ad(args.features)
+classes = anndata.read_h5ad(args.classes)
 console.print(f"[bold green]{'Loaded':>12}[/] {features.n_obs} observations, {features.n_vars} features and {classes.n_vars} classes")
 
 # remove compounds not in Bacteria
@@ -68,25 +69,32 @@ if args.taxonomy:
     classes = classes[obs[obs.superkingdom == "Bacteria"].bgc_id]
     console.print(f"[bold green]{'Loaded':>12}[/] {features.n_obs} observations, {features.n_vars} features and {classes.n_vars} classes")
 
+# load cross-validation report
+console.print(f"[bold blue]{'Loading':>12}[/] cross-validation report")
+cv = pandas.read_table(args.report).set_index('class')
+
 # remove compounds with unknown structure
 features = features[~classes.obs.unknown_structure]
 classes = classes[~classes.obs.unknown_structure]
 console.print(f"[bold blue]{'Using':>12}[/] {features.n_obs} observations with known compounds")
-# remove classes absent from training set
-support = classes.X.sum(axis=0).A1
-classes = classes[:, (support >= args.min_class_occurrences) & (support <= classes.n_obs - args.min_class_occurrences)]
-console.print(f"[bold blue]{'Using':>12}[/] {classes.n_vars} classes with at least {args.min_class_occurrences} members")
+
+# remove classes absent from the cross-validation
+classes = classes[:, cv.index]
+console.print(f"[bold blue]{'Using':>12}[/] {classes.n_vars} classes used in cross-validation")
+
 # prepare ontology and groups
 groups = classes.obs["groups"]
+
 # compute MHFP6 fingerprints
 encoder = MHFPEncoder(2048, 42)
 console.print(f"[bold blue]{'Computing':>12}[/] MHFP6 fingerprints for {classes.n_obs} compounds")
 mhfp6 = numpy.asarray(encoder.EncodeSmilesBulk(list(classes.obs.smiles), kekulize=True))
+
 # compute pairwise distances
 cdist = 1.0 - scipy.spatial.distance.cdist(mhfp6, mhfp6, metric="hamming")
 # get ANI
-ani = anndata.read_h5ad(args.similarity)
-ani = ani[classes.obs_names].X.toarray()
+# ani = anndata.read_h5ad(args.similarity)
+# ani = ani[classes.obs_names].X.toarray()
 
 # extract feature kinds
 kinds = sorted(features.var.kind.unique())
@@ -156,5 +164,3 @@ plt.xlabel("Maximum Chemical similarity")
 plt.legend()
 plt.savefig(args.output)
 plt.show()
-
-        
