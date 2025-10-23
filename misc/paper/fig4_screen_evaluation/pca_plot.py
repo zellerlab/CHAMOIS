@@ -24,7 +24,10 @@ from sklearn.decomposition import PCA, SparsePCA
 
 rcParams['svg.fonttype'] = 'none'
 folder = pathlib.Path(__file__).absolute().parent
-sys.path.insert(0, str(folder.parents[1]))
+PROJECT_FOLDER = folder
+while not PROJECT_FOLDER.joinpath("chamois").exists():
+    PROJECT_FOLDER = PROJECT_FOLDER.parent
+sys.path.insert(0, str(PROJECT_FOLDER))
 
 import chamois.classyfire
 from chamois.predictor import ChemicalOntologyPredictor
@@ -50,11 +53,11 @@ TYPE_PALETTE = {
 predictor = ChemicalOntologyPredictor.trained()
 
 # load NPAtlas
-npatlas = anndata.read(folder.parents[1].joinpath("data", "npatlas", "classes.hdf5"))
+npatlas = anndata.read_h5ad(PROJECT_FOLDER.joinpath("data", "npatlas", "classes.hdf5"))
 npatlas = npatlas[:, predictor.classes_.index]
 
 # load classification of native BGCs
-native = anndata.read_h5ad(folder.parents[1].joinpath("data", "datasets", "native", "classes.hdf5"))
+native = anndata.read_h5ad(PROJECT_FOLDER.joinpath("data", "datasets", "native", "classes.hdf5"))
 native = native[:, predictor.classes_.index]
 native.obs["genome_id"] = native.obs_names.str.rsplit("_").str[0]
 
@@ -67,16 +70,16 @@ mibig_types = {}
 
 # load coordinates of native BGCs
 coordinates = pandas.read_table(
-    folder.parents[1].joinpath("data", "datasets", "native", "coordinates.tsv")
+    PROJECT_FOLDER.joinpath("data", "datasets", "native", "coordinates.tsv")
 )
 
 # load classification of native BGCs
 classes = anndata.read_h5ad(
-    folder.parents[1].joinpath("data", "datasets", "native", "classes.hdf5")
+    PROJECT_FOLDER.joinpath("data", "datasets", "native", "classes.hdf5")
 )
 
 # load CHAMOIS probabilities
-probas = anndata.read(folder.joinpath("merged.hdf5"))
+probas = anndata.read_h5ad(folder.joinpath("merged.hdf5"))
 
 # load merged clusters coordinates
 merged = pandas.read_table(folder.joinpath("merged.tsv"))
@@ -135,7 +138,7 @@ for i, row in enumerate(rich.progress.track(coordinates.itertuples(), total=len(
 # --- PCA ----------------------------------------------------------------------
 
 # get colors
-types = pandas.read_table(folder.parents[1].joinpath("data", "datasets", "native", "types.tsv"))
+types = pandas.read_table(PROJECT_FOLDER.joinpath("data", "datasets", "native", "types.tsv"))
 types['color'] = types['type'].apply(lambda x: TYPE_PALETTE["Mixed"] if ";" in x else TYPE_PALETTE[x])
 colors = { row.bgc_id:row.color for row in types.itertuples()  }
 

@@ -274,8 +274,11 @@ $(FIG4)/merged.hdf5: $(FIG4)/predictor.mibig$(MIBIG_VERSION).json
 $(FIG4)/dotplot_merged.svg: $(FIG4)/merged.hdf5 $(DATA)/datasets/native/features.hdf5 $(DATA)/datasets/native/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5
 	$(PYTHON) $(FIG4)/dotplot_merged.py
 
+$(FIG4)/pca.svg: $(CHAMOIS_WEIGHTS) $(DATA)/npatlas/classes.hdf5 $(DATA)/datasets/native/classes.hdf5 $(DATA)/datasets/native/coordinates.tsv $(DATA)/datasets/native/types.tsv $(FIG4)/merged.hdf5
+	$(PYTHON) $(FIG4)/pca_plot.py
+	
 .PHONY: figure4
-figure4: $(FIG4)/dotplot_merged.svg
+figure4: $(FIG4)/dotplot_merged.svg $(FIG4)/pca.svg
 
 # Supplementary Table 2 - Weights
 STBL2=$(PAPER)/sup_table2_weights
