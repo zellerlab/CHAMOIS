@@ -191,7 +191,7 @@
       "transform": [
         {
           "type": "force",
-          "iterations": 300,
+          "iterations": 600,
           "restart": {"signal": "restart"},
           "static": {"signal": "static"},
           "signal": "force",

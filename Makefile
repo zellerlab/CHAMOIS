@@ -259,7 +259,7 @@ figure2: $(FIG2)/barplot.svg $(FIG2)/pr/.files $(FIG2)/cvtree_auprc.html
 
 FIG3=$(PAPER)/fig3_network
 
-$(FIG3)/graph.html: $(CHAMOIS_WEIGHTS) $(PFAM_HMM) $(CHEMONT) $(DATA)/ecdomainminer/EC-Pfam_calculated_associations_Extended.csv
+$(FIG3)/graph.html: $(CHAMOIS_WEIGHTS) $(CHAMOIS_HMM) $(CHEMONT) $(DATA)/ecdomainminer/EC-Pfam_calculated_associations_Extended.csv
 	$(PYTHON) $(FIG3)/plot.py --model $(word 1,$^) --pfam $(word 2,$^) --chemont $(word 3,$^) --ec-domain $(word 4,$^)
 
 .PHONY: figure3

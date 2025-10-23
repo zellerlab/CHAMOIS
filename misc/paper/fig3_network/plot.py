@@ -10,6 +10,7 @@ import numpy
 import pandas
 import pronto
 import rich.progress
+import lz4.frame
 from rich.console import Console
 from palettable.cartocolors.qualitative import Bold_10
 
@@ -34,8 +35,9 @@ console = Console()
 
 console.print(f"[bold blue]{'Loading':>12}[/] Pfam HMMs")
 with rich.progress.open(args.pfam, "rb", description=f"[bold blue]{'Loading':>12}[/]") as f:
-    with pyhmmer.plan7.HMMFile(f) as hmm_file:
-        pfam_names = {hmm.accession.decode():hmm.name.decode() for hmm in hmm_file}
+    with lz4.frame.open(f) as reader:
+        with pyhmmer.plan7.HMMFile(reader) as hmm_file:
+            pfam_names = {hmm.accession.decode():hmm.name.decode() for hmm in hmm_file}
 
 # --- Load ChemOnt ------------------------------------------------------------
 
