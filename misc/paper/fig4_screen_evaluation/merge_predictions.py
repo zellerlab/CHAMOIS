@@ -10,7 +10,10 @@ import pandas
 import rich.progress
 
 folder = pathlib.Path(__file__).absolute().parent
-sys.path.insert(0, str(folder.parents[2]))
+PROJECT_FOLDER = folder
+while not PROJECT_FOLDER.joinpath("chamois").exists():
+    PROJECT_FOLDER = PROJECT_FOLDER.parent
+sys.path.insert(0, str(PROJECT_FOLDER))
 
 import chamois.cli
 
@@ -19,22 +22,20 @@ type_map = pandas.read_table(folder.joinpath("chem_class_map.tsv"))
 type_index = dict(zip(type_map["chem_code"].str.lower(), type_map["bigslice_class"]))
 
 # load coordinates of native BGCs
-coordinates = pandas.read_table(
-    folder.parents[2].joinpath("data", "datasets", "native", "coordinates.tsv")
-)
+coordinates = pandas.read_table(PROJECT_FOLDER.joinpath("data", "datasets", "native", "coordinates.tsv"))
 
 # Load GECCO predictions
 rich.print(f"[bold green]{'Loading':>12}[/] GECCO predictions")
 gecco_predictions = pandas.concat([
     pandas.read_table(filename).assign(source="gecco", genome_id=filename.name.rsplit(".", 2)[0])
-    for filename in folder.parents[2].joinpath("data", "datasets", "native", "gecco").glob("*.clusters.tsv")
+    for filename in PROJECT_FOLDER.joinpath("data", "datasets", "native", "gecco10").glob("*.clusters.tsv")
 ])
 rich.print(f"[bold green]{'Loaded':>12}[/] {len(gecco_predictions)} BGC predictions in {gecco_predictions['genome_id'].nunique()} genomes")
 
 # Load antiSMASH predictions
 antismash_predictions_raw = []
 rich.print(f"[bold green]{'Loading':>12}[/] antiSMASH predictions")
-for archive in rich.progress.track(list(folder.parents[2].joinpath("data", "datasets", "native", "antismash7").glob("*.zip")), description=f"[bold blue]{'Working':>12}[/]"):
+for archive in rich.progress.track(list(PROJECT_FOLDER.joinpath("data", "datasets", "native", "antismash8").glob("*.zip")), description=f"[bold blue]{'Working':>12}[/]"):
     with zipfile.ZipFile(archive) as zip_file:
         with zip_file.open(f"{archive.stem}.gbk") as src:
             # get all BGC regions
@@ -136,7 +137,7 @@ unique_clusters.to_csv(
 
 # extract clusters and run CHAMOIS predictions
 clusters = []
-for genome in rich.progress.track(list(folder.parents[2].joinpath("data", "datasets", "native", "genomes").glob("*.fna")), description=f"[bold blue]{'Working':>12}[/]"):
+for genome in rich.progress.track(list(PROJECT_FOLDER.joinpath("data", "datasets", "native", "genomes").glob("*.fna")), description=f"[bold blue]{'Working':>12}[/]"):
 #for archive in rich.progress.track(list(folder.parents[1].joinpath("data", "datasets", "native", "antismash7").glob(f"*.zip")), description=f"[bold blue]{'Working':>12}[/]"):
     #with zipfile.ZipFile(archive) as zip_file:
         #with zip_file.open(f"{archive.stem}.gbk") as src:
@@ -157,5 +158,5 @@ chamois.cli.run([
     "-i", str(folder.joinpath("merged.gbk")), 
     "-o", str(folder.joinpath("merged.hdf5")),
     "--model", str(folder.joinpath("predictor.mibig3.1.json")),
-    "--hmm", str(folder.parents[2].joinpath("data", "pfam", "Pfam38.0.hmm")),
+    "--hmm", str(PROJECT_FOLDER.joinpath("data", "pfam", "Pfam38.0.hmm")),
 ])

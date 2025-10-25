@@ -277,3 +277,15 @@ hydrogen-cyanide	as7	Other	generic
 HR-T2PKS	as7	Polyketide	hr-t2pks
 CDPS	as7	Other	cdps
 Triceptide	as7	RiPP	triceptide
+terpene-precursor	as8	Terpene	terpene-precursor
+azole-containing-ripp	as8	RiPP	azole-containing-ripp
+azoxy-crosslink	as8	Other	azoxy-crosslink
+benzoxazole	as8	Other	benzoxazole
+mycosporine	as8	Other	mycosporine
+atropopeptide	as8	RiPP	atropopeptide
+azoxy-dimer	as8	Other	azoxy-dimer
+deazapurine	as8	Other	deazapurine
+lincosamides	as8	Other	lincosamides
+leupeptin	as8	Other	leupeptin
+darobactin	as8	RiPP	darobactin
+polyyne	as8	Other	polyyne
