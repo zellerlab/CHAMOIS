@@ -224,6 +224,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
     # compute distances
     console.print(f"[bold blue]{'Computing':>12}[/] distances to predictions")
     distances = probjaccard_cdist(compounds, probas.X)
+    jaccards = 1 - probjaccard_cdist(compounds, probas.X > 0.5)
     ranks = scipy.stats.rankdata(distances, method="dense", axis=1)
 
     # show most likely BGC for input compound
@@ -238,7 +239,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
             inchikey = query.inchikey
             table.add_row(
                 Panel(tree_query, title=f"[bold purple]{inchikey}[/]"),
-                Panel(tree_bgc, title=f"[bold purple]{probas.obs.index[j]}[/] (d=[bold cyan]{distances[i, j]:.5f}[/])"),
+                Panel(tree_bgc, title=f"[bold purple]{probas.obs.index[j]}[/] (Jaccard=[bold cyan]{jaccards[i,j]:.2f}[/] Distance=[bold cyan]{distances[i, j]:.2f}[/])"),
             )
         console.print(table)
 
