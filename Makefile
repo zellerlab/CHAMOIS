@@ -300,6 +300,16 @@ $(STBL3)/table.tsv: $(DATA)/ecdomainminer/EC-Pfam_calculated_associations_Extend
 
 .PHONY: suptable3
 suptable3: $(STBL3)/table.tsv
+
+# Supplementary Table 5 - Benchmark dataset
+
+STBL5=$(PAPER)/sup_table5_benchmark_dataset
+
+$(STBL5)/benchmark_dataset.tsv: $(DATA)/datasets/native/coordinates.tsv $(DATA)/datasets/native/types.tsv $(DATA)/datasets/native/classes.hdf5
+	$(PYTHON) $(STBL5)/collate.py
+
+suptable5: $(STBL5)/benchmark_dataset.tsv
+
 	
 # Supplementary Figure 2 - PRISM4 comparison
 
@@ -313,3 +323,4 @@ $(SFIG2)/search_results.tsv: $(SFIG2)/probas.hdf5 $(DATA)/npatlas/classes.hdf5 $
 
 $(SFIG2)/boxplot_by_mibig.median_comparison.png: $(SFIG2)/search_results.tsv
 	$(PYTHON) $(SFIG2)/plot.py
+
