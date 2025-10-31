@@ -283,6 +283,19 @@ $(FIG4)/pca.svg: $(CHAMOIS_WEIGHTS) $(DATA)/npatlas/classes.hdf5 $(DATA)/dataset
 .PHONY: figure4
 figure4: $(FIG4)/dotplot_merged.svg $(FIG4)/pca.svg
 
+
+# --- Supplementary Tables -----------------------------------------------------
+
+# Supplementary Table 1 - CV Report
+
+STBL1=$(PAPER)/sup_table1_cv_report
+
+$(STBL1)/report.tsv: $(FIG2)/rf.report.tsv $(FIG2)/cv.report.tsv
+	$(PYTHON) $(STBL1)/make_report.py
+
+.PHONY: suptable1
+suptable1: $(STBL1)/report.tsv
+
 # Supplementary Table 2 - Weights
 STBL2=$(PAPER)/sup_table2_weights
 
@@ -301,6 +314,15 @@ $(STBL3)/table.tsv: $(DATA)/ecdomainminer/EC-Pfam_calculated_associations_Extend
 .PHONY: suptable3
 suptable3: $(STBL3)/table.tsv
 
+# Supplementary Table 4 - MIBiG blocklist
+STBL4=$(PAPER)/sup_table4_mibig_blocklist
+
+$(STBL4)/table.tsv: $(DATA)/mibig/blocklist.tsv
+	cp $< $@
+
+.PHONY: suptable4
+suptable4: $(STBL4)/table.tsv
+
 # Supplementary Table 5 - Benchmark dataset
 
 STBL5=$(PAPER)/sup_table5_benchmark_dataset
@@ -310,6 +332,8 @@ $(STBL5)/benchmark_dataset.tsv: $(DATA)/datasets/native/coordinates.tsv $(DATA)/
 
 suptable5: $(STBL5)/benchmark_dataset.tsv
 
+
+# --- Supplementary Figures ----------------------------------------------------
 	
 # Supplementary Figure 2 - PRISM4 comparison
 
