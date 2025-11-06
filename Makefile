@@ -345,18 +345,18 @@ $(SFIG1)/plot.svg: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(FIG2)/c
 supfig1: $(SFIG1)/plot.svg
 .PHONY: supfig1
 	
-# Supplementary Figure 2 - PRISM4 comparison
+# Supplementary Figure 3 - PRISM4 comparison
 
-SFIG2=$(PAPER)/sup_fig2_prism4
+SFIG3=$(PAPER)/sup_fig3_prism4
 
-$(SFIG2)/probas.hdf5: $(DATA)/datasets/prism4/clusters.gbk $(CHAMOIS_WEIGHTS) $(CHAMOIS_HMM)
+$(SFIG3)/probas.hdf5: $(DATA)/datasets/prism4/clusters.gbk $(CHAMOIS_WEIGHTS) $(CHAMOIS_HMM)
 	$(PYTHON) -m chamois.cli predict --model $(CHAMOIS_WEIGHTS) -i $< -o $@ --hmm $(CHAMOIS_HMM)
 
-$(SFIG2)/search_results.tsv: $(SFIG2)/probas.hdf5 $(DATA)/npatlas/classes.hdf5 $(CHAMOIS_WEIGHTS)
+$(SFIG3)/search_results.tsv: $(SFIG3)/probas.hdf5 $(DATA)/npatlas/classes.hdf5 $(CHAMOIS_WEIGHTS)
 	$(PYTHON) -m chamois.cli search --model $(CHAMOIS_WEIGHTS) -i $< -c $(word 2,$^) -o $@
 
-$(SFIG2)/boxplot_by_mibig.median_comparison.png: $(SFIG2)/search_results.tsv
-	$(PYTHON) $(SFIG2)/plot.py
+$(SFIG3)/boxplot_by_mibig.median_comparison.png: $(SFIG3)/search_results.tsv
+	$(PYTHON) $(SFIG3)/plot.py
 
-supfig2: $(SFIG2)/boxplot_by_mibig.median_comparison.png
-.PHONY: supfig2
+supfig3: $(SFIG3)/boxplot_by_mibig.median_comparison.png
+.PHONY: supfig3
