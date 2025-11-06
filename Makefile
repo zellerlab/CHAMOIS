@@ -334,6 +334,16 @@ suptable5: $(STBL5)/benchmark_dataset.tsv
 
 
 # --- Supplementary Figures ----------------------------------------------------
+
+# Supplementary Figure 1 - Class Imbalance
+ 
+SFIG1=$(PAPER)/sup_fig1_imbalance
+
+$(SFIG1)/plot.svg: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(FIG2)/cv.report.tsv
+	$(PYTHON) $(SFIG1)/plot.py --input $< --output $@ --cv-report $(word 2,$^)
+
+supfig1: $(SFIG1)/plot.svg
+.PHONY: supfig1
 	
 # Supplementary Figure 2 - PRISM4 comparison
 
@@ -348,3 +358,5 @@ $(SFIG2)/search_results.tsv: $(SFIG2)/probas.hdf5 $(DATA)/npatlas/classes.hdf5 $
 $(SFIG2)/boxplot_by_mibig.median_comparison.png: $(SFIG2)/search_results.tsv
 	$(PYTHON) $(SFIG2)/plot.py
 
+supfig2: $(SFIG2)/boxplot_by_mibig.median_comparison.png
+.PHONY: supfig2

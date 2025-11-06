@@ -15,7 +15,6 @@ import anndata
 import pandas
 import numpy
 import rich.progress
-import matplotlib.pyplot as plt
 import sklearn.metrics
 import matplotlib.pyplot as plt
 import scipy.stats
