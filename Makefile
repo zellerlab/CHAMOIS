@@ -314,15 +314,6 @@ $(STBL3)/table.tsv: $(DATA)/ecdomainminer/EC-Pfam_calculated_associations_Extend
 .PHONY: suptable3
 suptable3: $(STBL3)/table.tsv
 
-# Supplementary Table 4 - MIBiG blocklist
-STBL4=$(PAPER)/sup_table4_mibig_blocklist
-
-$(STBL4)/table.tsv: $(DATA)/mibig/blocklist.tsv
-	cp $< $@
-
-.PHONY: suptable4
-suptable4: $(STBL4)/table.tsv
-
 # Supplementary Table 5 - Benchmark dataset
 
 STBL5=$(PAPER)/sup_table5_benchmark_dataset
@@ -332,6 +323,14 @@ $(STBL5)/benchmark_dataset.tsv: $(DATA)/datasets/native/coordinates.tsv $(DATA)/
 
 suptable5: $(STBL5)/benchmark_dataset.tsv
 
+# Supplementary Table 6 - MIBiG blocklist
+STBL6=$(PAPER)/sup_table6_mibig_blocklist
+
+$(STBL6)/table.tsv: $(DATA)/mibig/blocklist.tsv
+		cp $< $@
+
+.PHONY: suptable6
+suptable6: $(STBL6)/table.tsv
 
 # --- Supplementary Figures ----------------------------------------------------
 
