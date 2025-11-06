@@ -342,8 +342,18 @@ SFIG1=$(PAPER)/sup_fig1_imbalance
 $(SFIG1)/plot.svg: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(FIG2)/cv.report.tsv
 	$(PYTHON) $(SFIG1)/plot.py --input $< --output $@ --cv-report $(word 2,$^)
 
-supfig1: $(SFIG1)/plot.svg
 .PHONY: supfig1
+supfig1: $(SFIG1)/plot.svg
+	
+# Supplementary Figure 2 - Random Forest CV comparison
+
+SFIG2=$(PAPER)/sup_fig2_rf_comparison
+
+$(SFIG2)/plot.svg: $(FIG2)/cv.report.tsv $(FIG2)/rf.report.tsv
+	$(PYTHON) $(SFIG2)/plot.py --cv-report $(word 1,$^) --rf-report $(word 2,$^) --output $@
+	
+.PHONY: supfig2
+supfig2: $(SFIG2)/plot.svg
 	
 # Supplementary Figure 3 - PRISM4 comparison
 
@@ -358,5 +368,5 @@ $(SFIG3)/search_results.tsv: $(SFIG3)/probas.hdf5 $(DATA)/npatlas/classes.hdf5 $
 $(SFIG3)/boxplot_by_mibig.median_comparison.png: $(SFIG3)/search_results.tsv
 	$(PYTHON) $(SFIG3)/plot.py
 
-supfig3: $(SFIG3)/boxplot_by_mibig.median_comparison.png
 .PHONY: supfig3
+supfig3: $(SFIG3)/boxplot_by_mibig.median_comparison.png
