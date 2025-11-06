@@ -52,7 +52,7 @@ with contextlib.ExitStack() as ctx:
 
 rich.print(f"[bold blue]{'Loading':>12}[/] compounds from {args.input!r}")
 data = pandas.read_excel(args.input, usecols=["Cluster", "True SMILES"]).drop_duplicates()
-data["Cluster"] = data["Cluster"].str.replace("-", "_").str.split(".").str[0]
+data["Cluster"] = data["Cluster"].str.replace("-", "_")#.str.split(".").str[0]
 data = data[ data["Cluster"].isin(clusters) ]
 rich.print(f"[bold green]{'Loaded':>12}[/] {data['Cluster'].nunique()} BGCs with known compounds")
 

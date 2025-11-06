@@ -7,6 +7,7 @@ import operator
 import tarfile
 import os
 import pathlib
+import posixpath
 import sys
 import webbrowser
 from random import choice
@@ -136,7 +137,7 @@ with contextlib.ExitStack() as ctx:
 
 rows = []
 for cluster, bgc_types in cluster_types.items():
-    row = {"Cluster": os.path.splitext(cluster)[0].replace("-", "_")}
+    row = {"Cluster": cluster}
     for ty in PRISM_FAMILY_TO_TYPE.values():
         row[ty] = ty in bgc_types
     for ty in PRISM_FAMILY_TO_MIBIG.values():
@@ -162,7 +163,6 @@ search_results = search_results[search_results["rank"] == 1]
 rich.print(f"[bold blue]{'Loading':>12}[/] PRISM4 predictions")
 predictions = pandas.read_excel(PROJECT_FOLDER.joinpath("data", "prism4", "predictions.xlsx"))
 predictions = predictions[~predictions["Predicted SMILES"].isna()]
-predictions["Cluster"] = predictions["Cluster"].str.replace("-", "_").str.rsplit(".", n=1).str[0]
 
 # --- Add CHAMOIS predictions to the table -----------------------------------
 
@@ -178,7 +178,8 @@ for cluster, rows in predictions.groupby("Cluster"):
     true_fps = get_ecfp6_fingerprints(true_mols)
 
     # get predictions for current BGC
-    bgc_id, _ = os.path.splitext(cluster)
+    # bgc_id, _ = os.path.splitext(cluster)
+    bgc_id = cluster
     chamois_hits = search_results[search_results.bgc_id == bgc_id]
 
     # extract SMILES from predictions 
@@ -224,6 +225,8 @@ medians = subset_predictions[["Method", "Cluster", "Tanimoto coefficient"]].grou
 
 methods = []
 boxes = []
+coefs = []
+
 for i, (method, rows) in enumerate(medians.reset_index().groupby("Method")):
     rows = rows[~rows["Tanimoto coefficient"].isna()]
     bp = ax1.boxplot([rows["Tanimoto coefficient"]], positions=[i], patch_artist=True)
@@ -231,9 +234,22 @@ for i, (method, rows) in enumerate(medians.reset_index().groupby("Method")):
         patch.set_facecolor(PALETTE[method])
     boxes.append(bp["boxes"][0])
     methods.append(method)
+    coefs.append(rows["Tanimoto coefficient"])
+
+i = methods.index("CHAMOIS")
+offset = 0.1
+for j, m in reversed(list(enumerate(methods))):
+    if m != "CHAMOIS":
+        p = scipy.stats.ttest_ind(coefs[i], coefs[j]).pvalue
+        txt = "ns" if p > 0.05 else "*" if p > 0.01 else "**" if p > 0.001 else "***" if p > 0.0001 else "****" 
+        ax1.text( (i + j) / 2, 1 + offset + 0.02, txt, ha="center")
+        ax1.plot([i, i], [1 + offset, 1 + offset + 0.01], '-', color="black")
+        ax1.plot([j, j], [1 + offset, 1 + offset + 0.01], '-', color="black")
+        ax1.plot([i, j], [1 + offset + 0.01, 1 + offset + 0.01], '-', color="black")
+        offset += 0.1
 
 ax1.legend(boxes, methods, loc='upper right')
-ax1.set_xticks( range(len(methods)), labels=methods )
+ax1.set_xticks( range(len(methods)), labels=methods)
 
 plt.tight_layout()
 plt.savefig(pathlib.Path(__file__).absolute().parent.joinpath("boxplot_by_method.png"))
