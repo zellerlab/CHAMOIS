@@ -233,5 +233,6 @@ out = pandas.DataFrame(
         "pvalue"
     ],
 )
+out["pvalue_corrected"] = out["pvalue"] * len(out)
 out.sort_values(["domain_accession", "weight"], inplace=True)
 out.to_csv(args.output, sep="\t", index=False)
