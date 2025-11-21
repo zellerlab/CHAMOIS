@@ -314,6 +314,19 @@ $(STBL3)/table.tsv: $(DATA)/ecdomainminer/EC-Pfam_calculated_associations_Extend
 .PHONY: suptable3
 suptable3: $(STBL3)/table.tsv
 
+# Supplementary Table 4 - PRISM4 comparison
+STBL4=$(PAPER)/sup_table4_prism4
+SFIG3=$(PAPER)/sup_fig3_prism4
+
+$(STBL4)/search_results.tsv: $(SFIG3)/search_results.tsv
+	cp $< $@
+
+$(STBL4)/predictions.tsv: $(STBL4)/search_results.tsv $(DATA)/npatlas/classes.hdf5 $(DATA)/npatlas/classes.hdf5 $(DATA)/prism4/predictions.xlsx
+	$(PYTHON) $(STBL4)/summary_table.py
+	
+.PHONY: suptable4
+suptable4: $(STBL4)/search_results.tsv $(STBL4)/predictions.tsv
+
 # Supplementary Table 5 - Benchmark dataset
 
 STBL5=$(PAPER)/sup_table5_benchmark_dataset
