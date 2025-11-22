@@ -1,5 +1,6 @@
 import argparse
 import json
+import math
 import os
 import pathlib
 import sys
@@ -151,16 +152,16 @@ for i in range(len(predictor.classes_)):
 
 # --- Generate Vega graph ------------------------------------------------------
 
-TOP = 2
+TOP = 20 #2
 N_CLASSES = len(predictor.classes_)
-THRESHOLD = 0
+THRESHOLD = 1.5
 name_index = {}
 
 with folder.joinpath("spec.vega.json").open() as f:
     vega_graph = json.load(f)
 
 # generate nodes for classes
-vega_graph["data"][0]["values"] = nodes = []
+vega_graph["data"][1]["values"] = nodes = []
 for i, classname in enumerate(predictor.classes_.index):
     if predictor.intercept_[i] > 0:
         continue
@@ -182,7 +183,7 @@ for i, classname in enumerate(predictor.classes_.index):
         continue
     sorted_indices = { x:n for n,x in enumerate(reversed(coef[:, i].argsort())) }
     for j, name in enumerate(predictor.features_.index):
-        if norm_coefs[i, j] > THRESHOLD and sorted_indices[j] < TOP:
+        if coef[j, i] >= THRESHOLD and sorted_indices[j] < TOP:
             n_links[j] += 1
 for j, feat in enumerate(predictor.features_.index):
     if n_links[j] > 0:
@@ -200,17 +201,17 @@ for j, feat in enumerate(predictor.features_.index):
         })
     
 # generate edges
-vega_graph["data"][1]["values"] = edges = []
+vega_graph["data"][0]["values"] = edges = []
 for i, classname in enumerate(predictor.classes_.index):
     if predictor.intercept_[i] > 0:
         continue
     sorted_indices = { x:n for n,x in enumerate(reversed(coef[:, i].argsort())) }
     for j, name in enumerate(predictor.features_.index):
-        if norm_coefs[i, j] > THRESHOLD and sorted_indices[j] < TOP:
+        if coef[j, i] >= THRESHOLD and sorted_indices[j] < TOP:
             edges.append({
                 "source": name_index[name],
                 "target": name_index[classname],
-                "weight": 1, #predictor.coef_[j, i],
+                "weight": coef[j, i],
                 "rank": sorted_indices[j] + 1,               
             })
     
