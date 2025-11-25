@@ -305,45 +305,47 @@ $(STBL2)/weights.tsv: $(CHAMOIS_WEIGHTS)
 .PHONY: suptable2
 suptable2:  $(STBL2)/weights.tsv
 
-# Supplementary Table 3 - Unknown domains
-STBL3=$(PAPER)/sup_table3_domains
+# Supplementary Table 3 - 
 
-$(STBL3)/table.tsv: $(DATA)/ecdomainminer/EC-Pfam_calculated_associations_Extended.csv $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5 $(FIG2)/cv.report.tsv $(CHEMONT) $(INTERPRO_XML) $(PFAM_HMM)
-	$(PYTHON) $(STBL3)/table.py --chemont $(CHEMONT) --interpro $(INTERPRO_XML) --ec-domain $(word 1,$^) --pfam $(PFAM_HMM) --classes $(word 2,$^) --features $(word 3,$^) --cv-report $(word 4,$^) --output $@
+# Supplementary Table 4 - Unknown domains
+STBL4=$(PAPER)/sup_table4_domains
 
-.PHONY: suptable3
-suptable3: $(STBL3)/table.tsv
+$(STBL4)/table.tsv: $(DATA)/ecdomainminer/EC-Pfam_calculated_associations_Extended.csv $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5 $(FIG2)/cv.report.tsv $(CHEMONT) $(INTERPRO_XML) $(PFAM_HMM)
+	$(PYTHON) $(STBL4)/table.py --chemont $(CHEMONT) --interpro $(INTERPRO_XML) --ec-domain $(word 1,$^) --pfam $(PFAM_HMM) --classes $(word 2,$^) --features $(word 3,$^) --cv-report $(word 4,$^) --output $@
 
-# Supplementary Table 4 - PRISM4 comparison
-STBL4=$(PAPER)/sup_table4_prism4
+.PHONY: suptable4
+suptable4: $(STBL4)/table.tsv
+
+# Supplementary Table 5 - PRISM4 comparison
+STBL5=$(PAPER)/sup_table5_prism4
 SFIG3=$(PAPER)/sup_fig3_prism4
 
-$(STBL4)/search_results.tsv: $(SFIG3)/search_results.tsv
+$(STBL5)/search_results.tsv: $(SFIG3)/search_results.tsv
 	cp $< $@
 
-$(STBL4)/predictions.tsv: $(STBL4)/search_results.tsv $(DATA)/npatlas/classes.hdf5 $(DATA)/npatlas/classes.hdf5 $(DATA)/prism4/predictions.xlsx
-	$(PYTHON) $(STBL4)/summary_table.py
+$(STBL5)/predictions.tsv: $(STBL4)/search_results.tsv $(DATA)/npatlas/classes.hdf5 $(DATA)/npatlas/classes.hdf5 $(DATA)/prism4/predictions.xlsx
+	$(PYTHON) $(STBL5)/summary_table.py
 	
-.PHONY: suptable4
-suptable4: $(STBL4)/search_results.tsv $(STBL4)/predictions.tsv
+.PHONY: suptable5
+suptable5: $(STBL5)/search_results.tsv $(STBL5)/predictions.tsv
 
-# Supplementary Table 5 - Benchmark dataset
+# Supplementary Table 6 - Benchmark dataset
 
-STBL5=$(PAPER)/sup_table5_benchmark_dataset
+STBL6=$(PAPER)/sup_table6_benchmark_dataset
 
-$(STBL5)/benchmark_dataset.tsv: $(DATA)/datasets/native/coordinates.tsv $(DATA)/datasets/native/types.tsv $(DATA)/datasets/native/classes.hdf5
-	$(PYTHON) $(STBL5)/collate.py
+$(STBL6)/benchmark_dataset.tsv: $(DATA)/datasets/native/coordinates.tsv $(DATA)/datasets/native/types.tsv $(DATA)/datasets/native/classes.hdf5
+	$(PYTHON) $(STBL6)/collate.py
 
-suptable5: $(STBL5)/benchmark_dataset.tsv
+suptable6: $(STBL6)/benchmark_dataset.tsv
 
-# Supplementary Table 6 - MIBiG blocklist
-STBL6=$(PAPER)/sup_table6_mibig_blocklist
+# Supplementary Table 7 - MIBiG blocklist
+STBL7=$(PAPER)/sup_table7_mibig_blocklist
 
-$(STBL6)/table.tsv: $(DATA)/mibig/blocklist.tsv
+$(STBL7)/table.tsv: $(DATA)/mibig/blocklist.tsv
 		cp $< $@
 
-.PHONY: suptable6
-suptable6: $(STBL6)/table.tsv
+.PHONY: suptable7
+suptable7: $(STBL7)/table.tsv
 
 # --- Supplementary Figures ----------------------------------------------------
 
