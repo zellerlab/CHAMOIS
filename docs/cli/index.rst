@@ -61,13 +61,14 @@ to evaluate generalization.
     train
     validate
     cv
+    cvi
 
 
 Compound Search
 ---------------
 
 These sub-commands can be used to explore CHAMOIS predictions.
-``chamois screen`` can be used to search which BGC of a dataset is most likely
+``chamois gompare`` can be used to search which BGC of a dataset is most likely
 to produce a query metabolite. ``chamois search`` can be used to search which
 metabolite of a compound catalog (such as `NPAtlas <https://npatlas.org>`_)
 is most similar to the predictions.
@@ -77,7 +78,7 @@ is most similar to the predictions.
     :maxdepth: 1
     :caption: Compound Search
 
-    screen
+    compare
     search
 
 
