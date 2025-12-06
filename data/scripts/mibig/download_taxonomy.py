@@ -35,9 +35,12 @@ with rich.progress.Progress() as progress:
                 for entry in iter(tar.next, None):
                     if entry.name.endswith(".json"):
                         with tar.extractfile(entry) as f:
-                            data = json.load(f)["cluster"]
-                            if data["mibig_accession"] not in blocklist:
-                                mibig[data["mibig_accession"]] = data
+                            data = json.load(f) 
+                            if "cluster" in data:
+                                data = data["cluster"]
+                            accession = data['accession'] if 'accession' in data else data['mibig_accession']
+                            if accession not in blocklist:
+                                mibig[accession] = data
                             
 # load taxonomy database
 rich.print(f"[bold blue]{'Loading':>12}[/] taxonomy database from {args.taxonomy!r}")
@@ -46,11 +49,18 @@ taxdb = taxopy.TaxDb(taxdb_dir=args.taxonomy, keep_files=True)
 # build taxonomy
 rows = []
 for entry in mibig.values():
-    taxid = int(entry["ncbi_tax_id"])
+    if "ncbi_tax_id" in entry:
+        taxid = int(entry["ncbi_tax_id"])
+    else:
+        taxid = int(entry["taxonomy"]["ncbiTaxId"])
+    accession = entry['accession'] if 'accession' in entry else entry['mibig_accession']
     taxon = taxopy.Taxon(taxid, taxdb)
     rows.append({
-        "bgc_id": entry["mibig_accession"],
-        "compound": next((compound["compound"] for compound in entry["compounds"]), ""),
+        "bgc_id": accession,
+        "compound": next((
+            compound["compound"] if "compound" in compound else compound["name"]
+            for compound in entry["compounds"]
+        ), ""),
         "tax_id": taxid,
         **taxon.rank_name_dictionary
     })

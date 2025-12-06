@@ -46,10 +46,10 @@ def configure_parser(parser: argparse.ArgumentParser):
 @requires("sklearn.metrics")
 def run(args: argparse.Namespace, console: Console) -> int:
     import anndata
-    
+
     # load data
     console.print(f"[bold blue]{'Loading':>12}[/] training data")
-    features = anndata.concat([anndata.read_h5ad(file) for file in args.features], axis=1, merge="same")
+    features = anndata.concat([anndata.read_h5ad(file) for file in args.features], axis=1, merge="first")
     classes = anndata.read_h5ad(args.classes)
     console.print(f"[bold green]{'Loaded':>12}[/] {features.n_obs} observations, {features.n_vars} features and {classes.n_vars} classes")
 
@@ -63,6 +63,8 @@ def run(args: argparse.Namespace, console: Console) -> int:
         remove_unknown_structure=True,
         min_class_occurrences=args.min_class_occurrences,
         min_feature_occurrences=args.min_feature_occurrences,
+        min_class_groups=args.min_class_groups,
+        min_feature_groups=args.min_feature_groups,
         min_length=args.min_cluster_length,
         min_genes=args.min_genes,
     )
@@ -70,7 +72,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
     ontology = Ontology(classes.varp["parents"].toarray())
 
     # traing model
-    console.print(f"[bold blue]{'Training':>12}[/] logistic regression model")
+    console.print(f"[bold blue]{'Training':>12}[/] {args.model!r} model")
     model = ChemicalOntologyPredictor(
         ontology,
         n_jobs=args.jobs,
@@ -79,7 +81,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
         variance=args.variance,
         seed=args.seed,
     )
-    model.fit(features, classes)
+    model.fit(features, classes, groups=classes.obs["groups"])
     console.print(f"[bold blue]{'Retaining':>12}[/] {len(model.features_)} features in final model")
 
     # compute AUROC for classes that have positive and negative members

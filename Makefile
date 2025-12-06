@@ -4,27 +4,32 @@ DATA=data
 BUILD=build
 SCRIPTS=$(DATA)/scripts
 
-GO_VERSION=2024-01-17
+GO_VERSION=2025-07-22
 GO_OBO=$(DATA)/ontologies/go$(GO_VERSION).obo
 
 MIBIG=$(DATA)/mibig
 MIBIG_VERSION=3.1
 
-INTERPRO_VERSION=98.0
+MITE=$(DATA)/mite
+MITE_VERSION=1.18
+
+INTERPRO_VERSION=107.0
 INTERPRO_XML=$(DATA)/pfam/interpro$(INTERPRO_VERSION).xml.gz
 INTERPRO_JSON=$(DATA)/pfam/interpro$(INTERPRO_VERSION).json
 
-PFAM_VERSION=36.0
+PFAM_VERSION=38.0
 PFAM_HMM=$(DATA)/pfam/Pfam$(PFAM_VERSION).hmm
 
 ATLAS=$(DATA)/npatlas/NPAtlas_download.json.gz
 CHEMONT=$(DATA)/ontologies/ChemOnt_2_1.obo
 
-DATASET_NAMES=mibig3.1 mibig2.0
+DATASET_NAMES=mibig4.0 mibig3.1 mibig2.0 native
 DATASET_TABLES=features classes ani
 
 TAXONOMY=$(DATA)/taxonomy
-TAXONOMY_VERSION=2023-06-01
+TAXONOMY_VERSION=2025-06-01
+
+PAPER=misc/paper
 
 PYTHON=python -Wignore
 WGET=wget --no-check-certificate
@@ -33,7 +38,7 @@ WGET=wget --no-check-certificate
 WISHART=--wishart
 
 .PHONY: datasets
-datasets: features classes compounds clusters maccs
+datasets: features classes compounds clusters
 
 .PHONY: features
 features: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/features.hdf5)
@@ -43,6 +48,9 @@ classes: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/classes.
 
 .PHONY: maccs
 maccs: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/maccs.hdf5)
+
+.PHONY: taxonomy
+taxonomy: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/taxonomy.tsv)
 
 .PHONY: compounds
 compounds: $(foreach dataset,$(DATASET_NAMES),$(DATA)/datasets/$(dataset)/compounds.json)
@@ -105,8 +113,11 @@ $(DATA)/npatlas/maccs.hdf5: $(ATLAS)
 $(DATA)/datasets/%/features.hdf5: $(DATA)/datasets/%/clusters.gbk $(PFAM_HMM)
 	$(PYTHON) -m chamois.cli annotate --i $< --hmm $(PFAM_HMM) -o $@
 
+$(DATA)/datasets/%/classification.json: $(DATA)/datasets/%/classes.hdf5
+	touch $@
+
 $(DATA)/datasets/%/classes.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(CHEMONT)
-	$(PYTHON) $(SCRIPTS)/common/make_classes.py -i $< -o $@ --atlas $(ATLAS) --chemont $(CHEMONT) --cache $(BUILD) $(WISHART)
+	$(PYTHON) $(SCRIPTS)/common/make_classes.py -i $< -o $@ --atlas $(ATLAS) --chemont $(CHEMONT) --cache $(BUILD) $(WISHART) --output-json $(DATA)/datasets/$*/classification.json
 
 $(DATA)/datasets/%/maccs.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(CHEMONT)
 	$(PYTHON) $(SCRIPTS)/common/make_maccs.py -i $< -o $@
@@ -114,44 +125,22 @@ $(DATA)/datasets/%/maccs.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(CHEM
 $(DATA)/datasets/%/ani.hdf5: $(DATA)/datasets/%/clusters.gbk $(CHEMONT)
 	$(PYTHON) $(SCRIPTS)/common/make_ani.py -q $< -r $< -o $@ -s 0.3
 
-$(DATA)/datasets/%/aci.mibig3.hdf5: $(DATA)/datasets/%/clusters.gbk $(DATA)/datasets/mibig3.1/clusters.gbk
+$(DATA)/datasets/%/aci.mibig$(MIBIG_VERSION).hdf5: $(DATA)/datasets/%/clusters.gbk $(DATA)/datasets/mibig$(MIBIG_VERSION)/clusters.gbk
 	$(PYTHON) $(SCRIPTS)/common/make_aci.py --query $(word 1,$^) --target $(word 2,$^) -o $@
 
-# --- Download MIBiG 2.0 data ------------------------------------------------
+$(DATA)/datasets/mibig%/types.tsv: $(DATA)/mibig/blocklist.tsv
+	$(PYTHON) $(SCRIPTS)/mibig/extract_types.py --mibig-version $* --blocklist data/mibig/blocklist.tsv -o $@
 
-$(DATA)/datasets/mibig2.0/clusters.gbk: $(DATA)/mibig/blocklist.tsv $(SCRIPTS)/mibig/download_records.py
-	$(PYTHON) $(SCRIPTS)/mibig/download_records.py --blocklist $< --mibig-version 2.0 -o $@
+# --- Download MIBiG data ------------------------------------------------------
 
-$(DATA)/datasets/mibig2.0/compounds.json: $(DATA)/mibig/blocklist.tsv $(ATLAS) $(SCRIPTS)/mibig/download_compounds.py
-	$(PYTHON) $(SCRIPTS)/mibig/download_compounds.py --blocklist $< --mibig-version 2.0 -o $@ --atlas $(ATLAS) --cache $(BUILD)
+$(DATA)/datasets/mibig%/clusters.gbk: $(DATA)/mibig/blocklist.tsv $(SCRIPTS)/mibig/download_records.py
+	$(PYTHON) $(SCRIPTS)/mibig/download_records.py --blocklist $< --mibig-version $* -o $@ --cache $(BUILD) --email $(EMAIL)
 
-$(DATA)/datasets/mibig2.0/taxonomy.tsv: $(DATA)/mibig/blocklist.tsv $(TAXONOMY)/names.dmp $(TAXONOMY)/nodes.dmp $(TAXONOMY)/merged.dmp
-	$(PYTHON) $(SCRIPTS)/mibig/download_taxonomy.py --blocklist $< --mibig-version 2.0 -o $@ --taxonomy $(TAXONOMY)
+$(DATA)/datasets/mibig%/compounds.json: $(DATA)/mibig/blocklist.tsv $(ATLAS) $(SCRIPTS)/mibig/download_compounds.py
+	$(PYTHON) $(SCRIPTS)/mibig/download_compounds.py --blocklist $< --mibig-version $* -o $@ --atlas $(ATLAS) --cache $(BUILD)
 
-
-# --- Download MIBiG 3.1 data ------------------------------------------------
-
-$(DATA)/datasets/mibig3.1/clusters.gbk: $(DATA)/mibig/blocklist.tsv $(SCRIPTS)/mibig/download_records.py
-	$(PYTHON) $(SCRIPTS)/mibig/download_records.py --blocklist $< --mibig-version 3.1 -o $@
-
-$(DATA)/datasets/mibig3.1/compounds.json: $(DATA)/mibig/blocklist.tsv $(ATLAS) $(SCRIPTS)/mibig/download_compounds.py
-	$(PYTHON) $(SCRIPTS)/mibig/download_compounds.py --blocklist $< --mibig-version 3.1 -o $@ --atlas $(ATLAS) --cache $(BUILD)
-
-$(DATA)/datasets/mibig3.1/taxonomy.tsv: $(DATA)/mibig/blocklist.tsv $(TAXONOMY)/names.dmp $(TAXONOMY)/nodes.dmp $(TAXONOMY)/merged.dmp
-	$(PYTHON) $(SCRIPTS)/mibig/download_taxonomy.py --blocklist $< --mibig-version 3.1 -o $@ --taxonomy $(TAXONOMY)
-
-
-# --- Download MIBiG 4.0 data ------------------------------------------------
-
-$(DATA)/datasets/mibig4.0/clusters.gbk: $(DATA)/mibig/blocklist.tsv $(SCRIPTS)/mibig/download_records.py
-	$(PYTHON) $(SCRIPTS)/mibig/download_records.py --blocklist $< --mibig-version 4.0 -o $@
-
-$(DATA)/datasets/mibig4.0/compounds.json: $(DATA)/mibig/blocklist.tsv $(ATLAS) $(SCRIPTS)/mibig/download_compounds.py
-	$(PYTHON) $(SCRIPTS)/mibig/download_compounds.py --blocklist $< --mibig-version 4.0 -o $@ --atlas $(ATLAS) --cache $(BUILD)
-
-$(DATA)/datasets/mibig4.0/taxonomy.tsv: $(DATA)/mibig/blocklist.tsv $(TAXONOMY)/names.dmp $(TAXONOMY)/nodes.dmp $(TAXONOMY)/merged.dmp
-	$(PYTHON) $(SCRIPTS)/mibig/download_taxonomy.py --blocklist $< --mibig-version 4.0 -o $@ --taxonomy $(TAXONOMY)
-
+$(DATA)/datasets/mibig%/taxonomy.tsv: $(DATA)/mibig/blocklist.tsv $(TAXONOMY)/names.dmp $(TAXONOMY)/nodes.dmp $(TAXONOMY)/merged.dmp
+	$(PYTHON) $(SCRIPTS)/mibig/download_taxonomy.py --blocklist $< --mibig-version $* -o $@ --taxonomy $(TAXONOMY)
 
 # --- Download PRISM data ----------------------------------------------------
 
@@ -167,7 +156,7 @@ $(DATA)/datasets/prism4/clusters.gbk: $(DATA)/prism4/BGCs.tar $(DATA)/prism4/pre
 	$(PYTHON) $(SCRIPTS)/prism4/extract_records.py -i $< -o $@ --table $(word 2,$^)
 
 $(DATA)/datasets/prism4/compounds.json: $(DATA)/prism4/predictions.xlsx $(ATLAS) $(DATA)/datasets/prism4/clusters.gbk
-	$(PYTHON) $(SCRIPTS)/prism4/extract_compounds.py -i $< -o $@ --atlas $(word 2,$^) --cache $(BUILD) --clusters $(word 3,$^)
+	$(PYTHON) $(SCRIPTS)/prism4/extract_compounds.py -i $< -o $@ --atlas $(word 2,$^) --cache $(BUILD) --clusters $(word 3,$^) --cache $(BUILD)
 
 
 # --- Download JGI data ------------------------------------------------------
@@ -195,4 +184,203 @@ $(DATA)/datasets/nuccore-lite/clusters.gbk: $(DATA)/datasets/nuccore-lite/compou
 	$(PYTHON) $(SCRIPTS)/nuccore/download_clusters.py --compounds $< --clusters $@ --coordinates $(word 2,$^)
 
 $(DATA)/datasets/native/clusters.gbk: $(DATA)/datasets/native/compounds.json $(DATA)/datasets/native/coordinates.tsv
-	$(PYTHON) $(SCRIPTS)/nuccore/download_clusters.py --compounds $< --clusters $@ --coordinates $(word 2,$^)
+	$(PYTHON) $(SCRIPTS)/native/download_clusters.py --compounds $< --clusters $@ --coordinates $(word 2,$^)
+
+# --- Download MITE data --------------------------------------------------------
+
+$(MITE)/entries.json:
+	mkdir -p $(DATA)/mite
+	$(PYTHON) $(SCRIPTS)/mite/download_entries.py -o $@
+
+$(MITE)/peptides.json: $(MITE)/entries.json
+	$(PYTHON) $(SCRIPTS)/mite/download_peptides.py -i $< -o $@ --email $(EMAIL)
+
+$(MITE)/features.hdf5: $(MITE)/peptides.json $(PFAM_HMM)
+	$(PYTHON) $(SCRIPTS)/mite/make_features.py -i $< -o $@ --hmm $(PFAM_HMM)
+
+$(MITE)/classes.hdf5: $(MITE)/entries.json $(CHEMONT) $(ATLAS)
+	$(PYTHON) $(SCRIPTS)/mite/make_classes.py -i $< -o $@ --chemont $(CHEMONT) --atlas $(ATLAS)
+
+# --- Train model --------------------------------------------------------------
+
+# path to the trained model
+CHAMOIS_WEIGHTS=chamois/predictor/predictor.json
+CHAMOIS_HMM=chamois/domains/Pfam$(PFAM_VERSION).hmm.lz4
+
+$(CHAMOIS_WEIGHTS): $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5
+	$(PYTHON) -m chamois.cli train -f $(word 2,$^) -c $(word 1,$^) -o $@
+	
+$(CHAMOIS_HMM): $(CHAMOIS_WEIGHTS)
+	$(PYTHON) setup.py download_pfam -i -f -r
+
+# --- Figures ------------------------------------------------------------------
+
+# Figure 2 - Independent CV
+FIG2=$(PAPER)/fig2_cross_validation
+
+$(FIG2)/cv.probas.hdf5: $(FIG2)/cv.report.tsv
+	touch $@
+
+$(FIG2)/cv.report.tsv: $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5
+	$(PYTHON) -m chamois.cli cvi -f $(word 1,$^) -c $(word 2,$^) -o $(FIG2)/cv.probas.hdf5 --report $@
+
+$(FIG2)/dummy.probas.hdf5: $(FIG2)/dummy.report.tsv
+	touch $@
+	
+$(FIG2)/dummy.report.tsv: $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5
+	$(PYTHON) -m chamois.cli cvi -f $(word 1,$^) -c $(word 2,$^) -o $(FIG2)/dummy.probas.hdf5 --report $@ --model dummy
+
+$(FIG2)/rf.probas.hdf5: $(FIG2)/rf.report.tsv
+	touch $@
+	
+$(FIG2)/rf.report.tsv: $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5
+	$(PYTHON) -m chamois.cli cvi -f $(word 1,$^) -c $(word 2,$^) -o $(FIG2)/rf.probas.hdf5 --report $@ --model rf
+
+$(FIG2)/cvtree_auprc.html: $(FIG2)/cv.report.tsv
+	$(PYTHON) $(FIG2)/tree.py --report $< --output $@
+
+$(FIG2)/pr/.files: $(FIG2)/cv.probas.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5
+	$(PYTHON) $(FIG2)/prcurves.py --classes $(word 2,$^) --probas $(word 1,$^) -o $(@D)
+	touch $@
+
+$(FIG2)/barplot.png: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/types.tsv $(FIG2)/cv.probas.hdf5
+	$(PYTHON) $(FIG2)/barplot_topk.py --classes $(word 1,$^) --types $(word 2,$^) --probas $(word 3,$^) --output $@
+
+$(FIG2)/barplot.svg: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/types.tsv $(FIG2)/cv.probas.hdf5
+	$(PYTHON) $(FIG2)/barplot_topk.py --classes $(word 1,$^) --types $(word 2,$^) --probas $(word 3,$^) --output $@
+
+$(FIG2)/folds_statistics.svg: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5 $(FIG2)/cv.report.tsv
+	$(PYTHON) $(FIG2)/folds_statistics.py --classes $(word 1,$^) --features $(word 2,$^) --report $(word 3,$^) -o $@
+	
+.PHONY: figure2
+figure2: $(FIG2)/barplot.svg $(FIG2)/pr/.files $(FIG2)/cvtree_auprc.html
+
+# Figure 3 - Domain network
+
+FIG3=$(PAPER)/fig3_network
+
+$(FIG3)/graph.html: $(CHAMOIS_WEIGHTS) $(CHAMOIS_HMM) $(CHEMONT) $(DATA)/ecdomainminer/EC-Pfam_calculated_associations_Extended.csv
+	$(PYTHON) $(FIG3)/plot.py --model $(word 1,$^) --pfam $(word 2,$^) --chemont $(word 3,$^) --ec-domain $(word 4,$^)
+
+.PHONY: figure3
+figure3: $(FIG3)/graph.html
+	
+# Figure 4 - Screen Evaluation
+FIG4=$(PAPER)/fig4_screen_evaluation
+
+$(FIG4)/predictor.mibig$(MIBIG_VERSION).json: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5
+	$(PYTHON) -m chamois.cli train -c $(word 1,$^) -f $(word 2,$^) -o $@
+
+$(FIG4)/merged.hdf5: $(FIG4)/predictor.mibig$(MIBIG_VERSION).json 
+	$(PYTHON) $(FIG4)/merge_predictions.py
+
+$(FIG4)/dotplot_merged.svg: $(FIG4)/merged.hdf5 $(DATA)/datasets/native/features.hdf5 $(DATA)/datasets/native/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5
+	$(PYTHON) $(FIG4)/dotplot_merged.py
+
+$(FIG4)/pca.svg: $(CHAMOIS_WEIGHTS) $(DATA)/npatlas/classes.hdf5 $(DATA)/datasets/native/classes.hdf5 $(DATA)/datasets/native/coordinates.tsv $(DATA)/datasets/native/types.tsv $(FIG4)/merged.hdf5
+	$(PYTHON) $(FIG4)/pca_plot.py
+	
+.PHONY: figure4
+figure4: $(FIG4)/dotplot_merged.svg $(FIG4)/pca.svg
+
+
+# --- Supplementary Tables -----------------------------------------------------
+
+# Supplementary Table 1 - CV Report
+
+STBL1=$(PAPER)/sup_table1_cv_report
+
+$(STBL1)/report.tsv: $(FIG2)/rf.report.tsv $(FIG2)/cv.report.tsv
+	$(PYTHON) $(STBL1)/make_report.py
+
+.PHONY: suptable1
+suptable1: $(STBL1)/report.tsv
+
+# Supplementary Table 2 - Weights
+STBL2=$(PAPER)/sup_table2_weights
+
+$(STBL2)/weights.tsv: $(CHAMOIS_WEIGHTS)
+	$(PYTHON) $(STBL2)/extract.py --output $@
+
+.PHONY: suptable2
+suptable2:  $(STBL2)/weights.tsv
+
+# Supplementary Table 3 - 
+
+# Supplementary Table 4 - Unknown domains
+STBL4=$(PAPER)/sup_table4_domains
+
+$(STBL4)/table.tsv: $(DATA)/ecdomainminer/EC-Pfam_calculated_associations_Extended.csv $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5 $(FIG2)/cv.report.tsv $(CHEMONT) $(INTERPRO_XML) $(PFAM_HMM)
+	$(PYTHON) $(STBL4)/table.py --chemont $(CHEMONT) --interpro $(INTERPRO_XML) --ec-domain $(word 1,$^) --pfam $(PFAM_HMM) --classes $(word 2,$^) --features $(word 3,$^) --cv-report $(word 4,$^) --output $@
+
+.PHONY: suptable4
+suptable4: $(STBL4)/table.tsv
+
+# Supplementary Table 5 - PRISM4 comparison
+STBL5=$(PAPER)/sup_table5_prism4
+SFIG3=$(PAPER)/sup_fig3_prism4
+
+$(STBL5)/search_results.tsv: $(SFIG3)/search_results.tsv
+	cp $< $@
+
+$(STBL5)/predictions.tsv: $(STBL4)/search_results.tsv $(DATA)/npatlas/classes.hdf5 $(DATA)/npatlas/classes.hdf5 $(DATA)/prism4/predictions.xlsx
+	$(PYTHON) $(STBL5)/summary_table.py
+	
+.PHONY: suptable5
+suptable5: $(STBL5)/search_results.tsv $(STBL5)/predictions.tsv
+
+# Supplementary Table 6 - Benchmark dataset
+
+STBL6=$(PAPER)/sup_table6_benchmark_dataset
+
+$(STBL6)/benchmark_dataset.tsv: $(DATA)/datasets/native/coordinates.tsv $(DATA)/datasets/native/types.tsv $(DATA)/datasets/native/classes.hdf5
+	$(PYTHON) $(STBL6)/collate.py
+
+suptable6: $(STBL6)/benchmark_dataset.tsv
+
+# Supplementary Table 7 - MIBiG blocklist
+STBL7=$(PAPER)/sup_table7_mibig_blocklist
+
+$(STBL7)/table.tsv: $(DATA)/mibig/blocklist.tsv
+		cp $< $@
+
+.PHONY: suptable7
+suptable7: $(STBL7)/table.tsv
+
+# --- Supplementary Figures ----------------------------------------------------
+
+# Supplementary Figure 1 - Class Imbalance
+ 
+SFIG1=$(PAPER)/sup_fig1_imbalance
+
+$(SFIG1)/plot.svg: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(FIG2)/cv.report.tsv
+	$(PYTHON) $(SFIG1)/plot.py --input $< --output $@ --cv-report $(word 2,$^)
+
+.PHONY: supfig1
+supfig1: $(SFIG1)/plot.svg
+	
+# Supplementary Figure 2 - Random Forest CV comparison
+
+SFIG2=$(PAPER)/sup_fig2_rf_comparison
+
+$(SFIG2)/plot.svg: $(FIG2)/cv.report.tsv $(FIG2)/rf.report.tsv
+	$(PYTHON) $(SFIG2)/plot.py --cv-report $(word 1,$^) --rf-report $(word 2,$^) --output $@
+	
+.PHONY: supfig2
+supfig2: $(SFIG2)/plot.svg
+	
+# Supplementary Figure 3 - PRISM4 comparison
+
+SFIG3=$(PAPER)/sup_fig3_prism4
+
+$(SFIG3)/probas.hdf5: $(DATA)/datasets/prism4/clusters.gbk $(CHAMOIS_WEIGHTS) $(CHAMOIS_HMM)
+	$(PYTHON) -m chamois.cli predict --model $(CHAMOIS_WEIGHTS) -i $< -o $@ --hmm $(CHAMOIS_HMM)
+
+$(SFIG3)/search_results.tsv: $(SFIG3)/probas.hdf5 $(DATA)/npatlas/classes.hdf5 $(CHAMOIS_WEIGHTS)
+	$(PYTHON) -m chamois.cli search --model $(CHAMOIS_WEIGHTS) -i $< -c $(word 2,$^) -o $@
+
+$(SFIG3)/boxplot_by_mibig.median_comparison.png: $(SFIG3)/search_results.tsv
+	$(PYTHON) $(SFIG3)/plot.py
+
+.PHONY: supfig3
+supfig3: $(SFIG3)/boxplot_by_mibig.median_comparison.png

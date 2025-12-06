@@ -37,17 +37,20 @@ with contextlib.ExitStack() as ctx:
 
     for entry in tar:
         basename = posixpath.basename(entry.name)
+        # name error in the archive
+        if basename == "Puromycin.FASTA": 
+            basename = "platinum_Puromycin.fasta"
         if basename in cluster_files:
             fmt = "genbank" if basename.endswith(".gbk") else "fasta"
-            name = basename.replace("-", "_").split(".")[0]
+            # name = basename#basename.replace("-", "_").split(".")[0]
+            name = basename.replace("-", "_")#.split(".")[0]
             with tar.extractfile(entry) as f:
                 record = next(Bio.SeqIO.parse(io.TextIOWrapper(f), fmt))
                 record.id = record.name = name               
                 record.annotations["molecule_type"] = "DNA"     
           
-            if name not in done:
+            if basename not in done:
                 Bio.SeqIO.write(record, output, "genbank")
-                done.add(record.id)
+                done.add(basename)
 
     rich.print(f"[bold green]{'Extracted':>12}[/] {len(done)} BGC records")
-    

@@ -1,6 +1,7 @@
 """Predictor of chemical classes from genomic features.
 """
 
+import collections
 import contextlib
 import hashlib
 import json
@@ -34,7 +35,7 @@ class ChemicalOntologyPredictor:
     """A model for predicting chemical hierarchy from BGC compositions.
     """
 
-    _MODELS = ["ridge", "logistic", "dummy"]
+    _MODELS = ["ridge", "logistic", "dummy", "rf"]
 
     def __init__(
         self,
@@ -56,11 +57,11 @@ class ChemicalOntologyPredictor:
             max_iter (`int`): The maximum number of iterations to run
                 to converge the linear models.
             mode (`str`): The model architecture to use, either ``ridge``
-                for L2-regularized linear regression, ``logistic`` for 
-                L1-regularized logistic regression, or ``dummy`` for 
-                dummy predictors using random guessing based on the 
+                for L2-regularized linear regression, ``logistic`` for
+                L1-regularized logistic regression, or ``dummy`` for
+                dummy predictors using random guessing based on the
                 support of each class.
-            alpha (`float`): The regularization strength (used for 
+            alpha (`float`): The regularization strength (used for
                 ``logistic`` and ``ridge`` models).
             variance (`float` or `None`): If given, the variance threshold
                 to use to filter the features using the feature selection
@@ -82,31 +83,42 @@ class ChemicalOntologyPredictor:
         self.seed = seed
 
     def __getstate__(self) -> Dict[str, object]:
-        return {
+        state = {
             "classes_": self.classes_,
             "features_": self.features_,
-            "intercept_": list(self.intercept_),
             "ontology": self.ontology.__getstate__(),
             "coef_": self.coef_,
             "model": self.model,
             "alpha": self.alpha,
             "variance": self.variance
         }
+        if self.model == "rf":
+            import pickle
+            import base64
+            state["_rf"] = base64.encodebytes(pickle.dumps(self._rf)).decode('ascii')
+        else:
+            state["coef_"] = self.coef_
+            state["intercept_"] = list(self.intercept_)
+        return state
 
     def __setstate__(self, state: Dict[str, object]) -> None:
         self.classes_ = state["classes_"]
         self.features_ = state["features_"]
-        self.intercept_ = numpy.asarray(state["intercept_"])
-        self.coef_ = state["coef_"]
         self.ontology.__setstate__(state["ontology"])
         self.model = state["model"]
         self.alpha = state.get("alpha", 1.0)
         self.variance = state.get("variance", None)
+        if self.model == "rf":
+            import pickle
+            import base64
+            self._rf = pickle.loads(base64.decodebytes(state["_rf"].encode('ascii')))
+        else:
+            self.intercept_ = numpy.asarray(state["intercept_"])
+            self.coef_ = state["coef_"]
 
     @requires("sklearn.feature_selection")
+    @requires("scipy.sparse")
     def _select_features(self, X: Union[numpy.ndarray, "spmatrix"]):
-        import scipy.sparse
-
         _X = X.toarray() if isinstance(X, scipy.sparse.spmatrix) else X
         varfilt = sklearn.feature_selection.VarianceThreshold(self.variance)
         varfilt.fit(_X)
@@ -114,9 +126,8 @@ class ChemicalOntologyPredictor:
         self.features_ = self.features_.loc[support]
         return _X[:, support]
 
+    @requires("scipy.sparse")
     def _compute_information_accretion(self, Y: Union[numpy.ndarray, "spmatrix"]):
-        import scipy.sparse
-
         _Y = Y.toarray() if isinstance(Y, scipy.sparse.spmatrix) else Y
         ia = numpy.zeros(Y.shape[1])
         for i in self.ontology.adjacency_matrix:
@@ -135,19 +146,28 @@ class ChemicalOntologyPredictor:
     @requires("sklearn.linear_model")
     @requires("sklearn.preprocessing")
     @requires("scipy.sparse")
-    def _fit_logistic(self, X, Y):
-        # train model using scikit-learn
-        model = sklearn.multiclass.OneVsRestClassifier(
-            sklearn.linear_model.LogisticRegression(
-                "l1",
-                solver="liblinear",
-                max_iter=self.max_iter,
-                C=1.0/self.alpha,
-                random_state=self.seed,
-            ),
-            n_jobs=self.n_jobs,
-        )
-        model.fit(X, Y)
+    def _fit_logistic(self, X, Y, groups=None):
+        # compute sample weights
+        if groups is None:
+            sample_weight = None
+        else:
+            c = collections.Counter(groups)
+            sample_weight = [ 1 / c[group] for group in groups ]
+
+        # train models with optional sample weights
+        with sklearn.config_context(enable_metadata_routing=True):
+            # train model using scikit-learn
+            model = sklearn.multiclass.OneVsRestClassifier(
+                sklearn.linear_model.LogisticRegression(
+                    "l1",
+                    solver="liblinear",
+                    max_iter=self.max_iter,
+                    C=1.0/self.alpha,
+                    random_state=self.seed,
+                ).set_fit_request(sample_weight=True),
+                n_jobs=self.n_jobs,
+            )
+            model.fit(X, Y, sample_weight=sample_weight)
 
         # copy coefficients & intercept to a single NumPy array
         self.coef_ = numpy.zeros((X.shape[1], Y.shape[1]), order="C")
@@ -163,12 +183,11 @@ class ChemicalOntologyPredictor:
         nonzero_weights = numpy.abs(self.coef_).sum(axis=1) > 0
         self.coef_ = self.coef_[nonzero_weights]
         self.features_ = self.features_[nonzero_weights]
-    
+
         # store weights in sparse matrix
         self.coef_ = scipy.sparse.csr_matrix(self.coef_)
 
     @requires("sklearn.linear_model")
-    @requires("scipy.sparse")
     def _fit_ridge(self, X, Y):
         # train model using scikit-learn
         model = sklearn.linear_model.RidgeClassifier(alpha=self.alpha, random_state=self.seed)
@@ -186,12 +205,40 @@ class ChemicalOntologyPredictor:
         # store weights in sparse matrix
         self.coef_ = scipy.sparse.csr_matrix(self.coef_)
 
+    @requires("sklearn.ensemble")
+    @requires("scipy.sparse")
+    def _fit_random_forest(self, X, Y, groups=None):
+        # compute sample weights
+        if groups is None:
+            sample_weight = None
+        else:
+            c = collections.Counter(groups)
+            sample_weight = [ 1 / c[group] for group in groups ]
+
+        # extract classes   
+        if isinstance(Y, scipy.sparse.spmatrix):
+            Y = Y.toarray()
+
+        # record whether this is a binary or multilabel classifer
+        self._binary = Y.shape[1] == 1
+
+        # train models with optional sample weights
+        with sklearn.config_context(enable_metadata_routing=True):
+            # train model using scikit-learn
+            self._rf = sklearn.multiclass.OneVsRestClassifier(
+                sklearn.ensemble.RandomForestClassifier(
+                    random_state=self.seed
+                ).set_fit_request(sample_weight=True),
+                n_jobs=self.n_jobs,
+            )
+            self._rf.fit(X, Y, sample_weight=sample_weight)
+
     @requires("scipy.sparse")
     @requires("scipy.special")
     def _fit_dummy(self, X, Y):
         self.intercept_ = numpy.zeros(Y.shape[1])
         self.coef_ = numpy.zeros((0, Y.shape[1]))
-        for i in range(Y.shape[1]):           
+        for i in range(Y.shape[1]):
             n_pos = Y[:, i].sum()
             odds = scipy.special.logit(n_pos / Y.shape[0])
             self.intercept_[i] = numpy.clip(odds, -10, 10)
@@ -203,6 +250,7 @@ class ChemicalOntologyPredictor:
         self: _T,
         X: Union[numpy.ndarray, "AnnData"],
         Y: Union[numpy.ndarray, "AnnData"],
+        groups: Optional[numpy.ndarray] = None,
     ) -> _T:
         """Fit the model on the given data.
 
@@ -241,24 +289,31 @@ class ChemicalOntologyPredictor:
             _X = self._select_features(_X)
 
         if self.model == "logistic":
-            self._fit_logistic(_X, _Y)
+            self._fit_logistic(_X, _Y, groups)
         elif self.model == "ridge":
             self._fit_ridge(_X, _Y)
         elif self.model == "dummy":
             self._fit_dummy(_X, _Y)
-
+        elif self.model == "rf":
+            self._fit_random_forest(_X, _Y, groups)
+        else:
+            raise RuntimeError(f"invalid model architecture: {self.model!r}")
         return self
 
+    @requires("scipy.sparse")
     def propagate(self, Y: numpy.ndarray) -> numpy.ndarray:
         """Propagate the probabilities from leaves to nodes.
 
-        This method ensures that the probabilities produced for the 
+        This method ensures that the probabilities produced for the
         whole hierarchy are consistent by overriding the probabilities
         of parent nodes with that of their child class if it is higher.
 
         """
         assert Y.shape[1] == len(self.ontology.adjacency_matrix)
-        _Y = numpy.array(Y, dtype=Y.dtype)
+        if isinstance(Y, scipy.sparse.spmatrix):
+            _Y = Y.toarray()
+        else:
+            _Y = numpy.asarray(Y, dtype=Y.dtype)
         for i in reversed(self.ontology.adjacency_matrix):
             for j in self.ontology.adjacency_matrix.parents(i):
                 _Y[:, j] = numpy.maximum(_Y[:, j], _Y[:, i])
@@ -278,6 +333,12 @@ class ChemicalOntologyPredictor:
         y = scipy.special.expit(self.intercept_)
         return numpy.tile(y, (X.shape[0], 1))
 
+    def _predict_rf(self, X: numpy.ndarray) -> numpy.ndarray:
+        p = numpy.asarray(self._rf.predict_proba(X))
+        if self._binary:
+            return p[:, 1:]
+        return p
+
     @requires("anndata")
     def predict_probas(
         self,
@@ -290,7 +351,7 @@ class ChemicalOntologyPredictor:
             X (`~anndata.AnnData`): The feature matrix, either as a raw
                 `numpy.ndarray`, or as a compositional matrix built with
                 `chamois.compositions.build_compositions`.
-            propagate (`bool`): Whether to ensure consistency of the 
+            propagate (`bool`): Whether to ensure consistency of the
                 predicted probabilities with the `propagate` method.
 
         """
@@ -304,6 +365,8 @@ class ChemicalOntologyPredictor:
             probas = self._predict_ridge(_X)
         elif self.model == "dummy":
             probas = self._predict_dummy(_X)
+        elif self.model == "rf":
+            probas = self._predict_rf(_X)
         else:
             raise RuntimeError(f"invalid model architecture: {self.model!r}")
         if propagate:
@@ -315,13 +378,13 @@ class ChemicalOntologyPredictor:
         X: Union[numpy.ndarray, "AnnData"],
         propagate: bool = True,
     ) -> numpy.ndarray:
-        """Predict the classes for the given features. 
+        """Predict the classes for the given features.
 
         Arguments:
             X (`~anndata.AnnData`): The feature matrix, either as a raw
                 `numpy.ndarray`, or as a compositional matrix built with
                 `chamois.compositions.build_compositions`.
-            propagate (`bool`): Whether to ensure consistency of the 
+            propagate (`bool`): Whether to ensure consistency of the
                 predicted probabilities with the `propagate` method.
 
         """
@@ -375,7 +438,7 @@ class ChemicalOntologyPredictor:
 
     @classmethod
     def trained(cls: Type[_T]) -> _T:
-        """Load the trained predictor embedded in CHAMOIS. 
+        """Load the trained predictor embedded in CHAMOIS.
         """
         with files(__package__).joinpath("predictor.json").open() as f:
             return cls.load(f)
@@ -394,6 +457,9 @@ class ChemicalOntologyPredictor:
         """
         if hasher is None:
             hasher = hashlib.sha256()
-        hasher.update(self.coef_.toarray())
-        hasher.update(self.intercept_)
+        if self.model == "rf":
+            pass
+        else:
+            hasher.update(self.coef_.toarray())
+            hasher.update(self.intercept_)
         return hasher.hexdigest()

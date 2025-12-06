@@ -73,7 +73,7 @@ def kennard_stone_kfold(n_splits: int, n_jobs: int, metric: str) -> "kennard_sto
 def run(args: argparse.Namespace, console: Console) -> int:
     # load data
     console.print(f"[bold blue]{'Loading':>12}[/] training data")
-    features = anndata.concat([anndata.read_h5ad(file) for file in args.features], axis=1, merge="same")
+    features = anndata.concat([anndata.read_h5ad(file) for file in args.features], axis=1, merge="first")
     classes = anndata.read_h5ad(args.classes)
     console.print(f"[bold green]{'Loaded':>12}[/] {features.n_obs} observations, {features.n_vars} features and {classes.n_vars} classes")
     
@@ -87,6 +87,8 @@ def run(args: argparse.Namespace, console: Console) -> int:
         remove_unknown_structure=True,
         min_class_occurrences=args.min_class_occurrences,
         min_feature_occurrences=args.min_feature_occurrences,
+        min_class_groups=args.min_class_groups,
+        min_feature_groups=args.min_feature_groups,
         min_length=args.min_cluster_length,
         min_genes=args.min_genes,
         fix_mismatch=args.mismatch,
@@ -100,7 +102,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
     ground_truth = classes.X.toarray()
     console.print(f"[bold blue]{'Splitting':>12}[/] data into {args.kfolds} folds")
     if args.sampling == "group":
-        groups = classes.obs["compound"].cat.codes
+        groups = classes.obs["groups"]
         kfold = sklearn.model_selection.GroupShuffleSplit(n_splits=args.kfolds, random_state=args.seed)
     elif args.sampling == "random":
         kfold = sklearn.model_selection.KFold(n_splits=args.kfolds, random_state=args.seed, shuffle=True)
@@ -127,7 +129,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
             variance=args.variance,
             seed=args.seed,
         )
-        model.fit(train_X, train_Y)
+        model.fit(train_X, train_Y, groups=classes.obs["groups"].iloc[train_indices])
         # test fold
         test_X = features[test_indices, model.features_.index]
         test_Y = classes[test_indices, model.classes_.index].X.toarray()
@@ -206,11 +208,11 @@ def run(args: argparse.Namespace, console: Console) -> int:
         for j in range(classes.n_vars):
             data.append({
                 "class": classes.var_names[j],
-                "average_precision": sklearn.metrics.average_precision_score(ground_truth[:, j], probas[:, j]),
+                "auprc": sklearn.metrics.average_precision_score(ground_truth[:, j], probas[:, j]),
                 "auroc": sklearn.metrics.roc_auc_score(ground_truth[:, j], probas[:, j]),
                 "f1_score": sklearn.metrics.f1_score(ground_truth[:, j], preds[:, j]),
                 "hamming_loss": sklearn.metrics.hamming_loss(ground_truth[:, j], preds[:, j]),
-                "accuracy_score": sklearn.metrics.hamming_loss(ground_truth[:, j], preds[:, j]),
+                "accuracy_score": sklearn.metrics.accuracy_score(ground_truth[:, j], preds[:, j]),
                 "precision": sklearn.metrics.precision_score(ground_truth[:, j], preds[:, j]),
                 "recall": sklearn.metrics.recall_score(ground_truth[:, j], preds[:, j]),
                 "balanced_accuracy": sklearn.metrics.balanced_accuracy_score(ground_truth[:, j], preds[:, j]),

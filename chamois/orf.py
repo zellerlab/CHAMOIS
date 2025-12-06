@@ -91,7 +91,7 @@ class PyrodigalFinder(ORFFinder):
         super().__init__()
         self.mask = mask
         self.cpus = cpus
-        self.orf_finder =  pyrodigal.GeneFinder(meta=True, closed=True, mask=mask)
+        self.orf_finder = pyrodigal.GeneFinder(meta=True, closed=True, mask=mask)
 
     def _process_clusters(self, cluster: ClusterSequence) -> Tuple[ClusterSequence, pyrodigal.Genes]:
         return cluster, self.orf_finder.find_genes(str(cluster.record.sequence))
@@ -135,7 +135,7 @@ class PyrodigalFinder(ORFFinder):
                 for j, orf in enumerate(orfs):
                     yield Protein(
                         f"{cluster.record.name}_{j+1}", 
-                        orf.translate(), 
+                        orf.translate(include_stop=False), 
                         cluster
                     )
                 if not orfs:

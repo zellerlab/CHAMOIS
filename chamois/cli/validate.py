@@ -65,7 +65,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
 
     # load data
     console.print(f"[bold blue]{'Loading':>12}[/] test data")
-    features = anndata.concat([anndata.read_h5ad(file) for file in args.features], axis=1, merge="same")
+    features = anndata.concat([anndata.read_h5ad(file) for file in args.features], axis=1, merge="first")
     classes = anndata.read_h5ad(args.classes)
     console.print(f"[bold green]{'Loaded':>12}[/] {features.n_obs} observations, {features.n_vars} features and {classes.n_vars} classes")
 
@@ -76,6 +76,8 @@ def run(args: argparse.Namespace, console: Console) -> int:
         console,
         min_class_occurrences=0,
         min_feature_occurrences=0,
+        min_class_groups=0,
+        min_feature_groups=0,
         min_genes=args.min_genes,
         min_length=args.min_cluster_length,
         fix_mismatch=args.mismatch,
@@ -165,11 +167,11 @@ def run(args: argparse.Namespace, console: Console) -> int:
         for j in range(classes.n_vars):
             data.append({
                 "class": classes.var_names[j],
-                "average_precision": sklearn.metrics.average_precision_score(ground_truth[:, j], probas[:, j]),
+                "auprc": sklearn.metrics.average_precision_score(ground_truth[:, j], probas[:, j]),
                 "auroc": sklearn.metrics.roc_auc_score(ground_truth[:, j], probas[:, j]),
                 "f1_score": sklearn.metrics.f1_score(ground_truth[:, j], preds[:, j]),
                 "hamming_loss": sklearn.metrics.hamming_loss(ground_truth[:, j], preds[:, j]),
-                "accuracy_score": sklearn.metrics.hamming_loss(ground_truth[:, j], preds[:, j]),
+                "accuracy_score": sklearn.metrics.accuracy_score(ground_truth[:, j], preds[:, j]),
                 "precision": sklearn.metrics.precision_score(ground_truth[:, j], preds[:, j]),
                 "recall": sklearn.metrics.recall_score(ground_truth[:, j], preds[:, j]),
                 "balanced_accuracy": sklearn.metrics.balanced_accuracy_score(ground_truth[:, j], preds[:, j]),

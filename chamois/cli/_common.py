@@ -15,6 +15,7 @@ import sys
 import typing
 from typing import List, Iterable, Set, Optional, Container, Dict, Any, Tuple
 
+import numpy
 import rich.progress
 import rich.tree
 from rich.console import Console
@@ -37,10 +38,12 @@ def filter_dataset(
     console: Console,
     similarity: Optional["AnnData"] = None,
     remove_unknown_structure: bool = True,
-    min_class_occurrences: int = 1,
-    min_feature_occurrences: int = 1,
-    min_length: int = 1000,
-    min_genes: int = 2,
+    min_class_occurrences: int = 0,
+    min_feature_occurrences: int = 0,
+    min_class_groups: int = 0,
+    min_feature_groups: int = 0,
+    min_length: int = 0,
+    min_genes: int = 0,
     fix_mismatch: bool = False,
 ) -> Tuple["AnnData", "AnnData"]:
     if sorted(features.obs.index) != sorted(classes.obs.index):
@@ -85,6 +88,25 @@ def filter_dataset(
     if min_feature_occurrences > 0:
         features = features[:, (features_support >= min_feature_occurrences) & (features_support <= features.n_obs - min_feature_occurrences)]
         console.print(f"[bold blue]{'Using':>12}[/] {features.n_vars} features with at least {min_feature_occurrences} observations")
+
+    if min_class_groups > 0:
+        ngroups = classes.obs['groups'].nunique()
+        classes_by_group = numpy.zeros((ngroups, classes.n_vars), dtype=bool)
+        for i, (_, rows) in enumerate(classes.obs.groupby("groups")):
+            for x in rows.index:
+                classes_by_group[i] |= classes.var_vector(x).astype(bool)
+        class_group_support = classes_by_group.sum(axis=0)
+        classes = classes[:, (class_group_support >= min_class_groups) & (class_group_support <= ngroups - min_class_groups)]
+        console.print(f"[bold blue]{'Using':>12}[/] {classes.n_vars} classes occuring in at least {min_class_groups} groups")
+    if min_feature_groups > 0:
+        ngroups = classes.obs['groups'].nunique()
+        features_by_group = numpy.zeros((ngroups, features.n_vars), dtype=bool)
+        for i, (_, rows) in enumerate(classes.obs.groupby("groups")):
+            for x in rows.index:
+                features_by_group[i] |= features.var_vector(x).astype(bool)
+        feature_group_support = features_by_group.sum(axis=0)
+        features = features[:, (feature_group_support >= min_feature_groups) & (feature_group_support <= ngroups - min_feature_groups)]
+        console.print(f"[bold blue]{'Using':>12}[/] {features.n_vars} features occuring in at least {min_feature_groups} groups")
 
     return features, classes
 
@@ -147,7 +169,13 @@ def find_proteins(clusters: List[ClusterSequence], orf_finder: "ORFFinder", cons
     return proteins
 
 
-def annotate_domains(domain_annotator, proteins: List[Protein], console: Console, total: Optional[int] = None) -> List[Domain]:
+def annotate_domains(
+    domain_annotator, 
+    proteins: List[Protein], 
+    console: Console, 
+    total: Optional[int] = None, 
+    disentangle: bool = False,
+) -> List[Domain]:
     with rich.progress.Progress(
         *rich.progress.Progress.get_default_columns(),
         rich.progress.MofNCompleteColumn(),
@@ -161,17 +189,25 @@ def annotate_domains(domain_annotator, proteins: List[Protein], console: Console
             else:
                 progress.update(task_id, advance=1)
         domains = list(domain_annotator.annotate_domains(proteins, progress=callback))
-
+        if disentangle:
+            domains = list(domain_annotator.disentangle_domains(domains))
     return domains
 
 
-def annotate_hmmer(path: Optional[pathlib.Path], proteins: List[Protein], cpus: Optional[int], console: Console, whitelist: Optional[Container[str]] = None) -> List[PfamDomain]:
+def annotate_hmmer(
+    path: Optional[pathlib.Path], 
+    proteins: List[Protein], 
+    cpus: Optional[int], 
+    console: Console, 
+    whitelist: Optional[Container[str]] = None,
+    disentangle: bool = False,
+) -> List[PfamDomain]:
     from ..domains import PfamAnnotator
 
     console.print(f"[bold blue]{'Searching':>12}[/] protein domains with HMMER")
     domain_annotator = PfamAnnotator(path, cpus=cpus, whitelist=whitelist)
     total = len(whitelist) if whitelist else None
-    domains = annotate_domains(domain_annotator, proteins, console, total=total)
+    domains = annotate_domains(domain_annotator, proteins, console, total=total, disentangle=disentangle)
     console.print(f"[bold green]{'Found':>12}[/] {len(domains)} domains under inclusion threshold in {len(proteins)} proteins")
     return domains
 
