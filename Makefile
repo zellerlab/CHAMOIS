@@ -318,9 +318,9 @@ suptable4: $(STBL4)/table.tsv
 
 # Supplementary Table 5 - PRISM4 comparison
 STBL5=$(PAPER)/sup_table5_prism4
-SFIG3=$(PAPER)/sup_fig3_prism4
+SFIG4=$(PAPER)/sup_fig4_prism4
 
-$(STBL5)/search_results.tsv: $(SFIG3)/search_results.tsv
+$(STBL5)/search_results.tsv: $(SFIG4)/search_results.tsv
 	cp $< $@
 
 $(STBL5)/predictions.tsv: $(STBL4)/search_results.tsv $(DATA)/npatlas/classes.hdf5 $(DATA)/npatlas/classes.hdf5 $(DATA)/prism4/predictions.xlsx
@@ -369,18 +369,18 @@ $(SFIG2)/plot.svg: $(FIG2)/cv.report.tsv $(FIG2)/rf.report.tsv
 .PHONY: supfig2
 supfig2: $(SFIG2)/plot.svg
 	
-# Supplementary Figure 3 - PRISM4 comparison
+# Supplementary Figure 4 - PRISM4 comparison
 
-SFIG3=$(PAPER)/sup_fig3_prism4
+SFIG4=$(PAPER)/sup_fig4_prism4
 
-$(SFIG3)/probas.hdf5: $(DATA)/datasets/prism4/clusters.gbk $(CHAMOIS_WEIGHTS) $(CHAMOIS_HMM)
+$(SFIG4)/probas.hdf5: $(DATA)/datasets/prism4/clusters.gbk $(CHAMOIS_WEIGHTS) $(CHAMOIS_HMM)
 	$(PYTHON) -m chamois.cli predict --model $(CHAMOIS_WEIGHTS) -i $< -o $@ --hmm $(CHAMOIS_HMM)
 
-$(SFIG3)/search_results.tsv: $(SFIG3)/probas.hdf5 $(DATA)/npatlas/classes.hdf5 $(CHAMOIS_WEIGHTS)
+$(SFIG4)/search_results.tsv: $(SFIG4)/probas.hdf5 $(DATA)/npatlas/classes.hdf5 $(CHAMOIS_WEIGHTS)
 	$(PYTHON) -m chamois.cli search --model $(CHAMOIS_WEIGHTS) -i $< -c $(word 2,$^) -o $@
 
-$(SFIG3)/boxplot_by_mibig.median_comparison.png: $(SFIG3)/search_results.tsv
-	$(PYTHON) $(SFIG3)/plot.py
+$(SFIG4)/boxplot_by_mibig.median_comparison.png: $(SFIG4)/search_results.tsv
+	$(PYTHON) $(SFIG4)/plot.py
 
-.PHONY: supfig3
-supfig3: $(SFIG3)/boxplot_by_mibig.median_comparison.png
+.PHONY: supfig4
+supfig4: $(SFIG4)/boxplot_by_mibig.median_comparison.png
