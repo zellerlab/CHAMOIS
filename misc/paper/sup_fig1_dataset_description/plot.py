@@ -54,6 +54,7 @@ types["type"] = types["type"].apply(lambda x: "Mixed" if ";" in x else x)
 
 # compute number of domains per BGC
 n_domains = features.X.sum(axis=1).A1
+print("Average:", numpy.mean(n_domains))
 
 # 
 data = pandas.DataFrame(data=n_domains, index=classes.obs_names, columns=["n_domains"])

@@ -349,39 +349,39 @@ suptable7: $(STBL7)/table.tsv
 
 # --- Supplementary Figures ----------------------------------------------------
 
-# Supplementary Figure 1 - Class Imbalance
- 
-SFIG1=$(PAPER)/sup_fig1_imbalance
+# Supplementary Figure 1 - Dataset description
 
-$(SFIG1)/plot.svg: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(FIG2)/cv.report.tsv
-	$(PYTHON) $(SFIG1)/plot.py --input $< --output $@ --cv-report $(word 2,$^)
+SFIG1=$(PAPER)/sup_fig1_dataset_description
 
+$(SFIG1)/plot.svg: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/types.tsv
+	$(PYTHON) $(SFIG1)/plot.py --classes $(word 1,$^) --features $(word 2,$^) --types $(word 3,$^) --output $@
+	
 .PHONY: supfig1
 supfig1: $(SFIG1)/plot.svg
-	
-# Supplementary Figure 2 - Random Forest CV comparison
 
-SFIG2=$(PAPER)/sup_fig2_rf_comparison
+# Supplementary Figure 2 - Class Imbalance
+ 
+SFIG2=$(PAPER)/sup_fig2_imbalance
 
-$(SFIG2)/plot.svg: $(FIG2)/cv.report.tsv $(FIG2)/rf.report.tsv
-	$(PYTHON) $(SFIG2)/plot.py --cv-report $(word 1,$^) --rf-report $(word 2,$^) --output $@
-	
+$(SFIG2)/plot.svg: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(FIG2)/cv.report.tsv
+	$(PYTHON) $(SFIG2)/plot.py --input $< --output $@ --cv-report $(word 2,$^)
+
 .PHONY: supfig2
 supfig2: $(SFIG2)/plot.svg
 	
-# Supplementary Figure 3 - Dataset description
+# Supplementary Figure 3 - Random Forest CV comparison
 
-SFIG3=$(PAPER)/sup_fig3_dataset_description
+SFIG3=$(PAPER)/sup_fig3_rf_comparison
 
-$(SFIG3)/plot.svg: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/types.tsv
-	$(PYTHON) $(SFIG3)/plot.py --classes $(word 1,$^) --features $(word 2,$^) --types $(word 3,$^) --output $@
+$(SFIG3)/plot.svg: $(FIG2)/cv.report.tsv $(FIG2)/rf.report.tsv
+	$(PYTHON) $(SFIG3)/plot.py --cv-report $(word 1,$^) --rf-report $(word 2,$^) --output $@
 	
 .PHONY: supfig3
 supfig3: $(SFIG3)/plot.svg
+	
+# Supplementary Figure 5 - PRISM4 comparison
 
-# Supplementary Figure 4 - PRISM4 comparison
-
-SFIG4=$(PAPER)/sup_fig4_prism4
+SFIG4=$(PAPER)/sup_fig5_prism4
 
 $(SFIG4)/probas.hdf5: $(DATA)/datasets/prism4/clusters.gbk $(CHAMOIS_WEIGHTS) $(CHAMOIS_HMM)
 	$(PYTHON) -m chamois.cli predict --model $(CHAMOIS_WEIGHTS) -i $< -o $@ --hmm $(CHAMOIS_HMM)
