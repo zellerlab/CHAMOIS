@@ -24,7 +24,6 @@ import setuptools
 from distutils import log
 from distutils.command.build import build as _build
 from distutils.command.clean import clean as _clean
-from setuptools.command.sdist import sdist as _sdist
 
 try:
     import rich.progress
@@ -45,23 +44,6 @@ try:
     import lz4.frame
 except ImportError as err:
     lz4 = err
-
-
-class sdist(_sdist):
-    """An extension to the `sdist` command that generates a `pyproject.toml`.
-    """
-
-    def run(self):
-        # build `pyproject.toml` from `setup.cfg`
-        c = configparser.ConfigParser()
-        c.add_section("build-system")
-        c.set("build-system", "requires", str(self.distribution.setup_requires))
-        c.set("build-system", "build-backend", '"setuptools.build_meta"')
-        with open("pyproject.toml", "w") as pyproject:
-            c.write(pyproject)
-
-        # run the rest of the packaging
-        _sdist.run(self)
 
 
 class list_requirements(setuptools.Command):
@@ -278,6 +260,5 @@ if __name__ == "__main__":
             "build": build,
             "download_pfam": download_pfam,
             "list_requirements": list_requirements,
-            "sdist": sdist,
         },
     )

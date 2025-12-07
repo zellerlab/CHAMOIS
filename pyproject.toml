@@ -16,7 +16,7 @@ keywords = ["bioinformatics", "metabolism", "gene cluster", "bgc"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
     "Operating System :: POSIX",
     "Programming Language :: Python :: 3 :: Only",
     "Topic :: Scientific/Engineering :: Bio-Informatics",
@@ -46,6 +46,9 @@ compare = [
     "rdkit >=2023.3",
 ]
 
+[project.scripts]
+chamois = "chamois.cli:run"
+
 [project.urls]
 "Repository" = "https://github.com/zellerlab/CHAMOIS"
 "Bug Tracker" = "https://github.com/zellerlab/CHAMOIS/issues"
@@ -61,7 +64,7 @@ include-package-data = true
 
 [tool.setuptools.packages.find]
 namespaces = true
-include = ["chamois"]
+include = ["chamois", "chamois.domains", "chamois.cli", "chamois.predictor"]
 exclude = ["docs*", "tests*"]
 
 [tool.setuptools.dynamic]

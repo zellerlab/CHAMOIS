@@ -33,7 +33,7 @@ use the ``conda`` installer:
 
 .. code:: console
 
-     $ conda install -c bioconda chamois
+     $ conda install bioconda::chamois
 
 
 .. Arch User Repository

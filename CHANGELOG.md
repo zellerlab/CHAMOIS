@@ -5,7 +5,35 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-[Unreleased]: https://github.com/zellerlab/CHAMOIS/compare/v0.1.3...HEAD
+[Unreleased]: https://github.com/zellerlab/CHAMOIS/compare/v0.2.0...HEAD
+
+
+## [v0.2.0] - 2025-12-07
+[v0.2.0]: https://github.com/zellerlab/CHAMOIS/compare/v0.1.3...v0.2.0
+
+### Added
+- Training option to ignore classes and features in less than *N* groups.
+- `cvi` command run independent cross-validation as done in the paper.
+- Support for training and evaluating random forest models.
+- Support for computing sample weights for observation groups in `fit`.
+- Report information content of the prediction in `predict` output.
+
+### Changed
+- Relax `anndata` dependency to allow more recent releases.
+- Update MIBiG 3.1 dataset to filter out erroneous partial clusters.
+- Retrain CHAMOIS with filtered MIBIG 3.1 dataset and improved feature selection.
+- Make `chamois.compositions.build_variables` drop empty columns.
+- Rename `screen` command to `compare`.
+- Incorrect use of chemical groups in cross-validation commands.
+- Update Pfam to 38.0.
+
+### Fixed
+- Issue with computation of probabilistic Jaccard distance in `validate` command.
+- Incorrect error message on non-existing class in `explain `command.
+- Incorrect merging of multiple feature tables in CLI.
+- Extraction of minimum class and features by groups for majority positive classes.
+- Incorrect error message in `predict` command.
+- Unsupported sample weighting in older `scikit-learn` releases.
 
 
 ## [v0.1.3] - 2025-03-30
