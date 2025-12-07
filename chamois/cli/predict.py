@@ -110,7 +110,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
     if args.render:
         for bgc_index, bgc_id in enumerate(predictions.obs_names):
             tree = build_tree(model, predictions.X[bgc_index])
-            panel = rich.panel.Panel(tree, title=f"{bgc_id} (ic={predictions.obs.loc[bgc_id, "ic"]:.1f})")
+            panel = rich.panel.Panel(tree, title=f"{bgc_id} (ic={predictions.obs.loc[bgc_id, 'ic']:.1f})")
             console.print(panel)
 
     return 0
