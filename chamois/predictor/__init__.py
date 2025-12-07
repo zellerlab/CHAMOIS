@@ -147,6 +147,8 @@ class ChemicalOntologyPredictor:
     @requires("sklearn.preprocessing")
     @requires("scipy.sparse")
     def _fit_logistic(self, X, Y, groups=None):
+        _sklearn_version = tuple(map(int, sklearn.__version__.split(".")))
+
         # compute sample weights
         if groups is None:
             sample_weight = None
@@ -167,7 +169,15 @@ class ChemicalOntologyPredictor:
                 ).set_fit_request(sample_weight=True),
                 n_jobs=self.n_jobs,
             )
-            model.fit(X, Y, sample_weight=sample_weight)
+            if _sklearn_version < (1, 4, 0):
+                if sample_weight is not None:
+                    warnings.warn(
+                        "Sample weighting unsupported with scikit-learn prior to 1.4.0",
+                        UserWarning,
+                    )
+                model.fit(X, Y)
+            else:
+                model.fit(X, Y, sample_weight=sample_weight)
 
         # copy coefficients & intercept to a single NumPy array
         self.coef_ = numpy.zeros((X.shape[1], Y.shape[1]), order="C")
@@ -188,10 +198,27 @@ class ChemicalOntologyPredictor:
         self.coef_ = scipy.sparse.csr_matrix(self.coef_)
 
     @requires("sklearn.linear_model")
-    def _fit_ridge(self, X, Y):
+    def _fit_ridge(self, X, Y, groups=None):
+        _sklearn_version = tuple(map(int, sklearn.__version__.split(".")))
+
+        # compute sample weights
+        if groups is None:
+            sample_weight = None
+        else:
+            c = collections.Counter(groups)
+            sample_weight = [ 1 / c[group] for group in groups ]
+
         # train model using scikit-learn
         model = sklearn.linear_model.RidgeClassifier(alpha=self.alpha, random_state=self.seed)
-        model.fit(X, Y)
+        if _sklearn_version < (1, 4, 0):
+            if sample_weight is not None:
+                warnings.warn(
+                    "Sample weighting unsupported with scikit-learn prior to 1.4.0",
+                    UserWarning,
+                )
+            model.fit(X, Y)
+        else:
+            model.fit(X, Y, sample_weight=sample_weight)
 
         # copy coefficients & intercept to a single NumPy array
         self.coef_ = model.coef_.T
@@ -208,6 +235,8 @@ class ChemicalOntologyPredictor:
     @requires("sklearn.ensemble")
     @requires("scipy.sparse")
     def _fit_random_forest(self, X, Y, groups=None):
+        _sklearn_version = tuple(map(int, sklearn.__version__.split(".")))
+
         # compute sample weights
         if groups is None:
             sample_weight = None
@@ -231,7 +260,15 @@ class ChemicalOntologyPredictor:
                 ).set_fit_request(sample_weight=True),
                 n_jobs=self.n_jobs,
             )
-            self._rf.fit(X, Y, sample_weight=sample_weight)
+            if _sklearn_version < (1, 4, 0):
+                if sample_weight is not None:
+                    warnings.warn(
+                        "Sample weighting unsupported with scikit-learn prior to 1.4.0",
+                        UserWarning,
+                    )
+                self._rf.fit(X, Y)
+            else:
+                self._rf.fit(X, Y, sample_weight=sample_weight)
 
     @requires("scipy.sparse")
     @requires("scipy.special")
