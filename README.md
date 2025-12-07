@@ -1,3 +1,5 @@
+<img align="right" width="180" height="180" src="https://raw.githubusercontent.com/zellerlab/CHAMOIS/refs/heads/main/docs/_images/logo-square.png">
+
 # 🐐 CHAMOIS [![Stars](https://img.shields.io/github/stars/zellerlab/CHAMOIS.svg?style=social&maxAge=3600&label=Star)](https://github.com/zellerlab/CHAMOIS/stargazers)
 
 *Chemical Hierarchy Approximation for secondary Metabolism clusters Obtained In Silico.*
