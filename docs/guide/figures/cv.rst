@@ -11,4 +11,4 @@ baseline obtained by random guessing (dashed horizontal lines corresponding to c
 
 .. raw:: html
    
-   <embed height="2000" width="1500" class="interactive-figure" src="/figures/cv.html"/>
+   <embed height="2000" width="1500" class="interactive-figure" src="../../figures/cv.html"/>

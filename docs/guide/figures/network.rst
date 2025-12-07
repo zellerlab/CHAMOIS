@@ -9,4 +9,4 @@ Pfam domains are coloured by their top-level EC number, obtained with the ECDoma
 
 .. raw:: html
    
-   <embed height="1600" width="1600" class="interactive-figure" src="/figures/network.html"/>
+   <embed height="1600" width="1600" class="interactive-figure" src="../../figures/network.html"/>
