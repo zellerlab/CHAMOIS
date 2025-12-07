@@ -10,7 +10,12 @@ CHAMOIS |Stars|
    :target: https://github.com/zellerlab/CHAMOIS/stargazers
    :class: dark-light
 
-*Chemical Hierarchy Approximation for secondary Metabolite clusters Obtained In Silico.*
+.. figure:: _images/logo.png
+    :align: right
+    :width: 250px
+
+*Chemical Hierarchy Approximation for secondary Metabolite clusters Obtained In Silico.* 
+
 
 |Actions| |PyPI| |Bioconda| |Wheel| |Versions| |License| |Source| |Mirror| |Issues| |Docs| |Changelog| |Preprint|
 
@@ -87,6 +92,7 @@ Library
 
    User Guide <guide/index>
    Examples <examples/index>
+   Figures <figures/index>
    CLI Reference <cli/index>
    API Reference <api/index>
 

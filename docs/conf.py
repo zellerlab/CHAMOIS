@@ -140,15 +140,15 @@ html_theme_options = {
     ],
     "logo": {
         "text": "CHAMOIS",
-        # "image_light": "_images/logo.png",
-        # "image_dark": "_images/logo.png",
+        "image_light": "_images/logo.png",
+        "image_dark": "_images/logo.png",
     },
     "navbar_align": "left",
     "footer_start": ["copyright"],
     "footer_center": ["sphinx-version"],
     "secondary_sidebar_items": {
         "**":  ["page-toc", "edit-this-page", "sourcelink"],
-        "guide/figures/*": [],
+        "figures/*": [],
     },
 }
 
@@ -162,7 +162,7 @@ html_context = {
 html_favicon = '_images/favicon.ico'
 
 html_sidebars = {
-  "guide/figures/*": [],
+  "figures/*": [],
 }
 
 # -- Options for HTMLHelp output ---------------------------------------------
