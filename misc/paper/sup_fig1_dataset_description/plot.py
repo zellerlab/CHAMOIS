@@ -39,6 +39,7 @@ parser.add_argument("-f", "--features", required=True)
 parser.add_argument("-c", "--classes", required=True)
 parser.add_argument("-t", "--types", required=True)
 parser.add_argument("-o", "--output", required=True)
+parser.add_argument("--show", action="store_true")
 args = parser.parse_args()
 
 # load classes and features
@@ -79,4 +80,6 @@ plt.ylim(0, bottom.max() + 10)
 plt.xlabel("Number of Domains")
 plt.ylabel("Number of BGCs")
 plt.savefig(args.output)
-plt.show()
+
+if args.show:
+    plt.show()

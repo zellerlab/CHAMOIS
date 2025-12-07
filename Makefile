@@ -98,10 +98,10 @@ $(INTERPRO_JSON): $(GO_OBO) $(INTERPRO_XML)
 $(ATLAS):
 	$(WGET) https://www.npatlas.org/static/downloads/NPAtlas_download.json -O- | gzip -c > $@
 
-$(DATA)/npatlas/classes.hdf5: $(CHEMONT) $(ATLAS) 
+$(DATA)/npatlas/classes.hdf5: $(CHEMONT) $(ATLAS)
 	$(PYTHON) $(SCRIPTS)/npatlas/make_classes.py --atlas $(ATLAS) --chemont $(CHEMONT) -o $@
 
-$(DATA)/npatlas/maccs.hdf5: $(ATLAS) 
+$(DATA)/npatlas/maccs.hdf5: $(ATLAS)
 	$(PYTHON) $(SCRIPTS)/npatlas/make_maccs.py --atlas $(ATLAS) -o $@
 
 
@@ -209,7 +209,7 @@ CHAMOIS_HMM=chamois/domains/Pfam$(PFAM_VERSION).hmm.lz4
 
 $(CHAMOIS_WEIGHTS): $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5
 	$(PYTHON) -m chamois.cli train -f $(word 2,$^) -c $(word 1,$^) -o $@
-	
+
 $(CHAMOIS_HMM): $(CHAMOIS_WEIGHTS)
 	$(PYTHON) setup.py download_pfam -i -f -r
 
@@ -226,13 +226,13 @@ $(FIG2)/cv.report.tsv: $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5 $(DA
 
 $(FIG2)/dummy.probas.hdf5: $(FIG2)/dummy.report.tsv
 	touch $@
-	
+
 $(FIG2)/dummy.report.tsv: $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5
 	$(PYTHON) -m chamois.cli cvi -f $(word 1,$^) -c $(word 2,$^) -o $(FIG2)/dummy.probas.hdf5 --report $@ --model dummy
 
 $(FIG2)/rf.probas.hdf5: $(FIG2)/rf.report.tsv
 	touch $@
-	
+
 $(FIG2)/rf.report.tsv: $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5
 	$(PYTHON) -m chamois.cli cvi -f $(word 1,$^) -c $(word 2,$^) -o $(FIG2)/rf.probas.hdf5 --report $@ --model rf
 
@@ -251,7 +251,7 @@ $(FIG2)/barplot.svg: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)
 
 $(FIG2)/folds_statistics.svg: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5 $(FIG2)/cv.report.tsv
 	$(PYTHON) $(FIG2)/folds_statistics.py --classes $(word 1,$^) --features $(word 2,$^) --report $(word 3,$^) -o $@
-	
+
 .PHONY: figure2
 figure2: $(FIG2)/barplot.svg $(FIG2)/pr/.files $(FIG2)/cvtree_auprc.html
 
@@ -264,14 +264,14 @@ $(FIG3)/graph.html: $(CHAMOIS_WEIGHTS) $(CHAMOIS_HMM) $(CHEMONT) $(DATA)/ecdomai
 
 .PHONY: figure3
 figure3: $(FIG3)/graph.html
-	
+
 # Figure 4 - Screen Evaluation
 FIG4=$(PAPER)/fig4_screen_evaluation
 
 $(FIG4)/predictor.mibig$(MIBIG_VERSION).json: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5
 	$(PYTHON) -m chamois.cli train -c $(word 1,$^) -f $(word 2,$^) -o $@
 
-$(FIG4)/merged.hdf5: $(FIG4)/predictor.mibig$(MIBIG_VERSION).json 
+$(FIG4)/merged.hdf5: $(FIG4)/predictor.mibig$(MIBIG_VERSION).json
 	$(PYTHON) $(FIG4)/merge_predictions.py
 
 $(FIG4)/dotplot_merged.svg: $(FIG4)/merged.hdf5 $(DATA)/datasets/native/features.hdf5 $(DATA)/datasets/native/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5
@@ -279,7 +279,7 @@ $(FIG4)/dotplot_merged.svg: $(FIG4)/merged.hdf5 $(DATA)/datasets/native/features
 
 $(FIG4)/pca.svg: $(CHAMOIS_WEIGHTS) $(DATA)/npatlas/classes.hdf5 $(DATA)/datasets/native/classes.hdf5 $(DATA)/datasets/native/coordinates.tsv $(DATA)/datasets/native/types.tsv $(FIG4)/merged.hdf5
 	$(PYTHON) $(FIG4)/pca_plot.py
-	
+
 .PHONY: figure4
 figure4: $(FIG4)/dotplot_merged.svg $(FIG4)/pca.svg
 
@@ -305,7 +305,7 @@ $(STBL2)/weights.tsv: $(CHAMOIS_WEIGHTS)
 .PHONY: suptable2
 suptable2:  $(STBL2)/weights.tsv
 
-# Supplementary Table 3 - 
+# Supplementary Table 3 -
 
 # Supplementary Table 4 - Unknown domains
 STBL4=$(PAPER)/sup_table4_domains
@@ -325,7 +325,7 @@ $(STBL5)/search_results.tsv: $(SFIG4)/search_results.tsv
 
 $(STBL5)/predictions.tsv: $(STBL4)/search_results.tsv $(DATA)/npatlas/classes.hdf5 $(DATA)/npatlas/classes.hdf5 $(DATA)/prism4/predictions.xlsx
 	$(PYTHON) $(STBL5)/summary_table.py
-	
+
 .PHONY: suptable5
 suptable5: $(STBL5)/search_results.tsv $(STBL5)/predictions.tsv
 
@@ -355,12 +355,12 @@ SFIG1=$(PAPER)/sup_fig1_dataset_description
 
 $(SFIG1)/plot.svg: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/types.tsv
 	$(PYTHON) $(SFIG1)/plot.py --classes $(word 1,$^) --features $(word 2,$^) --types $(word 3,$^) --output $@
-	
+
 .PHONY: supfig1
 supfig1: $(SFIG1)/plot.svg
 
 # Supplementary Figure 2 - Class Imbalance
- 
+
 SFIG2=$(PAPER)/sup_fig2_imbalance
 
 $(SFIG2)/plot.svg: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(FIG2)/cv.report.tsv
@@ -368,17 +368,30 @@ $(SFIG2)/plot.svg: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(FIG2)/c
 
 .PHONY: supfig2
 supfig2: $(SFIG2)/plot.svg
-	
+
 # Supplementary Figure 3 - Random Forest CV comparison
 
 SFIG3=$(PAPER)/sup_fig3_rf_comparison
 
 $(SFIG3)/plot.svg: $(FIG2)/cv.report.tsv $(FIG2)/rf.report.tsv
 	$(PYTHON) $(SFIG3)/plot.py --cv-report $(word 1,$^) --rf-report $(word 2,$^) --output $@
-	
+
 .PHONY: supfig3
 supfig3: $(SFIG3)/plot.svg
-	
+
+# Supplementary Figure 4 - Weights Histogram
+
+SFIG4=$(PAPER)/sup_fig4_weights
+
+$(SFIG4)/plot.png: $(CHAMOIS_WEIGHTS)
+	$(PYTHON) $(SFIG4)/plot.py --model $< --output $@
+
+$(SFIG4)/plot.svg: $(CHAMOIS_WEIGHTS)
+	$(PYTHON) $(SFIG4)/plot.py --model $< --output $@
+
+.PHONY: supfig4
+supfig4: $(SFIG4)/plot.svg $(SFIG4)/plot.png
+
 # Supplementary Figure 5 - PRISM4 comparison
 
 SFIG4=$(PAPER)/sup_fig5_prism4
