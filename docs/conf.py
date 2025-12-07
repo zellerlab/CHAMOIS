@@ -69,7 +69,7 @@ extensions = [
     "sphinx.ext.todo",
     "sphinx.ext.extlinks",
     "sphinx_design",
-    "sphinxcontrib.jquery",
+    #"sphinxcontrib.jquery",
     "nbsphinx",
     "recommonmark",
     "IPython.sphinxext.ipython_console_highlighting",
@@ -111,6 +111,7 @@ html_theme = 'pydata_sphinx_theme'
 html_static_path = ['_static/js', '_static/bibtex', '_static/css']
 html_js_files = ["custom-icon.js"]
 html_css_files = ["custom.css"]
+html_extra_path = ["_static/html"]
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -145,6 +146,10 @@ html_theme_options = {
     "navbar_align": "left",
     "footer_start": ["copyright"],
     "footer_center": ["sphinx-version"],
+    "secondary_sidebar_items": {
+        "**":  ["page-toc", "edit-this-page", "sourcelink"],
+        "guide/figures/*": [],
+    },
 }
 
 html_context = {
@@ -155,6 +160,10 @@ html_context = {
 }
 
 html_favicon = '_images/favicon.ico'
+
+html_sidebars = {
+  "guide/figures/*": [],
+}
 
 # -- Options for HTMLHelp output ---------------------------------------------
 

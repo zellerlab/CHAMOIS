@@ -12,6 +12,14 @@ This section contains guides and documents about CHAMOIS usage.
 
 .. toctree::
     :maxdepth: 1
+    :caption: Figures
+
+    Cross-validation <figures/cv>
+    Association network <figures/network>
+
+
+.. toctree::
+    :maxdepth: 1
     :caption: Resources
 
     Publications <publications>
