@@ -175,4 +175,4 @@ jobs:
     - name: Upload HMM
       uses: softprops/action-gh-release@v2
       with:
-        files: build/lib/chamois/domains/Pfam36.0.hmm.lz4
+        files: build/lib/chamois/domains/Pfam38.0.hmm.lz4
