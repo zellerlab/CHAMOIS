@@ -369,6 +369,16 @@ $(SFIG2)/plot.svg: $(FIG2)/cv.report.tsv $(FIG2)/rf.report.tsv
 .PHONY: supfig2
 supfig2: $(SFIG2)/plot.svg
 	
+# Supplementary Figure 3 - Dataset description
+
+SFIG3=$(PAPER)/sup_fig3_dataset_description
+
+$(SFIG3)/plot.svg: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/types.tsv
+	$(PYTHON) $(SFIG3)/plot.py --classes $(word 1,$^) --features $(word 2,$^) --types $(word 3,$^) --output $@
+	
+.PHONY: supfig3
+supfig3: $(SFIG3)/plot.svg
+
 # Supplementary Figure 4 - PRISM4 comparison
 
 SFIG4=$(PAPER)/sup_fig4_prism4
