@@ -148,7 +148,8 @@ html_theme_options = {
     "footer_center": ["sphinx-version"],
     "secondary_sidebar_items": {
         "**":  ["page-toc", "edit-this-page", "sourcelink"],
-        "figures/*": [],
+        "figures/cv*": [],
+        "figures/network*": [],
     },
 }
 
@@ -162,7 +163,8 @@ html_context = {
 html_favicon = '_images/favicon.ico'
 
 html_sidebars = {
-  "figures/*": [],
+  "figures/cv*": [],
+  "figures/network*": [],
 }
 
 # -- Options for HTMLHelp output ---------------------------------------------

@@ -154,7 +154,12 @@ schema = json.loads(
   "height": 1600,
   "padding": 5,
   "autosize": "none",
-  
+  "usermeta": {
+    "embedOptions": {
+      "theme": "light",
+      "loader": {"target": "_blank"}
+    }
+  },
   "legends": [
     {
       "fill": "color",
@@ -370,7 +375,7 @@ with args.output.open("w") as dst:
           vegaEmbed( '#view', {} );
           </script>
         </body>
-        """.format(json.dumps(schema))
+        """.format(json.dumps(schema, indent=4, sort_keys=True))
     )
 
 if args.open:

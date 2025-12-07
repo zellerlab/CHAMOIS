@@ -6,6 +6,13 @@
   "padding": 0,
   "autosize": "none",
 
+  "usermeta": {
+    "embedOptions": {
+      "theme": "light",
+      "loader": {"target": "_blank"}
+    }
+  },
+
   "signals": [
     { "name": "cx", "update": "width / 2" },
     { "name": "cy", "update": "height / 2" },
