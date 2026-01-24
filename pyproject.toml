@@ -1,5 +1,5 @@
 [build-system]
-requires = ['setuptools >=39.2', 'pyhmmer ~=0.12.0', 'lz4 ~=4.0']
+requires = ['setuptools >=75.0', 'pyhmmer ~=0.12.0', 'lz4 ~=4.0']
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,7 +8,8 @@ dynamic = ["version"]
 description = "Chemical HierArchy for Metabolites Obtained In Silico."
 readme = "README.md"
 requires-python = ">=3.7"
-license = { file = "COPYING" }
+license = "GPL-3.0-or-later"
+license-files = ["COPYING"]
 authors = [
   { name = "Martin Larralde", email = "martin.larralde@embl.de" },
 ]
@@ -16,7 +17,6 @@ keywords = ["bioinformatics", "metabolism", "gene cluster", "bgc"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
     "Operating System :: POSIX",
     "Programming Language :: Python :: 3 :: Only",
     "Topic :: Scientific/Engineering :: Bio-Informatics",
