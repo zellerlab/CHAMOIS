@@ -3,11 +3,12 @@ Installation
 
 .. important::
 
-    Windows is not supported by HMMER, which is used by CHAMOIS to perform
-    domain annotation. CHAMOIS therefore cannot be installed on Windows
-    machines. Consider using a Python install inside the
-    `Windows Subsystem for Linux <https://learn.microsoft.com/en-us/windows/wsl/install>`_
-    if you need CHAMOIS on a Windows computer.
+    Since release ``v0.10.2``, CHAMOIS can now run on Windows! This uses
+    the PyHMMER ``v0.12.0`` experimental `MinGW-w64 <https://www.mingw-w64.org/>`_
+    build which supports Windows 10 and later. See the PyHMMER
+    documentation for more information about
+    `Windows support <https://pyhmmer.readthedocs.io/en/stable/guide/windows.html>`_.
+
 
 Local Setup
 -----------

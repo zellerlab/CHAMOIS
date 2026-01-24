@@ -50,9 +50,11 @@ Installing the package is instantaneous, but requires downloading an extra
 44 MiB of data (profile HMMs) from GitHub, which will add to the install
 time depending on the speed of your Internet connection.
 
-*Note that CHAMOIS uses [HMMER3](http://hmmer.org/), which can only run
-on PowerPC, x86-64 and Aarch64 machines running a POSIX operating system.
-Therefore, CHAMOIS **will work on Linux and OSX, but not on Windows.***
+*Since release `v0.2.1`, CHAMOIS can now run on Windows! This uses
+the PyHMMER `v0.12.0` experimental [MinGW-w64](https://www.mingw-w64.org/)
+build which supports Windows 10 and later. See the PyHMMER
+documentation for more information about
+[Windows support](https://pyhmmer.readthedocs.io/en/stable/guide/windows.html)*.
 
 ### 🧬 Running CHAMOIS
 
@@ -146,7 +148,7 @@ $ chamois train -f data/datasets/mibig3.1/features.hdf5 -c data/datasets/mibig3.
 
 CHAMOIS is a pure-python package but requires HMMER, which only runs on
 PowerPC, x86-64 and Aarch64 systems, and only on POSIX operating systems
-(Linux, MacOS, BSD). **Windows is not supported by HMMER**.
+(Linux, MacOS, BSD, Windows w/ MinGW-w64). 
 
 CHAMOIS is tested on Linux (Ubuntu 22.04) using the GitHub Actions continuous
 integration platform.
