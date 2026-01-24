@@ -223,7 +223,7 @@ class download_pfam(setuptools.Command):
                 hmm_file = ctx.enter_context(HMMFile(buffer))
             for hmm in hmm_file:
                 nsource += 1
-                if hmm.accession.decode() in domains:
+                if hmm.accession in domains:
                     nwritten += 1
                     hmm.write(dst, binary=False)
 

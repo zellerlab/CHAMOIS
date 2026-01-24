@@ -112,7 +112,7 @@ class PfamAnnotator(DomainAnnotator):
         # protein identifiers
         esl_abc = Alphabet.amino()
         esl_sqs = TextSequenceBlock([
-            TextSequence(name=str(i).encode(), sequence=str(protein.sequence))
+            TextSequence(name=str(i), sequence=str(protein.sequence))
             for i, protein in enumerate(proteins)
         ])
 
@@ -122,7 +122,7 @@ class PfamAnnotator(DomainAnnotator):
             hmms1, hmms2 = itertools.tee((
                 hmm
                 for hmm in hmm_file
-                if hmm.accession.decode() in self.whitelist
+                if hmm.accession in self.whitelist
             ))
             # Run search pipeline using the filtered HMMs
             cpus = 0 if self.cpus is None else self.cpus
@@ -139,14 +139,10 @@ class PfamAnnotator(DomainAnnotator):
                 for hit in hits.reported:
                     target_index = int(hit.name)
                     for domain in hit.domains.reported:
-                        # extract HMM name and coordinates
-                        name = hmm.name
-                        acc = hmm.accession
-                        desc = hmm.description
                         yield PfamDomain(
-                            name=name.decode(),
-                            accession=None if acc is None else acc.decode(),
-                            description=None if desc is None else desc.decode(),
+                            name=hmm.name,
+                            accession=hmm.accession,
+                            description=hmm.description,
                             kind="Pfam",
                             start=domain.alignment.target_from,
                             end=domain.alignment.target_to,
