@@ -44,7 +44,7 @@ def load_predictions(path: pathlib.Path, predictor: ChemicalOntologyPredictor, c
 
 
 @requires("anndata")
-def load_catalog(path: pathlib.Path, console: Console) -> "AnnData":
+def load_catalog(path: pathlib.Path, predictor: ChemicalOntologyPredictor, console: Console) -> "AnnData":
     console.print(f"[bold blue]{'Loading':>12}[/] compound catalog from {str(path)!r}")
     catalog = anndata.read_h5ad(path)
     return catalog
@@ -59,26 +59,29 @@ def build_results(
     max_rank: int,
 ) -> "DataFrame":
     rows = []
+    has_compound = "compound" in catalog.obs.columns
     for i, name in enumerate(classes.obs_names):
         for j in ranks[i].argsort():
             if ranks[i, j] > max_rank:
                 break
+            compound_classes = catalog.var.index[catalog.var_vector(catalog.obs.index[j]) > 0.5]
+            bgc_classes = classes.var.index[classes.var_vector(name)]
             rows.append([
                 name,
                 ranks[i, j],
                 catalog.obs.index[j],
-                catalog.obs.compound.iloc[j],
+                catalog.obs["compound"].iloc[j] if has_compound else "?",
                 distances[i, j],
-                ";".join(catalog.var.index[catalog.var_vector(catalog.obs.index[j])]),
-                ";".join(classes.var.index[classes.var_vector(name)]),
+                ";".join(compound_classes),
+                ";".join(bgc_classes),
             ])
     return pandas.DataFrame(
         rows,
         columns=[
-            "bgc_id", 
-            "rank", 
-            "index", 
-            "compound", 
+            "bgc_id",
+            "rank",
+            "index",
+            "compound",
             "distance",
             "compound_classes",
             "bgc_classes",
@@ -117,7 +120,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
     probas, classes = load_predictions(args.input, predictor, console)
 
     # load catalog
-    catalog = load_catalog(args.catalog, console)[:, probas.var.index]
+    catalog = load_catalog(args.catalog, predictor, console)[:, probas.var.index]
 
     # compute distance
     console.print(f"[bold blue]{'Computing':>12}[/] pairwise distances and ranks")
