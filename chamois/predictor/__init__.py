@@ -158,15 +158,20 @@ class ChemicalOntologyPredictor:
 
         # train models with optional sample weights
         with sklearn.config_context(enable_metadata_routing=True):
+            #
+            options = dict(
+                solver="liblinear",
+                max_iter=self.max_iter,
+                C=1.0/self.alpha,
+                random_state=self.seed,
+            )
+            if _sklearn_version < (1, 8, 0):
+                options["penalty"] = "l1"
+            else:
+                options["l1_ratio"] = 1.0
             # train model using scikit-learn
             model = sklearn.multiclass.OneVsRestClassifier(
-                sklearn.linear_model.LogisticRegression(
-                    "l1",
-                    solver="liblinear",
-                    max_iter=self.max_iter,
-                    C=1.0/self.alpha,
-                    random_state=self.seed,
-                ).set_fit_request(sample_weight=True),
+                sklearn.linear_model.LogisticRegression(**options).set_fit_request(sample_weight=True),
                 n_jobs=self.n_jobs,
             )
             if _sklearn_version < (1, 4, 0):
