@@ -1,7 +1,7 @@
 import argparse
 import pathlib
 import typing
-from typing import List, Iterable, Set, Optional
+from typing import Dict, List, Iterable, Set, Optional
 
 import numpy
 import rich.table
@@ -105,11 +105,11 @@ def build_table(results: "DataFrame") -> rich.table.Table:
 
 @requires("anndata")
 def build_distances(
-    X: numpy.ndarray, 
-    obs: pandas.DataFrame, 
-    var: pandas.DataFrame, 
+    X: numpy.ndarray,
+    obs: "DataFrame",
+    var: "DataFrame",
     uns: Dict[str, object] = None
-) -> "anndata.AnnData":
+) -> "AnnData":
     if isinstance(X, numpy.matrix):
         X = numpy.asarray(X)
     return anndata.AnnData(X=X, obs=obs, var=var, uns=uns)
