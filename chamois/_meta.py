@@ -35,6 +35,14 @@ try:
 except ImportError as err:
     lzma = err
 
+try:
+    from compression import zstd
+except ImportError as err:
+    try:
+        import zstandard as zstd
+    except ImportError:
+        zstd = err
+
 
 if typing.TYPE_CHECKING:
     _F = TypeVar("_F", bound=Callable[..., Any])
@@ -44,6 +52,7 @@ _BZ2_MAGIC = b"BZh"
 _GZIP_MAGIC = b"\x1f\x8b"
 _XZ_MAGIC = b"\xfd7zXZ"
 _LZ4_MAGIC = b"\x04\x22\x4d\x18"
+_ZSTD_MAGIC = b"\x28\xb5\x2f\xfd"
 
 
 class RequiredModuleError(RuntimeError):
@@ -113,14 +122,18 @@ def zopen(path: Union[str, pathlib.Path]) -> Iterator[BinaryIO]:
             file = ctx.enter_context(gzip.open(file, mode="rb"))
         elif peek.startswith(_BZ2_MAGIC):
             if isinstance(bz2, ImportError):
-                raise RuntimeError("File compression is LZMA but lzma is not available") from lz4
+                raise RuntimeError("File compression is LZMA but lzma is not available") from bz2
             file = ctx.enter_context(bz2.open(file, mode="rb"))
         elif peek.startswith(_XZ_MAGIC):
             if isinstance(lzma, ImportError):
-                raise RuntimeError("File compression is LZMA but lzma is not available") from lz4
+                raise RuntimeError("File compression is LZMA but lzma is not available") from lzma
             file = ctx.enter_context(lzma.open(file, mode="rb"))
         elif peek.startswith(_LZ4_MAGIC):
             if isinstance(lz4, ImportError):
                 raise RuntimeError("File compression is LZ4 but python-lz4 is not installed") from lz4
             file = ctx.enter_context(lz4.frame.open(file))
+        elif peek.startswith(_ZSTD_MAGIC):
+            if isinstance(zstd, ImportError):
+                raise RuntimeError("File compression is Zstd but zstandard is not installed") from zstd
+            file = ctx.enter_context(zstd.open(file))
         yield file
