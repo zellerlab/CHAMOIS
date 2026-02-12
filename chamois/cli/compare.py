@@ -9,7 +9,7 @@ import json
 import re
 import urllib.request
 import typing
-from typing import List, Iterable, Set, Optional
+from typing import List, Iterable, Set, Optional, Dict
 
 import numpy
 import rich.table
@@ -21,9 +21,9 @@ from rich.table import Table
 from .._meta import requires
 from ..predictor import ChemicalOntologyPredictor
 from ..classyfire import Client, binarize_classification
-from ._common import load_model
+from ._common import load_model, record_metadata
 from .render import build_tree
-from .search import probjaccard, probjaccard_cdist
+from .search import probjaccard, probjaccard_cdist, build_distances
 from ._parser import (
     configure_group_search_input,
     configure_group_search_parameters,
@@ -201,6 +201,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
     # load predictor
     predictor = load_model(args.model, console)
     probas, classes = load_predictions(args.input, predictor, console)
+    uns = record_metadata(predictor)
 
     # get query classification from Classyfire
     classifications = {}
@@ -248,5 +249,16 @@ def run(args: argparse.Namespace, console: Console) -> int:
         results = build_results(queries, compounds, classes, distances, ranks, max_rank=args.rank)
         console.print(f"[bold blue]{'Saving':>12}[/] search results to {str(args.output)!r}")
         results.to_csv(args.output, sep="\t", index=False)
+
+    # save matrix
+    if args.distance_matrix:
+        dmatrix = build_distances(
+            distances,
+            obs=pandas.DataFrame(index=queries),
+            var=probas.obs,
+            uns=uns,
+        )
+        console.print(f"[bold blue]{'Saving':>12}[/] distance matrix {str(args.distance_matrix)!r}")
+        dmatrix.write(args.distance_matrix)
 
     return 0

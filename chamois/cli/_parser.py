@@ -232,6 +232,12 @@ def configure_group_search_output(
         help="The path where to write the catalog search results in TSV format.",
     )
     group.add_argument(
+        "-d",
+        "--distance-matrix",
+        type=pathlib.Path,
+        help="The path where to write the generated pairwise distance matrix.",
+    )
+    group.add_argument(
         "--rank",
         default=10,
         type=int,

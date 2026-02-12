@@ -9,7 +9,7 @@ from rich.console import Console
 
 from .._meta import requires
 from ..predictor import ChemicalOntologyPredictor
-from ._common import load_model
+from ._common import load_model, record_metadata
 from ._parser import (
     configure_group_search_input,
     configure_group_search_parameters,
@@ -103,6 +103,18 @@ def build_table(results: "DataFrame") -> rich.table.Table:
     return table
 
 
+@requires("anndata")
+def build_distances(
+    X: numpy.ndarray, 
+    obs: pandas.DataFrame, 
+    var: pandas.DataFrame, 
+    uns: Dict[str, object] = None
+) -> "anndata.AnnData":
+    if isinstance(X, numpy.matrix):
+        X = numpy.asarray(X)
+    return anndata.AnnData(X=X, obs=obs, var=var, uns=uns)
+
+
 def probjaccard(x: numpy.ndarray, y: numpy.ndarray) -> float:
     tt = (x @ y).item()
     return 1.0 - tt / ( x.sum() + y.sum() - tt )
@@ -118,6 +130,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
     # load predictor
     predictor = load_model(args.model, console)
     probas, classes = load_predictions(args.input, predictor, console)
+    uns = record_metadata(predictor)
 
     # load catalog
     catalog = load_catalog(args.catalog, predictor, console)[:, probas.var.index]
@@ -133,6 +146,17 @@ def run(args: argparse.Namespace, console: Console) -> int:
     if args.output:
         console.print(f"[bold blue]{'Saving':>12}[/] search results to {str(args.output)!r}")
         results.to_csv(args.output, sep="\t", index=False)
+
+    # save distance matrix
+    if args.distance_matrix:
+        dmatrix = build_distances(
+            distances,
+            obs=probas.obs,
+            var=catalog.obs,
+            uns=uns,
+        )
+        console.print(f"[bold blue]{'Saving':>12}[/] distance matrix {str(args.distance_matrix)!r}")
+        dmatrix.write(args.distance_matrix)
 
     # display output
     if args.render:
