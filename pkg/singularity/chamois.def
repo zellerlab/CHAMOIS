@@ -9,7 +9,7 @@ From: alpine:3.23
 
 %post
     apk add --no-cache --force-non-repository -t build-dependencies musl-dev git rust cargo
-    apk add --no-cache --force-non-repository -t run-dependencies python3 python3-dev py3-pip py3-wheel py3-numpy py3-scipy py3-h5py py3-pandas py3-lz4 py3-rich py3-psutil py3-lz4
+    apk add --no-cache --force-non-repository -t run-dependencies python3 python3-dev py3-pip py3-setuptools py3-wheel py3-numpy py3-scipy py3-h5py py3-pandas py3-lz4 py3-rich py3-psutil py3-zstandard
     python3 -m pip install -v --break-system-packages --no-cache-dir -vv gb-io pyhmmer pyrodigal
     python3 -m pip install -v --no-build-isolation --break-system-packages --no-cache-dir --only-binary :all: /usr/src/chamois_tool-0.2.1.tar.gz
     apk del --no-cache build-dependencies
