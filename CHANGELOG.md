@@ -5,7 +5,21 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-[Unreleased]: https://github.com/zellerlab/CHAMOIS/compare/v0.2.1...HEAD
+[Unreleased]: https://github.com/zellerlab/CHAMOIS/compare/v0.2.2...HEAD
+
+
+## [v0.2.2] - 2026-02-12
+[v0.2.2]: https://github.com/zellerlab/CHAMOIS/compare/v0.2.1...v0.2.2
+
+### Added
+- CLI option to `search` and `compare` subcommands to output the pairwise distance matrix.
+
+### Changed
+- Update `zopen` to support auto-detection of Zstd files.
+- Use Zstd instead of LZ4 to compress the redistributed Pfam HMMs.
+
+### Fixed
+- Support comparing CHAMOIS predictions together with `chamois search` ([#1](https://github.com/zellerlab/CHAMOIS/issues/1)).
 
 
 ## [v0.2.1] - 2026-01-24
