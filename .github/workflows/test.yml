@@ -45,10 +45,10 @@ jobs:
   #     uses: actions/checkout@v4
   #     with:
   #       submodules: true
-  #   - name: Setup Python 3.13
+  #   - name: Setup Python 3.14
   #     uses: actions/setup-python@v5
   #     with:
-  #       python-version: "3.13"
+  #       python-version: "3.14"
   #   - name: Install build requirements
   #     run: python -m pip install -r .github/workflows/requirements.txt
   #   - name: Build wheel
@@ -69,10 +69,10 @@ jobs:
       uses: actions/checkout@v4
       with:
         submodules: true
-    - name: Set up Python 3.13
+    - name: Set up Python 3.14
       uses: actions/setup-python@v5
       with:
-        python-version: "3.13"
+        python-version: "3.14"
     - name: Install build requirements
       run: python -m pip install -U pip wheel setuptools build
     - name: Build distribution
@@ -89,10 +89,10 @@ jobs:
     needs:
     - sdist
     steps:
-    - name: Set up Python 3.13
+    - name: Set up Python 3.14
       uses: actions/setup-python@v5
       with:
-        python-version: "3.13"
+        python-version: "3.14"
     - name: Update pip
       run: python -m pip install -U pip wheel setuptools
     - name: Install build requirements
@@ -161,10 +161,10 @@ jobs:
       uses: actions/checkout@v2
       with:
         submodules: true
-    - name: Set up Python 3.13
+    - name: Set up Python 3.14
       uses: actions/setup-python@v2
       with:
-        python-version: 3.13
+        python-version: 3.14
     - name: Install build requirements
       run: python -m pip install -U pip wheel setuptools
     - name: Install project dependencies
@@ -174,4 +174,4 @@ jobs:
     - name: Upload HMM
       uses: softprops/action-gh-release@v2
       with:
-        files: build/lib/chamois/domains/Pfam38.0.hmm.lz4
+        files: build/lib/chamois/domains/Pfam38.0.hmm.zst

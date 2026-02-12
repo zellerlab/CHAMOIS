@@ -41,9 +41,14 @@ except ImportError:
     import gzip
 
 try:
-    import lz4.frame
+    from compression import zstd
 except ImportError as err:
-    lz4 = err
+    zstd = err
+
+try:
+   import zstandard
+except ImportError as err:
+   zstandard = err
 
 
 class list_requirements(setuptools.Command):
@@ -128,7 +133,7 @@ class download_pfam(setuptools.Command):
         ]
 
         # Download and binarize required HMMs
-        local = os.path.join(self.build_lib, "chamois", "domains", f"Pfam{self.version}.hmm.lz4")
+        local = os.path.join(self.build_lib, "chamois", "domains", f"Pfam{self.version}.hmm.zst")
         self.mkpath(os.path.dirname(local))
 
         # Fall back to filtering the HMMs from the Pfam FTP server
@@ -149,8 +154,8 @@ class download_pfam(setuptools.Command):
         # check `rich` and `pyhmmer` are installed if subsetting Pfam
         if isinstance(HMMFile, ImportError):
             raise RuntimeError("pyhmmer is required to run the `download_pfam` command") from HMMFile
-        if isinstance(lz4, ImportError):
-            raise RuntimeError("`lz4` is required to run the `download_pfam` command") from lz4
+        if isinstance(zstd, ImportError) and isinstance(zstandard, ImportError):
+            raise RuntimeError("Zstd support is required to run the `download_pfam` command") from zstd
         # download the HMM to `local`, and delete the file if any error
         # or interruption happens during the download
         # if not os.path.exists(local):
@@ -170,7 +175,7 @@ class download_pfam(setuptools.Command):
 
     def _download_release_hmm(self, output):
         # build the GitHub releases URL
-        base = "https://github.com/zellerlab/CHAMOIS/releases/download/v{version}/Pfam{pfam_version}.hmm.lz4"
+        base = "https://github.com/zellerlab/CHAMOIS/releases/download/v{version}/Pfam{pfam_version}.hmm.zst"
         url = base.format(pfam_version=self.version, version=self.distribution.get_version())
         # fetch the resource
         self.info(f"fetching {url}")
@@ -213,7 +218,18 @@ class download_pfam(setuptools.Command):
                 dl = ctx.enter_context(response)
             # download to buffer or stream
             src = ctx.enter_context(gzip.open(dl))
-            dst = ctx.enter_context(lz4.frame.open(output, "wb"))
+            if not isinstance(zstd, ImportError):
+                dst = ctx.enter_context(zstd.open(
+                    output,
+                    mode="wb",
+                    options={zstd.CompressionParameter.compression_level: 20},
+                ))
+            else:
+                dst = ctx.enter_context(zstandard.open(
+                    output,
+                    mode="wb",
+                    cctx=zstandard.ZstdCompressor(level=20)
+                ))
             if stream:
                 hmm_file = ctx.enter_context(HMMFile(src))
             else:
