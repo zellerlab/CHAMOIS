@@ -21,6 +21,9 @@ identifiers:
   - type: doi
     value: 10.1101/2025.03.13.642868
     description: bioRxiv preprint
+  - type: doi
+    value: 10.5281/zenodo.17849853
+    description: Datasets
 repository-code: 'https://github.com/zellerlab/CHAMOIS'
 abstract: >-
   With ever-increasing volumes of sequencing data for biosynthetic gene clusters (BGCs), 
