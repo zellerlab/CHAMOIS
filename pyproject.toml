@@ -28,7 +28,7 @@ classifiers = [
 ]
 dependencies = [
     "anndata >=0.8,<0.13",
-    "gb-io ~=0.3.1",
+    "gb-io >=0.3.1,<0.5",
     "importlib-resources >=1.0     ; python_version < '3.9'",
     "zstandard ~=0.25              ; python_version < '3.14'",
     "numpy >=1.0,<3.0",
