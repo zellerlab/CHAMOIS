@@ -104,6 +104,11 @@ $(DATA)/npatlas/classes.hdf5: $(CHEMONT) $(ATLAS)
 $(DATA)/npatlas/maccs.hdf5: $(ATLAS)
 	$(PYTHON) $(SCRIPTS)/npatlas/make_maccs.py --atlas $(ATLAS) -o $@
 
+# --- NP.Classifier ----------------------------------------------------------
+
+$(DATA)/npclassifier/index_v1.json:
+	mkdir -p $(DATA)/npclassifier
+	$(WGET) https://github.com/mwang87/NP-Classifier/raw/refs/heads/master/Classifier/dict/index_v1.json -O $@
 
 # --- Generic Rules ----------------------------------------------------------
 
