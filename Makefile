@@ -404,16 +404,35 @@ supfig4: $(SFIG4)/plot.svg $(SFIG4)/plot.png
 
 # Supplementary Figure 5 - PRISM4 comparison
 
-SFIG4=$(PAPER)/sup_fig5_prism4
+SFIG5=$(PAPER)/sup_fig5_prism4
 
-$(SFIG4)/probas.hdf5: $(DATA)/datasets/prism4/clusters.gbk $(CHAMOIS_WEIGHTS) $(CHAMOIS_HMM)
+$(SFIG5)/probas.hdf5: $(DATA)/datasets/prism4/clusters.gbk $(CHAMOIS_WEIGHTS) $(CHAMOIS_HMM)
 	$(PYTHON) -m chamois.cli predict --model $(CHAMOIS_WEIGHTS) -i $< -o $@ --hmm $(CHAMOIS_HMM)
 
-$(SFIG4)/search_results.tsv: $(SFIG4)/probas.hdf5 $(DATA)/npatlas/classes.hdf5 $(CHAMOIS_WEIGHTS)
+$(SFIG5)/search_results.tsv: $(SFIG5)/probas.hdf5 $(DATA)/npatlas/classes.hdf5 $(CHAMOIS_WEIGHTS)
 	$(PYTHON) -m chamois.cli search --model $(CHAMOIS_WEIGHTS) -i $< -c $(word 2,$^) -o $@
 
-$(SFIG4)/boxplot_by_mibig.median_comparison.png: $(SFIG4)/search_results.tsv
-	$(PYTHON) $(SFIG4)/plot.py
+$(SFIG5)/boxplot_by_mibig.median_comparison.png: $(SFIG5)/search_results.tsv
+	$(PYTHON) $(SFIG5)/plot.py
 
-.PHONY: supfig4
-supfig4: $(SFIG4)/boxplot_by_mibig.median_comparison.png
+.PHONY: supfig5
+supfig5: $(SFIG5)/boxplot_by_mibig.median_comparison.png
+
+# Supplementary Figure 6 - NPClassifier cross-validation
+
+SFIG6=$(PAPER)/sup_fig6_npclassifier_cv
+
+$(SFIG6)/model.json: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.npclassifier.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5
+	$(PYTHON) -m chamois.cli train -f $(word 2,$^) -c $(word 1,$^) -o $@
+
+$(SFIG6)/cv.probas.hdf5: $(SFIG6)/cv.report.tsv
+	touch $@
+
+$(SFIG6)/cv.report.tsv: $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.npclassifier.hdf5
+	$(PYTHON) -m chamois.cli cvi -f $(word 1,$^) -c $(word 2,$^) -o $(SFIG6)/cv.probas.hdf5 --report $@
+
+$(SFIG6)/tree.html: $(SFIG6)/cv.report.tsv $(SFIG6)/model.json
+	$(PYTHON) $(SFIG6)/tree.py --output $@ --report $(word 1,$^) --model $(word 2,$^)
+
+.PHONY: supfig6
+supfig6: $(SFIG6)/cv.report.tsv $(SFIG6)/tree.html
