@@ -106,7 +106,9 @@ $(DATA)/npatlas/maccs.hdf5: $(ATLAS)
 
 # --- NP.Classifier ----------------------------------------------------------
 
-$(DATA)/npclassifier/index_v1.json:
+NPINDEX=$(DATA)/npclassifier/index_v1.json
+
+$(NPINDEX):
 	mkdir -p $(DATA)/npclassifier
 	$(WGET) https://github.com/mwang87/NP-Classifier/raw/refs/heads/master/Classifier/dict/index_v1.json -O $@
 
@@ -123,6 +125,9 @@ $(DATA)/datasets/%/classification.json: $(DATA)/datasets/%/classes.hdf5
 
 $(DATA)/datasets/%/classes.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(CHEMONT)
 	$(PYTHON) $(SCRIPTS)/common/make_classes.py -i $< -o $@ --atlas $(ATLAS) --chemont $(CHEMONT) --cache $(BUILD) $(WISHART) --output-json $(DATA)/datasets/$*/classification.json
+
+$(DATA)/datasets/%/classes.npclassifier.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(NPINDEX)
+	$(PYTHON) $(SCRIPTS)/common/make_npclassifier.py -i $< -o $@ --atlas $(ATLAS) --index $(NPINDEX)
 
 $(DATA)/datasets/%/maccs.hdf5: $(DATA)/datasets/%/compounds.json $(ATLAS) $(CHEMONT)
 	$(PYTHON) $(SCRIPTS)/common/make_maccs.py -i $< -o $@
