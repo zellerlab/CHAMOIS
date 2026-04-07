@@ -246,8 +246,8 @@ for bgc_id in rich.progress.track(annotations, description=f"[bold blue]{'Binari
             #     section 2.1, https://www.biorxiv.org/content/10.64898/2025.12.12.693975v1.full)
             #     rather than using the "best" one for ChemOnt labels.
             pass
-    else:
-        unknown_structure[bgc_index] = True
+    # else:
+    #     unknown_structure[bgc_index] = True
 
 # --- Build groups using MHFP6 distances -------------------------------------
 
