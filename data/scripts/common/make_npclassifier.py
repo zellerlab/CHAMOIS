@@ -224,6 +224,9 @@ for bgc_id in rich.progress.track(annotations, description=f"[bold blue]{'Binari
         # record compound structure
         bgc_compound = compounds[bgc_id][best_index]
         bgc_annotation = annotations[bgc_id][best_index]
+        if bgc_annotation is None:
+            rich.print(f"[bold yellow]{'Skipping':>12}[/] {bgc_compound['compound']!r} compound of [purple]{bgc_id}[/] with no structure")
+            continue
         smiles[bgc_index] = bgc_annotation.smiles
         names[bgc_index] = bgc_compound["compound"]
         # inchikey[bgc_index] = bgc_annotation.inchikey.split("=", 1)[1]
@@ -239,7 +242,10 @@ for bgc_id in rich.progress.track(annotations, description=f"[bold blue]{'Binari
             rich.print(f"[bold yellow]{'Warning':>12}[/] unknown class name: {err}")
             classes[bgc_index, :] = False
         else:
-            break
+            # NB: BGCs with multiple products get combined (see BGCcat preprint
+            #     section 2.1, https://www.biorxiv.org/content/10.64898/2025.12.12.693975v1.full)
+            #     rather than using the "best" one for ChemOnt labels.
+            pass
     else:
         unknown_structure[bgc_index] = True
 
