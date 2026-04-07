@@ -767,12 +767,14 @@
     ],
     "JBIWPE010000002.1_cluster1": [
         {
+            "chem_struct": "C1C(C(=O)NC(C(=O)NC(C(C2=C(C=CC(=C2)C3=CC1=C(C=C3)O)O)O)C(=O)O)CC(CN)O)N",
             "compound": "biphenomycin A",
             "database_id": ["pubchem:10005714"]
         },
         {
+            "chem_struct": "C1[C@@H](C(=O)N[C@H](C(=O)N[C@@H](CC2=C(C=CC(=C2)C3=CC1=C(C=C3)O)O)C(=O)O)C[C@H](CN)O)N",
             "compound": "biphenomycin B",
-            "database_id": ["pubchem:27500"]
+            "database_id": ["pubchem:127500"]
         },
         {
             "chem_struct": "C1[C@@H](C(=O)N[C@H](C(=O)N[C@@H]([C@@H](C2=C(C=CC(=C2)C3=CC1=C(C=C3)O)O)O)C(=O)NC(CCCN=C(N)N)C(=O)N[C@@H](CO)C(=O)O)C[C@H](CN)O)N",
