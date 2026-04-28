@@ -412,7 +412,10 @@ $(SFIG5)/probas.hdf5: $(DATA)/datasets/prism4/clusters.gbk $(CHAMOIS_WEIGHTS) $(
 $(SFIG5)/search_results.tsv: $(SFIG5)/probas.hdf5 $(DATA)/npatlas/classes.hdf5 $(CHAMOIS_WEIGHTS)
 	$(PYTHON) -m chamois.cli search --model $(CHAMOIS_WEIGHTS) -i $< -c $(word 2,$^) -o $@
 
-$(SFIG5)/boxplot_by_mibig.median_comparison.png: $(SFIG5)/search_results.tsv
+$(SFIG5)/predictions.tsv: $(SFIG5)/search_results.tsv
+	$(PYTHON) $(SFIG5)/map_npatlas.py
+
+$(SFIG5)/boxplot_by_mibig.median_comparison.png: $(SFIG5)/predictions.tsv
 	$(PYTHON) $(SFIG5)/plot.py
 
 .PHONY: supfig5

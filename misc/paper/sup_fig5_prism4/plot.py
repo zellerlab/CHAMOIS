@@ -23,8 +23,9 @@ from matplotlib import rcParams
 from scipy.spatial.distance import jensenshannon
 from rdkit.Contrib.IFG.ifg import identify_functional_groups
 from rdkit import RDLogger
+from rdkit.DataStructs import TanimotoSimilarity
 
-from functions import clean_mols, get_ecfp6_fingerprints, get_tanimoto
+from functions import clean_mol, clean_mols, get_ecfp6_fingerprints, get_tanimoto
 
 # disable logging
 RDLogger.DisableLog('rdApp.error')
@@ -36,6 +37,7 @@ PROJECT_FOLDER = pathlib.Path(__file__).absolute().parents[3]
 PALETTE = {
     "PRISM 1": "#23395d",
     "PRISM 4": "#92b5d9",
+    "PRISM 4 + NPAtlas": "#45baac",
     "NP.searcher": "#e5d89d",
     "antiSMASH 4": "#a96184",
     "CHAMOIS": "#8d4004",
@@ -145,66 +147,9 @@ for cluster, bgc_types in cluster_types.items():
     rows.append(row)
 types = pandas.DataFrame(rows).sort_values("Cluster")
 
-# --- Load NPAtlas -----------------------------------------------------------
+# --- Load merged predictions ------------------------------------------------
 
-rich.print(f"[bold blue]{'Loading':>12}[/] Natural Product Atlas")
-npatlas = anndata.read_h5ad(PROJECT_FOLDER.joinpath("data", "npatlas", "classes.hdf5"))
-
-
-# --- Load CHAMOIS search results --------------------------------------------
-
-rich.print(f"[bold blue]{'Loading':>12}[/] CHAMOIS search results")
-search_results = pandas.read_table(pathlib.Path(__file__).absolute().parent.joinpath("search_results.tsv"))
-search_results = search_results[search_results["rank"] == 1]
-
-
-# --- Load PRISM4 predictions ------------------------------------------------
-
-rich.print(f"[bold blue]{'Loading':>12}[/] PRISM4 predictions")
-predictions = pandas.read_excel(PROJECT_FOLDER.joinpath("data", "prism4", "predictions.xlsx"))
-predictions = predictions[~predictions["Predicted SMILES"].isna()]
-
-# --- Add CHAMOIS predictions to the table -----------------------------------
-
-rich.print(f"[bold blue]{'Adding':>12}[/] CHAMOIS results to the predictions")
-
-chamois_predictions = []
-
-for cluster, rows in predictions.groupby("Cluster"):
-
-    # compute fingerprints for true SMILES
-    true_smiles = rows["True SMILES"].unique()
-    true_mols = clean_mols(true_smiles)
-    true_fps = get_ecfp6_fingerprints(true_mols)
-
-    # get predictions for current BGC
-    # bgc_id, _ = os.path.splitext(cluster)
-    bgc_id = cluster
-    chamois_hits = search_results[search_results.bgc_id == bgc_id]
-
-    # extract SMILES from predictions 
-    pred_smiles = [npatlas.obs.loc[hit.index].smiles for hit in chamois_hits.itertuples()]
-    pred_mols = clean_mols(pred_smiles)
-    pred_fps = get_ecfp6_fingerprints(pred_mols)
-
-    # compute Tanimoto similarity
-    tcs = get_tanimoto(true_fps, pred_fps)
-
-    # add the CHAMOIS predictions to the table
-    # (same code as `calculate-tanimoto-coefficients.py`)
-    true_col = [y for x in pred_smiles for y in true_smiles]
-    pred_col = [x for x in pred_smiles for y in true_smiles]
-    res = pandas.DataFrame({'Cluster': cluster, 
-                        'True SMILES': true_col,
-                        'Predicted SMILES': pred_col,
-                        'Tanimoto coefficient': tcs, 
-                        'Method': 'CHAMOIS' })
-    chamois_predictions.append(res)
-
-predictions = pandas.concat(itertools.chain([predictions], chamois_predictions), ignore_index=True)
-
-# for method, rows in predictions.groupby("Method"):
-#     print(method, rows["Cluster"].unique())
+predictions = pandas.read_table(pathlib.Path(__file__).absolute().parent.joinpath("predictions.tsv"))
 
 # --- Select subset of predictions with all methods --------------------------
 
@@ -257,6 +202,7 @@ plt.savefig(pathlib.Path(__file__).absolute().parent.joinpath("boxplot_by_method
 
 # --- Detailed plot by cluster type (Median + Max) ---------------------------
 
+
 TYPES = [
     "aminocoumarin", 
     "aminoglycoside", 
@@ -275,12 +221,13 @@ TYPES = [
     "type 2 polyketide"
 ]
 
-detailed_predictions = predictions[(predictions["Method"] == "PRISM 4") | (predictions["Method"] == "CHAMOIS")]
+subset = ["PRISM 4", "PRISM 4 + NPAtlas", "CHAMOIS"]
+detailed_predictions = predictions[predictions["Method"].isin(set(subset))]
 detailed_predictions = pandas.merge(detailed_predictions, types, how="left", on="Cluster")
 detailed_predictions = detailed_predictions[~detailed_predictions["Tanimoto coefficient"].isna()]
 
-fig, (ax1, ax2) = plt.subplots(nrows=2, ncols=1, sharex=True, figsize=(12, 6))
-for (method, ax) in zip(["PRISM 4", "CHAMOIS" ], [ax1, ax2]):
+fig, (ax1, ax2, ax3) = plt.subplots(nrows=len(subset), ncols=1, sharex=True, figsize=(6*len(subset), 6))
+for (method, ax) in zip(subset, [ax1, ax2, ax3]):
         
     X = numpy.arange(len(TYPES))
     maximums = []
@@ -338,7 +285,8 @@ TYPES = [
 ]
 
 # get predictions by type
-detailed_predictions = predictions[(predictions["Method"] == "PRISM 4") | (predictions["Method"] == "CHAMOIS")]
+subset = ["PRISM 4", "PRISM 4 + NPAtlas", "CHAMOIS"]
+detailed_predictions = predictions[predictions["Method"].isin(set(subset))]
 detailed_predictions = pandas.merge(detailed_predictions, types, how="left", on="Cluster")
 detailed_predictions = detailed_predictions[~detailed_predictions["Tanimoto coefficient"].isna()]
 cluster_subset = functools.reduce(operator.and_, [set(detailed_predictions["Cluster"][detailed_predictions["Method"] == m]) for m in ("PRISM 4", "CHAMOIS")])
@@ -346,10 +294,10 @@ detailed_predictions = detailed_predictions[detailed_predictions["Cluster"].isin
 
 # compute median of predictions per cluster per type
 fig, ax = plt.subplots(nrows=1, ncols=1, sharex=True, figsize=(12, 3))
-medians = {"PRISM 4": [], "CHAMOIS": []}
+medians = {x: [] for x in subset}
 for ty in TYPES:
     ty_predictions = detailed_predictions[detailed_predictions[ty]]
-    for method in ["PRISM 4", "CHAMOIS"]:
+    for method in subset:
         ty_rows = ty_predictions[ty_predictions["Method"] == method]
         groups = ty_rows[["Cluster", "Tanimoto coefficient"]].groupby("Cluster", sort=True)
         medians[method].append(groups.median().reset_index()["Tanimoto coefficient"].values)
@@ -357,13 +305,14 @@ for ty in TYPES:
 
 # render boxplot
 X = numpy.arange(len(TYPES))
-bplot1 = ax.boxplot(medians["PRISM 4"], positions=X-0.15, widths=0.2, patch_artist=True)
-bplot2 = ax.boxplot(medians["CHAMOIS"], positions=X+0.15, widths=0.2, patch_artist=True)
-colors = [PALETTE["PRISM 4"], PALETTE["CHAMOIS"]]
-for bplot, color in zip((bplot1, bplot2), colors):
+bplot1 = ax.boxplot(medians["PRISM 4"], positions=X-0.2, widths=0.2, patch_artist=True)
+bplot2 = ax.boxplot(medians["PRISM 4 + NPAtlas"], positions=X+0.0, widths=0.2, patch_artist=True)
+bplot3 = ax.boxplot(medians["CHAMOIS"], positions=X+0.2, widths=0.2, patch_artist=True)
+colors = [PALETTE[x] for x in subset]
+for bplot, color in zip((bplot1, bplot2, bplot3), colors):
     for patch in bplot['boxes']:
         patch.set_facecolor(color)
-ax.legend([bplot1["boxes"][0], bplot2["boxes"][0]], ['PRISM 4', 'CHAMOIS'], loc='upper left')
+ax.legend([bplot["boxes"][0] for bplot in (bplot1, bplot2, bplot3)], subset, loc='upper left')
 
 # show support values for classes
 for x, m in zip(X, medians["CHAMOIS"]):
@@ -374,10 +323,17 @@ ax.set_ylim(bottom=-0.20)
 for x, m1, m2 in zip(X, medians["PRISM 4"], medians["CHAMOIS"]):
     p = scipy.stats.ttest_rel(m1, m2).pvalue
     txt = "ns" if p > 0.05 else "*" if p > 0.01 else "**" if p > 0.001 else "***" if p > 0.0001 else "****" 
-    ax.text(x, 1.05, txt, ha="center")
-    ax.plot([x-0.15, x-0.15], [1.03, 1.04], '-', color="black")
-    ax.plot([x+0.15, x+0.15], [1.03, 1.04], '-', color="black")
-    ax.plot([x-0.15, x+0.15], [1.04, 1.04], '-', color="black")
+    ax.text(x, 1.12, txt, ha="center")
+    ax.plot([x-0.2, x-0.2], [1.09, 1.10], '-', color="black")
+    ax.plot([x+0.2, x+0.2], [1.09, 1.10], '-', color="black")
+    ax.plot([x-0.2, x+0.2], [1.10, 1.10], '-', color="black")
+for x, m1, m2 in zip(X, medians["PRISM 4 + NPAtlas"], medians["CHAMOIS"]):
+    p = scipy.stats.ttest_rel(m1, m2).pvalue
+    txt = "ns" if p > 0.05 else "*" if p > 0.01 else "**" if p > 0.001 else "***" if p > 0.0001 else "****" 
+    ax.text(x+0.1, 1.05, txt, ha="center")
+    ax.plot([x, x], [1.03, 1.04], '-', color="black")
+    ax.plot([x+0.2, x+0.2], [1.03, 1.04], '-', color="black")
+    ax.plot([x, x+0.2], [1.04, 1.04], '-', color="black")
 ax.set_ylim(top=1.20)
 
 # show ticks
@@ -399,15 +355,16 @@ MIBIG_TYPES = [
 ]
 
 # get predictions by type
-detailed_predictions = predictions[(predictions["Method"] == "PRISM 4") | (predictions["Method"] == "CHAMOIS") | (predictions["Method"] == "DIAMOND")]
+subset = ["PRISM 4", "PRISM 4 + NPAtlas", "CHAMOIS"]
+detailed_predictions = predictions[predictions["Method"].isin(set(subset))]
 detailed_predictions = pandas.merge(detailed_predictions, types, how="left", on="Cluster")
 detailed_predictions = detailed_predictions[~detailed_predictions["Tanimoto coefficient"].isna()]
-cluster_subset = functools.reduce(operator.and_, [set(detailed_predictions["Cluster"][detailed_predictions["Method"] == m]) for m in ("PRISM 4", "CHAMOIS")])
+cluster_subset = functools.reduce(operator.and_, [set(detailed_predictions["Cluster"][detailed_predictions["Method"] == m]) for m in subset])
 detailed_predictions = detailed_predictions[detailed_predictions["Cluster"].isin(cluster_subset)]
 
 # compute median of predictions per cluster per type
 fig, ax = plt.subplots(nrows=1, ncols=1, sharex=True, figsize=(6, 6))
-medians = {"PRISM 4": [], "CHAMOIS": []}
+medians = {x: [] for x in subset}
 for ty in MIBIG_TYPES:
     ty_predictions = detailed_predictions[detailed_predictions[ty]]
     for method in medians:
@@ -418,12 +375,13 @@ for ty in MIBIG_TYPES:
 # render boxplot
 X = numpy.arange(len(MIBIG_TYPES))
 bplot1 = ax.boxplot(medians["PRISM 4"], positions=X-0.2, widths=0.2, patch_artist=True)
-bplot2 = ax.boxplot(medians["CHAMOIS"], positions=X+0.00, widths=0.2, patch_artist=True)
-colors = [PALETTE["PRISM 4"], PALETTE["CHAMOIS"]]
-for bplot, color in zip((bplot1, bplot2), colors):
+bplot2 = ax.boxplot(medians["PRISM 4 + NPAtlas"], positions=X+0.0, widths=0.2, patch_artist=True)
+bplot3 = ax.boxplot(medians["CHAMOIS"], positions=X+0.2, widths=0.2, patch_artist=True)
+colors = [PALETTE[x] for x in subset]
+for bplot, color in zip((bplot1, bplot2, bplot3), colors):
     for patch in bplot['boxes']:
         patch.set_facecolor(color)
-ax.legend([bplot1["boxes"][0], bplot2["boxes"][0]], ['PRISM 4', 'CHAMOIS'], loc='upper left')
+ax.legend([bplot["boxes"][0] for bplot in (bplot1, bplot2, bplot3)], subset, loc='upper left')
 
 # show support values for classes
 for x, m in zip(X, medians["CHAMOIS"]):
@@ -434,10 +392,17 @@ ax.set_ylim(bottom=-0.20)
 for x, m1, m2 in zip(X, medians["PRISM 4"], medians["CHAMOIS"]):
     p = scipy.stats.ttest_rel(m1, m2).pvalue
     txt = "ns" if p > 0.05 else "*" if p > 0.01 else "**" if p > 0.001 else "***" if p > 0.0001 else "****" 
-    ax.text(x - 0.1, 1.05, txt, ha="center")
-    ax.plot([x-0.2, x-0.2], [1.03, 1.04], '-', color="black")
-    ax.plot([x+0.0, x+0.0], [1.03, 1.04], '-', color="black")
-    ax.plot([x-0.2, x+0.0], [1.04, 1.04], '-', color="black")
+    ax.text(x, 1.12, txt, ha="center")
+    ax.plot([x-0.2, x-0.2], [1.09, 1.10], '-', color="black")
+    ax.plot([x+0.2, x+0.2], [1.09, 1.10], '-', color="black")
+    ax.plot([x-0.2, x+0.2], [1.10, 1.10], '-', color="black")
+for x, m1, m2 in zip(X, medians["PRISM 4 + NPAtlas"], medians["CHAMOIS"]):
+    p = scipy.stats.ttest_rel(m1, m2).pvalue
+    txt = "ns" if p > 0.05 else "*" if p > 0.01 else "**" if p > 0.001 else "***" if p > 0.0001 else "****" 
+    ax.text(x+0.1, 1.05, txt, ha="center")
+    ax.plot([x, x], [1.03, 1.04], '-', color="black")
+    ax.plot([x+0.2, x+0.2], [1.03, 1.04], '-', color="black")
+    ax.plot([x, x+0.2], [1.04, 1.04], '-', color="black")
 ax.set_ylim(top=1.20)
 
 # show ticks
