@@ -4,11 +4,13 @@ import copy
 import json
 import os
 import sys
+import string
 import pathlib
 
 import anndata
-import pandas
 import numpy
+import pandas
+import pronto
 import rich.progress
 import sklearn.metrics
 from matplotlib import pyplot as plt
@@ -39,6 +41,27 @@ parser.add_argument("--types", required=True)
 parser.add_argument("--probas", required=True)
 parser.add_argument("-o", "--output", required=True, type=pathlib.Path)
 args = parser.parse_args()
+
+chemont = pronto.Ontology(folder.joinpath("data", "ontologies", "ChemOnt_2_1.obo"))
+
+def chemont_name(term_id):
+    term_name = chemont[term_id].name
+    if term_name == "Organic phosphonic acids and derivatives":
+        term_name = "Phosphonic acids"
+    elif "carbohydrate conjugates" in term_name:
+        term_name = term_name.replace("carbohydrate conjugates", "conjugates")
+    elif "-unsubstituted" in term_name:
+        term_name = term_name.replace("-unsubstituted", "-H")
+    elif "Steroids and steroid derivatives" in term_name:
+        term_name = "Steroids"
+    elif "and analogues" in term_name:
+        term_name = term_name[:-len("and analogues")]
+    elif term_name.endswith("and derivatives"):
+       term_name = term_name[:-len("and derivatives")].strip()
+    elif term_name.endswith("compounds"):
+        term_name = term_name[:-len("compounds")].strip() + "s"
+    term_name = term_name.strip(string.punctuation + string.whitespace)
+    return term_name
 
 
 cv_probas = anndata.read_h5ad(args.probas)
@@ -92,7 +115,8 @@ for k in TYPE_PALETTE:
 #axes[2].legend()
 axes[2].set_ylabel("BGC Type\nFraction")
 axes[2].set_xlim(-1, len(top))
-axes[2].set_xticks(X, labels=["C" + x[10:] for x in top.index], rotation=90)
+#axes[2].set_xticks(X, labels=["C" + x[10:] for x in top.index], rotation=90)
+axes[2].set_xticks(X, labels=[chemont_name(x) for x in top.index], rotation=90)
 
 axes[0].bar(X, top['aupr'].values, color=colors)
 axes[0].bar(X, top.baseline, color="gray") #, marker='x', color='black')
