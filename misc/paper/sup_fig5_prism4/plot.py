@@ -196,7 +196,7 @@ for j, m in reversed(list(enumerate(methods))):
 ax1.legend(boxes, methods, loc='upper right')
 ax1.set_xticks( range(len(methods)), labels=methods)
 
-plt.tight_layout()
+# plt.tight_layout()
 plt.savefig(pathlib.Path(__file__).absolute().parent.joinpath("boxplot_by_method.png"))
 plt.savefig(pathlib.Path(__file__).absolute().parent.joinpath("boxplot_by_method.svg"))
 
@@ -259,7 +259,7 @@ for (method, ax) in zip(subset, [ax1, ax2, ax3]):
     ax.set_ylim(bottom=-0.20)
 
 
-plt.tight_layout()
+# plt.tight_layout()
 plt.savefig(pathlib.Path(__file__).absolute().parent.joinpath("boxplot_by_type.prism_figure.png"))
 plt.savefig(pathlib.Path(__file__).absolute().parent.joinpath("boxplot_by_type.prism_figure.svg"))
 

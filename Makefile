@@ -215,7 +215,7 @@ $(MITE)/classes.hdf5: $(MITE)/entries.json $(CHEMONT) $(ATLAS)
 
 # path to the trained model
 CHAMOIS_WEIGHTS=chamois/predictor/predictor.json
-CHAMOIS_HMM=chamois/domains/Pfam$(PFAM_VERSION).hmm.lz4
+CHAMOIS_HMM=chamois/domains/Pfam$(PFAM_VERSION).hmm.zst
 
 $(CHAMOIS_WEIGHTS): $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5
 	$(PYTHON) -m chamois.cli train -f $(word 2,$^) -c $(word 1,$^) -o $@
@@ -328,13 +328,15 @@ suptable4: $(STBL4)/table.tsv
 
 # Supplementary Table 5 - PRISM4 comparison
 STBL5=$(PAPER)/sup_table5_prism4
-SFIG4=$(PAPER)/sup_fig4_prism4
 
-$(STBL5)/search_results.tsv: $(SFIG4)/search_results.tsv
-	cp $< $@
+$(STBL5)/probas.hdf5: $(DATA)/datasets/prism4/clusters.gbk $(CHAMOIS_WEIGHTS) $(CHAMOIS_HMM)
+	$(PYTHON) -m chamois.cli predict --model $(CHAMOIS_WEIGHTS) -i $< -o $@ --hmm $(CHAMOIS_HMM)
 
-$(STBL5)/predictions.tsv: $(STBL4)/search_results.tsv $(DATA)/npatlas/classes.hdf5 $(DATA)/npatlas/classes.hdf5 $(DATA)/prism4/predictions.xlsx
-	$(PYTHON) $(STBL5)/summary_table.py
+$(STBL5)/search_results.tsv: $(STBL5)/probas.hdf5 $(DATA)/npatlas/classes.hdf5 $(CHAMOIS_WEIGHTS)
+	$(PYTHON) -m chamois.cli search --model $(CHAMOIS_WEIGHTS) -i $< -c $(word 2,$^) -o $@
+
+$(STBL5)/predictions.tsv: $(STBL5)/search_results.tsv $(DATA)/npatlas/classes.hdf5 $(DATA)/prism4/predictions.xlsx
+	$(PYTHON) $(STBL5)/collate_predictions.py
 
 .PHONY: suptable5
 suptable5: $(STBL5)/search_results.tsv $(STBL5)/predictions.tsv
@@ -406,14 +408,8 @@ supfig4: $(SFIG4)/plot.svg $(SFIG4)/plot.png
 
 SFIG5=$(PAPER)/sup_fig5_prism4
 
-$(SFIG5)/probas.hdf5: $(DATA)/datasets/prism4/clusters.gbk $(CHAMOIS_WEIGHTS) $(CHAMOIS_HMM)
-	$(PYTHON) -m chamois.cli predict --model $(CHAMOIS_WEIGHTS) -i $< -o $@ --hmm $(CHAMOIS_HMM)
-
-$(SFIG5)/search_results.tsv: $(SFIG5)/probas.hdf5 $(DATA)/npatlas/classes.hdf5 $(CHAMOIS_WEIGHTS)
-	$(PYTHON) -m chamois.cli search --model $(CHAMOIS_WEIGHTS) -i $< -c $(word 2,$^) -o $@
-
-$(SFIG5)/predictions.tsv: $(SFIG5)/search_results.tsv
-	$(PYTHON) $(SFIG5)/map_npatlas.py
+$(SFIG5)/predictions.tsv: $(STBL5)/predictions.tsv
+	cp $< $@
 
 $(SFIG5)/boxplot_by_mibig.median_comparison.png: $(SFIG5)/predictions.tsv
 	$(PYTHON) $(SFIG5)/plot.py

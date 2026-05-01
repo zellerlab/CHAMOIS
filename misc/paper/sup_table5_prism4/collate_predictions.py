@@ -2,7 +2,6 @@ import collections
 import contextlib
 import itertools
 import json
-import math
 import functools
 import operator
 import tarfile
@@ -24,8 +23,9 @@ from matplotlib import rcParams
 from scipy.spatial.distance import jensenshannon
 from rdkit.Contrib.IFG.ifg import identify_functional_groups
 from rdkit import RDLogger
+from rdkit.DataStructs import TanimotoSimilarity
 
-from functions import clean_mols, get_ecfp6_fingerprints, get_tanimoto
+from functions import clean_mol, clean_mols, get_ecfp6_fingerprints, get_tanimoto
 
 # disable logging
 RDLogger.DisableLog('rdApp.error')
@@ -33,7 +33,6 @@ RDLogger.DisableLog('rdApp.error')
 # fix font embedding in SVG images
 rcParams['svg.fonttype'] = 'none'
 
-folder = pathlib.Path(__file__).absolute().parent
 PROJECT_FOLDER = pathlib.Path(__file__).absolute().parents[3]
 PALETTE = {
     "PRISM 1": "#23395d",
@@ -110,6 +109,7 @@ type_counts = collections.Counter()
 cluster_types = {}
 mibig_types = {}
 
+rich.print(f"[bold blue]{'Loading':>12}[/] PRISM4 dataset")
 with contextlib.ExitStack() as ctx:
     progress = ctx.enter_context(rich.progress.Progress())
     reader = ctx.enter_context(progress.open(PROJECT_FOLDER.joinpath("data", "prism4", "BGCs.tar"), "rb", description=f"[bold blue]{'Reading':>12}[/]"))
@@ -152,6 +152,11 @@ types = pandas.DataFrame(rows).sort_values("Cluster")
 rich.print(f"[bold blue]{'Loading':>12}[/] Natural Product Atlas")
 npatlas = anndata.read_h5ad(PROJECT_FOLDER.joinpath("data", "npatlas", "classes.hdf5"))
 
+# --- Build ECFP6 for NPAtlas ------------------------------------------------
+
+rich.print(f"[bold blue]{'Computing':>12}[/] Natural Product Atlas fingerprints")
+npatlas_mols = clean_mols(rich.progress.track(npatlas.obs["smiles"], description=f"[bold blue]{'Working':>12}[/]"))
+npatlas_fps = get_ecfp6_fingerprints(rich.progress.track(npatlas_mols, description=f"[bold blue]{'Working':>12}[/]"))
 
 # --- Load CHAMOIS search results --------------------------------------------
 
@@ -165,6 +170,66 @@ search_results = search_results[search_results["rank"] == 1]
 rich.print(f"[bold blue]{'Loading':>12}[/] PRISM4 predictions")
 predictions = pandas.read_excel(PROJECT_FOLDER.joinpath("data", "prism4", "predictions.xlsx"))
 predictions = predictions[~predictions["Predicted SMILES"].isna()]
+
+
+# --- Map PRIMS4 predictions to closest NPAtlas compound ----------------------
+
+rich.print(f"[bold blue]{'Packing':>12}[/] Natural Product Atlas fingerprints")
+npatlas_fps_bits = numpy.zeros([len(npatlas_fps), (len(npatlas_fps[0]) + 7) // 8], dtype=numpy.uint8)
+for i, x in enumerate(rich.progress.track(npatlas_fps, description=f"[bold blue]{'Encoding':>12}[/]")):
+    if x is not None:
+        npatlas_fps_bits[i, :] = numpy.packbits(x)
+
+def tanimoto_pairwise_fast(X, Y):
+    _Y = npatlas_fps_bits
+    out = numpy.zeros((len(X), _Y.shape[0]))
+    for i, x in enumerate(X):
+        if x is None:
+            continue
+        x = numpy.packbits(x).reshape(1, -1)
+        u = numpy.bitwise_count(x | _Y).sum(axis=1)
+        n = numpy.bitwise_count(x & _Y).sum(axis=1)
+        numpy.divide(n, u, out=out[i, :], where=u!=0)
+    return out
+
+rich.print(f"[bold blue]{'Searching':>12}[/] for PRISM 4 matches in Natural Product Atlas")
+prism_npatlas_predictions = []
+total = predictions[predictions["Method"] == "PRISM 4"]["Cluster"].nunique()
+for cluster, rows in rich.progress.track(
+    predictions[predictions["Method"] == "PRISM 4"].groupby("Cluster"),
+    total=total,
+    description=f"[bold blue]{'Working':>12}[/]"
+):
+   
+    pred_mols = clean_mols(rows["Predicted SMILES"])
+    pred_fps = get_ecfp6_fingerprints(pred_mols)
+   
+    # pred_tanimoto = numpy.array(get_tanimoto(pred_fps, npatlas_fps))
+    # pred_tanimoto = numpy.nan_to_num(pred_tanimoto.astype(float)).reshape(-1, len(npatlas_fps))
+
+    pred_tanimoto = tanimoto_pairwise_fast(pred_fps, npatlas_fps)
+    closest_mol = pred_tanimoto.argmax(axis=1)
+
+    true_mols = clean_mols(rows["True SMILES"])
+    true_fps = get_ecfp6_fingerprints(true_mols)
+
+    for i in range(rows.shape[0]):
+        # ignore predictions with zero matches, usually incorrect structure
+        # or failure to obtain a fingerprint
+        if not numpy.any(pred_tanimoto[i]): 
+            continue
+
+        tcs = TanimotoSimilarity(true_fps[i], npatlas_fps[closest_mol[i]])
+        res = {'Cluster': cluster, 
+            'True SMILES': rows["True SMILES"].values[i],
+            'Predicted SMILES': npatlas.obs["smiles"].iloc[closest_mol[i]],
+            'Tanimoto coefficient': tcs, 
+            'Method': 'PRISM 4 + NPAtlas' }
+        prism_npatlas_predictions.append(res)
+
+
+predictions = pandas.concat([predictions, pandas.DataFrame(prism_npatlas_predictions)], ignore_index=True)
+predictions.to_csv("/tmp/predictions.tsv", sep="\t")
 
 # --- Add CHAMOIS predictions to the table -----------------------------------
 
@@ -204,25 +269,7 @@ for cluster, rows in predictions.groupby("Cluster"):
     chamois_predictions.append(res)
 
 predictions = pandas.concat(itertools.chain([predictions], chamois_predictions), ignore_index=True)
-predictions.sort_values(["Cluster", "Method"], inplace=True)
-predictions.to_csv(folder.joinpath("predictions.tsv"), index=False, sep="\t")
 
-# --- Summarize performance per method per BGC ---------------------------------
+# --- Save predictions ---------------------------------------------------------
 
-table = []
-for cluster, rows in predictions.groupby("Cluster"):
-    stats = {"Cluster": cluster, "True Smiles": rows["True SMILES"].values[0]}
-    for method in ("NP.searcher", "PRISM 1", "PRISM 4", "antiSMASH 4", "CHAMOIS"):
-        kmed = f"{method} (median)"
-        kmax = f"{method} (max)"
-        if (rows.Method == method).any():
-            stats[kmed] = rows[rows.Method == method]["Tanimoto coefficient"].median()
-            stats[kmax] = rows[rows.Method == method]["Tanimoto coefficient"].max()
-        else:
-            stats[kmed] = math.nan
-            stats[kmax] = math.nan
-    table.append(stats)
-
-table = pandas.DataFrame(table)
-table = pandas.merge(table, types, on="Cluster")
-table.to_csv(folder.joinpath("medians.tsv"), index=False, sep="\t")
+predictions.to_csv(pathlib.Path(__file__).absolute().parent.joinpath("predictions.tsv"), sep="\t", index=False)
