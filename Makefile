@@ -469,3 +469,13 @@ $(SFIG6)/tree.html: $(SFIG6)/cv.report.tsv $(SFIG6)/model.json
 
 .PHONY: supfig6
 supfig6: $(SFIG6)/cv.report.tsv $(SFIG6)/tree.html
+
+# Supplementary Figure 7 - BGCat benchmark
+SFIG7=$(PAPER)/sup_fig7_bgcat_benchmark
+
+.PHONY: supfig7
+supfig7: $(SFIG7)/pr.png 
+
+$(SFIG7)/pr.png: $(DATA)/datasets/native/classes.npclassifier.hdf5 $(STBL8)/chamois_predictions.hdf5 $(STBL9)/bgcat_predictions.hdf5
+	$(PYTHON) $(SFIG7)/plot.py
+
