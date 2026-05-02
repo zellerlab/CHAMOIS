@@ -376,10 +376,13 @@ $(STBL8)/chamois_predictions.tsv: $(STBL8)/chamois_predictions.hdf5
 	$(PYTHON) $(STBL8)/summary.py
 
 # Supplementary Table 9 - BGCat predictions
-STBL9=$(PAPER)/sup_table9_benchmark_bgcat
+STBL9=$(PAPER)/sup_table9_benchmark_bgcat_npclassifier
 
 .PHONY: suptable9
 suptable9: $(STBL9)/bgcat_predictions.tsv
+
+$(STBL9)/bgcat_predictions.tsv: 
+	$(PYTHON) $(STBL9)/convert_predictions.py
 
 # # Supplementary Table X - MIBiG blocklist
 # STBLX=$(PAPER)/sup_tableX_mibig_blocklist
