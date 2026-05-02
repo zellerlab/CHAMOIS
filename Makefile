@@ -350,14 +350,24 @@ $(STBL6)/benchmark_dataset.tsv: $(DATA)/datasets/native/coordinates.tsv $(DATA)/
 
 suptable6: $(STBL6)/benchmark_dataset.tsv
 
-# Supplementary Table 7 - MIBiG blocklist
-STBL7=$(PAPER)/sup_table7_mibig_blocklist
-
-$(STBL7)/table.tsv: $(DATA)/mibig/blocklist.tsv
-		cp $< $@
+# Supplementary Table 7 - NPClassifier cross validation
+STBL7=$(PAPER)/sup_table7_npclassifier_cv
+SFIG6=$(PAPER)/sup_fig6_npclassifier_cv
 
 .PHONY: suptable7
-suptable7: $(STBL7)/table.tsv
+suptable7: $(STBL7)/report.tsv
+
+$(STBL7)/report.tsv: $(SFIG6)/cv.report.tsv
+	$(PYTHON) $(STBL7)/make_report.py
+
+# Supplementary Table 9 - MIBiG blocklist
+STBL9=$(PAPER)/sup_table9_mibig_blocklist
+
+$(STBL9)/table.tsv: $(DATA)/mibig/blocklist.tsv
+		cp $< $@
+
+.PHONY: suptable9
+suptable9: $(STBL9)/table.tsv
 
 # --- Supplementary Figures ----------------------------------------------------
 
