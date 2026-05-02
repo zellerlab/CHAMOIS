@@ -15,6 +15,7 @@ while not folder.joinpath("chamois").is_dir():
 
 # Load ground truth
 classes = anndata.read_h5ad(folder.joinpath("data", "datasets", "native", "classes.npclassifier.hdf5"))
+classes = classes[~classes.obs.unknown_structure]
 classes = classes[:, ~classes.var.duplicated("name")]
 classes.var.set_index("name", inplace=True)
 
@@ -26,9 +27,7 @@ chamois.var.set_index("name", inplace=True)
 # Load BGCat predictions
 bgcat = anndata.read_h5ad(folder.joinpath("misc", "paper", "sup_table9_benchmark_bgcat_npclassifier", "bgcat_predictions.hdf5"))
 
-# Get common var names and obs names
-# classes = classes[:, classes.X.sum(axis=0) > 0]
-var_names = sorted(set(bgcat.var_names) & set(classes.var_names) & set(chamois.var_names))
+# Get common obs names
 obs_names = sorted(set(bgcat.obs_names) & set(classes.obs_names) & set(chamois.obs_names))
 
 # Reindex observations
@@ -67,6 +66,7 @@ plt.legend()
 plt.ylabel("Precision")
 plt.xlabel("Recall")
 
+plt.tight_layout()
 plt.savefig(pathlib.Path(__file__).parent.joinpath("pr.png"))
 plt.savefig(pathlib.Path(__file__).parent.joinpath("pr.svg"))
 plt.show()

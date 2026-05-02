@@ -384,14 +384,23 @@ suptable9: $(STBL9)/bgcat_predictions.tsv
 $(STBL9)/bgcat_predictions.tsv: 
 	$(PYTHON) $(STBL9)/convert_predictions.py
 
-# # Supplementary Table X - MIBiG blocklist
-# STBLX=$(PAPER)/sup_tableX_mibig_blocklist
+# Supplementary Table 10 - NPClassifier benchmark results
+STBL10=$(PAPER)/sup_table10_benchmark_summary
 
-# $(STBLX)/table.tsv: $(DATA)/mibig/blocklist.tsv
-# 		cp $< $@
+.PHONY: suptable10
+suptable10: $(STBL10)/summary.tsv
 
-# .PHONY: suptableX
-# suptableX: $(STBLX)/table.tsv
+$(STBL10)/summary.tsv: $(DATA)/datasets/native/classes.npclassifier.hdf5 $(STBL8)/chamois_predictions.hdf5 $(STBL9)/bgcat_predictions.hdf5
+	$(PYTHON) $(STBL10)/summary.py
+
+# Supplementary Table 11 - MIBiG blocklist
+STBL11=$(PAPER)/sup_table11_mibig_blocklist
+
+$(STBL11)/table.tsv: $(DATA)/mibig/blocklist.tsv
+		cp $< $@
+
+.PHONY: suptable11
+suptable11: $(STBL11)/table.tsv
 
 # --- Supplementary Figures ----------------------------------------------------
 
