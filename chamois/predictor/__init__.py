@@ -9,6 +9,7 @@ import math
 import pickle
 import typing
 import importlib.resources
+import warnings
 from typing import Any, List, Tuple, Dict, TextIO, Type, Union, Optional, Callable
 
 import numpy
@@ -132,7 +133,6 @@ class ChemicalOntologyPredictor:
         ia = numpy.zeros(Y.shape[1])
         for i in self.ontology.adjacency_matrix:
             parents = self.ontology.adjacency_matrix.parents(i)
-            assert parents.shape[0] <= 1
 
             if len(parents) == 1:
                 pos = _Y[_Y[:, parents[0]], i].sum()
@@ -140,6 +140,8 @@ class ChemicalOntologyPredictor:
                 if tot > 0.0 and pos > 0.0:
                     freq = pos / tot
                     ia[i] = - math.log2(freq)
+            elif len(parents) >= 1:
+                warnings.warn("ontology with more than one root -- information accretion is undefined")
         self.classes_["information_accretion"] = ia
 
     @requires("sklearn.multiclass")
