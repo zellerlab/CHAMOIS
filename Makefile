@@ -360,14 +360,35 @@ suptable7: $(STBL7)/report.tsv
 $(STBL7)/report.tsv: $(SFIG6)/cv.report.tsv
 	$(PYTHON) $(STBL7)/make_report.py
 
-# Supplementary Table 9 - MIBiG blocklist
-STBL9=$(PAPER)/sup_table9_mibig_blocklist
+# Supplementary Table 8 - CHAMOIS predictions
+STBL8=$(PAPER)/sup_table8_benchmark_chamois_npclassifier
 
-$(STBL9)/table.tsv: $(DATA)/mibig/blocklist.tsv
-		cp $< $@
+.PHONY: suptable8
+suptable8: $(STBL8)/chamois_predictions.tsv
+
+$(STBL8)/model.json: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.npclassifier.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5
+	$(PYTHON) -m chamois.cli train -f $(word 2,$^) -c $(word 1,$^) -o $@ --min-class-groups 1
+
+$(STBL8)/chamois_predictions.hdf5: $(DATA)/datasets/native/classes.npclassifier.hdf5 $(DATA)/datasets/native/features.hdf5 $(STBL8)/model.json
+	$(PYTHON) -m chamois.cli validate -f $(word 2,$^) -c $(word 1,$^) -o $@ --model $(word 3,$^)
+
+$(STBL8)/chamois_predictions.tsv: $(STBL8)/chamois_predictions.hdf5
+	$(PYTHON) $(STBL8)/summary.py
+
+# Supplementary Table 9 - BGCat predictions
+STBL9=$(PAPER)/sup_table9_benchmark_bgcat
 
 .PHONY: suptable9
-suptable9: $(STBL9)/table.tsv
+suptable9: $(STBL9)/bgcat_predictions.tsv
+
+# # Supplementary Table X - MIBiG blocklist
+# STBLX=$(PAPER)/sup_tableX_mibig_blocklist
+
+# $(STBLX)/table.tsv: $(DATA)/mibig/blocklist.tsv
+# 		cp $< $@
+
+# .PHONY: suptableX
+# suptableX: $(STBLX)/table.tsv
 
 # --- Supplementary Figures ----------------------------------------------------
 
