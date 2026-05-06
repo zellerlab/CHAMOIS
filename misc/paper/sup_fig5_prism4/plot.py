@@ -193,7 +193,7 @@ for j, m in reversed(list(enumerate(methods))):
         ax1.plot([i, j], [1 + offset + 0.01, 1 + offset + 0.01], '-', color="black")
         offset += 0.1
 
-ax1.legend(boxes, methods, loc='upper right')
+#ax1.legend(boxes, methods, loc='upper right')
 ax1.set_xticks( range(len(methods)), labels=methods)
 
 # plt.tight_layout()
