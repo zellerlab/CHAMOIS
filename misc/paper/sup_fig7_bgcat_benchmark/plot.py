@@ -47,6 +47,11 @@ auprc = sklearn.metrics.average_precision_score(ground_truth_chamois, preds_cham
 pr, rc, _ = sklearn.metrics.precision_recall_curve(ground_truth_chamois, preds_chamois)
 plt.plot(rc, pr, label=f"CHAMOIS (AUPRC={auprc:5.3f})", color=Bold_10.hex_colors[0])
 
+# Compute precision-recall for default CHAMOIS (p=0.5)
+pr = sklearn.metrics.precision_score(ground_truth_chamois, preds_chamois > 0.5)
+rc = sklearn.metrics.recall_score(ground_truth_chamois, preds_chamois > 0.5)
+plt.scatter(rc, pr, color=Bold_10.hex_colors[0], marker="o", label=f"CHAMOIS / P=0.5 (F1={2*pr*rc / (pr + rc):5.3f})")
+
 # Micro precision-recall
 ground_truth_bgcat = classes[:, bgcat.var_names].X.toarray().ravel()
 preds_bgcat = bgcat.X.toarray().ravel()
@@ -54,13 +59,21 @@ auprc = sklearn.metrics.average_precision_score(ground_truth_bgcat, preds_bgcat)
 pr, rc, _ = sklearn.metrics.precision_recall_curve(ground_truth_bgcat, preds_bgcat)
 plt.plot(rc, pr, label=f"BGCat (AUPRC={auprc:5.3f})", color=Bold_10.hex_colors[1])
 
-
 # F1 score
 macro_f1_score_chamois = sklearn.metrics.f1_score(ground_truth_chamois, preds_chamois > 0.5, average="macro")
 macro_f1_score_bgcat = sklearn.metrics.f1_score(ground_truth_bgcat, preds_bgcat > 0.5, average="macro")
 print(f"Macro F1 (CHAMOIS): {macro_f1_score_chamois:5.3f}")
 print(f"Macro F1 (BGCat):   {macro_f1_score_bgcat:5.3f}")
 
+# Compute precision-recall for default BGCat (top20)
+ground_truth_bgcat = classes[:, bgcat.var_names].X.toarray().ravel()
+top20_bgcat = numpy.zeros((bgcat.n_obs, bgcat.n_vars), dtype=bool)
+indices = numpy.argsort(bgcat.X.toarray(), axis=1)[:, -20:]
+for i in range(indices.shape[0]):
+    top20_bgcat[i, indices[i]] = True
+pr = sklearn.metrics.precision_score(ground_truth_bgcat, top20_bgcat.ravel())
+rc = sklearn.metrics.recall_score(ground_truth_bgcat, top20_bgcat.ravel())
+plt.scatter(rc, pr, color=Bold_10.hex_colors[1], marker="o", label=f"BGCat / Top20 (F1={2*pr*rc / (pr + rc):5.3f})")
 
 plt.legend()
 plt.ylabel("Precision")
