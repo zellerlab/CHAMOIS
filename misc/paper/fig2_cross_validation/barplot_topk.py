@@ -39,6 +39,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-c", "--classes", required=True)
 parser.add_argument("--types", required=True)
 parser.add_argument("--probas", required=True)
+parser.add_argument("--ungrouped", required=True)
 parser.add_argument("-o", "--output", required=True, type=pathlib.Path)
 args = parser.parse_args()
 
@@ -65,28 +66,36 @@ def chemont_name(term_id):
 
 
 cv_probas = anndata.read_h5ad(args.probas)
+
 classes = anndata.read_h5ad(args.classes)
 classes = classes[cv_probas.obs_names, cv_probas.var_names].copy()
+
+cv_ungrouped_probas = anndata.read_h5ad(args.ungrouped)
+cv_ungrouped_probas = cv_ungrouped_probas[cv_probas.obs_names, cv_probas.var_names].copy()
 
 types = pandas.read_csv(args.types, sep="\t", header=None, names=["bgc_id", "type"], index_col="bgc_id")
 types["type"] = types["type"].apply(lambda ty: "Mixed" if ";" in ty else ty)
 ids = []
 values = []
 baseline = []
+ungrouped = []
 
 for i, class_name in enumerate(rich.progress.track(classes.var_names)):
     y_true = classes.obs_vector(class_name)
     y_pred = cv_probas.obs_vector(class_name)
     values.append(sklearn.metrics.average_precision_score(y_true, y_pred))
     baseline.append(classes.var["n_positives"].loc[class_name] / classes.n_obs)
+    y_pred_ungrouped = cv_ungrouped_probas.obs_vector(class_name)
+    ungrouped.append(sklearn.metrics.average_precision_score(y_true, y_pred_ungrouped))
 
 classes.var['aupr'] = values
 classes.var['baseline'] = baseline
+classes.var['ungrouped'] = ungrouped
 classes.var['diff'] = classes.var['aupr'] - classes.var['baseline']
 classes.obs["type"] = types["type"][classes.obs_names]
 
 top = classes.var.sort_values('diff', ascending=False).head(K).sort_values('aupr', ascending=False)
-X = list(range(len(top)))
+X = numpy.arange(len(top))
 
 colormap = plt.get_cmap('turbo')
 colors = colormap( top['aupr'].copy() )
@@ -118,8 +127,14 @@ axes[2].set_xlim(-1, len(top))
 #axes[2].set_xticks(X, labels=["C" + x[10:] for x in top.index], rotation=90)
 axes[2].set_xticks(X, labels=[chemont_name(x) for x in top.index], rotation=90)
 
+
+axes[0].bar(X+0.1, top['ungrouped'].values, color="#606060")
 axes[0].bar(X, top['aupr'].values, color=colors)
-axes[0].bar(X, top.baseline, color="gray") #, marker='x', color='black')
+# for x,y in zip(X, top['ungrouped'].values):
+#     axes[0].plot([x-0.4, x+0.4], [y, y], color="black")
+
+
+axes[0].bar(X, top['baseline'].values, color="gray") #, marker='x', color='black')
 axes[0].set_xlim(-1, len(top))
 axes[0].set_ylabel("AUPRC")
 # axes[2].tight_layout()

@@ -234,6 +234,12 @@ $(FIG2)/cv.probas.hdf5: $(FIG2)/cv.report.tsv
 $(FIG2)/cv.report.tsv: $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5
 	$(PYTHON) -m chamois.cli cvi -f $(word 1,$^) -c $(word 2,$^) -o $(FIG2)/cv.probas.hdf5 --report $@
 
+$(FIG2)/cv_ks.probas.hdf5: $(FIG2)/cv_ks.report.tsv
+	touch $@
+
+$(FIG2)/cv_ks.report.tsv: $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5
+	$(PYTHON) -m chamois.cli cvi -f $(word 1,$^) -c $(word 2,$^) -o $(FIG2)/cv_ks.probas.hdf5 --report $@ --sampling kennard-stone
+
 $(FIG2)/dummy.probas.hdf5: $(FIG2)/dummy.report.tsv
 	touch $@
 
@@ -253,11 +259,11 @@ $(FIG2)/pr/.files: $(FIG2)/cv.probas.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)
 	$(PYTHON) $(FIG2)/prcurves.py --classes $(word 2,$^) --probas $(word 1,$^) -o $(@D)
 	touch $@
 
-$(FIG2)/barplot.png: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/types.tsv $(FIG2)/cv.probas.hdf5
-	$(PYTHON) $(FIG2)/barplot_topk.py --classes $(word 1,$^) --types $(word 2,$^) --probas $(word 3,$^) --output $@
+$(FIG2)/barplot.png: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/types.tsv $(FIG2)/cv.probas.hdf5 $(FIG2)/cv_ks.probas.hdf5
+	$(PYTHON) $(FIG2)/barplot_topk.py --classes $(word 1,$^) --types $(word 2,$^) --probas $(word 3,$^) --ungrouped $(word 4,$^) --output $@
 
-$(FIG2)/barplot.svg: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/types.tsv $(FIG2)/cv.probas.hdf5
-	$(PYTHON) $(FIG2)/barplot_topk.py --classes $(word 1,$^) --types $(word 2,$^) --probas $(word 3,$^) --output $@
+$(FIG2)/barplot.svg: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/types.tsv $(FIG2)/cv.probas.hdf5 $(FIG2)/cv_ks.probas.hdf5
+	$(PYTHON) $(FIG2)/barplot_topk.py --classes $(word 1,$^) --types $(word 2,$^) --probas $(word 3,$^) --ungrouped $(word 4,$^) --output $@
 
 $(FIG2)/folds_statistics.svg: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5 $(FIG2)/cv.report.tsv
 	$(PYTHON) $(FIG2)/folds_statistics.py --classes $(word 1,$^) --features $(word 2,$^) --report $(word 3,$^) -o $@
