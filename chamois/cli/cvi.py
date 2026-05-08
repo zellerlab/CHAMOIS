@@ -63,7 +63,12 @@ def configure_parser(parser: argparse.ArgumentParser):
 
 @requires("kennard_stone")
 def kennard_stone_kfold(n_splits: int, n_jobs: int, metric: str) -> "kennard_stone.KFold":
-    return kennard_stone.KFold(n_splits=n_splits, n_jobs=n_job, metric=metric)
+    return kennard_stone.KFold(n_splits=n_splits, n_jobs=n_jobs, metric=metric)
+
+@requires("rdkit.Chem.rdMHFPFingerprint")
+def kennard_stone_fingerprints(smiles: typing.Iterable[str]) -> "numpy.ndarray":
+    encoder = rdkit.Chem.rdMHFPFingerprint.MHFPEncoder(2048, 42)
+    return numpy.array(encoder.EncodeSmilesBulk(list(smiles), kekulize=True))
 
 
 @requires("anndata")
@@ -99,6 +104,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
     # prepare ontology and groups
     ontology = Ontology(classes.varp["parents"])
     groups = None
+    global_splits = None
 
     # start training
     ground_truth = classes.X.toarray()
@@ -110,6 +116,8 @@ def run(args: argparse.Namespace, console: Console) -> int:
         kfold = sklearn.model_selection.KFold(n_splits=args.kfolds, random_state=args.seed, shuffle=True)
     elif args.sampling == "kennard-stone":
         kfold = kennard_stone_kfold(n_splits=args.kfolds, n_jobs=args.jobs, metric="cosine")
+        fingerprints = kennard_stone_fingerprints(classes.obs["smiles"])
+        global_splits = list(kfold.split(fingerprints))
     else:
         raise ValueError(f"Invalid value for `--sampling`: {args.sampling!r}")
 
@@ -131,9 +139,14 @@ def run(args: argparse.Namespace, console: Console) -> int:
         return p[:, 0]
 
     probas = numpy.zeros(classes.X.shape, dtype=float)
+    X = features.X.toarray()
+
     for class_index in rich.progress.track(range(classes.n_vars), console=console, description=f"[bold blue]{'Working':>12}[/]"):
         console.print(f"[bold blue]{'Evaluating':>12}[/] class [bold cyan]{classes.var_names[class_index]}[/] ({classes.var.name.iloc[class_index]!r})")
-        splits = list(kfold.split(features.X.toarray(), ground_truth[:, class_index], None if groups is None else groups.values))
+        if global_splits is None:
+            splits = list(kfold.split(X, ground_truth[:, class_index], None if groups is None else groups.values))
+        else:
+            splits = global_splits
         for train_indices, test_indices in splits:
             probas[test_indices, class_index] = runcv(class_index, train_indices, test_indices)
 
