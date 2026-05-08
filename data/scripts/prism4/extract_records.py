@@ -21,9 +21,9 @@ args = parser.parse_args()
 
 rich.print(f"[bold blue]{'Loading':>12}[/] compounds from {args.input!r}")
 data = pandas.read_excel(args.table, usecols=["Cluster", "True SMILES"])
+data = data.drop_duplicates("Cluster")
+rich.print(f"[bold green]{'Loaded':>12}[/] {len(data)} BGCs with known compounds")
 cluster_files = set(data["Cluster"].unique())
-rich.print(f"[bold green]{'Loaded':>12}[/] {len(cluster_files)} BGCs with known compounds")
-
 
 # --- Load clusters with sequences -------------------------------------------
 
@@ -42,8 +42,7 @@ with contextlib.ExitStack() as ctx:
             basename = "platinum_Puromycin.fasta"
         if basename in cluster_files:
             fmt = "genbank" if basename.endswith(".gbk") else "fasta"
-            # name = basename#basename.replace("-", "_").split(".")[0]
-            name = basename.replace("-", "_")#.split(".")[0]
+            name = basename.replace("-", "_")
             with tar.extractfile(entry) as f:
                 record = next(Bio.SeqIO.parse(io.TextIOWrapper(f), fmt))
                 record.id = record.name = name               

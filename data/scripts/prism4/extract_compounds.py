@@ -40,7 +40,6 @@ memory = joblib.Memory(location=args.cache, verbose=False)
 with contextlib.ExitStack() as ctx:
 
     progress = ctx.enter_context(rich.progress.Progress())
-    output = ctx.enter_context(open(args.output, "w"))
     reader = ctx.enter_context(progress.open(args.clusters, "r", description=f"[bold blue]{'Reading':>12}[/]"))
 
     clusters = set()
@@ -52,8 +51,8 @@ with contextlib.ExitStack() as ctx:
 
 rich.print(f"[bold blue]{'Loading':>12}[/] compounds from {args.input!r}")
 data = pandas.read_excel(args.input, usecols=["Cluster", "True SMILES"]).drop_duplicates()
-data["Cluster"] = data["Cluster"].str.replace("-", "_")#.str.split(".").str[0]
-data = data[ data["Cluster"].isin(clusters) ]
+data["Cluster"] = data["Cluster"].str.replace("-", "_")
+data = data[data["Cluster"].isin(clusters)]
 rich.print(f"[bold green]{'Loaded':>12}[/] {data['Cluster'].nunique()} BGCs with known compounds")
 
 # --- Compute Inchi and InchiKey ---------------------------------------------
@@ -99,7 +98,7 @@ for row in rich.progress.track(data.itertuples(), total=len(data), description=f
 
     # create compound for BGC
     compound = {"compound": name, "chem_struct": smiles}
-    compounds[name].append(compound)
+    compounds[cluster].append(compound)
 
     # Search compound in NPAtlas
     entry = np_atlas.get(inchikey)
