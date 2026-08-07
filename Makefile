@@ -299,6 +299,16 @@ $(FIG4)/pca.svg: $(CHAMOIS_WEIGHTS) $(DATA)/npatlas/classes.hdf5 $(DATA)/dataset
 .PHONY: figure4
 figure4: $(FIG4)/dotplot_merged.svg $(FIG4)/pca.svg
 
+# Figure 5 - Screen Evaluation
+FIG5=$(PAPER)/fig5_comparison
+
+$(FIG5)/Fig5_combined.svg: $(PAPER)/sup_fig5_prism4/predictions.tsv $(DATA)/datasets/native/classes.npclassifier.hdf5 $(PAPER)/sup_table8_benchmark_chamois_npclassifier/chamois_predictions.hdf5 $(PAPER)/sup_table9_benchmark_bgcat_npclassifier/bgcat_predictions.hdf5
+	$(PYTHON) $(FIG5)/plot.py
+
+.PHONY: figure5
+figure5: $(FIG5)/Fig5_combined.svg
+
+
 
 # --- Supplementary Tables -----------------------------------------------------
 
