@@ -195,7 +195,7 @@ def configure_group_hyperparameters(
         "Training", "Hyperparameters to use for training the model."
     )
     group.add_argument(
-        "--model",
+        "--model-type",
         choices=ChemicalOntologyPredictor._MODELS,
         default="logistic",
         help="The kind of model to train.",
