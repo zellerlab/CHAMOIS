@@ -63,6 +63,31 @@ def configure_group_predict_input(
     return group
 
 
+def configure_group_model_input(
+    parser: argparse.ArgumentParser,
+) -> "argparse.ArgumentParser":
+    group = parser.add_argument_group(
+        'Model',
+        'Parameter for selecting the trained model.'
+    )
+    group_model = group.add_mutually_exclusive_group()
+    group_model.add_argument(
+        "-m",
+        "--model",
+        default=None,
+        type=pathlib.Path,
+        help="The path to an alternative model for predicting classes."
+    )
+    group_model.add_argument(
+        "-l",
+        "--labels",
+        default="chemont",
+        choices=["chemont", "npclassifier"],
+        help="The kind of labels to predict.",
+    )
+    return group
+
+
 def configure_group_search_input(
     parser: argparse.ArgumentParser,
 ) -> "argparse.ArgumentGroup":
@@ -75,13 +100,6 @@ def configure_group_search_input(
         required=True,
         type=pathlib.Path,
         help="The chemical classes predicted by CHAMOIS for BGCs.",
-    )
-    parser.add_argument(
-        "-m",
-        "--model",
-        default=None,
-        type=pathlib.Path,
-        help="The path to an alternative model used for predicting classes.",
     )
     return group
 

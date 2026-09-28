@@ -26,6 +26,7 @@ from ._common import (
 from ._parser import (
     configure_group_predict_input,
     configure_group_gene_finding,
+    configure_group_model_input,
 )
 
 if typing.TYPE_CHECKING:
@@ -70,13 +71,7 @@ def configure_weights(parser: argparse.ArgumentParser):
     )
 
 def configure_parser(parser: argparse.ArgumentParser):
-    parser.add_argument(
-        "-m",
-        "--model",
-        default=None,
-        type=pathlib.Path,
-        help="The path to an alternative model to extract weights from."
-    )
+    configure_group_model_input(parser)
 
     commands = parser.add_subparsers(required=True)
     parser_class = commands.add_parser(
@@ -150,7 +145,7 @@ def get_feature_index(feature: str, predictor: ChemicalOntologyPredictor) -> int
 
 
 def run_feature(args: argparse.Namespace, console: Console) -> int:
-    predictor = load_model(args.model, console)
+    predictor = load_model(args.model, args.labels, console)
 
     # Extract requested class index
     try:
@@ -202,7 +197,7 @@ def get_class_index(class_: str, predictor: ChemicalOntologyPredictor) -> int:
 
 
 def run_class(args: argparse.Namespace, console: Console) -> int:
-    predictor = load_model(args.model, console)
+    predictor = load_model(args.model, args.labels, console)
 
     # Extract requested class index
     try:
@@ -331,7 +326,7 @@ def format_genetable(table: "DataFrame", proteins: List[Protein]) -> rich.table.
 
 
 def run_cluster(args: argparse.Namespace, console: Console) -> int:
-    model = load_model(args.model, console)
+    model = load_model(args.model, args.labels, console)
 
     # get cluster
     try:

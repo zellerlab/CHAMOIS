@@ -14,6 +14,7 @@ from ._parser import (
     configure_group_search_input,
     configure_group_search_parameters,
     configure_group_search_output,
+    configure_group_model_input,
 )
 
 if typing.TYPE_CHECKING:
@@ -29,7 +30,7 @@ def configure_parser(parser: argparse.ArgumentParser):
         type=pathlib.Path,
         help="The path to the compound class catalog to compare predictions to."
     )
-    # configure_group_search_parameters(parser)
+    configure_group_model_input(parser)
     configure_group_search_output(parser)
     parser.set_defaults(run=run)
 
@@ -128,7 +129,7 @@ def probjaccard_cdist(X: numpy.ndarray, Y: numpy.ndarray) -> numpy.ndarray:
 @requires("scipy.stats")
 def run(args: argparse.Namespace, console: Console) -> int:
     # load predictor
-    predictor = load_model(args.model, console)
+    predictor = load_model(args.model, args.labels, console)
     probas, classes = load_predictions(args.input, predictor, console)
     uns = record_metadata(predictor)
 

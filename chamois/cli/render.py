@@ -13,6 +13,10 @@ from ..ontology import AdjacencyMatrix
 from ..predictor import ChemicalOntologyPredictor
 from ._common import load_model
 
+from ._parser import (
+    configure_group_model_input,
+)
+
 
 def configure_parser(parser: argparse.ArgumentParser):
     parser.add_argument(
@@ -21,12 +25,6 @@ def configure_parser(parser: argparse.ArgumentParser):
         required=True,
         type=pathlib.Path,
         help="The input probabilites obtained from the predictor."
-    )
-    parser.add_argument(
-        "-m",
-        "--model",
-        type=pathlib.Path,
-        help="The path to an alternative predictor with classes metadata.",
     )
     parser.add_argument(
         "-p",
@@ -40,6 +38,7 @@ def configure_parser(parser: argparse.ArgumentParser):
         action="store_true",
         help="Use colored input in pager."
     )
+    configure_group_model_input(parser)
     parser.set_defaults(run=run)
 
 
@@ -89,7 +88,7 @@ def run(args: argparse.Namespace, console: Console) -> int:
     import anndata
 
     # load trained model
-    model = load_model(args.model, console)
+    model = load_model(args.model, args.labels, console)
 
     # load predictions
     console.print(f"[bold blue]{'Loading':>12}[/] probability predictions from {str(args.input)!r}")

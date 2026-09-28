@@ -30,6 +30,7 @@ from ._common import (
 from ._parser import (
     configure_group_predict_input,
     configure_group_gene_finding,
+    configure_group_model_input,
 )
 
 if typing.TYPE_CHECKING:
@@ -37,28 +38,8 @@ if typing.TYPE_CHECKING:
 
 
 def configure_parser(parser: argparse.ArgumentParser):
-    group_input = configure_group_predict_input(parser)
-
-    params_model = parser.add_argument_group(
-        'Model',
-        'Parameter for selecting the trained model.'
-    )
-    group_model = params_model.add_mutually_exclusive_group()
-    group_model.add_argument(
-        "-m",
-        "--model",
-        default=None,
-        type=pathlib.Path,
-        help="The path to an alternative model for predicting classes."
-    )
-    group_model.add_argument(
-        "-l",
-        "--labels",
-        default="chemont",
-        choices=["chemont", "npclassifier"],
-        help="The kind of labels to predict.",
-    )
-
+    configure_group_predict_input(parser)
+    configure_group_model_input(parser)
     configure_group_gene_finding(parser)
     
     params_output = parser.add_argument_group(

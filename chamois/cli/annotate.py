@@ -54,7 +54,7 @@ def save_compositions(compositions: "AnnData", path: pathlib.Path, console: Cons
 
 def get_whitelist(hmm: Optional[pathlib.Path], console: Console) -> Set[str]:
     if hmm is None:
-        model = load_model(None, console)
+        model = load_model(None, "chemont", console)
         return set(model.features_.index)
     else:
         return None
