@@ -38,12 +38,25 @@ if typing.TYPE_CHECKING:
 
 def configure_parser(parser: argparse.ArgumentParser):
     group_input = configure_group_predict_input(parser)
-    group_input.add_argument(
+
+    params_model = parser.add_argument_group(
+        'Model',
+        'Parameter for selecting the trained model.'
+    )
+    group_model = params_model.add_mutually_exclusive_group()
+    group_model.add_argument(
         "-m",
         "--model",
         default=None,
         type=pathlib.Path,
         help="The path to an alternative model for predicting classes."
+    )
+    group_model.add_argument(
+        "-l",
+        "--labels",
+        default="chemont",
+        choices=["chemont", "npclassifier"],
+        help="The kind of labels to predict.",
     )
 
     configure_group_gene_finding(parser)
@@ -77,7 +90,7 @@ def save_predictions(predictions: "AnnData", path: pathlib.Path, console: Consol
 
 @requires("anndata")
 def run(args: argparse.Namespace, console: Console) -> int:
-    model = load_model(args.model, console)
+    model = load_model(args.model, args.labels, console)
     clusters = list(load_sequences(args.input, console))
     uns = record_metadata(model)
 

@@ -214,13 +214,17 @@ $(MITE)/classes.hdf5: $(MITE)/entries.json $(CHEMONT) $(ATLAS)
 # --- Train model --------------------------------------------------------------
 
 # path to the trained model
-CHAMOIS_WEIGHTS=chamois/predictor/predictor.json
+CHAMOIS_CHEMONT_WEIGHTS=chamois/predictor/predictor_chemont.json
+CHAMOIS_NPCLASSIFIER_WEIGHTS=chamois/predictor/predictor_npclassifier.json
 CHAMOIS_HMM=chamois/domains/Pfam$(PFAM_VERSION).hmm.zst
 
-$(CHAMOIS_WEIGHTS): $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5
+$(CHAMOIS_CHEMONT_WEIGHTS): $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5
 	$(PYTHON) -m chamois.cli train -f $(word 2,$^) -c $(word 1,$^) -o $@
 
-$(CHAMOIS_HMM): $(CHAMOIS_WEIGHTS)
+$(CHAMOIS_NPCLASSIFIER_WEIGHTS): $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.npclassifier.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5
+	$(PYTHON) -m chamois.cli train -f $(word 2,$^) -c $(word 1,$^) -o $@
+
+$(CHAMOIS_HMM): $(CHAMOIS_CHEMONT_WEIGHTS)
 	$(PYTHON) setup.py download_pfam -i -f -r
 
 # --- Figures ------------------------------------------------------------------
@@ -275,7 +279,7 @@ figure2: $(FIG2)/barplot.svg $(FIG2)/pr/.files $(FIG2)/cvtree_auprc.html
 
 FIG3=$(PAPER)/fig3_network
 
-$(FIG3)/graph.html: $(CHAMOIS_WEIGHTS) $(CHAMOIS_HMM) $(CHEMONT) $(DATA)/ecdomainminer/EC-Pfam_calculated_associations_Extended.csv
+$(FIG3)/graph.html: $(CHAMOIS_CHEMONT_WEIGHTS) $(CHAMOIS_HMM) $(CHEMONT) $(DATA)/ecdomainminer/EC-Pfam_calculated_associations_Extended.csv
 	$(PYTHON) $(FIG3)/plot.py --model $(word 1,$^) --pfam $(word 2,$^) --chemont $(word 3,$^) --ec-domain $(word 4,$^)
 
 .PHONY: figure3
@@ -293,7 +297,7 @@ $(FIG4)/merged.hdf5: $(FIG4)/predictor.mibig$(MIBIG_VERSION).json
 $(FIG4)/dotplot_merged.svg: $(FIG4)/merged.hdf5 $(DATA)/datasets/native/features.hdf5 $(DATA)/datasets/native/classes.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.hdf5
 	$(PYTHON) $(FIG4)/dotplot_merged.py
 
-$(FIG4)/pca.svg: $(CHAMOIS_WEIGHTS) $(DATA)/npatlas/classes.hdf5 $(DATA)/datasets/native/classes.hdf5 $(DATA)/datasets/native/coordinates.tsv $(DATA)/datasets/native/types.tsv $(FIG4)/merged.hdf5
+$(FIG4)/pca.svg: $(CHAMOIS_CHEMONT_WEIGHTS) $(DATA)/npatlas/classes.hdf5 $(DATA)/datasets/native/classes.hdf5 $(DATA)/datasets/native/coordinates.tsv $(DATA)/datasets/native/types.tsv $(FIG4)/merged.hdf5
 	$(PYTHON) $(FIG4)/pca_plot.py
 
 .PHONY: figure4
@@ -325,7 +329,7 @@ suptable1: $(STBL1)/report.tsv
 # Supplementary Table 2 - Weights
 STBL2=$(PAPER)/sup_table2_weights
 
-$(STBL2)/weights.tsv: $(CHAMOIS_WEIGHTS)
+$(STBL2)/weights.tsv: $(CHAMOIS_CHEMONT_WEIGHTS)
 	$(PYTHON) $(STBL2)/extract.py --output $@
 
 .PHONY: suptable2
@@ -345,11 +349,11 @@ suptable4: $(STBL4)/table.tsv
 # Supplementary Table 5 - PRISM4 comparison
 STBL5=$(PAPER)/sup_table5_prism4
 
-$(STBL5)/probas.hdf5: $(DATA)/datasets/prism4/clusters.gbk $(CHAMOIS_WEIGHTS) $(CHAMOIS_HMM)
-	$(PYTHON) -m chamois.cli predict --model $(CHAMOIS_WEIGHTS) -i $< -o $@ --hmm $(CHAMOIS_HMM)
+$(STBL5)/probas.hdf5: $(DATA)/datasets/prism4/clusters.gbk $(CHAMOIS_CHEMONT_WEIGHTS) $(CHAMOIS_HMM)
+	$(PYTHON) -m chamois.cli predict --model $(CHAMOIS_CHEMONT_WEIGHTS) -i $< -o $@ --hmm $(CHAMOIS_HMM)
 
-$(STBL5)/search_results.tsv: $(STBL5)/probas.hdf5 $(DATA)/npatlas/classes.hdf5 $(CHAMOIS_WEIGHTS)
-	$(PYTHON) -m chamois.cli search --model $(CHAMOIS_WEIGHTS) -i $< -c $(word 2,$^) -o $@
+$(STBL5)/search_results.tsv: $(STBL5)/probas.hdf5 $(DATA)/npatlas/classes.hdf5 $(CHAMOIS_CHEMONT_WEIGHTS)
+	$(PYTHON) -m chamois.cli search --model $(CHAMOIS_CHEMONT_WEIGHTS) -i $< -c $(word 2,$^) -o $@
 
 $(STBL5)/predictions.tsv: $(STBL5)/search_results.tsv $(DATA)/npatlas/classes.hdf5 $(DATA)/prism4/predictions.xlsx
 	$(PYTHON) $(STBL5)/collate_predictions.py
@@ -454,10 +458,10 @@ supfig3: $(SFIG3)/plot.svg
 
 SFIG4=$(PAPER)/sup_fig4_weights
 
-$(SFIG4)/plot.png: $(CHAMOIS_WEIGHTS)
+$(SFIG4)/plot.png: $(CHAMOIS_CHEMONT_WEIGHTS)
 	$(PYTHON) $(SFIG4)/plot.py --model $< --output $@
 
-$(SFIG4)/plot.svg: $(CHAMOIS_WEIGHTS)
+$(SFIG4)/plot.svg: $(CHAMOIS_CHEMONT_WEIGHTS)
 	$(PYTHON) $(SFIG4)/plot.py --model $< --output $@
 
 .PHONY: supfig4
@@ -480,16 +484,13 @@ supfig5: $(SFIG5)/boxplot_by_mibig.median_comparison.png
 
 SFIG6=$(PAPER)/sup_fig6_npclassifier_cv
 
-$(SFIG6)/model.json: $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.npclassifier.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5
-	$(PYTHON) -m chamois.cli train -f $(word 2,$^) -c $(word 1,$^) -o $@
-
 $(SFIG6)/cv.probas.hdf5: $(SFIG6)/cv.report.tsv
 	touch $@
 
 $(SFIG6)/cv.report.tsv: $(DATA)/datasets/mibig$(MIBIG_VERSION)/features.hdf5 $(DATA)/datasets/mibig$(MIBIG_VERSION)/classes.npclassifier.hdf5
 	$(PYTHON) -m chamois.cli cvi -f $(word 1,$^) -c $(word 2,$^) -o $(SFIG6)/cv.probas.hdf5 --report $@
 
-$(SFIG6)/tree.html: $(SFIG6)/cv.report.tsv $(SFIG6)/model.json
+$(SFIG6)/tree.html: $(SFIG6)/cv.report.tsv $(CHAMOIS_NPCLASSIFIER_WEIGHTS)
 	$(PYTHON) $(SFIG6)/tree.py --output $@ --report $(word 1,$^) --model $(word 2,$^)
 
 .PHONY: supfig6

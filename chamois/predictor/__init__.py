@@ -481,10 +481,12 @@ class ChemicalOntologyPredictor:
         json.dump(state, file, cls=_json.JSONEncoder, sort_keys=True, indent=1)
 
     @classmethod
-    def trained(cls: Type[_T]) -> _T:
+    def trained(cls: Type[_T], labels: str = "chemont") -> _T:
         """Load the trained predictor embedded in CHAMOIS.
         """
-        with files(__package__).joinpath("predictor.json").open() as f:
+        if labels not in {"chemont", "npclassifier"}:
+            raise ValueError(f"invalid labels: {labels!r}")
+        with files(__package__).joinpath(f"predictor_{labels}.json").open() as f:
             return cls.load(f)
 
     @classmethod

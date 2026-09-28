@@ -111,14 +111,14 @@ def filter_dataset(
     return features, classes
 
 
-def load_model(path: Optional[pathlib.Path], console: Console) -> ChemicalOntologyPredictor:
+def load_model(path: Optional[pathlib.Path], labels: Optional[str], console: Console) -> ChemicalOntologyPredictor:
     if path is not None:
         console.print(f"[bold blue]{'Loading':>12}[/] trained model from {str(path)!r}")
         with open(path, "rb") as src:
             return ChemicalOntologyPredictor.load(src)
     else:
         console.print(f"[bold blue]{'Loading':>12}[/] embedded model")
-        return ChemicalOntologyPredictor.trained()
+        return ChemicalOntologyPredictor.trained(labels=labels)
 
 
 @requires("gb_io")
