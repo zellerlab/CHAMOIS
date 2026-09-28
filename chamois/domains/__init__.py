@@ -7,6 +7,7 @@ import contextlib
 import io
 import itertools
 import pathlib
+import warnings
 from typing import Iterable, Optional, Callable, Container, List, Set
 
 import pyhmmer
@@ -46,7 +47,7 @@ class DomainAnnotator(metaclass=abc.ABCMeta):
         """Run annotation on proteins of ``genes`` and update their domains.
 
         Arguments:
-            genes (`~collections.abc.Iterable` of `~chamois.model.Protein`): An 
+            genes (`~collections.abc.Iterable` of `~chamois.model.Protein`): An
                 iterable that yields proteins to annotate.
 
         """
@@ -73,24 +74,24 @@ class PfamAnnotator(DomainAnnotator):
         """Prepare a new HMMER annotation handler with the given ``hmms``.
 
         Arguments:
-            file (`pathlib.Path`): The path to the file containing the 
+            file (`pathlib.Path`): The path to the file containing the
                 Pfam HMMs.
             cpus (`int`, optional): The number of CPUs to allocate for the
                 ``hmmsearch`` command. Give ``None`` to use the default.
-            whitelist (`~collections.abc.Container` of `str`): If given, a 
-                container containing the accessions of the individual 
-                HMMs to annotate with. If `None` is given, annotate with the 
+            whitelist (`~collections.abc.Container` of `str`): If given, a
+                container containing the accessions of the individual
+                HMMs to annotate with. If `None` is given, annotate with the
                 entire file.
 
         """
         super().__init__()
         self.path = path
         self.cpus = cpus
-        self.whitelist = _UniversalContainer() if whitelist is None else whitelist
+        self.whitelist = whitelist
 
     @property
     def total(self):
-        if isinstance(self.whitelist, _UniversalContainer):
+        if self.whitelist is None:
             return None
         return len(self.whitelist)
 
@@ -116,33 +117,45 @@ class PfamAnnotator(DomainAnnotator):
             for i, protein in enumerate(proteins)
         ])
 
+        # use a PyHMMER callback to check all the requested HMMs
+        # from the whitelist were loaded and processed successfully
+        if self.whitelist is not None:
+            done = dict.fromkeys(self.whitelist, False)
+            def _progress_and_check_whitelist(hmm, total):
+                if progress is not None:
+                    progress(hmm, total)
+                done[hmm.accession] = True
+        else:
+            _progress_and_check_whitelist = progress
+
         with contextlib.ExitStack() as ctx:
             # only retain the HMMs which are in the whitelist
             hmm_file = self._load_hmm(ctx)
-            hmms1, hmms2 = itertools.tee((
+            hmms = (
                 hmm
                 for hmm in hmm_file
-                if hmm.accession in self.whitelist
-            ))
+                if self.whitelist is None
+                or hmm.accession in self.whitelist
+            )
             # Run search pipeline using the filtered HMMs
             cpus = 0 if self.cpus is None else self.cpus
             hmms_hits = pyhmmer.hmmer.hmmsearch(
-                hmms1,
+                hmms,
                 esl_sqs.digitize(esl_abc),
                 cpus=cpus,
-                callback=progress, # type: ignore
+                callback=_progress_and_check_whitelist, # type: ignore
                 bit_cutoffs="trusted",  # type: ignore
             )
 
             # Transcribe HMMER hits to model
-            for hmm, hits in zip(hmms2, hmms_hits):
+            for hits in hmms_hits:
                 for hit in hits.reported:
                     target_index = int(hit.name)
                     for domain in hit.domains.reported:
                         yield PfamDomain(
-                            name=hmm.name,
-                            accession=hmm.accession,
-                            description=hmm.description,
+                            name=hits.query.name,
+                            accession=hits.query.accession,
+                            description=hits.query.description,
                             kind="Pfam",
                             start=domain.alignment.target_from,
                             end=domain.alignment.target_to,
@@ -151,6 +164,15 @@ class PfamAnnotator(DomainAnnotator):
                             evalue=domain.i_evalue,
                             protein=proteins[target_index],
                         )
+
+        # Raise warning if some HMMs from the whitelist are missing
+        if self.whitelist is not None:
+            total_done = sum(done.values())
+            if total_done != self.total:
+                warnings.warn(
+                    f"Missing HMMs, check your HMM file ({self.total} expected, {total_done} found)",
+                    UserWarning,
+                )
 
     def disentangle_domains(
         self,
