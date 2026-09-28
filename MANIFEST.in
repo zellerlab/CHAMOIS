@@ -2,5 +2,5 @@ include README.md
 include COPYING
 include CITATION.cff
 
-include conch/predictor.json
+include chamois/predictor/*.json
 prune   data/
