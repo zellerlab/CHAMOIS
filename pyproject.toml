@@ -64,7 +64,7 @@ include-package-data = true
 
 [tool.setuptools.package-data]
 "chamois" = ["py.typed"]
-"chamois.predictor" = ["predictor.json"]
+"chamois.predictor" = ["*.json"]
 
 [tool.setuptools.packages.find]
 namespaces = true

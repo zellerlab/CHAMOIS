@@ -5,7 +5,23 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-[Unreleased]: https://github.com/zellerlab/CHAMOIS/compare/v0.2.2...HEAD
+[Unreleased]: https://github.com/zellerlab/CHAMOIS/compare/v0.3.0...HEAD
+
+
+## [v0.3.0] - 2026-09-28
+[v0.3.0]: https://github.com/zellerlab/CHAMOIS/compare/v0.2.2...v0.3.0
+
+### Added
+- Pre-trained model for predicting NP.classifier classes instead of ChemOnt.
+- `--labels` flag to several subcommands to allow selecting the NP.classifier model.
+
+### Changed
+- Relax `gb-io` dependency to support `v0.4`.
+- Make `cv` and `cvi` subcommands use rdKit fingerprits when invoked with `--sample=kennard-stone`.
+- Update `DomainAnnotator` to raise a warning when some HMMs from the whitelist were not found in the HMM file.
+
+### Fixed
+- Crash in `cvi` subcommand when invoked with `--sampling=random`.
 
 
 ## [v0.2.2] - 2026-02-12

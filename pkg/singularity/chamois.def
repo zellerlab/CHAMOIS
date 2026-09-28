@@ -25,7 +25,7 @@ From: alpine:3.23
 
 %labels
     Author martin.larralde@embl.de
-    Version v0.2.2
+    Version v0.3.0
 
 %help
     This is a basic container wrapping CHAMOIS.
