@@ -120,24 +120,26 @@ class download_pfam(setuptools.Command):
         self.mkpath(self.build_lib)
 
         # Load domain whitelist from the predictor
-        predictor_file = os.path.join("chamois", "predictor", "predictor.json")
-        self.info(f"loading domain accesssions from {predictor_file}")
-        with open(predictor_file, "rb") as f:
-            data = json.load(f)
-        features = data["features_"]
-        kind_index = features['columns'].index('kind')
-        domains = [
-            accession
-            for accession, row in zip(features["index"], features["data"])
-            if row[kind_index] == "Pfam"
-        ]
+        domains = []
+        predictor_files = glob.glob(os.path.join("chamois", "predictor", "predictor_*.json"))
+        for predictor_file in predictor_files:
+            self.info(f"loading domain accesssions from {predictor_file}")
+            with open(predictor_file, "rb") as f:
+                data = json.load(f)
+            features = data["features_"]
+            kind_index = features['columns'].index('kind')
+            domains.extend(
+                accession
+                for accession, row in zip(features["index"], features["data"])
+                if row[kind_index] == "Pfam"
+            )
 
         # Download and binarize required HMMs
         local = os.path.join(self.build_lib, "chamois", "domains", f"Pfam{self.version}.hmm.zst")
         self.mkpath(os.path.dirname(local))
 
         # Fall back to filtering the HMMs from the Pfam FTP server
-        self.make_file(predictor_file, local, self.download_pfam, (local, domains))
+        self.make_file(predictor_files, local, self.download_pfam, (local, domains))
         if self.inplace:
             copy = os.path.relpath(local, self.build_lib)
             self.make_file([local], copy, shutil.copy, (local, copy))
